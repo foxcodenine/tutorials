@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head><title>Subscribe</title></head>
+    <body>
+        <h1>Create a New Account</h1>
+        <h3>It’s quick and easy.</h3>
+        <form action="../subscribe", method="POST">
+            <p>
+                <input type="text" name="first" size="8" value="First Name">
+                <input type="text" name="last"  size="8"value="Last Name"><br><br>
+                <input type="text" name="email" size="21" value="E-mail"><br>
+            </p>
+            <h2>Birthday</h2>
+            <select name="day">
+                <option value="day">day</option> 
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>                                
+            </select>
+            <select name="month">
+                    <option value="month">month</option> 
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>                                
+            </select>
+            <select name="year">
+                    <option value="year">year</option> 
+                    <option value="1984">1984</option>
+                    <option value="1985">1985</option>
+                    <option value="1986">1986</option>                              
+            </select><br>
+            <h2>Gender</h2>
+            <p>
+                <input type="radio" name="gender" value="Male" checked='checked'>Male
+                <input type="radio" name="gender" value="Female">Female
+                <input type="radio" name="gender" value="Other">Other
+                <br>
+                
+                <input type="submit">  
+            </p>
+
+        </form>
+
+    </body>
+</html>
