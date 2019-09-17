@@ -24,6 +24,5 @@ def loops():
                 list_of_dict=[{'name' : 'Andrew'}, {'name' : 'Dorothy'}])
 
 
-
 if __name__ == '__main__':
     app.run()
