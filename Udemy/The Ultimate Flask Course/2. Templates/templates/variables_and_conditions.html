@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Python Flask Chapter2{% endblock %}
+
+{% block content %}
+{# <!--We used {{ }} to pass a variable and {% %} condition.--> #}        
+
+<h2>Hey '{{name}}' you are on the home page!</h2>
+
+{% if display %}
+<h3>'This is being displayed'</h3>        
+{% else %}
+<h3>'You can't see this!'</h3>        
+{% endif %}
+
+{#<!--'super()' to display what is in the BaseTemp  blocks -->#}
+{{ super() }}
+{% endblock %}
