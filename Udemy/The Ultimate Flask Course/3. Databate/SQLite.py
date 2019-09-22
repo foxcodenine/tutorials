@@ -40,3 +40,4 @@ c.execute(
 
 
 connection.commit()
+connection.close()
