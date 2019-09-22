@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Subscribe{% endblock %}
+
+{% block content %}
+
+    <h2>Subscribe:</h2>
+    <p>
+        <form action="../confirm" method="POST">
+            <input type="text" name="name" placeholder="Name">
+            <input type="text" name="location" placeholder="Location">
+            <input type="submit">
+        </form>
+    </p>
+
+{% endblock %}
