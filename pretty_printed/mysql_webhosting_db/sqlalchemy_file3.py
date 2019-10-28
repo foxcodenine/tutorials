@@ -8,7 +8,7 @@ from sqlalchemy_file2 import Person, Pet
 
 
 app = Flask(__name__) 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://F2udETTsO6:U7hQzPXXBW@remotemysql.com/F2udETTsO6'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://F2udETTsO6:I7hQzPXXBW@remotemysql.com/F2udETTsO6'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['DEBUG'] = True 
 
