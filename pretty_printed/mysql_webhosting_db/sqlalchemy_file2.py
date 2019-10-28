@@ -4,7 +4,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy 
 
 app = Flask(__name__) 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://F2udETTsO6:I7hQzPXXBW@remotemysql.com/F2udETTsO6'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://F2udETTsO6:U7hQzPXXBW@remotemysql.com/F2udETTsO6'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['DEBUG'] = True 
 
@@ -83,8 +83,8 @@ print('\n___________________________________________________________\n')
 
 person_id1 = Person.query.filter_by(id=1).first() 
 
-print('{} - {} - {} - {}'.format(
-           person_id1, person_id1.id, person_id1.name, person_id1.pets))
+# print('{} - {} - {} - {}'.format(
+#            person_id1, person_id1.id, person_id1.name, person_id1.pets))
 
 print('\n___________________________________________________________\n')
 
@@ -92,9 +92,10 @@ print('\n___________________________________________________________\n')
 
 select_pet = Pet.query.filter_by(id=1).first() 
 
-print(select_pet)
-print(select_pet.name)
-print(select_pet.owner)
-print(select_pet.owner.name)
+# print(select_pet)
+# print(select_pet.name)
+# print(select_pet.owner)
+# print(select_pet.owner.name)
 
 print('\n___________________________________________________________\n')
+
