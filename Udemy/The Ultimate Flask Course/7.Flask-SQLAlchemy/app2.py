@@ -45,251 +45,253 @@ class Members(db.Model):
         return f'<Member {self.username}>'
 
 
-# ______________________________________________________________________
-# To Create Table:
+if __name__ == '__main__':
 
-db.create_all()
+    # ______________________________________________________________________
+    # To Create Table:
 
-# db.create_all() will look into all my Classes that I  have in my application, 
-# if there are class that don't map to the tables in the database, 
-# it will create them as Tables.
+    db.create_all()
 
-# ______________________________________________________________________
+    # db.create_all() will look into all my Classes that I  have in my application, 
+    # if there are class that don't map to the tables in the database, 
+    # it will create them as Tables.
 
-# Inserting a record into the table:
+    # ______________________________________________________________________
 
-anthony = Members(
-    username='Anthony', password='secrete', 
-    email='anthony@prityprinted.com', join_date=date.today()
-)
-# db.session.add(anthony)
-# db.session.commit()
+    # Inserting a record into the table:
 
-michelle = Members(
-    username='MichelleForever', password='password', 
-    email='mforever@gmail.com', join_date=date.today()
-)
-# db.session.add(michelle)
-# db.session.commit()
+    anthony = Members(
+        username='Anthony', password='secrete', 
+        email='anthony@prityprinted.com', join_date=date.today()
+    )
+    # db.session.add(anthony)
+    # db.session.commit()
 
-zach = Members(
-    username='Zach1', password='zachisthebest', 
-    email='zach@gmail.com', join_date=date.today()
-)
-# db.session.add(zach)
-# db.session.commit()
+    michelle = Members(
+        username='MichelleForever', password='password', 
+        email='mforever@gmail.com', join_date=date.today()
+    )
+    # db.session.add(michelle)
+    # db.session.commit()
 
-chris = Members(
-    username='Chris1', password='secrete', 
-    email='chris@gmail.com', join_date=date.today()
-)
-# db.session.add(chris)
-# db.session.commit()
-# ______________________________________________________________________
+    zach = Members(
+        username='Zach1', password='zachisthebest', 
+        email='zach@gmail.com', join_date=date.today()
+    )
+    # db.session.add(zach)
+    # db.session.commit()
 
-# Updating a record:
+    chris = Members(
+        username='Chris1', password='secrete', 
+        email='chris@gmail.com', join_date=date.today()
+    )
+    # db.session.add(chris)
+    # db.session.commit()
+    # ______________________________________________________________________
 
-# anthony = Members.query.filter_by(username='Anthony').one()
-# anthony.password = 'newpassword'
-# db.session.commit()
+    # Updating a record:
 
-# ______________________________________________________________________
+    # anthony = Members.query.filter_by(username='Anthony').one()
+    # anthony.password = 'newpassword'
+    # db.session.commit()
 
-# Deleting a record from table:
+    # ______________________________________________________________________
 
-# anthony = Members.query.filter_by(username='Anthony').first()
-# db.session.delete(anthony)
-# db.session.commit()
+    # Deleting a record from table:
 
+    # anthony = Members.query.filter_by(username='Anthony').first()
+    # db.session.delete(anthony)
+    # db.session.commit()
 
 
 
-print('\n___________________________________________________________\n')
 
-# Selecting all records in table:
+    print('\n___________________________________________________________\n')
 
-members = Members.query.all() 
-print(members)
+    # Selecting all records in table:
 
-for m in members:
-    print('username {}  password {}'.format(m.username, m.password))
+    members = Members.query.all() 
+    print(members)
 
+    for m in members:
+        print('username {}  password {}'.format(m.username, m.password))
 
 
-print('\n___________________________________________________________\n')
 
+    print('\n___________________________________________________________\n')
 
 
-# Filtering queries - filter_by vs filter:
 
-zach = Members.query.filter_by(username='Zach1').first() 
+    # Filtering queries - filter_by vs filter:
 
-# or 
+    zach = Members.query.filter_by(username='Zach1').first() 
 
-michelle = Members.query.filter(Members.username == 'MichelleForever').first() 
+    # or 
 
-print('>>>', michelle)
+    michelle = Members.query.filter(Members.username == 'MichelleForever').first() 
 
-print('Zach email{}, Michelle email {}'.format(zach.email, michelle.email))
+    print('>>>', michelle)
 
+    print('Zach email{}, Michelle email {}'.format(zach.email, michelle.email))
 
-print('\n___________________________________________________________\n')
 
-# Generative Queries: 
+    print('\n___________________________________________________________\n')
 
-q = Members.query 
-print('>>>',q,'\n') 
+    # Generative Queries: 
 
-print(q.all(), '\n')
+    q = Members.query 
+    print('>>>',q,'\n') 
 
-zach = q.filter(Members.username == 'Zach1').first()
-print(zach.username)
+    print(q.all(), '\n')
 
+    zach = q.filter(Members.username == 'Zach1').first()
+    print(zach.username)
 
-print('\n___________________________________________________________\n')
 
-# 1st Filter:
-members_result = Members.query.filter(Members.password == 'secrete')
+    print('\n___________________________________________________________\n')
 
-print(members_result.all())
+    # 1st Filter:
+    members_result = Members.query.filter(Members.password == 'secrete')
 
+    print(members_result.all())
 
-# 2nd Filter:
-chris = members_result.filter(Members.username == 'Chris1').first()
 
-print(chris.username)
+    # 2nd Filter:
+    chris = members_result.filter(Members.username == 'Chris1').first()
 
-print('\n___________________________________________________________\n')
+    print(chris.username)
 
-# Not Equals query:
+    print('\n___________________________________________________________\n')
 
-not_equal_query = Members.query.filter(Members.username != 'Anthony').all()
-for m in not_equal_query:
-    print(m.username)
+    # Not Equals query:
 
+    not_equal_query = Members.query.filter(Members.username != 'Anthony').all()
+    for m in not_equal_query:
+        print(m.username)
 
-print('\n___________________________________________________________\n')
 
+    print('\n___________________________________________________________\n')
 
-# Like query:
 
-like_query = Members.query.filter(Members.email.like('%gmail%')).all()
+    # Like query:
 
-for e in like_query:
-    print(e.email)
+    like_query = Members.query.filter(Members.email.like('%gmail%')).all()
 
+    for e in like_query:
+        print(e.email)
 
-print('\n___________________________________________________________\n')
 
-# In querys;
+    print('\n___________________________________________________________\n')
 
-in_query = Members.query.filter(Members.username.in_(['Anthony', 'Zach1'])).all() 
+    # In querys;
 
-print(in_query)
+    in_query = Members.query.filter(Members.username.in_(['Anthony', 'Zach1'])).all() 
 
+    print(in_query)
 
-in_query = Members.query.filter(Members.username.in_(['Chris1', 'MichelleForever'])).all() 
 
-print(in_query)
+    in_query = Members.query.filter(Members.username.in_(['Chris1', 'MichelleForever'])).all() 
 
+    print(in_query)
 
-print('\n___________________________________________________________\n')
 
-# Not In querys:
+    print('\n___________________________________________________________\n')
 
-not_in_query = Members.query.filter(~Members.username.in_(['Chris1', 'MichelleForever', 'Anthony'])).all() 
+    # Not In querys:
 
-for m in not_in_query:
-    print(m.username)
+    not_in_query = Members.query.filter(~Members.username.in_(['Chris1', 'MichelleForever', 'Anthony'])).all() 
 
-print('\n___________________________________________________________\n')
+    for m in not_in_query:
+        print(m.username)
 
-# Null and Not Null queries:
+    print('\n___________________________________________________________\n')
 
-# karen = Members(username='Karen', password='karenismyname')
-# db.session.add(karen)
-# db.session.commit()
+    # Null and Not Null queries:
 
+    # karen = Members(username='Karen', password='karenismyname')
+    # db.session.add(karen)
+    # db.session.commit()
 
-email_null = Members.query.filter(Members.email == None).all() 
-print('Null - email',email_null, '\n')
 
-email_not_null = Members.query.filter(Members.email != None).all() 
-print('Not Null - email',email_not_null)
+    email_null = Members.query.filter(Members.email == None).all() 
+    print('Null - email',email_null, '\n')
 
-print('\n___________________________________________________________\n')
+    email_not_null = Members.query.filter(Members.email != None).all() 
+    print('Not Null - email',email_not_null)
 
-# And query: 
+    print('\n___________________________________________________________\n')
 
-and_query = Members.query.filter(Members.email.like('%gmail%')).filter(Members.username == 'Chris1').all() 
-print(and_query)
+    # And query: 
 
+    and_query = Members.query.filter(Members.email.like('%gmail%')).filter(Members.username == 'Chris1').all() 
+    print(and_query)
 
-# OR 
 
-and_query = Members.query.filter(Members.email.like('%gmail%'), Members.username == 'Chris1').all() 
-print(and_query)
+    # OR 
 
-# OR 
+    and_query = Members.query.filter(Members.email.like('%gmail%'), Members.username == 'Chris1').all() 
+    print(and_query)
 
-and_query = Members.query.filter(db.and_(Members.email.like('%gmail%'), Members.username == 'Chris1')).all()
-print(and_query)
+    # OR 
 
+    and_query = Members.query.filter(db.and_(Members.email.like('%gmail%'), Members.username == 'Chris1')).all()
+    print(and_query)
 
-print('\n___________________________________________________________\n')
 
-# OR query: 
+    print('\n___________________________________________________________\n')
 
+    # OR query: 
 
-or_query = Members.query.filter(db.or_(Members.email.like('%gmail%'), Members.email == None)).all()
-print(or_query)
 
+    or_query = Members.query.filter(db.or_(Members.email.like('%gmail%'), Members.email == None)).all()
+    print(or_query)
 
-print('\n___________________________________________________________\n')
 
-# Order_by:
+    print('\n___________________________________________________________\n')
 
-orderby_un = Members.query.order_by(Members.username).all()
-print(orderby_un)
+    # Order_by:
 
-orderby_id = Members.query.order_by(Members.id).all() 
-print(orderby_id)
+    orderby_un = Members.query.order_by(Members.username).all()
+    print(orderby_un)
 
-# Order_by desc():
+    orderby_id = Members.query.order_by(Members.id).all() 
+    print(orderby_id)
 
-orderby_id = Members.query.order_by(Members.id.desc()).all() 
-print(orderby_id)
+    # Order_by desc():
 
+    orderby_id = Members.query.order_by(Members.id.desc()).all() 
+    print(orderby_id)
 
-# Order by - first 
 
-ob_id_first = Members.query.order_by(Members.id).first() 
-print(ob_id_first)
+    # Order by - first 
 
+    ob_id_first = Members.query.order_by(Members.id).first() 
+    print(ob_id_first)
 
-# Adding a filter to Order by:
 
-ob_email_filter =  Members.query.filter(Members.email.like('%gmail%')).order_by(Members.email).all()
+    # Adding a filter to Order by:
 
-for e in ob_email_filter:
-    print(e.email, end=', ')
+    ob_email_filter =  Members.query.filter(Members.email.like('%gmail%')).order_by(Members.email).all()
 
-print('\n___________________________________________________________\n')
+    for e in ob_email_filter:
+        print(e.email, end=', ')
 
-# Limit: 
+    print('\n___________________________________________________________\n')
 
-all_members = Members.query.all()
-print(all_members)
+    # Limit: 
 
+    all_members = Members.query.all()
+    print(all_members)
 
-limit_members = Members.query.limit(2).all()
-print(limit_members)
 
-first_id  = Members.query.order_by(Members.id).limit(1).all()
-print(first_id)
+    limit_members = Members.query.limit(2).all()
+    print(limit_members)
 
+    first_id  = Members.query.order_by(Members.id).limit(1).all()
+    print(first_id)
 
-print('\n___________________________________________________________\n')
+
+    print('\n___________________________________________________________\n')
 
 
 # if __name__ == '__main__':
