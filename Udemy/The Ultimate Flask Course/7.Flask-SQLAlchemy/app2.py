@@ -31,26 +31,78 @@ class Members(db.Model):
     email = db.Column(db.String(50), unique=True)
     join_date = db.Column(db.DateTime) 
 
+    order = db.relationship('Order', backref='member', lazy='dynamic')  # <--A
+    
+    courses = db.relationship(
+        'Courses', secondary='user_courses', backref='member', lazy='dynamic'
+                                                                     )  # <--B
+
+
     def __init__(self, username=None, password=None, email=None, join_date=None):
 
         self.username = username  
         self.password = password 
         self.email = email  
-        self.join_date = join_date
+        self.join_date = join_date 
 
     def __repr__(self):
-        return f'<Member id: {self.id}>'
+        return f'<Member: {self.username}>'
     
     def __str__(self):
-        return f'<Member {self.username}>'
+        return f'<Member: {self.username}>'
 
 
-if __name__ == '__main__':
+
+
+class Order(db.Model):
+    __tablename__ = 'order'
+    id = db.Column(db.Integer, primary_key = True)
+    price = db.Column(db.Integer)
+    member_id = db.Column(db.Integer, db.ForeignKey('members.id'))      # <--A
+
+# 'A' one to many relationship 
+
+# ______________________________________________________________________
+
+# 'B' Many to Many relationships:
+
+class Courses(db.Model):
+    __tablename__ = 'courses'
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(30))
+
+
+
+# Mapping table:
+
+db.Table(
+    'user_courses',
+    db.Column('member_id', db.Integer, db.ForeignKey('members.id')),
+    db.Column('course_id', db.Integer, db.ForeignKey('courses.id'))
+)
+
+
+db.create_all()
+
+# ______________________________________________________________________
+# Deleting an order:
+
+# anthony = Members.query.filter(Members.username == 'Anthony').first()
+# print(anthony.order.all())
+
+# order5 = Order.query.filter(Order.id == 5).first()
+# db.session.delete(order5)
+# db.session.commit()
+
+# print(anthony.order.all())
+# ______________________________________________________________________
+
+if __name__ == '__main__q':
 
     # ______________________________________________________________________
     # To Create Table:
 
-    db.create_all()
+  
 
     # db.create_all() will look into all my Classes that I  have in my application, 
     # if there are class that don't map to the tables in the database, 
