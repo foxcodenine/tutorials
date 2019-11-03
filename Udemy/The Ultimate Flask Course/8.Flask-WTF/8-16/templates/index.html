@@ -1,0 +1,40 @@
+{% from '_renderfield.html' import renderfield %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login Form</title>
+    </head>
+    <body>
+        <h1>Please find the form below!</h1>
+        <form action="{{ url_for('index') }}" method="POST" novalidate>
+
+            {{ form.csrf_token }}
+
+            {# <!-- {{ renderfield(to comment out in jinja2) }} --> #} 
+
+            {{ renderfield(form.username) }}
+
+            {{ renderfield(form.password) }}
+
+            {{ renderfield(form.age) }}
+
+            {{ renderfield(form.maltese) }}
+
+            {{ renderfield(form.email) }}
+
+            {{ renderfield(form.first_name) }}
+            
+            {% if form.middle_name %}
+                {{ renderfield(form.middle_name) }}
+            {% endif %}
+
+            {{ renderfield(form.last_name) }}
+
+            {{ renderfield(form.phone) }}
+
+            {{ renderfield(form.emergency_contact) }}
+            
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html> 
