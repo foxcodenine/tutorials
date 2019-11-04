@@ -55,7 +55,7 @@ class User:
 @app.route('/', methods = ['GET', 'POST'])
 def index():
 
-    myuser = User('Chris12', 'foxcode9@gmail.com', 35) # object initiated with the data as par..
+    myuser = User('FoxCode', 'chrismariojimmy@yahoo.com', 35) # object initiated with the data as par..
 
     form = NameForm(obj=myuser, csrf_enabled=True) # object passed in the LoginForm 
                                                     # you can also enable or desable the csrf here
@@ -101,6 +101,41 @@ def index():
     return render_template('index.html', form=form)
 
 # ______________________________________________________________________
+
+@app.route('/dynamic', methods=['POST', 'GET'])
+def dynamic():
+
+    class DynamicForm(FlaskForm):
+        pass 
+
+    DynamicForm.name = StringField('Name')
+    DynamicForm.surname = StringField('Surname')
+
+    names = ['middlename', 'nickname', 'medianame']
+
+    for n in names:
+        setattr(DynamicForm, n, StringField(n.title()))
+
+
+    form = DynamicForm()
+
+
+    if form.validate_on_submit():
+
+        return '<h3>This form has been submited:</h3><h5>name: {} - surname: {}</h5>'.format(
+            form.name.data, form.surname.data
+        )
+
+    return render_template('dynamic.html', form=form, names=names)
+
+    
+
+
+
+
+
+# ______________________________________________________________________
+
 
 if __name__ == '__main__':
     app.run() 
