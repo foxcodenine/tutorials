@@ -1,3 +1,15 @@
+# pip install flask-wtf
+
+# 1. Install and Set Up
+# 2. Creating a Form
+# 3. Submit the Form
+# 4. Validators
+# 5. More Fields
+# 6. Adding An Extra Validator
+# 7. Changing Labels and Defaults
+
+# ______________________________________________________________________
+
 from flask import Flask, render_template, url_for
 from flask_wtf import FlaskForm 
 from wtforms import StringField, PasswordField, IntegerField, BooleanField
