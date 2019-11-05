@@ -54,9 +54,7 @@ def index():
             output += 'Amount: {} '.format(c.amount.data)
             output += '<hr>'
 
-
         output += '</h5>'
-
 
         return output
 
