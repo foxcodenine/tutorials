@@ -5,6 +5,7 @@
 # 12. Field Enclosures
 # 14. Delete Field
 # 15. Dynamic Forms
+
 # ______________________________________________________________________
 
 from flask import Flask, render_template, url_for
@@ -138,6 +139,10 @@ def dynamic():
     return render_template('dynamic.html', form=form, names=names)
 
     
+
+
+
+
 
 # ______________________________________________________________________
 
