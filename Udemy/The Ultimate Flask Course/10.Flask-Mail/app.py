@@ -27,7 +27,7 @@ app.config.update(
     MAIL_DEBUG = True,
     MAIL_USERNAME = 'fourequus@gmail.com', 
     MAIL_PASSWORD = 'ayanami4',
-    MAIL_DEFAULT_SENDER = 'fourequus@gmail.com',
+    MAIL_DEFAULT_SENDER = ('Chris from flask-mail','fourequus@gmail.com'),
     # MAIL_MAX_EMAILS = None,
     # MAIL_SUPPRESS_SEND = False,
     # MAIL_ASCII_ATTACHMENTS = False
@@ -53,10 +53,25 @@ def index():
     # or
     msg.html ='''<h1>Hey There!</h1><hr>
                  <p>This is a test message send from flask-mail, you doen't need to reply</p><hr>
-                 <p>I like oranges!</p>'''
+                 <p>I like oranges do you like bananas?</p>'''
     mail.send(msg)
 
     return '<h3>Message has been send!</h3>'
+
+
+
+@app.route('/bulk')
+def bulk():
+    users = [{'user':'Jessica', 'email':'jesas54648@xmail2.net'},
+             {'user':'Cloy', 'email':'maycol.sylis@iiron.us'},
+             {'user':'Kortana', 'email':'kortitamle@enayu.com'}]
+    with mail.connect() as conn:
+        for user in users:
+            msg = Message('Bulk!', recipients=[user['email']])
+            msg.body = 'Hi {}, this is a bulk email!'.format(user['user'])
+            conn.send(msg)
+    return '<h4>Bulky Emails Send!</h4>'
+            
 
 
 if __name__ == '__main__':
