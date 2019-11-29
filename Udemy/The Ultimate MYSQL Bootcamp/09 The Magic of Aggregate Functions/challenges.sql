@@ -33,4 +33,3 @@ FROM books
 GROUP BY  released_year
 ORDER BY  released_year;
  
- 
