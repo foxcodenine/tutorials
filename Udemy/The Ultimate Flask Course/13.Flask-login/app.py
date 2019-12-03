@@ -2,8 +2,8 @@
 
 # ______________________________________________________________________
 
-from flask import Flask
-from flask_login import LoginManager, UserMixin,login_user ,login_required
+from flask import Flask, url_for, redirect, render_template, request
+from flask_login import LoginManager, UserMixin,login_user ,login_required, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -43,17 +43,35 @@ def load_user(user_id):
     # return User.query.filter_by(id=int(user_id)) <- you can use this instaed of above
 # ______________________________________________________________________
 
-@app.route('/login')
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-    user = User.query.filter_by(username='chrismariojimmy').first() 
-    login_user(user)
-    return '<h1>Logged in!</h1>'
 
+    if request.method == 'POST':
+        username = request.form['username']
+        user = User.query.filter_by(username=username).first() 
+
+        if not user:
+            return '<h1>Invalid user!</h1>'
+
+        login_user(user)
+        return '<h1>Logged In Successfully!!</h1>'
+    return render_template('login.html')
+
+# ______________________
 
 @app.route('/home')
 @login_required
 def home():
-    return '<h1>You are in the protected area!!</h1>'
+    return '<h1>Hi {}! <br>You are in the protected area!!</h1>'.format(current_user.username)
+
+# ______________________
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return '<h1>Logged Out Successfully!!</h1>'
+
 
 # ______________________________________________________________________
 if __name__ == '__main__':
