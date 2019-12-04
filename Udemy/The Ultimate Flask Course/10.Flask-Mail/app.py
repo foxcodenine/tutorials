@@ -117,6 +117,5 @@ def bulk():
     return '<h4>Bulky Emails Send!</h4>'
             
 
-
 if __name__ == '__main__':
     app.run()
