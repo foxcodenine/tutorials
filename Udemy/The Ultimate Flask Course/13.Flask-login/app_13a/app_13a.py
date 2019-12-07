@@ -85,7 +85,7 @@ def create_users(un, pw, em):
 class LoginForm(FlaskForm):
     ''' This class is used to create Flask-WTF Form '''
     username = StringField('Username', validators=[InputRequired(message='A Username Is Required!'), Length(min=4, max=30)])
-    email = StringField('Email', validators=[InputRequired(), Email()], default='test@test.com')
+    email = StringField('Email', validators=[InputRequired(), Email()], default='')
     password = PasswordField('Password', validators=[InputRequired(), Length(min=4, message='Password must be <= 4 ')])
     
     def validate_password(self, field):
