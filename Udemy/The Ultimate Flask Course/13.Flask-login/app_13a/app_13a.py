@@ -37,6 +37,7 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://oOp9iEOuPn:SAEm6rAKiE@remotemysql.com:3306/oOp9iEOuPn'
 # app.config['USE_SESSION_FOR_NEXT'] = True    # <- this current doesn't work
 app.config['REMEMBER_COOKIE_DURATION'] = timedelta(seconds=20)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=1)
 
 
 login_manager = LoginManager(app)
@@ -75,12 +76,21 @@ class Users(UserMixin, db.Model):
 
 
 def create_users(un, pw, em):
+    '''This function create a new User'''
     new_user = Users(username=un, password=pw, email=em, session_token=serializer.dumps([un, pw, em]))
     db.session.add(new_user)
     db.session.commit()
 
-
-
+def update_user(username, password=None, email=None):
+    '''This function update the User email/password'''
+    current_user = Users.query.filter_by(username=username).first()
+    if password:
+        current_user.password = password
+    if email:
+        current_user.email = email 
+    current_user.session_token = serializer.dumps([username, password, email])
+    db.session.commit()
+    
 
 class LoginForm(FlaskForm):
     ''' This class is used to create Flask-WTF Form '''
@@ -92,6 +102,18 @@ class LoginForm(FlaskForm):
         if pass_val(field.data) == False:
             raise ValidationError('Password must contain at least one uppercase, one lowercase and one number digit!')
 
+class ChangePasswordForm(FlaskForm):
+    '''This class is used to change userpassword'''
+  
+    current_pass = PasswordField('Current Password', validators=[InputRequired(message='Current Password Required!')])
+    
+    new_pass1 = PasswordField('New Password', validators=[InputRequired(), Length(min=4, message='Password must be <= 4 ')])
+    new_pass2 = PasswordField('Verify Password', validators=[])
+
+
+    def validate_new_pass1(self, field):
+        if pass_val(field.data) == False:
+            raise ValidationError('Password must contain at least one uppercase, one lowercase and one number digit!')
 # ______________________________________________________________________
 #  Creating user and table:
 
@@ -132,12 +154,49 @@ def signup():
 
     return render_template('signup.html', form=form)
 
+# ______________________
+
+@app.route('/change_pass', methods=['POST', 'GET'])
+@login_required
+def change_pass():
+    print(current_user.username)
+    form = ChangePasswordForm()
+
+    wrong_password = None
+    try:
+        if form.validate_on_submit(): # <-- this will validate only if 'POST' is send
+            username = current_user.username
+            _current_user = Users.query.filter_by(username=current_user.username).first()
+
+            current_password = form.current_pass.data
+            check_old_password = check_password_hash(_current_user.password, current_password)
+            new_password1 = form.new_pass1.data
+            new_password2 = form.new_pass2.data
+            hashed_password = generate_password_hash(new_password2, method='sha256')
+
+            if new_password1 == new_password2:            
+                if check_old_password == True:
+                    update_user(username=username, password=hashed_password)
+                    return f'<h2>User Update!!</h2>'
+                else:
+                    wrong_password = chr(9679) + 'Incorrect Password'
+            else:
+                wrong_password = chr(9679) + 'Password does not match!'
+
+                      
+            
+    except IntegrityError:
+        return '<h4>Username / Email  already taken!</h4>'
+
+    return render_template('change_pass.html', form=form, error=wrong_password)
+
 
 
 # ______________________
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    logout_user()
     #-------testing code----------#
     if 'next' in session:
         next = session['next']
@@ -174,6 +233,7 @@ def login():
 @app.route('/home')
 @login_required
 def home():
+    session.permanent = True
     return '<h1>Hi {}! <br>You are in the protected area!!</h1>'.format(current_user.username)
 
 # ______________________
