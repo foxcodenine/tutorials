@@ -11,12 +11,14 @@
 
 from flask import Flask, url_for, redirect, render_template, request, session
 
-from flask_login import LoginManager, UserMixin,login_user ,login_required 
+
+from flask_login import LoginManager, UserMixin,login_user ,login_required
 from flask_login import current_user, logout_user, fresh_login_required
 
 from flask_sqlalchemy import SQLAlchemy
 from urllib.parse import urlparse, urljoin
 from datetime import timedelta
+
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, IntegerField, BooleanField, ValidationError
@@ -29,16 +31,33 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from sqlalchemy.exc import IntegrityError
 
+import os
+
+
+from flask_uploads import UploadSet, configure_uploads, IMAGES, DOCUMENTS, UploadNotAllowed
+
 # ______________________________________________________________________
 
 app = Flask(__name__) 
+
 app.config['SECRET_KEY'] = 'ThisIsASecret!'
 app.config['DEBUG'] = True
+
+# -------- DATABASE CONFIG --------
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://oOp9iEOuPn:SAEm6rAKiE@remotemysql.com:3306/oOp9iEOuPn'
 # app.config['USE_SESSION_FOR_NEXT'] = True    # <- this current doesn't work
-app.config['REMEMBER_COOKIE_DURATION'] = timedelta(seconds=20)
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=1)
+app.config['SQLALCHEMY_POOL_RECYCLE'] = 275
 
+# -------- SESSION EXPIRE CONFIG --------
+app.config['REMEMBER_COOKIE_DURATION'] = timedelta(seconds=20)
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
+
+# -------- PROFILE IMAGE CONFIG --------
+photos = UploadSet('photos', IMAGES)
+app.config['UPLOADED_PHOTOS_DEST'] = 'static/images'
+profile_folder = os.path.join('static', 'images')
+app.config['UPLOAD_FOLDER'] = profile_folder
+configure_uploads(app, (photos))
 
 login_manager = LoginManager(app)
 
@@ -131,7 +150,50 @@ class ChangePasswordForm(FlaskForm):
 def load_user(session_token):
     return Users.query.filter_by(session_token=session_token).first()
     # return Users.query.filter_by(id=int(user_id)) <- you can use this instaed of above
+
+
+
 # ______________________________________________________________________
+# ______________________________________________________________________
+
+
+@app.route('/', methods=['POST', 'GET'])
+@login_required
+
+def index():
+
+ 
+    filename = f'{current_user.username}.jpg'
+    profile_pic = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    
+         
+    return render_template('home.html', username=current_user.username, email=current_user.email, profile_pic=profile_pic)
+
+
+
+# ______________________
+
+@app.route('/profile_image', methods=['POST', 'GET'])
+@login_required
+def profile_image():
+    if request.method == 'POST':
+        filename = f'{current_user.username}.jpg'
+
+        try:
+            os.remove(f'static/images/{filename}')
+            photos.save(request.files['theprofile'], name=filename)
+            return redirect(url_for('index'))
+        except UploadNotAllowed:
+            error = 'File is not allowed!'
+            return render_template('upload.html', error=error)
+
+
+
+    return render_template('upload.html')
+
+
+# ______________________
+
 
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
