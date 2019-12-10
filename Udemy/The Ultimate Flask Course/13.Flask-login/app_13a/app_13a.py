@@ -224,6 +224,7 @@ def change_pass():
     print(current_user.username)
     form = ChangePasswordForm()
 
+    
     wrong_password = None
     try:
         if form.validate_on_submit(): # <-- this will validate only if 'POST' is send
