@@ -1,7 +1,22 @@
+# https://flask-admin.readthedocs.io/en/latest/
+# https://flask-admin.readthedocs.io/en/latest/api/mod_contrib_sqla/
+# https://flask-admin.readthedocs.io/en/latest/api/mod_model/#flask_admin.model.BaseModelView
+# https://flask-admin.readthedocs.io/en/latest/api/mod_model/
+
+# https://github.com/flask-admin/flask-admin/tree/master/flask_admin/templates/bootstrap3/admin
+
+# https://flask-admin.readthedocs.io/en/latest/introduction/#customizing-built-in-views
+# ______________________________________________________________________
+
+
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView 
+from werkzeug.security import generate_password_hash
+
+from os.path import dirname, join
+from flask_admin.contrib.fileadmin import FileAdmin
 # ______________________________________________________________________
 
 app = Flask(__name__) 
@@ -26,11 +41,12 @@ class F14_user(db.Model):
     age = db.Column(db.Integer) 
     birthday = db.Column(db.DateTime)
     comments = db.relationship('Comment', backref='user', lazy='dynamic')
-    # resiver = db.relationship('Comment', secondary='resivers', backref='user_recivers')
+ 
     
-
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -40,22 +56,49 @@ class Comment(db.Model):
     def __repr__(self):
         return '<Comment {}>'.format(self.id)
 
-# db.Table('resivers',
-#     db.Column('sender', db.String, db.ForeignKey('f14_user.username')),
-#     db.Column('resiver', db.String, db.ForeignKey('f14_user.username')),
-#     )
+# ______________________________________________________________________  
 
+
+class F14_userView(ModelView):
+    column_exclude_list = [''] # <-- To remove a column from the Admin 
+    column_display_pk = True # <-- To show id
+    can_create = True 
+    can_delete = True 
+    can_edit = True
+    can_export = True
+
+    create_modal =True
+    page_size = 20
+
+    def on_model_change(self, form, model, is_created): 
+        ''' Perform some actions before a model is created or updated.'''
+
+        model.password = generate_password_hash(model.password, method='sha256')
     
+
+    def after_model_change(self, form, model, is_created): 
+        ''' Perform some actions after a model was created or updated and 
+            committed to the database'''
+        pass
 
 # ______________________________________________________________________  
 #     
-admin.add_view(ModelView(F14_user, db.session))
+admin.add_view(F14_userView(F14_user, db.session)) # <-- used F14_userView to customize columns
 admin.add_view(ModelView(Comment, db.session))
 
 
 
 # db.create_all()
 # db.drop_all()
+# ______________________________________________________________________
+
+# To upload from admin:
+
+path = join(dirname(__file__), 'static', 'images')
+
+admin.add_view(FileAdmin(path, '/images/', name='Uploads'))
+
+
 # ______________________________________________________________________
 
 
