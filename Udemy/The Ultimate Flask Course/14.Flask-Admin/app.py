@@ -69,7 +69,8 @@ class Comment(db.Model):
         return '<Comment {}>'.format(self.id)
 
 # ______________________________________________________________________  
-
+# customizing the Model View by inheriting from it 
+# and change the new class (F14_userView) attributes.
 
 class F14_userView(ModelView):
     column_exclude_list = [''] # <-- To remove a column from the Admin 
@@ -119,7 +120,8 @@ path = join(dirname(__file__), 'static', 'images')
 
 admin.add_view(FileAdmin(path, '/images/', name='Uploads'))
 # ______________________________________________________________________ 
-# Adding a New page/view in flask-admin
+# Adding a New page/view in flask-admin This time we inherit from 
+# BaseView instead of ModelView since we are starting from scratch
 
 
 class NotificationsView(BaseView):
