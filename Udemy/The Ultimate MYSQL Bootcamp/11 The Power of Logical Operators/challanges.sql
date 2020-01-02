@@ -28,6 +28,17 @@ SELECT title, author_lname FROM books
     WHERE author_lname LIKE 'C%'
     OR  author_lname LIKE 'S%';
 
+/*You can also do: */
+
+SELECT title, author_lname FROM books
+    WHERE SUBSTRING(author_lname,1,1) = 'C' OR
+          SUBSTRING(author_lname,1,1) = 'S';
+
+/* or */
+
+SELECT title, author_lname FROM books
+    WHERE SUBSTRING(author_lname,1,1) IN ('S', 'C');
+
 -- 7. If title contains 'stories' -> Short Stories 
 --    Just Kids and A Heartbreaking Work -> Memoir
 --    Everything Else -> Novel 
@@ -40,3 +51,17 @@ SELECT title, author_lname,
             ELSE 'Novel' 
         END AS 'TYPE'
     FROM books;
+
+
+-- 8. Bonus: Make this happen.BETWEEN
+
+SELECT title,
+       author_lname,
+       Concat(Count(*), ' ', CASE
+                               WHEN Count(*) = 1 THEN 'book'
+                               ELSE 'books'
+                             END) AS 'COUNT'
+FROM   books
+GROUP  BY author_lname,
+          author_fname
+ORDER  BY author_lname;
