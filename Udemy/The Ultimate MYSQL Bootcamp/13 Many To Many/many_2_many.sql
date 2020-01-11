@@ -68,3 +68,114 @@ INSERT INTO reviews(series_id, reviewer_id, rating) VALUES
     (10,5,9.9),
     (13,3,8.0),(13,4,7.2),
     (14,2,8.5),(14,3,8.9),(14,4,8.9);
+
+-- CHALLANGES 
+
+-- 0 --
+SELECT * FROM series;
+SELECT * FROM reviewers;
+SELECT * FROM reviews;
+
+
+-- 1 --
+SELECT 
+    title, 
+    rating 
+FROM series
+INNER JOIN reviews
+    ON series.id = reviews.series_id
+ORDER BY series.title;
+
+
+-- 2 --
+SELECT 
+    title, 
+    AVG(rating) AS avg_rating 
+FROM series
+INNER JOIN reviews
+    ON series.id = reviews.series_id
+GROUP BY series.id
+ORDER BY avg_rating;
+
+-- 3 -- 
+
+SELECT * FROM reviewers;
+
+SELECT 
+    first_name,
+    last_name,
+    rating
+FROM reviewers
+INNER JOIN reviews
+    ON reviewers.id = reviews.reviewer_id;
+
+-- 4 -- 
+
+SELECT 
+    title as unreviewed_series
+FROM series
+LEFT JOIN reviews
+    ON series.id = reviews.series_id
+WHERE reviews.rating IS NULL;
+
+
+-- 5 -- 
+/* ROUND() */
+
+SELECT 
+     genre,
+     ROUND(AVG(rating), 2) as avg_rating
+FROM series
+INNER JOIN reviews
+    ON series.id = reviews.series_id 
+GROUP BY genre;
+
+-- 6 -- 
+
+
+SELECT 
+    first_name,
+    last_name, 
+    count(rating) AS 'COUNT',
+    IFNULL(MIN(rating), 0) AS 'MIN',
+    IFNULL(MAX(rating), 0) AS 'MAX',
+    IFNULL(AVG(rating), 0) AS 'AVG',
+    CASE
+        WHEN count(rating) = 0 THEN 'INACTIVE'
+        ELSE 'ACTIVE'
+    END AS 'STATUS'
+FROM reviewers
+LEFT JOIN reviews
+    ON reviewers.id = reviews.reviewer_id
+GROUP BY reviewers.id;
+
+
+/* using IF */
+
+SELECT 
+    first_name,
+    last_name, 
+    count(rating) AS 'COUNT',
+    IFNULL(MIN(rating), 0) AS 'MIN',
+    IFNULL(MAX(rating), 0) AS 'MAX',
+    IFNULL(AVG(rating), 0) AS 'AVG',
+    IF(count(rating) = 0, 'INACTIVE', 'ACTIVE') AS 'STATUS'
+
+FROM reviewers
+LEFT JOIN reviews
+    ON reviewers.id = reviews.reviewer_id
+GROUP BY reviewers.id;
+
+
+-- 7 -- 
+
+SELECT
+    title,
+    rating, 
+    CONCAT(first_name, ' ', last_name) AS reviewer
+FROM series
+INNER JOIN reviews
+    ON series.id = reviews.series_id
+INNER JOIN reviewers
+    ON reviews.series_id = reviewers.id
+GROUP BY reviews.id;
