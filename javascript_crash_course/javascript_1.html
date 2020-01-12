@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>First JavaScript</title>
+        <script>
+            window.onload = function( )
+            {   
+                document.getElementById("output").innerHTML =
+                "<hr><h2>Variables</h2>"
+                var age = 42
+                var age_in_10_years = age + 10
+
+                document.getElementById("output").innerHTML += 
+                                "<h4>You are " + age + "years old</h4>";
+
+                document.getElementById("output").innerHTML += 
+                "<h4>In ten years you will be " + age_in_10_years + " years old</h4>";
+
+                var score;              //Declared Variable
+                var score = 1000;           //Initialized Variable
+                var gpa = 3.05;             //Floating point
+
+
+                // alert("Your age is " + age + " years old")
+                // alert("Your score is " + score)
+                alert("current GPA is: " + gpa)
+
+                var name = "Chris"           //String Variable
+
+                document.getElementById("output").innerHTML += "<h4>my name is "+name+"<h4/>"
+                
+// _____________________________________________________________________________
+
+                document.getElementById("output").innerHTML +=
+                "<hr><h2>Mathematics</h2>"
+                
+                var sideALength = 5;
+                var sideBLength = 2;
+
+                var totalLength = sideALength + sideBLength;
+                var area = sideALength * sideBLength;
+                var diff = sideALength - sideBLength;
+                var average = totalLength / 2;
+                var modulus = sideALength % sideBLength;
+                var power = sideALength ** sideBLength;
+
+                var out = "";
+                out += "Total Length: " + totalLength ;
+                out += "<br>Area: " + area;
+                out += "<br>Difference: " + diff;
+                out += "<br>Average Length: " + average;
+                out += "<br>Modulus: " + modulus;
+                out += "<br>Power: " + power;
+
+                document.getElementById("output").innerHTML += out;
+// _____________________________________________________________________________
+                
+                var submitButton = 
+                document.getElementById("btnSubmit");
+
+                submitButton.addEventListener("click",
+                greetUser);
+
+                var age = prompt("How old are you?");
+                document.getElementById("greeting").innerHTML =
+                "<h1>You are " + age + " years old!</h1>"
+
+                function greetUser()
+                {
+                    var name = 
+                    document.getElementById("name").value;
+                    document.getElementById("greeting").innerHTML
+                    += "<h1>Howdy, " + name + "!</h1>"
+                }            
+            }
+
+
+        </script>
+
+    </head>
+    <body>
+        <div id="output"></div>
+        <div>
+            <hr>
+            <h2>Obtaining User Input</h2>
+            <label for="name">Name:</label>
+            <input type="text" id="name">
+            <input type="submit" id=btnSubmit>
+            <div id="greeting" ></div>
+        </div>
+    </body>
+</html>
