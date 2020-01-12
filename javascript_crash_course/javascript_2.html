@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Conditionals</title>
+        <script>
+        window.onload = function()
+        {
+            var age = prompt("How old are you?");
+            if (age >= 21)
+                {
+                    document.getElementById('result').innerHTML = 
+                    "<p>You are of legal drinking age!</p>"
+                }
+            else
+                {
+                    document.getElementById('result').innerHTML = 
+                    "<p>You are NOT of legal drinking age!</p>"
+
+                };
+
+            var grade = prompt("What was your numerical exam grade?");
+            var letterGrade = "";
+            if (grade >= 90)
+            {
+                letterGrade = "A"
+            } 
+            else if (grade >= 80)
+            {
+                letterGrade = "B"
+            }
+            else if (grade >= 70)
+            {
+                letterGrade = "C"
+            }
+            else if (grade >= 60)
+            {
+                letterGrade = "D"
+            }
+            else if (grade >= 50)
+            {
+                letterGrade = "E"
+            }
+            else
+            {
+                letterGrade = "F"
+            }
+            document.getElementById('result').innerHTML += 
+            "<p >Your letter grade is: " + letterGrade + "</p>"
+
+        }        
+        </script>
+    </head>
+    <body>
+        <div id="result"></div>
+    </body>
+</html>
