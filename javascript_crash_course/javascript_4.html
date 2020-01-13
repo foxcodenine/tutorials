@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Arrays</title>
+        <script>
+            window.onload=function()
+            {
+                var airline = new Array("American", "Southwest", "United", 
+                "Virgin American", "jetBlue", "Delta", "Alaskan", "Air Malta");
+
+                // document.getElementById("result").innerHTML = airline[2];
+                
+                airline[6] = "Alaska Airlines"
+
+                // document.getElementById("result").innerHTML = airline[6];
+                
+                airline.push("Ryanair")
+                
+                console.log(airline.length);
+
+                // document.getElementById("result").innerHTML = airline[8];
+            
+                for(var x=0; x < airline.length; x++)
+                {
+                    document.getElementById('result').innerHTML += 
+                    "<h2>" + airline[x] + "</h2>"
+                }
+
+
+            };
+        </script>
+    </head>
+    <body>
+        <div id="result"></div>
+    </body>
+</html>

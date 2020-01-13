@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <title>Arrays</title>
+        <style>
+            #box{
+                width: 200px;
+                height: 200px;
+                background-color: darkblue;
+            }
+        </style>
+        <script>
+            window.onload=function()
+            {
+                document.getElementById("box").addEventListener(
+                    'click', boxClicked, false);
+
+                document.getElementById("box").addEventListener(
+                    "mousedown", boxMouseDown, false);
+
+                document.getElementById("box").addEventListener(
+                    "mouseover", boxMouseOver, false)
+            }
+
+
+
+            function boxClicked(event)
+            {
+                console.log(event);
+                document.getElementById("result").innerHTML  = 
+                "<h3>Click</h3>";
+                if (event.altKey == true){
+                    document.getElementById("box").style.display = "none"
+                }
+            }
+
+            function boxMouseDown(event)
+            {
+                document.getElementById("result").innerHTML =
+                "<h3>Mouse Down</h3>";
+            }
+
+            function boxMouseOver(event)
+            {
+                document.getElementById("result").innerHTML = 
+                "<h3>Mouse Over</h3>";
+            }
+                
+        </script>
+    </head>
+    <body>
+        <div id="box"></div>
+        <div id="result"></div>
+    </body>
+</html>
