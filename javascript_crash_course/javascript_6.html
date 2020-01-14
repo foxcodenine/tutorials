@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>    
+    <title>Javascript Dates</title>
+    <script>
+        window.onload = function()
+        {
+            var today = new Date();
+            var dob = new Date("August 12, 1984 04:10:00");
+
+            document.getElementById("result").innerHTML = dob;
+
+            var epoch = new Date(0);
+            
+            // document.getElementById("result").innerHTML = epoch.toDateString();
+            // document.getElementById("result").innerHTML = epoch.toTimeString();
+            document.getElementById("result").innerHTML = epoch.toUTCString();
+
+        };
+
+    </script>
+    
+</head>
+<body>
+    <div id="result"></div>
+</body>
+</html>
