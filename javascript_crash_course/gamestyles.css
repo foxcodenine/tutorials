@@ -1,0 +1,30 @@
+
+body        {font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            padding: 0;
+            text-align: center;}
+
+.answer    {background-color: #ff7e50;
+            min-height: 15px;
+            width: 400px;
+            padding:  15px 20px 15px 20px;
+            vertical-align: middle;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 10px;
+            margin: 5px 0px 5px 0px;}
+
+#question   {background-color: #faf9d3;
+            padding:  25px 20px 25px 20px;
+            min-height: 15px;
+            width: 400px;
+            vertical-align: middle;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 10px;}
+
+#container {display: inline-block;
+            background-color: #6394ed;
+            width: 440px;
+            padding: 20px;
+            text-align: left;}
