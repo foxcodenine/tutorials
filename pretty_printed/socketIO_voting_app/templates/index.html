@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Poll Restult</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous">
+        </script>
+        <link 
+            rel="stylesheet" 
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" 
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" 
+            crossorigin="anonymous">
+        <style>
+            .progress-bar-striped{background-color: coral;}
+        </style>
+    </head>
+    <body>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+    
+
+        <button id="vote1">Vote 1</button>
+        <button id="vote2">Vote 2</button>
+
+        <div class="progress">
+            <div id="results1" class="progress-bar progress-bar-success" style="width: 50%;">
+            </div>
+            <div id="results2" class="progress-bar progress-bar-warning progress-bar-striped" style="width: 50%;">
+            </div>
+
+        </div>
+
+    </body>
+</html>
