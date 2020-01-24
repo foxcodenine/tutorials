@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Database{% endblock %}
+
+{% block content %}
+
+
+<h2>Subscribers:</h2>
+{% for r in results %}
+
+<h4>{{r.id}} &nbsp - &nbsp {{r.name}} &nbsp - &nbsp {{r.location}}</h4>
+
+{% endfor %}
+
+
+{% endblock %}
