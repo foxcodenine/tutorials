@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>Sign-up</title>
+        <style>
+        * {margin: 0%;}
+        div.cc1 { 
+                background: #e7e7e7;                
+                margin: 0%;                            
+                padding: 10% 1cm 10% 1cm;
+                width: 100%;
+                text-align: center;                 
+                }
+
+        div.c2 {width: 350px;
+                height: 45px;             
+                border-radius: 10px;                
+                text-align: center;
+                padding: 10px 10px 0px 10px;
+                display: inline-block;
+                background-color: white;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
+
+        .label {
+            height: 35px;
+            
+            width: 500px;
+            display:inline-block;            
+            padding: 2px 2px 2px 20px;
+            font-family: Arial, Helvetica, sans-serif; 
+            font-size: 20px; 
+            border: 1px solid#e7e7e7;
+            border-radius: 10px;                   
+               }
+
+        input#create{width: 80px;
+                        border: 1px solid rgb(61, 204, 61);
+                        background-color: rgb(61, 204, 61);
+                        color: white;
+                        text-align: center;
+                        font-size: 16px;
+                        padding: 2px 2px 2px 2px;
+                        float: right;}
+
+        input#choose {width: 250px;
+                        text-align: center;
+                        font-size: 14px;
+                        padding: 2px 2px 2px 2px;
+                        float: left;
+                     }
+
+        input#choose::-webkit-file-upload-button
+                       {display:inline-block;
+                        background-color: transparent;
+                        border: none;
+                        color: rgb(255, 255, 255);
+                        font-size: 0%;                        
+                        margin-top: 20px;}
+
+        input#choose::before                        
+                        {display: inline-block;
+                        border: 1px solid rgb(255, 255, 255);                  
+                        cursor: pointer;             
+                        font-size: 14pt;
+                        text-align: right;}        
+        
+        </style>
+    </head>
+    <body>
+        <div class="cc1">
+            <div class="c2">
+                <form action="{{ url_for('profile_image') }}" method="POST" enctype="multipart/form-data" >
+                    <input type="file" name="theprofile" id="choose" class="label" >                         
+                    <input type="submit" value="Update" id="create" class="label">
+            </div>
+        </div>           
+
+            
+        </form>
+    </body>
+</html>
