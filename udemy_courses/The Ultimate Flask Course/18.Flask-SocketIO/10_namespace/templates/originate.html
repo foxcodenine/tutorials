@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Originate</title>
+    </head>
+    <body>
+        <form action="{{ url_for('originate') }}" method="POST">
+            <textarea name="text_area" id="text_area" cols="30" rows="10"></textarea><br>
+            <button type="submit">Send</button>
+        </form>
+    </body>
+</html>

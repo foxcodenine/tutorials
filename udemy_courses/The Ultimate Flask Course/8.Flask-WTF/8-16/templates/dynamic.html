@@ -1,0 +1,27 @@
+{% from '_renderfield.html' import renderfield %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login Form</title>
+    </head>
+    <body>
+        <h1>Below is the dynamic-form:</h1>
+        <form action="{{ url_for('dynamic') }}" method="POST" novalidate>
+
+            {{ form.csrf_token }}
+
+            {# <!-- {{ renderfield(to comment out in jinja2) }} --> #} 
+
+            {{ renderfield(form.name) }}
+
+            {{ renderfield(form.surname) }}
+
+            {% for name in names %}
+            {{ renderfield(form[name]) }}
+            {% endfor %}
+
+            
+            <input type="submit" value="Submit">
+        </form>
+    </body>
+</html> 
