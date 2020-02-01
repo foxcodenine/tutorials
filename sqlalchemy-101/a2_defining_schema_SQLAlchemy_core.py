@@ -10,7 +10,7 @@ from sqlalchemy import MetaData, Table, Column
 from sqlalchemy import String, Text, DateTime, Boolean, Integer
 from sqlalchemy import ForeignKey
 from sqlalchemy import PrimaryKeyConstraint, ForeignKeyConstraint, \
-    UniqueConstraint, CheckConstraint
+    UniqueConstraint, CheckConstraint, Index
 
 from datetime import datetime
 
@@ -207,6 +207,74 @@ operators = Table('operators', metadata,
 # Currently not supported by mysql
 
 
+# _________________________________
+# Creating indexes using Index
 
+
+# If your queries involved searching through a particular set of fields then you
+# might get a performance boost by creating a composite index (i.e. an index on
+# multiple columns), which is the primary purpose of Index. Here is an example:
+
+
+c_table = Table('c_table', metadata, 
+    Column('id', Integer(), primary_key=True),
+    Column('first_name', String(100), nullable=False),
+    Column('middle_name', String(100), nullable=False, index=True), # <-- add index, not using a costraint
+    Column('last_name', String(100), nullable=False),
+    Index('idx_fullname', 'first_name', 'last_name')    
+    )
+
+# ______________________________________________________________________
+
+# Creating Tables
 
 metadata.create_all(engine)
+
+# We can also drop all the tables in the database using MetaData.drop_all()
+
+
+# ______________________________________________________________________
+
+# Accessing Tables and Columns from MetaData
+
+# Attribute: tables & sorted_tables:
+
+# for t in metadata.tables:
+#     print(metadata.tables[t])
+#     # print(t) <-- or you can
+#     print(',.,.,.,,.,.,.,.,.')
+ 
+# print('-------------')  
+# print('-------------')  
+
+# for t in metadata.sorted_tables:
+#     print(t.name) 
+
+# print('-------------')  
+# print('-------------') 
+
+
+'''
+users = Table('users', metadata,
+    Column('id', Integer(), primary_key=True),
+    Column('user', String(200), nullable=False)
+)
+
+posts = Table('posts', metadata,
+    Column('id', Integer(), primary_key=True),
+    Column('post_title', String(200), nullable=False), 
+    Column('post_slug', String(200),  nullable=False),
+    Column('content', Text(),  nullable=False),
+    Column('user_id', ForeignKey("users.id"))
+ )
+'''
+
+
+# print(posts.columns)         # return a list of columns
+# print(posts.c)               # same as posts.columns
+# print(figlio.foreign_keys)    # returns a set containing foreign keys on the table
+# print(parents.primary_key)     # returns the primary key of the table
+# print(posts.metadata)        # get the MetaData object from the table
+# print(posts.columns.post_title.name)     # returns the name of the column
+# print(posts.columns.post_title.type)     # returns the type of the column
+    
