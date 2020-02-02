@@ -4,7 +4,7 @@ from sqlalchemy.sql import func, text
 from datetime import datetime
 
 
-engine = create_engine('mysql+pymysql://root:ayanami9@localhost/e_commerce')
+engine = create_engine('mysql+pymysql://root:*****@localhost/e_commerce')
 metadata = MetaData(engine)
 
 customers = Table('customers', metadata,
@@ -47,40 +47,5 @@ order_lines = Table('order_lines', metadata,
     CheckConstraint('quantity > 0')
 )
 
-metadata.drop_all(engine)
+# metadata.drop_all(engine)
 metadata.create_all(engine)
-
-'''
-insert into customers (first_name, last_name, username, email, address, town) Values
-    ('Chris', 'Farrugia', 'chrismariojimmy', 'chris12aug@yahoo.com', 'St Edward str', 'Birzebbugia'),
-    ('Dorothy', 'Cassar', 'DCgirl', 'unscrembleyourself@gmail.com', 'Warda 61', 'Qormi');
-    
-update customers set address='Warda Triq il-Port' where id=2;
-
-insert into items (name, cost_price, selling_price, quantity) Values
-    ('button', 5, 7, 50),
-    ('cd', 3, 6, 25),
-    ('ruler', 2, 4, 12);
-
-insert into orders(customer_id)values(1);
-
-insert into order_lines (order_id, item_id, quantity) values
-    (1, 1, 3), (1, 2, 5), (1, 3, 10);
-
-insert into order_lines (order_id, item_id, quantity) values
-    (1, 1, 1);
-
-
-select concat(customers.first_name, ' ', customers.last_name) as 'fullname', items.name, order_lines.quantity*items.selling_price as 'total'
-    from customers
-    inner join orders on customers.id = orders.customer_id
-    inner join order_lines on orders.id = order_lines.order_id
-    inner join items on order_lines.item_id = items.id;
-
-select concat(customers.first_name, ' ', customers.last_name) as 'fullname', items.name, sum(order_lines.quantity*items.selling_price) as 'total'
-    from customers
-    inner join orders on customers.id = orders.customer_id
-    inner join order_lines on orders.id = order_lines.order_id
-    inner join items on order_lines.item_id = items.id
-    group by items.id;
-'''
