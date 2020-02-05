@@ -4,11 +4,14 @@ from sqlalchemy import insert
 from sqlalchemy.sql import func, text
 from datetime import datetime
 
-def pl():
-    print('\n_______________________\n')
+def pl(x=None):
+    if x :
+        print('\n({}): _________________\n'.format(x))
+    else:
+        print('\n_______________________\n')
 
 
-engine = create_engine('mysql+pymysql://root:*****@localhost/e_commerce')
+engine = create_engine('mysql+pymysql://root:****@localhost/e_commerce')
 metadata = MetaData(engine)
 
 customers = Table('customers', metadata,
@@ -125,7 +128,7 @@ if __name__ == '__main__':
 
 # The execute() method is quite flexible because it allows us to insert multiple
 # rows by passing a list of dictionaries each representing a row to be inserted.
-    '''
+    
     r = conn.execute(insert(customers),[
         {
             "first_name": "John",
@@ -161,7 +164,7 @@ if __name__ == '__main__':
         },
     ])
 
-    '''
+    
     print(r.rowcount)
     pl()
 # ______________________________________________________________________
