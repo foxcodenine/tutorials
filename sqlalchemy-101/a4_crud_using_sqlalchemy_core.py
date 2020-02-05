@@ -11,6 +11,9 @@ from a3_e_commerce_app import engine, metadata, customers, items, orders,\
 
 from sqlalchemy import select
 from pprint import pprint
+import os
+
+
 
 # ______________________________________________________________________
 
@@ -167,7 +170,7 @@ r = conn.execute(s)
 
 # We can access data in the row using column name, index position or
 # Column instance. For example: 
-
+'''
 s = select([customers])
 r = conn.execute(s)
 
@@ -183,5 +186,31 @@ print(row[0], row[1]) # access column data via column index position
 print(row[customers.c.id], row[customers.c.first_name]) # access column data via Column object
 
 print(row.id, row.first_name)    # access column data via attribute
-
+'''
 # ______________________________________________________________________
+# Filtering Records
+# access column data via Column object
+
+
+s = select([items]).where(
+    items.c.cost_price > 20
+)
+
+r = conn.execute(s)
+results = r.fetchall()
+
+pprint(results)
+
+pl() # ______________________
+
+s = select([items]).where(
+    items.c.selling_price > 50).where(
+         items.c.quantity > 10)
+
+r = conn.execute(s)
+results = r.fetchall()
+
+pprint(results)
+
+
+pl() # _________________________________________________________________
