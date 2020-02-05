@@ -9,7 +9,7 @@ from datetime import datetime
 from a3_e_commerce_app import engine, metadata, customers, items, orders,\
      order_lines, pl
 
-from sqlalchemy import select
+from sqlalchemy import select, and_, or_, not_
 from pprint import pprint
 import os
 
@@ -287,4 +287,50 @@ pprint(results)
 
 print('\n',s)
 
+
+
+pl() # _________________________________________________________________
+
+# Conjunctions Another way to connect conditions is to use conjunction
+# functions i.e and_(), or_() and not_().  
+
+# print all items that quantity is more or equals than 50 And price
+# less than 100 
+s = select([items]).where(
+    and_(items.c.quantity >= 50, items.c.cost_price < 100)
+)
+
+r = conn.execute(s)
+results = r.fetchall()
+
+pprint(results)
+print('\n',s)
+
 pl() # ______________________
+
+# print all items that quantity is more or equals than 50    OR price
+# less than 100
+s = select([items]).where(
+    or_(items.c.quantity >= 50, items.c.cost_price < 100)
+)
+
+r = conn.execute(s)
+results =  r.fetchall() 
+
+pprint(results)
+print('\n',s)
+
+pl() # ______________________
+
+# print all items that quantity is more or equals than 50 And price
+# less than 100 but not headphone
+s = select([items]).where(
+    and_(items.c.quantity >= 50, items.c.cost_price < 100, 
+                        not_(items.c.name == 'headphone'))
+)
+
+r = conn.execute(s)
+results =  r.fetchall() 
+
+pprint(results)
+print('\n',s)
