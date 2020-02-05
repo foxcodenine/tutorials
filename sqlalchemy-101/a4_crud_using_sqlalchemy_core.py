@@ -116,7 +116,7 @@ print(r.rowcount)
 r = conn.execute(insert(order_lines), order_line_list)
 print(r.rowcount)
 '''
-pl()
+pl(1)
 # ______________________________________________________________________
 
 # Selecting Records:
@@ -201,7 +201,7 @@ results = r.fetchall()
 
 pprint(results)
 
-pl() # ______________________
+pl(2) # ______________________
 
 # We can specify additional conditions by simple chaining the where()
 # method.
@@ -216,7 +216,7 @@ results = r.fetchall()
 pprint(results)
 
 
-pl() # _________________________________________________________________
+pl(3) # _________________________________________________________________
 
 # Bitwise Operators Bitwise Operators &, | and ~ allow us to connect
 # conditions with SQL AND, OR and NOT operators respectively.
@@ -231,7 +231,7 @@ r = conn.execute(s)
 results = r.fetchall()
 pprint(results)
 
-pl() # ______________________
+pl(4) # ______________________
 
 # print all items 
 s = select([items]) 
@@ -239,7 +239,7 @@ r = conn.execute(s)
 results = r.fetchall()
 pprint(results)
 
-pl() # ______________________
+pl(5) # ______________________
 
 # print all items that cost more than 200 or we have less than 5
 s = select([items]).where(
@@ -250,7 +250,7 @@ r = conn.execute(s)
 results = r.fetchall()
 pprint(results)
 
-pl() # ______________________
+pl(6) # ______________________
 
 # print all items that quantity is not equal to 50 
 
@@ -275,7 +275,7 @@ pprint(results)
 
 print('\n',s)
 
-pl() # ______________________
+pl(7) # ______________________
 
 s = select([items]).where(
     (items.c.quantity != 50) & (items.c.cost_price < 20)
@@ -289,7 +289,7 @@ print('\n',s)
 
 
 
-pl() # _________________________________________________________________
+pl(8) # _________________________________________________________________
 
 # Conjunctions Another way to connect conditions is to use conjunction
 # functions i.e and_(), or_() and not_().  
@@ -306,7 +306,7 @@ results = r.fetchall()
 pprint(results)
 print('\n',s)
 
-pl() # ______________________
+pl(9) # ______________________
 
 # print all items that quantity is more or equals than 50    OR price
 # less than 100
@@ -320,7 +320,7 @@ results =  r.fetchall()
 pprint(results)
 print('\n',s)
 
-pl() # ______________________
+pl(10) # ______________________
 
 # print all items that quantity is more or equals than 50 And price
 # less than 100 but not headphone
@@ -334,3 +334,123 @@ results =  r.fetchall()
 
 pprint(results)
 print('\n',s)
+
+pl(11) # _______________________________________________________________
+
+# Other Common Comparison Operators:
+
+# IS NULL, IS NOT NULL,  IN, NOT IN, BETWEEN, NOT BETWEEN, LIKE, & NOT LIKE
+
+s = select([orders]).where(
+    orders.c.date_shipped == None
+)
+
+results = conn.execute(s).fetchall()
+
+print(s, '\n')
+pprint(results)
+
+pl(12) # ______________________
+
+
+s = select([orders]).where(
+    orders.c.date_shipped != None
+)
+
+results = conn.execute(s).fetchall() 
+
+print(s, '\n')
+pprint(results)
+
+pl(13) # ______________________
+
+# .in()
+s = select([customers]).where(
+    customers.c.first_name.in_(['Sarah', 'John'])
+)
+
+results = conn.execute(s).fetchall()
+
+print(s, '\n')
+for r in results:
+    print(r.id, r.first_name, r.last_name)
+
+
+
+pl(14) # ______________________
+
+# .notin()
+s = select([customers]).where(
+    customers.c.first_name.notin_(['Sarah', 'John'])
+)
+
+results = conn.execute(s).fetchall()
+
+print(s, '\n')
+for r in results:
+    print(r.id, r.first_name, r.last_name)
+
+pl(15) # ______________________
+
+# .between()
+s = select([items]).where(
+    items.c.cost_price.between(10, 20)
+)
+
+results = conn.execute(s).fetchall()
+
+pprint(results)
+
+pl(16) # ______________________
+
+# _not() .between()
+s = select([items]).where(
+    not_(items.c.cost_price.between(10, 20))
+)
+
+results = conn.execute(s).fetchall()
+
+pprint(results)
+
+pl(17) # ______________________
+
+# .like()
+s = select([customers]).where(
+    customers.c.first_name.like('J%')
+)
+
+results = conn.execute(s).fetchall()
+
+for r in results:
+    print(r.id, r.first_name, r.last_name, r.email)
+
+pl(18) # ______________________
+
+
+# or you can use .ilike()  for none case sensitive querys
+
+s = select([customers]).where(
+    customers.c.first_name.ilike('j%')
+)
+
+results = conn.execute(s).fetchall()
+
+for r in results:
+    print(r.id, r.first_name, r.last_name, r.email)
+
+pl(19) # ______________________
+
+# not_() .like()
+s = select([customers]).where(
+    not_(customers.c.first_name.like('J%'))
+)
+
+results = conn.execute(s).fetchall()
+
+for r in results:
+    print(r.id, r.first_name, r.last_name, r.email)
+
+
+
+
+
