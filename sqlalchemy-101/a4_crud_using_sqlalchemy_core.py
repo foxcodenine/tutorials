@@ -188,8 +188,8 @@ print(row[customers.c.id], row[customers.c.first_name]) # access column data via
 print(row.id, row.first_name)    # access column data via attribute
 '''
 # ______________________________________________________________________
-# Filtering Records
-# access column data via Column object
+# Filtering Records usin where()
+# access column data via Column object 
 
 
 s = select([items]).where(
@@ -203,6 +203,9 @@ pprint(results)
 
 pl() # ______________________
 
+# We can specify additional conditions by simple chaining the where()
+# method.
+
 s = select([items]).where(
     items.c.selling_price > 50).where(
          items.c.quantity > 10)
@@ -214,3 +217,74 @@ pprint(results)
 
 
 pl() # _________________________________________________________________
+
+# Bitwise Operators Bitwise Operators &, | and ~ allow us to connect
+# conditions with SQL AND, OR and NOT operators respectively.
+
+# print all items that cost more than 50 and we have more than 10
+s = select([items]).where(
+    (items.c.selling_price > 50) & (items.c.quantity > 10)
+)
+
+r = conn.execute(s)
+
+results = r.fetchall()
+pprint(results)
+
+pl() # ______________________
+
+# print all items 
+s = select([items]) 
+r = conn.execute(s)
+results = r.fetchall()
+pprint(results)
+
+pl() # ______________________
+
+# print all items that cost more than 200 or we have less than 5
+s = select([items]).where(
+    (items.c.cost_price > 200) | (items.c.quantity < 5)
+)
+
+r = conn.execute(s)
+results = r.fetchall()
+pprint(results)
+
+pl() # ______________________
+
+# print all items that quantity is not equal to 50 
+
+s = select([items]).where(
+    ~(items.c.quantity == 50)
+)
+
+r = conn.execute(s)
+results = r.fetchall()
+pprint(results)
+
+
+# or you can also do:
+
+s = select([items]).where(
+    (items.c.quantity != 50)
+)
+
+r = conn.execute(s)
+results = r.fetchall()
+pprint(results)
+
+print('\n',s)
+
+pl() # ______________________
+
+s = select([items]).where(
+    (items.c.quantity != 50) & (items.c.cost_price < 20)
+)
+
+r = conn.execute(s)
+results = r.fetchall()
+pprint(results)
+
+print('\n',s)
+
+pl() # ______________________
