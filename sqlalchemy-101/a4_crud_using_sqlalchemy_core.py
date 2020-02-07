@@ -557,7 +557,7 @@ print('\n', str(r.keys()), '\n')
 
 pprint(results)
 
-pl(26) # ______________________
+pl(27) # ______________________
 
 # label()
 
@@ -578,4 +578,70 @@ pprint(results)
 
 
 
-pl(26) # ______________________
+pl(28) # _______________________________________________________________
+
+# Accessing Built- in Functions: 
+
+
+c = [
+    
+    #  date/time functions  #    
+    func.curtime(),
+    func.localtime(),
+    func.current_timestamp(),    
+    func.date_format(func.now(), '%M'),        
+    func.now(),
+
+    # matematical functions #
+    func.pow(4, 2),
+    func.sqrt(441), 
+    func.pi(), 
+    func.floor(func.pi()),
+    func.ceil(func.pi()),
+
+    # string functions #
+    func.lower("ABC"), 
+    func.upper("abc"), 
+    func.length("abc"), 
+    func.trim("  a  bc "),
+    func.char(65)      
+    
+    ]
+
+ 
+s = select(c)
+r = conn.execute(s)
+results = r.fetchall()
+
+
+for i in r.keys(): print(i)
+print('\n')
+for i in results[0]: print(i)
+
+pl(29) # ______________________ 
+
+#  Aggregate functions 
+
+c = [
+    func.sum(items.c.quantity), 
+    func.round(func.avg(items.c.quantity), 2),
+    func.max(items.c.quantity),
+    func.min(items.c.quantity), 
+    func.count(customers.c.id),
+]
+
+s = select(c)
+
+r = conn.execute(s)
+
+results = r.fetchall()
+
+print(s, '\n')
+for i in r.keys(): print(i)
+print('\n')
+for i in results[0]: print(i)
+
+pl(30) # _______________________________________________________________
+
+
+
