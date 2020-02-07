@@ -643,5 +643,133 @@ for i in results[0]: print(i)
 
 pl(30) # _______________________________________________________________
 
+# Grouping Results group_by() :
 
 
+s = select(
+    [func.count('*'), customers.c.town]
+).group_by(customers.c.town)
+
+
+r = conn.execute(s).fetchall()
+print(s, '\n')
+pprint(r)
+
+
+pl(31) # ______________________ 
+
+# To filter out the results based on the values returned by aggregate
+# functions we use having() method 
+
+s = select(
+    [func.count('*'), customers.c.town]
+).group_by(customers.c.town).having(func.count('*') >= 3)
+
+r = conn.execute(s)
+results = r.fetchall()
+
+print(s, '\n')
+print(results)
+
+pl(32) # _______________________________________________________________
+
+
+# The Table instance provides the following two methods to create joins:
+
+# 1. join() – creates inner join outerjoin() – creates 
+
+# 2. outer join (LEFT OUTER JOIN to be specific) 
+
+# The inner join returns only the rows which matches the join condition,
+# whereas the outer join returns the rows which matches the join
+# condition as well as some additional rows.
+
+# Both methods accept a Table instance, figures out the join condition
+# based on the foreign key relationship and returns a JOIN construct.
+
+
+j = customers.join(orders) 
+print(j, '\n')
+
+# If the methods can’t figure out the join condition correctly or you
+# want to specify an alternate condition, you can do so by passing the
+# join condition manually as a second argument.
+
+
+j = customers.join(items,
+                items.c.id == customers.c.id)
+
+print(j)
+
+pl(33) # ______________________ 
+
+# When we specify tables or list of columns in the select() function,
+# SQLAlchemy automatically places those tables in the FROM clause.
+# However, when we use join, we know exactly the tables we want in the
+# FROM clause, so we use the select_from() method. However, if we want
+# we can use select_from() in queries not involving joins too. For
+# example:
+
+s = select([
+    customers.c.id, 
+    customers.c.first_name, 
+    customers.c.last_name
+]).select_from(customers)
+
+
+r = conn.execute(s)
+results = r.fetchall()
+
+print(s, '\n')
+print(r.keys(), '\n')
+pprint(results)
+
+pl(34) # ______________________ 
+
+
+s = select(
+    [orders.c.id, 
+    orders.c.date_placed,
+    customers.c.last_name]
+).select_from(orders.join(customers)
+).where(and_(
+    customers.c.first_name == 'John', 
+    customers.c.last_name == 'Green'
+))
+
+r = conn.execute(s)
+results = r.fetchall()
+
+pprint(results)
+
+pl(35) # ______________________ 
+
+s = select(
+    [customers.c.id, 
+    (customers.c.first_name + ' ' + customers.c.last_name).label('customers_name'), 
+    items.c.name, 
+    func.sum(order_lines.c.quantity),
+    items.c.selling_price, 
+    (items.c.selling_price * func.sum(order_lines.c.quantity))
+    ]
+).select_from(customers.join(orders).join(order_lines).join(items)
+).group_by(items.c.name).where(customers.c.id == 1)
+
+r = conn.execute(s)
+
+results = r.fetchall() 
+
+
+
+
+var_fixed = []
+
+for row in results:
+    var_fixed.append(list(map(str, list(row))))
+
+for var in var_fixed:
+    print('Customer {} - purchase {} {} - for {} each. Total {}'.format(
+        var[1],var[3],var[2],var[4],var[5],)
+    , '\n')
+
+pl(36) # ______________________ 
