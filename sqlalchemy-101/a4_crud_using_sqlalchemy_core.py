@@ -10,6 +10,10 @@ from a3_e_commerce_app import engine, metadata, customers, items, orders,\
      order_lines, pl
 
 from sqlalchemy import select, and_, or_, not_
+from sqlalchemy import desc, asc
+
+
+
 from pprint import pprint
 import os
 
@@ -450,7 +454,128 @@ results = conn.execute(s).fetchall()
 for r in results:
     print(r.id, r.first_name, r.last_name, r.email)
 
+pl(20) # _______________________________________________________________
+
+#  Ordering Result
+
+s = select([items]).where(
+    items.c.quantity > 10
+).order_by(items.c.cost_price)
+
+results = conn.execute(s).fetchall() 
+pprint(results)
 
 
 
+pl(21) # ______________________
 
+# Adding asc() or desc() in the order by query: 
+
+s = select([items]).where(
+    items.c.quantity > 10
+).order_by(desc(items.c.name))
+
+results = conn.execute(s).fetchall()
+pprint(results)
+
+pl(22) # ______________________
+
+# Sorting rows according multiple columns: 
+
+s = select([customers]).order_by(
+    customers.c.town, desc(customers.c.last_name)
+)
+
+results = conn.execute(s).fetchall()
+
+for r in results:
+    print(r.first_name, r.last_name, r.town)
+
+pl(23) # _______________________________________________________________
+
+# Limiting Results. limit()
+
+s = select([items]).order_by(
+    items.c.quantity
+).limit(2) 
+
+results = conn.execute(s).fetchall()
+
+pprint(results)
+
+
+pl(24) # ______________________
+
+# Limit and offset. offset() 
+
+s = select([items]).order_by(
+    items.c.quantity
+).limit(2).offset(1)
+
+results = conn.execute(s).fetchall()
+
+pprint(results)
+
+
+pl(25) # _______________________________________________________________
+
+# Limiting Columns
+
+s = select([items.c.name, items.c.quantity]).where(
+    items.c.quantity == 50
+)
+
+# printing the sql query
+print('\n', s)
+
+
+r = conn.execute(s)
+
+# printing the columns selected
+print('\n',str(r.keys()))
+
+# printing the records
+results = r.fetchall()
+pprint(results)
+
+
+pl(26) # ______________________
+
+# simple calculations on the rows 
+
+s = select([
+    items.c.name,
+    items.c.quantity * 2    
+])
+
+r = conn.execute(s)
+results = r.fetchall()
+
+print(s)
+
+print('\n', str(r.keys()), '\n')
+
+pprint(results)
+
+pl(26) # ______________________
+
+# label()
+
+s = select([
+    items.c.name,
+    items.c.quantity,
+    (items.c.selling_price - items.c.cost_price).label('profit')
+])
+
+r = conn.execute(s)
+results = r.fetchall()
+
+print(s)
+
+print('\n', str(r.keys()), '\n')
+
+pprint(results)
+
+
+
+pl(26) # ______________________
