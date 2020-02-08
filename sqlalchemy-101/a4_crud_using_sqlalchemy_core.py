@@ -11,6 +11,10 @@ from a3_e_commerce_app import engine, metadata, customers, items, orders,\
 
 from sqlalchemy import select, and_, or_, not_
 from sqlalchemy import desc, asc
+from sqlalchemy import update, delete, cast
+from sqlalchemy import Date
+
+from sqlalchemy import union, union_all
 
 
 
@@ -676,9 +680,9 @@ pl(32) # _______________________________________________________________
 
 # The Table instance provides the following two methods to create joins:
 
-# 1. join() – creates inner join outerjoin() – creates 
+# 1. join() – creates inner join  
 
-# 2. outer join (LEFT OUTER JOIN to be specific) 
+# 2. outerjoin() – creates outer join (LEFT OUTER JOIN to be specific) 
 
 # The inner join returns only the rows which matches the join condition,
 # whereas the outer join returns the rows which matches the join
@@ -745,12 +749,12 @@ pprint(results)
 pl(35) # ______________________ 
 
 s = select(
-    [customers.c.id, 
-    (customers.c.first_name + ' ' + customers.c.last_name).label('customers_name'), 
-    items.c.name, 
-    func.sum(order_lines.c.quantity),
-    items.c.selling_price, 
-    (items.c.selling_price * func.sum(order_lines.c.quantity))
+    [(customers.c.id).label('customer_id'), 
+    (customers.c.first_name + ' ' + customers.c.last_name).label('customer_name'), 
+    (items.c.name).label('item_name'), 
+    func.sum(order_lines.c.quantity).label('item_qty'),
+    items.c.selling_price.label('price_of_each'), 
+    (items.c.selling_price * func.sum(order_lines.c.quantity)).label('item_total_price')
     ]
 ).select_from(customers.join(orders).join(order_lines).join(items)
 ).group_by(items.c.name).where(customers.c.id == 1)
@@ -760,6 +764,9 @@ r = conn.execute(s)
 results = r.fetchall() 
 
 
+print(s, '\n')
+
+print(r.keys(), '\n')
 
 
 var_fixed = []
@@ -771,5 +778,203 @@ for var in var_fixed:
     print('Customer {} - purchase {} {} - for {} each. Total {}'.format(
         var[1],var[3],var[2],var[4],var[5],)
     , '\n')
+    
+
 
 pl(36) # ______________________ 
+
+s = select([ 
+    orders.c.id.label('order_id'),
+    orders.c.date_placed,
+    order_lines.c.quantity,
+    items.c.name,
+]).select_from(
+    orders.join(customers).join(order_lines).join(items)
+).where(
+    and_(customers.c.first_name == 'John',
+    customers.c.last_name == 'Green')
+)
+
+
+r = conn.execute(s)
+results = r.fetchall() 
+
+print(s, '\n')
+print(r.keys(), '\n')
+pprint(results)
+
+pl(37) # ______________________ 
+
+# outerjoin() -- Left Join
+
+s = select([
+    customers.c.first_name, 
+    orders.c.id
+]).select_from(
+    customers.outerjoin(orders)
+)
+
+r = conn.execute(s)
+
+results = r.fetchall() 
+
+print(s, '\n')
+print(r.keys(), '\n')
+pprint(results)
+
+pl(38) # ______________________ 
+
+# FULL OUTER JOIN   table1.outerjoin(table2, full=True)
+
+# s = select([        
+#     customers.c.first_name,
+#     orders.c.id,
+# ]).select_from(
+#     orders.outerjoin(customers, full=True)
+# )
+
+# r = conn.execute(s)
+
+# results = r.fetchall() 
+
+
+# pprint(results)
+'''MySQL and Full Outer Join. In SQL, a full outer join is a join that
+returns all records from both tables, wheter there's a match or not:
+unfortunately MySQL doesn't support this kind of join, and it has to be
+emulated somehow'''
+
+pl(39) # _______________________________________________________________ 
+
+# Updating Records --  .update() 
+
+
+s = update(items).where(
+    items.c.name == 'Water Bottle'
+).values(
+    selling_price = 30,
+    quantity = 60,
+)
+
+r = conn.execute(s)
+
+print(s)
+print('\nnumber_of_row_updated >>', r.rowcount)
+
+pl(40) # ______________________ 
+
+# Deleting Records --  .delete() 
+
+records = [
+    {
+        'first_name': 'Chris',
+        'last_name': 'Farrugia',
+        'username': 'chrismariojimmy',
+        'email': 'foxcode9@gmail.com',
+        'address': '45, Alexander street',
+        'town': 'Birzebbugia'
+    },
+    {
+        'first_name': 'Mandy',
+        'last_name': 'Casha Farrugia',
+        'username': 'mandymaryjane',
+        'email': 'mandymandy17@gmail.com',
+        'address': '10, Triq il-Paci',
+        'town': 'Zurrieq'
+    },
+]
+
+input_records = conn.execute(insert(customers), records)
+
+
+
+
+s = select([customers]).where(customers.c.last_name.like('%farrugia%'))
+
+results = conn.execute(s).fetchall()
+for row in results: print(
+    row.id, row.first_name, row.last_name, row.username, row.email, row.town
+)
+
+
+s = delete(customers).where(customers.c.last_name.like('%farrugia%'))
+
+r = conn.execute(s)
+
+print('\nnumber_of_row_deleted >>', r.rowcount)
+
+pl(41) # _______________________________________________________________
+
+# Distinct -- .distinct()
+
+s = select([customers.c.town])
+
+r = conn.execute(s).fetchall()
+
+pprint(r)
+
+print('\n') # _________________
+
+s = select([customers.c.town]).distinct()
+
+r = conn.execute(s).fetchall()
+
+pprint(r)   
+
+pl(42) # ______________________ 
+
+s = select([
+    func.count(customers.c.town),
+    func.count(customers.c.town.distinct())
+])
+
+r = conn.execute(s).fetchall()
+
+print(r)
+
+pl(41) # _______________________________________________________________
+
+# Casting -- Casting convert data from one type to another. cast() 
+
+s = select([
+    cast(func.pi(), Integer),
+    cast(func.pi(), Numeric),
+    cast("2010-12-01", DateTime),
+    cast(func.now(), Date),
+    cast(func.round(func.pi(), 2), String)
+
+])
+
+r = conn.execute(s).fetchall() 
+
+pprint(r)
+
+pl(42) # _______________________________________________________________
+
+# Unions -- union operator combine results set of multiple select statements. 
+# union()
+
+
+u = union(
+    select([items.c.id, items.c.name]).where(items.c.name.like('%a%')),
+    select([items.c.id, items.c.name]).where(items.c.name.like('%e%'))
+)
+
+r = conn.execute(u).fetchall() 
+
+pprint(r)
+
+pl(42) # ______________________ 
+
+# union_all() 
+
+u = union_all(
+    select([items.c.id, items.c.name]).where(items.c.name.like('%a%')),
+    select([items.c.id, items.c.name]).where(items.c.name.like('%e%'))
+).order_by('name')
+
+r = conn.execute(u).fetchall()
+
+pprint(r)
+
+pl(43) # _______________________________________________________________ 
