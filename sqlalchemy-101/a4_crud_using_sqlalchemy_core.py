@@ -11,7 +11,8 @@ from a3_e_commerce_app import engine, metadata, customers, items, orders,\
 
 from sqlalchemy import select, and_, or_, not_
 from sqlalchemy import desc, asc
-from sqlalchemy import update
+from sqlalchemy import update, delete, cast
+from sqlalchemy import Date
 
 
 
@@ -857,4 +858,44 @@ r = conn.execute(s)
 
 print(s)
 print('\nnumber_of_row_updated >>', r.rowcount)
+
+pl(40) # ______________________ 
+
+# Deleting Records --  .delete() 
+
+records = [
+    {
+        'first_name': 'Chris',
+        'last_name': 'Farrugia',
+        'username': 'chrismariojimmy',
+        'email': 'foxcode9@gmail.com',
+        'address': '45, Alexander street',
+        'town': 'Birzebbugia'
+    },
+    {
+        'first_name': 'Mandy',
+        'last_name': 'Casha Farrugia',
+        'username': 'mandymaryjane',
+        'email': 'mandymandy17@gmail.com',
+        'address': '10, Triq il-Paci',
+        'town': 'Zurrieq'
+    },
+]
+
+input_records = conn.execute(insert(customers), records)
+
+
+
+
+s = select([customers]).where(customers.c.last_name.like('%farrugia%'))
+
+results = conn.execute(s).fetchall()
+for row in results: print(row)
+
+
+s = delete(customers).where(customers.c.last_name.like('%farrugia%'))
+
+r = conn.execute(s)
+
+print('\nnumber_of_row_deleted >>', r.rowcount)
 
