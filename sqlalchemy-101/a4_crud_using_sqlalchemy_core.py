@@ -16,6 +16,7 @@ from sqlalchemy import Date
 
 from sqlalchemy import union, union_all
 
+from sqlalchemy.exc import InternalError
 
 
 from pprint import pprint
@@ -978,3 +979,181 @@ r = conn.execute(u).fetchall()
 pprint(r)
 
 pl(43) # _______________________________________________________________ 
+
+# Creating Subqueries
+# We can also access data from multiple tables using subqueries.
+
+# The following query returns the id and name of the items ordered by
+# John Green in his first order:
+
+s = select([
+    items.c.id,
+    items.c.name
+]).where(items.c.id.in_(select([order_lines.c.item_id]).select_from(
+    order_lines.join(orders).join(customers)
+).where(and_(
+    customers.c.first_name == 'John',
+    customers.c.last_name == 'Green',
+    orders.c.id == 1
+))
+))
+
+r = conn.execute(s).fetchall() 
+pprint(r)
+
+pl(44) # ______________________ 
+
+# This query can also be written using JOINs as follows:
+
+s = select([
+    items.c.id, 
+    items.c.name
+]).select_from(items.join(order_lines).join(orders).join(customers)
+).where(and_(
+    customers.c.first_name == 'John', 
+    customers.c.last_name == 'Green', 
+    orders.c.id == 1
+))
+
+r = conn.execute(s).fetchall()
+
+pprint(r)
+
+s = select([items.c.id, items.c.name]).select_from(customers.join(orders).join(order_lines).join(items)).where(    
+        and_(
+            customers.c.first_name == 'John',
+            customers.c.last_name == 'Green',
+            orders.c.id == 1
+        )    
+)
+
+pl(45) # _______________________________________________________________
+
+# Raw Queries text()
+
+s = text(
+    """
+    SELECT 
+        items.id AS 'item_id', 
+        items.name AS 'item_name', 
+        orders.id AS 'order_id'
+    FROM 
+        items 
+        INNER JOIN order_lines ON items.id = order_lines.item_id
+        INNER JOIN orders ON order_lines.order_id = orders.id
+        INNER JOIN customers ON orders.customer_id = customers.id
+    WHERE
+        customers.first_name = :a
+    AND 
+        customers.last_name = :b 
+  
+    """
+)
+
+r = conn.execute(s, a='John', b='Green').fetchall()
+
+pprint(r)
+
+# Notice that the SELECT statement contains two bind parameters: a and
+# b. The values to these parameters is passed via the execute() method.
+
+
+
+
+pl(47) # ______________________ 
+
+s = select([items.c.name]).where(
+    text("items.name LIKE 'Wa%'")
+).order_by(text("items.id DESC"))
+
+r = conn.execute(s).fetchall()
+
+pprint(r)
+
+pl(48) # ______________________ 
+
+r = conn.execute(text(
+"SELECT DISTINCT CONCAT(first_name, ' ', last_name) FROM customers")
+).fetchall()
+
+print(r)
+
+pl(49) # _______________________________________________________________
+
+# Transactions 
+
+# A transaction is a way to execute a set of SQL statements such that either all
+# of the statements are executed successfully or nothing at all.
+
+
+# The Connection object provides a begin() method, which starts the
+# transaction and returns an object of type Transaction. The Transaction
+# object in turn provides rollback() and commit() method, to rollback
+# and commit the transaction, respectively.
+
+# In the following listing we define dispatch_order() method which
+# accepts order_id as argument, and performs the above mentioned actions
+# using transaction.
+
+'''
+scalar(object_, *multiparams, **params)
+Executes and returns the first column of the first row.
+
+The underlying cursor is closed after execution.
+'''
+
+def dispatch_order(order_id):
+
+    # check whether order_id is a valid or not:
+    r = select([orders.c.id]).where(orders.c.id == order_id).scalar()
+
+    if not r:
+        raise ValueError("Invalid order id: {}".format(order_id))
+
+    # fetch items in the order:
+    s = select([
+        order_lines.c.item_id,
+        order_lines.c.quantity
+    ]).where(order_lines.c.order_id == order_id)
+
+    ordered_items = conn.execute(s).fetchall()
+
+    # start transection:
+    t = conn.begin()
+
+    try:
+        # 1st we update the items table (quantities):
+        for current in ordered_items:
+            u = update(items).where(
+                items.c.id == current.item_id).values(
+                    quantity = items.c.quantity - current.quantity
+                )
+            rs = conn.execute(u)
+
+
+        # 2nd we update the orders tables (shipping date):
+        u = update(orders).where(
+            orders.c.id == order_id).values(
+                date_shipped = func.now())
+
+        rs = conn.execute(u)
+
+        t.commit()
+        print('Transaction Completed')
+
+    except InternalError as e: 
+        print(e)
+        t.rollback()
+        print('Transection Failed')
+
+'''
+select items.name, order_lines.quantity as 'order_qty', items.quantity as 'avalible'
+    -> from items
+    -> inner join order_lines on items.id = order_lines.item_id
+    -> inner join orders on orders.id = order_lines.order_id
+    -> where orders.id = 1;
+'''
+
+# current I have 5 Chair and 3 Pen
+            
+dispatch_order(1)
