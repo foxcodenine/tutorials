@@ -16,7 +16,24 @@ app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = uuid4().hex
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///p:/Projects/tutorials/Udemy/The Ultimate Flask Course/19.Flask-Security/security.db' 
 
+
+# This is used  to access the http://127.0.0.1:5000/register  page.
+app.config['SECURITY_REGISTERABLE'] = True
+
+# This is used to register: 
+app.config['SECURITY_PASSWORD_SALT'] = 'This_is_a_secret'
+
+# to remove the error:  AttributeError: 'NoneType' object has no attribute 'send'
+app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
+
+
+
+
+
 db = SQLAlchemy(app)
+
+# ______________________________________________________________________
+
 
 roles_users = db.Table('roles_users',
     db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
@@ -39,6 +56,32 @@ class User(db.Model, UserMixin):
 
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
+# ______________________________________________________________________
+
+# try the following url from :
+# https://pythonhosted.org/Flask-Security/configuration.html
+# URLs and Views
+
+# http://127.0.0.1:5000/login
+
+# http://127.0.0.1:5000/register  # <-- need to add config
+
+
+
+
+
+'''
+chris@gmail.com
+password1
+
+maria@gmail.com
+password1
+
+
+
+'''
+
+# ______________________________________________________________________
 
 
 if __name__ == '__main__':
