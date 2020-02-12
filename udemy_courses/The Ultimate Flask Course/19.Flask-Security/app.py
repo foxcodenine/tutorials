@@ -5,7 +5,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, \
-     RoleMixin, login_required
+     RoleMixin, login_required, login_required, current_user
 from uuid import uuid4
 
 # ______________________________________________________________________
@@ -74,6 +74,21 @@ def pass_changed():
     return '<h2>Password change successfully!</h2>'
 
 
+
+@app.route('/')
+def index():
+    return '<h2>home page</h2>'
+
+
+
+@app.route('/protected')
+@login_required
+def protected():
+    return '<h2>This is protected! You email is {}.</h2>'.format(current_user.email)
+
+
+
+
 # ______________________________________________________________________
 
 # try the following url from :
@@ -90,7 +105,7 @@ def pass_changed():
 
 '''
 chris@gmail.com
-password1
+password2
 
 maria@gmail.com
 password1
