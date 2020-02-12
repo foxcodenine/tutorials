@@ -5,7 +5,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, \
-     RoleMixin, login_required, login_required, current_user
+     RoleMixin, login_required, login_required, current_user, roles_accepted, \
+     roles_required
 from uuid import uuid4
 
 # ______________________________________________________________________
@@ -77,6 +78,16 @@ def pass_changed():
 
 @app.route('/')
 def index():
+
+    try:
+        # finding or creating a role (this case 'admin')
+        admin_role = user_datastore.find_or_create_role('admin')
+        # assigning the admin_role to current_user
+        user_datastore.add_role_to_user(current_user, admin_role)
+        db.session.commit()
+    except TypeError:
+        return '<h2>home page</h2>'
+
     return '<h2>home page</h2>'
 
 
@@ -87,6 +98,10 @@ def protected():
     return '<h2>This is protected! You email is {}.</h2>'.format(current_user.email)
 
 
+@app.route('/roleprotected')
+@roles_accepted('admin')
+def roleprotected():
+    return '<h2>This is for admin only!</h2>'
 
 
 # ______________________________________________________________________
