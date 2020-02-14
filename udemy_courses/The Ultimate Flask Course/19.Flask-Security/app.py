@@ -11,6 +11,10 @@ from uuid import uuid4
 
 from flask_mail import Mail
 
+from flask_security.forms import RegisterForm, ConfirmRegisterForm, SendConfirmationForm
+from wtforms import StringField, IntegerField
+from wtforms.validators import InputRequired
+
 # ______________________________________________________________________
 
 app = Flask(__name__)
@@ -80,6 +84,7 @@ mail = Mail(app)
 # ______________________________________________________________________
 
 
+
 roles_users = db.Table('roles_users',
     db.Column('user_id', db.Integer(), db.ForeignKey('user.id')),
     db.Column('role_id', db.Integer(), db.ForeignKey('role.id'))) 
@@ -90,17 +95,39 @@ class Role(db.Model, RoleMixin):
     description = db.Column(db.String(255))
 
 class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)    
     email = db.Column(db.String(255), unique=True)
     password = db.Column(db.String(255))
+    name = db.Column(db.String(255))
+    age = db.Column(db.Integer)
     active = db.Column(db.Boolean())
     confirmed_at = db.Column(db.DateTime())
     roles = db.relationship('Role', secondary=roles_users,
                             backref=db.backref('users', lazy='dynamic'))
 
 
+# We have added two field to the default db ,name and age. 
+# Here we are extending the form field from the defaul RegisterForm. 
+# To know which form to extend from you need to check form.py from github 
+# or localy from your site-packages folder  (check ref (D) below for path). 
+# The process is similar to flask-wdt forms.
+
+class ExtendedRegisterForm(ConfirmRegisterForm):
+    name = StringField('Fullname', validators=[InputRequired()])
+    age = IntegerField('Age')
+
+# the above woulden't work so i have edit the forms.py in my localy  
+# site-packages folder at flask-secrity (check ref (D) below for path).
+# I have marke it with the following text:
+''' I have edited this Class and I have added this Class''' 
+#  have copyed the forms.py to this dir for ref.
+# ______________________________________________________________________
+
+
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
-security = Security(app, user_datastore)
+security = Security(app, user_datastore, register_form=ExtendedRegisterForm) #<-- (F)
+
+# you need to register and new form here (F)  register_form=ExtendedRegisterForm
 # ______________________________________________________________________
 
 @app.route('/pass_changed')
@@ -192,16 +219,16 @@ password1
 '''
 
 # ______________________________________________________________________
-
+# ref (D)
 # To Customize the templates
 # the below code with print the flask-user directory
 # copy the form template file to your app directory 
 # note the directory from your app to trmplate should match that of the package
 # modifiy the copyed template (not the original package one)
-# import os
-# import flask_mail
+import os
+import flask_mail
 
-# print('\n>>>>>>>> >>',os.path.dirname(flask_mail.__file__))
+print('\n>>>>>>>> >>',os.path.dirname(flask_mail.__file__))
 
 #_______________________________________________________________________
 
