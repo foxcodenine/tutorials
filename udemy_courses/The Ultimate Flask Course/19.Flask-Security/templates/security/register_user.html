@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <title>Register New User</title>
+    <style>
+      h2 {
+        font-family: Arial, Helvetica, sans-serif;}
+
+      .inputbox {color: red;
+                width: 300px;}
+
+      label[for="email"], label[for="password"]{
+        color: blue;
+        width: 100px;
+        display: inline-block;}
+
+
+      .container {border: 1px solid black;
+                  padding: 15px;
+                  width: 430px;
+                  margin: 20px auto 20px auto;}
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        {% from "security/_macros.html" import render_field_with_errors, render_field %}
+        {% include "security/_messages.html" %}
+        {# <!-- <h1>{{ _('Register') }}</h1> --> #}
+        <h2>This is a Custom Registraton page!</h2>
+        <form action="{{ url_for_security('register') }}" method="POST" name="register_user_form">
+        <div class="one">
+        <span>{{ register_user_form.hidden_tag() }}</span>
+        {{ render_field_with_errors(register_user_form.email, class_="inputbox") }}
+        </div>
+        <div>
+        {{ render_field_with_errors(register_user_form.password, class_="inputbox") }}
+        {% if register_user_form.password_confirm %}
+        {{ render_field_with_errors(register_user_form.password_confirm) }}
+        {% endif %}
+        </div>
+        {{ render_field(register_user_form.submit) }}
+        </form>
+        {% include "security/_menu.html" %}
+    </div>
+    
+
+
+  </body>
+</html>

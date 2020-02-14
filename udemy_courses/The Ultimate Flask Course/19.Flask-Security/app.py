@@ -48,6 +48,7 @@ app.config['SECURITY_SEND_PASSWORD_CHANGE_EMAIL'] = False
 # This is to send a confermation email:
 app.config['SECURITY_CONFIRMABLE'] = True
 
+# rediredting to this url after selecting the confirm link in email:
 app.config['SECURITY_POST_CONFIRM_VIEW'] = '/confirmed'
 
 
@@ -55,7 +56,7 @@ app.config['SECURITY_POST_CONFIRM_VIEW'] = '/confirmed'
 app.config.update(
     MAIL_SERVER = 'smtp.gmail.com',
     MAIL_USERNAME = 'farrugiachris12@gmail.com',
-    MAIL_PASSWORD = 'o-6',
+    MAIL_PASSWORD = 'orange-6',
     MAIL_DEFAULT_SENDER = ('Chris from flask-mail','no-reply@example.com'),
     MAIL_PORT = 465,
     MAIL_USE_TLS = False,
@@ -66,6 +67,12 @@ app.config.update(
 # app.config['SECURITY_EMAIL_SENDER'] = 'chrismariojimmy@yahoo.com'
 
 
+# custimize subject
+app.config['SECURITY_EMAIL_SUBJECT_REGISTER'] = 'This is a custimized Welcome ;)'
+
+# as name sugest:
+app.config['SECURITY_EMAIL_PLAINTEXT'] = True 
+app.config['SECURITY_EMAIL_HTML'] = False
 
 db = SQLAlchemy(app)
 mail = Mail(app)
