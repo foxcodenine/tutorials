@@ -3,21 +3,41 @@
     <title>Register New User</title>
     <style>
       h2 {
-        font-family: Arial, Helvetica, sans-serif;}
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 100%;}
 
       .inputbox {color: red;
-                width: 300px;}
+                width: 269px;}
 
-      label[for="email"], label[for="password"]{
+      label[for="email"], label[for="password"], label[for="name"], label[for="age"]{
         color: blue;
-        width: 100px;
-        display: inline-block;}
+        width: 95px;
+        display: inline-block;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 90%;
+        margin-left: 0px;
+        padding-left: 0px;}
 
 
       .container {border: 1px solid black;
-                  padding: 15px;
-                  width: 430px;
+                  padding: 15px 25px 15px 15px;
+                  width: 370px;
                   margin: 20px auto 20px auto;}
+      
+      div.right {text-align: right;}
+
+      input[id="age"] {width: 30px;}
+      input[id="name"] {width: 200px;}
+      label[for="age"] {width: 30px;}
+
+      /* p label[id="age"], p label[id="name"] {display: inline;} */
+
+      div.inline p {display: inline;}
+      label[for="name"], label[for="age"] {margin: 0px;}
+      div.heading{text-align: center;
+                  text-decoration: underline;
+                  margin-left: 20px;}
+
 
     </style>
   </head>
@@ -26,23 +46,23 @@
         {% from "security/_macros.html" import render_field_with_errors, render_field %}
         {% include "security/_messages.html" %}
         {# <!-- <h1>{{ _('Register') }}</h1> --> #}
-        <h2>This is a Custom Registraton page!</h2>
+
+        <div class="heading"><h2>This is a Custom Registraton page!</h2></div>
         <form action="{{ url_for_security('register') }}" method="POST" name="register_user_form">
         
         {{ register_user_form.hidden_tag() }}
 
-   
-        <div>
-          {{ render_field_with_errors(register_user_form.email, class_="inputbox") }}
+          <div class="right">
+            <div class="inline">
           {{ render_field_with_errors(register_user_form.name, class_="inputbox") }}
-          {{ render_field_with_errors(register_user_form.age, class_="inputbox") }}
-        </div>
-        <div>
-        {{ render_field_with_errors(register_user_form.password, class_="inputbox") }}
-        {% if register_user_form.password_confirm %}
-        {{ render_field_with_errors(register_user_form.password_confirm) }}
-        {% endif %}
-        </div>
+          {{ render_field_with_errors(register_user_form.age, class_="inputbox") }}  </div>
+          {{ render_field_with_errors(register_user_form.email, class_="inputbox") }}       
+          {{ render_field_with_errors(register_user_form.password, class_="inputbox") }}
+          {% if register_user_form.password_confirm %}
+          {{ render_field_with_errors(register_user_form.password_confirm) }}
+          {% endif %}
+          </div>
+       
         {{ render_field(register_user_form.submit) }}
         </form>
         {% include "security/_menu.html" %}
