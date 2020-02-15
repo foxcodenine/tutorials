@@ -6,8 +6,9 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, \
      RoleMixin, login_required, login_required, current_user, roles_accepted, \
-     roles_required
+     roles_required, http_auth_required
 from uuid import uuid4
+
 
 from flask_mail import Mail
 
@@ -192,6 +193,12 @@ def remove_admin():
 @login_required
 def confirm():
     return "<h3>{} is confirmed</h3>".format(current_user.email)
+
+@app.route('/httpprotected')
+@http_auth_required 
+def httpprotected():
+    return '<h2>This is the basic auth page!</h2>'
+
 
 # ______________________________________________________________________
 
