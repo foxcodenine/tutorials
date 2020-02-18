@@ -79,7 +79,9 @@ def profile():
 
 @app.route('/register')
 def register():
-    return render_template('register.html')
+
+    form = RegisterForm()
+    return render_template('register.html', form = form)
 
 # ______________________________________
 
