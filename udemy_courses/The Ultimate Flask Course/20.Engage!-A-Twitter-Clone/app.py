@@ -77,10 +77,14 @@ def profile():
 
 # ______________________________________
 
-@app.route('/register')
+@app.route('/register', methods=['POST', 'GET'])
 def register():
-
+    
     form = RegisterForm()
+
+    if form.validate_on_submit():
+        return "<h1>name: {}<br>username: {}<br>password: {}<br></h1>".format(form.name.data, form.username.data, form.password.data)
+
     return render_template('register.html', form = form)
 
 # ______________________________________

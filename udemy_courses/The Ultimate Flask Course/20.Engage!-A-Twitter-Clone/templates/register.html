@@ -30,12 +30,18 @@
 
 					<br />
 
-					<form action="{{ url_for('register') }}" method="POST">
+					<form action="{{ url_for('register') }}" method="POST" novalidate>
 						
 							{{ form.csrf_token }}
 
 						<div class="form-group">
 							{{ form.name(class="form-control", placeholder="Enter your full name")  }}
+							<ul>
+								{% for error in form.name.errors %}
+								<li style="color: red;">{{ error }}</li>
+								{% endfor %}
+							</ul>
+
 						</div>
 
 						{# <!-- <div class="form-group">
@@ -43,12 +49,22 @@
 						</div> --> #}
 	
 						<div class="form-group">
-							{{ form.username(class="form-control", placeholder="Enter your username") }}							
+							{{ form.username(class="form-control", placeholder="Enter your username") }}
+							<ul>
+								{% for error in form.username.errors %}
+								<li style="color: red;">{{ error }}</li>
+								{% endfor %}
+							</ul>							
 						</div>
 						
 
 						<div class="form-group">
-							{{ form.password(class="form-control", placeholder="Enter your password") }}							
+							{{ form.password(class="form-control", placeholder="Enter your password") }}
+							<ul>
+								{% for error in form.password.errors %}
+								<li style="color: red;">{{ error }}</li>
+								{% endfor %}
+							</ul>							
 						</div>
 						
 						<div class="form-group">
@@ -58,7 +74,7 @@
 						</div>
 	
 						<div class="form-group">
-							<button type="button" class="btn btn-danger btn-block">Sign up</button>
+							<button type="submit" class="btn btn-danger btn-block">Sign up</button>
 						</div>
 					</form>
 
