@@ -33,12 +33,15 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 # ______________________________________________________________________
 
+class Users(db.Model):
+    __tablename__ = 'users' 
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    username = db.Column(db.String(50), unique=True)
+    password = db.Column(db.String(50))
+    image = db.Column(db.String(100))
 
-# Testing:
-# class Role(db.Model):
-#     id = db.Column(db.Integer(), primary_key=True)
-#     name = db.Column(db.String(80), unique=True)
-#     description = db.Column(db.String(255))
+
 # ______________________________________________________________________
 
 @app.route('/')
@@ -67,4 +70,12 @@ def timeline():
 # ______________________________________________________________________
 
 if __name__ == '__main__':
-    app.run()
+    manager.run()
+
+
+# to start app in comandline:
+# python .\app.py runserver
+
+# to start migrate:
+# python app.py db init
+# python app.py db migrate
