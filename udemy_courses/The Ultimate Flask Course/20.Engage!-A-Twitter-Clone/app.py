@@ -8,7 +8,7 @@
 
 # ______________________________________________________________________
 
-from flask import Flask, render_template, redirect, request 
+from flask import Flask, render_template, redirect, request, url_for
 from uuid import uuid4
 
 from flask_sqlalchemy import SQLAlchemy
@@ -21,6 +21,8 @@ from wtforms.validators import InputRequired, Length
 from flask_wtf.file import FileAllowed, FileField
 
 from flask_uploads import UploadSet, configure_uploads, IMAGES
+
+from werkzeug.security import generate_password_hash, check_password_hash
 
 # ______________________________________________________________________
 
@@ -57,7 +59,7 @@ class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
     username = db.Column(db.String(50), unique=True)
-    password = db.Column(db.String(50))
+    password = db.Column(db.String(255))
     image = db.Column(db.String(100))
 
 
@@ -100,8 +102,18 @@ def register():
         image_filaname  = photos.save(form.image.data)
         image_url = photos.url(image_filaname)
 
-        return "<h1>name: {}<br>username: {}<br>password: {}<br>image url: {}</h1>".format(
-            form.name.data, form.username.data, form.password.data, image_url)
+        new_user = Users(
+                        name=form.name.data, 
+                        username=form.username.data, 
+                        password=generate_password_hash(form.password.data), 
+                        image=image_url)
+        db.session.add(new_user)
+        db.session.commit()
+
+        # return "<h1>name: {}<br>username: {}<br>password: {}<br>image url: {}</h1>".format(
+        #     form.name.data, form.username.data, form.password.data, image_url)
+
+        return redirect(url_for('profile'))
 
     return render_template('register.html', form = form)
 
@@ -126,9 +138,21 @@ if __name__ == '__main__':
 # to start migrate:
 # python app.py db init
 # python app.py db migrate
-# python app.py db upgarde
-
+# python app.py db upgrade
+# python app.py db downgrade
 
 
 # versions:
 # .\20.Engage!-A-Twitter-Clone\migrations\versions\55fcbf9329c6_.py
+
+
+
+'''
+test users:
+
+Joelle Ellul
+Runner
+secret07
+
+
+'''
