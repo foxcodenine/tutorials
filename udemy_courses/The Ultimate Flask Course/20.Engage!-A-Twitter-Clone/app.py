@@ -16,7 +16,7 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, IntegerField
+from wtforms import StringField, PasswordField, IntegerField, BooleanField
 from wtforms.validators import InputRequired, Length
 from flask_wtf.file import FileAllowed, FileField
 
@@ -79,11 +79,21 @@ class RegisterForm(FlaskForm):
             message='Password should be between 8 to 50 characters long!')])
     image = FileField(validators=[FileAllowed(IMAGES, message='Only image files are allowed!')])
 
+class LoginForm(FlaskForm):
+    username = StringField('Username')
+    password = PasswordField('Password')
+    remember = BooleanField('Remember me')
+
 # ______________________________________________________________________
 
-@app.route('/')
+@app.route('/', methods=['POST', 'GET'])
 def index():
-    return render_template('index.html')
+    form = LoginForm()
+
+    if form.validate_on_submit():
+        return '<h2>Username: {}<br><h2>Password: {}<br><h2>Remember: {}<br></h2>'.format(form.username.data, form.password.data, form.remember.data)
+
+    return render_template('index.html',form=form)
 
 # ______________________________________
 
