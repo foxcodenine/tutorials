@@ -93,8 +93,8 @@ class RegisterForm(FlaskForm):
     image = FileField(validators=[FileAllowed(IMAGES, message='Only image files are allowed!')])
 
 class LoginForm(FlaskForm):
-    username = StringField('Username')
-    password = PasswordField('Password')
+    username = StringField('Username', validators=[InputRequired('Username is required!')])
+    password = PasswordField('Password', validators=[InputRequired('Password is required!')])
     remember = BooleanField('Remember me')
 
 # ______________________________________________________________________
@@ -103,32 +103,33 @@ class LoginForm(FlaskForm):
 def index():
     form = LoginForm()
 
-    if form.validate_on_submit():
-        return '<h2>Username: {}<br><h2>Password: {}<br><h2>Remember: {}<br></h2>'.format(form.username.data, form.password.data, form.remember.data)
-
     return render_template('index.html',form=form)
 
 # ______________________________________
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
-
     form = LoginForm() 
+
+    if request.method == 'GET':        
+        return render_template('index.html', form=form)
+
+    
 
     if form.validate_on_submit():
 
         loged_user = Users.query.filter_by(username=form.username.data).first()
 
         if not loged_user:
-            return 'User does not exist!'
+            return render_template('index.html', form=form, username_message='User does not exist!')
 
         if check_password_hash(loged_user.password, form.password.data):
             login_user(loged_user, remember=form.remember.data)
             return redirect(url_for('profile'))
         
-        return 'Login failed!'
+        return render_template('index.html', form=form, password_message='Password does not match!')
     
-    return redirect(url_for('index'))
+    return render_template('index.html',form=form)
 
 
 # ______________________________________
