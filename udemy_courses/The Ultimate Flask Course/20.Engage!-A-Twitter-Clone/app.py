@@ -4,6 +4,7 @@
 # pip install flask-script
 # pip install flask-wtf
 # pip install flask-uploads
+# pip install flask-login
 
 
 # ______________________________________________________________________
@@ -24,6 +25,8 @@ from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from flask_login import LoginManager, UserMixin, login_required, login_user,  logout_user, current_user
+
 # ______________________________________________________________________
 
 app = Flask(__name__)
@@ -40,6 +43,10 @@ app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:ayanami9@localhost/t
 # app.config['MAX_CONTENT_LENGTH'] = 1 * 960 * 960
 # ______________________________________________________________________
 
+# setup flask-login 
+
+login_manager = LoginManager(app)
+
 # setup sqlalchemy db
 db = SQLAlchemy(app)
 
@@ -54,7 +61,7 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 # ______________________________________________________________________
 
-class Users(db.Model):
+class Users(UserMixin, db.Model):
     __tablename__ = 'users' 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
@@ -62,6 +69,12 @@ class Users(db.Model):
     password = db.Column(db.String(255))
     image = db.Column(db.String(100))
 
+# This decorator  spessify that the following function is used by
+# flask_login to connect to an actual user when a user is loged in
+@login_manager.user_loader
+def load_user(user_id):
+    return Users.query.get(int(user_id))
+    # return User.query.filter_by(id=int(user_id)) <- you can use this instaed of above
 
 # ______________________________________________________________________
 # Createing the wtf forms:
@@ -86,7 +99,7 @@ class LoginForm(FlaskForm):
 
 # ______________________________________________________________________
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/')
 def index():
     form = LoginForm()
 
@@ -94,6 +107,29 @@ def index():
         return '<h2>Username: {}<br><h2>Password: {}<br><h2>Remember: {}<br></h2>'.format(form.username.data, form.password.data, form.remember.data)
 
     return render_template('index.html',form=form)
+
+# ______________________________________
+
+@app.route('/login', methods=['POST'])
+def login():
+
+    form = LoginForm() 
+
+    if form.validate_on_submit():
+
+        loged_user = Users.query.filter_by(username=form.username.data).first()
+
+        if not loged_user:
+            return 'User does not exist!'
+
+        if check_password_hash(loged_user.password, form.password.data):
+            login_user(loged_user, remember=form.remember.data)
+            return redirect(url_for('profile'))
+        
+        return 'Login failed!'
+    
+    return redirect(url_for('index'))
+
 
 # ______________________________________
 
