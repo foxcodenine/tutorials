@@ -20,7 +20,7 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, IntegerField, BooleanField
+from wtforms import StringField, PasswordField, IntegerField, BooleanField, TextAreaField
 from wtforms.validators import InputRequired, Length
 from flask_wtf.file import FileAllowed, FileField
 
@@ -49,7 +49,6 @@ app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:ayanami9@localhost/t
 # ______________________________________________________________________
 
 # setup flask-login 
-
 login_manager = LoginManager(app)
 login_manager.login_view = 'login' # <- this  redirect to 'login' if @login_required fails.
 
@@ -67,6 +66,7 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 # ______________________________________________________________________
 
+# the user table is used with flask-login so it need to inherit from UserMixin
 class Users(UserMixin, db.Model):
     __tablename__ = 'users' 
     id = db.Column(db.Integer, primary_key=True)
@@ -115,6 +115,10 @@ class LoginForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired('Username is required!')])
     password = PasswordField('Password', validators=[InputRequired('Password is required!')])
     remember = BooleanField('Remember me')
+
+class TweedForm(FlaskForm):    
+    text = TextAreaField('Message', validators=[InputRequired(message='Blank message!')])
+
 
 # ______________________________________________________________________
 
@@ -187,10 +191,30 @@ def register():
 
 # ______________________________________
 
-@app.route('/timeline')
+@app.route('/timeline', methods=['GET'])
 @login_required
 def timeline():
-    return render_template('timeline.html', current_user=current_user)
+    form = TweedForm()
+
+
+    return render_template('timeline.html', current_user=current_user, form=form)
+
+# ______________________________________
+
+@app.route('/post_tweed', methods=['POST'])
+@login_required
+def post_tweed():
+    form = TweedForm()
+
+    if form.validate():
+        new_tweed = Tweeds(user_id=current_user.id, text=form.text.data)
+        db.session.add(new_tweed)
+        db.session.commit()
+     
+
+    return render_template('timeline.html', current_user=current_user, form=form)
+
+
 
 # ______________________________________
 
