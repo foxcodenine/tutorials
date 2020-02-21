@@ -39,9 +39,9 @@
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="active"><a href="./timeline.html">Timeline</a></li>
-						<li class=""><a href="./profile.html">My Profile</a></li>
-						<li class=""><a href="">Logout</a></li>
+						<li class="active"><a href="{{ url_for('timeline') }}">Timeline</a></li>
+						<li class=""><a href="{{ url_for('profile') }}">My Profile</a></li>
+						<li class=""><a href="{{ url_for('logout') }}">Logout</a></li>
 					</ul>
 				</div><!-- /.navbar-collapse -->
 			</div>
@@ -58,7 +58,7 @@
 						<div class="panel-body">
 							<div class="row pad">
 								<div class="col-lg-12">
-									<img src="{{ url_for('static', filename='./imgs/anonymous.png') }}" class="img-responsive img-circle center-block" alt="Image" />
+									<img src="{{ current_user.image }}" class="img-responsive {# img-circle #} center-block" alt="Image" />
 								</div>
 							</div>
 							<div class="row pad">

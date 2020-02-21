@@ -81,7 +81,17 @@ class Users(UserMixin, db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(int(user_id))
-    # return User.query.filter_by(id=int(user_id)) <- you can use this instaed of above
+    # return User.query.filter_by(id=int(user_id)) <- you can use this 
+                                                    # instaed of above
+# ______________________________________
+
+class Tweeds(db.Model):
+    __tablename__ = 'tweeds'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    text = db.Column(db.String(250))
+    date_created = db.Column(db.DateTime(), default=datetime.now())
+
 
 # ______________________________________________________________________
 # Createing the wtf forms:
@@ -178,8 +188,9 @@ def register():
 # ______________________________________
 
 @app.route('/timeline')
+@login_required
 def timeline():
-    return render_template('timeline.html')
+    return render_template('timeline.html', current_user=current_user)
 
 # ______________________________________
 
@@ -212,13 +223,14 @@ if __name__ == '__main__':
 # versions:
 # .\20.Engage!-A-Twitter-Clone\migrations\versions\55fcbf9329c6_.py
 # b898a0fea851_.py
+# 7a3f8376b8aa_.py
 
 
 
 '''
 test users:
 
-Joelle Ellul
+Joelle
 runner
 secret07
 
