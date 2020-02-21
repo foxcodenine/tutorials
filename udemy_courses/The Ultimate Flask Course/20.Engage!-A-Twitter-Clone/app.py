@@ -6,6 +6,9 @@
 # pip install flask-uploads
 # pip install flask-login
 
+# pip install cryptography <- for error: 
+# “cryptography is required for sha256_password or caching_sha2_password”
+
 
 # ______________________________________________________________________
 
@@ -27,6 +30,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_login import LoginManager, UserMixin, login_required, login_user,  logout_user, current_user
 
+from datetime import datetime
+
 # ______________________________________________________________________
 
 app = Flask(__name__)
@@ -46,6 +51,7 @@ app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:ayanami9@localhost/t
 # setup flask-login 
 
 login_manager = LoginManager(app)
+login_manager.login_view = 'login' # <- this  redirect to 'login' if @login_required fails.
 
 # setup sqlalchemy db
 db = SQLAlchemy(app)
@@ -68,6 +74,7 @@ class Users(UserMixin, db.Model):
     username = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(255))
     image = db.Column(db.String(100))
+    join_date = db.Column(db.DateTime(), default=datetime.now())
 
 # This decorator  spessify that the following function is used by
 # flask_login to connect to an actual user when a user is loged in
@@ -90,7 +97,9 @@ class RegisterForm(FlaskForm):
             InputRequired('Password is required!'),
             Length(max=50, min=8, 
             message='Password should be between 8 to 50 characters long!')])
-    image = FileField(validators=[FileAllowed(IMAGES, message='Only image files are allowed!')])
+    image = FileField(validators=[
+            FileAllowed(IMAGES, message='Only image files are allowed!'), 
+            InputRequired('Profile image is required!')])
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[InputRequired('Username is required!')])
@@ -135,8 +144,10 @@ def login():
 # ______________________________________
 
 @app.route('/profile')
+@login_required
 def profile():
-    return render_template('profile.html')
+    # when you use @login_required automatically you have access to current_user
+    return render_template('profile.html', current_user=current_user)
 
 # ______________________________________
 
@@ -170,6 +181,15 @@ def register():
 def timeline():
     return render_template('timeline.html')
 
+# ______________________________________
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+
 
 # ______________________________________________________________________
 
@@ -191,6 +211,7 @@ if __name__ == '__main__':
 
 # versions:
 # .\20.Engage!-A-Twitter-Clone\migrations\versions\55fcbf9329c6_.py
+# b898a0fea851_.py
 
 
 
@@ -198,8 +219,11 @@ if __name__ == '__main__':
 test users:
 
 Joelle Ellul
-Runner
+runner
 secret07
 
+Chris
+mariojimmy
+secret07
 
 '''
