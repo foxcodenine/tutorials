@@ -76,6 +76,13 @@ class Users(UserMixin, db.Model):
     image = db.Column(db.String(100))
     join_date = db.Column(db.DateTime(), default=datetime.now())
 
+    tweet_posts = db.relationship('Tweets', backref='user', lazy='dynamic')
+
+    # Note on the relationship column:
+    # the tweet_posts colune is used to access 'tweets' table data by Users.tweet_posts.. querys
+    # the 'Tweets' is connecting to tweets table
+    # the backref='user' is used to access Users table data by Tweeds.user.. querys
+
 # This decorator  spessify that the following function is used by
 # flask_login to connect to an actual user when a user is loged in
 @login_manager.user_loader
@@ -85,8 +92,8 @@ def load_user(user_id):
                                                     # instaed of above
 # ______________________________________
 
-class Tweeds(db.Model):
-    __tablename__ = 'tweeds'
+class Tweets(db.Model):
+    __tablename__ = 'tweets'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     text = db.Column(db.String(250))
@@ -116,7 +123,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired('Password is required!')])
     remember = BooleanField('Remember me')
 
-class TweedForm(FlaskForm):    
+class TweetForm(FlaskForm):    
     text = TextAreaField('Message', validators=[InputRequired(message='Blank message!')])
 
 
@@ -194,25 +201,29 @@ def register():
 @app.route('/timeline', methods=['GET'])
 @login_required
 def timeline():
-    form = TweedForm()
+    form = TweetForm()
+
+    user_id = current_user.id
+    tweets = Tweets.query.filter_by(user_id=user_id).order_by(Tweets.id.desc()).all()
+  
 
 
-    return render_template('timeline.html', current_user=current_user, form=form)
+    return render_template('timeline.html', current_user=current_user, form=form, tweets=tweets)
 
 # ______________________________________
 
-@app.route('/post_tweed', methods=['POST'])
+@app.route('/post_tweet', methods=['POST'])
 @login_required
-def post_tweed():
-    form = TweedForm()
+def post_tweet():
+    form = TweetForm()
 
     if form.validate():
-        new_tweed = Tweeds(user_id=current_user.id, text=form.text.data)
-        db.session.add(new_tweed)
+        new_tweet = Tweets(user_id=current_user.id, text=form.text.data)
+        db.session.add(new_tweet)
         db.session.commit()
      
 
-    return render_template('timeline.html', current_user=current_user, form=form)
+    return redirect(url_for('timeline'))
 
 
 
@@ -248,6 +259,9 @@ if __name__ == '__main__':
 # .\20.Engage!-A-Twitter-Clone\migrations\versions\55fcbf9329c6_.py
 # b898a0fea851_.py
 # 7a3f8376b8aa_.py
+# de17cb1a7f89_.py  <- migrate was droping table i only need it to rename
+                    # i used           op.rename_table('tweeds','tweets')
+                    # https://programtalk.com/python-examples/alembic.op.rename_table/
 
 
 
