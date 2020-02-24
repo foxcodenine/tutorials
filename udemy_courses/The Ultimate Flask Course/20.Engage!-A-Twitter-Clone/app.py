@@ -32,6 +32,8 @@ from flask_login import LoginManager, UserMixin, login_required, login_user,  lo
 
 from datetime import datetime
 
+from my_datetime_cal import how_long_since
+
 # ______________________________________________________________________
 
 app = Flask(__name__)
@@ -80,7 +82,7 @@ class Users(UserMixin, db.Model):
 
     # Note on the relationship column:
     # the tweet_posts colune is used to access 'tweets' table data by Users.tweet_posts.. querys
-    # the 'Tweets' is connecting to tweets table
+    # the 'Tweets' is connecting the user to tweets table
     # the backref='user' is used to access Users table data by Tweeds.user.. querys
 
 # This decorator  spessify that the following function is used by
@@ -198,6 +200,17 @@ def register():
 
 # ______________________________________
 
+# Below if a template_filter it is used to pass a function 
+# (in this case 'time_since()') to the html template
+
+@app.template_filter('time_since')
+def time_since(my_datetime):
+    ''' this filter/function is passing its parramiter 'time_since' to 
+        our custom function 'how_long_since' and returning its result'''
+    return how_long_since(my_datetime)
+# ______________________________________
+
+
 @app.route('/timeline', methods=['GET'])
 @login_required
 def timeline():
@@ -205,9 +218,8 @@ def timeline():
 
     user_id = current_user.id
     tweets = Tweets.query.filter_by(user_id=user_id).order_by(Tweets.id.desc()).all()
-  
 
-
+ 
     return render_template('timeline.html', current_user=current_user, form=form, tweets=tweets)
 
 # ______________________________________
