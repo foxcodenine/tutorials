@@ -42,7 +42,7 @@ def how_long_since(date_time):
         result = ('{}m').format(minutes)
     
     else:
-        result = ('{}s').format(seconds)
+        result = 'Just now'
 
     return result
 

@@ -12,7 +12,7 @@
 
 # ______________________________________________________________________
 
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, abort
 from uuid import uuid4
 
 from flask_sqlalchemy import SQLAlchemy
@@ -88,8 +88,10 @@ class Users(UserMixin, db.Model):
 # ______________________________________
 
 # This decorator  spessify that the following function is used by
-# flask_login to connect to an actual user when a user is loged in.
-# It will set the current_user with the logged
+#       flask_login to connect to an actual user when a user is loged in.
+# It will set the current_user with the logged user.
+# In this dec the user_loader reload the user object from the user ID 
+#       stored in the session that is user_id.
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(int(user_id))
@@ -213,19 +215,28 @@ def time_since(my_datetime):
     return how_long_since(my_datetime)
 # ______________________________________
 
-
-@app.route('/timeline', methods=['GET'])
+@app.route('/timeline', defaults={'timeline_user':None})
+@app.route('/timeline/<timeline_user>', methods=['GET'])
 @login_required
-def timeline():
+def timeline(timeline_user):
     form = TweetForm()
 
-    user_id = current_user.id
+    if timeline_user:
+        query_user = Users.query.filter_by(username=timeline_user).first()
+        if not query_user:
+            abort(404)
+        user_id = query_user.id        
+ 
+
+    else:
+        query_user = current_user
+        user_id = current_user.id
     tweets = Tweets.query.filter_by(user_id=user_id).order_by(Tweets.id.desc()).all()
 
     total_tweets = len(tweets)
 
  
-    return render_template('timeline.html', current_user=current_user, form=form, tweets=tweets, total_tweets=total_tweets)
+    return render_template('timeline.html', current_user=query_user, form=form, tweets=tweets, total_tweets=total_tweets)
 
 # ______________________________________
 
