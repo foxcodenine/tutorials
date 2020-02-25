@@ -162,3 +162,5 @@ SELECT title, stock_quantity,
             ELSE '****'
         END AS stock
     FROM books;
+
+

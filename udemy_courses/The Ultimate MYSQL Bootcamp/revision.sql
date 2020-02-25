@@ -126,3 +126,48 @@ FROM series
 INNER JOIN reviews 
     ON series.id = reviews.series_id 
 GROUP BY genre;
+
+-- question 6
+
+SHOW DATABASES; 
+USE tv_review_app;
+SHOW TABLES;
+
+SELECT * FROM reviewers;
+SELECT * FROM reviews;
+SELECT * FROM series;
+
+
+
+SELECT
+    first_name,
+    last_name,
+    COUNT(rating) AS 'COUNT',
+    IFNULL(MIN(rating), 0) AS 'MIN',
+    IFNULL(MAX(rating), 0) AS 'MAX',
+    IFNULL(AVG(rating), 0) AS 'AVG',
+    CASE
+        WHEN COUNT(rating) = 0 THEN 'INACTIVE'
+        ELSE 'ACTIVE'
+    END AS 'STATUS'  
+FROM reviewers
+LEFT JOIN reviews
+    ON   reviewers.id = reviews.reviewer_id
+GROUP BY reviewers.id;
+
+-- question 7
+-- need title rating reviewer first&last name 
+
+SELECT
+    title,
+    rating, 
+    CONCAT(first_name, ' ', last_name) AS 'reviewer'
+FROM reviewers 
+INNER JOIN reviews
+    ON reviewers.id = reviews.reviewer_id
+INNER JOIN series
+    ON reviews.series_id = series.id
+ORDER BY series.id;
+
+
+
