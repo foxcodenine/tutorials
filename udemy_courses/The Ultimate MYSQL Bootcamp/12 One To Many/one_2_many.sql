@@ -61,6 +61,7 @@ SELECT CONCAT(first_name, ' ', last_name) AS name, order_date, amount
     WHERE customers.id = orders.customer_id;
 
 
+
 /* Explicit Inner Join */
 
 SELECT * FROM customers 
@@ -81,6 +82,9 @@ INNER JOIN orders
 GROUP BY orders.customer_id
 ORDER BY total_spent;
  
+
+
+
 /* LEFT join */
 
 SELECT CONCAT(first_name, ' ', last_name) AS name, order_date, amount 
