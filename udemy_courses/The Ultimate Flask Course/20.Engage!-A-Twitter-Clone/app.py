@@ -85,8 +85,11 @@ class Users(UserMixin, db.Model):
     # the 'Tweets' is connecting the user to tweets table
     # the backref='user' is used to access Users table data by Tweeds.user.. querys
 
+# ______________________________________
+
 # This decorator  spessify that the following function is used by
-# flask_login to connect to an actual user when a user is loged in
+# flask_login to connect to an actual user when a user is loged in.
+# It will set the current_user with the logged
 @login_manager.user_loader
 def load_user(user_id):
     return Users.query.get(int(user_id))
@@ -219,8 +222,10 @@ def timeline():
     user_id = current_user.id
     tweets = Tweets.query.filter_by(user_id=user_id).order_by(Tweets.id.desc()).all()
 
+    total_tweets = len(tweets)
+
  
-    return render_template('timeline.html', current_user=current_user, form=form, tweets=tweets)
+    return render_template('timeline.html', current_user=current_user, form=form, tweets=tweets, total_tweets=total_tweets)
 
 # ______________________________________
 
