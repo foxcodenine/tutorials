@@ -1,3 +1,4 @@
+--  Server SQL Modes
 -- https://dev.mysql.com/doc/refman/8.0/en/sql-mode.html#sql-mode-setting
 
 /*
@@ -161,7 +162,7 @@ SELECT NOW();
 
 -- ---------------------------------------------------------------------
 
-/* DATE MATH */
+/* DATE MATH   DATEDIFF , TIMEDIFF,  DATE_SUB , DATE_ADD*/
 
 SELECT DATEDIFF(NOW(),  '1984-08-12 04:55:00');  
 
