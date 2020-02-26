@@ -76,7 +76,7 @@ class Users(UserMixin, db.Model):
     username = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(255))
     image = db.Column(db.String(100))
-    join_date = db.Column(db.DateTime(), default=datetime.now())
+    join_date = db.Column(db.DateTime())
 
     tweet_posts = db.relationship('Tweets', backref='user', lazy='dynamic')
 
@@ -104,7 +104,7 @@ class Tweets(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     text = db.Column(db.String(250))
-    date_created = db.Column(db.DateTime(), default=datetime.now())
+    date_created = db.Column(db.DateTime())
 
 
 # ______________________________________________________________________
@@ -170,12 +170,25 @@ def login():
 
 
 # ______________________________________
-
-@app.route('/profile')
+@app.route('/profile', defaults={'profile_user' : None})
+@app.route('/profile/<profile_user>')
 @login_required
-def profile():
-    # when you use @login_required automatically you have access to current_user
-    return render_template('profile.html', current_user=current_user)
+def profile(profile_user):
+    
+
+    if profile_user:
+        query_user = Users.query.filter_by(username=profile_user).first()
+        if not query_user:
+            abort(400)
+
+    else:
+        query_user = current_user
+        # when you use @login_required automatically you have access to current_user
+
+    tweets =  Tweets.query.filter_by(user=query_user).order_by(Tweets.id.desc()).all()
+
+
+    return render_template('profile.html', current_user=query_user, tweets=tweets)
 
 # ______________________________________
 
@@ -192,7 +205,8 @@ def register():
                         name=form.name.data, 
                         username=form.username.data, 
                         password=generate_password_hash(form.password.data), 
-                        image=image_url)
+                        image=image_url,
+                        join_date=datetime.now())
         db.session.add(new_user)
         db.session.commit()
 
@@ -246,7 +260,7 @@ def post_tweet():
     form = TweetForm()
 
     if form.validate():
-        new_tweet = Tweets(user_id=current_user.id, text=form.text.data)
+        new_tweet = Tweets(user_id=current_user.id, text=form.text.data, date_created=datetime.now())
         db.session.add(new_tweet)
         db.session.commit()
      
