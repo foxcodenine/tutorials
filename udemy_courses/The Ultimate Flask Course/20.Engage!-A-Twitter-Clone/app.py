@@ -67,6 +67,25 @@ migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 # ______________________________________________________________________
+# (AA) This Table should be above the Users table. 
+
+# This table is used to create a many to many relationtion between
+# tables. 
+# However in this case the Users table has a many to many relationtion 
+# with it self.
+# ('Users',.. is like stating the right table in the join in mysql.
+# In this case sine the left table and right table are the same we need 
+# to write the joints in the relationship column in users.
+# (explanation is at 25.FollowerModel.mp4)
+
+
+
+followers = db.Table('followers',
+    db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
+)
+
+# ______________________________________
 
 # the user table is used with flask-login so it need to inherit from UserMixin
 class Users(UserMixin, db.Model):
@@ -81,9 +100,24 @@ class Users(UserMixin, db.Model):
     tweet_posts = db.relationship('Tweets', backref='user', lazy='dynamic')
 
     # Note on the relationship column:
-    # the tweet_posts colune is used to access 'tweets' table data by Users.tweet_posts.. querys
-    # the 'Tweets' is connecting the user to tweets table
-    # the backref='user' is used to access Users table data by Tweeds.user.. querys
+
+    # the tweet_posts colune is used to access 'tweets' table data by
+    #  Users.tweet_posts.. querys.
+
+    # the 'Tweets' is connecting the user to tweets table.
+
+    # the backref='user' is used to access Users table data by Tweeds.user.. querys.
+
+    # the 'Tweets' in the User table is like stating the right table in 
+    # the join in mysql.
+
+    # Explanation above at (AA)
+    following = db.relationship('Users', secondary=followers,
+        primaryjoin   = (followers.c.follower_id == id),
+        secondaryjoin = (followers.c.followed_id == id),
+        backref=db.backref('followers', lazy='dynamic'),
+        lazy='dynamic'
+    ) 
 
 # ______________________________________
 
@@ -105,6 +139,10 @@ class Tweets(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     text = db.Column(db.String(250))
     date_created = db.Column(db.DateTime())
+
+# ______________________________________
+
+
 
 
 # ______________________________________________________________________
@@ -304,6 +342,7 @@ if __name__ == '__main__':
 # de17cb1a7f89_.py  <- migrate was droping table i only need it to rename
                     # i used           op.rename_table('tweeds','tweets')
                     # https://programtalk.com/python-examples/alembic.op.rename_table/
+# 4f7f1eb695fb_.py
 
 
 
@@ -318,4 +357,7 @@ Chris
 mariojimmy
 secret07
 
+James Gauci
+eyetechltd
+secret07
 '''
