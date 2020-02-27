@@ -24,19 +24,21 @@ def how_long_since(date_time):
  
     minutes, seconds = divmod(seconds, 60)
     hours, minutes = divmod(minutes, 60)
+    weeks = 0
+    
+    if days > 7:
+        weeks, days = divmod(days, 7)
 
 
-    if days > 1: 
-      result = ('{}days').format(days)
+    if weeks >= 1: 
+      result = ('{}w {}d').format(weeks,days)
 
-    elif days == 1: 
-        result = ('{}day').format(days)    
+    elif days >= 1: 
+        result = ('{}d').format(days)    
 
-    elif hours > 1:
-        result = ('{}hrs').format(hours)
+    elif hours >= 1:
+        result = ('{}h').format(hours)
 
-    elif hours == 1: 
-        result = ('{}hr').format(hours)
 
     elif minutes >= 1: 
         result = ('{}m').format(minutes)

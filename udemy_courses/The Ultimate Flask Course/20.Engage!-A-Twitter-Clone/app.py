@@ -67,25 +67,7 @@ migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 # ______________________________________________________________________
-# (AA) This Table should be above the Users table. 
 
-# This table is used to create a many to many relationtion between
-# tables. 
-# However in this case the Users table has a many to many relationtion 
-# with it self.
-# ('Users',.. is like stating the right table in the join in mysql.
-# In this case sine the left table and right table are the same we need 
-# to write the joints in the relationship column in users.
-# (explanation is at 25.FollowerModel.mp4)
-
-
-
-followers = db.Table('followers',
-    db.Column('follower_id', db.Integer, db.ForeignKey('users.id')),
-    db.Column('followed_id', db.Integer, db.ForeignKey('users.id'))
-)
-
-# ______________________________________
 
 # the user table is used with flask-login so it need to inherit from UserMixin
 class Users(UserMixin, db.Model):
@@ -110,14 +92,14 @@ class Users(UserMixin, db.Model):
 
     # the 'Tweets' in the User table is like stating the right table in 
     # the join in mysql.
+  
 
-    # Explanation above at (AA)
-    following = db.relationship('Users', secondary=followers,
-        primaryjoin   = (followers.c.follower_id == id),
-        secondaryjoin = (followers.c.followed_id == id),
-        backref=db.backref('followers', lazy='dynamic'),
-        lazy='dynamic'
-    ) 
+class Followers(db.Model):
+    __tablename__ = 'followers'
+    id = db.Column(db.Integer, primary_key=True)
+    follower = db.Column(db.Integer,db.ForeignKey('users.id'))
+    followee = db.Column(db.Integer,db.ForeignKey('users.id'))
+    
 
 # ______________________________________
 
@@ -304,8 +286,27 @@ def post_tweet():
      
 
     return redirect(url_for('timeline'))
+# ______________________________________
+
+@app.route('/follow/<username>')
+@login_required
+def follow(username):
 
 
+
+    user_to_follow = Users.query.filter_by(username=username).first()
+
+    check = Followers.query.filter_by(follower=current_user.id).filter_by(followee=user_to_follow.id).first()
+    if check:
+        db.session.delete(check)
+
+    else:
+        new_follow = Followers(follower=current_user.id, followee=user_to_follow.id)
+        db.session.add(new_follow)
+
+    db.session.commit()
+
+    return redirect(url_for('profile'))
 
 # ______________________________________
 
@@ -344,20 +345,26 @@ if __name__ == '__main__':
                     # https://programtalk.com/python-examples/alembic.op.rename_table/
 # 4f7f1eb695fb_.py
 
+# lost db had to restart from here:
+# 0ff8de35aad3_.py
+# 86a5d4c4792a_.py
+# cba06fd2cba1_.py
+# e2282d9d0a56_.py
+
 
 
 '''
 test users:
 
-Joelle
+Joelle Miller
 runner
-secret07
+aaaa1234
 
-Chris
-mariojimmy
-secret07
+Chris Farrugia
+foxcode
+aaaa1234
 
 James Gauci
-eyetechltd
-secret07
+eyetech
+aaaa1234
 '''
