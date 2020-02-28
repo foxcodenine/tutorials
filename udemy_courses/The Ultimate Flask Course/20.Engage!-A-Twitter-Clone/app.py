@@ -1,14 +1,18 @@
-# pip install flask 
+ # pip install flask 
 # pip install flask-sqlalchamey
+# pip install flask-pymysql
 # pip install flask-migrate
 # pip install flask-script
 # pip install flask-wtf
 # pip install flask-uploads
 # pip install flask-login
+# pip3 install Werkzeug==0.15.5
 
 # pip install cryptography <- for error: 
 # “cryptography is required for sha256_password or caching_sha2_password”
+# ______________________________________________________________________
 
+# https://jinja.palletsprojects.com/en/2.11.x/templates/?highlight=length#length
 
 # ______________________________________________________________________
 
@@ -67,7 +71,11 @@ migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 # ______________________________________________________________________
-
+class Followers(db.Model):
+    __tablename__ = 'followers'
+    id = db.Column(db.Integer, primary_key=True)
+    follower = db.Column(db.Integer,db.ForeignKey('users.id'))
+    followee = db.Column(db.Integer,db.ForeignKey('users.id'))
 
 # the user table is used with flask-login so it need to inherit from UserMixin
 class Users(UserMixin, db.Model):
@@ -92,13 +100,21 @@ class Users(UserMixin, db.Model):
 
     # the 'Tweets' in the User table is like stating the right table in 
     # the join in mysql.
-  
 
-class Followers(db.Model):
-    __tablename__ = 'followers'
-    id = db.Column(db.Integer, primary_key=True)
-    follower = db.Column(db.Integer,db.ForeignKey('users.id'))
-    followee = db.Column(db.Integer,db.ForeignKey('users.id'))
+    following = db.relationship('Followers', 
+            primaryjoin=(Followers.followee == id),
+            # secondaryjoin=(Followers.followee == id),
+            backref=('following'),
+            lazy='dynamic')
+
+    followed_by = db.relationship('Followers', 
+        primaryjoin=(Followers.follower == id),
+        # secondaryjoin=(Followers.follower == id),
+        backref=('followed_by'),
+        lazy='dynamic')
+
+
+
     
 
 # ______________________________________
@@ -208,7 +224,17 @@ def profile(profile_user):
     tweets =  Tweets.query.filter_by(user=query_user).order_by(Tweets.id.desc()).all()
 
 
-    return render_template('profile.html', current_user=query_user, tweets=tweets)
+    following = Followers.query.filter_by(follower=query_user.id).all()
+    followed_by = Followers.query.filter_by(followee=query_user.id).all() 
+
+
+    print('\n<>following<>')
+    for follower in following: print(follower.following.username)
+    print('\n<>followed_by<>')
+    for follower in followed_by: print(follower.followed_by.username)
+
+
+    return render_template('profile.html', current_user=query_user, tweets=tweets, followed_by=followed_by)
 
 # ______________________________________
 
@@ -293,9 +319,18 @@ def post_tweet():
 def follow(username):
 
 
+    check_if_un_exist = Users.query.filter_by(username=username).first()
+    if not check_if_un_exist:
+        return redirect(url_for('profile'))
+    # ____
 
+
+    # ____
     user_to_follow = Users.query.filter_by(username=username).first()
+    # ____
 
+
+    # ____
     check = Followers.query.filter_by(follower=current_user.id).filter_by(followee=user_to_follow.id).first()
     if check:
         db.session.delete(check)
@@ -305,6 +340,8 @@ def follow(username):
         db.session.add(new_follow)
 
     db.session.commit()
+       
+
 
     return redirect(url_for('profile'))
 
