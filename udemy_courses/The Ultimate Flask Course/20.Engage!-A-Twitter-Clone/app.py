@@ -211,17 +211,42 @@ def login():
 @login_required
 def profile(profile_user):
     
+    
 
     if profile_user:
-        query_user = Users.query.filter_by(username=profile_user).first()
+        query_user = Users.query.filter_by(username=profile_user).first()   
+
         if not query_user:
             abort(400)
 
+        follow_unfollow = Followers.query.filter_by(
+            follower=current_user.id).filter_by(
+            followee=query_user.id).first()   
+
+        if follow_unfollow:
+            # removing follow_link from own account.
+            if current_user.username == profile_user:
+                follow_link = None
+            # setting follow_link from to UNFOLLOW.
+            else:
+                follow_link = 'remove'
+        
+        else:
+            # setting follow_link from to FOLLOW.
+            follow_link = 'add'
+
+       
+
     else:
-        query_user = current_user
         # when you use @login_required automatically you have access to current_user
+        query_user = current_user
+        # removing follow link from own account
+        follow_link = None
+    
+    
 
     tweets =  Tweets.query.filter_by(user=query_user).order_by(Tweets.id.desc()).all()
+
 
 
     following = Followers.query.filter_by(follower=query_user.id).all()
@@ -234,7 +259,7 @@ def profile(profile_user):
     for follower in followed_by: print(follower.followed_by.username)
 
 
-    return render_template('profile.html', current_user=query_user, tweets=tweets, followed_by=followed_by)
+    return render_template('profile.html', current_user=query_user, tweets=tweets, followed_by=followed_by, follow_link=follow_link)
 
 # ______________________________________
 
