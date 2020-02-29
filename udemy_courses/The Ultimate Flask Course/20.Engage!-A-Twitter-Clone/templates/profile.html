@@ -78,6 +78,20 @@
 								<i class="glyphicon glyphicon-th-list"></i> FOLLOWERS COUNT: 
 								<strong class="pull-right">{{ followed_by | length }}</strong>
 							</li>
+
+							{% if follow_link == 'add'%}
+								<li class="list-group-item">
+									&nbsp; 
+									<strong class="pull-right"><a href="{{ url_for('follow', username=current_user.username) }}">FOLLOW</a></strong>
+								</li>
+							{% endif %}
+							{% if follow_link == 'remove'%}
+							<li class="list-group-item">
+								&nbsp; 
+								<strong class="pull-right"><a href="{{ url_for('follow', username=current_user.username) }}">UNFOLLOW</a></strong>
+							</li>
+							{% endif %}
+
 						</ul>
 					</div>
 				</div>
