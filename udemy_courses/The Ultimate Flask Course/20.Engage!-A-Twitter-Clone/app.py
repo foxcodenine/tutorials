@@ -171,6 +171,8 @@ class TweetForm(FlaskForm):
 
 
 # ______________________________________________________________________
+# Routes
+
 
 @app.route('/')
 def index():
@@ -283,6 +285,11 @@ def register():
 
         # return "<h1>name: {}<br>username: {}<br>password: {}<br>image url: {}</h1>".format(
         #     form.name.data, form.username.data, form.password.data, image_url)
+
+        
+        login_user(
+            Users.query.filter_by(username=form.username.data).first()
+        ) # <- set user to logged after register 
 
         return redirect(url_for('profile'))
 
