@@ -227,15 +227,19 @@ def profile(profile_user):
 
         if follow_unfollow:
             # removing follow_link from own account.
-            if current_user.username == profile_user:
+            if current_user.id == query_user.id:
                 follow_link = None
             # setting follow_link from to UNFOLLOW.
             else:
                 follow_link = 'remove'
         
         else:
-            # setting follow_link from to FOLLOW.
-            follow_link = 'add'
+            # removing follow_link from own account.
+            if current_user.id == query_user.id:
+                follow_link = None            
+            else:
+                # setting follow_link from to FOLLOW.
+                follow_link = 'add'
 
        
 
@@ -323,9 +327,36 @@ def timeline(timeline_user):
     else:
         query_user = current_user
         user_id = current_user.id
-    tweets = Tweets.query.filter_by(user_id=user_id).order_by(Tweets.id.desc()).all()
+    #____________ 
+
+
+    # Setting Tweets:
+    if query_user == current_user:        
+
+        current_user_following = Followers.query.filter_by(follower=current_user.id).all()
+
+        following_tweets_dict={}
+        following_tweets_list=[]
+
+        for followers_row in current_user_following:
+            tweets_of_one_followee = followers_row.following.tweet_posts.all()
+            for tweet in tweets_of_one_followee: 
+                following_tweets_dict.update({tweet.id : tweet})
+        
+        for key, value in following_tweets_dict.items():
+            following_tweets_list.append(value)
+
+        following_tweets_list.reverse()
+        tweets = following_tweets_list
+    #____________ 
+        
+
+    else:   
+        tweets = Tweets.query.filter_by(user_id=user_id).order_by(Tweets.id.desc()).all()
 
     total_tweets = len(tweets)
+    #____________ 
+
 
  
     return render_template('timeline.html', current_user=query_user, form=form, tweets=tweets, total_tweets=total_tweets)
@@ -350,7 +381,7 @@ def post_tweet():
 @login_required
 def follow(username):
 
-
+    
     check_if_un_exist = Users.query.filter_by(username=username).first()
     if not check_if_un_exist:
         return redirect(url_for('profile'))

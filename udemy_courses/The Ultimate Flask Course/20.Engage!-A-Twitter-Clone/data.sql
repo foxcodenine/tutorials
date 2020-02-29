@@ -32,13 +32,27 @@ from app import db, Users, Followers, Tweets
 joelle_followed_by = Followers.query.filter_by(followee=2).all()
 for followers_row in joelle_followed_by: print(followers_row.followed_by.username)
 
--- Get the Joelle following username
-joelle_following = Followers.query.filter_by(follower=2).all()
-for followers_row in joelle_following: print(followers_row.following.username)
-
+      
 
 
 
 -- Get all tweeds of Joelle 1st follower
 joelle_1st_follower_row = Followers.query.filter_by(followee=2).first()
 joelle_1st_follower_row.followed_by.tweet_posts.all()
+
+
+-- Get the Joelle following username
+joelle_following = Followers.query.filter_by(follower=2).all()
+for followers_row in joelle_following: print(followers_row.following.username)
+
+following_tweets_dict={}
+following_tweets_list=[]
+for followers_row in joelle_following:
+    tweets_of_one_followee = followers_row.following.tweet_posts.all()
+    for tweet in tweets_of_one_followee: 
+        following_tweets_dict.update({tweet.id : tweet})
+
+for key, value in following_tweets_dict.items():
+            following_tweets_list.append(value)
+
+
