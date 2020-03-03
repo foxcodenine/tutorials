@@ -366,9 +366,17 @@ def timeline(timeline_user):
     total_tweets = len(Tweets.query.filter_by(user_id=user_id).order_by(Tweets.id.desc()).all())
     #____________ 
 
+    followed_by = Followers.query.filter_by(followee=query_user.id).all() 
 
  
-    return render_template('timeline.html', current_user=query_user, form=form, tweets=tweets, total_tweets=total_tweets)
+    return render_template(
+                            'timeline.html', 
+                            current_user=query_user, 
+                            form=form, 
+                            tweets=tweets, 
+                            total_tweets=total_tweets,
+                            followed_by=followed_by
+                            )
 
 # ______________________________________
 
