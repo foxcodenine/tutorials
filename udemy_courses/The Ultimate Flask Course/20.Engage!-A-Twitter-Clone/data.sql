@@ -56,3 +56,8 @@ for key, value in following_tweets_dict.items():
             following_tweets_list.append(value)
 
 
+
+
+
+/* to change a column name in mysql */
+ALTER TABLE table_name RENAME COLUMN old_col_name TO new_col_name;

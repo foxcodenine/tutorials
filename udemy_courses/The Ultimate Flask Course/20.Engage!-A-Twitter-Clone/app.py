@@ -49,7 +49,7 @@ photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'images'
 app.config['DEBUG'] = True 
 app.config['SECRET_KEY'] = uuid4().hex
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:a9@localhost/twitter_clone_engage'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:ayanami9@localhost/twitter_clone_engage'
 
 # app.config['MAX_CONTENT_LENGTH'] = 1 * 960 * 960
 # ______________________________________________________________________
@@ -331,10 +331,15 @@ def timeline(timeline_user):
 
 
     # Setting Tweets:
-    if query_user == current_user:        
+    if query_user == current_user:   
+
+        '''
+        # Here i have quered the following tweets of the current user using python:
+        # however there was a better way using SQLAlchemy!
 
         current_user_following = Followers.query.filter_by(follower=current_user.id).all()
 
+        
         following_tweets_dict={}
         following_tweets_list=[]
 
@@ -348,13 +353,17 @@ def timeline(timeline_user):
 
         following_tweets_list.reverse()
         tweets = following_tweets_list
+        '''
+        tweets = Tweets.query.join(Followers, (Followers.followee == Tweets.user_id)).filter(
+            Followers.follower == current_user.id
+        ).order_by(Tweets.id.desc()).all()
     #____________ 
         
 
     else:   
         tweets = Tweets.query.filter_by(user_id=user_id).order_by(Tweets.id.desc()).all()
 
-    total_tweets = len(tweets)
+    total_tweets = len(Tweets.query.filter_by(user_id=user_id).order_by(Tweets.id.desc()).all())
     #____________ 
 
 
