@@ -241,6 +241,8 @@ def profile(profile_user):
                 # setting follow_link from to FOLLOW.
                 follow_link = 'add'
 
+        
+
        
 
     else:
@@ -265,7 +267,18 @@ def profile(profile_user):
     for follower in followed_by: print(follower.followed_by.username)
 
 
-    return render_template('profile.html', current_user=query_user, tweets=tweets, followed_by=followed_by, follow_link=follow_link)
+
+    who_to_watch = Users.query.filter(Users.id != query_user.id).order_by(db.func.random()).limit(3).all()
+    # note for random order do = .order_by(db.func.random()   or   order_by(db.func.rand()
+
+    return render_template(
+            'profile.html', 
+            current_user=query_user, 
+            tweets=tweets, 
+            followed_by=followed_by, 
+            follow_link=follow_link,
+            who_to_watch=who_to_watch
+            )
 
 # ______________________________________
 
@@ -368,6 +381,9 @@ def timeline(timeline_user):
 
     followed_by = Followers.query.filter_by(followee=query_user.id).all() 
 
+    who_to_watch = Users.query.filter(Users.id != query_user.id).order_by(db.func.random()).limit(3).all()
+    # note for random order do = .order_by(db.func.random()   or   order_by(db.func.rand()
+
  
     return render_template(
                             'timeline.html', 
@@ -375,7 +391,8 @@ def timeline(timeline_user):
                             form=form, 
                             tweets=tweets, 
                             total_tweets=total_tweets,
-                            followed_by=followed_by
+                            followed_by=followed_by,
+                            who_to_watch=who_to_watch
                             )
 
 # ______________________________________
