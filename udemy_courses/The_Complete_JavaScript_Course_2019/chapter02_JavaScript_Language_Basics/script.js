@@ -362,49 +362,248 @@
 // console.log(whatDoYouDo('driver', 'Jane'));
 
 
+// /***********************************************************************
+// * Arrays
+// */
+
+// // Initialize new array
+// var names = ['John', 'Mark', 'Jane'];
+// var years = new Array(1990, 1969, 1948);
+
+// console.log(names);
+// console.log(names[0]);
+// console.log(names.length);
+
+// // Mutate array data
+// names[1] = 'Dorothy';
+// names[4] = 'Sarah';
+// names[names.length] = 'Lara';
+// console.log(names);
+
+// // Different data types 
+// var  john = ['John', 'Cassar', 1990, 'teacher', false];
+
+
+
+
+// john.push('blue', 'blue'); // Append to array
+// john.unshift('Mr.'); // Add paramiter at pos 0 of array
+// console.log(john);
+
+// john.pop() // Remove last element from array
+
+// var eyeColor = john.pop() // you can pass the pop value to a variable
+
+// console.log(john);
+
+// console.log(eyeColor);
+
+// john.shift(); // remove first element from array
+
+// console.log(john.indexOf(1990)); // return index
+// console.log(john.indexOf(23));   // if element not in array return -1
+
+
+// console.log(
+//     john.indexOf('designer') === -1 ? 'John is NOT a designer' : 
+//                                                     'John is a designer'
+// );
+
+
+// /***********************************************************************
+// * CODING CHALLENGE 3
+// */
+
+// function tipCalculator(bill){
+//     var percentage;
+//     if (bill < 50) {
+//         percentage = 0.2;
+//     } else if (bill >= 50 && bill < 200) {
+//         percentage = 0.15;
+//     }
+//     else {
+//         percentage = 0.1;
+//     }
+//     return percentage * bill;
+// }
+
+// var bills = [124, 48, 268];
+// var tips = [tipCalculator(bills[0]),
+//             tipCalculator(bills[1]),
+//             tipCalculator(bills[2])];
+
+
+// var finalValues =  [bills[0] + tips[0],
+//                     bills[1] + tips[1],
+//                     bills[2] + tips[2]]   
+
+// console.log(bills); 
+// console.log(tips); 
+// console.log(finalValues); 
+
+
+// /***********************************************************************
+// * Object and properties
+// */
+
+// // Object literal
+// var john = {
+//     firstName: 'John',
+//     lastName: 'Smith', 
+//     birthYear: 1990, 
+//     family: ['Jane', 'Mark', 'Bob', 'Emily'], 
+//     job: 'teacher'
+// }; 
+
+// console.log(john);
+// console.log(john.lastName);
+// console.log(john['family']);
+// console.log(john['family'][0]);
+
+// var bY = 'birthYear';
+// console.log(john[bY]); 
+
+// john.job = 'pythonist'
+// john['isMarried'] = true
+// console.log(john);
+
+// // new Object syntax
+// var jane = new Object();
+// jane.firstName = 'Jane';
+// jane.lastName = 'Millur';
+// jane.birthYear = 1988; 
+// console.log(jane);
+
+
+
+
+// /***********************************************************************
+// * Object and methods
+// */
+
+// var john = {
+//     firstName: 'John',
+//     lastName: 'Smith', 
+//     birthYear: 1990, 
+//     family: ['Jane', 'Mark', 'Bob', 'Emily'], 
+//     job: 'teacher', 
+//     isMarried: false,
+//     calAge: function(currentYear){
+//         return currentYear - this.birthYear;
+//     }
+// }; 
+
+// console.log(john.calAge(2020));
+
+
+// john.age = john.calAge()
+// console.log(john);
+
+
+
+// var chris = {
+//     firstName: 'Chris', 
+//     lastName: 'Farrugia',
+//     birthYear: '1984',
+//     family: {dad: 'Alfred', sister: 'Mandy', niece1: 'Leah', niece2: 'Charlotte'},
+//     calAge: function(currentYear){
+//         this.age = currentYear-this.birthYear
+//     }
+// };
+
+
+// console.log(chris);
+// chris.calAge(2020)
+
+
 /***********************************************************************
-* Arrays
+* Loops and iteration
 */
 
-// Initialize new array
-var names = ['John', 'Mark', 'Jane'];
-var years = new Array(1990, 1969, 1948);
+// for loop
+for (var i = 0; i < 10; i++){
+    console.log(i);
+}
 
-console.log(names);
-console.log(names[0]);
-console.log(names.length);
 
-// Mutate array data
-names[1] = 'Dorothy';
-names[4] = 'Sarah';
-names[names.length] = 'Lara';
-console.log(names);
+console.log('') /**************************************************** */
 
-// Different data types 
-var  john = ['John', 'Cassar', 1990, 'teacher', false];
+
+// i = 0, 0 < 10 =true, therefore log to console i, add 1 to i;
+// i = 1, 1 < 10 =true, therefore log to console i, add 1 to i;
+// .....
+// i = 1, 10 < 10 =false, exit loop;
 
 
 
+for (var i = 2; i <= 20; i+=2){
+    console.log(i);
+}
 
-john.push('blue', 'blue'); // Append to array
-john.unshift('Mr.'); // Add paramiter at pos 0 of array
-console.log(john);
-
-john.pop() // Remove last element from array
-
-var eyeColor = john.pop() // you can pass the pop value to a variable
-
-console.log(john);
-
-console.log(eyeColor);
-
-john.shift(); // remove first element from array
-
-console.log(john.indexOf(1990)); // return index
-console.log(john.indexOf(23));   // if element not in array return -1
+console.log('') /**************************************************** */
 
 
-console.log(
-    john.indexOf('designer') === -1 ? 'John is NOT a designer' : 
-                                                    'John is a designer'
-);
+var name='Christopher'
+for(var i=0; i < name.length; i++){
+    console.log(name[i]);
+}
+
+console.log('') /**************************************************** */
+
+
+var  chris = [
+    'Chris', 'Farrugia', 1984, 'Maltese', 'Designer']
+
+
+for (var i=0; i < chris.length; i++){
+    console.log(chris[i]);
+}
+
+console.log('') /**************************************************** */
+
+// while loop 
+var i = 0;
+while(i < chris.length) {
+    console.log(chris[i]);
+    i++;
+}
+
+console.log('') /**************************************************** */
+
+//  Continue and Break statements
+
+//  continue statements:
+var dorothy = ['Dorothy', 'Cassar', 30, 'female', 1990, 'Podiatrist']
+
+for (var i = 0; i < dorothy.length; i++){
+    if (typeof dorothy[i] !==  'string') continue;
+    console.log(dorothy[i]);
+}
+
+console.log('') /**************************************************** */
+
+// break statments
+var skills = [
+    'Python',
+    'JavaScript',
+    'HTML', 
+    'SQLite',
+    'CSS', 
+    'AWS', 
+    'Bash', 
+    'CMD', 
+    'MYSQL', 
+    'PowerShell'
+];
+
+for (var  i = 0; i < skills.length; i++){
+    if (skills[i] === 'HTML') break;
+    console.log(skills[i]);
+}
+
+console.log('') /**************************************************** */
+
+// Looping backwards
+for (var i = skills.length; i--; i >= 0){
+    console.log(skills[i])
+}
