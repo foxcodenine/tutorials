@@ -165,3 +165,64 @@ finalArray = [bill1[1], bill2[1], bill3[1]];
 
 console.log('tipArray:', tipArray);
 console.log('finalArray:', finalArray);
+
+
+
+
+/*****************************
+* CODING CHALLENGE 4
+*/
+
+/*
+Let's remember the first coding challenge where Mark and John compared
+their BMIs. Let's now implement the same functionality with objects and
+methods.
+1. For each of them, create an object with properties for their full
+   name, mass, and height
+2. Then, add a method to each object to calculate the BMI. Save the BMI
+   to the object and also return it from the method.
+3. In the end, log to the console who has the highest BMI, together with
+   the full name and the respective BMI. Don't forget they might have
+   the same BMI.
+
+Remember: BMI = mass / height^2 = mass / (height * height). (mass in kg
+and height in meter).
+
+GOOD LUCK 😀
+*/
+
+var john = {
+        name: 'John',
+        mass: 69,
+        height :1.72, 
+        bmiCal: function(){
+        this.bmi = this.mass/(this.height**2)
+        }
+}
+
+var mark = {
+    name: 'Mark',
+    mass: 69,
+    height :1.72, 
+    bmiCal: function(){
+        this.bmi = mark.mass / (mark.height**2);
+    }
+}
+john.bmiCal()
+mark.bmiCal()
+
+var highestBMI = function(person1, person2){
+    switch(true){
+        case person1.bmi > person2.bmi:
+            return person1.name + ' has the highest BMI: ' + person1.bmi;
+
+        case person2.bmi > person1.bmi:
+            return person2.name + ' has the highest BMI: ' + person2.bmi;
+        
+        default:
+            return 'Both ' + person1.name + ' & ' + person2.name + 
+                                        ' has a BMI of ' + person1.bmi;
+    }
+}
+console.log(highestBMI(john, mark))
+
