@@ -253,7 +253,7 @@ def profile(profile_user):
     
     
 
-    tweets =  Tweets.query.filter_by(user=query_user).order_by(Tweets.id.desc()).all()
+    tweets =  Tweets.query.filter_by(user=query_user).order_by(Tweets.id.desc()).limit(4).all()
 
 
 
@@ -344,7 +344,7 @@ def timeline(timeline_user):
 
 
     # Setting Tweets:
-    if query_user == current_user:   
+    if not timeline_user:   
 
         '''
         # Here i have quered the following tweets of the current user using python:
