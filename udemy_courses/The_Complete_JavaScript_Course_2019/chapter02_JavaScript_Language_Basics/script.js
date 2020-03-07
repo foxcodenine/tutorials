@@ -300,9 +300,9 @@
 // }
 
 
-/***********************************************************************
-* Functions 
-*/
+// /***********************************************************************
+// * Functions 
+// */
 
 // function calculateAge(birthYear){
 //     return 2020 - birthYear
@@ -516,94 +516,181 @@
 // chris.calAge(2020)
 
 
-/***********************************************************************
-* Loops and iteration
-*/
+// /***********************************************************************
+// * Loops and iteration
+// */
 
-// for loop
-for (var i = 0; i < 10; i++){
-    console.log(i);
+// // for loop
+// for (var i = 0; i < 10; i++){
+//     console.log(i);
+// }
+
+
+// console.log('') /**************************************************** */
+
+
+// // i = 0, 0 < 10 =true, therefore log to console i, add 1 to i;
+// // i = 1, 1 < 10 =true, therefore log to console i, add 1 to i;
+// // .....
+// // i = 1, 10 < 10 =false, exit loop;
+
+
+
+// for (var i = 2; i <= 20; i+=2){
+//     console.log(i);
+// }
+
+// console.log('') /**************************************************** */
+
+
+// var name='Christopher'
+// for(var i=0; i < name.length; i++){
+//     console.log(name[i]);
+// }
+
+// console.log('') /**************************************************** */
+
+
+// var  chris = [
+//     'Chris', 'Farrugia', 1984, 'Maltese', 'Designer']
+
+
+// for (var i=0; i < chris.length; i++){
+//     console.log(chris[i]);
+// }
+
+// console.log('') /**************************************************** */
+
+// // while loop 
+// var i = 0;
+// while(i < chris.length) {
+//     console.log(chris[i]);
+//     i++;
+// }
+
+// console.log('') /**************************************************** */
+
+// //  Continue and Break statements
+
+// //  continue statements:
+// var dorothy = ['Dorothy', 'Cassar', 30, 'female', 1990, 'Podiatrist']
+
+// for (var i = 0; i < dorothy.length; i++){
+//     if (typeof dorothy[i] !==  'string') continue;
+//     console.log(dorothy[i]);
+// }
+
+// console.log('') /**************************************************** */
+
+// // break statments
+// var skills = [
+//     'Python',
+//     'JavaScript',
+//     'HTML', 
+//     'SQLite',
+//     'CSS', 
+//     'AWS', 
+//     'Bash', 
+//     'CMD', 
+//     'MYSQL', 
+//     'PowerShell'
+// ];
+
+// for (var  i = 0; i < skills.length; i++){
+//     if (skills[i] === 'HTML') break;
+//     console.log(skills[i]);
+// }
+
+// console.log('') /**************************************************** */
+
+// // Looping backwards
+// for (var i = skills.length; i--; i >= 0){
+//     console.log(skills[i])
+// }
+
+// /***********************************************************************
+// * Challage 5 
+// */
+
+var john = {
+    fullName: 'John Smith',
+    bills: [ 124, 48, 268, 180, 42],
+    calcTips: function() {
+        this.tips = [];
+        this.finalValues = []; 
+
+        for (var i = 0; i < this.bills.length; i++){
+            // Determin percentage based on tipping rules 
+            var percentage;
+            var bill = this.bills[i];
+
+            if (bill < 50) {
+                percentage = 0.2;
+            } else if (bill >= 50 && bill < 200) {
+                percentage = 0.15;
+            } else {
+                percentage = 0.1;
+            }
+            // Add results to the corresponing arrays 
+            this.tips[i] = percentage * bill;
+            this.finalValues[i] = this.tips[i] + bill;
+        }
+    }
 }
 
-
-console.log('') /**************************************************** */
-
-
-// i = 0, 0 < 10 =true, therefore log to console i, add 1 to i;
-// i = 1, 1 < 10 =true, therefore log to console i, add 1 to i;
-// .....
-// i = 1, 10 < 10 =false, exit loop;
+john.calcTips();
+console.log(john);
 
 
+var mark = {
+    fullName: 'Mark Muller',
+    bills: [77, 375, 110, 45],
+    calcTips: function() {
+        this.tips = [];
+        this.finalValues = [];
+        
+        // set persentage
+        for (var i = 0; i < this.bills.length; i++ ) {
+            var bill = this.bills[i];
+            var percentage;
 
-for (var i = 2; i <= 20; i+=2){
-    console.log(i);
+            if (bill < 100) {
+                percentage = 0.2;
+            } else if (bill >= 100 && bill < 300) {
+                percentage = 0.1;
+            } else {
+                percentage = 0.25;
+            }
+            // return tips & finalValues
+            this.tips[i] = percentage * bill;
+            this.finalValues[i] = this.tips[i] + bill;            
+        }        
+    }
 }
 
-console.log('') /**************************************************** */
+mark.calcTips();
+console.log(mark);
 
-
-var name='Christopher'
-for(var i=0; i < name.length; i++){
-    console.log(name[i]);
+function calcAverage(tipsArray) {
+    var sum = 0;
+    for (var i = 0; i < tipsArray.length; i++) {
+        sum += tipsArray[i];
+    }
+    return sum / tipsArray.length;
 }
 
-console.log('') /**************************************************** */
+john.averageTip = calcAverage(john.tips);
+mark.averageTip = calcAverage(mark.tips);
 
-
-var  chris = [
-    'Chris', 'Farrugia', 1984, 'Maltese', 'Designer']
-
-
-for (var i=0; i < chris.length; i++){
-    console.log(chris[i]);
-}
-
-console.log('') /**************************************************** */
-
-// while loop 
-var i = 0;
-while(i < chris.length) {
-    console.log(chris[i]);
-    i++;
-}
-
-console.log('') /**************************************************** */
-
-//  Continue and Break statements
-
-//  continue statements:
-var dorothy = ['Dorothy', 'Cassar', 30, 'female', 1990, 'Podiatrist']
-
-for (var i = 0; i < dorothy.length; i++){
-    if (typeof dorothy[i] !==  'string') continue;
-    console.log(dorothy[i]);
-}
-
-console.log('') /**************************************************** */
-
-// break statments
-var skills = [
-    'Python',
-    'JavaScript',
-    'HTML', 
-    'SQLite',
-    'CSS', 
-    'AWS', 
-    'Bash', 
-    'CMD', 
-    'MYSQL', 
-    'PowerShell'
-];
-
-for (var  i = 0; i < skills.length; i++){
-    if (skills[i] === 'HTML') break;
-    console.log(skills[i]);
-}
-
-console.log('') /**************************************************** */
-
-// Looping backwards
-for (var i = skills.length; i--; i >= 0){
-    console.log(skills[i])
+if (john.averageTip > mark.averageTip) {
+    console.log(john.fullName + 
+        '\'s family pays higher tips, with an average of $' +
+        john.averageTip);        
+} else if (john.averageTip < mark.averageTip) {
+    console.log(mark.fullName + 
+        '\'s family pays higher tips, with an average of $' +
+        mark.averageTip);
+} else {
+    console.log('Both familys pay the same tips on average, of $' 
+    + mark.averageTip);
 }
