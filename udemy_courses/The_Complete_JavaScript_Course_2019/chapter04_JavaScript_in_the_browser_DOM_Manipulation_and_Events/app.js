@@ -12,9 +12,9 @@ GAME RULES:
 
 var scores, roundScore, activePlayer, dice;
 
-score = [0,0];
+scores = [0,0];
 roundScore = 0;
-activePlayer = 1; 
+activePlayer = 0; 
 
 
 //______________________________________________________________________
@@ -42,18 +42,33 @@ console.log(x);
 
 
 
-// to change the css of an element in JS:
-document.querySelector(".dice").style.display = 'none';
+function restGame() {
+    scores = [0,0];
+    roundScore = 0;
+    activePlayer = 0;
 
-// selecting an item by id
-document.getElementById("score-0").textContent = '0';
-document.getElementById("score-1").textContent = '0';
-document.getElementById("current-0").textContent = '0';
-document.getElementById("current-1").textContent = '0';
+    // to change the css of an element in JS:
+    document.querySelector(".dice").style.display = 'none';
 
+    // selecting an item by id
+    document.getElementById("score-0").textContent = '0';
+    document.getElementById("score-1").textContent = '0';
+    document.getElementById("current-0").textContent = '0';
+    document.getElementById("current-1").textContent = '0';    
+    
+    document.querySelector('.player-1-panel').classList.remove('active', 'winner')
+    document.querySelector('.player-0-panel').classList.remove('active', 'winner')
+    document.querySelector('.player-0-panel').classList.add('active')
+
+    document.querySelector("#name-0").innerHTML = 'Player 1'
+    document.querySelector("#name-1").innerHTML = 'Player 2'
+
+}
+restGame();
 
 //______________________________________________________________________
-// add functionality when the roll dice is clicked (A)
+// (A) add functionality when the roll dice is clicked
+
 document.querySelector(".btn-roll").addEventListener('click', function(){
 
     // 1. Random number from 1 to 6 
@@ -64,7 +79,69 @@ document.querySelector(".btn-roll").addEventListener('click', function(){
     var diceDOM = document.querySelector(".dice");
     diceDOM.style.display = 'block';
 
-    diceDOM.src = "images/dice-" + dice + ".png"
+    diceDOM.src = "images/dice-" + dice + ".png";
 
     // 3. Update the roundScore if the result is not a 1
-})
+
+    var currentDOM = document.getElementById("current-" + activePlayer);
+    currentDOM.textContent = ( dice == 1) ? 0 : Number(currentDOM.textContent) + dice;
+
+    if (dice !== 1) {
+        roundScore += dice;
+        console.log(roundScore);
+        document.getElementById("current-"+activePlayer).textContent = roundScore;
+    }
+    else {    
+        // Next Player    
+        nextPlayer();       
+    }    
+});
+
+
+//______________________________________________________________________
+// (B) add functionality selecting Hold
+
+
+document.querySelector(".btn-hold").addEventListener("click", function(){
+
+    // Add CURRENT score to GLOBAL score
+    scores[activePlayer] += roundScore;
+
+    // Update the UI
+    document.querySelector("#score-"+activePlayer).textContent = scores[activePlayer];
+    
+
+    // Check if player won the game 
+    if (scores[activePlayer] >= 10) {
+        document.querySelector("#name-"+activePlayer).innerHTML = "<b>Winner!</b>";
+        document.querySelector(".dice").style.display = 'none'
+        document.querySelector(".player-"+activePlayer+"-panel").classList.add('winner')
+        document.querySelector(".player-"+activePlayer+"-panel").classList.remove('active');
+           
+    // Next Player     
+    } else {
+        nextPlayer(); 
+    }    
+});
+
+//______________________________________________________________________
+// (C) add functionality to NEW GAME button
+
+document.querySelector('.btn-new').addEventListener('click', restGame);
+
+
+//______________________________________________________________________
+function nextPlayer() {
+    roundScore = 0;             
+    // document.querySelector(".player-1-panel").classList.add('active');
+    // document.querySelector(".player-0-panel").classList.remove('active');
+
+    document.getElementById("current-0").textContent = '0';
+    document.getElementById("current-1").textContent = '0';
+
+    document.querySelector(".player-1-panel").classList.toggle('active');
+    document.querySelector(".player-0-panel").classList.toggle('active');
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0; 
+
+    // document.querySelector(".dice").style.display = "none";
+}
