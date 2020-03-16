@@ -49,7 +49,7 @@ photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'images'
 app.config['DEBUG'] = True 
 app.config['SECRET_KEY'] = uuid4().hex
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:ayanami9@localhost/twitter_clone_engage'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:a9@localhost/twitter_clone_engage'
 
 # app.config['MAX_CONTENT_LENGTH'] = 1 * 960 * 960
 # ______________________________________________________________________
