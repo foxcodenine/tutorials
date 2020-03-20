@@ -9,9 +9,9 @@ var john = {
     job: 'teacher'
 };
 
-myLine('A')// __________________________________________________e________
+myLine('A');// _________________________________________________________
 
-// Function constructor
+// Lecture: Function constructor
 
 var Person = function(name, yearOfBirth, job) {
     this.name = name;
@@ -34,9 +34,9 @@ chris.calculayeAge(2020);
 var jane = new Person('Jane', 1969, 'designer'); 
 var mark = new Person('Mark', 1948, 'retired'); 
 
-myLine('B')// __________________________________________________________
+myLine('B');// _________________________________________________________
 
-// Prototype property
+// Lecture: Prototype method and property
 
 var Car = function(model, mark, color, engine, carYear) {
     this.model = model;
@@ -68,7 +68,7 @@ console.log(myCar.__proto__ == Car.prototype)
 // inside each object there is the <prototype Object>: because every
 // object inherits from the Object Object.
 
-myLine('C')// __________________________________________________________
+myLine('C');// _________________________________________________________
 // some methods & operators you inherits from Object are:
 
 // .hasOwnProperty
@@ -81,7 +81,7 @@ console.log(typeof myCar );
 
 
 
-myLine('D')// __________________________________________________________
+myLine('D');// _________________________________________________________
 
 // All Arrays inherits form the <prototype Array>
 
@@ -92,9 +92,10 @@ console.log(x.length);
 console.log(x.reverse());
 console.log(x.toString());
 
-myLine('E')// __________________________________________________________
+myLine('E');// _________________________________________________________
 
-// Object.create:
+// Lecture: Object.create:
+// its is an other way to inherits from another object
 
 var personProto = {
     calculayeAge: function() {
@@ -111,7 +112,7 @@ john.job = 'teacher';
 john.calculayeAge();
 console.log(john);
 
-
+// you can also do this:
 var jane = Object.create(personProto, 
     {
         name : { value : 'Jane' },
@@ -124,10 +125,10 @@ jane.calculayeAge();
 console.log(jane);
 
 
-myLine('F')// __________________________________________________________
+myLine('F');// _________________________________________________________
 
 
-// Primitives vs objects 
+// Lecture: Primitives vs objects 
 
 /*
 Primitives: numbers, string, booleans, undefined and null
@@ -173,4 +174,175 @@ change(age,  obj);
 console.log(age);  // <-- Primitive hasn't change
 console.log(obj);  // <-- Object has been updated
 
-myLine('F')// __________________________________________________________
+myLine('F');// _________________________________________________________
+
+
+/*
+Lecture: First_Class_Functions
+
+A function ia an instance of the Object type;
+A function behaves like any other object;
+We can store functions in a variable;
+We can pass a function as an argument to another function;
+We can return a function from a function.
+*/
+
+
+// Function_exepting_functions:
+var years = [1955, 1984, 1986, 1990, 2010]
+
+function ageCalculator(yearOfBirth) {
+    var currentYear = 2020;
+    return currentYear - yearOfBirth;
+}
+
+console.log(ageCalculator(2000))
+
+function myMapper(func, iter) {
+    iterReturn = [];
+    for ( var i = 0; i < iter.length; i++) {
+        iterReturn[i] = func(iter[i])
+        // /*or*/ iterReturn.push(func(iter[i]))
+    }
+    return iterReturn
+}
+
+var ages = myMapper(ageCalculator, years);
+console.log(ages);
+
+
+
+function isFullAge(age) {
+    return age >= 18;
+}
+
+
+var fullAges= myMapper(isFullAge, ages);
+console.log(fullAges);
+
+
+
+function maxHearRate(age) {
+    if (age >= 18 && age <= 88){
+        return Math.round(206.9 - (0.67 * age));
+    } else {
+        return -1;
+    }
+}
+
+var maxHearRates = myMapper(maxHearRate, ages);
+console.log(maxHearRates);
+
+myLine('G');// _________________________________________________________
+
+//  Lecture: Functions return functions:
+
+function interviewQuestion(job) {
+    job = job.toLowerCase();
+    if (job === 'designer') {
+        return function(name) {
+            console.log(name + ' can you explain what UX design is?');
+        }
+    } else if (job === 'teacher') {
+        return function(name) {
+            console.log('What subject do you teach, ' + name + '?'); 
+        }
+    } else {
+        return function(name) {
+            console.log('Hi ' + name + ', what do you do?');
+        }
+    }
+}
+
+var teacherQuestion = interviewQuestion('teacher');
+var designerQuestion = interviewQuestion('designer');
+var generalQuestion = interviewQuestion('POD')
+teacherQuestion('Vanesa');
+designerQuestion('James');
+generalQuestion('Dorothy')
+
+interviewQuestion('Designer')('Mark');
+
+
+myLine('H');// _________________________________________________________
+
+// Lecture: Immediately Invoked Function Expression - IIFE 
+
+// (IIFE) is a JavaScript function that runs as soon as it is defined.
+// This prevents accessing variables within the IIFE idiom as well as
+// polluting the global scope.
+
+// (function() { } )() 
+
+function game() {
+    var score = Math.random() * 10 
+    console.log(score >= 5);
+}
+
+game();
+
+
+// howerver you can use an IIFE instade:
+
+(
+    function() {
+        var score = Math.random() * 10;
+        console.log(score >= 5);
+    }
+)();
+
+
+// you can also input parameters in the IIFE
+(
+    function(goodluck=0) {
+        var score = Math.random() * 10;
+        console.log(score >= 5 - goodluck);
+    }
+)(4);
+
+
+myLine('I');// _________________________________________________________
+// Lecture: Closures
+
+function retirement(retirementAge) {
+    var a = ' years left until retirment.';
+
+    return function(yearOfBirth) {
+        var age = 2016 - yearOfBirth;
+        console.log((retirementAge - age) + a);
+    }
+}
+var retirmentMT = retirement(61);
+var retirmentUK = retirement(65);
+var retirmentPL = retirement(45);
+
+var chrisYear = 1984;
+
+retirmentMT(chrisYear);
+retirmentUK(chrisYear);
+retirmentPL(chrisYear);
+
+retirement(65)(1984);
+
+
+myLine('J');// _________________________________________________________
+
+
+function interviewQuestion2(job) {
+    job = job.toLowerCase();
+
+    return function (name){    
+        if (job === 'data scientist') {
+            console.log(name + ' can you explain what UX design is?');            
+        } else if (job === 'web developer') {     
+            console.log('What subject do you teach, ' + name + '?');             
+        } else {            
+            console.log('Hi ' + name + ', what does a '+ job +' do?');
+        }
+    }
+}
+
+var teacherQ = interviewQuestion2('pythista');
+teacherQ('Joelle');
+
+myLine('K');// _________________________________________________________
