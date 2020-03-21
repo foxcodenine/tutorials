@@ -56,6 +56,7 @@ Car.prototype.type = 'four_wheeler';
 
 
 var myCar = new Car('Vitz','Toyots', 'Gray', '10v', 2006);
+console.log(Car);
 console.log(myCar);
 myCar.licenseFee(2020);
 console.log(myCar.type);
@@ -73,7 +74,9 @@ myLine('C');// _________________________________________________________
 
 // .hasOwnProperty
 console.log(myCar.hasOwnProperty('model'));
-console.log(myCar.hasOwnProperty('type'));
+console.log(myCar.hasOwnProperty('type')); // 'type' is a property of 
+                                           // Car.prototype
+console.log(Car.prototype.hasOwnProperty('type'))
 
 // Operators  typeof & instanceof
 console.log(myCar instanceof Car);
@@ -88,6 +91,7 @@ myLine('D');// _________________________________________________________
 var x = [2, 4, 6, 8];
 console.info(x);
 
+// examples of methods & properties inherited from array object
 console.log(x.length);
 console.log(x.reverse());
 console.log(x.toString());
@@ -196,7 +200,7 @@ function ageCalculator(yearOfBirth) {
     return currentYear - yearOfBirth;
 }
 
-console.log(ageCalculator(2000))
+console.log(ageCalculator(2000)) // teating func ageCalculator
 
 function myMapper(func, iter) {
     iterReturn = [];
@@ -332,10 +336,10 @@ function interviewQuestion2(job) {
     job = job.toLowerCase();
 
     return function (name){    
-        if (job === 'data scientist') {
+        if (job === 'web developer') {
             console.log(name + ' can you explain what UX design is?');            
-        } else if (job === 'web developer') {     
-            console.log('What subject do you teach, ' + name + '?');             
+        } else if (job === 'data scientist') {     
+            console.log('What framworks do you teach, ' + name + '?');             
         } else {            
             console.log('Hi ' + name + ', what does a '+ job +' do?');
         }
@@ -346,3 +350,125 @@ var teacherQ = interviewQuestion2('pythista');
 teacherQ('Joelle');
 
 myLine('K');// _________________________________________________________
+// Lecture: Bind, call and apply
+
+// Call_method______________________________
+
+var john = {
+    name: 'John',
+    age: 31,
+    job: 'teacher',
+    presentation: function(style, timeOfDay) {
+        if (style === 'formal') {
+            console.log('Good ' + timeOfDay + 
+            ' ladies and gentlemen! My name is ' + this.name + 
+            ', I am a ' + this.job + ' and I am ' + this.age + 
+            ' years old.')
+        } else {
+            console.log('Hey! what\'s up? I\'m ' + this.name + 
+            ', I am a ' + this.job + ' and I am ' + this.age +
+            ' years old. Have a nice ' + timeOfDay + '.')
+        }
+    }
+}
+
+john.presentation('frendly','Evening')
+
+// method_borrowing__________________________
+
+var elaine = {
+    name: 'Elaine',
+    job: 'accounter',
+    age: 42
+}
+
+john.presentation.call(elaine, 'formal', 'morning');
+
+myLine('L');// _________________________________________________________
+
+// apply_method______________________________
+
+// john.presentation.apply(emily, ['friendly', 'afternoon']);
+
+
+
+// bind_method______________________________
+
+var johnFormal = john.presentation.bind(john, 'formal');
+johnFormal('evening');
+johnFormal('night');
+
+var elaineUnformal = john.presentation.bind(elaine, 'frendly');
+elaineUnformal('morning')
+
+
+myLine('M');// _________________________________________________________
+
+
+
+// getting presentation method from john to emily
+var emily = {
+    name: 'Emily',
+    age: '30', 
+    job: 'painter', 
+    presentation: john.presentation
+}
+
+emily.presentation( 'formal','evening');
+
+
+
+
+// getting presentation method from john to chris
+var kris = {}
+kris.name = 'Kris';
+kris.age = 35;
+kris.job = 'designer';
+kris.presentation = john.presentation;
+
+kris.presentation('frendly', 'morning')
+
+console.log(john)
+console.log(emily)
+console.log(kris)
+
+myLine('N');// _________________________________________________________
+// using the bind method
+
+
+function myMapperFunc(_func, _array) {
+    newArray = [];
+
+    for (var i = 0; i < _array.length; i++) {
+        newArray[i] = _func(_array[i])
+    }
+    return newArray
+}
+
+
+var myFamillyAges = [65, 35, 33, 5, 4];
+
+
+function isFullAge2(limit, age){
+    return age >= limit;
+}
+
+// testing:
+var test = console.log(isFullAge2(20, 18))
+
+// since isFullAge2 take 2 argument but myMapperFunc takes to we need to
+// bind 1 argument
+
+var maltaFullAge = isFullAge2.bind(this, 18);
+// testing
+console.log(maltaFullAge(16));
+
+
+console.log(myMapperFunc(maltaFullAge, myFamillyAges));
+
+// or we can do this:
+
+console.log(myMapperFunc(
+    isFullAge2.bind(this, 18), // <-- 1st argument: function(limit)
+    myFamillyAges)             // <-- 2nd argument: array
+);
