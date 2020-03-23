@@ -15,13 +15,23 @@
         }
     }
 
-    Question.prototype.checkAnswer = function(ans) {
+    Question.prototype.checkAnswer = function(ans, func) {
+        var sc = 0;
 
         if (ans == this.correct) {
             console.log('Correct answer!');
+            sc = func(true);
         } else {
             console.log('Wrong answer. Try again :)');
+            sc = func(false);
         }
+        
+        this.displayScore(sc);
+    }
+    
+    Question.prototype.displayScore = function(score) {
+        console.log('Your current score is ' + `${score}`)
+        console.log('___________________________________________________')
     }
 
     // _____________________________________________________________________
@@ -45,14 +55,48 @@
 
     // _____________________________________________________________________
 
+    // the function score purpose is to create a closure to store the var sc in
+    // its local scope so the keepScore function always have access to it
+
+    function score() {
+        var sc = 0;
+        return function(correct){
+            if (correct){
+                sc++;
+            }
+            return sc; 
+        }
+    }
+
+    var keepScore = score();
+
+
+    // _____________________________________________________________________
+
     var questions = [q1, q2, q3];
 
-    var n =Math.floor(Math.random() * questions.length); 
+    
 
-    questions[n].displayQuestion();
+    function newQuestion(){
 
-    var answer = parseInt(prompt('Please select the corrent answer.'));
+        var n =Math.floor(Math.random() * questions.length); 
 
-    questions[n].checkAnswer(answer);
+        questions[n].displayQuestion();
+        
+
+        var answer = prompt('Please select the corrent answer.');
+        
+
+        if (answer !== 'exit'){
+
+            questions[n].checkAnswer(parseInt(answer), keepScore);
+            newQuestion();
+        }
+
+        
+        
+    }
+
+    newQuestion();
 
 })();
