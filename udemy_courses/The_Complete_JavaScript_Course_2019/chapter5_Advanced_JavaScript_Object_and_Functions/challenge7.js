@@ -91,7 +91,7 @@ var myQuestions = [
 function engine(iterator) {
 
     while (true) {
-        var next = Math.floor(Math.random()*8);
+        var next = Math.floor(Math.random() * myQuestions.length);
         do {
             var currentQ = iterator[next]
             console.log(currentQ['question']);
