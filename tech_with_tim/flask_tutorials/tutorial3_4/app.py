@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, render_template, redirect, url_for, request, session, flash
 from uuid import uuid4
 from datetime import timedelta
 app = Flask(__name__) 
@@ -19,7 +19,7 @@ def new_page():
     return render_template('new_page.html')
 
 # ______________________________________________________________________
-# tutorial #4
+# tutorial #4 
 @app.route('/login', methods=['POST','GET'])
 def login():
 
@@ -37,19 +37,24 @@ def user(usr):
 
 
 # ______________________________________________________________________
-# tutorial #5 Session
+# tutorial #5 Session, #6 Flash 
 @app.route('/sign_in_session', methods=['POST','GET'])
 def sign_in_session():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+
         session.permanent = True
+
         # insert data in to session 
         session['username'] = username
         session['password'] = password
+        flash('You have sign-in successfully!', 'info')
         return redirect(url_for('session_page'))
-        # return  '<h4>username: {}\npassword: {}</h4>'.format(username, password)
+
     if 'username' in session and 'password' in session:
+      
+        flash('You already sign-in!', 'info')
         return redirect(url_for('session_page'))
     
     return render_template('sign_in.html')
@@ -63,22 +68,25 @@ def session_page():
         username = session['username'] 
         password = session['password']
         
-        return  '<h4>username: {}\npassword: {}</h4>\
-                \n<h3 style="color: #665544;">Ok so they do have whiskers! \
-                </h3>'.format(username, password)
+        return  render_template('session_page.html', username=username, password=password)
     else:
+        flash('You Need to sign-in first', 'info')
         return redirect(url_for('sign_in_session'))
 
 
 @app.route('/sign_out_session')
 def sign_out_session():
-    session.pop('username', None)
-    session.pop('password', None)
+    if 'username' in session:
+        username = session['username']
+        session.pop('username', None)
+        session.pop('password', None)
 
-    if 'username' not in session and 'password' not in session:
-        return '<h3>You have loged out successfully!</h3>'
-    else:
-        return '<h3>You are still loged-in!</h3>'
+        if 'username' not in session and 'password' not in session:
+            flash(f'{username}! You have loged out successfully!', 'info')
+            return redirect(url_for('sign_in_session'))
+        else:
+            return '<h3>You are still loged-in!</h3>'
+    return redirect(url_for('sign_in_session'))
 
 # ______________________________________________________________________
 if __name__ == '__main__':

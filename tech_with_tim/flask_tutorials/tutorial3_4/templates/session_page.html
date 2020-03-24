@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %} my-user-page {% endblock %}
+
+{% block content %}
+
+
+
+    <p>Welcome, {{ username }}</p>
+    <p>Your password is: {{ password }}</p>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for msg in messages %}   
+        <li style="color: brown;">{{ msg }}</li>             
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    
+{% endblock %}
