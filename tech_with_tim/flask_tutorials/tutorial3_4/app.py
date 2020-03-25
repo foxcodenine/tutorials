@@ -6,7 +6,7 @@ from passlib.hash import sha256_crypt
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__) 
-app.permanent_session_lifetime = timedelta(seconds=20)
+app.permanent_session_lifetime = timedelta(seconds=600)
 
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = uuid4().hex
@@ -65,23 +65,45 @@ def user(usr):
 # tutorial #5 Session, #6 Flash 
 @app.route('/sign_in_session', methods=['POST','GET'])
 def sign_in_session():
+
+    if 'username' in session and 'password' in session:      
+        flash('You already sign-in!', 'info')
+        return redirect(url_for('session_page'))
+
+
     if request.method == 'POST':
         username = request.form['username']
         password = sha256_crypt.encrypt(request.form['password'])
         
-
         session.permanent = True
 
-        # insert data in to session 
-        session['username'] = username
-        session['password'] = password
-        flash('You have sign-in successfully!', 'info')
-        return redirect(url_for('session_page'))
 
-    if 'username' in session and 'password' in session:
-      
-        flash('You already sign-in!', 'info')
-        return redirect(url_for('session_page'))
+
+        current_user = Users.query.filter_by(username = username).first()
+
+        
+
+        if current_user:
+            if sha256_crypt.verify(request.form['password'], current_user.password):
+                # insert data in to session 
+                session['username'] = username
+                session['password'] = password
+                
+                flash('You have sign-in successfully!', 'info')
+                return redirect(url_for('session_page'))
+            else:
+                flash('Incorrect password!', 'info')
+                return redirect(url_for('sign_in_session'))
+
+        else:
+            new_user = Users(username, password, None)
+            db.session.add(new_user)
+            db.session.commit()
+            session['username'] = username
+            session['password'] = password      
+            flash('New user created, successfully!', 'info')
+            return redirect(url_for('session_page'))
+    
     
     return render_template('sign_in.html')
 
@@ -90,14 +112,22 @@ def sign_in_session():
 @app.route('/session_page',methods=['POST','GET'])
 def session_page():
     if 'username' in session:
-        email = None
+        
 
         username = session['username'] 
-        password = session['password']
+        current_user = Users.query.filter_by(username = username).first()
+        password = current_user.password
+        email = current_user.email
 
         if request.method == 'POST':
             email = request.form['email']
             session['email'] = email
+            
+            current_user .email = email 
+            db.session.commit()
+
+
+
         else:
             if 'email' in session:
                 email = session['email']
@@ -119,6 +149,8 @@ def sign_out_session():
         session.pop('username', None)
         session.pop('password', None)
         session.pop('email', None)
+               
+
 
         if 'username' not in session and 'password' not in session:
             flash(f'{username}! You have loged out successfully!', 'info')
@@ -126,7 +158,64 @@ def sign_out_session():
         else:
             return '<h3>You are still loged-in!</h3>'
     return redirect(url_for('sign_in_session'))
+# ______________________________________________________________________
+
+
+@app.route('/delete', methods=['POST', 'GET'])
+def delete():
+    if 'username' in session:
+          
+        current_user = Users.query.filter_by(username=session['username']).first()
+
+        try:
+            if request.method == 'POST':
+                un_pw = request.form['un#pw']
+                un_pw = un_pw.split('#')
+                username, password = un_pw[0],un_pw[1]
+                print(username, password)
+
+                if username == current_user.username and sha256_crypt.verify(
+                    password, current_user.password):
+                    db.session.delete(current_user)
+                    db.session.commit()
+                    session.pop('username', None)
+                    session.pop('password', None)
+                    session.pop('email', None)
+                    flash('Account deleted!')
+                    return redirect(url_for('sign_in_session'))
+                else:
+                    flash('Insert "username#password" to delete account!')        
+                    return render_template('delete_account.html', username = current_user.username) 
+        
+        except IndexError:
+            flash('Insert "username#password" to delete account!')
+            return render_template('delete_account.html', username = current_user.username)
+
+                
+        
+        
+        
+        return render_template('delete_account.html', username = current_user.username)  
+
+
+    flash('You need to be sign-in!')
+    return redirect(url_for('sign_in_session'))
+
+
+
+
+
+
 
 # ______________________________________________________________________
 if __name__ == '__main__':
     app.run()
+
+'''
+JamesTheCat a
+Chrismariojimmy
+JoelleGirl
+Red
+JameTheCat
+
+'''
