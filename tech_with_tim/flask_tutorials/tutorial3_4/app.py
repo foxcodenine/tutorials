@@ -1,11 +1,36 @@
 from flask import Flask, render_template, redirect, url_for, request, session, flash
 from uuid import uuid4
 from datetime import timedelta
+import sqlalchemy
+from passlib.hash import sha256_crypt
+from flask_sqlalchemy import SQLAlchemy
+
 app = Flask(__name__) 
 app.permanent_session_lifetime = timedelta(seconds=20)
 
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = uuid4().hex
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mydb.sqlite3'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# ______________________________________________________________________
+# tutorial #7
+db = SQLAlchemy(app)
+
+class Users(db.Model):
+    __tablename__ = 'users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(255))
+    email = db.Column(db.String(100), unique=True)
+
+    def __init__(self, username, password, email=None):
+        self.username = username 
+        self.password = password
+        self.email = email
+
+
 
 # ______________________________________________________________________
 # tutorial #3
@@ -42,7 +67,8 @@ def user(usr):
 def sign_in_session():
     if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']
+        password = sha256_crypt.encrypt(request.form['password'])
+        
 
         session.permanent = True
 
@@ -64,11 +90,23 @@ def sign_in_session():
 @app.route('/session_page',methods=['POST','GET'])
 def session_page():
     if 'username' in session:
+        email = None
 
         username = session['username'] 
         password = session['password']
+
+        if request.method == 'POST':
+            email = request.form['email']
+            session['email'] = email
+        else:
+            if 'email' in session:
+                email = session['email']
         
-        return  render_template('session_page.html', username=username, password=password)
+        return  render_template(
+                                'session_page.html', 
+                                username = username, 
+                                password = password,
+                                email = email)
     else:
         flash('You Need to sign-in first', 'info')
         return redirect(url_for('sign_in_session'))
@@ -80,6 +118,7 @@ def sign_out_session():
         username = session['username']
         session.pop('username', None)
         session.pop('password', None)
+        session.pop('email', None)
 
         if 'username' not in session and 'password' not in session:
             flash(f'{username}! You have loged out successfully!', 'info')
