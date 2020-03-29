@@ -2,29 +2,70 @@
 // DATE MODULE__________________________________________________________
 
 var budgetController = (function() {
+    
 
-   // some code
+    var Expense = function(id, description,value) {
+       this.id = id;
+       this.description = description;
+       this.value =value;
+    };
+    var Income = function(id, description,value) {
+    this.id = id;
+    this.description = description;
+    this.value =value;
+    };
+
 })();
 
 
 // UI MODULE____________________________________________________________
 
-var uiController = (function() {
+var UIController = (function() {
     // some code
-});
+    var DOMStrings = {
+        inputType: '.add__type',
+        inputDescription: '.add__description',
+        inputValue: '.add__value',
+        inputBTN:'.add__btn'
+
+
+    }
+    return {        
+
+        getInput: function() {
+            return {
+                type: document.querySelector(DOMStrings.inputType).value,  // will be 'inc' or 'exp'
+                description: document.querySelector(DOMStrings.inputDescription).value,
+                value: document.querySelector(DOMStrings.inputValue).value
+            }
+        },
+
+        getDOMStrings: function() {
+            return DOMStrings;
+        }
+
+
+    }
+})();
 
 
 
 
 // CONTROLLER MODULE____________________________________________________
 
-var controller = (function(budgetCtrl, uiCtrl) {
-
+var controller = (function(budgetCtrl, UICtrl) {   
+    
     var ctrlAddItem = function() {
 
         // 1. Get the fieled input data
 
+        var input = UICtrl.getInput();
+        // console.log(input);
+
         // 2. Add the item to the budget controller
+
+        
+
 
         // 3. Add the item to the UI 
 
@@ -32,24 +73,38 @@ var controller = (function(budgetCtrl, uiCtrl) {
 
         // 5. Display the budget on the UI
 
-        console.log('Yes it works!');
+        // console.log('Yes it works!');
 
     }
 
-    
-    document.querySelector('.add__btn').addEventListener('click', ctrlAddItem);
-    
+    var setupEventListeners = function() {
 
-    document.addEventListener('keypress', function(event) {         
+        var DOM = UICtrl.getDOMStrings();
 
-        if (event.keyCode === 13 || event.which === 13) {
-            ctrlAddItem();
+        document.querySelector(DOM.inputBTN).addEventListener('click', ctrlAddItem);    
+
+        document.addEventListener('keypress', function(event) {
+            if (event.keyCode === 13 || event.which === 13) {
+                ctrlAddItem();
+            }
+        });
+    };
+
+
+
+    return {
+        init: function() {
+            console.log('Application has started');
+            setupEventListeners();
         }
-        
+    };
 
-    });
 
-})(budgetController, uiController);
+
+})(budgetController, UIController);
+
+controller.init();
+
 
 // _____________________________________________________________________
 
