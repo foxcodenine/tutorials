@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} Index {% endblock %}
+
+{% block body %} 
+<h2>This is the Profile Page</h2>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id eaque
+dolor atque rerum magnam minus quibusdam et totam distinctio, alias
+unde, nemo voluptates odio labore doloremque molestiae! Tempore, hic
+omnis. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum
+cum suscipit quam architecto adipisci natus placeat fugiat distinctio?
+Unde tempore ad a odit architecto at culpa error accusamus in
+possimus.</p>
+<div class="myimage_container">
+    <img src= "../../static/images/{{range(1, 9) | random}}.webp" alt="{{image}}" class="myimage">
+</div>
+{% endblock %}
