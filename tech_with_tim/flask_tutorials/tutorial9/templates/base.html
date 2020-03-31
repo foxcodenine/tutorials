@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+
+        <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
+
+        <link rel="stylesheet" type="text/css" href="{{
+        url_for('static', filename='style.css') }}">
+
+    </head>
+    <body>
+        <div class="myBorder">
+            <form class="form-inline">
+                <div class="form-group mb-2">
+                  <label for="staticEmail2" class="sr-only">Email</label>
+                  <input type="text" class="form-control" id="staticEmail2" value="email@example.com">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                  <label for="inputPassword2" class="sr-only">Password</label>
+                  <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+              </form>
+    
+            {% block containt %}
+            {% endblock %} 
+            <div>
+                <img src="{{ url_for('static', filename='./images/dolphins.jpg') }}" alt="">
+                <p></p>
+            </div>
+            
+        </div>
+    </body>
+</html>
