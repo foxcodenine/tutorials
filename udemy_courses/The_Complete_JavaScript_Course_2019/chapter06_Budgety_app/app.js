@@ -12,10 +12,11 @@
 
 
 // DATE MODULE__________________________________________________________
+// _____________________________________________________________________
 
 var budgetController = (function() {
     
-
+    // Income & Expense Constractor
     var Expense = function(id, description,value) {
        this.id = id;
        this.description = description;
@@ -27,6 +28,10 @@ var budgetController = (function() {
     this.value =value;
     };
 
+
+
+    // Store the data
+
     var data = {
         allItems: {
             exp: [],
@@ -35,13 +40,27 @@ var budgetController = (function() {
         totals: {
             exp: 0,
             inc: 0
-        }
+        },
+        budaget: 0,
+        percentage: -1
+    };
+
+
+    // Function to calculate totals in data
+    var calculateTotal = function(type) {
+        sum = 0 
+
+        data.allItems[type].forEach(function(cur, ind, arr){
+            sum += cur.value
+        });
+        return sum;
     };
 
 
     
-
+    // Return Functions to Public
     return {
+
         addItem: function(type, des, val) {
 
             var newItem, ID;
@@ -65,15 +84,46 @@ var budgetController = (function() {
             // Return the new element
             return newItem; 
         },
+
+        getBudget: function(){
+            return {
+                budaget: data.budaget,
+                totalInc: data.totals.inc,
+                totalExp: data.totals.exp,
+                percentage: data.percentage
+            }
+        },
+
+        
+
+        // Calculate budget function 
+
+        calculateBudget: function(type) {            
+
+            // Calculate total income and expanses
+
+            data.totals[type] = calculateTotal(type);       
+            
+            // Calculate the budget: total income - total expanses
+
+            data['budaget'] = data.totals['inc'] - data.totals['exp']
+
+            // Calculate the percentage on the income that we spent
+
+            data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
+        },
         testing: function() {
             return data;
         }
+        
     };
 
 })();
 
 
 // UI MODULE____________________________________________________________
+// _____________________________________________________________________
+
 
 var UIController = (function() {
     // some code
@@ -187,17 +237,19 @@ var UIController = (function() {
 
 
 // CONTROLLER MODULE____________________________________________________
+// _____________________________________________________________________
 
 var controller = (function(budgetCtrl, UICtrl) {  
     
     
-    var updateBudget = function() {
+    var updateBudget = function(type) {
 
         // 1. Calculate the budaget 
-
+        budgetCtrl.calculateBudget(type);
         // 2. Return the budget 
-
+        bugetData = budgetCtrl.getBudget();
         // 3. Display the budget on the UI
+        console.log(bugetData);
     };
 
 
@@ -224,7 +276,7 @@ var controller = (function(budgetCtrl, UICtrl) {
             UICtrl.clearFields();
 
             // 5. Calculate and update budget
-            updateBudget();
+            updateBudget(input.type);
         }
     };
 
