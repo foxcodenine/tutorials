@@ -87,7 +87,7 @@ var budgetController = (function() {
 
         getBudget: function(){
             return {
-                budaget: data.budaget,
+                budget: data.budaget,
                 totalInc: data.totals.inc,
                 totalExp: data.totals.exp,
                 percentage: data.percentage
@@ -133,11 +133,14 @@ var UIController = (function() {
         inputValue: '.add__value',
         inputBTN:'.add__btn',
         expContainer: '.expenses__list',
-        incContainer: '.income__list'
-                       
-
+        incContainer: '.income__list',
+        budgetLable: '.budget__value',
+        incomeLable: '.budget__income--value',
+        expensesLable: '.budget__expenses--value',
+        percentageLable: '.budget__expenses--percentage'              
 
     }
+
     return {        
 
         getInput: function() {
@@ -225,6 +228,30 @@ var UIController = (function() {
             // return fieldsArray;
         },
 
+        displayBudget: function(obj) {
+
+            // Update budget lables
+
+            document.querySelector(DOMStrings.budgetLable).innerText = obj.budget
+            document.querySelector(DOMStrings.incomeLable).innerText = obj.totalInc
+            document.querySelector(DOMStrings.expensesLable).innerText = obj.totalExp
+            
+            if (obj.percentage === Infinity) {
+                document.querySelector(DOMStrings.percentageLable).innerText = '__'
+
+            } else {
+                document.querySelector(DOMStrings.percentageLable).innerText = obj.percentage + '%'
+
+            }
+
+    
+
+
+
+
+
+        },
+
         getDOMStrings: function() {
             return DOMStrings;
         }
@@ -250,6 +277,7 @@ var controller = (function(budgetCtrl, UICtrl) {
         bugetData = budgetCtrl.getBudget();
         // 3. Display the budget on the UI
         console.log(bugetData);
+        UICtrl.displayBudget(bugetData);
     };
 
 
@@ -299,6 +327,12 @@ var controller = (function(budgetCtrl, UICtrl) {
     return {
         init: function() {
             console.log('Application has started');
+            UICtrl.displayBudget({
+                budget: 0,
+                totalInc: 0,
+                totalExp: 0,
+                percentage: Infinity
+            });
             setupEventListeners();
         }
     };
