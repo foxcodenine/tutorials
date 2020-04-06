@@ -137,7 +137,8 @@ var UIController = (function() {
         budgetLable: '.budget__value',
         incomeLable: '.budget__income--value',
         expensesLable: '.budget__expenses--value',
-        percentageLable: '.budget__expenses--percentage'              
+        percentageLable: '.budget__expenses--percentage', 
+        container: '.container'        
 
     }
 
@@ -158,7 +159,7 @@ var UIController = (function() {
             if (type === 'inc'){
                 element = document.querySelector(DOMStrings.incContainer)
                 html = `
-                <div class="item clearfix" id="income-%id%">
+                <div class="item clearfix" id="inc-%id%">
                     <div class="item__description">%description%</div>
                     <div class="right clearfix">
                         <div class="item__value">%value%</div>
@@ -170,7 +171,7 @@ var UIController = (function() {
             } else if (type === 'exp'){
                 element = document.querySelector(DOMStrings.expContainer)
                 html = `
-                <div class="item clearfix" id="expense-%id%">
+                <div class="item clearfix" id="exp-%id%">
                     <div class="item__description">%description%</div>
                     <div class="right clearfix">
                         <div class="item__value">%value%</div>
@@ -268,7 +269,22 @@ var UIController = (function() {
 
 var controller = (function(budgetCtrl, UICtrl) {  
     
-    
+    var setupEventListeners = function() {
+
+        var DOM = UICtrl.getDOMStrings();
+
+        document.querySelector(DOM.inputBTN).addEventListener('click', ctrlAddItem);    
+
+        document.addEventListener('keypress', function(event) {
+            if (event.keyCode === 13 || event.which === 13) {
+                ctrlAddItem();
+            }
+        });
+        document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
+    };
+
+
+
     var updateBudget = function(type) {
 
         // 1. Calculate the budaget 
@@ -279,10 +295,6 @@ var controller = (function(budgetCtrl, UICtrl) {
         console.log(bugetData);
         UICtrl.displayBudget(bugetData);
     };
-
-
-
-
     
     var ctrlAddItem = function() {
 
@@ -308,19 +320,28 @@ var controller = (function(budgetCtrl, UICtrl) {
         }
     };
 
+    var ctrlDeleteItem = function(event) {
+        var itemID, splitID, type, ID
+        itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
+        // console.log(itemID)
 
-    var setupEventListeners = function() {
+        if (itemID) {
 
-        var DOM = UICtrl.getDOMStrings();
+            splitID = itemID.split('-');
+            // console.log(splitID) 
+            type = splitID[0];
+            ID = splitID[1];
 
-        document.querySelector(DOM.inputBTN).addEventListener('click', ctrlAddItem);    
+            // 1. delete the item from the data structure 
 
-        document.addEventListener('keypress', function(event) {
-            if (event.keyCode === 13 || event.which === 13) {
-                ctrlAddItem();
-            }
-        });
+            // 2. delete the item from the UI 
+
+            // 3. update and show the new budget
+        }
     };
+
+
+
 
 
 
