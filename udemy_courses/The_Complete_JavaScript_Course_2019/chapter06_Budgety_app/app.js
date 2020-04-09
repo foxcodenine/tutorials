@@ -8,9 +8,6 @@
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace
 
 
-
-
-
 // DATE MODULE__________________________________________________________
 // _____________________________________________________________________
 
@@ -55,7 +52,6 @@ var budgetController = (function() {
         });
         return sum;
     };
-
 
     
     // Return Functions to Public
@@ -111,7 +107,28 @@ var budgetController = (function() {
             // Calculate the percentage on the income that we spent
 
             data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
+        },       
+
+
+
+        deleteItem : function(type, id){
+
+
+            var itemArray, arrayIDs, itemIndex
+
+            itemArray = data.allItems[type]
+            arrayIDs = itemArray.map(function(cur, ind, arr){
+                return cur.id
+            });
+
+            itemIndex = parseInt(arrayIDs.indexOf(id)) 
+  
+
+            if (itemIndex !== -1){
+                data.allItems[type].splice(itemIndex, 1)
+            }            
         },
+
         testing: function() {
             return data;
         }
@@ -138,10 +155,10 @@ var UIController = (function() {
         incomeLable: '.budget__income--value',
         expensesLable: '.budget__expenses--value',
         percentageLable: '.budget__expenses--percentage', 
-        container: '.container'        
-
+        container: '.container'     
     }
 
+    
     return {        
 
         getInput: function() {
@@ -244,23 +261,25 @@ var UIController = (function() {
                 document.querySelector(DOMStrings.percentageLable).innerText = obj.percentage + '%'
 
             }
+        },
 
-    
+        deleteListItem : function(nodeID){
 
+            // 1st we select the element
+            var rmElement = document.getElementById(nodeID);
 
+            // 2nd we select the element perent
+            // 3rd we remove the element from parent:
 
-
+            rmElement.parentNode.removeChild(rmElement);
 
         },
 
         getDOMStrings: function() {
             return DOMStrings;
         }
-
-
     }
 })();
-
 
 
 
@@ -320,8 +339,9 @@ var controller = (function(budgetCtrl, UICtrl) {
         }
     };
 
+
     var ctrlDeleteItem = function(event) {
-        var itemID, splitID, type, ID
+        var itemID, splitID, 
         itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
         // console.log(itemID)
 
@@ -330,20 +350,19 @@ var controller = (function(budgetCtrl, UICtrl) {
             splitID = itemID.split('-');
             // console.log(splitID) 
             type = splitID[0];
-            ID = splitID[1];
+            ID = parseInt(splitID[1]);
 
             // 1. delete the item from the data structure 
-
+            budgetController.deleteItem(type, ID);
             // 2. delete the item from the UI 
-
+            UICtrl.deleteListItem(itemID);
             // 3. update and show the new budget
+            updateBudget(type);
         }
     };
 
-
-
-
-
+// _____________________________________________________________________
+// _____________________________________________________________________
 
     return {
         init: function() {
