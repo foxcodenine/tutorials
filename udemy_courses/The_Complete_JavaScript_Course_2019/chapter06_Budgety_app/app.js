@@ -191,7 +191,8 @@ var UIController = (function() {
         incomeLable: '.budget__income--value',
         expensesLable: '.budget__expenses--value',
         percentageLable: '.budget__expenses--percentage', 
-        container: '.container'     
+        container: '.container',
+        expensesPercLabel: '.item__percentage'   
     }
 
     
@@ -239,7 +240,7 @@ var UIController = (function() {
             // Replace the placeholder text with some actual data 
 
             newHtml = html.replace('%id%', obj.id);
-            newHtml = newHtml.replace('%value%', obj.value);
+            newHtml = newHtml.replace('%value%', this.formatNumber(obj.value, type));
             newHtml = newHtml.replace('%description%', obj.description);
            
 
@@ -286,9 +287,11 @@ var UIController = (function() {
 
             // Update budget lables
 
-            document.querySelector(DOMStrings.budgetLable).innerText = obj.budget
-            document.querySelector(DOMStrings.incomeLable).innerText = obj.totalInc
-            document.querySelector(DOMStrings.expensesLable).innerText = obj.totalExp
+            obj.budget >= 0 ? type = 'inc' : type = 'exp';
+
+            document.querySelector(DOMStrings.budgetLable).innerText = this.formatNumber(obj.budget, type)
+            document.querySelector(DOMStrings.incomeLable).innerText = this.formatNumber(obj.totalInc, 'inc')
+            document.querySelector(DOMStrings.expensesLable).innerText = this.formatNumber(obj.totalExp, 'exp')
             
             if (obj.percentage === Infinity) {
                 document.querySelector(DOMStrings.percentageLable).innerText = '__'
@@ -309,6 +312,52 @@ var UIController = (function() {
 
             rmElement.parentNode.removeChild(rmElement);
 
+        },
+
+        displayPercentages: function(percentages) {
+
+            // this will return a nodeArray of the expacese_percentages DOMs
+            var fields = document.querySelectorAll(DOMStrings.expensesPercLabel)
+
+            // here we created a forEach function to use it on  a nodeArray
+            nodeListForEach = function(list, callback) {
+                for (var i = 0; i < list.length; i++) {
+                    callback(list[i], i , list)
+                }
+            };
+
+
+            // using our nodeListFunction on the our nodeArray ('fields')
+
+            nodeListForEach(fields, function(cur, ind, arr){
+                if (percentages[ind] > 0){
+                    cur.textContent = percentages[ind] + '%'
+                } else {
+                    cur.textContent = '__'
+                }                
+            });      
+        },
+
+
+        formatNumber: function(num, type) {
+
+            var num, numSplit, int, dec;
+            
+            num = Math.abs(num);
+            num = num.toFixed(2);
+
+            numSplit = num.split('.'); 
+
+            int = numSplit[0];
+
+            if (int.length > 3){
+                int = int.substring(0, int.length-3) + ',' + int.substring(int.length-3, int.length);
+            }
+
+            dec = numSplit[1];
+            
+            
+            return (type === 'exp' ? '- ' : '+ ') + int + '.' + dec;
         },
 
         getDOMStrings: function() {
@@ -356,12 +405,13 @@ var controller = (function(budgetCtrl, UICtrl) {
     var updatePercentages = function() {
 
         // 1. Calcutate percentages
-        budgetCtrl.calculatePercentages()
+        budgetCtrl.calculatePercentages();
 
         // 2. Read percentages frim the budget controller
-        var percentages = budgetCtrl.getPercentages()
-        console.log(percentages)
+        var percentages = budgetCtrl.getPercentages();
+        console.log(percentages);
         // 3. update the UI with the new percentages 
+        UICtrl.displayPercentages(percentages);
 
     };
 
