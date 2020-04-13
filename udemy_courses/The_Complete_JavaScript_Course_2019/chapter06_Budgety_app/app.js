@@ -13,6 +13,7 @@
 
 var budgetController = (function() {
     
+    // Privet methods and properties
     // Income & Expense Constractor
     var Expense = function(id, description,value) {
        this.id = id;
@@ -72,7 +73,7 @@ var budgetController = (function() {
         return sum;
     };
 
-    
+    // Public methods and properties
     // Return Functions to Public
     return {
 
@@ -179,7 +180,9 @@ var budgetController = (function() {
 
 
 var UIController = (function() {
-    // some code
+
+
+    // Private methods and properties:
     var DOMStrings = {
         inputType: '.add__type',
         inputDescription: '.add__description',
@@ -192,10 +195,18 @@ var UIController = (function() {
         expensesLable: '.budget__expenses--value',
         percentageLable: '.budget__expenses--percentage', 
         container: '.container',
-        expensesPercLabel: '.item__percentage'   
-    }
+        expensesPercLabel: '.item__percentage',
+        dateLable: '.budget__title--month'  
+    };
 
-    
+    // here we created a forEach function to use it on  a nodeArray
+    nodeListForEach = function(list, callback) {
+        for (var i = 0; i < list.length; i++) {
+            callback(list[i], i , list)
+        }
+    };
+
+    // the following are public methods and properties:
     return {        
 
         getInput: function() {
@@ -319,12 +330,7 @@ var UIController = (function() {
             // this will return a nodeArray of the expacese_percentages DOMs
             var fields = document.querySelectorAll(DOMStrings.expensesPercLabel)
 
-            // here we created a forEach function to use it on  a nodeArray
-            nodeListForEach = function(list, callback) {
-                for (var i = 0; i < list.length; i++) {
-                    callback(list[i], i , list)
-                }
-            };
+            
 
 
             // using our nodeListFunction on the our nodeArray ('fields')
@@ -360,6 +366,52 @@ var UIController = (function() {
             return (type === 'exp' ? '- ' : '+ ') + int + '.' + dec;
         },
 
+        displayMonth: function() {
+            var now, year, month;
+
+            now = new Date();
+            // var christmas = new Date(2019, 11, 25);
+
+            var months = new Array();
+            months[0] = "January";
+            months[1] = "February";
+            months[2] = "March";
+            months[3] = "April";
+            months[4] = "May";
+            months[5] = "June";
+            months[6] = "July";
+            months[7] = "August";
+            months[8] = "September";
+            months[9] = "October";
+            months[10] = "November";
+            months[11] = "December";
+
+            month = months[now.getMonth()];
+
+            year = now.getFullYear();
+            document.querySelector(DOMStrings.dateLable).textContent = month + ' ' + year;
+        },
+
+        changeType: function() {
+
+            // change the inputs boarder color
+            var inputFields = document.querySelectorAll(
+                DOMStrings.inputType + ',' +
+                DOMStrings.inputDescription + ',' +
+                DOMStrings.inputValue                
+            );
+
+            nodeListForEach(inputFields, function(cur, ind, arr){
+                cur.classList.toggle('red-focus');
+
+            //  change the btn color
+            document.querySelector(DOMStrings.inputBTN).classList.toggle('red');
+            
+            });
+
+            
+        },
+
         getDOMStrings: function() {
             return DOMStrings;
         }
@@ -385,6 +437,8 @@ var controller = (function(budgetCtrl, UICtrl) {
             }
         });
         document.querySelector(DOM.container).addEventListener('click', ctrlDeleteItem);
+
+        document.querySelector(DOM.inputType).addEventListener('change', UICtrl.changeType);
     };
 
 
@@ -484,6 +538,7 @@ var controller = (function(budgetCtrl, UICtrl) {
                 totalExp: 0,
                 percentage: Infinity
             });
+            UICtrl.displayMonth();
             setupEventListeners();
         }
     };
