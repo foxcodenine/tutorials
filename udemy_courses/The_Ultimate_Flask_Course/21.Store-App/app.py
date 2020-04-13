@@ -100,7 +100,18 @@ def checkout():
 
 @app.route('/admin/')
 def admin():
-    return render_template('admin/index.html', admin=True)
+
+    my_products = Products.query.all()
+
+
+
+    return render_template('admin/index.html', admin=True, products=my_products)
+
+
+
+
+
+
 
 @app.route('/admin/add/', methods=['POST','GET'])
 def add():
@@ -110,13 +121,29 @@ def add():
         return render_template('admin/add-product.html',admin=True, form=form)
 
     if form.validate_on_submit():
+
+        pro_image = photos.url(photos.save(form.image.data))  
+        
         pro_name = form.name.data
         pro_price = form.price.data
         pro_stock = form.stock.data
-        pro_des  = form.description.data
-        print('>>',form.image.data)
+        pro_description = form.description.data
+        pro_image_url = pro_image
 
-        return '<p>{}<br>{}<br>{}<br>{}<br></p>'.format(pro_name, pro_price, pro_stock, pro_des)
+        newProduct = Products(
+            pro_name=pro_name, 
+            pro_price=pro_price, 
+            pro_stock=pro_stock, 
+            pro_description=pro_description, 
+            pro_image=pro_image_url
+        )
+
+        db.session.add(newProduct)
+        db.session.commit()
+        
+        
+
+        return redirect(url_for('admin'))
     return render_template('admin/add-product.html',admin=True, form=form)
 
 @app.route('/admin/order/')
