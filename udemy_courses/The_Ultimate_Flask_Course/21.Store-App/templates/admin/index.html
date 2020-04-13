@@ -38,6 +38,7 @@
 						</tr>
 					</thead>
 					<tbody>
+				
 						<tr>
 							<td>1</td>
 							<td><a href="./view-order.html">EF45AVH</a></td>
@@ -45,6 +46,7 @@
 							<td>&dollar;50.99</td>
 							<td><span class="badge">Awaiting Payment</span></td>
 						</tr>
+
 						<tr>
 							<td>2</td>
 							<td><a href="./view-order.html">ZSD03DDC</a></td>
@@ -95,7 +97,16 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+						{% for pro in products %}
+						<tr>		
+							<td>{{ pro.pro_id }}</td>
+							<td>{{ pro.pro_name }}</td>
+							<td>&dollar;{{ pro.pro_price|round(2) }}</td>
+							<td>{{ pro.pro_stock }} units</td>
+						</tr>
+
+						{% endfor %}
+						<!-- <tr>
 							<td>1</td>
 							<td>Classic Blouse</td>
 							<td>&dollar;35.99</td>
@@ -124,7 +135,7 @@
 							<td>Faded Shorts</td>
 							<td>&dollar;15.99</td>
 							<td>3 units</td>
-						</tr>
+						</tr> -->
 					</tbody>
 				</table>
 			</div>
