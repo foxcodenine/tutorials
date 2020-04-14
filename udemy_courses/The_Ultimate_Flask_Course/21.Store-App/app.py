@@ -83,13 +83,14 @@ class AddProduct(FlaskForm):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    my_products = Products.query.filter(Products.pro_stock).order_by(Products.pro_id).all()
+    return render_template('index.html', products=my_products)
 
 # _________________________________________
 
 
-@app.route('/product/')
-def product():
+@app.route('/product/<id>')
+def product(id):
     return render_template('view-product.html')
 
 # _________________________________________
