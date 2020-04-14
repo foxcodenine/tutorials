@@ -15,9 +15,9 @@
 		<ul class="summary">
 			<li class="">Pending Orders <span class="badge">5</span></li>
 			<li class="">Completed Orders <span class="badge">3</span></li>
-			<li class="">Products In Stock <span class="badge">7</span></li>
-			<li class="">Products Out of Stock <span class="badge">11</span></li>
-			<li class="">Total Products <span class="badge">90</span></li>
+			<li class="">Products In Stock <span class="badge">{{ in_stock }}</span></li>
+			<li class="">Products Out of Stock <span class="badge">{{ out_stock }}</span></li>
+			<li class="">Total Products <span class="badge">{{ products | length }}</span></li>
 		</ul>
 	</div>
 </div>
