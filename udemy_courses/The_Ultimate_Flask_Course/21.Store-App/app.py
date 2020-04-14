@@ -83,7 +83,7 @@ class AddProduct(FlaskForm):
 
 @app.route('/')
 def index():
-    my_products = Products.query.filter(Products.pro_stock).order_by(Products.pro_id).all()
+    my_products = Products.query.order_by(Products.pro_id).all()
     return render_template('index.html', products=my_products)
 
 # _________________________________________
@@ -91,7 +91,12 @@ def index():
 
 @app.route('/product/<id>')
 def product(id):
-    return render_template('view-product.html')
+
+    current_pro = Products.query.filter_by(pro_id=id).first() 
+
+
+
+    return render_template('view-product.html', product=current_pro)
 
 # _________________________________________
 
