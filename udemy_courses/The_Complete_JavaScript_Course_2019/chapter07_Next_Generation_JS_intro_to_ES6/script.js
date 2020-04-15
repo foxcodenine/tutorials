@@ -100,6 +100,8 @@ var firstLanguage = 'Python';
 
 pline('C'); // _________________________________________________________
 
+// 
+
 var n = 23;
 
 for (var n = 0; n < 5; n++) {
@@ -120,3 +122,80 @@ console.log(m);
 
 
 pline('D'); // _________________________________________________________
+
+// Lecture: Block and IIFEs
+
+// ES5
+
+(function() {
+    var a = 50;
+})();
+
+// console.log(a);  <- gives error 
+
+
+// ES6 
+
+{
+    const b = 22;
+    let c = 24;
+    var d = 30;
+}
+
+// console.log(b);  <- gives error 
+// console.log(c);  <- gives error 
+console.log(d);
+
+
+pline('E'); // _________________________________________________________
+
+// Lecture: Strings
+
+let firstName = 'Chris';
+let lastName = 'Farrugia';
+const yearOfBirth4 = 1984; 
+
+function calcAge(year) {
+    return 2019 - year;
+}
+
+
+// ES5 
+
+console.log('This is ' + firstName + ' ' + lastName + '. He was born in '+
+yearOfBirth4 + '. Today he is ' + calcAge(yearOfBirth4) + ' years old.')
+
+// ES6 
+
+console.log(`
+This is ${firstName}. He was born in ${yearOfBirth4} ${lastName}. Today \
+he is ${calcAge(yearOfBirth4)} years old.
+`)
+
+
+pline('F'); // _________________________________________________________
+
+// new strings methods:
+
+// .startsWith() .endsWith()  . includes() & repeat()
+
+let herfirstName = 'Dorothy';
+let herlastName = 'Cassar';
+
+const q = `${herfirstName} ${herlastName}`;
+
+
+console.log(q.startsWith('A'));
+console.log(q.startsWith('D'));
+
+console.log(q.endsWith('ar'));
+console.log(q.endsWith('r'));
+
+console.log(q.includes(' '));
+console.log(q.includes('rr'));
+
+console.log('Chris '.repeat(3));
+console.log(herfirstName.repeat(3));
+
+
+pline('G'); // _________________________________________________________
