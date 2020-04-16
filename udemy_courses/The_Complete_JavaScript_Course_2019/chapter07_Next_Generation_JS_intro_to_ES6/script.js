@@ -100,7 +100,10 @@ var firstLanguage = 'Python';
 
 pline('C'); // _________________________________________________________
 
-// 
+//
+// In the following examples, when using var in the for loop it will
+// change our var n in the global scope, havever since let is block
+// scope it won't affect the let in the global scope.
 
 var n = 23;
 
@@ -167,8 +170,8 @@ yearOfBirth4 + '. Today he is ' + calcAge(yearOfBirth4) + ' years old.')
 
 // ES6 
 
-console.log(`
-This is ${firstName}. He was born in ${yearOfBirth4} ${lastName}. Today \
+console.log(`\
+This is ${firstName} ${lastName}. He was born in ${yearOfBirth4}. Today \
 he is ${calcAge(yearOfBirth4)} years old.
 `)
 
@@ -199,3 +202,43 @@ console.log(herfirstName.repeat(3));
 
 
 pline('G'); // _________________________________________________________
+
+// Lecture:Arrow functions: 
+
+const myYears = [1990, 1965, 1984, 1937]; 
+
+// ES5 
+var ages5 = myYears.map(function(cur) {
+    return 2019 - cur;
+});
+console.log(ages5);
+
+
+// ES6 
+let ages6 = myYears.map(cur => 2019 - cur); 
+console.log(ages6);
+
+
+
+// Useing multy arguments, insert args in (): 
+
+ages6 = myYears.map(
+    (cur, index) => `Age element ${index +1}: ${2019 - cur}`
+);
+console.log(ages6);
+
+
+
+// To write multiple line of code, use {} and return at the end:
+
+ages6 = myYears.map((cur, index) => {
+
+    const now = new Date().getFullYear();
+    const age = now - cur;
+    return `Age element ${index +1}: ${age}`
+});
+
+console.log(ages6);
+
+
+pline('H'); // _________________________________________________________
