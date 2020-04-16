@@ -17,7 +17,7 @@ from flask_script import Manager
 from flask_uploads import UploadSet, configure_uploads, IMAGES 
 
 from flask_wtf import FlaskForm 
-from wtforms import StringField, IntegerField, TextAreaField, DecimalField
+from wtforms import StringField, IntegerField, TextAreaField, DecimalField, HiddenField
 from flask_wtf.file import FileField, FileAllowed
 
 from uuid import uuid4
@@ -78,6 +78,10 @@ class AddProduct(FlaskForm):
         FileAllowed(IMAGES, 'Only images are accepted')
     ])
 
+class AddToCart(FlaskForm):
+    quantity = IntegerField('Quantity')
+    id = HiddenField('ID')
+
 # ______________________________________________________________________
 # Routes________________________________________________________________
 
@@ -94,11 +98,28 @@ def product(id):
 
     current_pro = Products.query.filter_by(pro_id=id).first() 
 
+    form = AddToCart()
 
-
-    return render_template('view-product.html', product=current_pro)
+    return render_template('view-product.html', 
+                            product=current_pro,
+                            form=form)
 
 # _________________________________________
+@app.route('/add_to_cart/', methods=['POST'])
+def add_to_cart():
+    form = AddToCart()
+
+    if form.validate_on_submit():
+
+        print('>>>>>',form.quantity.data)
+        print('>>>>>',form.id.data)
+
+
+    return redirect(url_for('index'))
+
+
+# _________________________________________
+
 
 
 @app.route('/cart/')
