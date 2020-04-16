@@ -242,3 +242,88 @@ console.log(ages6);
 
 
 pline('H'); // _________________________________________________________
+
+// Lecture: Arrow functions 2
+
+// ES5 
+/*
+var box5 = {
+
+    color: 'green', 
+    position: 1, 
+    clickMe: function() {
+        
+        var self = this; // <- else 'this' will point to the global document in web;
+        document.querySelector('.green').addEventListener('click', function(){
+
+            var str = 'This box number ' + self.position + 
+            ' and it is ' + self.color + '!'; 
+
+            alert(str);
+        });
+    }
+}
+
+box5.clickMe();
+
+
+const box6 = {
+
+    color: 'blue', 
+    position: 2, 
+    clickMe: function() { // <- if use => here, 'this' will point to the global scope;
+        
+        document.querySelector('.blue').addEventListener('click', () => {
+            let str = `This box number ${this.position} and it is ${this.color}!`;
+
+        alert(str);
+        });
+    }
+}
+box6.clickMe();
+
+
+*/
+
+pline('I'); // _________________________________________________________
+
+
+function Person(name) {
+    this.name = name;
+}
+
+
+// ES5 
+
+Person.prototype.myFriends5 = function(friends) {
+
+    var arr = friends.map(function(cur) {
+        return this.name + ' is friends with ' + cur + '.'
+    }.bind(this));  // <- 
+    
+    // We need to bind 'this' or do 'this = self' again 
+    // else 'this' it will point to the global scope!
+
+    console.log(arr);
+}
+
+
+
+var friendsList = ['Robert', 'Aaron', 'David'];
+
+new Person('Chris').myFriends5(friendsList);
+
+
+// ES6 
+
+Person.prototype.myFriends6 = function(friends) {
+
+    let arr = friends.map(cur => 
+        `${this.name} is friends with ${cur}.`        
+    );  // <- 
+    // When using the => in an inner function we have access to 'this'
+    
+    console.log(arr);
+}
+
+new Person('Rei').myFriends6(friendsList);
