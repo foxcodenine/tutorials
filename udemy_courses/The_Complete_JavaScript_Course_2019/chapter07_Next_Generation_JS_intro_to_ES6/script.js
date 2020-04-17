@@ -203,7 +203,7 @@ console.log(herfirstName.repeat(3));
 
 pline('G'); // _________________________________________________________
 
-// Lecture:Arrow functions: 
+// Lecture: Arrow functions 1 
 
 const myYears = [1990, 1965, 1984, 1937]; 
 
@@ -246,7 +246,7 @@ pline('H'); // _________________________________________________________
 // Lecture: Arrow functions 2
 
 // ES5 
-/*
+
 var box5 = {
 
     color: 'green', 
@@ -283,11 +283,12 @@ const box6 = {
 box6.clickMe();
 
 
-*/
+
 
 pline('I'); // _________________________________________________________
 
 
+// Object constractor: 
 function Person(name) {
     this.name = name;
 }
@@ -316,7 +317,7 @@ new Person('Chris').myFriends5(friendsList);
 
 // ES6 
 
-Person.prototype.myFriends6 = function(friends) {
+Person.prototype.myFriends6 = function(friends) { // // <- if use => here, 'this' will point to the global scope;
 
     let arr = friends.map(cur => 
         `${this.name} is friends with ${cur}.`        
@@ -327,3 +328,72 @@ Person.prototype.myFriends6 = function(friends) {
 }
 
 new Person('Rei').myFriends6(friendsList);
+
+
+pline('J'); // _________________________________________________________
+
+// Lecture: Destructuring
+
+// Arrays
+
+// ES5 
+var john = ['John', 26];
+
+var jName = john[0];
+var jAge  = john[1];
+
+console.log(jName);
+console.log(jAge);
+
+// ES6
+const [cName, cAge] = ['Chris', 36];
+
+console.log(cName);
+console.log(cAge);
+
+
+
+pline('K'); // _________________________________________________________
+
+// Objects
+
+// ES6 
+
+const dorothy = {
+    id: '397290m',
+    mob: 99224466
+}
+
+// Keep same literals
+
+const {id, mob} = dorothy;
+
+console.log(id);
+console.log(mob);
+
+// New same literals
+
+const {id: a, mob: b} = dorothy;
+
+console.log(a);
+console.log(b);
+
+pline('L'); // _________________________________________________________
+
+
+// functions 
+
+function calAgeRetirement(birthYear) {
+    
+    const now = new Date().getFullYear();
+    const age = now - birthYear;    
+    age < 65 ? remaining = 65 - age : remaining = 'already retired';
+    return [age, remaining]
+}
+
+const [chrisAge, chrisToRetir] = calAgeRetirement(1984);
+
+console.log(chrisAge);
+console.log(chrisToRetir);
+
+pline('M'); // _________________________________________________________
