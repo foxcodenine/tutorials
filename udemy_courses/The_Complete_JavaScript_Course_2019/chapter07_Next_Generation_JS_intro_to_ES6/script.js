@@ -397,3 +397,75 @@ console.log(chrisAge);
 console.log(chrisToRetir);
 
 pline('M'); // _________________________________________________________
+
+
+// Lecture: Arrays: 
+
+const boxes = document.querySelectorAll('.orange, .yellow, .indianred');
+const boxes2 = document.querySelectorAll('.purple, .indigo, .lightgreen');
+
+
+
+// ES5
+var boxesArray = Array.prototype.slice.call(boxes);
+
+boxesArray.forEach(function(cur) {
+    cur.style['background-color'] = 'indianred';
+});
+
+
+
+// ES6
+
+let boxesArray2 = Array.from(boxes2);
+
+boxesArray2.forEach(cur => cur.style['background-color'] ='lightgreen');
+
+
+pline('N'); // _________________________________________________________
+
+// ES5 - for loop
+for (var i = 0; i < boxesArray.length; i++) {
+
+    if (boxesArray[i].className === 'box indianred') {
+        continue;
+    }
+    boxesArray[i].textContent = 'Color Changed!';
+}
+
+
+// ES6 - for of loop
+
+for (let cur of boxesArray2) {
+
+    if (cur.className.includes('green')){
+        continue;
+    }    
+    cur.textContent = 'Changed Color !';
+}
+
+pline('O'); // _________________________________________________________
+
+
+// findIndex(), find() 
+
+let classAges = [16, 15, 17, 19, 14]; 
+
+// Find index and the ages that are 18 or over 
+
+// ES5 
+
+var fullAge = classAges.map(function(cur) {
+    return cur >= 18;
+});
+
+console.log(fullAge);
+
+console.log(fullAge.indexOf(true));
+console.log(classAges[fullAge.indexOf(true)]);
+
+// ES6
+
+
+console.log(classAges.findIndex(cur => cur >= 18));
+console.log(classAges.find(cur => cur >= 18));
