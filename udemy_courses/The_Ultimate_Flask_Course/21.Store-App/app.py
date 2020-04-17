@@ -7,7 +7,7 @@
 # 
 
 # ______________________________________________________________________
-from flask import Flask, redirect, render_template, url_for, request
+from flask import Flask, redirect, render_template, url_for, request, session
 
 from flask_sqlalchemy import SQLAlchemy 
 
@@ -105,16 +105,35 @@ def product(id):
                             form=form)
 
 # _________________________________________
+
+@app.route('/quick_add/<id>')
+def quick_add(id):
+
+    if 'cart' not in session:
+        session['cart'] = []
+    
+    if id:
+        session['cart'].append({'id': id, 'quantity': 1})
+        session.modified = True
+
+    return redirect(url_for('index'))
+
+
+
+
+
 @app.route('/add_to_cart/', methods=['POST'])
 def add_to_cart():
-    form = AddToCart()
 
+    if 'cart' not in session:
+        session['cart'] = []
+
+    form = AddToCart()
     if form.validate_on_submit():
 
-        print('>>>>>',form.quantity.data)
-        print('>>>>>',form.id.data)
-
-
+        session['cart'].append({'id': form.id.data, 'quantity': form.quantity.data})
+        session.modified = True
+        
     return redirect(url_for('index'))
 
 
@@ -124,6 +143,10 @@ def add_to_cart():
 
 @app.route('/cart/')
 def cart():
+    if 'cart' in session:
+        print(session['cart'])
+    else:
+        print('>>>> cart not in session')
     return render_template('cart.html')
 
 # _________________________________________
