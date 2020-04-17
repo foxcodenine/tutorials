@@ -73,7 +73,7 @@
 						<a href="{{ url_for('product', id=product.pro_id) }}"  class="btn btn-primary btn-sm">
 							<i class="glyphicon glyphicon-eye-open"></i> View
 						</a>
-						<a  class="btn btn-default btn-sm" {% if product.pro_stock <= 0 %}disabled{% else  %} href="#" {% endif %}>
+						<a  class="btn btn-default btn-sm" {% if product.pro_stock <= 0 %}disabled{% else  %} href="{{ url_for('quick_add', id=product.pro_id) }}" {% endif %}>
 							<i class="glyphicon glyphicon-shopping-cart"></i> Add To Cart
 						</a>
 					</p>
