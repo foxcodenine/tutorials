@@ -3,7 +3,7 @@
 const pline = function(i) {
     console.log(`\n(${i})___________________________________________\n`)
 }
-
+// Lecture: let & const
 
 
 // ES5 
@@ -243,7 +243,7 @@ console.log(ages6);
 
 pline('H'); // _________________________________________________________
 
-// Lecture: Arrow functions 2
+// Lecture: Arrow functions 2 (this)
 
 // ES5 
 
@@ -307,6 +307,7 @@ Person.prototype.myFriends5 = function(friends) {
 
     console.log(arr);
 }
+
 
 
 
@@ -415,7 +416,7 @@ boxesArray.forEach(function(cur) {
 
 
 
-// ES6
+// ES6 .form()
 
 let boxesArray2 = Array.from(boxes2);
 
@@ -469,3 +470,52 @@ console.log(classAges[fullAge.indexOf(true)]);
 
 console.log(classAges.findIndex(cur => cur >= 18));
 console.log(classAges.find(cur => cur >= 18));
+
+
+pline('P'); // _________________________________________________________
+
+
+// Lecture: Spread operator 
+
+function addFourNums (a, b, c, d) {
+    return a + b + c + d;
+}
+
+var sum1 = addFourNums(18, 30, 12, 21);
+console.log(sum1);
+
+// ES5 
+
+var nums = [18, 30, 12, 21];
+
+var sum2 = addFourNums.apply(null, nums); 
+console.log(sum2);
+
+// ES6 
+
+const sum3 = addFourNums(...nums);
+console.log(sum3);
+
+pline('Q'); // _________________________________________________________
+
+
+const familyJones = ['John', 'Jane', 'Jack'];
+
+const familyMiller = ['Mary', 'Mark', 'Matthew'];
+
+bigFamily = [...familyJones, ...familyMiller];
+console.log(bigFamily);
+
+biggerFamily = [...familyJones,'Chris', 'Dorothy', ...familyMiller];
+console.log(biggerFamily);
+
+pline('Q'); // _________________________________________________________
+
+// useing the spread with node elements 
+
+let nodeH1 = document.querySelector('h1');
+let nodeDivBoxes = document.querySelectorAll('.box');
+
+let allElements = Array.from([nodeH1, ...nodeDivBoxes]);
+
+allElements.forEach(cur => cur.style.color = 'indigo');
