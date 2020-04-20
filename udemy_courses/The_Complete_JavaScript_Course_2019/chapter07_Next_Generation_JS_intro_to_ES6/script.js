@@ -585,3 +585,33 @@ isFullAgeNow6L(21, 1984, 2002, 1990, 2000, 2006);
 
 pline('T'); // _________________________________________________________
 
+// Lecture: Default parameters 
+
+// ES5
+function SmithPerson(firstName, lastName,  age,  nationality) {
+
+    lastName === undefined ? lastName = 'Smith' : lastName = lastName;
+    nationality === undefined ? nationality = 'Maltese' : nationality = nationality;
+
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.nationality = nationality;
+}
+
+var johnSmith = new SmithPerson('John');
+console.log(johnSmith);
+
+
+// ES6 
+
+function FarrugiaPerson(firstName, lastName='Farrugia', age, 
+                                            nationality='Maltese') {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+    this.nationality = nationality;
+}
+
+let chrisFarrugia = new FarrugiaPerson('Chris');
+console.log(chrisFarrugia);
