@@ -519,3 +519,69 @@ let nodeDivBoxes = document.querySelectorAll('.box');
 let allElements = Array.from([nodeH1, ...nodeDivBoxes]);
 
 allElements.forEach(cur => cur.style.color = 'indigo');
+
+
+pline('R'); // _________________________________________________________
+
+// Lecture: Rest parameters and arguments 
+
+// ES5 
+
+function isFullAgeNow5() {
+    console.log(arguments); // <- Array-like object 
+                            //    need to change into Array
+
+    var argsArr = Array.prototype.slice.call(arguments);
+
+    argsArr.forEach(function(cur, ind, arr){
+        console.log(( 2019 - cur) >= 18);
+    });
+}
+
+isFullAgeNow5(1984, 1980, 1990, 2000, 2006);
+
+// ES6 
+
+function isFullAgeNow6(...years) {
+    console.log(years) // <- Array object
+    
+    years.forEach(cur => console.log((2019 - cur) >= 18));
+}
+
+isFullAgeNow6(1984, 1980, 1990, 2000, 2006);
+
+
+pline('S'); // _________________________________________________________
+
+// adding another parameter with arrguments:
+
+// ES5 
+
+function isFullAgeNow5L(limit) {
+
+    console.log(limit);
+    console.log(arguments); // limit Array-like object
+
+    var argsArr = Array.prototype.slice.call(arguments, 1);
+
+    argsArr.forEach(function(cur, ind, arr) {
+        console.log((2019 - cur) >= limit);
+    });    
+}
+
+isFullAgeNow5L(21, 1984, 2002, 1990, 2000, 2006);
+
+
+// ES6 
+
+function isFullAgeNow6L(limit, ...years) {
+    console.log(limit);
+    console.log(years);
+
+    years.forEach(cur => console.log((2019-cur) >= limit));
+}
+
+isFullAgeNow6L(21, 1984, 2002, 1990, 2000, 2006);
+
+pline('T'); // _________________________________________________________
+
