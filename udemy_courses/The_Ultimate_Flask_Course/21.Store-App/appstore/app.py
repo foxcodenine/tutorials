@@ -7,7 +7,7 @@
 # 
 
 # ______________________________________________________________________
-from flask import Flask, redirect, render_template, url_for, request, session
+from flask import Flask, redirect, render_template, url_for, request, session, blueprints
 
 from flask_sqlalchemy import SQLAlchemy 
 
@@ -21,9 +21,13 @@ from wtforms import StringField, IntegerField, TextAreaField, DecimalField, Hidd
 from flask_wtf.file import FileField, FileAllowed
 
 from uuid import uuid4
+
+
+
+
 # ______________________________________________________________________
 
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
 photos = UploadSet('photos', IMAGES)
 
 
@@ -33,6 +37,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///trendy.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 app.config['DEBUG'] = True 
 app.config['SECRET_KEY'] = uuid4().hex
+
 
 
 # ______________________________________________________________________
@@ -141,13 +146,77 @@ def add_to_cart():
 
 
 
-@app.route('/cart/')
+@app.route('/cart/', methods=['POST', 'GET'])
 def cart():
-    if 'cart' in session:
-        print(session['cart'])
+
+    cart_products = []
+    grand_total = 0
+    number_of_items = 0
+
+    shipping_dict = {
+        '1': 0,
+        '2': 10,
+        '3': 10,
+        '4': 12,
+        '5': 12,
+        '6': 20,
+        '7': 12,
+        '8': 20,
+        '9': 20,
+    }
+
+    if 'cart' in session: 
+
+        # Adding up any dublicate item in cart:_________________________
+        cart = session['cart']
+        cart_update = {}
+        for item in cart:
+            
+            if (item['id']) in cart_update:                
+                cart_update[item['id']] = (item['quantity'] + cart_update.get(item['id'])) 
+            else:
+                cart_update.update({item['id']: item['quantity']})
+        
+        print('>>>>>',cart_update)
+        cart_products = []
+
+        for item, quantity in cart_update.items():
+            
+            pro = Products.query.filter_by(pro_id = int(item)).first()
+            price = float(pro.pro_price)
+            grand_total += quantity * price
+            number_of_items += quantity
+            cart_products.append({
+                'id': int(item), 'name': pro.pro_name, 'quantity': quantity, 'image': pro.pro_image,
+                'price': price, 'total': (quantity * price)
+
+            })
+        print(cart_products)       
+
+
     else:
-        print('>>>> cart not in session')
-    return render_template('cart.html')
+        print('>>>> cart not in session')  
+    
+    if request.method == 'POST':
+        shipping_selected= request.form['shipping_option']
+        session['shipping'] = shipping_selected
+        print(shipping_selected)
+    elif 'shipping' in session:
+        shipping_selected = session['shipping']
+    else:
+        shipping_selected = '1'
+
+    tax = round(grand_total * 0.18, 2)
+    grand_total_shipping = round(grand_total + shipping_dict[shipping_selected])
+    shipping = shipping_dict[shipping_selected]
+
+    return render_template('cart.html', 
+                            products=cart_products, 
+                            total=grand_total_shipping, 
+                            items=number_of_items,
+                            tax = tax,
+                            shipping=shipping,
+                            ss=shipping_selected )
 
 # _________________________________________
 
@@ -156,6 +225,7 @@ def cart():
 def checkout():
     return render_template('checkout.html')
 
+# _________________________________________
 # _________________________________________
 
 
