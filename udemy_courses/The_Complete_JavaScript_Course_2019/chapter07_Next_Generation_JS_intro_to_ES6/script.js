@@ -560,8 +560,9 @@ pline('S'); // _________________________________________________________
 function isFullAgeNow5L(limit) {
 
     console.log(limit);
-    console.log(arguments); // limit Array-like object
+    console.log(arguments); // limit is added to Array-like object
 
+    // selecting arguments from limit and change to array
     var argsArr = Array.prototype.slice.call(arguments, 1);
 
     argsArr.forEach(function(cur, ind, arr) {
@@ -606,7 +607,7 @@ console.log(johnSmith);
 // ES6 
 
 function FarrugiaPerson(firstName, lastName='Farrugia', age, 
-                                            nationality='Maltese') {
+                                                nationality='Maltese') {
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
@@ -615,3 +616,81 @@ function FarrugiaPerson(firstName, lastName='Farrugia', age,
 
 let chrisFarrugia = new FarrugiaPerson('Chris');
 console.log(chrisFarrugia);
+
+pline('U'); // _________________________________________________________
+
+
+// Lecture: Maps 
+
+// Create a map
+const question = new Map();
+
+// Add data to a map
+question.set('question', 
+    'What is the offical name of the lateste major JavaScript version?');
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES2015');
+question.set(4, 'ES7');
+question.set('correct', 3);
+question.set(true, 'Correct answer :D');
+question.set(false, 'Wrong, please try again!');
+
+// Get data from a map
+console.log(question.get(3));
+console.log(question.get('question'));
+
+// Get length of a map with size
+console.log(question.size);
+
+
+// Check for data with .has && Delete from a map with .delete()
+
+if (question.has(4)) {
+    question.delete(4);
+}
+console.log(question);
+
+// To Remove all date from map use clear()
+
+question.clear();
+console.log(question);
+
+pline('V'); // _________________________________________________________
+
+
+const me = new Map();
+
+me.set('name', 'Chris'); 
+me.set('surname', 'Farrugia'); 
+me.set('question', 'What is my favorite programing language?'); 
+me.set(1, 'python'); 
+me.set(2, 'javascript'); 
+me.set(3, 'c#'); 
+me.set('answer', 1); 
+me.set(true, 'Correct answer :D');
+me.set(false, 'Wrong, please try again!');
+
+console.log(me);
+
+
+me.forEach((value, key) => {
+    console.log(`This is key: ${key} and it is set to value: ${value}`);
+});
+
+
+
+
+// using .entries() to iterate over key and value pairs (as in py dic .items)
+
+for (let [k, v] of me.entries()) {
+    if (typeof(k) === "number") {
+        console.log('\n', `Option ${k}: ${v}`);
+    }
+}
+
+
+const ans = parseInt(prompt(me.get('question')));
+console.log(me.get(ans == me.get('answer')));
+
+pline('W'); // _________________________________________________________
