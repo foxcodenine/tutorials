@@ -1,8 +1,8 @@
-// Lecture: let and const 
-
 const pline = function(i) {
     console.log(`\n(${i})___________________________________________\n`)
 }
+
+/*
 // Lecture: let & const
 
 
@@ -694,3 +694,184 @@ const ans = parseInt(prompt(me.get('question')));
 console.log(me.get(ans == me.get('answer')));
 
 pline('W'); // _________________________________________________________
+*/
+// Lecture: Classes
+
+// ES5 
+var Pet5 = function(name, yearOfBirth, specie) {
+    this.name = name;
+    this.yearOfBirth = yearOfBirth;
+    this.specie =specie;
+}
+
+Pet5.prototype.calculateAge = function() {
+    var age = new Date().getFullYear() - this.yearOfBirth; 
+    console.log(this.name + ' is ' + age + ' years old.')
+}
+
+var ben = new Pet5('Ben', 2016, 'dog');
+
+console.log(ben);
+ben.calculateAge()
+
+// ES6 
+
+class Pet6 {
+    constructor (name, yearOfBirth, specie) {
+        this.name = name;
+        this.yearOfBirth = yearOfBirth;
+        this.specie = specie;
+    }
+    calculateAge() {
+        let age = new Date().getFullYear() - this.yearOfBirth;
+        console.log(age);
+    }
+    static sayHello(name) {
+        console.log(`Hello ${name}!`);
+    }
+}
+
+
+const blue = new Pet6('Blue', 2014, 'cat');
+
+console.log(blue);
+blue.calculateAge();
+
+Pet6.sayHello('Blue Steel');
+
+
+pline('X'); // _________________________________________________________
+
+
+// Lecture: Classes inheritance
+
+// ES5
+
+var ZooPet = function(name, yearOfBirth, specie, city, price) {
+    
+    Pet5.call(this, name, yearOfBirth, specie);
+    
+    this.city = city;
+    this.price = price;
+}
+
+ZooPet.prototype = Object.create(Pet5.prototype);
+
+
+ZooPet.prototype.description = function() {
+    console.log({
+        name: this.name,
+        year: this.yearOfBirth,
+        age: (new Date().getFullYear() - this.yearOfBirth),
+        specie: this.specie,
+        city: this.city,
+        price: this.price       
+    });
+}
+
+
+var tiger = new ZooPet('Jack', 2014, 'tiger', 'London', 2000);
+console.log(tiger);
+
+tiger.calculateAge();
+tiger.description(2020);
+
+
+
+
+
+pline('Y'); // _________________________________________________________
+
+
+// ES6
+
+class FarmPet extends Pet6 {
+    constructor(name, yearOfBirth, specie, town, price) {
+        
+        super(name, yearOfBirth, specie);
+        this.town = town;
+        this.price = price;
+    }
+    
+    sellLiveStock() {
+      console.log({
+        name: this.name,
+        year: this.yearOfBirth,
+        age: (new Date().getFullYear() - this.yearOfBirth),
+        specie: this.specie,
+        city: this.town,
+        price: this.price});          
+    }
+}
+                    
+var donkey = new FarmPet('Selly', 2012, 'donkey', 'xaghra', 1600);
+        
+console.log(donkey);
+        
+donkey.calculateAge();
+
+donkey.sellLiveStock();
+
+
+
+
+
+
+
+
+pline('Z'); // _________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
