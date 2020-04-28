@@ -2,7 +2,7 @@ const pline = function(i) {
     console.log(`\n(${i})___________________________________________\n`)
 }
 
-/*
+
 // Lecture: let & const
 
 
@@ -694,7 +694,7 @@ const ans = parseInt(prompt(me.get('question')));
 console.log(me.get(ans == me.get('answer')));
 
 pline('W'); // _________________________________________________________
-*/
+
 // Lecture: Classes
 
 // ES5 
