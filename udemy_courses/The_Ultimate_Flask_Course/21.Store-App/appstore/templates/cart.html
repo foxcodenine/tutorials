@@ -12,8 +12,9 @@
 		<div class="panel panel-primary">
 			<div class="panel-body">
 
-
+				
 				{% for product in products %}
+				<form action="{{ url_for('cart_remove_item', id=product.id) }}" method="POST">
 				<div class="row">
 					<div class="col-lg-4">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -27,7 +28,7 @@
 						<p>&dollar;{{ product.price | round(2) }}</p>
 						<br />
 						<p>
-							<button type="button" class="btn btn-danger btn-xs">
+							<button type="submit" class="btn btn-danger btn-xs">
 								<i class="glyphicon glyphicon-trash"></i>
 							</button>
 						</p>
@@ -45,6 +46,7 @@
 						</p>
 					</div>
 				</div>
+				</form>
 				{% endfor %}
 
 
@@ -96,7 +98,7 @@
 			<ul class="list-group">
 				<li class="list-group-item">
 					<p>
-						{{ items }} Items <strong class="pull-right">&dollar;{{ shipping }}</strong>
+						{{ items }} Items <strong class="pull-right">&dollar;{{ grand_total }}</strong>
 					</p>
 					<form action="{{ url_for('cart') }}" method="POST">
 						<p>
@@ -126,10 +128,10 @@
 				</li>
 			</ul>
 			<div class="panel-footer">
-				<a href="./checkout.html" class="btn btn-primary btn-sm">
+				<a href="{{ url_for('checkout') }}" class="btn btn-primary btn-sm">
 					Checkout <i class="glyphicon glyphicon-chevron-right"></i>
 				</a>
-				<a href="./" class="btn btn-link btn-sm pull-right">
+				<a href="{{ url_for('index') }}" class="btn btn-link btn-sm pull-right">
 					<i class="glyphicon glyphicon-chevron-left"></i> Continue Shopping
 				</a>
 			</div>

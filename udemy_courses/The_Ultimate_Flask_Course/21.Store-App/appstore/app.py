@@ -152,6 +152,7 @@ def cart():
     cart_products = []
     grand_total = 0
     number_of_items = 0
+  
 
     shipping_dict = {
         '1': 0,
@@ -177,9 +178,8 @@ def cart():
             else:
                 cart_update.update({item['id']: item['quantity']})
         
-        print('>>>>>',cart_update)
-        cart_products = []
 
+    
         for item, quantity in cart_update.items():
             
             pro = Products.query.filter_by(pro_id = int(item)).first()
@@ -189,8 +189,9 @@ def cart():
             cart_products.append({
                 'id': int(item), 'name': pro.pro_name, 'quantity': quantity, 'image': pro.pro_image,
                 'price': price, 'total': (quantity * price)
-
             })
+     
+
         print(cart_products)       
 
 
@@ -200,7 +201,7 @@ def cart():
     if request.method == 'POST':
         shipping_selected= request.form['shipping_option']
         session['shipping'] = shipping_selected
-        print(shipping_selected)
+        
     elif 'shipping' in session:
         shipping_selected = session['shipping']
     else:
@@ -216,7 +217,28 @@ def cart():
                             items=number_of_items,
                             tax = tax,
                             shipping=shipping,
-                            ss=shipping_selected )
+                            grand_total=grand_total,
+                            ss=shipping_selected)
+
+# _________________________________________
+
+
+@app.route('/cart_remove_item/<id>', methods=['POST'])
+def cart_remove_item(id):
+    id = str(id)
+    new_cart = []
+    
+
+    for item in session['cart']:
+  
+        if item['id'] == id:
+            continue 
+        new_cart.append(item)
+
+    session['cart'] = new_cart 
+    session.modified = True
+    
+    return redirect(url_for('cart'))
 
 # _________________________________________
 
@@ -225,7 +247,7 @@ def cart():
 def checkout():
     return render_template('checkout.html')
 
-# _________________________________________
+
 # _________________________________________
 
 
