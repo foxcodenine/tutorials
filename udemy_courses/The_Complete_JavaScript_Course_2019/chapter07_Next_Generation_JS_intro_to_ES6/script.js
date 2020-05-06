@@ -208,7 +208,7 @@ pline('G'); // _________________________________________________________
 const myYears = [1990, 1965, 1984, 1937]; 
 
 // ES5 
-var ages5 = myYears.map(function(cur) {
+var ages5 = myYears.map(function(cur, ind, arr) {
     return 2019 - cur;
 });
 console.log(ages5);
@@ -308,9 +308,6 @@ Person.prototype.myFriends5 = function(friends) {
     console.log(arr);
 }
 
-
-
-
 var friendsList = ['Robert', 'Aaron', 'David'];
 
 new Person('Chris').myFriends5(friendsList);
@@ -394,7 +391,7 @@ function calAgeRetirement(birthYear) {
 
 const [chrisAge, chrisToRetir] = calAgeRetirement(1984);
 
-console.log(chrisAge);
+console.log(`Chris is ${chrisAge} years old.`);
 console.log(chrisToRetir);
 
 pline('M'); // _________________________________________________________
@@ -402,11 +399,12 @@ pline('M'); // _________________________________________________________
 
 // Lecture: Arrays: 
 
+// These with return a node list:
 const boxes = document.querySelectorAll('.orange, .yellow, .indianred');
 const boxes2 = document.querySelectorAll('.purple, .indigo, .lightgreen');
 
 
-
+// Change node list to an array:
 // ES5
 var boxesArray = Array.prototype.slice.call(boxes);
 
@@ -420,6 +418,7 @@ boxesArray.forEach(function(cur) {
 
 let boxesArray2 = Array.from(boxes2);
 
+// Change to array with form:
 boxesArray2.forEach(cur => cur.style['background-color'] ='lightgreen');
 
 
@@ -691,7 +690,7 @@ for (let [k, v] of me.entries()) {
 
 
 const ans = parseInt(prompt(me.get('question')));
-console.log(me.get(ans == me.get('answer')));
+alert(me.get(ans == me.get('answer')));
 
 pline('W'); // _________________________________________________________
 
@@ -799,7 +798,7 @@ class FarmPet extends Pet6 {
         year: this.yearOfBirth,
         age: (new Date().getFullYear() - this.yearOfBirth),
         specie: this.specie,
-        city: this.town,
+        location: this.town,
         price: this.price});          
     }
 }
