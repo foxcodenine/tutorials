@@ -69,8 +69,8 @@ const getIDs = new Promise((resolve, reject) => {
 
 const getResipe = recID => {
     return new Promise((resolve, reject) => {
-        setTimeout(ID => { const recipe = {
-            title: 'Fresh tomato pasta', publisher: 'Josas'}
+        setTimeout(ID => { 
+            const recipe = {title: 'Fresh tomato pasta', publisher: 'Josas'}
             resolve(`${ID}: ${recipe.title}`);
         }, 1500, recID);
     });
@@ -79,16 +79,15 @@ const getResipe = recID => {
 const anotherResipe = publisher => {
     return new Promise((resolve, reject) => {
         setTimeout((name) => {
-            const recipe2 = {title: 'Italian pizza', 
-                                publisher: 'Jonas'};
-            resolve(`${recipe2.title}: ${publisher}`);
+            const recipe2 = {title: 'Italian pizza', publisher: 'Jonas'};
+            resolve(`${recipe2.title}: ${name}`);
         }, 1500, publisher);
     });
 };
 
 
-
-
+/*
+// ES6
 
 getIDs
     .then(IDs => {
@@ -103,6 +102,35 @@ getIDs
         console.log(recipe2);
     })
     .catch(error => console.log(error));
+
+*/
+
+// ES7
+
+async function getRecipeAW(){
+
+    const IDs = await getIDs;
+    console.log(IDs)
+
+    const recipe = await getResipe(IDs[2]);
+    console.log(recipe);
+
+    const recipe2 = await anotherResipe('Jonas'); 
+    console.log(recipe2);
+
+    return [recipe, recipe2]
+}
+
+getRecipeAW().then(resolve => {
+    const obj0 = resolve[0];
+    const obj1 = resolve[1];
+    
+    console.log(`${obj0.slice(5)} & ${obj1.slice(0,13)} by ${obj1.slice(-5)}`)
+})
+
+
+
+
 
 
 pline('Z'); // _________________________________________________________
