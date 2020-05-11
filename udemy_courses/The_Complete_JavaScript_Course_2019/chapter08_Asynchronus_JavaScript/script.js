@@ -103,7 +103,7 @@ getIDs
     })
     .catch(error => console.log(error));
 
-*/
+
 
 // ES7
 
@@ -129,8 +129,47 @@ getRecipeAW().then(resolve => {
 })
 
 
+valletta = 'http://api.openweathermap.org/data/2.5/weather?q=Valletta&units=metric&appid=0b9c6ff2c207324b97215f6b7fb82d38'
 
+herokuapp = 'https://secret-ocean-49799.herokuapp.com'
 
-
+fetch(
+    valletta
+).then(
+    result => {
+        console.log(result);
+        return result.json();
+    }
+).then(data => { 
+    console.log(data);
+    return data }
+).then(data => {
+    console.log(`It feels ${data.main.feels_like}°C in ${data.name} right now!`)
+}
+).catch(
+    error => console.log(error)
+);
 
 pline('Z'); // _________________________________________________________
+
+*/
+
+getCityWeather = (city, code) => {
+    fetch(
+        `http://api.openweathermap.org/data/2.5/weather?q=${city},${code}&units=metric&appid=0b9c6ff2c207324b97215f6b7fb82d38`
+    ).then(
+        result => {  return result.json()}
+    ).then(
+        data => {console.log(`Currently it is ${data.main.temp}°C in ${data.name} ${data.sys.country}!`)}
+    ).catch(
+        error => console.log(error)
+    )
+};
+
+getCityWeather('Rome','IT');
+
+getCityWeather('Valletta','MT');
+
+getCityWeather('Birzebbuga','MT');
+
+getCityWeather('London','GB');
