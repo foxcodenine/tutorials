@@ -154,7 +154,7 @@ pline('Z'); // _________________________________________________________
 
 */
 
-getCityWeather = (city, code) => {
+const getCityWeather = (city, code) => {
     fetch(
         `http://api.openweathermap.org/data/2.5/weather?q=${city},${code}&units=metric&appid=0b9c6ff2c207324b97215f6b7fb82d38`
     ).then(
@@ -170,6 +170,49 @@ getCityWeather('Rome','IT');
 
 getCityWeather('Valletta','MT');
 
-getCityWeather('Birzebbuga','MT');
-
 getCityWeather('London','GB');
+
+
+
+
+
+
+
+const getWeatherAW = async (city) => {
+    let woeid = null;
+    try {
+        const result = await fetch(
+            `https://secret-ocean-49799.herokuapp.com/https://www.metaweather.com/api/location/search/?query=${city}`
+        );
+        woeid = await result.json();
+        // console.log(woeid);
+        // console.log(woeid[0].woeid);
+
+        const result2 = await fetch(
+            `https://secret-ocean-49799.herokuapp.com/https://www.metaweather.com/api/location/${woeid[0].woeid}/`
+        );
+        const data = await result2.json();
+        // console.log(data);
+        
+        const todayTemp =   `Today temperature in ${data.title} is from ` + 
+                            `${Math.round(data.consolidated_weather[0].max_temp * 10) /10}°C to `+
+                            `${Math.round(data.consolidated_weather[0].min_temp * 10) /10}°C.`
+
+        const tomorroyTemp =   `Tomorrow temperature in ${data.title} is from ` + 
+                            `${Math.round(data.consolidated_weather[1].max_temp * 10) /10}°C to `+
+                            `${Math.round(data.consolidated_weather[1].min_temp * 10) /10}°C.`
+        console.log(todayTemp);
+        console.log(tomorroyTemp);       
+    } 
+    catch(error) {  
+        woeid = null;      
+        console.log(`Data at this location (${city}) is unavailble!`);
+        // console.log(error);
+    }; 
+}
+
+getWeatherAW('london');
+
+getWeatherAW('rome');
+
+getWeatherAW('Valletta');
