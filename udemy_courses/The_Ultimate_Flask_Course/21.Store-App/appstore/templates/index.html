@@ -58,7 +58,7 @@
 	<div class="col-lg-3">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 			<div class="thumbnail">
-				<a href="{{ url_for('product', id=product.pro_id) }}">
+				<a href="{{ url_for('product', id=product.id) }}">
 					<img src="{{ product.pro_image}}" alt="">
 				</a>
 				<div class="caption text-center">
@@ -70,10 +70,10 @@
 					</div>
 					<hr />
 					<p>
-						<a href="{{ url_for('product', id=product.pro_id) }}"  class="btn btn-primary btn-sm">
+						<a href="{{ url_for('product', id=product.id) }}"  class="btn btn-primary btn-sm">
 							<i class="glyphicon glyphicon-eye-open"></i> View
 						</a>
-						<a  class="btn btn-default btn-sm" {% if product.pro_stock <= 0 %}disabled{% else  %} href="{{ url_for('quick_add', id=product.pro_id) }}" {% endif %}>
+						<a  class="btn btn-default btn-sm" {% if product.pro_stock <= 0 %}disabled{% else  %} href="{{ url_for('quick_add', id=product.id) }}" {% endif %}>
 							<i class="glyphicon glyphicon-shopping-cart"></i> Add To Cart
 						</a>
 					</p>
