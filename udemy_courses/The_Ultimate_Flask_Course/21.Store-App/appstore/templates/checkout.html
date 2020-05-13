@@ -16,14 +16,14 @@
 						<h4 class="bold">Personal Information</h4>
 					</div>
 					<div class="col-lg-6">
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<label>Title</label>
 							<select name="title" id="title" class="form-control">
 								<option value="">Mr</option>
 								<option value="">Mrs</option>
 								<option value="">Miss</option>
 							</select>
-						</div>
+						</div> -->
 						<div class="form-group">
 							<label>Firstname</label>
 							<input type="text" name="firstname" id="firstname" class="form-control" value="" placeholder="Your firstname">
@@ -53,11 +53,7 @@
 						<div class="form-group">
 							<label>Address</label>
 							<input type="text" name="address" id="address" class="form-control" value="" placeholder="Your address">
-						</div>
-						<div class="form-group">
-							<label>Address 2</label>
-							<input type="text" name="address_2" id="address_2" class="form-control" value="" placeholder="Your address_2">
-						</div>
+						</div>	
 						<div class="form-group">
 							<label>City</label>
 							<input type="text" name="city" id="city" class="form-control" value="" placeholder="Your city">
@@ -87,14 +83,26 @@
 					<div class="col-lg-12">
 						<h4 class="bold">Shipping Method</h4>
 					</div>
+					<form action="{{ url_for('checkout') }}" method="POST">
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label>Shipping Method</label>
-							<select name="shipping_method" id="shipping_method" class="form-control">
-								<option value="">Next Day Delivery (&dollar;10)</option>
+							<select class="form-control" id="shipping_method" onchange="this.form.submit()"
+							name="shipping_option" id="shipping_option">
+								<option value="1" {% if ss == '1' %}selected{% endif %}>Select Shipping</option>
+								<option value="2" {% if ss == '2' %}selected{% endif %}>$10  Zone 1 EU countries</option>
+								<option value="3" {% if ss == '3' %}selected{% endif %}>$10  Zone 2 Switzerland</option>
+								<option value="4" {% if ss == '4' %}selected{% endif %}>$12  Zone 3 Non-EU Europe</option>
+								<option value="5" {% if ss == '5' %}selected{% endif %}>$12  Zone 4 Russia</option>
+								<option value="6" {% if ss == '6' %}selected{% endif %}>$20  Zone 5 USA</option>
+								<option value="7" {% if ss == '7' %}selected{% endif %}>$15  Zone 6 Parts of North Africa, Canada, Middle East, Parts of Asia  </option>
+								<option value="8" {% if ss == '8' %}selected{% endif %}>$20  Zone 7 China</option>
+								<option value="9" {% if ss == '9' %}selected{% endif %}>$20  Zone 8 rest of the world </option>
+								
 							</select>
 						</div>
 					</div>
+					</form>
 				</div>
 
 				<div class="row">
@@ -110,7 +118,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="col-lg-12">
+					<!-- <div class="col-lg-12">
 						<div class="form-group">
 							<div class="checkbox">
 								<label>
@@ -119,7 +127,7 @@
 								</label>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 

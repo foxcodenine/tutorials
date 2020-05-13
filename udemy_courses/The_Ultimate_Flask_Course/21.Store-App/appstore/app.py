@@ -63,13 +63,40 @@ manager.add_command('db', MigrateCommand)
 
 class Products(db.Model):
     __tablename__ = 'products'
-
-    pro_id = db.Column(db.Integer, primary_key=True)
+    # pro_id
+    id = db.Column(db.Integer, primary_key=True)
     pro_name = db.Column(db.String(50), unique=True, nullable=False)
     pro_price = db.Column(db.Numeric(5.2), nullable=False)
     pro_stock = db.Column(db.Integer, default=0)
     pro_description = db.Column(db.String(500), nullable=False)
     pro_image = db.Column(db.String(250))
+
+
+class Order(db.Model):
+    __tablename__ = 'order'
+
+    id              = db.Column(db.Integer, primary_key=True)
+    reference       = db.Column(db.String(5)) 
+    first_name      = db.Column(db.String(20))
+    last_name       = db.Column(db.String(20))
+    phone_number    = db.Column(db.Integer)
+    email           = db.Column(db.String(50)) 
+    address         = db.Column(db.String(150))
+    city            = db.Column(db.String(50))
+    state           = db.Column(db.String(50))
+    country         = db.Column(db.String(50))
+    status          = db.Column(db.String(15))
+    payment_type    = db.Column(db.String(10)) 
+
+
+class Order_Item(db.Model):
+    __tablename__ = 'order_item'
+
+    id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
+    quantity = db.Column(db.Integer)
+
 
 # ______________________________________________________________________
 # WTF_Forms_____________________________________________________________
@@ -83,16 +110,19 @@ class AddProduct(FlaskForm):
         FileAllowed(IMAGES, 'Only images are accepted')
     ])
 
+
 class AddToCart(FlaskForm):
     quantity = IntegerField('Quantity')
     id = HiddenField('ID')
+
 
 # ______________________________________________________________________
 # Routes________________________________________________________________
 
 @app.route('/')
 def index():
-    my_products = Products.query.order_by(Products.pro_id).all()
+    session['cart_update'] = None
+    my_products = Products.query.order_by(Products.id).all()
     return render_template('index.html', products=my_products)
 
 # _________________________________________
@@ -100,8 +130,8 @@ def index():
 
 @app.route('/product/<id>')
 def product(id):
-
-    current_pro = Products.query.filter_by(pro_id=id).first() 
+    session['cart_update'] = None
+    current_pro = Products.query.filter_by(id=id).first() 
 
     form = AddToCart()
 
@@ -113,7 +143,7 @@ def product(id):
 
 @app.route('/quick_add/<id>')
 def quick_add(id):
-
+    session['cart_update'] = None
     if 'cart' not in session:
         session['cart'] = []
     
@@ -124,12 +154,12 @@ def quick_add(id):
     return redirect(url_for('index'))
 
 
-
+# _________________________________________
 
 
 @app.route('/add_to_cart/', methods=['POST'])
 def add_to_cart():
-
+    session['cart_update'] = None
     if 'cart' not in session:
         session['cart'] = []
 
@@ -182,7 +212,7 @@ def cart():
     
         for item, quantity in cart_update.items():
             
-            pro = Products.query.filter_by(pro_id = int(item)).first()
+            pro = Products.query.filter_by(id = int(item)).first()
             price = float(pro.pro_price)
             grand_total += quantity * price
             number_of_items += quantity
@@ -192,11 +222,14 @@ def cart():
             })
      
 
-        print(cart_products)       
+        # print('<><>',cart_products)  
+        session['cart_products'] = cart_products
+        session['cart_update']  = True  
 
 
     else:
-        print('>>>> cart not in session')  
+        # print('>>>> cart not in session')  
+        pass
     
     if request.method == 'POST':
         shipping_selected= request.form['shipping_option']
@@ -225,6 +258,7 @@ def cart():
 
 @app.route('/cart_remove_item/<id>', methods=['POST'])
 def cart_remove_item(id):
+    session['cart_update'] = None
     id = str(id)
     new_cart = []
     
@@ -243,9 +277,21 @@ def cart_remove_item(id):
 # _________________________________________
 
 
-@app.route('/checkout/')
+@app.route('/checkout/', methods=['POST', 'GET'])
 def checkout():
-    return render_template('checkout.html')
+    if 'cart_products' not in session or session['cart_update'] == None:
+        return redirect(url_for('cart'))
+
+    if request.method == 'POST':
+        shipping_selected= request.form['shipping_option']
+        session['shipping'] = shipping_selected
+        
+    elif 'shipping' in session:
+        shipping_selected = session['shipping']
+    else:
+        shipping_selected = '1'
+
+    return render_template('checkout.html', ss=shipping_selected)
 
 
 # _________________________________________
@@ -322,9 +368,3 @@ if __name__ == '__main__':
 
 
 # migrate:
-# 118650a6d0ee_.py
-
-
-
-# sqlite3 commands 
-# .schema products
