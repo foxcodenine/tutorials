@@ -8,7 +8,8 @@
 		<h3 class="bold">
 			<i class="glyphicon glyphicon-pencil"></i> Shipping Information
 		</h3>
-
+		<form action="{{ url_for('checkout') }}" method="POST">
+		{{ form.csrf_token }}
 		<div class="panel panel-primary">
 			<div class="panel-body">
 				<div class="row">
@@ -25,22 +26,27 @@
 							</select>
 						</div> -->
 						<div class="form-group">
-							<label>Firstname</label>
-							<input type="text" name="firstname" id="firstname" class="form-control" value="" placeholder="Your firstname">
+							<label>First name</label>
+							<!-- <input type="text" name="firstname" id="firstname" class="form-control" value="" placeholder="Your firstname"> -->
+							{{ form.first_name(id="firstname", class="form-control", value="", placeholder="Your firstname") }}
 						</div>
 						<div class="form-group">
-							<label>Lastname</label>
-							<input type="text" name="lastname" id="lastname" class="form-control" value="" placeholder="Your lastname">
+							<label>Last name</label>
+							<!-- <input type="text" name="lastname" id="lastname" class="form-control" value="" placeholder="Your lastname"> -->
+							{{ form.last_name(id="lastname", class="form-control", value="", placeholder="Your lastname") }}
+
 						</div>
 					</div>
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label>Phone Number</label>
-							<input type="text" name="phone" id="phone" class="form-control" value="" placeholder="Your phone number">
+							<!-- <input type="text" name="phone" id="phone" class="form-control" value="" placeholder="Your phone number"> -->
+							{{ form.phone_number(id="phone", class="form-control", value="", placeholder="Your phone number") }}
 						</div>
 						<div class="form-group">
 							<label>Email</label>
-							<input type="email" name="email" id="email" class="form-control" value="" placeholder="Your email">
+							<!-- <input type="email" name="email" id="email" class="form-control" value="" placeholder="Your email"> -->
+							{{ form.email(id="email", class="form-control", value="", placeholder="Your email") }}
 						</div>
 					</div>
 				</div>
@@ -52,43 +58,46 @@
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label>Address</label>
-							<input type="text" name="address" id="address" class="form-control" value="" placeholder="Your address">
+							<!-- <input type="text" name="address" id="address" class="form-control" value="" placeholder="Your address"> -->
+							{{ form.address(id="address", class="form-control", value="", placeholder="Your address") }}
 						</div>	
 						<div class="form-group">
 							<label>City</label>
-							<input type="text" name="city" id="city" class="form-control" value="" placeholder="Your city">
+							<!-- <input type="text" name="city" id="city" class="form-control" value="" placeholder="Your city"> -->
+							{{ form.city(id="city", class="form-control", value="", placeholder="Your city") }}
 						</div>
 					</div>
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label>State</label>
-							<select name="state" id="state" class="form-control">
+							<!-- <select name="state" id="state" class="form-control">
 								<option value="">Washington</option>
 								<option value="">California</option>
 								<option value="">Los Angeles</option>
-							</select>
+							</select> -->
+							{{ form.state(id="state", class="form-control") }}
 						</div>
 						<div class="form-group">
 							<label>Country</label>
-							<select name="state" id="state" class="form-control">
+							<!-- <select name="state" id="state" class="form-control">
 								<option value="">US</option>
 								<option value="">UK</option>
 								<option value="">France</option>
-							</select>
+							</select> -->
+							{{ form.country(id="state", class="form-control") }}
 						</div>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="col-lg-12">
+					<!-- <div class="col-lg-12">
 						<h4 class="bold">Shipping Method</h4>
-					</div>
-					<form action="{{ url_for('checkout') }}" method="POST">
+					</div> -->
+					<!-- <form action="{{ url_for('checkout') }}" method="POST"> -->
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label>Shipping Method</label>
-							<select class="form-control" id="shipping_method" onchange="this.form.submit()"
-							name="shipping_option" id="shipping_option">
+							<!-- <select class="form-control" onchange="this.form.submit()"	name="shipping_option" id="shipping_option">
 								<option value="1" {% if ss == '1' %}selected{% endif %}>Select Shipping</option>
 								<option value="2" {% if ss == '2' %}selected{% endif %}>$10  Zone 1 EU countries</option>
 								<option value="3" {% if ss == '3' %}selected{% endif %}>$10  Zone 2 Switzerland</option>
@@ -99,10 +108,11 @@
 								<option value="8" {% if ss == '8' %}selected{% endif %}>$20  Zone 7 China</option>
 								<option value="9" {% if ss == '9' %}selected{% endif %}>$20  Zone 8 rest of the world </option>
 								
-							</select>
+							</select> -->
+							{{ form.shipping(class="form-control form-control-shipping", value=4, onchange="this.form.submit()",  disabled="disabled") }}
 						</div>
 					</div>
-					</form>
+					<!-- </form> -->
 				</div>
 
 				<div class="row">
@@ -112,10 +122,11 @@
 					<div class="col-lg-6">
 						<div class="form-group">
 							<label>Payment Option</label>
-							<select name="payment_type" id="payment_type" class="form-control">
+							<!-- <select name="payment_type" id="payment_type" class="form-control">
 								<option value="">Pay By Check</option>
 								<option value="">Pay By Bank Wire Transfer</option>
-							</select>
+							</select> -->
+							{{ form.payment_type(id="payment_type", class="form-control") }}
 						</div>
 					</div>
 					<!-- <div class="col-lg-12">
@@ -132,10 +143,11 @@
 			</div>
 
 			<div class="panel-footer">
-				<button type="button" class="btn btn-primary btn-sm">
+				<button type="submit" class="btn btn-primary btn-sm">
 					Submit My Order
 				</button>
 			</div>
+			</form>
 		</div>
 	</div>
 

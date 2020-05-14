@@ -9,6 +9,11 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ url_for('static', filename='bs/css/flatly.min.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+        <style>
+            .form-control-shipping {
+                -moz-appearance: window;
+                -webkit-appearance: none;              }
+        </style>
     </head>
     <body>
         {% if admin %}

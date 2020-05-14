@@ -7,7 +7,8 @@
 # 
 
 # ______________________________________________________________________
-from flask import Flask, redirect, render_template, url_for, request, session, blueprints
+from flask import Flask, redirect, render_template, url_for, request, session,\
+     blueprints
 
 from flask_sqlalchemy import SQLAlchemy 
 
@@ -17,12 +18,13 @@ from flask_script import Manager
 from flask_uploads import UploadSet, configure_uploads, IMAGES 
 
 from flask_wtf import FlaskForm 
-from wtforms import StringField, IntegerField, TextAreaField, DecimalField, HiddenField
+from wtforms import StringField, IntegerField, TextAreaField, DecimalField,\
+     HiddenField, SelectField
 from flask_wtf.file import FileField, FileAllowed
 
 from uuid import uuid4
 
-
+from selection_data import usa, countries, shipping_option
 
 
 # ______________________________________________________________________
@@ -86,6 +88,7 @@ class Order(db.Model):
     state           = db.Column(db.String(50))
     country         = db.Column(db.String(50))
     status          = db.Column(db.String(15))
+    shipping        = db.Column(db.String(3))
     payment_type    = db.Column(db.String(10)) 
 
 
@@ -114,6 +117,27 @@ class AddProduct(FlaskForm):
 class AddToCart(FlaskForm):
     quantity = IntegerField('Quantity')
     id = HiddenField('ID')
+
+
+
+
+class Checkout(FlaskForm):
+    
+
+    first_name   = StringField('First Name')
+    last_name    = StringField('Last Name')
+    phone_number = StringField('Phone Number')
+    email        = StringField('Email')
+    address      = StringField('Address')
+    city         = StringField('City')
+    state        = SelectField('State', choices=(usa))
+    country      = SelectField('Country', choices=(countries))
+    shipping     = SelectField('Shipping Method',  choices=(shipping_option)
+    # , default='1'
+    )
+    payment_type = SelectField('Payment Option', choices=([
+        ('PP', 'PayPal'), ('WT', 'Wire Transfer'), ('SW', 'Swift'), ('VS', 'Visa')
+    ]))
 
 
 # ______________________________________________________________________
@@ -282,16 +306,64 @@ def checkout():
     if 'cart_products' not in session or session['cart_update'] == None:
         return redirect(url_for('cart'))
 
-    if request.method == 'POST':
-        shipping_selected= request.form['shipping_option']
-        session['shipping'] = shipping_selected
-        
-    elif 'shipping' in session:
-        shipping_selected = session['shipping']
-    else:
-        shipping_selected = '1'
+    form = Checkout()
+   
 
-    return render_template('checkout.html', ss=shipping_selected)
+
+    if request.method == 'POST':
+
+        first_name= form.first_name.data
+        last_name = form.last_name.data
+        phone_number = form.phone_number.data
+        email = form.email.data
+        address = form.address.data
+        city = form.city.data
+        state = form.state.data
+        country = form.country.data
+        payment_type = form.payment_type.data
+
+        if 'shipping' in session:
+            shipping = session['shipping']
+        else:
+            shipping = '1'
+
+
+        form.first_name.process_data(first_name)
+
+        print(
+            [first_name,
+            last_name, 
+            phone_number, 
+            email, 
+            address, 
+            city, 
+            state,
+            country,
+            shipping,
+            payment_type]            
+        )
+
+
+        oreder = Order()
+        form.populate_obj(order)
+        order.shipping = shipping 
+        order.reference = 'QWERT'
+        order.status = 'PENDING'
+
+
+    if 'shipping' in session:
+        form.shipping.process_data(session['shipping'])
+        # form.shipping.default = session['shipping']
+        # form.process()
+
+    else:
+        session['shipping'] = '1'
+        form.shipping.process_data(session['shipping'] )
+
+
+    return render_template(
+                        'checkout.html',                         
+                         form=form)
 
 
 # _________________________________________
@@ -321,6 +393,7 @@ def admin():
 @app.route('/admin/add/', methods=['POST','GET'])
 def add():
     form = AddProduct()
+    
 
     if request.method == 'GET':
         return render_template('admin/add-product.html',admin=True, form=form)
@@ -368,3 +441,5 @@ if __name__ == '__main__':
 
 
 # migrate:
+# c44a436e40fc_
+# 13ddbbd26d3b_
