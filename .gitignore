@@ -11,7 +11,11 @@ __resources__/
 ./node_modules
 **./node_modules/*
 **./node_modules/
-
+*/node_modules/*
+**node_modules
+node_modules
+**/node_modules
+*node_modules/*
 ./**node_modules/
 ./**/node_modules/
 ./**node_modules/*
