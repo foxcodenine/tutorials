@@ -1,0 +1,1 @@
+export default `I'm an export string!`
