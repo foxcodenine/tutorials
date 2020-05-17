@@ -8,7 +8,7 @@
 
 # ______________________________________________________________________
 from flask import Flask, redirect, render_template, url_for, request, session,\
-     blueprints
+     blueprints, flash
 
 from flask_sqlalchemy import SQLAlchemy 
 
@@ -25,6 +25,10 @@ from flask_wtf.file import FileField, FileAllowed
 from uuid import uuid4
 
 from selection_data import usa, countries, shipping_option
+from pprint import pprint
+
+from random import choice
+from string import ascii_uppercase as upper, ascii_lowercase as lower
 
 
 # ______________________________________________________________________
@@ -74,8 +78,8 @@ class Products(db.Model):
     pro_image = db.Column(db.String(250))
 
 
-class Order(db.Model):
-    __tablename__ = 'order'
+class Orders(db.Model):
+    __tablename__ = 'orders'
 
     id              = db.Column(db.Integer, primary_key=True)
     reference       = db.Column(db.String(5)) 
@@ -90,13 +94,14 @@ class Order(db.Model):
     status          = db.Column(db.String(15))
     shipping        = db.Column(db.String(3))
     payment_type    = db.Column(db.String(10)) 
+    items = db.relationship('Order_Items', backref='orders', lazy='dynamic')
 
 
-class Order_Item(db.Model):
-    __tablename__ = 'order_item'
+class Order_Items(db.Model):
+    __tablename__ = 'order_items'
 
     id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.Integer, db.ForeignKey('order.id'))
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'))
     product_id = db.Column(db.Integer, db.ForeignKey('products.id'))
     quantity = db.Column(db.Integer)
 
@@ -139,6 +144,93 @@ class Checkout(FlaskForm):
         ('PP', 'PayPal'), ('WT', 'Wire Transfer'), ('SW', 'Swift'), ('VS', 'Visa')
     ]))
 
+# ______________________________________________________________________
+
+# Functions
+
+def handle_cart(no_shipping=None):
+    cart_products = []
+    grand_total = 0
+    number_of_items = 0  
+
+    shipping_dict = {
+        '1': 0, '2': 10, '3': 10, '4': 12, '5': 12,
+        '6': 20, '7': 12, '8': 20, '9': 20}
+
+    if 'cart' in session: 
+
+        # Adding up any dublicate item in cart:_________________________
+        cart = session['cart']
+        cart_update = {}
+        for item in cart:
+            
+            if (item['id']) in cart_update:                
+                cart_update[item['id']] = (item['quantity'] + cart_update.get(item['id'])) 
+            else:
+                cart_update.update({item['id']: item['quantity']})
+        
+
+    
+        for item, quantity in cart_update.items():
+            
+            pro = Products.query.filter_by(id = int(item)).first()
+            price = float(pro.pro_price)
+            grand_total += quantity * price
+            number_of_items += quantity
+            cart_products.append({
+                'id': int(item), 'name': pro.pro_name, 'quantity': quantity, 'image': pro.pro_image,
+                'price': price, 'total': (quantity * price)
+            })    
+
+            
+
+    else:
+        pass
+    
+    if not no_shipping:
+        if request.method == 'POST':
+            shipping_selected= request.form['shipping_option']
+            session['shipping'] = shipping_selected
+     
+            
+        elif 'shipping' in session:
+            shipping_selected = session['shipping']
+        else:
+            shipping_selected = '1'
+            session['shipping'] = shipping_selected
+    
+
+    
+
+    # session['cart_products'] = cart_products
+
+    shipping_selected = session['shipping'] 
+
+    shipping_cost = shipping_dict[shipping_selected]
+
+    tax = round(grand_total * 0.18, 2)
+    grand_total_shipping = round(grand_total + shipping_cost)
+    
+
+    session['cart_update'] = {
+        'products': cart_products,
+        'grand_total': grand_total,
+        'grand_total_shipping': grand_total_shipping,
+        'number_of_items': number_of_items,
+        'tax': tax,
+        'shipping_cost': shipping_cost, 
+        'shipping_selected': shipping_selected
+    }
+    session.modified = True
+
+    session['cart'] = []
+    for product in cart_products:
+        session['cart'].append({'id': product['id'], 'quantity': product['quantity']})
+        session.modified = True
+
+
+    return grand_total, grand_total_shipping, number_of_items, \
+        tax, shipping_cost, shipping_selected
 
 # ______________________________________________________________________
 # Routes________________________________________________________________
@@ -198,88 +290,6 @@ def add_to_cart():
 
 # _________________________________________
 
-
-
-@app.route('/cart/', methods=['POST', 'GET'])
-def cart():
-
-    cart_products = []
-    grand_total = 0
-    number_of_items = 0
-  
-
-    shipping_dict = {
-        '1': 0,
-        '2': 10,
-        '3': 10,
-        '4': 12,
-        '5': 12,
-        '6': 20,
-        '7': 12,
-        '8': 20,
-        '9': 20,
-    }
-
-    if 'cart' in session: 
-
-        # Adding up any dublicate item in cart:_________________________
-        cart = session['cart']
-        cart_update = {}
-        for item in cart:
-            
-            if (item['id']) in cart_update:                
-                cart_update[item['id']] = (item['quantity'] + cart_update.get(item['id'])) 
-            else:
-                cart_update.update({item['id']: item['quantity']})
-        
-
-    
-        for item, quantity in cart_update.items():
-            
-            pro = Products.query.filter_by(id = int(item)).first()
-            price = float(pro.pro_price)
-            grand_total += quantity * price
-            number_of_items += quantity
-            cart_products.append({
-                'id': int(item), 'name': pro.pro_name, 'quantity': quantity, 'image': pro.pro_image,
-                'price': price, 'total': (quantity * price)
-            })
-     
-
-        # print('<><>',cart_products)  
-        session['cart_products'] = cart_products
-        session['cart_update']  = True  
-
-
-    else:
-        # print('>>>> cart not in session')  
-        pass
-    
-    if request.method == 'POST':
-        shipping_selected= request.form['shipping_option']
-        session['shipping'] = shipping_selected
-        
-    elif 'shipping' in session:
-        shipping_selected = session['shipping']
-    else:
-        shipping_selected = '1'
-
-    tax = round(grand_total * 0.18, 2)
-    grand_total_shipping = round(grand_total + shipping_dict[shipping_selected])
-    shipping = shipping_dict[shipping_selected]
-
-    return render_template('cart.html', 
-                            products=cart_products, 
-                            total=grand_total_shipping, 
-                            items=number_of_items,
-                            tax = tax,
-                            shipping=shipping,
-                            grand_total=grand_total,
-                            ss=shipping_selected)
-
-# _________________________________________
-
-
 @app.route('/cart_remove_item/<id>', methods=['POST'])
 def cart_remove_item(id):
     session['cart_update'] = None
@@ -300,27 +310,70 @@ def cart_remove_item(id):
 
 # _________________________________________
 
+@app.route('/cart_update_qty/<id>', methods=['POST'])
+def cart_update_qty(id):
+    
+ 
+    
+    new_cart = []
+
+    for product in session['cart_update']['products']:
+
+        if product['id'] == int(id):
+                       
+            new_cart.append({'id': product['id'], 'quantity':int(request.form["quantity"])})
+        else:
+            new_cart.append({'id': product['id'], 'quantity':product['quantity']})
+    session['cart'] = new_cart
+    session.modified = True
+    return redirect(url_for('cart'))
+
+
+
+# _________________________________________
+
+
+@app.route('/cart/', methods=['POST', 'GET'])
+def cart():
+
+
+    grand_total, grand_total_shipping, number_of_items, \
+        tax, shipping_cost, shipping_selected = handle_cart()
+    
+    cart_products = session['cart_update']['products']
+
+    return render_template('cart.html', 
+                            products=cart_products, 
+                            grand_total=grand_total,
+                            grand_total_shipping=grand_total_shipping, 
+                            number_of_items=number_of_items,
+                            tax = tax,
+                            shipping_cost=shipping_cost,                            
+                            ss=shipping_selected)
+
+# _________________________________________
+
+
 
 @app.route('/checkout/', methods=['POST', 'GET'])
 def checkout():
-    if 'cart_products' not in session or session['cart_update'] == None:
+
+    if session['cart_update']['number_of_items'] == 0:
+        flash('Cart is empty!')
         return redirect(url_for('cart'))
 
+    if session['shipping'] == '1':
+        flash('Please select shipping method!')
+        return redirect(url_for('cart'))
+
+
     form = Checkout()
-   
+
+    cart_update = session['cart_update']
+    pprint(cart_update)
 
 
     if request.method == 'POST':
-
-        first_name= form.first_name.data
-        last_name = form.last_name.data
-        phone_number = form.phone_number.data
-        email = form.email.data
-        address = form.address.data
-        city = form.city.data
-        state = form.state.data
-        country = form.country.data
-        payment_type = form.payment_type.data
 
         if 'shipping' in session:
             shipping = session['shipping']
@@ -328,28 +381,26 @@ def checkout():
             shipping = '1'
 
 
-        form.first_name.process_data(first_name)
-
-        print(
-            [first_name,
-            last_name, 
-            phone_number, 
-            email, 
-            address, 
-            city, 
-            state,
-            country,
-            shipping,
-            payment_type]            
-        )
-
-
-        oreder = Order()
+        order = Orders()
         form.populate_obj(order)
         order.shipping = shipping 
-        order.reference = 'QWERT'
+        order.reference = ''.join([choice(upper + lower) for _ in range(7)])
         order.status = 'PENDING'
 
+        for product in cart_update['products']:
+            order_item = Order_Items(quantity=product['quantity'], product_id=product['id'])
+            # this will create an order_item table record and add it to session with the order
+            order.items.append(order_item)
+
+        db.session.add(order)
+        db.session.commit()
+
+        del session['cart']
+        session['shipping'] = '1'
+        # del session['cart_products'] 
+        session['cart_update'] = None
+
+        return redirect(url_for('index'))
 
     if 'shipping' in session:
         form.shipping.process_data(session['shipping'])
@@ -360,7 +411,7 @@ def checkout():
         session['shipping'] = '1'
         form.shipping.process_data(session['shipping'] )
 
-
+    
     return render_template(
                         'checkout.html',                         
                          form=form)
@@ -443,3 +494,8 @@ if __name__ == '__main__':
 # migrate:
 # c44a436e40fc_
 # 13ddbbd26d3b_
+# 3cb16f2b1b70
+
+
+
+
