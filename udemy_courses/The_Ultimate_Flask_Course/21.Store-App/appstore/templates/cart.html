@@ -35,9 +35,12 @@
 					</div>
 					<div class="col-lg-2">
 						<h3>Quantity</h3>
-						<p>
-							<input type="number" name="quantity" id="inputQuantity" class="form-control" value="{{ product.quantity }}" min="1" step="1">
-						</p>
+					</form>
+						<form action="{{ url_for('cart_update_qty', id=product.id) }}" method="POST" >
+							<p>
+								<input onchange="this.form.submit()" type="number" name="quantity" id="inputQuantity" class="form-control" value="{{ product.quantity }}" min="1" step="1">
+							</p>
+						</form>
 					</div>
 					<div class="col-lg-2">
 						<h3>Total</h3>
@@ -46,7 +49,7 @@
 						</p>
 					</div>
 				</div>
-				</form>
+				
 				{% endfor %}
 
 
@@ -98,7 +101,7 @@
 			<ul class="list-group">
 				<li class="list-group-item">
 					<p>
-						{{ items }} Items <strong class="pull-right">&dollar;{{ grand_total }}</strong>
+						{{ number_of_items }} Items <strong class="pull-right">&dollar;{{ grand_total }}</strong>
 					</p>
 					<form action="{{ url_for('cart') }}" method="POST">
 						<p>
@@ -123,7 +126,7 @@
 	
 				</li>
 				<li class="list-group-item">
-					<p>Total <strong class="pull-right">&dollar;{{ total }}</strong></p>
+					<p>Total <strong class="pull-right">&dollar;{{ grand_total_shipping }}</strong></p>
 					<p>Taxes <strong class="pull-right">&dollar;{{ tax }}</strong></p>
 				</li>
 			</ul>
@@ -134,6 +137,15 @@
 				<a href="{{ url_for('index') }}" class="btn btn-link btn-sm pull-right">
 					<i class="glyphicon glyphicon-chevron-left"></i> Continue Shopping
 				</a>
+				<ul style="margin-top: 10px;">
+		
+					{% with messages = get_flashed_messages() %}
+					{% for message in messages %}
+						<li style="color: crimson;">{{ message }}</li>
+					{% endfor %}
+					{% endwith %}
+	
+				</ul>
 			</div>
 		</div>
 	</div>
