@@ -1,1 +1,2 @@
-export default `I'm an export string!`
+// export default `I'm an export string!`
+// _____________________________________________________________________________

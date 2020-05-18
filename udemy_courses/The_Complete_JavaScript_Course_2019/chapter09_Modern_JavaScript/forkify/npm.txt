@@ -12,6 +12,8 @@ npm install babel-preset-env --save-dev
 npm install babel-loader --save-dev
 
 npm install babel-polyfill --save
+npm install axios --save
+
 
 to fix vulnerability:
 npm audit fix
