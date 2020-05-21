@@ -94,6 +94,7 @@ class Orders(db.Model):
     status          = db.Column(db.String(15))
     shipping        = db.Column(db.String(3))
     payment_type    = db.Column(db.String(10)) 
+    order_total     = db.Column(db.Numeric(6.2))
     items = db.relationship('Order_Items', backref='orders', lazy='dynamic')
 
 
@@ -157,6 +158,19 @@ def handle_cart(no_shipping=None):
         '1': 0, '2': 10, '3': 10, '4': 12, '5': 12,
         '6': 20, '7': 12, '8': 20, '9': 20}
 
+    shipping_dict_name = {
+        '1' : 'Select Shipping',
+        '2' : 'Zone 1 EU countries',
+        '3' : 'Zone 2 Switzerland',
+        '4' : 'Zone 3 Non-EU Europe',
+        '5' : 'Zone 4 Russia',
+        '6' : 'Zone 5 USA',
+        '7' : 'Zone 6 Parts of North Africa, Canada, Middle East, Parts of Asia', 
+        '8' : 'Zone 7 China',
+        '9' : 'Zone 8 rest of the world'
+    }
+    
+
     if 'cart' in session: 
 
         # Adding up any dublicate item in cart:_________________________
@@ -219,7 +233,7 @@ def handle_cart(no_shipping=None):
         'number_of_items': number_of_items,
         'tax': tax,
         'shipping_cost': shipping_cost, 
-        'shipping_selected': shipping_selected
+        'shipping_selected': [shipping_selected, shipping_dict_name[shipping_selected]]
     }
     session.modified = True
 
@@ -292,10 +306,9 @@ def add_to_cart():
 
 @app.route('/cart_remove_item/<id>', methods=['POST'])
 def cart_remove_item(id):
-    session['cart_update'] = None
-    id = str(id)
+   
+    id = int(id)
     new_cart = []
-    
 
     for item in session['cart']:
   
@@ -385,7 +398,8 @@ def checkout():
         form.populate_obj(order)
         order.shipping = shipping 
         order.reference = ''.join([choice(upper + lower) for _ in range(7)])
-        order.status = 'PENDING'
+        order.status = 'Awaiting Payment'
+        order.order_total = session['cart_update']['grand_total_shipping']
 
         for product in cart_update['products']:
             order_item = Order_Items(quantity=product['quantity'], product_id=product['id'])
@@ -414,7 +428,8 @@ def checkout():
     
     return render_template(
                         'checkout.html',                         
-                         form=form)
+                         form=form, 
+                         cart_update=cart_update)
 
 
 # _________________________________________
@@ -426,8 +441,16 @@ def admin():
     my_products = Products.query.all()
 
     products_in_stock = Products.query.filter(Products.pro_stock > 0).count()
-
     products_out_stock = Products.query.filter(Products.pro_stock <= 0).count()
+
+    # pending = Orders.query.all()
+
+    pending = Orders.query.all()
+    # .filter_by(status = 'Awaiting Payment')
+    print(pending)
+
+
+ 
 
 
 
@@ -435,7 +458,9 @@ def admin():
         'admin/index.html', 
         admin=True, products=my_products, 
         in_stock=products_in_stock,
-        out_stock=products_out_stock)
+        out_stock=products_out_stock, 
+        pending=pending
+        )
 
 # _________________________________________
 
@@ -495,6 +520,7 @@ if __name__ == '__main__':
 # c44a436e40fc_
 # 13ddbbd26d3b_
 # 3cb16f2b1b70
+# 6c026fe92816
 
 
 
