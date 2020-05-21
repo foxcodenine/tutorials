@@ -163,15 +163,15 @@
 			<ul class="list-group">
 				<li class="list-group-item">
 					<p>
-						3 Items <strong class="pull-right">&dollar;122.97</strong>
+						{{ cart_update.number_of_items }} Items <strong class="pull-right">&dollar;{{ cart_update.grand_total }}</strong>
 					</p>
 					<p>
-						24hr Shipping <strong class="pull-right">&dollar;10</strong>
+						{{ cart_update.shipping_selected[1] }} <strong class="pull-right">&dollar;{{ cart_update.shipping_cost }}</strong>
 					</p>
 				</li>
 				<li class="list-group-item">
-					<p>Total <strong class="pull-right">&dollar;132.97</strong></p>
-					<p>Taxes <strong class="pull-right">&dollar;0.00</strong></p>
+					<p>Total <strong class="pull-right">&dollar;{{ cart_update.grand_total_shipping }}</strong></p>
+					<p>Taxes <strong class="pull-right">&dollar;{{ cart_update.tax }}</strong></p>
 				</li>
 			</ul>
 		</div>

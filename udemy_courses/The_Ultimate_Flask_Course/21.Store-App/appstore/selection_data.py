@@ -275,3 +275,4 @@ shipping_option = [
     ("8", '$20  Zone 7 China'),
     ("9", '$20  Zone 8 rest of the world')
 ]
+
