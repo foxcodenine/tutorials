@@ -24,7 +24,7 @@ from flask_wtf.file import FileField, FileAllowed
 
 from uuid import uuid4
 
-from selection_data import usa, countries, shipping_option
+from selection_data import usa, countries, shipping_option, payment_options
 from pprint import pprint
 
 from random import choice
@@ -43,8 +43,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///trendy.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 app.config['DEBUG'] = True 
 app.config['SECRET_KEY'] = uuid4().hex
-
-
+app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = True
 
 # ______________________________________________________________________
 configure_uploads(app, photos)
@@ -55,6 +54,32 @@ migrate = Migrate(app, db)
 
 manager = Manager(app)
 manager.add_command('db', MigrateCommand) 
+
+
+
+
+# ______________________________________________________________________
+class MyDicts():
+    count_dict = {x:y for x,y in countries}
+
+    state_dict = {x:y for x, y in usa}
+
+    shipping_dict = {
+        '1': 0, '2': 10, '3': 10, '4': 12, '5': 12,
+        '6': 20, '7': 12, '8': 20, '9': 20}
+
+    shipping_dict_name = {
+        '1' : 'Select Shipping',
+        '2' : 'Zone 1 EU countries',
+        '3' : 'Zone 2 Switzerland',
+        '4' : 'Zone 3 Non-EU Europe',
+        '5' : 'Zone 4 Russia',
+        '6' : 'Zone 5 USA',
+        '7' : 'Zone 6 Parts of North Africa, Canada, Middle East, Parts of Asia', 
+        '8' : 'Zone 7 China',
+        '9' : 'Zone 8 rest of the world'}
+
+    pay_op_dict = {x:y for x, y in payment_options}
 
 # ______________________________________________________________________
 # Data_Base_Tables______________________________________________________
@@ -76,7 +101,8 @@ class Products(db.Model):
     pro_stock = db.Column(db.Integer, default=0)
     pro_description = db.Column(db.String(500), nullable=False)
     pro_image = db.Column(db.String(250))
-
+    
+    order_item = db.relationship('Order_Items', backref='product', lazy='dynamic')
 
 class Orders(db.Model):
     __tablename__ = 'orders'
@@ -96,6 +122,14 @@ class Orders(db.Model):
     payment_type    = db.Column(db.String(10)) 
     order_total     = db.Column(db.Numeric(6.2))
     items = db.relationship('Order_Items', backref='orders', lazy='dynamic')
+
+    def quantity(self):
+        return db.session.query(db.func.sum(Order_Items.quantity)).filter(Order_Items.order_id == self.id).scalar()
+        # https://docs.sqlalchemy.org/en/13/orm/query.html#sqlalchemy.orm.query.Query.scalar
+        # https://docs.sqlalchemy.org/en/13/orm/query.html#sqlalchemy.orm.query.Query.one
+
+    def total_order(self):
+        return db.session.query(db.func.sum(Order_Items.quantity * Products.pro_price)).join(Products).filter(Order_Items.order_id == self.id).scalar()
 
 
 class Order_Items(db.Model):
@@ -141,9 +175,7 @@ class Checkout(FlaskForm):
     shipping     = SelectField('Shipping Method',  choices=(shipping_option)
     # , default='1'
     )
-    payment_type = SelectField('Payment Option', choices=([
-        ('PP', 'PayPal'), ('WT', 'Wire Transfer'), ('SW', 'Swift'), ('VS', 'Visa')
-    ]))
+    payment_type = SelectField('Payment Option', choices=(payment_options))
 
 # ______________________________________________________________________
 
@@ -154,21 +186,10 @@ def handle_cart(no_shipping=None):
     grand_total = 0
     number_of_items = 0  
 
-    shipping_dict = {
-        '1': 0, '2': 10, '3': 10, '4': 12, '5': 12,
-        '6': 20, '7': 12, '8': 20, '9': 20}
-
-    shipping_dict_name = {
-        '1' : 'Select Shipping',
-        '2' : 'Zone 1 EU countries',
-        '3' : 'Zone 2 Switzerland',
-        '4' : 'Zone 3 Non-EU Europe',
-        '5' : 'Zone 4 Russia',
-        '6' : 'Zone 5 USA',
-        '7' : 'Zone 6 Parts of North Africa, Canada, Middle East, Parts of Asia', 
-        '8' : 'Zone 7 China',
-        '9' : 'Zone 8 rest of the world'
-    }
+    
+    shipping_dict = MyDicts.shipping_dict
+    shipping_dict_name = MyDicts.shipping_dict_name
+    
     
 
     if 'cart' in session: 
@@ -249,6 +270,21 @@ def handle_cart(no_shipping=None):
 # ______________________________________________________________________
 # Routes________________________________________________________________
 
+@app.teardown_request
+def teardown_request(exception):
+    print('>>>>', 'teardown_request')
+    print('<><><>', db.session)
+    if exception:
+        print('>>>>', 'exception exception')
+        print('<><><>', db.session)
+        db.session.rollback()
+    
+    db.session.remove()
+
+# ______________________________________________________________________
+# Routes________________________________________________________________
+
+
 @app.route('/')
 def index():
     session['cart_update'] = None
@@ -280,6 +316,7 @@ def quick_add(id):
     if id:
         session['cart'].append({'id': id, 'quantity': 1})
         session.modified = True
+        
 
     return redirect(url_for('index'))
 
@@ -383,7 +420,7 @@ def checkout():
     form = Checkout()
 
     cart_update = session['cart_update']
-    pprint(cart_update)
+    # pprint(cart_update)
 
 
     if request.method == 'POST':
@@ -393,21 +430,26 @@ def checkout():
         else:
             shipping = '1'
 
-
+        print('<><><>', db.session)
         order = Orders()
         form.populate_obj(order)
         order.shipping = shipping 
         order.reference = ''.join([choice(upper + lower) for _ in range(7)])
         order.status = 'Awaiting Payment'
         order.order_total = session['cart_update']['grand_total_shipping']
-
+        print('<><><>', db.session)
         for product in cart_update['products']:
+            print('<><><>', db.session)
             order_item = Order_Items(quantity=product['quantity'], product_id=product['id'])
             # this will create an order_item table record and add it to session with the order
             order.items.append(order_item)
 
+            product = Products.query.filter_by(id=product['id']).update({'pro_stock' : (Products.pro_stock - product['quantity'])})
+        raise ValueError('test exc')
         db.session.add(order)
         db.session.commit()
+
+        
 
         del session['cart']
         session['shipping'] = '1'
@@ -447,7 +489,7 @@ def admin():
 
     pending = Orders.query.all()
     # .filter_by(status = 'Awaiting Payment')
-    print(pending)
+    # print(pending)
 
 
  
@@ -502,9 +544,22 @@ def add():
 
 # _________________________________________
 
-@app.route('/admin/order/')
-def order():
-    return render_template('admin/view-order.html', admin=True)
+@app.route('/admin/order/<order_id>')
+def order(order_id):
+
+    order = Orders.query.filter(Orders.reference == order_id).first()
+    items_in_order = Order_Items.query.filter_by(order_id = order.id).all()
+    
+
+    return render_template('admin/view-order.html', 
+                            admin=True,
+                            order=order, 
+                            items=items_in_order,
+                            count_dict=MyDicts.count_dict,
+                            state_dict=MyDicts.state_dict,
+                            shipping_dict_name=MyDicts.shipping_dict_name,
+                            pay_op_dict=MyDicts.pay_op_dict,
+                            shipping_price = MyDicts.shipping_dict )
 
 
 

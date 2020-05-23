@@ -96,14 +96,14 @@ countries= [
     ('GY', 'Guyana',),
     ('HT', 'Haiti',),
     ('HM', 'Heard Island and McDonald Islands',),
-    ('VA', 'Holy See (Vatican City State)',),
+    ('VA', 'Vatican City State'),
     ('HN', 'Honduras',),
     ('HK', 'Hong Kong',),
     ('HU', 'Hungary',),
     ('IS', 'Iceland',),
     ('IN', 'India',),
     ('ID', 'Indonesia',),
-    ('IR', 'Iran, Islamic Republic of',),
+    ('IR', 'Iran'),
     ('IQ', 'Iraq',),
     ('IE', 'Ireland',),
     ('IM', 'Isle of Man',),
@@ -130,7 +130,7 @@ countries= [
     ('LT', 'Lithuania',),
     ('LU', 'Luxembourg',),
     ('MO', 'Macao',),
-    ('MK', 'Macedonia, the former Yugoslav Republic of',),
+    ('MK', 'Macedonia'),
     ('MG', 'Madagascar',),
     ('MW', 'Malawi',),
     ('MY', 'Malaysia',),
@@ -143,7 +143,7 @@ countries= [
     ('MU', 'Mauritius',),
     ('YT', 'Mayotte',),
     ('MX', 'Mexico',),
-    ('FM', 'Micronesia, Federated States of',),
+    ('FM', 'Micronesia',),
     ('MD', 'Moldova, Republic of',),
     ('MC', 'Monaco',),
     ('MN', 'Mongolia',),
@@ -250,7 +250,7 @@ countries= [
     ('ZW', 'Zimbabwe',)
 ]
 
-usa = [('AL', 'Alabama'),('AZ', 'Arizona'),('AR', 'Arkansas'),('CA', 'California'),
+usa = [('UA', 'None'),('AL', 'Alabama'),('AZ', 'Arizona'),('AR', 'Arkansas'),('CA', 'California'),
     ('CO', 'Colorado'),('CT', 'Connecticut'),    ('DE', 'Delaware'),
     ('DC', 'District of Columbia'),('FL', 'Florida'),('GA', 'Georgia'),('ID', 'Idaho'),
     ('IL', 'Illinois'),('IN', 'Indiana'),('IA', 'Iowa'),('KS', 'Kansas'),
@@ -262,7 +262,7 @@ usa = [('AL', 'Alabama'),('AZ', 'Arizona'),('AR', 'Arkansas'),('CA', 'California
     ('OR', 'Oregon'),('PA', 'Pennsylvania'),('RI', 'Rhode Island'),('SC', 'South Carolina'),
      ('SD', 'South Dakota'), ('TN', 'Tennessee'),('TX', 'Texas'),('UT', 'Utah'),('VT', 'Vermont'),
      ('VA', 'Virginia'),('WA', 'Washington'),('WV', 'West Virginia'),('WI', 'Wisconsin'),
-     ('WY', 'Wyoming'), ('UA', 'Unavailable')]
+     ('WY', 'Wyoming')]
 
 shipping_option = [
     ('1', 'Select Shipping'),
@@ -275,4 +275,8 @@ shipping_option = [
     ("8", '$20  Zone 7 China'),
     ("9", '$20  Zone 8 rest of the world')
 ]
+
+payment_options = [
+        ('PP', 'PayPal'), ('WT', 'Wire Transfer'), ('SW', 'Swift'), ('VS', 'Visa')
+    ]
 

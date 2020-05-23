@@ -101,7 +101,7 @@
 			<ul class="list-group">
 				<li class="list-group-item">
 					<p>
-						{{ number_of_items }} Items <strong class="pull-right">&dollar;{{ grand_total }}</strong>
+						{{ number_of_items }} Items <strong class="pull-right">&dollar;{{ grand_total | round(2) }}</strong>
 					</p>
 					<form action="{{ url_for('cart') }}" method="POST">
 						<p>
