@@ -47,6 +47,7 @@
 // _____________________________________________________________________________
 
 import Search from './models/Search';
+import Recepe from './models/Recipe';
 import * as searchView from './views/searchView'
 import {elements, renderLoader, clearLoader} from './views/base';
 
@@ -57,8 +58,17 @@ import {elements, renderLoader, clearLoader} from './views/base';
  *  - Shopping list object
  *  - Liked recipes
  */
+
+
 const state = {};
 
+
+
+// _____________________________________________________________________
+/**
+ * Search Controller
+ */
+// _____________________________________________________________________
 
 
 const controlSearch = async () => {
@@ -78,7 +88,7 @@ const controlSearch = async () => {
         await state.search.getResults();
 
         // 5) Render results on UI
-        console.log(state.search.results);
+        // console.log(state.search.results);
         clearLoader();
         searchView.renderResults(state.search.results);
         
@@ -86,6 +96,7 @@ const controlSearch = async () => {
 
 };
 
+// _____________________________________________________________________
 
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -93,6 +104,7 @@ elements.searchForm.addEventListener('submit', e => {
     
 });
 
+// _____________________________________________________________________
 
 elements.searchResPages.addEventListener('click', e => {
     const btn = e.target.closest('.btn-inline');
@@ -105,6 +117,17 @@ elements.searchResPages.addEventListener('click', e => {
         
     }
 });
+
+// _____________________________________________________________________
+/**
+ * Recepe Controller
+ */
+// _____________________________________________________________________
+// 172154
+
+const r = new Recepe(172154);
+r.getRecipe();
+console.log(r);
 
 // const search = new Search('maltese')
 // console.log(search);

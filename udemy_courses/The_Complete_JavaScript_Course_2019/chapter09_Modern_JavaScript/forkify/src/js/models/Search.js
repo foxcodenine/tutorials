@@ -2,6 +2,7 @@
 // _____________________________________________________________________________
 
 import axios from 'axios'
+import { myKey } from '../config'
 
 
 export default class Search {
@@ -10,7 +11,7 @@ export default class Search {
     }
 
     async getResults() {
-        const myKey = 'b3bb9752f3d1449bbf6a1cf302da308e';
+        
         try {
             const res = await axios(`https://api.spoonacular.com/recipes/complexSearch?query=${this.query}&number=100&apiKey=${myKey}`);
             this.results = res.data.results
