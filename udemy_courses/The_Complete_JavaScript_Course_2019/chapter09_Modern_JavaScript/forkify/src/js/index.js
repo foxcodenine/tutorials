@@ -65,11 +65,11 @@ const state = {};
 
 
 // _____________________________________________________________________
-/**
- * Search Controller
- */
+/* Search Controller */
 // _____________________________________________________________________
 
+
+//  Funtion call by the Event Listener - Search
 
 const controlSearch = async () => {
     // 1) Get query from view 
@@ -84,19 +84,27 @@ const controlSearch = async () => {
         searchView.clearResults();
         renderLoader(elements.searchRes);
 
-        // 4) Search for recipes 
-        await state.search.getResults();
+        try {
 
-        // 5) Render results on UI
-        // console.log(state.search.results);
-        clearLoader();
-        searchView.renderResults(state.search.results);
-        
+            // 4) Search for recipes 
+            await state.search.getResults();
+
+            // 5) Render results on UI
+            // console.log(state.search.results);
+            clearLoader();
+            searchView.renderResults(state.search.results);
+
+        } catch(err) {
+            alert('error processing search!');
+            clearLoader();
+            
+        }               
     }
-
 };
 
-// _____________________________________________________________________
+
+
+//  Event Listener - Search
 
 elements.searchForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -105,6 +113,8 @@ elements.searchForm.addEventListener('submit', e => {
 });
 
 // _____________________________________________________________________
+
+//  Event Listener - Pagination
 
 elements.searchResPages.addEventListener('click', e => {
     const btn = e.target.closest('.btn-inline');
@@ -119,15 +129,57 @@ elements.searchResPages.addEventListener('click', e => {
 });
 
 // _____________________________________________________________________
-/**
- * Recepe Controller
- */
-// _____________________________________________________________________
-// 172154
+/* Recepe Controller */
 
-const r = new Recepe(172154);
-r.getRecipe();
-console.log(r);
+const controleRecipe = async () => {
+    const id = window.location.hash.replace('#', '');
+    
+    if (id) {
+       console.log(id); 
+
+        // Prepare UI for changes
+
+
+        // Create new recipe object 
+        state.recipe = new Recepe(id);
+
+        try {
+
+            // Get recipe data
+            await state.recipe.getRecipe();
+
+            // Calculate servings and time 
+            /* Not need, got data from api */
+
+            // Render recipe
+            console.log(state.recipe);
+
+        } catch(err) {
+            alert('error processing recipe!')
+        }
+        
+
+
+
+
+    }
+}
+
+// window.addEventListener('hashchange', controleRecipe);
+// window.addEventListener('load', controleRecipe);
+
+['hashchange', 'load'].forEach( (event) => {
+    window.addEventListener(event, controleRecipe)
+});
+
+
+
+
+
+
+// const r = new Recepe(172154);
+// r.getRecipe();
+// console.log(r);
 
 // const search = new Search('maltese')
 // console.log(search);
