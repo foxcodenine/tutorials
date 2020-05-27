@@ -150,12 +150,14 @@ const controleRecipe = async () => {
 
             // Calculate servings and time 
             /* Not need, got data from api */
+            await state.recipe.parseIngredients();
 
             // Render recipe
-            console.log(state.recipe);
+            
+            console.log(state.recipe.ingredients);
 
         } catch(err) {
-            alert('error processing recipe!')
+            console.log(err)
         }
         
 
