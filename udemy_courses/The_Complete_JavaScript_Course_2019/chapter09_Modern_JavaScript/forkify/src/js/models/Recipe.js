@@ -38,7 +38,7 @@ export default class Recipe {
             this.title = getInformation.data.title; 
             this.sourceName = getInformation.data.sourceName;
             this.sourceUrl = getInformation.data.sourceUrl;
-            this.analyzedInstructions = getInformation.data.analyzedInstructions['0'].steps;
+            // this.analyzedInstructions = getInformation.data.analyzedInstructions['0'].steps;
             this.readyInMinutes = getInformation.data.readyInMinutes;
             this.servings = getInformation.data.servings;
             // console.log(getInformation);

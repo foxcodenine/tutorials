@@ -41,6 +41,9 @@
 // https://api.spoonacular.com/recipes/complexSearch?query=pizza&number=20&apiKey=b3bb9752f3d1449bbf6a1cf302da308e
 
 // https://api.spoonacular.com/recipes/716429/information?includeNutrition=false&apiKey=b3bb9752f3d1449bbf6a1cf302da308e
+// https://api.spoonacular.com/recipes/716429/information?includeNutrition=false&apiKey=57f70fde3bf84b6188194d0b5f8d4400
+
+
 
 // `https://api.spoonacular.com/recipes/search?query=${this.query}&apiKey=${myKey}`
 
@@ -49,6 +52,7 @@
 import Search from './models/Search';
 import Recepe from './models/Recipe';
 import * as searchView from './views/searchView'
+import * as recipeView from './views/recipeView'
 import {elements, renderLoader, clearLoader} from './views/base';
 
 
@@ -138,6 +142,7 @@ const controleRecipe = async () => {
        console.log(id); 
 
         // Prepare UI for changes
+        recipeView.cleanRecipe();
 
 
         // Create new recipe object 
@@ -152,9 +157,12 @@ const controleRecipe = async () => {
             /* Not need, got data from api */
             await state.recipe.parseIngredients();
 
-            // Render recipe
-            
+            // Render recipe            
             console.log(state.recipe.ingredients);
+            
+            await recipeView.renderRecipe(state.recipe);
+
+ 
 
         } catch(err) {
             console.log(err)
