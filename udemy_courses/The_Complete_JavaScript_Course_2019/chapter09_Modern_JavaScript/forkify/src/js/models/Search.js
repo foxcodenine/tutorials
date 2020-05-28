@@ -18,7 +18,7 @@ export default class Search {
             // console.log(this.results)
         }
         catch(error) {
-            alert(error)
+            console.log('111',error)
         }    
     }
 
