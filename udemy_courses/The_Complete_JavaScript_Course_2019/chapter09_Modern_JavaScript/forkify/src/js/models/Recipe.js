@@ -89,7 +89,7 @@ export default class Recipe {
             ingredient = {
                 count: Math.round(parseFloat(ingredient[0])*100)*0.01,
                 unit: ingredient[1], 
-                ingredient: ingredient[2]
+                name: ingredient[2]
             };
             return ingredient;
 
