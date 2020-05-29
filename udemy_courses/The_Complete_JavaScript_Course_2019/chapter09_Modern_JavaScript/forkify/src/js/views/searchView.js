@@ -38,6 +38,23 @@ export const clearResults = () => {
     elements.searchResList.innerHTML = '';
     elements.searchResPages.innerHTML = '';
 };
+// _____________________________________________________________________
+
+export const highlightClear = () => {
+    
+    const nodeArray = document.querySelectorAll(`.results__link--active`);
+
+    Array.from(nodeArray).forEach(el => {
+        el.classList.remove('results__link--active');
+    })   
+}
+
+
+export const highlightSelected = id => {
+    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+
+}
+
 // _____________________________________________________________________________
 const limitRecipeTitle = (title, limit=15) => {
     const newTitle = []; 

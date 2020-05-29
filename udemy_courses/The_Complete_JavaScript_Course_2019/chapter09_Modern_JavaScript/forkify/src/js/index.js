@@ -1,3 +1,5 @@
+/* BIN */
+
 // import str from './models/Search' 
 // import { myAddFunc as addy, myMultipleFunc as multy} from './views/searchView'
 // // import * as searchView from './views.searchView';
@@ -47,13 +49,19 @@
 
 // `https://api.spoonacular.com/recipes/search?query=${this.query}&apiKey=${myKey}`
 
+/* END BIN */
 // _____________________________________________________________________________
+// _____________________________________________________________________________
+
+
+// https://github.com/ekg/fraction.js/
 
 import Search from './models/Search';
 import Recepe from './models/Recipe';
-import * as searchView from './views/searchView'
-import * as recipeView from './views/recipeView'
+import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import {elements, renderLoader, clearLoader} from './views/base';
+import { Fraction } from 'fractional';
 
 
 /**Global state of the app
@@ -144,6 +152,13 @@ const controleRecipe = async () => {
         // Prepare UI for changes
         recipeView.cleanRecipe();
 
+        // Highlight selected search item 
+
+        if (state.search) {
+            searchView.highlightClear();
+            searchView.highlightSelected(id);
+        }
+        
 
         // Create new recipe object 
         state.recipe = new Recepe(id);
@@ -166,12 +181,7 @@ const controleRecipe = async () => {
 
         } catch(err) {
             console.log(err)
-        }
-        
-
-
-
-
+        }      
     }
 }
 
@@ -184,8 +194,11 @@ const controleRecipe = async () => {
 
 
 
+// _____________________________________________________________________________
+// _____________________________________________________________________________
 
 
+/* BIN */
 
 // const r = new Recepe(172154);
 // r.getRecipe();
@@ -194,3 +207,5 @@ const controleRecipe = async () => {
 // const search = new Search('maltese')
 // console.log(search);
 // search.getResults();
+
+/* END BIN */
