@@ -14,6 +14,10 @@ Flask-SQLAlchemy = "==2.4.1"
 Flask-Uploads = "==0.2.1"
 Flask-WTF = "==0.14.2"
 Werkzeug = "==0.15.6"
+pymysql = "*"
+cryptography = "*"
+boto3 = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.8"
