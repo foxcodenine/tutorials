@@ -4,6 +4,8 @@
 # https://docs.sqlalchemy.org/en/13/core/type_basics.html?highlight=decimal#sqlalchemy.types.Numeric
 # https://sqlalchemy-defaults.readthedocs.io/en/latest/
 # https://flask-sqlalchemy.palletsprojects.com/en/2.x/models/?highlight=integer
+# https://docs.sqlalchemy.org/en/13/orm/query.html#sqlalchemy.orm.query.Query.scalar
+# https://docs.sqlalchemy.org/en/13/orm/query.html#sqlalchemy.orm.query.Query.one
 # 
 
 # ______________________________________________________________________
@@ -22,13 +24,18 @@ from wtforms import StringField, IntegerField, TextAreaField, DecimalField,\
      HiddenField, SelectField
 from flask_wtf.file import FileField, FileAllowed
 
-from uuid import uuid4
+
 
 from selection_data import usa, countries, shipping_option, payment_options
 from pprint import pprint
 
 from random import choice
 from string import ascii_uppercase as upper, ascii_lowercase as lower
+
+from config import config
+
+import boto3
+import shutil
 
 
 # ______________________________________________________________________
@@ -38,11 +45,10 @@ photos = UploadSet('photos', IMAGES)
 
 
 app.config['UPLOADED_PHOTOS_DEST'] = 'images'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///trendy.db' 
+app.config['SQLALCHEMY_DATABASE_URI'] = config.mysql_db 
 # app.config['SQLALCHEMY_DATABASE_URI']='sqlite:////trendy.db' 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['DEBUG'] = True 
-app.config['SECRET_KEY'] = uuid4().hex
+app.config['SECRET_KEY'] = config.sercret_key
 app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = True
 
 # ______________________________________________________________________
@@ -55,8 +61,13 @@ migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand) 
 
+# ______________________________________________________________________
 
+s3_client = boto3.client('s3')
+s3_resource = boto3.resource('s3')
+region = config.region
 
+mybucket = config.my_bucket
 
 # ______________________________________________________________________
 class MyDicts():
@@ -86,12 +97,6 @@ class MyDicts():
 
 
 
-# class testDB(db.Model):
-#     __tablename__ = 'testtest'    
-#     id = db.Column(db.Integer, primary_key = True)
-#     testcolumn = db.Column(db.String(255), unique=True, nullable=False)
-
-
 class Products(db.Model):
     __tablename__ = 'products'
     # pro_id
@@ -108,7 +113,7 @@ class Orders(db.Model):
     __tablename__ = 'orders'
 
     id              = db.Column(db.Integer, primary_key=True)
-    reference       = db.Column(db.String(5)) 
+    reference       = db.Column(db.String(7)) 
     first_name      = db.Column(db.String(20))
     last_name       = db.Column(db.String(20))
     phone_number    = db.Column(db.Integer)
@@ -117,7 +122,7 @@ class Orders(db.Model):
     city            = db.Column(db.String(50))
     state           = db.Column(db.String(50))
     country         = db.Column(db.String(50))
-    status          = db.Column(db.String(15))
+    status          = db.Column(db.String(20))
     shipping        = db.Column(db.String(3))
     payment_type    = db.Column(db.String(10)) 
     order_total     = db.Column(db.Numeric(6.2))
@@ -272,11 +277,11 @@ def handle_cart(no_shipping=None):
 
 @app.teardown_request
 def teardown_request(exception):
-    print('>>>>', 'teardown_request')
-    print('<><><>', db.session)
+    # print('>>>>', 'teardown_request')
+    # print('<><><>', db.session)
     if exception:
-        print('>>>>', 'exception exception')
-        print('<><><>', db.session)
+        # print('>>>>', 'exception exception')
+        # print('<><><>', db.session)
         db.session.rollback()
     
     db.session.remove()
@@ -430,22 +435,22 @@ def checkout():
         else:
             shipping = '1'
 
-        print('<><><>', db.session)
+        # print('<><><>', db.session)
         order = Orders()
         form.populate_obj(order)
         order.shipping = shipping 
         order.reference = ''.join([choice(upper + lower) for _ in range(7)])
         order.status = 'Awaiting Payment'
         order.order_total = session['cart_update']['grand_total_shipping']
-        print('<><><>', db.session)
+        # print('<><><>', db.session)
         for product in cart_update['products']:
-            print('<><><>', db.session)
+            # print('<><><>', db.session)
             order_item = Order_Items(quantity=product['quantity'], product_id=product['id'])
             # this will create an order_item table record and add it to session with the order
             order.items.append(order_item)
 
             product = Products.query.filter_by(id=product['id']).update({'pro_stock' : (Products.pro_stock - product['quantity'])})
-        raise ValueError('test exc')
+        # raise ValueError('test exc')
         db.session.add(order)
         db.session.commit()
 
@@ -518,13 +523,41 @@ def add():
 
     if form.validate_on_submit():
 
-        pro_image = photos.url(photos.save(form.image.data))  
+        # _______START boto3 AWS________
+
+        # this with save image temporarily in image folder
+        photos.url(photos.save(form.image.data))
+
+        # this will format the image name
+        image_name = '{0}.{1}'.format(form.name.data, form.image.data.filename.split('.')[-1]).replace(' ', '_')
         
+        # subfolder to upload images in the AWS bucket
+        subfolder = 'trendy'
+     
+        
+        # getting the temp image open it and uploading it to bucket
+        with open(f'./images/{form.image.data.filename}', 'rb') as file:
+
+                s3_resource.Bucket(mybucket).put_object(
+
+                        Body = file,                        # file to upload in bits
+                        Key = f'{subfolder}/{image_name}',  # file name to be save (& and subfolder)
+                        ACL = 'public-read'                 # set to public
+                )
+        
+        # formatting image url
+        pro_image_url = f'https://{mybucket}.s3.{region}.amazonaws.com/{subfolder}/{image_name}'
+ 
+        # removing image from locally
+        shutil.os.remove(f'./images/{form.image.data.filename}')
+
+        # _______END boto3 AWS________
+
         pro_name = form.name.data
         pro_price = form.price.data
         pro_stock = form.stock.data
         pro_description = form.description.data
-        pro_image_url = pro_image
+
 
         newProduct = Products(
             pro_name=pro_name, 
@@ -576,6 +609,12 @@ if __name__ == '__main__':
 # 13ddbbd26d3b_
 # 3cb16f2b1b70
 # 6c026fe92816
+# _____________
+# 78e69b42de49_.py
+# 18804bfa0c62_.py
+# d36a7bf004c1_.py 
+# 3dbb2fb5ab68_.py
+# 8d5572635256_.py
 
 
 
