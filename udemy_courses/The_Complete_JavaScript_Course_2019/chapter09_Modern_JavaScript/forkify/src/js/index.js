@@ -53,6 +53,20 @@
 // _____________________________________________________________________________
 // _____________________________________________________________________________
 
+/**
+ * .target
+ * .closest
+ * .matches
+ * .btn-decrease *       'the * means any chiled of class btn-decrease'
+ */
+
+
+
+
+
+
+
+// _____________________________________________________________________________
 
 // https://github.com/ekg/fraction.js/
 
@@ -191,6 +205,34 @@ const controleRecipe = async () => {
 ['hashchange', 'load'].forEach( (event) => {
     window.addEventListener(event, controleRecipe)
 });
+
+// _____________________________________________________________________
+/* Handling recipe button click */
+
+elements.recipeContainer.addEventListener('click', e => {
+    
+    if (e.target.matches('.btn-decrease, .btn-decrease *')) {
+        // Decrease button is clicked
+        if (state.recipe.servings > 1) {
+            state.recipe.updateServings('dec')
+            recipeView.updateServingIngredients(state.recipe);
+        }
+        
+    } else if (e.target.matches('.btn-increase, .btn-increase *')) {
+        // Increase button is clicked
+        state.recipe.updateServings('inc')
+        recipeView.updateServingIngredients(state.recipe);
+    }
+    console.log(state.recipe)
+});
+
+
+
+
+
+
+
+
 
 
 

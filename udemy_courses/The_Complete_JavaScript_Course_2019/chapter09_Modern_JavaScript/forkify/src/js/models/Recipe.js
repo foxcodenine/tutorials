@@ -87,7 +87,7 @@ export default class Recipe {
             // 4) Parse ingredients into count, unit and ingredient
             ingredient = ingredient.split('|');
             ingredient = {
-                count: Math.round(parseFloat(ingredient[0])*100)*0.01,
+                count: Math.round(parseFloat(ingredient[0])),
                 unit: ingredient[1], 
                 name: ingredient[2]
             };
@@ -97,10 +97,32 @@ export default class Recipe {
 
         this.ingredients = newIngredients;
     }
+
+
+    updateServings (type) {
+
+        // Updated Servings 
+        const newServings = type === 'dec' ? this.servings - 1 : this.servings + 1;
+
+        // Update ingredients
+
+        this.ingredients.forEach(ing => {
+            ing.count *=  (newServings / this.servings );
+            // ing.count = Math.round(ing.count*16)/16;
+        });        
+
+        this.servings = newServings;
+        
+    }
 };
 
 
 
+
+
+
+
+// _____________________________________________________________________
 /*
 
 //  Code not use case I have a different api; 
