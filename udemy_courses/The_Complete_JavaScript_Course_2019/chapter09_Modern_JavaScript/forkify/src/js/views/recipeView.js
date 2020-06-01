@@ -1,4 +1,6 @@
+// https://github.com/ekg/fraction.js/
 import { elements } from "./base";
+// import { Fraction } from 'fractional';
 
 // _____________________________________________________________________
 
@@ -8,6 +10,48 @@ export const cleanRecipe = () => {
 };
 
 // _____________________________________________________________________
+
+const toFractionStr = num => {
+
+    let upper3 = Math.floor(num  * 3)
+    let lower3 = Math.ceil(num  * 3)
+
+    let numerator3 = Math.abs(num - (upper3 / 3)) < Math.abs(num - (lower3 / 3)) ? upper3 : lower3;
+    const dec3 = Math.abs((numerator3 / 3) - num );
+
+
+
+    let upper5 = Math.floor(num  * 5)
+    let lower5 = Math.ceil(num  * 5)
+
+    let numerator5 = Math.abs(num - (upper5 / 5)) < Math.abs(num - (lower5 / 5)) ? upper5 : lower5;
+    const dec5 = Math.abs((numerator5 / 5) - num );
+
+
+    let upper16 = Math.floor(num  * 16)
+    let lower16 = Math.ceil(num  * 16)
+
+    let numerator16 = Math.abs(num - (upper16 / 16)) < Math.abs(num - (lower16 / 16)) ? upper16 : lower16;
+    const dec16 = Math.abs((numerator16 / 16) - num );
+    console.log(numerator16 , dec16, num)
+
+
+    // console.log([dec3, dec5, dec16])
+    if ( dec3 < dec5 && dec3 < dec16) {
+        // use dec3
+        return [numerator3 , 3]
+    } else if ( dec5 < dec3 && dec5 < dec16) {
+        // use dec5
+        return [numerator5 , 5]
+    } else {
+        // use dec16
+        let frc = new Fraction(Math.round(num * 16)/16);
+        return [frc.numerator, frc.denominator]
+
+    }
+
+
+};
 
 const formatCount = count => {
     if (count) {
@@ -23,18 +67,46 @@ const formatCount = count => {
         if (!dec) return int;
 
         if (int === 0) {
-        fr = new Fraction(count);
-        return `${fr.numerator}/${fr.denominator}`
+        fr = toFractionStr(count);
+        return `${fr[0]}/${fr[1]}`
 
         } else {
-        fr = new Fraction(count - int);  
-        return `${int} ${fr.numerator}/${fr.denominator}`              
+        fr = toFractionStr(count - int);  
+        return `${int} ${fr[0]}/${fr[1]}`              
         }
 
     };
 
     return `?`;
 };
+
+
+// const formatCount = count => {
+//     if (count) {
+//         /**
+//          * count can be:
+//          * 5, 1.5, 0.5
+//          */
+
+
+//         let [int, dec] = `${count}`.split('.').map(el => parseInt(el, 10));
+//         let fr;
+
+//         if (!dec) return int;
+
+//         if (int === 0) {
+//         fr = new Fraction(count);
+//         return `${fr.numerator}/${fr.denominator}`
+
+//         } else {
+//         fr = new Fraction(count - int);  
+//         return `${int} ${fr.numerator}/${fr.denominator}`              
+//         }
+
+//     };
+
+//     return `?`;
+// };
 // _____________________________________________________________________
 
 
@@ -78,12 +150,12 @@ export const renderRecipe = (recipe=null) => {
                     <span class="recipe__info-text"> servings</span>
 
                     <div class="recipe__info-buttons">
-                        <button class="btn-tiny">
+                        <button class="btn-tiny btn-decrease">
                             <svg>
                                 <use href="img/icons.svg#icon-circle-with-minus"></use>
                             </svg>
                         </button>
-                        <button class="btn-tiny">
+                        <button class="btn-tiny btn-increase">
                             <svg>
                                 <use href="img/icons.svg#icon-circle-with-plus"></use>
                             </svg>
@@ -136,3 +208,19 @@ export const renderRecipe = (recipe=null) => {
 };
 
 // _____________________________________________________________________
+
+
+export const updateServingIngredients = recipe => {
+
+    // Update Servings:
+    console.log('yyyyyy',recipe.servings);
+    document.querySelector('.recipe__info-data--people').textContent = recipe.servings;
+
+    // Update Ingredients:
+
+    const  countElements = Array.from(document.querySelectorAll('.recipe__count'));
+
+    countElements.forEach((el, ind) => {
+        el.textContent = formatCount(recipe.ingredients[ind].count);
+    });
+}
