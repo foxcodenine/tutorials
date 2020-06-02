@@ -13,25 +13,25 @@ export const cleanRecipe = () => {
 
 const toFractionStr = num => {
 
-    let upper3 = Math.floor(num  * 3)
-    let lower3 = Math.ceil(num  * 3)
+    const upper3 = Math.floor(num  * 3)
+    const lower3 = Math.ceil(num  * 3)
 
-    let numerator3 = Math.abs(num - (upper3 / 3)) < Math.abs(num - (lower3 / 3)) ? upper3 : lower3;
+    const numerator3 = Math.abs(num - (upper3 / 3)) < Math.abs(num - (lower3 / 3)) ? upper3 : lower3;
     const dec3 = Math.abs((numerator3 / 3) - num );
 
 
 
-    let upper5 = Math.floor(num  * 5)
-    let lower5 = Math.ceil(num  * 5)
+    const upper5 = Math.floor(num  * 5)
+    const lower5 = Math.ceil(num  * 5)
 
-    let numerator5 = Math.abs(num - (upper5 / 5)) < Math.abs(num - (lower5 / 5)) ? upper5 : lower5;
+    const numerator5 = Math.abs(num - (upper5 / 5)) < Math.abs(num - (lower5 / 5)) ? upper5 : lower5;
     const dec5 = Math.abs((numerator5 / 5) - num );
 
 
-    let upper16 = Math.floor(num  * 16)
-    let lower16 = Math.ceil(num  * 16)
+    const upper16 = Math.floor(num  * 16)
+    const lower16 = Math.ceil(num  * 16)
 
-    let numerator16 = Math.abs(num - (upper16 / 16)) < Math.abs(num - (lower16 / 16)) ? upper16 : lower16;
+    const numerator16 = Math.abs(num - (upper16 / 16)) < Math.abs(num - (lower16 / 16)) ? upper16 : lower16;
     const dec16 = Math.abs((numerator16 / 16) - num );
     console.log(numerator16 , dec16, num)
 
@@ -45,8 +45,20 @@ const toFractionStr = num => {
         return [numerator5 , 5]
     } else {
         // use dec16
-        let frc = new Fraction(Math.round(num * 16)/16);
-        return [frc.numerator, frc.denominator]
+
+        let num = numerator16
+        let den = 16;
+
+        while (num % 2 === 0) {
+            num /= 2;
+            den /= 2; 
+        }
+
+        return [num, den];
+
+
+        // let frc = new Fraction(Math.round(num * 16)/16);
+        // return [frc.numerator, frc.denominator]
 
     }
 

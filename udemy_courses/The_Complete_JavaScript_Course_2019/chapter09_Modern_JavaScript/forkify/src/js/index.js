@@ -58,6 +58,8 @@
  * .closest
  * .matches
  * .btn-decrease *       'the * means any chiled of class btn-decrease'
+ * Array.slice and Array.splice
+ * Array.findIndex and Array.find
  */
 
 
@@ -68,10 +70,13 @@
 
 // _____________________________________________________________________________
 
+// External Packages
 // https://github.com/ekg/fraction.js/
+// https://github.com/adamhalasz/uniqid
 
 import Search from './models/Search';
 import Recepe from './models/Recipe';
+import List from './models/List';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import {elements, renderLoader, clearLoader} from './views/base';
@@ -225,6 +230,12 @@ elements.recipeContainer.addEventListener('click', e => {
     }
     console.log(state.recipe)
 });
+// _____________________________________________________________________________
+
+
+window.l = new List();
+
+
 
 
 
