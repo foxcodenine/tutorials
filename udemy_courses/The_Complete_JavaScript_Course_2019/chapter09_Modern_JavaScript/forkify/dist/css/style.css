@@ -443,7 +443,7 @@ body {
   .shopping__list {
     list-style: none;
     max-height: 77rem;
-    overflow: scroll; }
+    overflow: visible; }
   .shopping__item {
     display: flex;
     align-items: flex-start;
@@ -490,3 +490,16 @@ body {
   .shopping__item:hover .shopping__delete {
     opacity: 1;
     visibility: visible; }
+
+    
+
+    /* FireFox */
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type=number]:hover {
+  -moz-appearance: button;
+}
+
