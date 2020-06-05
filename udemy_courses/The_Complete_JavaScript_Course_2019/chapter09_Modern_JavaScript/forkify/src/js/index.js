@@ -1,5 +1,6 @@
 /* BIN */
 
+// nicole gristi
 // import str from './models/Search' 
 // import { myAddFunc as addy, myMultipleFunc as multy} from './views/searchView'
 // // import * as searchView from './views.searchView';
@@ -77,11 +78,13 @@
 import Search from './models/Search';
 import Recepe from './models/Recipe';
 import List from './models/List';
+import Likes from './models/Likes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as listView from './views/listView';
 import {elements, renderLoader, clearLoader} from './views/base';
 import { Fraction } from 'fractional';
+
 
 
 /**Global state of the app
@@ -223,17 +226,17 @@ const controleRecipe = async () => {
         // Create a new list IF ther in none yet
         if (!state.list) state.list = new List(); 
 
-
+        const servings = parseFloat(state.recipe.servings)
         // Add each ingredient to the list and UI
         state.recipe.ingredients.forEach(ing => {
             const item = state.list.addItem(ing.count, ing.unit, ing.name);
-            listView.renderItem(item);
+            listView.renderItem(item, servings);
         })
 
     }
 
 // _____________________________________________________________________
-/* Handling delete and update list item events */
+/* Delete and Update list item Controller */
 
 elements.shoppingContainer.addEventListener('click', e => {
 
@@ -252,18 +255,61 @@ elements.shoppingContainer.addEventListener('click', e => {
     } else if (e.target.matches(
         '.shopping__count-value , .shopping__count-value *')) {
         const val = parseFloat(e.target.value);
-
+ 
         state.list.updateCount(id, val);
     }
 
-
 });
 
+// _____________________________________________________________________
+/* Like Controller */
+
+const controllerLike = () => {
+
+    // Create a new Like object IF there is none and set it to states.likes
+
+    if (!state.likes) state.likes = new Likes();
+    const currentID = state.recipe.id;
+
+    // if current recepe is not liked:
+    if (!state.likes.isLiked(currentID)) {
+        
+        // Add like to the state
+        const newLike = state.likes.addLike(
+                                            currentID, 
+                                            state.recipe.title, 
+                                            state.recipe.image
+                                            );
+
+        // Toggle the like button 
+
+        // Add like to UI list
+
+
+    // if current recepe is  liked:
+    } else {  
+
+        // Delete like to the state     
+        state.likes.deleteLike(currentID);
+
+        // Toggle the like button 
+
+        // Remove like from UI list
+    }
+    console.log(state.likes);
+
+}
 
 
 
 // _____________________________________________________________________
 /* Handling recipe button click */
+
+/** Controle the 
+    * decrease btm, 
+    * increase btn , 
+    * add to list btn 
+    * and the likes btn  */
 
 elements.recipeContainer.addEventListener('click', e => {
     
@@ -280,11 +326,24 @@ elements.recipeContainer.addEventListener('click', e => {
         recipeView.updateServingIngredients(state.recipe);
 
     } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+        // Add ingredent to shopping list
         controlList();
+
+    } else if (e.target.matches('.recipe__love, .recipe__love *')) {
+        // Like controller 
+        controllerLike();
     }
-    console.log(state.recipe)
+
+
+
+    // console.log(state.recipe)
 });
 // _____________________________________________________________________________
+
+
+
+
+
 
 
 window.l = new List();
