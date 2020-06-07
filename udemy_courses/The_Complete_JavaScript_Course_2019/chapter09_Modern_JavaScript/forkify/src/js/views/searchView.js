@@ -51,12 +51,12 @@ export const highlightClear = () => {
 
 
 export const highlightSelected = id => {
-    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+    document.querySelector(`.results__link[href="#${id}"]`).classList.add('results__link--active');
 
 }
 
 // _____________________________________________________________________________
-const limitRecipeTitle = (title, limit=15) => {
+export const limitRecipeTitle = (title, limit=15) => {
     const newTitle = []; 
 
     if(title.length > limit) {
