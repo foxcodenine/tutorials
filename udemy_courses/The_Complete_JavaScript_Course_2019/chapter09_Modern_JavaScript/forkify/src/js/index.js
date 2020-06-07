@@ -61,6 +61,8 @@
  * .btn-decrease *       'the * means any chiled of class btn-decrease'
  * Array.slice and Array.splice
  * Array.findIndex and Array.find
+ * .setAttribute
+ * .querySelector('.recipe__love use')   'select all use chiled of class .recipe_love'
  */
 
 
@@ -82,6 +84,7 @@ import Likes from './models/Likes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as listView from './views/listView';
+import * as likeView from './views/likesView'
 import {elements, renderLoader, clearLoader} from './views/base';
 import { Fraction } from 'fractional';
 
@@ -200,7 +203,16 @@ const controleRecipe = async () => {
             // Render recipe            
             console.log(state.recipe.ingredients);
             
-            await recipeView.renderRecipe(state.recipe);
+            let isLiked = false;
+            let numOfLikes = 0;
+            if (state.likes) {
+                isLiked = (state.likes.isLiked(state.recipe.id)) ? true : false
+                numOfLikes = state.likes.getNumLikes();
+            }
+            
+            
+            await recipeView.renderRecipe(state.recipe, isLiked);
+            await likeView.toggleLikeIcon(numOfLikes);
 
  
 
@@ -282,8 +294,16 @@ const controllerLike = () => {
                                             );
 
         // Toggle the like button 
+        likeView.toggleLikeBtn(state.likes.isLiked(currentID));
+        likeView.toggleLikeIcon(state.likes.getNumLikes());
 
         // Add like to UI list
+        likeView.renderLike(newLike);
+
+        // likeView.clearLikes ()
+        // state.likes.likes.forEach(like => likeView.renderLike(like));
+
+        
 
 
     // if current recepe is  liked:
@@ -293,17 +313,24 @@ const controllerLike = () => {
         state.likes.deleteLike(currentID);
 
         // Toggle the like button 
-
+        likeView.toggleLikeBtn(state.likes.isLiked(currentID));
+        likeView.toggleLikeIcon(state.likes.getNumLikes());
+        
         // Remove like from UI list
+        likeView.deleteLike (currentID);
+        
+        // state.likes.likes.forEach(like => likeView.renderLike(like));
+
+
     }
-    console.log(state.likes);
+    console.log(state);
 
 }
 
 
 
 // _____________________________________________________________________
-/* Handling recipe button click */
+/* Handling recipe buttons click */
 
 /** Controle the 
     * decrease btm, 
