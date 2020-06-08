@@ -63,6 +63,14 @@
  * Array.findIndex and Array.find
  * .setAttribute
  * .querySelector('.recipe__love use')   'select all use chiled of class .recipe_love'
+ * localStorageAPI  
+ *          localStorage.setItem('id', '2hjh67')
+ *          localStorage.getItem('id)
+ *          localStorage.removeItem('id')
+ *          localStorage.length
+ * 
+ * JSON.stringify(this.likes);     <- convert into a sting
+ * JSON.parse(localStorage.getItem('like')); 
  */
 
 
@@ -365,6 +373,22 @@ elements.recipeContainer.addEventListener('click', e => {
 
     // console.log(state.recipe)
 });
+
+// Restore ;oked resipes on page load 
+window.addEventListener('load', () => {
+    state.likes = new Likes();
+
+    // Restore likes from localStorage
+    state.likes.readStorage();
+
+    // Cleaning and Render the existing likes
+    likeView.clearLikes ()
+    state.likes.likes.forEach(like => likeView.renderLike(like));
+
+    // Toggle like menu button
+    likeView.toggleLikeIcon(state.likes.getNumLikes());
+})
+
 // _____________________________________________________________________________
 
 
