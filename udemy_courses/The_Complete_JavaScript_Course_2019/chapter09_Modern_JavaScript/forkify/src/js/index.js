@@ -71,6 +71,16 @@
  * 
  * JSON.stringify(this.likes);     <- convert into a sting
  * JSON.parse(localStorage.getItem('like')); 
+ * const id = window.location.hash.replace('#', '');
+ * 
+ * e.preventDefault();
+ * 
+ * events list:     'hashchange'
+ *                  'click'
+ *                  'load'
+ *                  'submit'
+ * 
+ * .dataset
  */
 
 
@@ -108,7 +118,7 @@ import { Fraction } from 'fractional';
 
 const state = {};
 
-window.state = state;
+// window.state = state;
 
 
 
@@ -155,7 +165,10 @@ const controlSearch = async () => {
 //  Event Listener - Search
 
 elements.searchForm.addEventListener('submit', e => {
+    
+    // When we submit a form the page reload, is will prevent it.
     e.preventDefault();
+
     controlSearch();
     
 });
@@ -260,8 +273,8 @@ const controleRecipe = async () => {
 
 elements.shoppingContainer.addEventListener('click', e => {
 
-    const id = e.target.closest('.shopping__item').dataset.itemid
-    console.log(id);
+    const id = e.target.closest('.shopping__item').dataset.itemid;
+    // console.log(id);
 
 
     if (e.target.matches('.shopping__delete, .shopping__delete *')) {
@@ -331,7 +344,7 @@ const controllerLike = () => {
 
 
     }
-    console.log(state);
+    // console.log(state);
 
 }
 
@@ -397,7 +410,7 @@ window.addEventListener('load', () => {
 
 
 
-window.l = new List();
+// window.l = new List();
 
 
 
