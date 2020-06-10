@@ -1,3 +1,5 @@
+https://www.atlassian.com/git/tutorials/saving-changes/gitignore#git-ignore-patterns
+
 **./__pycache__
 __pycache__/
 __resources__/
@@ -29,3 +31,6 @@ node_modules
 *.tmp
 **.tmp
 *~
+
+**/config.py
+*/config.py
