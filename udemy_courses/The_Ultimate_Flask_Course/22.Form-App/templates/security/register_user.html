@@ -1,24 +1,58 @@
 {% extends 'login_base.html' %}
 
-{% block title %} Register {% endblock %}
+{% block title %} Register | Forum {% endblock %}
+
+
 
 {% block body %}
 {% from "security/_macros.html" import render_field_with_errors, render_field %}
 {% include "security/_messages.html" %}
 
 <div class="pageTitle">{{ _('Register') }}</div>
-<form action="{{ url_for_security('register') }}" method="POST" name="register_user_form">
-  {{ register_user_form.hidden_tag() }}
+<form action="{{ url_for_security('register') }}" method="POST" name="register_user_form" role="form">
+  <div class="row pad">
+    <div class="col-lg-6">
+      {{ register_user_form.hidden_tag() }}
 
-  {{ render_field_with_errors(register_user_form.email) }}
+      <div class="form-group">
+        <!-- <label for="email">Email Address</label> -->
+        <!-- <input type="email" name="email" id="email" class="form-control" placeholder="Enter email" required="required"> -->
+        {{ render_field_with_errors(register_user_form.email, class="form-control", placeholder="Enter email") }}
 
-  {{ render_field_with_errors(register_user_form.password) }}
+      </div>
+      <div class="form-group">
+        {{ render_field_with_errors(register_user_form.username, class="form-control", placeholder="Enter username") }}
+      </div>
+      <div class="form-group">
+        {{ render_field_with_errors(register_user_form.name, class="form-control", placeholder="Enter name") }}
+      </div>
 
-  {% if register_user_form.password_confirm %}
-  {{ render_field_with_errors(register_user_form.password_confirm) }}
-  {% endif %}
-  {{ render_field(register_user_form.submit) }}
+    </div>
+    <div class="col-lg-6">
+      <div class="form-group">
+        <!-- <label for="password">Password</label> -->
+        <!-- <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required="required"> -->
+        {{ render_field_with_errors(register_user_form.password, class="form-control", placeholder="Enter password") }}
+        {% if register_user_form.password_confirm %}
+        {{ render_field_with_errors(register_user_form.password_confirm, class="form-control", placeholder="Renter password") }}
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+  <div class="row pad">
+    <div class="col-lg-6">
+      <div class="form-group">
+        <!-- <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i> Register </button> -->
+        {{ render_field(register_user_form.submit, class="btn btn-primary ") }}
+        <a href="./login.html" class="btn btn-link pull-right">
+          Go to Login <i class="glyphicon glyphicon-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
 </form>
-{% include "security/_menu.html" %}
+
 
 {% endblock %}
