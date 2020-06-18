@@ -7,6 +7,7 @@
 {% include "security/_messages.html" %}
 
 <div class="pageTitle">{{ _('Login') }}</div>
+
 <div class="row pad">
   <div class="col-lg-10 col-lg-offset-1">
 
@@ -25,6 +26,9 @@
         {{ render_field(login_user_form.next ) }}
         {{ render_field(login_user_form.submit, class="btn btn-primary") }}
       </div>
+        <a href="{{ url_for('security.register') }}" class="btn btn-link pull-right">
+          Go to Register <i class="glyphicon glyphicon-arrow-right"></i>
+        </a>
     </form>
     <!-- {% include "security/_menu.html" %} -->
   </div>

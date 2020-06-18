@@ -19,31 +19,33 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-lg-4">Name</div>
+                    <div class="col-lg-4">Title</div>
                     <div class="col-lg-4">Description</div>
                     <div class="col-lg-4">Last Post</div>
                 </div>
             </div>
+
+            {% for t in threads %}
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-4">
                         <h3 class="panel-title">
-                            <a href="./thread.html" style="font-size: 18px;" class="blue">
-                                General Thread
+                            <a href="{{ url_for('thread', thread_id=t.id) }}" style="font-size: 18px;" class="blue">
+                                {{ t.title }}
                             </a>
                         </h3>
                     </div>
                     <div class="col-lg-4">
                         <p>
                             <em>
-                                This thread is for sharing general information
+                                {{ t.description }}
                             </em>
                         </p>
                     </div>
 
                     <div class="col-lg-4">
                         <p>
-                            <i class="glyphicon glyphicon-calendar"></i> 
+                            <i class="glyphicon glyphicon-calendar"></i>
                             26 June, 2017 &nbsp;
                             <a href="./thread.html#_reply">
                                 <i class="glyphicon glyphicon-comment"></i> Reply
@@ -53,7 +55,9 @@
                 </div>
             </div>
 
-            <div class="panel-body">
+            {% endfor %}
+
+            <!-- <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-4">
                         <h3 class="panel-title">
@@ -72,17 +76,18 @@
 
                     <div class="col-lg-4">
                         <p>
-                            <i class="glyphicon glyphicon-calendar"></i> 
+                            <i class="glyphicon glyphicon-calendar"></i>
                             26 June, 2017 &nbsp;
                             <a href="./thread.html#_reply">
                                 <i class="glyphicon glyphicon-comment"></i> Reply
                             </a>
                         </p>
                     </div>
-                </div>
-            </div>
+                </div> -->
         </div>
+
     </div>
+</div>
 </div>
 
 <div class="modal fade" id="newModal">
@@ -93,15 +98,24 @@
                 <h4 class="modal-title">Add Thread</h4>
             </div>
             <div class="modal-body">
-                <form action="" method="POST" role="form">
-                
+                <form method="POST" role="form">
+                    {{ form.csrf_token }}
                     <div class="form-group">
-                        <label for="name">Thread Name</label>
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Enter thread name" required="required">
+                        <label for="title">Thread Title</label>
+                        <!-- <input type="text" name="name" id="name" class="form-control" placeholder="Enter thread name"
+                            required="required"> -->
+                        {{ form.title(class="form-control", placeholder="Enter thread title") }}
                     </div>
-                
-                    
-                
+
+                    <div class="form-group">
+                        <label for="description">Thread Description</label>
+                        <!-- <input type="text" name="description" id="description" class="form-control"
+                            placeholder="Enter thread description" required="required"> -->
+                        {{ form.description(class="form-control", placeholder="Enter thread description") }}
+                    </div>
+
+
+
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
