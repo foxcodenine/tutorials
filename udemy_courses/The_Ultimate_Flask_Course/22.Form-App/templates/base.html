@@ -26,9 +26,9 @@
                     </div>
                 </div>
                 <div class="menu">
-                    <a href="./index.html" class="m-item">Home</a> |
-                    <a href="./profile.html" class="m-item">Profile</a> |
-                    <a href="./login.html" class="m-item">Logout</a>
+                    <a href="{{ url_for('index') }}" class="m-item">Home</a> |
+                    <a href="{{ url_for('profile') }}" class="m-item">Profile</a> |
+                    <a href="{{ url_for('security.logout') }}" class="m-item">Logout</a>
                 </div>
 
                 {% block body %}{% endblock %}

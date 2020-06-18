@@ -1,6 +1,7 @@
 # https://pythonise.com/series/learning-flask/flask-configuration-files
 # https://www.atlassian.com/git/tutorials/saving-changes/gitignore#git-ignore-patterns
 # https://flask.palletsprojects.com/en/1.1.x/patterns/favicon/
+# https://strftime.org/
 # pip install bcrypt
 # pip install flask_wtf
 
@@ -8,8 +9,10 @@ from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
-from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin
-from wtforms import StringField
+from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, current_user
+from wtforms import StringField, TextAreaField
+from flask_wtf import FlaskForm
+from datetime import datetime
 
 from flask_security.forms import RegisterForm
 
@@ -18,16 +21,18 @@ from flask_security.forms import RegisterForm
 
 app = Flask(__name__)
 
-# app.config.from_object("config.DevelopmentConfig")
+app.config.from_object("config.DevelopmentConfig")
 
-if app.config["ENV"] == "production":
-    app.config.from_object("config.ProductionConfig")
-else:
-    app.config.from_object("config.DevelopmentConfig")
+app.config['SECURITY_POST_LOGOUT_VIEW'] = '/login'
+app.config['SECURITY_CHANGEABLE'] = True
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///p:/Projects/tutorials/Udemy/The_Ultimate_Flask_Course/22.Form-App/forum.db'
+# if app.config["ENV"] == "production":
+#     app.config.from_object("config.ProductionConfig")
+# else:
+#     app.config.from_object("config.DevelopmentConfig")
 
 
+# ______________________________________________________________________
 
 
 db = SQLAlchemy(app)
@@ -60,7 +65,32 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(255), unique=True)
     active = db.Column(db.Boolean())
     confirmed_at = db.Column(db.DateTime())
+
+    # this is use in  many-to-many relationships
     roles = db.relationship('Role', secondary=roles_user, backref=db.backref('users', lazy='dynamic'))
+    
+    replies = db.relationship('Reply',  backref='users', lazy='dynamic')
+    
+
+class Thread(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(50))
+    description = db.Column(db.String(250))
+    date_created = db.Column(db.DateTime)
+
+    # this is use in  many-to-one/one-to-one relationships
+    replies = db.relationship('Reply', backref='thread', lazy='dynamic')
+
+class Reply(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    thread_id= db.Column(db.Integer, db.ForeignKey('thread.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    message = db.Column(db.String(255))
+    date_created = db.Column(db.DateTime())
+   
+
+ 
+
 
 
 # class TestDB(db.Model):
@@ -72,6 +102,13 @@ class User(db.Model, UserMixin):
 class ExtendRegisterForm(RegisterForm):
     name = StringField('Name')
     username = StringField('Username')
+
+class NewThread(FlaskForm):
+    title = StringField('Title')
+    description = StringField('Description')
+
+class NewReply(FlaskForm):
+    message = TextAreaField('Message')
 
 # ______________________________________________________________________
 
@@ -89,17 +126,76 @@ def favicon():
 
 # ______________________________________________________________________
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template('index.html')
+    form = NewThread()
+
+    if form.validate_on_submit():
+
+        title = form.title.data 
+        description = form.description.data
+
+        new_thread = Thread(title=title, description=description, date_created = datetime.now())
+        db.session.add(new_thread)
+        db.session.commit()
+
+        return redirect(url_for('index'))
+
+
+    all_threads = Thread.query.all()
+
+    return render_template('index.html', form=form, threads=all_threads)
+# ___________________________________
 
 @app.route('/profile')
 def profile():
     return render_template('profile.html')
+# ___________________________________
 
-@app.route('/thread')
-def thread():
-    return render_template('thread.html')
+@app.route('/thread/<thread_id>', methods=['POST', 'GET'])
+def thread(thread_id):
+
+    form = NewReply()
+    
+    thread = Thread.query.filter_by(id=thread_id).first() # <- A
+
+    if form.validate_on_submit():
+
+        new_message = form.message.data 
+
+        reply = Reply(
+            user_id=current_user.id, 
+            message=new_message, 
+            date_created=datetime.now()
+        )
+
+        thread.replies.append(reply)   # <- A
+        # No need to add since it is appended to the current thread  (A)
+        db.session.commit()
+
+        return redirect(url_for('thread', thread_id=thread_id))
+
+
+    # Get replied for current thread
+
+    thread_replies = thread.replies.all()
+
+
+
+    return render_template(
+                            'thread.html', 
+                            thread=thread, 
+                            form=form, 
+                            replies=thread_replies
+                                                    )
+
+# ___________________________________
+
+
+@app.route('/base')
+def base():
+    return render_template('base.html')
+# ___________________________________
 
 # @app.route('/login')
 # def login():
@@ -108,12 +204,6 @@ def thread():
 # @app.route('/register')
 # def register():
 #     return render_template('register.html')
-
-@app.route('/base')
-def base():
-    return render_template('base.html')
-
-
 
 
 # ______________________________________________________________________
@@ -128,3 +218,9 @@ print('>>>>',app.config['SECRET_KEY'])
 
 if __name__ == '__main__':
     manager.run()
+
+
+
+# 6dc1a5f8c57b_.py
+# cd87ca91ac81_.py
+# 345dd4986ea6_.py
