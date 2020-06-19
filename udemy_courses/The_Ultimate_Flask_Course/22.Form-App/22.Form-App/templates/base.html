@@ -21,14 +21,19 @@
 
                 <div class="logo">
                     <div>
-                        <a href="./">Forum</a>
+                        <a href="{{ url_for('index') }}">Forum</a>
                         <span class="tagline">...cool community forum</span>
                     </div>
                 </div>
                 <div class="menu">
-                    <a href="./index.html" class="m-item">Home</a> |
-                    <a href="./profile.html" class="m-item">Profile</a> |
-                    <a href="./login.html" class="m-item">Logout</a>
+                    <a href="{{ url_for('index') }}" class="m-item">Home</a> |
+                    <a href="{{ url_for('profile') }}" class="m-item">Profile</a> |
+                    {% if current_user.active %}
+                    <a href="{{ url_for('security.logout') }}" class="m-item">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('security.login') }}" class="m-item">Login</a> |
+                    <a href="{{ url_for('security.register') }}" class="m-item">Register</a> 
+                    {% endif %}
                 </div>
 
                 {% block body %}{% endblock %}
