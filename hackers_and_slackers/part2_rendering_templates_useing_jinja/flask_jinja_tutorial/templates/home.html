@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ title }}</h1>
+        <p>{{ description }}</p>
+
+        <div class="status">
+            {% if status.active %}
+                <p>Status is Active</p>
+            {% elif status.disabled %}
+                <p>Status is Disabled</p>
+            {% else %}
+                <p>Oh God what is this Status?</p>
+            {% endif %}
+        </div>
+        
+    </div>
+    
+{% endblock %}

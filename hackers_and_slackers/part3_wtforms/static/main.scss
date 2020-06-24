@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+$col-bgd: #dce5f1;
+$col-wht: #fff;
+$col-txt: #7c7c84;
+$col-btn: #53add0;
+$col-gry_lt: #ebeff2;
+$col-brd: #c7ecf4;
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    background-color: $col-bgd;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    font-family: 'Lato';
+    color: $col-txt;
+}
+
+@mixin animate-btn {
+
+    
+    
+    &:hover {        
+        transform: translateY(-.25rem);
+        box-shadow: 0 .5rem .8rem rgba($color: $col-txt, $alpha: .5);
+        
+    }
+
+
+    &:active {        
+        transform: translateY(-.125rem);
+        box-shadow: 0 .25rem .4rem rgba($color: $col-txt, $alpha: .5);
+        border: 0;
+
+    }
+
+}
+
+
+.container-form {
+    background-color: $col-wht;
+    width: 30rem;
+    padding: 2rem 2rem;
+
+    .title {
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid $col-txt;
+            margin-bottom: 2.5rem;
+        }
+    }
+
+    label {
+        display: block;
+        font-size: 1.4rem;
+        margin-bottom: .5rem;
+    }
+
+    input, select {
+        display: block;
+        width: 100%;
+        height: 3rem;
+        margin-bottom: 1rem;
+        border: .18rem solid $col-gry_lt;
+      
+        &:active,
+        &:hover, 
+        &:focus{       
+            
+            border: 0;
+            outline: 0;   
+            border: .25rem solid $col-brd;
+        } 
+    }
+
+    select {
+        appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+    }
+
+
+    input::-moz-focus-inner, 
+    select::-moz-focus-inner,
+    select:focus { 
+        border: 0; 
+        outline: 0;
+      }
+
+    .btn.btn-select:-moz-focusring{           
+        text-shadow: 0 0 0 #000;
+        color: transparent;
+        border: .25rem solid $col-brd;
+    }
+
+    .btn-bday {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+ 
+    .btn.btn-sub {
+        border: none;
+        font-size: 2rem;
+        height: 4rem;
+        background-color: $col-btn;
+        color: $col-wht;
+
+
+        @include animate-btn();
+    }
+}
+
+
+
+

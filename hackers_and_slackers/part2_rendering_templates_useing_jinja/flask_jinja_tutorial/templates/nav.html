@@ -1,0 +1,15 @@
+<header>
+    {% if nav %}
+        {% for link in nav %}
+        <a href="{{ link.url }}">{{ link.name }}</a>
+        {% endfor %}
+    {% else %}
+    <nav>
+        <a href="https://example.com">Link 1</a>
+        <a href="https://example.com">Link 2</a>
+        <a href="https://example.com">Link 3</a>
+        <a href="https://example.com">Link 4</a>
+
+    </nav>
+    {% endif %}
+</header>

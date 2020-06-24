@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Contact Form</title>
+</head>
+<body>
+    <div class="container-form">
+        <form action="{{ url_for('contact')}}" method="POST" novalidate>
+            {{ form.csrf_token }}
+            <div class="title" >
+                <h1>Contact</h1>
+                <hr>
+            </div>
+        
+            <!-- <label >Name</label>
+            <input type="text" name="inp-name" id="inp-name" class="btn btn-name"> -->
+            {{ form.name.label(for="inp-name") }} {{ form.name(class="btn btn-name") }}
+                
+            <!-- <label for="inp-email">Email</label>
+            <input type="text" name="inp-email" id="inp-email" class="btn btn-email"> -->
+            {{ form.email.label(for="inp-email") }} {{ form.email(class="btn btn-email") }}
+
+
+            <!-- <label for="inp-message">Message</label>
+            <input type="text" name="inp-message" id="inp-message" class="btn btn-message"> -->
+            {{ form.message.label(for="inp-message") }} {{ form.message(class="btn btn-message") }}
+
+            {{ form.recaptcha(class="g-recaptcha") }}
+
+            <!-- <input type="submit" value="Submit" class="btn btn-sub"> -->
+            {{ form.submit(class="btn btn-sub") }}
+            
+            {% if form.name.errors or form.email.errors or form.message.errors %}
+            <ul class="error-message">
+                {% for error in form.name.errors %} <li>{{ error }}</li>{% endfor %}             
+                {% for error in form.email.errors %} <li>{{ error }}</li>{% endfor %}             
+                {% for error in form.message.errors %} <li>{{ error }}</li>{% endfor %}             
+            </ul>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>
