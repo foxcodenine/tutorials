@@ -26,9 +26,9 @@ const elem = {
 /* Functions */
 
 
-// Show input error message 
+// Show input error message
 function showError(input, message) {
-    const formControl = input.parentElement;    
+    const formControl = input.parentElement;
     formControl.className = 'form-control error';
 
     const small = formControl.querySelector('small');
@@ -42,13 +42,13 @@ const showSuccess = input => {
     const formControl = input.parentElement;
 
     formControl.className = 'form-control success';
-    
+
 };
 
 // ____________________________
 
 
-// Check required fields 
+// Check required fields
 function checkRequired(...arguments) {
     arguments.forEach(input => {
 
@@ -63,19 +63,19 @@ function checkRequired(...arguments) {
 // ____________________________
 
 function checkLength(input, min, max) {
-    
+
     if (input.value.trim().length < min || input.value.trim().length > max) {
         showError(input,  `${getInputId(input)} must be between ${min} and ${max} characters`)
-    } 
+    }
 };
 // ____________________________
 
 // Check if Email is Valid
 function validateEmail(input) {
-    
+
     const email = input.value.trim();
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    
+
     const result =  re.test(String(email).toLowerCase());
     console.log(re.test(String(email).toLowerCase()));
 
@@ -101,7 +101,7 @@ function checkPasswordMatch(password, password2) {
 
 // Get field name
 function getInputId(input) {
-    
+
     return `${input.id.charAt(0).toUpperCase()}${input.id.slice(1)}`;
 };
 
@@ -111,12 +111,12 @@ function getInputId(input) {
 
 // Event listeners
 elem.form.addEventListener('submit', e => {
-    
+
     e.preventDefault();
 
-    checkRequired(elem.username, elem.email, 
+    checkRequired(elem.username, elem.email,
                                 elem.password, elem.password2);
-    
+
     checkLength(elem.username, 3, 15);
     checkLength(elem.password, 6, 20);
     validateEmail(elem.email)
