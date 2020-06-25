@@ -58,8 +58,12 @@
  * .target
  * .closest
  * .matches
+ *  * Array.slice and Array.splice
+ * 
+ * 
+ * 
  * .btn-decrease *       'the * means any chiled of class btn-decrease'
- * Array.slice and Array.splice
+
  * Array.findIndex and Array.find
  * .setAttribute
  * .querySelector('.recipe__love use')   'select all use chiled of class .recipe_love'
