@@ -1,0 +1,21 @@
+npm init
+npm install
+
+npm install webpack --save-dev
+npm install webpack-cli --save-dev
+npm install webpack-dev-server --save-dev
+npm install html-webpack-plugin --save-dev
+
+
+npm install babel-core --save-dev
+npm install babel-preset-env --save-dev
+npm install babel-loader --save-dev
+
+npm install babel-polyfill --save
+npm install axios --save
+npm install fractional --save
+
+
+to fix vulnerability:
+npm audit fix
+npm fund
