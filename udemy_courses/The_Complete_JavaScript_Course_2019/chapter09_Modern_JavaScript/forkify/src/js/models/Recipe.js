@@ -14,7 +14,7 @@
 // // https://api.spoonacular.com/recipes/716429/information?includeNutrition=false
 // getInformation = `https://api.spoonacular.com/recipes/${this.id}/information?includeNutrition=false?apiKey=${myKey}`
 
-// _____________________________________________________________________________ 
+// _____________________________________________________________________________
 
 import axios from 'axios'
 import { myKey } from '../config'
@@ -30,12 +30,12 @@ export default class Recipe {
             this.ingredients = getIngredients.data.ingredients;
             // console.log(this.ingredients);
             // console.log(getIngredients);
-            
+
             const getInformation = await axios(`https://api.spoonacular.com/recipes/${this.id}/information?includeNutrition=false&apiKey=${myKey}`);
             this.image = getInformation.data.image;
             this.summary = getInformation.data.summary;
             this.instructions = getInformation.data.instructions;
-            this.title = getInformation.data.title; 
+            this.title = getInformation.data.title;
             this.sourceName = getInformation.data.sourceName;
             this.sourceUrl = getInformation.data.sourceUrl;
             // this.analyzedInstructions = getInformation.data.analyzedInstructions['0'].steps;
@@ -45,25 +45,25 @@ export default class Recipe {
 
             // const getSummarize = await axios(`https://api.spoonacular.com/recipes/${this.id}/summary?apiKey=${myKey}`);
             // this.title = getSummarize.data.title;
-            // this.summery = getSummarize.data.summary;            
+            // this.summery = getSummarize.data.summary;
             // console.log(this.title);
             // console.log(this.summery);
             // console.log(getSummarize);
 
             // const getInstructions = await axios(`https://api.spoonacular.com/recipes/${this.id}/analyzedInstructions?apiKey=${myKey}`)
             // console.log(getInstructions);
-            
+
             // this.instructions = getInstructions.data['0'].steps;
-            // console.log(this.instructions);           
+            // console.log(this.instructions);
 
 
         } catch (error) {
             console.log(error)
         }
-        
+
     }
 
-    
+
     parseIngredients() {
 
         const unitsLong  = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds', 'tsps', 'tbsps']
@@ -76,7 +76,7 @@ export default class Recipe {
             let ingredient =  `${el.amount.us.value}|${el.amount.us.unit}|${el.name}`.toLocaleLowerCase();
 
             // 2) Uniform units
-           
+
             unitsLong.forEach((long, index) => {
                 ingredient = ingredient.replace(long, unitsShort[index]);
             });
@@ -87,10 +87,11 @@ export default class Recipe {
             // 4) Parse ingredients into count, unit and ingredient
             ingredient = ingredient.split('|');
             ingredient = {
-                count: Math.round(parseFloat(ingredient[0])),
-                unit: ingredient[1], 
+                count: (parseFloat(ingredient[0])),
+                unit: ingredient[1],
                 name: ingredient[2]
             };
+            if (!ingredient.count) ingredient.count = 1;
             return ingredient;
 
         });
@@ -101,7 +102,7 @@ export default class Recipe {
 
     updateServings (type) {
 
-        // Updated Servings 
+        // Updated Servings
         const newServings = type === 'dec' ? this.servings - 1 : this.servings + 1;
 
         // Update ingredients
@@ -109,10 +110,10 @@ export default class Recipe {
         this.ingredients.forEach(ing => {
             ing.count *=  (newServings / this.servings );
             // ing.count = Math.round(ing.count*16)/16;
-        });        
+        });
 
         this.servings = newServings;
-        
+
     }
 };
 
@@ -125,7 +126,7 @@ export default class Recipe {
 // _____________________________________________________________________
 /*
 
-//  Code not use case I have a different api; 
+//  Code not use case I have a different api;
 arrIng = ['chris', 11111, 'tsp'];
 const unitIndex = arrIng.findIndex(el2 => unitsShort.includes('tsp'));
 
@@ -145,7 +146,7 @@ if (unitIndex > -1) {
     }
     objIng = {
         count,
-        unit: arrIng[unitIndex], 
+        unit: arrIng[unitIndex],
         ingredient:arrIng.slice(unitIndex + 1).join(' ')
     };
 
