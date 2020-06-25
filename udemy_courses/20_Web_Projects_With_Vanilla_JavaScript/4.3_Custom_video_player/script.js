@@ -1,6 +1,17 @@
+// https://www.w3schools.com/tags/ref_av_dom.asp
 // HTMLMediaElement.paused property
 // HTMLMediaElement.pause() method will pause playback of the media
-// HTMLMediaElement play() method attempts to begin playback of the media
+// HTMLMediaElement.play() method attempts to begin playback of the media
+// load() 	    Re-loads the audio/video element
+// duration 	Returns the length of the current audio/video (in seconds)
+// currentTime 	Sets or returns the current playback position in the audio/video (in seconds)
+// if a string number is add a + symbole it will change in to a int or foat
+
+/**Events
+ *      stop
+ *      play    
+ *      timeupdate
+ */
 
 // _____________________________________________________________________
 const elem = {
@@ -22,22 +33,51 @@ function toggleVideoStatus() {
 
 // Update play/pause icon 
 function updatePlayIcon() {
-    return true;
+    if (elem.video.paused) {
+        elem.play.innerHTML = '<i class="fa fa-pause fa-2x"></i>'
+    } else {
+        elem.play.innerHTML = '<i class="fa fa-play fa-2x"></i>'
+    }
 };
 
 // Update progress & timestamp 
 function updateProgress() {
-    return true;
+
+    // Set Progress Bar:
+    console.log(elem.video.currentTime, elem.video.duration)
+    elem.progress.value = (elem.video.currentTime / elem.video.duration) * 100
+
+    // Set TimesStamp:
+    // Get minutes:
+    let minutes = Math.floor(elem.video.currentTime/60);
+    if (minutes < 10) {
+        minutes = `0${minutes}`
+    } else {
+        minutes = toString(minutes)
+    }
+    // Get secondes:
+
+    let secondes = Math.floor(elem.video.currentTime );
+    if (secondes < 10) {
+        secondes = `0${secondes}`
+    } else {
+        secondes = `${secondes}`
+    }
+
+    elem.timestamp.innerText = `${minutes}:${secondes}`;
 };
  
 // Set video Progress
 function setVideoProgress() {
-    return true;
+    elem.video.currentTime = (+elem.progress.value * elem.video.duration) / 100;
+    
 };
 
 // Stop video 
 function stopVedio() {
-    return true;
+    // elem.video.load();
+    elem.video.currentTime = 0;
+    elem.video.pause();
 };
 
 // _____________________________________________________________________
