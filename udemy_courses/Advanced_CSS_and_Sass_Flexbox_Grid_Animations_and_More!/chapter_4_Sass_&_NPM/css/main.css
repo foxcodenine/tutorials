@@ -10,127 +10,17 @@ html {
   font-size: 62.5%; }
 
 body {
+  box-sizing: border-box; }
+
+body {
   font-family: "Lato", sans-serif;
   font-weight: 400;
   font-size: 1.6rem;
   line-height: 1.7;
   color: #777;
   padding: 1rem;
-  box-sizing: border-box;
-  /* <-- */
   /* border: 1px solid red; */ }
 
-.header {
-  height: 95vh;
-  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.65), rgba(40, 180, 133, 0.65)), url(../img/hero.jpg);
-  background-size: cover;
-  /* <-- */
-  background-position: top;
-  /* <-- */
-  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
-  position: relative; }
-
-.header__logo-box {
-  position: absolute;
-  top: 4rem;
-  left: 4rem; }
-
-.header__logo {
-  height: 4rem;
-  animation: opacities 4s ease-out; }
-
-.header__text-box {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: left;
-  text-align: center; }
-
-.heading-primary {
-  color: #fff;
-  text-transform: uppercase;
-  /* if animaton shakes */
-  backface-visibility: hidden; }
-
-.heading-primary--main {
-  display: block;
-  font-size: 7.5rem;
-  font-weight: 400;
-  letter-spacing: 3.5rem;
-  line-height: 1.3;
-  animation-name: movingInLeft;
-  animation-duration: 1s;
-  animation-timing-function: ease-out;
-  /*
-    animation-delay: 1s;
-    animation-iteration-count: 3;
-    */ }
-
-.heading-primary--sub {
-  display: block;
-  font-size: 2.5rem;
-  font-weight: 400;
-  letter-spacing: 1.85rem;
-  margin-left: -10px;
-  animation-name: movingInRight;
-  animation-duration: 1s;
-  animation-timing-function: ease-out;
-  /*
-    animation-delay: 1s;
-    animation-iteration-count: 3;
-    */
-  margin-bottom: 6rem; }
-
-.btn:link,
-.btn:visited {
-  font-size: 1.6rem;
-  text-transform: capitalize;
-  text-decoration: none;
-  padding: 1.5rem 4rem;
-  display: inline-block;
-  border-radius: 10rem;
-  outline: none;
-  transition: all 0.2s;
-  position: relative; }
-
-.btn:hover {
-  transform: translateY(-0.3rem);
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4); }
-
-.btn:active {
-  transform: translateY(-1px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4); }
-
-.btn::after {
-  content: "";
-  display: inline-block;
-  height: 100%;
-  width: 100%;
-  border-radius: 100px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  transition: all 0.5s; }
-
-.btn:hover::after {
-  transform: scaleX(1.4) scaleY(1.6);
-  opacity: 0; }
-
-.btn--animated {
-  animation: movingInBottom 0.6s ease-in 0.3s;
-  animation-fill-mode: backwards; }
-
-.btn--white {
-  background-color: #fff;
-  color: #777;
-  opacity: 0.8; }
-
-.btn--white::after {
-  background-color: #fff; }
-
-/* ____ Animations ____  */
 @keyframes movingInLeft {
   0% {
     opacity: 0;
@@ -175,4 +65,107 @@ body {
     opacity: 0.8;
     transform: translate(0, 0); } }
 
+.header {
+  height: 95vh;
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.65), rgba(40, 180, 133, 0.65)), url(../img/hero.jpg);
+  background-size: cover;
+  /* <-- */
+  background-position: top;
+  /* <-- */
+  clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+  position: relative; }
+  .header__logo-box {
+    position: absolute;
+    top: 4rem;
+    left: 4rem; }
+  .header__logo {
+    height: 4rem;
+    animation: opacities 4s ease-out; }
+  .header__text-box {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: left;
+    text-align: center; }
+
+.heading-primary {
+  color: #fff;
+  text-transform: uppercase;
+  /* if animaton shakes */
+  backface-visibility: hidden; }
+  .heading-primary--main {
+    display: block;
+    font-size: 7.5rem;
+    font-weight: 400;
+    letter-spacing: 3.5rem;
+    line-height: 1.3;
+    animation-name: movingInLeft;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    /*
+      animation-delay: 1s;
+      animation-iteration-count: 3;
+      */ }
+  .heading-primary--sub {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 400;
+    letter-spacing: 1.85rem;
+    margin-left: -10px;
+    animation-name: movingInRight;
+    animation-duration: 1s;
+    animation-timing-function: ease-out;
+    /*
+      animation-delay: 1s;
+      animation-iteration-count: 3;
+      */
+    margin-bottom: 6rem; }
+
+.btn:link, .btn:visited {
+  font-size: 1.6rem;
+  text-transform: capitalize;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  border-radius: 10rem;
+  outline: none;
+  transition: all 0.2s;
+  position: relative; }
+
+.btn::after {
+  content: "";
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: all 0.5s; }
+
+.btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.4); }
+
+.btn:hover {
+  transform: translateY(-0.3rem);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.4); }
+  .btn:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0; }
+
+.btn--white {
+  background-color: #fff;
+  color: #777;
+  opacity: 0.8; }
+  .btn--white::after {
+    background-color: #fff; }
+
+.btn--animated {
+  animation: movingInBottom 0.6s ease-in 0.3s;
+  animation-fill-mode: backwards; }
+
+/* ____ Animations ____  */
 /* ____ End_Animations ____  */
