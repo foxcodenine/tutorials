@@ -1,0 +1,20 @@
+@media (min-width: 81rem) {
+    .currency input {
+        width: 38rem;
+    }
+    .btn {
+        width: 6.8rem;
+    }
+}
+
+@media (max-width: 80rem) {
+    .currency input {
+        width: 25rem;
+    }
+}
+
+@media (max-width: 60rem) {
+    .currency input {
+        width: 15rem;
+    }
+}

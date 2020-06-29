@@ -1,0 +1,78 @@
+
+h1 {
+    color: $col-grn-pr;
+}
+
+p {
+    text-align: center;
+}
+
+
+.money-img {
+    width: 15rem;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    height: 18rem;
+    justify-content: space-between;
+    padding: 2rem 0;
+
+
+    .btn {
+        background-color: $col-grn-pr;
+        color: $col-gry-lt;
+        font-size: 1.2rem;
+        padding: .5rem 1.2rem;
+        border-radius: .5rem;
+        border: 0;
+        cursor: pointer;
+        outline: 0;
+        position: relative;
+    
+        @include remove-outline($col-gry-lt);
+        @include animate-btn;
+    }
+
+    .currency {  
+        select {
+            padding: 1rem 2rem 1rem 1rem;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            appearance: none;
+            border: 0.1rem solid $col-brd-lt;
+            border-radius: .5rem;
+    
+            background-image: url($icn-arw);
+            background-position: right 1rem top 50%;
+            background-size: 1.2rem;
+            background-repeat: no-repeat;
+
+            @include remove-outline($col-txt-bk);
+        }
+        input {
+            -moz-appearance: textfield;
+            -webkit-appearance: textfield;
+            appearance: textfield;
+
+            border: none;
+            background: transparent;
+            text-align: right;
+            font-size: 2rem;
+        }
+    }
+    .swap-rate-container{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        .rate{
+            font-size: 1.2rem;
+            
+            color: $col-grn-pr;
+        }
+    } 
+
+}
