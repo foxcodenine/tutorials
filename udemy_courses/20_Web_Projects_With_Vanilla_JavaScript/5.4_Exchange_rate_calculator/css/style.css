@@ -1,0 +1,96 @@
+@media (min-width: 81rem) {
+  .currency input {
+    width: 38rem; }
+  .btn {
+    width: 6.8rem; } }
+
+@media (max-width: 80rem) {
+  .currency input {
+    width: 25rem; } }
+
+@media (max-width: 60rem) {
+  .currency input {
+    width: 15rem; } }
+
+* {
+  box-sizing: border-box; }
+
+html {
+  font-size: 62.5%; }
+
+body {
+  font-size: 1.6rem;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  margin: 0;
+  padding: 2rem; }
+
+h1 {
+  color: #5fbaa7; }
+
+p {
+  text-align: center; }
+
+.money-img {
+  width: 15rem; }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 18rem;
+  justify-content: space-between;
+  padding: 2rem 0; }
+  .container .btn {
+    background-color: #5fbaa7;
+    color: #f4f4f4;
+    font-size: 1.2rem;
+    padding: .5rem 1.2rem;
+    border-radius: .5rem;
+    border: 0;
+    cursor: pointer;
+    outline: 0;
+    position: relative;
+    box-shadow: 0 0.2rem 0.3rem rgba(0, 0, 0, 0.2); }
+    .container .btn:focus, .container .btn:hover, .container .btn:active {
+      color: rgba(0, 0, 0, 0);
+      text-shadow: 0px 0px #f4f4f4; }
+    .container .btn:hover {
+      transform: translateY(-0.25rem);
+      box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.4); }
+    .container .btn:active {
+      transform: translateY(-0.125rem);
+      box-shadow: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.4);
+      border: 0; }
+  .container .currency select {
+    padding: 1rem 2rem 1rem 1rem;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: 0.1rem solid #dedede;
+    border-radius: .5rem;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%20000002%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-position: right 1rem top 50%;
+    background-size: 1.2rem;
+    background-repeat: no-repeat; }
+    .container .currency select:focus, .container .currency select:hover, .container .currency select:active {
+      color: rgba(0, 0, 0, 0);
+      text-shadow: 0px 0px #000; }
+  .container .currency input {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+    appearance: textfield;
+    border: none;
+    background: transparent;
+    text-align: right;
+    font-size: 2rem; }
+  .container .swap-rate-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; }
+    .container .swap-rate-container .rate {
+      font-size: 1.2rem;
+      color: #5fbaa7; }
