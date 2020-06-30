@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
-$col-bgd: #dce5f1;
-$col-wht: #fff;
-$col-txt: #7c7c84;
-$col-btn: #53add0;
-$col-gry_lt: #ebeff2;
-$col-brd: #c7ecf4;
+
+@import "./submit_form_col";
+@import "./recaptcha";
+@import "./btn_animation";
+
 
 * {
     box-sizing: border-box;
@@ -29,25 +28,6 @@ body {
     color: $col-txt;
 }
 
-@mixin animate-btn {
-
-    
-    
-    &:hover {        
-        transform: translateY(-.25rem);
-        box-shadow: 0 .5rem .8rem rgba($color: $col-txt, $alpha: .5);
-        
-    }
-
-
-    &:active {        
-        transform: translateY(-.125rem);
-        box-shadow: 0 .25rem .4rem rgba($color: $col-txt, $alpha: .5);
-        border: 0;
-
-    }
-
-}
 
 
 .container-form {
@@ -126,6 +106,13 @@ body {
         @include animate-btn();
     }
 }
+
+.error-message{
+    list-style: none;
+    font-size: 1.2rem;
+    color: crimson;
+  }
+
 
 
 

@@ -1,4 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+.g-recaptcha {
+  -moz-transform: scale(86%);
+  -ms-transform: scale(86%);
+  -o-transform: scale(86%);
+  -moz-transform-origin: 0;
+  -ms-transform-origin: 0;
+  -o-transform-origin: 0;
+  -webkit-transform: scale(86%);
+  transform: scale(86%);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0;
+  filter: progid:DXImageTransform.Microsoft.Matrix(M11=86%,M12=0,M21=0,M22=86%,SizingMethod='auto expand');
+  margin-bottom: 2rem; }
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -71,31 +85,8 @@ body {
       transform: translateY(-0.125rem);
       box-shadow: 0 0.25rem 0.4rem rgba(124, 124, 132, 0.5);
       border: 0; }
-    .error-message{
-      list-style: none;
-      font-size: 1.2rem;
-      color: crimson;
-    }
 
-
-    :root{
-      --rech-wtd: 86%;
-    }
-    .g-recaptcha{
-      -moz-transform:scale(var(--rech-wtd));
-      -ms-transform:scale(var(--rech-wtd)); 
-      -o-transform:scale(var(--rech-wtd)); 
-      -moz-transform-origin:0; 
-      -ms-transform-origin:0;
-      -o-transform-origin:0;
-      -webkit-transform:scale(var(--rech-wtd));
-      transform:scale(var(--rech-wtd));
-      -webkit-transform-origin:0 0;
-      transform-origin:0;
-      filter: progid:DXImageTransform.Microsoft.Matrix(M11=var(--rech-wtd),M12=0,M21=0,M22=var(--rech-wtd),SizingMethod='auto expand');
-      margin-bottom: 2rem;
-      
-
-  }
-  
-  
+.error-message {
+  list-style: none;
+  font-size: 1.2rem;
+  color: crimson; }

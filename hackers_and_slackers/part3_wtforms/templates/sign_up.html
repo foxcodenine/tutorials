@@ -3,43 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Contact Form</title>
 </head>
 <body>
     <div class="container-form">
-        <form action="#">
+        <form action="{{ url_for('signup')}}" method="POST" novalidate>
+
+            {{ form.csrf_token }}
+
             <div class="title">
                 <h1>Sign Up</h1>
                 <hr>
-            </div>
-        
+            </div>        
     
-        <label for="inp-email">Email</label>
-        <input type="text" name="inp-email" id="inp-email" class="btn btn-email">
-    
-        <label for="inp-password1">Password</label>
-        <input type="password" name="inp-password" id="inp-password" class="btn btn-password">
+            <!-- <label for="inp-email">Email</label>
+            <input type="text" name="inp-email" id="inp-email" class="btn btn-email"> -->
+            {{ form.email.label() }} {{ form.email(class="btn btn-email") }}
         
-        <label for="inp-password2">Repeat Password</label>
-        <input type="password" name="inp-password2" id="inp-password2" class="btn btn-password">
-        
+            <!-- <label for="inp-password1">Password</label>
+            <input type="password" name="inp-password" id="inp-password" class="btn btn-password"> -->
+            {{ form.password.label() }} {{ form.password(class="btn btn-password") }}
+            
+            <!-- <label for="inp-password2">Repeat Password</label>
+            <input type="password" name="inp-password2" id="inp-password2" class="btn btn-password"> -->
+            {{ form.repeat_password.label() }} {{ form.repeat_password(class="btn btn-password") }}
+            
 
-        <label for="inp-gender">Gender</label>
-        <select name="inp-gender" id="inp-gender" class="btn btn-select">
-            <option value="mr">Male</option>
-            <option value="mr">Female</option>
-            <option value="mr">Other</option>
-        </select>
+            <!-- <label for="inp-gender">Gender</label>
+            <select name="inp-gender" id="inp-gender" class="btn btn-select">
+                <option value="mr">Male</option>
+                <option value="mr">Female</option>
+                <option value="mr">Other</option>
+            </select> -->
 
-        <label for="inp-website">Website</label>
-        <input type="text" name="inp-website" id="inp-website" class="btn btn-website">
+            {{ form.gender.label }} {{ form.gender(class="btn btn-select") }}
 
-        <label for="inp-bday">Your Birthday</label>
-        <input type="date" name="inp-bday" id="inp-bay" class="btn btn-bday">
+            <!-- <label for="inp-website">Website</label>
+            <input type="text" name="inp-website" id="inp-website" class="btn btn-website"> -->
 
+            {{ form.website.label }} {{ form.website(class="btn btn-website") }}
 
-        <input type="submit" value="Submit" class="btn btn-sub">
+            <!-- <label for="inp-bday">Your Birthday</label>
+            <input type="date" name="inp-bday" id="inp-bay" class="btn btn-bday"> -->
+
+            {{ form.birthday.label }} {{ form.birthday(class="btn btn-bday") }}
+
+            {{ form.recaptcha(class="g-recaptcha") }}
+
+            <input type="submit" value="Submit" class="btn btn-sub">
+
+            {# <!-- {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class="error-message">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %} --> #}
+            
+            
+            {% if form.email.errors or form.password.errors or form.repeat_password.errors or form.gender.errors or form.website.errors or form.birthday.errors or form.recaptcha.errors %}
+            <ul class="error-message">
+                    {% for error in form.email.errors %} <li>{{ error }}</li> {% endfor %}
+                    {% for error in form.password.errors %} <li>{{ error }}</li> {% endfor %}
+                    {% for error in form.repeat_password.errors %} <li>{{ error }}</li> {% endfor %}
+                    {% for error in form.gender.errors %} <li>{{ error }}</li> {% endfor %}
+                    {% for error in form.website.errors %} <li>{{ error }}</li> {% endfor %}
+                    {% for error in form.birthday.errors %} <li>{{ error }}</li> {% endfor %}
+                    {% for error in form.recaptcha.errors %} <li>{{ error }}</li> {% endfor %}
+                </ul>
+            {% endif %}
+            
         </form>
     </div>
 </body>
