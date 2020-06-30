@@ -1,0 +1,17 @@
+
+$rech-wtd: 86%;
+
+.g-recaptcha{
+    -moz-transform:scale($rech-wtd);
+    -ms-transform:scale($rech-wtd); 
+    -o-transform:scale($rech-wtd); 
+    -moz-transform-origin:0; 
+    -ms-transform-origin:0;
+    -o-transform-origin:0;
+    -webkit-transform:scale($rech-wtd);
+    transform:scale($rech-wtd);
+    -webkit-transform-origin:0 0;
+    transform-origin:0;
+    filter: progid:DXImageTransform.Microsoft.Matrix(M11=#{$rech-wtd},M12=0,M21=0,M22=#{$rech-wtd},SizingMethod='auto expand');
+    margin-bottom: 2rem;   
+}
