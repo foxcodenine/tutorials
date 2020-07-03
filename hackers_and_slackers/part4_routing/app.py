@@ -11,9 +11,24 @@
 
 # Python List insert()
 # https://www.programiz.com/python-programming/methods/list/insert
+
+# Add response headers to flask web app
+# https://stackoverflow.com/questions/29464276/add-response-headers-to-flask-web-app
+# 
+# Generic Exception Handlers
+# https://flask.palletsprojects.com/en/1.1.x/errorhandling/
+# https://flask.palletsprojects.com/en/1.1.x/patterns/errorpages/
+# https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vii-error-handling
+#
+
+# https://pythonise.com/series/learning-flask
 # ______________________________________________________________________
 
-from flask import Flask, redirect, request, render_template, jsonify, make_response
+from flask import Flask, redirect, request, render_template, \
+jsonify, make_response, url_for, g, send_from_directory
+
+from werkzeug.exceptions import HTTPException
+import os
 
 # ______________________________________________________________________
 
@@ -39,7 +54,7 @@ def index():
 # ________________________________
 
 # Route HTTP Methods
-@app.route('/api/v1/users', methods=['GET', 'POST', 'PUT'])
+@app.route('/api/v1/users/', methods=['GET', 'POST', 'PUT'])
 def users():
     users_data = [
         {
@@ -135,7 +150,7 @@ def message():
         message = file.read()
 
     return render_template('hello_world.html',title=title ,message=message)
-# ______________________________________________________________________
+# ________________________________
 
 # Making a Response Object
 
@@ -154,7 +169,105 @@ def test_response():
 
     return response
 
+# ________________________________
 
+# The Request Object
+
+
+# Using request.args.get('****’)
+@app.route('/mail/', methods=['GET'])
+def mail():
+
+    if (
+        request.args.get('inp-subject') and 
+        request.args.get('inp-email') and
+        request.args.get('inp-message')
+    ):
+        data = request.args
+        print('Data >>',data)
+
+        
+        content = request.args.get('inp-subject')
+
+        body = [request.args.get('inp-message')]
+
+        return render_template('blank.html', content=content, body=body)
+
+    
+    return render_template('mail.html')
+
+
+# ________________________________
+
+@app.route('/contact/', methods=['POST', 'GET'])
+def contact():
+
+    if request.method == 'POST':
+
+        contact = request.form['inp-email']
+        body = [request.form['inp-name'], request.form['inp-message']]
+
+        return render_template('blank.html', content=contact, body=body)
+
+
+    return render_template('contact.html')
+
+
+# ________________________________
+
+# The "g" Object
+# Flask's g . "G" stands for "global. g is an object we can
+# attach values to.
+# ________________________________
+
+
+@app.errorhandler(HTTPException)
+def http_error_handler(e):
+
+    error_body = jsonify({
+        'code': e.code,
+        'name': e.name,
+        'description': e.description
+    })
+
+    response = make_response(
+        error_body,
+        e.code
+    )
+    response.headers['Content-Type'] = 'application/json'
+    response.headers['Code'] = e.code
+    response.headers['Error'] = e.name
+    response.headers['Description'] = e.description
+   
+
+    return response
+
+
+# ________________________________
+# Add response headers to render_template
+
+@app.route('/test_page')
+def test_page():
+    
+    resp = make_response(render_template( 
+                            'blank.html',
+                            content='Contebt-Security-Policy',
+                            body=['default-src\'self\'']))
+
+
+    resp.headers.add('Content-Security-Policy','default-src \'self\'')
+    resp.headers.add('Test_Header_','This_is_my_test_header!')
+    
+    return resp
+# ________________________________
+# Adding a favicon
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', 
+                               mimetype='image/vnd.microsoft.icon')
+# ______________________________________________________________________
 
 if __name__ == '__main__':
     app.run()
