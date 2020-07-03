@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_form.css') }}">
+    <title>Contact Form</title>
+</head>
+<body>
+    <div class="container-form">
+        <form action="{{ url_for('mail')}}" method="GET" novalidate>
+
+     
+
+            <div class="title">
+                <h1>Mail</h1>
+                <hr>
+            </div>        
+
+            <label for="inp-subject">Subject</label>
+            <input type="text" name="inp-subject" id="inp-subject" class="btn btn-subject">
+    
+            <label for="inp-email">Email</label>
+            <input type="text" name="inp-email" id="inp-email" class="btn btn-email">
+       
+        
+            <label for="inp-message">Message</label>           
+            <textarea name="inp-message" id="inp-message" cols="30" rows="10" class="btn btn-message"></textarea>
+                    
+      
+
+            <input type="submit" value="Submit" class="btn btn-sub">
+            
+            
+
+            
+        </form>
+    </div>
+</body>
+</html>
