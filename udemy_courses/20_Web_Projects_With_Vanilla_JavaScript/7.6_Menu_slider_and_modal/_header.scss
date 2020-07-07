@@ -1,0 +1,19 @@
+header {
+
+    background-color: $primary-col;
+    color: $white-col;
+    font-size: 2rem;
+    position: relative;
+    padding: 4rem 1.5rem;
+    text-align: center;
+
+    h1 {
+        font-family: $font-heading;
+        font-weight: 500;
+    }
+    
+    p {
+        margin: 3rem 0;
+    }    
+}
+
