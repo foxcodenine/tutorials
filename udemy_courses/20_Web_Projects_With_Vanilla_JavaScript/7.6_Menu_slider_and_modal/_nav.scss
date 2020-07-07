@@ -1,0 +1,52 @@
+
+nav {
+    background-color: $primary-col;
+    border-right: .2rem solid $border-1;
+    color: $white-col;
+
+    position: fixed;
+    width: 20rem;
+    height: 100vh;
+    z-index: 10;
+
+    transform: translateX(-110%);     
+    
+
+
+    .logo {
+        padding: 3rem 0;
+        text-align: center;
+
+        img {
+            height: 7.5rem;
+            width: 7.5rem;
+            border-radius: 5rem;
+        }
+    }
+
+
+    ul {
+        padding: 0;
+        list-style-type: none;
+        margin: 0;
+
+        li {
+            border-bottom: .2rem solid $border-1;
+            padding: 2rem;
+
+            &:first-of-type {
+                border-top: .2rem solid $border-1;
+            }
+        }
+
+        li a:link,
+        li a:visited  {
+            color: $white-col;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

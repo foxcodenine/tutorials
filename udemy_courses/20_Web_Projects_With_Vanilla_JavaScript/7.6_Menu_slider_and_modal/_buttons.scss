@@ -1,0 +1,28 @@
+button, 
+input[type='submit']{
+    background-color: $secondary-col;
+    border: 0;
+    border-radius: .5rem;
+    color: $white-col;
+    cursor: pointer;
+    padding: .8rem 1.2rem;
+    font-size: 1.6rem;
+
+    &:focus {
+        outline: none;
+    }
+
+    &.toggle {
+        background-color: $toggle-col;
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        transform: scale(.7);
+    }
+
+    &.cta-btn {
+        padding: 1.2rem, 3rem;
+        font-size: 2rem;
+        transform: scale(.9);
+    }
+}
