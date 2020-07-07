@@ -1,0 +1,72 @@
+.modal-container {
+    background-color: $background-col-model;
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.modal {
+    background-color: $white-col;
+    border-radius: .5rem;
+    box-shadow: 0 0 1rem $background-col-model;
+    
+    position: absolute;
+    overflow: hidden;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    max-width: 100%;
+    width: 40rem;
+
+    &-header {
+        background-color: $primary-col;
+        padding: 1.5rem;
+        color: $white-col;
+
+        h3 {
+            margin: 0;
+            border-bottom: .1rem solid #333;
+        }
+    }
+
+    &-content {
+        padding: 2rem;
+    }
+
+    &-form {
+        
+        div {
+            margin: 1.5rem 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: .5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: .8rem;
+        }
+    }
+    
+    .close-btn {
+        background-color: transparent;
+        font-size: 2.5rem;
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        font-weight: 500;
+    }
+
+    h3 {
+        font-family: $font-heading;
+        font-weight: 500;
+        font-size: 2.5rem;
+    }
+}
