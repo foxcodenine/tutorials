@@ -8,6 +8,10 @@
     left: 0;
 }
 
+.modal-container.show-modal {
+    display: block;
+}
+
 .modal {
     background-color: $white-col;
     border-radius: .5rem;
@@ -21,6 +25,9 @@
 
     max-width: 100%;
     width: 40rem;
+
+    animation-name: modal_open;
+    animation-duration: $modal-dur;
 
     &-header {
         background-color: $primary-col;
@@ -68,5 +75,19 @@
         font-family: $font-heading;
         font-weight: 500;
         font-size: 2.5rem;
+    }
+}
+
+
+
+
+
+@keyframes modal_open {
+    
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
