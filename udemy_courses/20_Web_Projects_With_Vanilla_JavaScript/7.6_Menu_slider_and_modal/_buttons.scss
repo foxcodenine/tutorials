@@ -25,4 +25,5 @@ input[type='submit']{
         font-size: 2rem;
         transform: scale(.9);
     }
+    @include animate-btn();
 }

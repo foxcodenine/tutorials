@@ -1,0 +1,17 @@
+@mixin animate-btn {
+        
+    &:hover {        
+        transform: translateY(-.25rem);
+        box-shadow: 0 .5rem .8rem rgba($color: $col-txt, $alpha: .5);
+        
+        
+    }
+
+    &:active {        
+        transform: translateY(-.125rem);
+        box-shadow: 0 .25rem .4rem rgba($color: $col-txt, $alpha: .5);
+        border: 0;
+        
+    }
+
+}

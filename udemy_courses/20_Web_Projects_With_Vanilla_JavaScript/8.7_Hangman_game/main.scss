@@ -1,0 +1,68 @@
+
+@import './variables';
+@import './base';
+@import './typography';
+@import './mixin';
+@import './components';
+@import './layouts';
+
+/* __________________________________________________________________ */
+
+.popup-container {
+    background-color: rgba($col-blk, .4);
+    position: fixed ;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex; 
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .popup {
+        background-color: $col-blu-lt;
+        border-radius: .5rem;
+        box-shadow: 0 1rem 1rem .2rem rgba($col-blk, .1) ;
+        padding: 2rem;
+        text-align: center;
+
+        button {
+            cursor: pointer;
+            border: 0;
+            padding: 1.2rem 2rem;
+            color: $col-blu-lt;
+            background-color: $col-wht;
+            font-size: 1.6rem;
+            font-weight: 500;
+            margin-top: 1rem;
+
+            @include button_animation;
+        }
+    }
+}
+
+.notification-container {
+    background-color: rgba($col-blk, .3);
+    border-radius: 1rem 1rem 0 0;
+    padding: 1.5rem 2rem;
+    position: absolute;
+    bottom: -5rem;
+    transition: all 0.3s ease-in-out;
+
+    p {
+        margin: 0;
+    }
+
+    &.show {
+        transform: translateY(-5rem);
+    }
+}
+
+
+
+
+
+
+

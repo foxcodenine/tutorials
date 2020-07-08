@@ -1,0 +1,16 @@
+@mixin button_animation {
+    &:hover{
+        transform: scale(1.05);
+        box-shadow: 0 1rem 1rem .2rem rgba($col-blk, .1) ;
+    
+    }
+    &:active{
+        transform: scale(.98);
+        box-shadow: 0 1rem 1rem .1rem rgba($col-blk, .1) ;
+    
+    }
+    
+    &:focus{
+        outline: 0;
+    }
+}

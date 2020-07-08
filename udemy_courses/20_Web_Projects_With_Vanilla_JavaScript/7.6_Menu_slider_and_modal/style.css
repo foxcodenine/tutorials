@@ -11,7 +11,11 @@ body {
   font-size: 1.6rem;
   font-family: 'lato', sans-serif;
   margin: 0;
-  padding: .3rem; }
+  padding: .3rem;
+  transition: all .2s; }
+
+.body-show-nav {
+  transform: translateX(20.3rem); }
 
 .background {
   background-color: #f7f7f7; }
@@ -24,7 +28,7 @@ nav {
   width: 20rem;
   height: 100vh;
   z-index: 10;
-  transform: translateX(-110%); }
+  transform: translateX(-20.3rem); }
   nav .logo {
     padding: 3rem 0;
     text-align: center; }
@@ -86,6 +90,15 @@ input[type='submit'] {
     padding: 1.2rem, 3rem;
     font-size: 2rem;
     transform: scale(0.9); }
+  button:hover,
+  input[type='submit']:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.5); }
+  button:active,
+  input[type='submit']:active {
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.25rem 0.4rem rgba(0, 0, 0, 0.5);
+    border: 0; }
 
 .modal-container {
   background-color: rgba(0, 0, 0, 0.6);
@@ -95,6 +108,9 @@ input[type='submit'] {
   right: 0;
   bottom: 0;
   left: 0; }
+
+.modal-container.show-modal {
+  display: block; }
 
 .modal {
   background-color: #fff;
@@ -106,7 +122,9 @@ input[type='submit'] {
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 100%;
-  width: 40rem; }
+  width: 40rem;
+  animation-name: modal_open;
+  animation-duration: 1s; }
   .modal-header {
     background-color: #30336b;
     padding: 1.5rem;
@@ -136,6 +154,12 @@ input[type='submit'] {
     font-family: "Raleway";
     font-weight: 500;
     font-size: 2.5rem; }
+
+@keyframes modal_open {
+  0% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
 
 .container {
   padding: 1.5rem;
