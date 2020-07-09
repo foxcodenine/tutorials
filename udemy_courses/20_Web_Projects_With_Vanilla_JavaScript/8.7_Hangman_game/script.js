@@ -11,7 +11,7 @@ const elem = {
 
 // _____________________________________________________________________
 
-
+// Select a random word from a n array of strings
 function randomSelecator(arr) {
     let selectWord = arr[Math.floor(Math.random() * arr.length)];
     return selectWord;
@@ -20,6 +20,7 @@ function randomSelecator(arr) {
 
 // __________________________
 
+// Display guessed letters
 function displayWord(word, correntLetters) {
     let formatedString = ''
     word.split('').forEach((letter) => {
@@ -36,6 +37,7 @@ function displayWord(word, correntLetters) {
 
 // __________________________
 
+// Check if all letters has been guessed
 function checkWon(selectedWord) {
     const innerWord = elem.wordEL.innerText.replace(/\n/g, '');
     
@@ -47,8 +49,8 @@ function checkWon(selectedWord) {
 }
 // ____________________________
 
+// Check if there are more that 5 wrong guesses
 function checkLost(wrongLetters, word) {
-
     
     if (wrongLetters.length >= 6) {
 
@@ -60,7 +62,7 @@ function checkLost(wrongLetters, word) {
 }
 // ____________________________
 
-
+// Check if user has pressed a key
 function checkKey(e) {
     if (e.keyCode >= 65 && e.keyCode <= 90) {
         return true
@@ -83,6 +85,8 @@ function showNotification(letter) {
 
 // ____________________________
 
+
+// Add wrong lettes to UI
 function updateWrong(wrongLetters) {
     
     
@@ -97,6 +101,10 @@ function updateWrong(wrongLetters) {
     }
 }
 
+// ____________________________
+
+
+// Update image UI
 function updateImage(wrongLetters) {
 
     
@@ -113,7 +121,6 @@ function updateImage(wrongLetters) {
 
 function controller() {
     
-
     const words = ['cardano', 'python', 'christopher', 'programming', 'wizard']
     let myCorrentLetters = [];
     let myWrongLetters = [];
