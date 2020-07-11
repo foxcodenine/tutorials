@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    padding: 5rem;
+}
+
+.hello {
+    cursor: pointer;
+    color: crimson;
+    border: 1px solid crimson;
+    padding: .8rem 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.output {
+    max-width: 80rem;
+    text-align: justify;
+}
+
+h3 {
+    margin-bottom: 1rem;
+    text-transform: capitalize;
+    text-decoration: underline;
+}
