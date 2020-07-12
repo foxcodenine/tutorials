@@ -3,6 +3,8 @@
 
 // _____________________________________________________________________
 
+// Get DOM Elements
+
 const elem = {
     search: document.getElementById('search'),
     submit: document.getElementById('submit'),
@@ -19,7 +21,7 @@ let state = {};
 
 /*__________________________MODEL_FUNCTIONS__________________________*/
 
-// Search meal and fetch fro API
+// Search meals and fetch from API
 async function searchMeal(e) {
     e.preventDefault();
 
@@ -41,6 +43,8 @@ async function searchMeal(e) {
 
 // _____________________________
 
+// Get Recipe ID from UI
+
 function getRecipeID(e) {
     
     const infoDiv = e.target.matches('h3') ? e.target.parentElement : e.target;
@@ -50,13 +54,16 @@ function getRecipeID(e) {
     return ID;
 }
 
+// _____________________________
+
+// Get and fetch single meal data by ID from API
 
 async function getMealByID(ID) {
 
     const respons = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${ID}`);
     const dataObject = await respons.json();
 
-    return dataObject.meals[0]
+    return dataObject.meals[0];
 
 
 }
@@ -70,6 +77,8 @@ async function getRandomMeal() {
 
 /*__________________________VIEW_FUNCTIONS___________________________*/
 
+// Render Search Heading in UI
+
 function renderHeading(search) {
 
     // Check for empty search
@@ -81,6 +90,8 @@ function renderHeading(search) {
     }
 }
 // _____________________________
+
+// Render fetched Meals in UI
 
 function renderMeals(dataObject) {
     // console.log(dataObject);
@@ -106,11 +117,15 @@ function renderMeals(dataObject) {
 }
 // _____________________________
 
+// Clear UI
+
 function clearSearch() {
     elem.search.value = '';
 }
 
 // _____________________________
+
+// Render Single meal in UI
 
 function renderSingleMeal(meal) {
 
@@ -168,6 +183,7 @@ function controller() {
 
     // Events listeners
 
+    // Search input meals and render response
     elem.submit.addEventListener('submit', async (e) => {
         
         const [data, term] = await searchMeal(e);
@@ -177,7 +193,7 @@ function controller() {
     });
 
 
-
+    // Sealect meal from UI and render in UI
     elem.mealsEl.addEventListener('click', async (e) => { 
 
         const ID = getRecipeID(e);
@@ -188,6 +204,7 @@ function controller() {
         renderSingleMeal(data)
     });
 
+    // Get a rendom meal and render in UI
     elem.random.addEventListener('click', async () => {
 
         const randMeal = await getRandomMeal();
