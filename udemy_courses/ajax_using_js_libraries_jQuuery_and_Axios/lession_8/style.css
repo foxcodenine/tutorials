@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; }
+
+html {
+  font-size: 62.5%; }
+
+body {
+  font-size: 1.6rem;
+  font-family: 'lato', sans-serif; }
+
+.container {
+  position: relative;
+  max-width: 100%;
+  min-height: 60rem; }
+
+.form {
+  width: 30rem;
+  background-color: #006666;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: .5rem;
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: #fff; }
+  .form .form-text h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem; }
+  .form .form-text p {
+    font-size: 1.4rem;
+    padding: 0 2rem;
+    margin-bottom: 3rem; }
+  .form .form-input {
+    margin-bottom: 2rem;
+    padding: 1.2rem .4rem;
+    border: .1rem solid #f7f7f7;
+    border-radius: .5rem; }
+    .form .form-input:hover, .form .form-input:active, .form .form-input:focus {
+      border: 0.1rem solid #ff4e5d; }
+  .form .text-sub {
+    font-size: 1.4rem;
+    margin-bottom: 4rem; }
+    .form .text-sub .fas.fa-lock {
+      color: #f9e79f; }
+  .form button {
+    cursor: pointer;
+    background-color: #302f2f;
+    color: #fff;
+    border: 0;
+    border-radius: .5rem;
+    padding: 1.5rem;
+    font-size: 1.6rem;
+    font-weight: 500; }
+    .form button:hover {
+      transform: translateY(-0.5rem);
+      box-shadow: 0 1rem 1rem rgba(48, 47, 47, 0.5); }
+    .form button:active {
+      transform: translateY(-0.2rem);
+      box-shadow: 0 0.5rem 0.5rem rgba(48, 47, 47, 0.5); }
+
+.output {
+  position: absolute;
+  bottom: 5rem;
+  padding: 0 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; }
+  .output p {
+    color: #ff4e5d; }
