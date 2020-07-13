@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+$box-shd: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+$col-bgd-bdy: #f7f7f7;
+
+$col-bdr-dk: #bbb;
+$col-bdr-lt: #dedede;
+
+$col-wht: #fff;
+$col-blk: #000;
+$col-red-01: #c0392b;
+$col-red-02: #ff4e5d;
+$col-grn-01: #2ecc71;
+$col-grn-02: #006666;
+$col-ppl-01: #9c88ff;
+$col-gry-01: #333;
+$col-org-01: #e74c3c;
+$col-ylw-01: #f9e79f;
+$col-brw-01: #302f2f;
+
+
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: 'lato', sans-serif;
+    margin: 0;
+
+    background-color: $col-bgd-bdy;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;    
+}
+
+
+@import './mixin';
+
+.container {
+    margin: 3rem auto;
+    width: 35rem;
+
+    h1 {
+        letter-spacing: .1rem;
+        margin: 0;
+    }
+
+    h3 {
+        border-bottom: .1rem solid $col-bdr-dk;
+        padding: 0 0 1rem 0;
+        margin: 4rem 0 1rem;
+    }
+
+    h4 {
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    .inc-exp-container {
+        background-color: $col-wht;
+        box-shadow: $box-shd;
+        padding: 2rem 1.5rem;
+
+        display: flex;
+        justify-content: space-between;
+        
+        margin: 2rem 0;
+
+
+        div {
+            flex: 1;
+            text-align: center;
+
+            &:first-of-type {
+                border-right: .1rem solid $col-bdr-lt;
+            }
+
+
+            .money {
+                font-size: 2rem;
+                letter-spacing: .1rem;
+                margin: .5rem 0; 
+
+                &.plus {
+                    color: $col-grn-01;
+                }                
+                &.minus {
+                    color: $col-red-01;
+                }
+            }
+        }
+    }  
+
+    ul.list {
+        list-style: none;
+        margin: 0 0 4rem 0;
+        padding: 0;
+
+        li {
+            background-color: $col-wht;
+            box-shadow: $box-shd;
+            color: $col-gry-01;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            padding: 1rem;
+            margin: 1rem 0;
+
+            &.plus {
+                border-right: .5rem solid $col-grn-01;
+            }
+            &.minus {
+                border-right: .5rem solid $col-red-01;
+            }
+
+            button.delete-btn {
+                position: absolute;
+                left: 0;
+                top: 50%;
+                transform: translate(-100%, -50%);
+
+                border: 0;
+                color: $col-wht;
+                background-color: $col-org-01;
+                font-size: 2rem;
+                line-height: 2rem;
+                padding: .2rem .5rem;
+
+                opacity: 0;
+                transition: all .3s ease-in-out;
+
+                cursor: pointer;
+            }
+
+            &:hover button.delete-btn {
+                opacity: 1;
+            }
+        }
+    }
+    
+    .form-controler {
+
+        label {
+            display: inline-block;
+            margin: 1rem 0;
+        }
+        input {            
+            display: block;
+            border: .1rem solid $col-bdr-lt;
+            border-radius: .2rem;
+            font-size: 1.6rem;
+            padding: 1rem;
+            width: 100%;
+        }
+    }
+
+    .btn {
+        background-color: $col-ppl-01;
+        color: $col-wht;
+        border: 0;
+        border-radius: .2rem;
+        padding: 1rem;
+        width: 100%;
+        box-shadow: $box-shd;
+        margin: 1rem 0 3rem 0;
+        display: block;
+        font-size: 1.6rem;
+
+        @include button_animation_2;
+    }
+
+    .btn:focus,
+    .delete-btn:focus {
+        outline: 0;
+    }
+}
+
