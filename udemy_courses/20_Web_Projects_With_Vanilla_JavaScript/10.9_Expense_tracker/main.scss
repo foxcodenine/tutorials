@@ -161,6 +161,10 @@ body {
             font-size: 1.6rem;
             padding: 1rem;
             width: 100%;
+
+            &:focus {
+                border: .2rem solid $col-ppl-01;
+            }
         }
     }
 

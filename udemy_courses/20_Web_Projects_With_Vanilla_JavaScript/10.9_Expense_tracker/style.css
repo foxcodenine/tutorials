@@ -92,6 +92,8 @@ body {
     font-size: 1.6rem;
     padding: 1rem;
     width: 100%; }
+    .container .form-controler input:focus {
+      border: 0.2rem solid #9c88ff; }
   .container .btn {
     background-color: #9c88ff;
     color: #fff;
