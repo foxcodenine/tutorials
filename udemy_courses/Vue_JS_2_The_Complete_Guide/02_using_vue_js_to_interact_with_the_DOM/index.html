@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Chapter_02</title>
+</head>
+<body>
+    <div id="app1">
+        <p>{{ title }}</p>
+    </div>
+
+    <hr>
+
+    <div id="app2">
+        <p>{{ sayHello() }}</p>
+    </div>
+
+    <hr>
+
+    <div id="app3">
+        <p>{{ repeat() }}</p>
+    </div>
+
+    <hr>
+
+    <div id="app4">
+        <p><a v-bind:href="link">{{ text }}</a></p>
+    </div>
+
+    <hr>
+
+    <div id="app5">
+        <p v-once>{{ title }}</p>
+        <p>{{ overwrite() }}</p>
+    </div>
+
+    <hr>
+
+    <div id="app6">
+        <p v-html="finishedLink"></p>        
+    </div>
+
+    <hr>
+
+    <div id="app7">
+        <button v-on:click="increase"> Click Me </button>
+        <h4>{{ counter }}</h4>
+    </div>
+
+    <hr>
+
+    <div id="app8">
+        <h4 v-on:mousemove="curserPosition">Screen Cordinates: {{x}} / {{y}}</h4>
+    </div>
+
+    <hr>
+
+    <div id="app9">
+        <button v-on:click='addTwo(2, $event)'>Add 2</button>
+        <h4>{{ twoClicks }}</h4>
+    </div>
+
+    <hr>
+
+    <div id="app10" v-on:mousemove='updateCoordinates'>
+        <div class="deadspot" v-on:mousemove='dummy'>
+            <p>Coordinates: {{x}}/{{y}}</p>
+        </div>        
+        <div class="deadspot" v-on:mousemove.stop=''>
+            <p>Coordinates: {{x}}/{{y}}</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <div id="app11">
+        <form v-on:submit.prevent='submitForm'>
+            <button>Press Me</button>
+            <h4>{{ d }}</h4>
+        </form>
+    </div>
+
+    <hr>
+
+    <div id="app12">
+        <p>An Alert will popup if enter or space are pressed in this input!</p>
+        <input type="text" v-on:keyUp.enter.space='alertMe'>
+    </div>
+
+    <script src="./vue.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>

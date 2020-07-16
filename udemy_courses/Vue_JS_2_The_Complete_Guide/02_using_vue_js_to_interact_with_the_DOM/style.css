@@ -1,0 +1,71 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 2rem;
+}
+
+hr {
+    margin: 2rem 0;
+    font-size: 1rem;
+    border: 0;
+    border-top: 1px solid red;
+}
+
+
+button {
+    border: 0;
+    background-color: rgb(58, 197, 77);
+    color: #fff;
+    padding: 1rem 2rem;
+    margin-bottom: 2rem;
+}
+
+button:hover {
+    transform: translateY(-1rem);
+}
+button:active {
+    transform: translateY(-.5rem);
+}
+
+
+#app10 {
+    border: 1px dashed navy;
+    width: 100vw;
+    height: 20rem;
+    padding: 5rem 15rem;
+}
+
+.deadspot {
+    width: 100%;
+    height: 50%;
+    border: 1px dashed crimson;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+ 
+}
+.deadspot:not(:last-child) {
+    margin-bottom: 1rem;
+    border: 1px dashed olivedrab;
+}
+
+input {
+
+
+    border: 1px solid rgb(58, 197, 77);
+    color: #535353;
+    padding: 1rem 2rem;
+    margin: 2rem 0;
+
+}
