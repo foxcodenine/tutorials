@@ -1,0 +1,47 @@
+.media-close {
+    /* border: 1px solid red; */
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    padding: 0px;
+    margin: 0;
+    width: 100%;
+    /* display: none; */
+    text-align: right;
+    opacity: 0;
+    outline: 0 !important;
+}
+
+.media-close p {
+    font-size: 30px;
+    color: rgba(0, 0, 0, .7);
+    margin: -5px 7px;
+    cursor: pointer;       
+}
+
+
+.media-close p:hover {
+
+    color: crimson;
+    
+}
+.media-close p:active {
+
+    color: rgba(0, 0, 0, .7);
+   
+}
+
+
+.media-close:hover {
+    opacity: 1;
+    border-radius: 5px;
+}
+
+
+.media-close a:active,
+.media-close a:focus {
+    outline: 0 !important;
+
+}
