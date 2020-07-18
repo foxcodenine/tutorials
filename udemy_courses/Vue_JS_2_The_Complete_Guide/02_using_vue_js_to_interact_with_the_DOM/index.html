@@ -7,49 +7,50 @@
     <title>Chapter_02</title>
 </head>
 <body>
+    <h5>Vue element and data</h5>
     <div id="app1">
         <p>{{ title }}</p>
     </div>
 
-    <hr>
+    <hr> <h5>Vue methods</h5>
 
     <div id="app2">
         <p>{{ sayHello() }}</p>
     </div>
 
-    <hr>
+    <hr> <h5>Accessing Data in the View Instance</h5>
 
     <div id="app3">
         <p>{{ repeat() }}</p>
     </div>
 
-    <hr>
+    <hr> <h5>Binding to Attribute / Understanding and Using Directives</h5>
 
     <div id="app4">
         <p><a v-bind:href="link">{{ text }}</a></p>
     </div>
 
-    <hr>
+    <hr> <h5>Disabling Re-Rendering With v-once</h5>
 
     <div id="app5">
         <p v-once>{{ title }}</p>
         <p>{{ overwrite() }}</p>
     </div>
 
-    <hr>
+    <hr> <h5>Output raw HTML</h5>
 
     <div id="app6">
         <p v-html="finishedLink"></p>        
     </div>
 
-    <hr>
+    <hr> <h5>Listen to an Event</h5>
 
     <div id="app7">
         <button v-on:click="increase"> Click Me </button>
         <h4>{{ counter }}</h4>
     </div>
 
-    <hr>
+    <hr> <h5>Get Events Data from an Event Object</h5>
 
     <div id="app8">
         <h4 v-on:mousemove="curserPosition">Screen Cordinates: {{x}} / {{y}}</h4>
@@ -57,39 +58,142 @@
 
     <hr>
 
-    <div id="app9">
+    <div id="app9"> <h5>Passing Your own Arguments to an Event</h5>
         <button v-on:click='addTwo(2, $event)'>Add 2</button>
         <h4>{{ twoClicks }}</h4>
     </div>
 
-    <hr>
+    <hr> <h5>Modifying an Event with Event Modifiers (Stop)</h5>
 
     <div id="app10" v-on:mousemove='updateCoordinates'>
         <div class="deadspot" v-on:mousemove='dummy'>
-            <p>Coordinates: {{x}}/{{y}}</p>
+            <p>Screen Coordinates: {{screen.x}}/{{screen.y}}</p>
         </div>        
         <div class="deadspot" v-on:mousemove.stop=''>
-            <p>Coordinates: {{x}}/{{y}}</p>
+            <p>Client Coordinates: {{client.x}}/{{client.y}}</p>
         </div>
     </div>
 
-    <hr>
+    <hr> <h5>Modifying an Event with Event Modifiers (Prevent)</h5>
 
-    <div id="app11">
+    <div id="app11"> 
         <form v-on:submit.prevent='submitForm'>
             <button>Press Me</button>
             <h4>{{ d }}</h4>
         </form>
     </div>
 
-    <hr>
+    <hr> <h5>Listening To Keyboard Events</h5>
 
     <div id="app12">
         <p>An Alert will popup if enter or space are pressed in this input!</p>
         <input type="text" v-on:keyUp.enter.space='alertMe'>
     </div>
 
+    <hr>
+
+    <div id="app13"> <h5>Writing Javascript Code in Templates</h5>
+        <div style="display: inline-block;">
+            <button v-on:click='clickMe(2)'>Counter 1</button>
+            <p>{{ counter1 }}</p>
+        </div>
+        <div style="display: inline-block;">
+            <button v-on:click='counter2++'>Counter 2</button>
+            <p>{{ counter2 > 20 ? 'larger then 40' : counter2 * 2 }}</p>
+        </div>        
+    </div>
+
+    <hr> <h5>Two Way Binding</h5>
+    
+    <div id="app14">
+        <input type="text" v-model='name'>
+        <p>{{ name }}</p>
+    </div>
+
+    <hr> <h5>Computed Properties</h5>
+
+    <div id="app15">
+        <button v-on:click='counter++'>Increase</button>
+        <button v-on:click='counter--'>Decrease</button>
+        <button v-on:click='secondCounter++'>Second Increase</button>
+        <p>Counter: {{ counter }}</p>
+        <p>Second Counter:{{ secondCounter }}</p>
+        <p>Result: {{ resultCheck() }} | Computed: {{ output }}</p>
+        <br>
+    </div>
+
+    <hr> <h5>Watch Properties</h5>
+
+    <div class="" id="app16">
+        <button v-on:click="counter++">Increase</button>
+        <button v-on:click="counter--">Decrease</button>
+        <button v-on:click="toZero">Zero</button>
+        <p>{{ counter }}</p>
+        <p>Result is: {{ resultState }}!</p>
+    </div>
+
+    <hr> <h5>Vue shorthand</h5>
+
+    <div id="app17">
+        <p>{{ von }}</p>
+        <p>{{ vbind }}</p>
+    </div>
+
+    <hr> <h5>Dynamic Styling</h5>
+
+    <div id="app18">
+        <div class="box" v-on:mouseover='addRed = !addRed' v-bind:class="{'red': addRed}"></div>
+        <div class="box" @mouseover='addBlue = !addBlue' :class="{'blue': addBlue}"></div>
+        <div class="box" @mouseover='addGreen = !addGreen' :class="{'green' : addGreen}"></div>
+        <div class="box" @mouseover='addRed = !addRed' v-bind:class="{'red': addRed}"></div>
+        <div class="box" @mouseover='addBlue = !addBlue' :class="{'blue': addBlue}"></div>
+        <div class="box" @mouseover='addGreen = !addGreen' :class="{'green' : addGreen}"></div>
+    </div>
+
+    <hr> <h5>Dynamic Styling with CSS Classes</h5>
+
+    <div id="app19">
+        <div class="box" @click='addRed = !addRed' :class='switchOne'></div>
+        <div class="box" @click='addRed = !addRed' :class='switchTwo'></div>
+    </div>
+    
+    <hr> <h5>Dynamic Styling with CSS Classing using Names</h5>
+
+    <div id="app20">
+        <div class="flex_row">
+            <div class="box" :class="[box_color.toLowerCase(), {border_class: border_on}]"></div>
+            <input type="text" v-model:value="box_color">
+
+            <button v-on:click='border_on = !border_on'>Border</button>
+        </div>
+    </div>
+
+    <hr> <h5>Setting Styles Dynamically (without CSS Classes)</h5>
+    
+    <div id="app21">
+        <div class="flex_row">
+            <div class="box" :style="myStyle"></div>
+            <div class="box" style="margin-left: 2rem;" :style="{backgroundColor: myColor}"></div>
+            <input type="text" placeholder="Enter color" v-model='myColor'>
+            <input type="text" placeholder="Enter width" v-model='myWidth'>
+        </div>
+    </div>
+
+    <hr>
+
+    <div id="app22">
+        <div class="flex_row">
+            <div class="box" :style="[{backgroundColor: myColor}, {width: myWidth + myUnits}]"></div>
+            <input type="text" placeholder="Enter color" v-model='myColor'>
+            <input type="text" placeholder="Enter width" v-model='myWidth'>
+            <input type="text" placeholder="Enter units" v-model='myUnits'>
+        </div>
+    </div>
+
+    <hr>
     <script src="./vue.js"></script>
     <script src="./script.js"></script>
 </body>
 </html>
+
+
