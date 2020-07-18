@@ -1,3 +1,5 @@
+// Vue element and data
+
 new Vue({
     el: '#app1',
     data: {
@@ -6,6 +8,8 @@ new Vue({
 });
 
 // _____________________________________________________________________
+
+// Vue methods
 
 new Vue({
     el: '#app2',
@@ -17,6 +21,8 @@ new Vue({
 });
 
 // _____________________________________________________________________
+
+// Accessing Data in the View Instance 
 
 new Vue({
     el: '#app3',
@@ -32,6 +38,7 @@ new Vue({
 });
 
 // _____________________________________________________________________
+// Binding to Attribute / Understanding and Using Directives
 
 new Vue({
     el: '#app4',
@@ -42,6 +49,8 @@ new Vue({
 });
 
 // _____________________________________________________________________
+
+// Disabling Re-Rendering With v-once
 
 new Vue({
     el: '#app5',
@@ -58,6 +67,8 @@ new Vue({
 
 // _____________________________________________________________________
 
+// Output raw HTML:
+
 new Vue({
     el: '#app6',
     data: {
@@ -66,7 +77,7 @@ new Vue({
 });
 
 // _____________________________________________________________________
-
+// Listen to an Event:
 new Vue({
     el: '#app7',
     data: {
@@ -80,6 +91,8 @@ new Vue({
 });
 
 // _____________________________________________________________________
+
+// Get Events Data from an Event Object
 
 new Vue({
     el: ' #app8',
@@ -96,6 +109,7 @@ new Vue({
 });
 
 // _____________________________________________________________________
+// Passing Your own Arguments to an Event
 
 new Vue({
     el: '#app9',
@@ -112,17 +126,28 @@ new Vue({
 
 // _____________________________________________________________________
 
+// Modifying an Event with Event Modifiers
 
 new Vue({
     el: '#app10',
     data: {
-        x: 0,
-        y: 0
+        client:{
+            x: 0,
+            y: 0
+        },
+        screen: {
+            x: 0,
+            y: 0
+        }
+        
     },
     methods: {
         updateCoordinates: function(event) {
-            this.x = event.clientX;
-            this.y = event.clientY;
+            this.client.x = event.clientX;
+            this.client.y = event.clientY;
+            
+            this.screen.x = event.screenX;
+            this.screen.y = event.screenY;
         },
         dummy: function(event) {
             event.stopPropagation();
@@ -133,6 +158,7 @@ new Vue({
 
 // _____________________________________________________________________
 
+// Modifying an Event with Event Modifiers (Prevent)
 
 new Vue({
     el: '#app11',
@@ -148,7 +174,7 @@ new Vue({
 
 // _____________________________________________________________________
 
-
+//  Listening To Keyboard Events
 new Vue({
 
     el: '#app12',
@@ -163,3 +189,204 @@ new Vue({
     }
     
 });
+
+// _____________________________________________________________________
+
+// Writing Javascript Code in Template
+
+new Vue({
+    el: '#app13',
+    data: {
+        counter1: 0,
+        counter2: 0
+    },
+    methods: {
+        clickMe: function(step) {
+            this.counter1 += step;
+        }
+    }
+})
+
+// _____________________________________________________________________
+
+// Two Way Binding:
+
+new Vue({
+    el: '#app14',
+    data: {
+        name: 'Max'
+    }
+});
+
+// _____________________________________________________________________
+
+// Computed Properties
+// https://css-tricks.com/methods-computed-and-watchers-in-vue-js/
+
+new Vue({
+
+    el: '#app15',
+    data: {
+        counter: 0,
+        secondCounter: 0,
+        method_used: 0,
+        compute_used:0
+
+    },
+    computed: {
+        output :function() {  
+            console.log('used Computed')            
+            return this.counter >= 0 ? 'Positive Number' : 'Negative Number'
+            // Computed - They are cached based on dependency and only
+            // re-evaluate on dependency change.
+        }
+    },
+    methods: {  
+            
+        resultCheck :function() {  
+            console.log('used Method')            
+            return this.counter >= 0 ? 'Positive Number' : 'Negative Number'
+            // A method invocation will always run the function whenever
+            // a re-render happens
+        }
+    }
+});
+
+// _____________________________________________________________________
+
+new Vue({
+
+    el: '#app16',
+    data: {
+        counter: 0
+    },
+    computed: {
+        resultState: function() {
+
+            console.log('computed')
+
+            if (this.counter === 0 ) {
+                return 'Zero';
+            } else if (this.counter > 0) {
+                return 'Positive';
+            } else {
+                return 'Negative'
+            }
+        }
+    },
+
+    watch: {
+
+        counter: function(value) {
+
+            console.log('watch')
+            
+            var self = this;
+
+            setTimeout(function() {
+                self.counter = 0;
+            }, 3000);
+        }
+        // A watcher is a special Vue. js feature that allows you to spy
+        // on one property of the component state, and run a function
+        // when that property value changes.
+
+    },
+    methods: {
+        
+        toZero: function() {
+            console.log('method')
+            this.counter = 0;
+        }
+    }
+});
+
+
+// _____________________________________________________________________
+
+
+new Vue({
+    el: '#app17',
+    data: {
+        von: 'v-on  = @',
+        vbind: 'v-bind = :'
+    }
+});
+
+// _____________________________________________________________________
+
+// Dynamic Styling:
+new Vue({
+
+    el: '#app18',
+    data: {
+        addRed: false,
+        addBlue: false,
+        addGreen: false
+    }
+});
+
+// _____________________________________________________________________
+
+new Vue({
+
+    el: '#app19',
+    data: {
+        addRed: false,        
+    },
+    computed: {
+        switchOne: function() {
+            return {'red': this.addRed, 'yellow': !this.addRed }
+        },
+        switchTwo: function() {
+            return {'red': !this.addRed, yellow: this.addRed}
+        }
+    }
+});
+
+// _____________________________________________________________________
+
+
+new Vue({
+
+    el: '#app20',
+    data: {
+        box_color: 'yellow',
+        border_on: false
+    }
+
+});
+
+// _____________________________________________________________________
+
+
+new Vue({
+    el: '#app21',
+    data: {
+        myColor: 'red',
+        myWidth:  '10rem'
+    },
+    computed: {
+        myStyle: function() {
+            
+            return {
+                'backgroundColor': this.myColor,
+                'width': this.myWidth
+            }
+        }
+    }
+});
+
+// _____________________________________________________________________
+
+
+
+new Vue({
+
+    el:'#app22',
+    data: {
+        myColor: 'red',
+        myWidth: 10, 
+        myUnits: 'px'
+    }
+})
