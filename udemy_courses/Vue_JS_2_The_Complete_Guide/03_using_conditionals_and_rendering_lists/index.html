@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+        
+        <hr><h5>v-if and v-else</h5>
+
+        <div id="app1">
+            <button v-on:click='showMe = !showMe'>switch</button>
+            <p class="pikabu" v-if='showMe' >Now you see me! <img src="./img/icons8-pikabu1.svg" alt=""></p>
+            <p class="pikabu" v-else><img src="./img/icons8-pikabu2.svg" alt=""> Now you don't!</p>
+            
+        </div>
+        
+        <hr> <h5>Using an Alternative v-if Syntax (template)</h5>
+
+        <div id="app2">
+            <button v-on:click='changeMe = !changeMe'>change!</button>
+            <br>
+
+            <template v-if='changeMe'>
+                <img src="./img/007-lion.svg"  class="small-icon" width="100rem">
+                <img src="./img/007-lion.svg"  class="small-icon" width="100rem">
+                <img src="./img/007-lion.svg"  class="small-icon" width="100rem">
+            </template>
+            <template v-if='!changeMe'>
+                <img src="./img/030-elephant.svg"  class="small-icon" width="100rem">
+            </template>           
+
+        </div>
+        
+
+        <hr> <h5>v-show</h5>
+
+        <div id="app3">
+            <div class="box" v-on:mouseover='out_in= !out_in' v-show='out_in'>OUT</div>
+            <div class="box" v-on:mouseleave='out_in = !out_in' v-show='!out_in'>IN</div>
+        </div>
+
+        <hr><h5>v-if , v-if-else & v-else</h5>
+
+        <div id="app4">
+            <div>
+                <img v-if='pet === "cat"' src="./img/028-cat.svg" alt="" width="200rem">
+                <img v-else-if='pet === "dog"'src="./img/011-dog.svg" alt="" width="200rem">
+                <img v-else src="./img//050-goose.svg" alt="" width="200rem">
+            </div>
+            <button style="width: 8rem;" @click='pet = "cat"'>Cat</button>
+            <button style="width: 8rem;" @click='pet = "dog"'>Dog</button>
+            <button style="width: 8rem;" @click='pet = "duck"'>Duck</button>
+        </div>
+
+    
+    
+
+
+
+
+
+
+    </div>
+    <script src="./vue.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
