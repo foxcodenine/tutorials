@@ -8,20 +8,23 @@ window.addEventListener('click', e=>{
 
 
 
-// document.querySelector('.section-features').addEventListener('onoad', () => {
-//     document.querySelector('.feature-box').style['animation'] = 'movingInLeft 1s ease-out'})
+
+// _____________________________________________________________________
 
 
 
-
-let waypoint = new Waypoint({
-    element:document.querySelector('.row'),
+let waypoint_featureBox = new Waypoint({
+    element:document.querySelector('#row--features'),
     handler: function() {
+
+        
 
         let allBoxes = Array.from(document.querySelectorAll('.feature-box'));
 
-        let delayX = [0, 0, 250, 500, 750, 1000, 1250];
+        let timeDelay = [0, 0, 250, 500, 750, 1000, 1250];
         let i = 0;
+
+
         allBoxes.forEach(node=>{
 
             i += 1
@@ -29,17 +32,37 @@ let waypoint = new Waypoint({
             setTimeout(()=>{
                 node.style['animation'] = 'animationFeatureBox 1.5s ease'
                 node.style['display'] = 'block'
-                console.log (delayX)
-                
-            }, delayX[i])
-
-            
+                                
+            }, timeDelay[i])            
         })
-
-            console.log(allBoxes);
-
-        // document.querySelector('.feature-box, .icon-basic-compass').style['animation'] = 'animationFeatureBox 1.5s ease'
-        // document.querySelector('.feature-box .icon-basic-compass').style['display'] = 'block'
-
-    }
+    },
+    offset: '70%'
 })
+
+// _____________________________________________________________________
+
+const waypoint_card = new Waypoint({
+    element: document.querySelector('#row--cards'),
+    
+    handler: function() {
+        
+        let cards = Array.from(document.querySelectorAll('.card'));
+
+        let timeDelay = [0, 0, 250, 500, 750, 1000, 1250];
+        let i = 0;
+
+        cards.forEach(function(card){
+            
+            i += 1;
+
+            setTimeout(()=>{
+                
+                card.style['animation'] = 'animationFeatureBox 1.5s ease'
+                card.style['display'] = 'block'
+                
+            }, timeDelay[i]);
+        });
+    },
+    offset: '70%'
+
+});
