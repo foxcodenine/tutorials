@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue Introduction</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <hr>
+        <div  >
+            <p id="app_1" :style="myStyle" :title='message'>{{ test }}</p>
+        </div>
+
+        <hr>
+        
+        <div id="app_2">
+            <p>{{message}}</p>
+            <input type="text" placeholder="enter some text.." v-model="message">
+            <button @click='reverseMessage()'>revers message</button>
+        </div>
+
+        <hr>
+
+        <div id="app_3">
+            <ol>
+                <todo-item></todo-item>
+            </ol>
+        </div>
+
+        <hr>
+
+        <div id="app_4">
+            <ol>
+                <buy-items
+                    v-for='item in groceryList'
+                    v-bind:buy='item'
+                    v-bind:key='item.id'
+                ></buy-items>
+            </ol>
+        </div>
+
+
+
+    </div>
+
+    
+
+    <script src="./vue.js"></script>
+    <script src="./script.js"></script>
+</body>
+</html>
