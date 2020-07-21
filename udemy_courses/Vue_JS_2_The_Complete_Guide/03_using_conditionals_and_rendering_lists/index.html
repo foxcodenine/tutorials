@@ -57,8 +57,80 @@
             <button style="width: 8rem;" @click='pet = "duck"'>Duck</button>
         </div>
 
-    
-    
+
+
+        <hr> <h5>v-for</h5>
+
+        <div id="app5">
+            <ol>
+                <li v-for="ingredent in ingridents"> {{ ingredent }} </il>
+                </ol>
+        </div>
+
+        <hr> <h5>v-for, get current index</h5>
+
+        <div id="app6">
+            <ul>
+                <li v-for="(num, i)  in myNumbers">{{ num }} ({{ i }})</li>
+            </ul>
+        </div>
+
+        <hr> <h5>Alternative v-for (template)</h5>
+
+        <div id="app7">
+            <template v-for="(number, i) in myNumbers">
+                <h2>{{ number }}</h2>
+                <p>{{( i )}}</p>
+            </template>
+        </div>
+
+        <hr> <h5>Looping Through Objects</h5>
+        
+        <div id="app8">
+            <ul>
+                <li v-for="person in persons">
+                    <span v-for="value in person">{{ value }} </span>
+                </li>
+            </ul>
+
+            <br>
+            
+            <template v-for="food in foods">
+                <p v-for="(value, key, index) in food">{{ key }} : {{ value }} | ({{ index }})</p> 
+                <br>
+            </template>
+
+     
+        </div>
+
+        <hr> <h5>Looping Through Numbers</h5>
+
+        <div id="app9">
+            <p v-for="n in 10">{{ n }}</p>
+        </div>
+
+
+        <hr>
+
+        <div id="app10a">
+            <p>                
+                {{name}}
+            </p>
+           
+          
+                
+            <button v-on:click='changeMr()'> MR/MISS/MRS</button>
+
+            <label v-if='mr === 0'>MR <input v-on:keyup.enter='updateName($event)'  type="text" placeholder="enter your name.." key='male'></label>
+            <label v-else-if='mr === 1'>MISS <input v-on:keyup.enter='updateName($event)'  type="text" placeholder="enter your name.." key='female'></label>
+            <label v-else>MRS <input v-on:keyup.enter='updateName($event)' type="text" placeholder="enter your name.." key='female'></label>
+            
+            <span>Press Enter to Update</span>
+        
+              
+       
+        </div>
+   
 
 
 
