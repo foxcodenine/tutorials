@@ -30,17 +30,17 @@
             </div>
         </div>
     </section>
-    <section class="row controls" v-if='!gamesIsRunning'>
+    <section class="row controls" v-if='!gameIsRunning'>
         <div class="small-12 columns">
-            <button id="start-game">START NEW GAME</button>
+            <button id="start-game" v-on:click='startGame'>START NEW GAME</button>
         </div>
     </section>
     <section class="row controls" v-else>
         <div class="small-12 columns">
-            <button id="attack">ATTACK</button>
-            <button id="special-attack">SPECIAL ATTACK</button>
-            <button id="heal">HEAL</button>
-            <button id="give-up">GIVE UP</button>
+            <button id="attack" v-on:click='attack'>ATTACK</button>
+            <button id="special-attack" v-on:click='specialAttack' v-if='specialAttackOn()'>SPECIAL ATTACK</button>
+            <button id="heal" v-on:click='heal'>HEAL</button>
+            <button id="give-up" v-on:click='giveUp'>GIVE UP</button>
         </div>
     </section>
     <section class="row log">
