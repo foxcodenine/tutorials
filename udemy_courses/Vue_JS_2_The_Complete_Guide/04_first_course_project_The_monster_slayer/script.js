@@ -3,52 +3,62 @@ new Vue({
     data: {
         playerHealth: 00,
         monsterHealth: 00,
-        gameIsRunning: false
+        gameIsRunning: false,
+        turn: []
     },
     methods: {
         startGame: function() {
             this.gameIsRunning = true;
             this.playerHealth = 100;
             this.monsterHealth = 100;
+            this.turn = [];
         },
         attack: function() {
-            
-            this.monsterHealth -= this.calculateDamage(3, 10);            
+            const damage = this.calculateDamage(3, 10);
+            this.monsterHealth -= damage;            
 
             if (this.checkWin()) {
                 return;
             }
 
+            this.logTurn(true, 'Player hits Monster for', damage);
+            console.log(this.turn);
             this.monsterAttack();
         },
 
         specialAttack: function() {
-            this.monsterHealth -= this.calculateDamage(10, 20);            
+            const damage = this.calculateDamage(10, 20);
+            this.monsterHealth -= damage;            
 
             if (this.checkWin()) {
                 return;
             }
+
+            this.logTurn(true, 'Player hits Monster for', damage);
 
             this.monsterAttack();
         },
 
         heal: function() {
+            let heals;
             if (this.playerHealth >= 90) {
-                false;
+                heals = 0;
             } else if(this.playerHealth >= 70 ) {
-                this.playerHealth += 5
+                heals = 5;
             } else if(this.playerHealth >= 40) {
-                this.playerHealth += 8
+                heals = 8;
             } else if(this.playerHealth >= 5 ) {
-                this.playerHealth += 10
+                heals = 10;
             } else if(this.playerHealth >= 1 ) {
-                this.playerHealth += 25
+                heals = 25;
             }
+            this.playerHealth += heals;
+            this.logTurn(true, 'Player heals', heals);
             this.monsterAttack();
         },
 
         giveUp: function() {
-            console.log('giveUp')
+            this.gameIsRunning = false;
         },
 
         calculateDamage: function(min, max) {
@@ -85,8 +95,10 @@ new Vue({
         },
 
         monsterAttack: function() {
-            this.playerHealth -= this.calculateDamage(6, 14);
+            const damage = this.calculateDamage(6, 14);
+            this.playerHealth -= damage ;
             this.checkWin();
+            this.logTurn(false, 'Monster hits Player for', damage);
         },
 
         specialAttackOn: function() {
@@ -96,6 +108,26 @@ new Vue({
             } else {
                 return false;
             }
+        },
+
+        logTurn: function(player, text,  amount) {
+
+            const row = {
+                isPlayer: player,
+                text: `${text} ${amount} damage.`
+            }
+            console.log(row)
+            this.turn[this.turn.length] = row;
+ 
+            console.log(this.turn)
+
+        },
+
+        
+    },
+    filters: {
+        reverse: function(items) {
+            return items.reverse()
         }
     }
 });
