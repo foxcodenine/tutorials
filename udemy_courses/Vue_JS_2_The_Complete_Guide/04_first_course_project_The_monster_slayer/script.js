@@ -4,14 +4,14 @@ new Vue({
         playerHealth: 00,
         monsterHealth: 00,
         gameIsRunning: false,
-        turn: []
+        turns: []
     },
     methods: {
         startGame: function() {
             this.gameIsRunning = true;
             this.playerHealth = 100;
             this.monsterHealth = 100;
-            this.turn = [];
+            this.turns = [];
         },
         attack: function() {
             const damage = this.calculateDamage(3, 10);
@@ -22,7 +22,7 @@ new Vue({
             }
 
             this.logTurn(true, 'Player hits Monster for', damage);
-            console.log(this.turn);
+            console.log(this.turns);
             this.monsterAttack();
         },
 
@@ -34,9 +34,25 @@ new Vue({
                 return;
             }
 
-            this.logTurn(true, 'Player hits Monster for', damage);
+            this.logTurn(true, 'Player hits Monster hard for', damage);
 
             this.monsterAttack();
+        },
+
+        specialAttackOn: function() {
+
+            if (!(this.playerHealth % 6 && this.monsterHealth %6)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        monsterAttack: function() {
+            const damage = this.calculateDamage(6, 14);
+            this.playerHealth -= damage ;
+            this.checkWin();
+            this.logTurn(false, 'Monster hits Player for', damage);
         },
 
         heal: function() {
@@ -57,8 +73,22 @@ new Vue({
             this.monsterAttack();
         },
 
+
         giveUp: function() {
             this.gameIsRunning = false;
+        },
+
+        logTurn: function(player, text,  amount) {
+
+            const row = {
+                isPlayer: player,
+                text: `${text} ${amount} damage.`
+            }
+            console.log(row)
+            this.turns[this.turns.length] = row;
+ 
+            console.log(this.turns)
+
         },
 
         calculateDamage: function(min, max) {
@@ -94,40 +124,6 @@ new Vue({
             return false
         },
 
-        monsterAttack: function() {
-            const damage = this.calculateDamage(6, 14);
-            this.playerHealth -= damage ;
-            this.checkWin();
-            this.logTurn(false, 'Monster hits Player for', damage);
-        },
-
-        specialAttackOn: function() {
-
-            if (!(this.playerHealth % 6 && this.monsterHealth %6)) {
-                return true;
-            } else {
-                return false;
-            }
-        },
-
-        logTurn: function(player, text,  amount) {
-
-            const row = {
-                isPlayer: player,
-                text: `${text} ${amount} damage.`
-            }
-            console.log(row)
-            this.turn[this.turn.length] = row;
- 
-            console.log(this.turn)
-
-        },
-
         
     },
-    filters: {
-        reverse: function(items) {
-            return items.reverse()
-        }
-    }
 });
