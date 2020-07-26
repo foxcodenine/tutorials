@@ -52,6 +52,15 @@
         background-color: $color-white;
       }
     }
+    &--green {
+      background-color: $color-primary;
+      color: $color-white;
+      opacity: 0.8;
+  
+      &::after {
+        background-color: $color-primary;
+      }
+    }
   
   
     &--animated {
