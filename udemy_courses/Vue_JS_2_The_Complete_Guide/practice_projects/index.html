@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet"
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body >
+    <div id="app">
+        <h1 class="heading__text">{{ mainTitle }}</h1>
+
+        <div class="music-container " id="music-container"  v-bind:class="{'play': isPlaying}">
+            <div class="music-info">
+            <!-- Titel -->
+                <h4 class="title" id="title">{{ title }}</h4>
+            <!-- Progress -->
+                <div class="progress-container" id="progress-container" v-on:click="setProgess($event)">
+                    <div class="progress" id="progress"></div>
+                </div>
+            </div>
+            <!-- Audio -->
+            <!-- <audio  src="./music/ukulele.mp3" id="audio"></audio> -->
+            <!-- Image -->
+            <div class="img-container">
+                <img v-bind:src="updateImg" alt="music-cover" id="cover">
+            </div>
+            <!-- Nav -->
+            <div class="navigation">
+    
+                <button id="prev" class="action-btn" v-on:click="back()">
+                    <i class="fas fa-backward"></i>
+                </button>
+                
+                <button id="play" class="action-btn action-btn-big" v-on:click='isPlaying = !isPlaying'>
+                    <i class="fas" v-bind:class="{'fa-play': isPlaying, 'fa-pause': !isPlaying}"></i>
+                </button>
+                <button id="next" class="action-btn" v-on:click="forward()">
+                    <i class="fas fa-forward"></i>
+                </button>
+    
+            </div>
+            <!-- Menu -->
+            <div class="menu">
+                <ul>
+                    <li v-on:click="getFolder()">Files</li>
+                    <li>Vol</li>
+                    <li>Help</li>
+                </ul>
+            </div>
+    
+    
+        </div>
+    </div>
+
+
+    <script src="./script_vue.js"></script>
+</body>
+</html>
