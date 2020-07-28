@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter5 - VueJS Instance</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="container">
+    <div id="app1">
+        
+        <h1 class="bottom_margin">{{title}}</h1>
+        <br>
+        <button v-on:click="show">Show Paragraph</button>
+        <p v-if="showParagraoh">This is not always visible</p>
+
+    </div>
+    <div id="app2">
+        <h1 class="all_margin">{{title}}</h1>
+        <button v-on:click="onChange">Change something in Vue 1</button>
+    </div>
+</div>
+<script src="./vue.js"></script>
+<script src="./script.js"></script>
+</body>
+</html>
