@@ -12,14 +12,30 @@
         
         <h1 class="bottom_margin">{{title}}</h1>
         <br>
-        <button v-on:click="show">Show Paragraph</button>
-        <p v-if="showParagraoh">This is not always visible</p>
+        <button v-on:click="show" ref='myButton'>Show Paragraph</button>
+        <p v-if="showParagraoh" ref='myParagraph'>This is not always visible</p>
 
     </div>
     <div id="app2">
         <h1 class="all_margin">{{title}}</h1>
         <button v-on:click="onChange">Change something in Vue 1</button>
+        <hello></hello>
+        <hello></hello>
+
     </div>
+    <hr>
+    <div id="app3">
+        
+    </div>
+    <hr>
+    <div id="app4">
+        <h5>{{title}}</h5>
+        <button v-on:click="updateInstance()">Update Instance</button>
+        <button v-on:click="destroyInstace()">Destroy Instance</button>
+    </div>
+
+
+    
 </div>
 <script src="./vue.js"></script>
 <script src="./script.js"></script>
