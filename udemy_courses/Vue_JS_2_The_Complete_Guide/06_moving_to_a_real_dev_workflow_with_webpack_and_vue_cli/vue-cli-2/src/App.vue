@@ -1,5 +1,6 @@
 <template>
-  <div id="app">
+  <div class="app">
+    <h1>{{ title }}</h1>
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
@@ -24,14 +25,15 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      title: 'This is my custom vue-cli-2 title!'
     }
   }
 }
 </script>
 
 <style lang="scss">
-#app {
+.app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
