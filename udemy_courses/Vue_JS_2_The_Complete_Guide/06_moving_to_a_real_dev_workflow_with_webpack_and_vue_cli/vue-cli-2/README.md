@@ -1,4 +1,4 @@
-# vue-cli
+# vue-cli-2
 
 > A Vue.js project
 

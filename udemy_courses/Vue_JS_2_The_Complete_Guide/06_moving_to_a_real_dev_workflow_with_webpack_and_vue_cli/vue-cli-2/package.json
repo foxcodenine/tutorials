@@ -1,5 +1,5 @@
 {
-  "name": "vue-cli",
+  "name": "vue-cli-2",
   "description": "A Vue.js project",
   "version": "1.0.0",
   "author": "Chris <foxcode9@gmail.com>",
@@ -31,5 +31,6 @@
     "vue-template-compiler": "^2.4.4",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.9.1"
-  }
+  },
+  "main": "webpack.config.js"
 }
