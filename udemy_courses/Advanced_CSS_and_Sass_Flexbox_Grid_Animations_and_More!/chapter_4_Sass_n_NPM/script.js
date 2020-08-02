@@ -58,7 +58,7 @@ const waypoint_card = new Waypoint({
             setTimeout(()=>{
                 
                 card.style['animation'] = 'animationFeatureBox 1.5s ease'
-                card.style['display'] = 'block'
+                card.style['opacity'] = 1
                 
             }, timeDelay[i]);
         });
@@ -66,3 +66,30 @@ const waypoint_card = new Waypoint({
     offset: '70%'
 
 });
+
+
+// _____________________________________________________________________
+
+const rows_story = Array.from(document.querySelectorAll('#row--story'))
+
+
+rows_story.forEach(story => {
+
+    story.style['animation-fill-mode'] = 'backwards'
+    story.style['opacity'] = 0
+    
+
+    const waypoint_stories = new Waypoint({
+
+        element:story,
+    
+        handler: function() {            
+    
+            story.style['animation'] = 'animationStories 1.8s ease'
+            story.style['opacity'] = 1
+            
+        },
+        
+        offset: '70%'
+    })
+})

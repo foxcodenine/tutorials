@@ -87,6 +87,25 @@
   }
 
 
+  @keyframes animationStories {
+    0% {
+      opacity: 0;
+      transform: translate(0, 6rem) ;
+    }
+  
+    80% {
+      opacity: 1;
+      transform: translate(0, 0) ;
+    }
+  
+    100% {
+      // opacity: 1;
+      transform: translate(0, 0) ;
+    }
+  }
+
+
+
 .onDisplayUp {
   transform: translateY(-50rem);
 }
