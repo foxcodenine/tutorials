@@ -52,6 +52,16 @@
   100% {
     transform: translate(0, 0); } }
 
+@keyframes animationStories {
+  0% {
+    opacity: 0;
+    transform: translate(0, 6rem); }
+  80% {
+    opacity: 1;
+    transform: translate(0, 0); }
+  100% {
+    transform: translate(0, 0); } }
+
 .onDisplayUp {
   transform: translateY(-50rem); }
 
@@ -162,7 +172,8 @@ body {
   height: 50rem;
   position: relative;
   height: 52rem;
-  display: none; }
+  display: block;
+  opacity: 0; }
   .card__side {
     height: 52rem;
     width: 100%;
@@ -375,6 +386,52 @@ body {
     background-color: rgba(255, 255, 255, 0.7);
     box-shadow: 0 2.5rem 5rem rgba(0, 0, 0, 0.5); }
 
+.story {
+  width: 75%;
+  margin: 0 auto;
+  box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  border-radius: .3rem;
+  padding: 6rem 6rem 6rem 9rem;
+  font-size: 1.6rem;
+  transform: skewX(-12deg);
+  transition: all .2s ease-in-out; }
+  .story__shape {
+    height: 15rem;
+    width: 15rem;
+    float: left;
+    -webkit-shape-outside: circle(50% at 50% 50%);
+    shape-outside: circle(50% at 50% 50%);
+    -webkit-clip-path: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
+    transform: translateX(-3rem) skewX(12deg);
+    position: relative; }
+  .story__image {
+    height: 100%;
+    transform: translateX(-4rem) scale(120%);
+    backface-visibility: hidden;
+    transition: all .2s ease-in-out; }
+  .story__text {
+    transform: skewX(12deg); }
+  .story__caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 1.7rem;
+    text-align: center;
+    transition: all .2s ease-in-out;
+    opacity: 0;
+    backface-visibility: hidden; }
+  .story:hover .story__caption {
+    transform: translate(-50%, -50%);
+    opacity: 1; }
+  .story:hover .story__image {
+    transform: translateX(-4rem) scale(100%);
+    filter: blur(0.3rem) brightness(80%); }
+
 .row {
   max-width: 114rem;
   margin: 0 auto; }
@@ -456,3 +513,7 @@ body {
   background-color: #f7f7f7;
   padding: 30rem 0 15rem 0;
   margin-top: -10rem; }
+
+.section-stories {
+  background-color: #f7f7f7;
+  padding: 15rem 0; }
