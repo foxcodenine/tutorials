@@ -30,3 +30,51 @@
   padding: 15rem 0;
   position: relative;
 }
+
+.section-book {
+  padding: 15rem 0;
+  background-image: linear-gradient(to bottom right, $color-primary-light, $color-primary-dark);
+  
+
+}
+
+.book {  
+
+  border-radius: $border-radius;
+  box-shadow: $shadow_1;
+
+  position: relative;
+
+  height: 50rem;
+  z-index: 1;
+  
+  &::after {
+    content: "";
+    background-image: linear-gradient(
+                            105deg, 
+                            rgba($color-white, .85) 0%,
+                            rgba($color-white, .85) 50%,
+                            transparent 50%
+                    ),
+                    url('../img/nat-10.jpg');
+
+
+    background-size: cover; //or 100%
+    
+    opacity: .8; // <- I have put background-image on  
+                 // ::after so opacity does not afferct other elements
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+  }
+
+  &__form {
+    width: 50%;
+    padding: 6rem;
+    z-index: 1;
+  }
+}
+
