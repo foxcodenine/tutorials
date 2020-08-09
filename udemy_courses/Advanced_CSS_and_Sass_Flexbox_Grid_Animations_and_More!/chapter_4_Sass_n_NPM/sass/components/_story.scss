@@ -7,6 +7,7 @@
     padding: 6rem 6rem 6rem 9rem;
     font-size: $dft-ft-sz;
     // display: none;
+    
 
 
     transform: skewX(-12deg);
@@ -33,11 +34,13 @@
 
         position: relative;
 
+
     }
     &__image {
         height: 100%;
         transform: translateX(-4rem) scale(120%);
         backface-visibility: hidden; //<- to fix the transform
+
 
         transition: all .2s ease-in-out;
         
@@ -61,16 +64,19 @@
         backface-visibility: hidden; //<- to fix the transform
 
 
+
     }
 
     &:hover &__caption {
         transform: translate(-50%, -50%);
         opacity: 1;
+
     }
     
     &:hover &__image {
         transform: translateX(-4rem) scale(100%);
-        filter: blur(.3rem) brightness(80%)
+        filter: blur(.3rem) brightness(80%);
+
 
     }
 

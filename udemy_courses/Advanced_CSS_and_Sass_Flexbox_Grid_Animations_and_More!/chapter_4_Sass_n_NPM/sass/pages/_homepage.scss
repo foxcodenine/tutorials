@@ -32,8 +32,9 @@
 }
 
 .section-book {
-  padding: 15rem 0;
+  padding: 12rem 0;
   background-image: linear-gradient(to bottom right, $color-primary-light, $color-primary-dark);
+  
   
 
 }
@@ -44,9 +45,8 @@
   box-shadow: $shadow_1;
 
   position: relative;
-
-  height: 50rem;
   z-index: 1;
+  
   
   &::after {
     content: "";
