@@ -1,0 +1,77 @@
+.form {
+
+    &__group {
+
+        &:not(:last-child) {
+            margin-bottom: 2rem;
+        }
+
+    }
+
+    &__input {
+        font-size: 1.5rem;
+        padding: 1.5rem 2rem;
+        background-color: rgba($color-white, 0.5);
+        
+        border-radius: $border-radius;        
+        border: none;
+
+        font-family: inherit;
+        color: inherit;
+
+        border-bottom: .3rem solid transparent;
+
+        width: 90%;
+        display: block;
+
+
+
+        &:focus {
+            outline: none;
+            box-shadow: $shadow_3;
+            border-bottom: .3rem solid $color-primary;
+
+            &:required {
+                border-bottom: .3rem solid $color-primary;
+                outline: none;
+            }
+
+            &:invalid {
+                border: none;
+                outline: none;
+                border-bottom: .3rem solid $color-secondary-dark;
+            }
+         
+        }
+
+        // Change color of placeholder
+        &::-webkit-input-placeholder{
+            color: $color-gray-dark-2;
+        }
+        &:-moz-placeholder,
+        &::-moz-placeholder {
+            color: $color-gray-dark-2;
+            opacity: 1;     
+        }
+        
+
+    }
+    &__label {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-left: 2rem;
+        margin-top: .7rem;
+        display: block;
+        transition: all .3s ease-in;
+        // <input name="q" type="text" autocomplete="off"/>
+    }
+
+    // &__input:placeholder-shown ~ &__label // <- general sibling selector, 
+                                             // if there are more siblings in between.
+    // adjecent sibling selector
+    &__input:placeholder-shown + &__label {
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-3rem);
+    }
+}
