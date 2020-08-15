@@ -65,6 +65,10 @@ body {
     width: 80vw;
     max-width: 96rem;
 
+    opacity: 1;
+
+    transition: all .3s ease-in;
+
     &-title {
         margin: 0;
     }
@@ -126,6 +130,7 @@ body {
 .loader.show {
     opacity: 1;
 }
+
 
 // _____________________________________________________________________
 

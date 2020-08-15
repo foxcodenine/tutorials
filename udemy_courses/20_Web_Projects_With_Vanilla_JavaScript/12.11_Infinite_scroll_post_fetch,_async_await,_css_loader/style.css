@@ -36,7 +36,9 @@ body {
   margin: 4rem 0;
   display: flex;
   width: 80vw;
-  max-width: 96rem; }
+  max-width: 96rem;
+  opacity: 1;
+  transition: all .3s ease-in; }
   .post-title {
     margin: 0; }
   .post-body {
