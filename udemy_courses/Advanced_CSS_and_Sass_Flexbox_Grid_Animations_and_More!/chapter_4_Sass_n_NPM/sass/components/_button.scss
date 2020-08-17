@@ -3,7 +3,7 @@
     &:link,
     &:visited {
       font-size: $dft-ft-sz;
-      text-transform: capitalize;
+      text-transform: uppercase;
       text-decoration: none;
       padding: 1.5rem 4rem;
       display: inline-block;
@@ -15,6 +15,10 @@
       // Changes for the <button> element
       border: none;
       cursor: pointer;
+
+      font-family: "Lato";
+
+
     }
   
     &::after {
