@@ -4,15 +4,16 @@
     margin: 0 auto;
     
     &:not(:last-child) {
-        margin-bottom: $gutter-vert;
+        margin-bottom: $gutter-horz;
     }
 
     @include clearfix;
 
     [class^="col-"] {
-        // background-color: orangered;
+        // Anchors: string start ^ and end $
         float: left;
-
+        // background-color: orangered;
+        
         &:not(:last-child){
             margin-right: $gutter-vert;
         } 
