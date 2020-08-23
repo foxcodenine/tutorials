@@ -70,7 +70,7 @@
 
     // &__input:placeholder-shown ~ &__label // <- general sibling selector, 
                                              // if there are more siblings in between.
-    // adjecent sibling selector
+    // + adjecent sibling selector
     &__input:placeholder-shown + &__label {
         opacity: 0;
         visibility: hidden;
