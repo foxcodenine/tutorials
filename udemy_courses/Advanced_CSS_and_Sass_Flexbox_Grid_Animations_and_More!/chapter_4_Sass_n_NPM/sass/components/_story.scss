@@ -22,7 +22,7 @@
         height: 15rem;
         width: 15rem;
         // border-radius: 10rem;
-        float: left;
+        float: left;         
 
         -webkit-shape-outside: circle(50% at 50% 50%);
         shape-outside: circle(50% at 50% 50%); // <- only work if it is floaded and have a height and width
@@ -30,19 +30,27 @@
         -webkit-clip-path: circle(50% at 50% 50%);
         clip-path: circle(50% at 50% 50%);
 
+        -webkit-transform: translateX(-3rem) skewX(12deg);
         transform: translateX(-3rem) skewX(12deg);
 
         position: relative;
+        overflow: hidden;
+        
 
 
     }
+    
     &__image {
         height: 100%;
-        transform: translateX(-4rem) scale(120%);
+        
+        display: block;   
+
+        transform: translateX(-4rem) scale(1.2);
+        
         backface-visibility: hidden; //<- to fix the transform
 
-
         transition: all .2s ease-in-out;
+        
         
     }
 
@@ -61,7 +69,10 @@
         text-align: center;
         transition: all .2s ease-in-out;
         opacity: 0;
+
+        -webkit-backface-visibility: hidden; //<- to fix the transform
         backface-visibility: hidden; //<- to fix the transform
+        
 
 
 
@@ -74,7 +85,10 @@
     }
     
     &:hover &__image {
-        transform: translateX(-4rem) scale(100%);
+        
+        
+        transform: translateX(-4rem) scale(1);
+        
         filter: blur(.3rem) brightness(80%);
 
 

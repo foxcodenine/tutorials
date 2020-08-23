@@ -419,11 +419,14 @@ body {
     shape-outside: circle(50% at 50% 50%);
     -webkit-clip-path: circle(50% at 50% 50%);
     clip-path: circle(50% at 50% 50%);
+    -webkit-transform: translateX(-3rem) skewX(12deg);
     transform: translateX(-3rem) skewX(12deg);
-    position: relative; }
+    position: relative;
+    overflow: hidden; }
   .story__image {
     height: 100%;
-    transform: translateX(-4rem) scale(120%);
+    display: block;
+    transform: translateX(-4rem) scale(1.2);
     backface-visibility: hidden;
     transition: all .2s ease-in-out; }
   .story__text {
@@ -439,12 +442,13 @@ body {
     text-align: center;
     transition: all .2s ease-in-out;
     opacity: 0;
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden; }
   .story:hover .story__caption {
     transform: translate(-50%, -50%);
     opacity: 1; }
   .story:hover .story__image {
-    transform: translateX(-4rem) scale(100%);
+    transform: translateX(-4rem) scale(1);
     filter: blur(0.3rem) brightness(80%); }
 
 .bg-video {
@@ -644,6 +648,68 @@ body {
     padding-top: 2rem;
     width: 85%;
     float: right; }
+
+.navigation__checkbox {
+  display: none; }
+
+.navigation__button {
+  background-color: #fff;
+  height: 7rem;
+  width: 7rem;
+  border-radius: 50%;
+  position: fixed;
+  top: 4rem;
+  right: 4rem;
+  z-index: 101; }
+
+.navigation__background {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  position: fixed;
+  top: 4.5rem;
+  right: 4.5rem;
+  background-image: radial-gradient(#7ed56f, #28b485);
+  z-index: 99;
+  transform: scale(80); }
+
+.navigation__nav {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100; }
+
+.navigation__list {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  list-style: none;
+  text-align: center; }
+
+.navigation__item {
+  margin: 1rem; }
+
+.navigation__link:link, .navigation__link:visited {
+  display: inline-block;
+  font-size: 3rem;
+  font-weight: 300;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  background-image: linear-gradient(120deg, transparent 0%, transparent 50%, #fff 50%);
+  background-size: 230%;
+  transition: all .4s; }
+  .navigation__link:link span, .navigation__link:visited span {
+    margin-right: 1.5rem; }
+
+.navigation__link:hover, .navigation__link:active {
+  background-position: 100%;
+  color: #55c57a;
+  transform: translateX(1rem); }
 
 .section-about {
   background-color: #f7f7f7;
