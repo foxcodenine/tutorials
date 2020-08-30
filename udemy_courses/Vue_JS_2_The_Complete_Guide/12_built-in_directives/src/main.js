@@ -4,20 +4,41 @@ import App from './App.vue'
 
 Vue.directive('highlight', {
   bind(el, binding, vnode) {
+
     // el.style.background = 'lime';
-    // el.style.background = binding.value;
 
-    if (binding.arg === 'background') {
+    // _________________________________
 
-      el.style.background = binding.value;
+    // el.style.background = binding.value;         // <- adding a value
+    // _________________________________
 
-    } 
-    else {
-      el.style.color = binding.value;
+    // if (binding.arg === 'background') {      // <- adding an argument  
+
+    //   el.style.background = binding.value;
+
+    // } 
+    // else {
+    //   el.style.color = binding.value;
+    // } 
+    // __________________________________
+    let delay = 0;
+    if (binding.modifiers['delayed']) {          // <- adding a modifier
+      delay = 3000;
     }
+
+    setTimeout(() => {
+
+        if (binding.arg === 'background') { 
+
+          el.style.background = binding.value;
+
+        } else {
+          el.style.color = binding.value;
+        } 
+    }, delay)    
   }
 });
-
+// _____________________________________________________________________
 
 
 new Vue({
