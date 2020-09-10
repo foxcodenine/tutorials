@@ -8,7 +8,8 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
   routes,
-  mode: 'history'
+  mode: 'history' // <- is used to remove # from address bar, 
+                  //    need to update server for this to work
 });
 
 new Vue({
