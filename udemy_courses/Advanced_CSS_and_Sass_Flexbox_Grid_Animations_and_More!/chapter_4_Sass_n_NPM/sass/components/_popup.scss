@@ -1,0 +1,101 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    background-color: rgba($color-black, .9);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: all .3s;
+
+    
+
+    &__container {
+        @include centerHorVer(-50%);
+
+        width:  75%;
+        // height: 50rem;
+        background-color: rgba($color-white, 1);
+        border-radius: $border-radius;
+        box-shadow: $shadow_3;
+        display: table;
+        overflow: hidden;  
+        
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.2);
+
+        transition: all .5s .2s;
+    }
+
+    &__left {
+        width: 33.3333333333333333%;
+        display: table-cell;
+        
+    }
+
+    &__right {
+        width: 66.6666666666666667%;
+        display: table-cell;
+        vertical-align: middle;
+        padding: 3rem 5rem;
+    }
+
+    &__img {
+        display: block;
+        width: 100%;
+        // object-fit: cover;
+        
+    }
+
+    &__text {
+        font-size: 1.4rem;
+        margin-bottom: 4rem;
+
+        column-count: 2;
+        column-gap: 4rem;
+        column-rule: 1px solid $color-gray-light-2;
+
+        text-align: justify;
+
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;      
+
+    }
+
+    // Open states
+    &:target {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    &:target &__container {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    &__close {
+        &:link,
+        &:visited {
+            color: $color-gray-dark;
+            position: absolute;
+            top: 2.5rem;
+            right: 2.5rem;
+            font-size: 3rem;
+            text-decoration: none;
+            line-height: 1;
+            display: inline-block;
+            transition: all .2s;
+
+            &:hover {
+                color: $color-primary;
+            }
+        }
+    }
+}
+

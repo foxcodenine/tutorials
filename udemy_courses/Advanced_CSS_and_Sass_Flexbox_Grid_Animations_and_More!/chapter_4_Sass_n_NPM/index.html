@@ -2,7 +2,7 @@
 <!-- http://imakewebthings.com/waypoints/guides/getting-started/ -->
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 
 <head>
   <meta charset="UTF-8" />
@@ -154,7 +154,7 @@
 
     <!-- Tours Section -->
 
-    <Section class="section-tours">
+    <Section class="section-tours" id="section-tours">
 
       <div class="u-center-text u-margin-bottom-8">
         <h2 class="heading-secondary">Most Popular tours</h2>
@@ -191,7 +191,7 @@
                   <p class="card__price-only">Only</p>
                   <p class="card__price-value">$297</p>
                 </div>
-                <a href="#" class="btn btn--white">Book now</a>
+                <a href="#popup" class="btn btn--white">Book now</a>
               </div>
             </div>
           </div>          
@@ -226,7 +226,7 @@
                   <p class="card__price-only">Only</p>
                   <p class="card__price-value">$497</p>
                 </div>
-                <a href="#" class="btn btn--white">Book now</a>
+                <a href="#popup" class="btn btn--white">Book now</a>
               </div>
             </div>
           </div>          
@@ -261,7 +261,7 @@
                   <p class="card__price-only">Only</p>
                   <p class="card__price-value">$897</p>
                 </div>
-                <a href="#" class="btn btn--white">Book now</a>
+                <a href="#popup" class="btn btn--white">Book now</a>
               </div>
             </div>
           </div>          
@@ -423,6 +423,35 @@
 
     </div>
   </footer>
+
+  <div class="popup" id="popup">
+    <div class="popup__container">
+
+      <div class="popup__left">
+        <img src="img/nat-8.jpg" alt="Tour photo" class="popup__img">
+        <img src="img/nat-9.jpg" alt="Tour photo" class="popup__img">
+      </div>
+
+      <div class="popup__right">
+        <a href="#section-tours" class="popup__close">&times;</a>
+        <h2 class="heading-secondary u-margin-bottom-1">Start booking now</h2>
+        <h3 class="heading-tertiary u-margin-bottom-1">Important &ndash; Please read these terms before booking</h3>
+        <p class="popup__text" lang="en-GB">
+          Ferrars all spirits his imagine effects amongst neither. It
+          bachelor cheerful of mistaken. Tore has sons put upon wife use
+          bred seen. Its dissimilar invitation ten has discretion
+          unreserved. Had you him humoured jointure ask expenses
+          learning. Blush on in jokes sense do do. Brother hundred he
+          assured reached on up no. On am nearer missed lovers. To it
+          mother extent temper figure better. 
+
+
+        </p>
+        <a href="#" class="btn btn--green">Book now</a>
+      </div>   
+         
+    </div>
+  </div>
 
   <script src="./imakewebthings-waypoints-34d9f6d/lib/noframework.waypoints.min.js"></script>
   <script src="./script.js"></script>
