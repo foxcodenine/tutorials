@@ -16,12 +16,20 @@
     & > * {
       transform: skewY(7deg);
     }
+
+    @include respond(tab-port) {
+      padding: 8rem 0;
+    }
 }
 
 .section-tours {
   background-color: $color-gray-light-1;
   padding: 30rem 0 15rem 0;
   margin-top: -10rem;
+
+  @include respond(tab-port) {
+    padding: 20rem 0 10rem 0;
+  }
 }
 
 
@@ -29,6 +37,10 @@
   // background-color: rgba($color-gray-light-1, .85);
   padding: 15rem 0;
   position: relative;
+
+  @include respond(tab-port) {
+    padding: 10rem 0;
+  }
 }
 
 .section-book {
