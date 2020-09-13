@@ -19,9 +19,9 @@ html {
       font-size:50%
     }
 
-    @include respond(phone) {
-      font-size:41.05%
-    }
+    // @include respond(phone) {
+    //   font-size:41.05%
+    // }
 
     @include respond(big-desktop) {
       font-size:75%
@@ -30,4 +30,9 @@ html {
 
 body {
     box-sizing: border-box;
+    padding: 1rem; 
+
+    @include respond(tab-port) {
+      padding: 0;
+    }
 }
