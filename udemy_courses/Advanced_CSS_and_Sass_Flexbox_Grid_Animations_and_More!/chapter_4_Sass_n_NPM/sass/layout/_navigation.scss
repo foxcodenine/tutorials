@@ -18,6 +18,15 @@
         box-shadow: $shadow_3;
 
         // text-align: center; // <- to center icon
+
+        @include respond(tab-port) {
+            height: 6rem;
+            width: 6rem;
+        }
+        @include respond(phone) {
+            top: 3.5rem;
+            right: 4rem;
+        }
         
     }
 
@@ -33,6 +42,15 @@
 
         // transform: scale(60);
         transition: all .4s cubic-bezier(0.7, 0, 0.84, 0);
+        
+        @include respond(tab-port) {
+            top: 4rem;
+            right: 4rem;
+        }
+        @include respond(phone) {
+            top: 3.5rem;
+            right: 4rem;
+        }
 
     }
 

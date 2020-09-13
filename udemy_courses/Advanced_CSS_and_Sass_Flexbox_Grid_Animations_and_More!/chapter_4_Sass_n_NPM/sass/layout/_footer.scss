@@ -3,9 +3,18 @@
     padding: 10rem 0;
     font-size: 1.4rem;
 
+    @include respond(tab-port) {
+        padding: 8rem 0;
+        padding: 6rem 0;
+    }
+
     &__logo-box {
         text-align: center; // <- cause an inline element behave like text
         margin-bottom: 8rem;
+
+        @include respond(tab-port) {
+            margin-bottom: 4rem;
+        }
     }
 
     &__logo {
@@ -18,6 +27,11 @@
         padding-top: 2rem;
         display: inline-block; // <- an inline-block does not take the width 
                                // 100% but the width of its content
+
+        @include respond(tab-port) {
+            width: 100%;
+            text-align: center;
+        }
     }
 
     &__list {
@@ -60,6 +74,13 @@
 
         width: 85%;
         float: right;
+        
+        @include respond(tab-port) {
+            width: 100%;
+            text-align: justify;
+
+              
+        }
         
     }
 }
