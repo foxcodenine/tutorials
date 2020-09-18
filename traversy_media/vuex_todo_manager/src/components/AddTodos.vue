@@ -4,7 +4,7 @@
       <div class="add">
               <form>
         <input type="text" v-model="title" placeholder="Add todo...">
-        <button>Submit</button>
+        <button @click.prevent="addNewTodo()">Submit</button>
         <!-- <input type="submit"> -->
       </form>
       </div>
@@ -12,13 +12,32 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      title: ''
+  import { mapActions, mapGetters } from "vuex";
+  export default {    
+    data() {
+      return {
+        title: '',
+        lastId: 0
+      }
+    },
+    computed: {
+      ...mapGetters({
+        nextId: 'todos/nextId'
+      }), 
+    },
+    methods: {
+      ...mapActions({
+        addTodo: 'todos/addTodo'
+      }),
+      addNewTodo() {
+        console.log('<>',this.nextId)
+        this.addTodo({title: this.title, id: this.nextId});
+        this.title = '';
+      }
+
     }
   }
-}
+
 </script>
 
 <style scoped>
