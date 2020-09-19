@@ -15,7 +15,7 @@
                 v-for="(todo, index) in allTodos.slice(0, getFilter)" 
                 :key="index"
                 :class="{'complete': todo.completed}"
-                @dblclick="updateTodos((allTodos.length - index) -1)">
+                @dblclick="onDblClick(todo, (allTodos.length - index) -1)">
             {{ todo.title }}
             <span class="id">{{ todo.id }}</span>            
             <i class="fas fa-trash-alt remove" @click='deleteTodo(todo.id)'></i>
@@ -40,7 +40,15 @@
                 fetchTodos: 'todos/fetchTodos',
                 deleteTodo: 'todos/deleteTodo',
                 updateTodos: 'todos/updateTodos',
-            })
+            }),
+            onDblClick(todo, index) {
+                const updTodo = {
+                    id: todo.id,
+                    title: todo.title,
+                    completed: !todo.completed
+                }
+                this.updateTodos({updTodo, index})
+            }
         },
         mounted() {
             this.fetchTodos();

@@ -40,11 +40,15 @@ const mutations = {
         console.log(qty)
         state.filter = qty;
     },
-    toggleCompleteIncomplete(state, index) {
+    toggleCompleteIncomplete(state, payload) {
         
-        let todo = state.todos[index];
-        todo.completed === true ? todo.completed = false : todo.completed = true;
-        state.todos.splice(index, 1, todo);
+        // let todo = state.todos[index];
+        // todo.completed === true ? todo.completed = false : todo.completed = true;
+        // state.todos.splice(index, 1, todo);
+
+        
+        let {updTodo, index} = payload;
+        state.todos.splice(index, 1, updTodo);
 
     }
 }
