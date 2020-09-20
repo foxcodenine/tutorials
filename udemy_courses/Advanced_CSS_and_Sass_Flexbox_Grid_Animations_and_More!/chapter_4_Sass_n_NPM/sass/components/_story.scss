@@ -8,15 +8,22 @@
     font-size: $dft-ft-sz;
     // display: none;
     
-
-
     transform: skewX(-12deg);
-
     transition: all .2s ease-in-out;
 
     // & > * {
     //     transform: skewX(12deg);
     // }
+
+    @include respond(tab-port) {
+        width: 100%;
+        padding: 4rem 4rem 4rem 7rem;        
+    }
+
+    @include respond(phone) {
+        transform: skewX(0);       
+    }
+    
     
     &__shape {
         height: 15rem;
@@ -32,9 +39,14 @@
 
         -webkit-transform: translateX(-3rem) skewX(12deg);
         transform: translateX(-3rem) skewX(12deg);
+        
 
         position: relative;
         overflow: hidden;
+
+        @include respond(phone) {
+            transform: translateX(-3rem) skewX(0deg);              
+        }
         
 
 
@@ -56,6 +68,11 @@
 
     &__text {
         transform: skewX(12deg);
+
+        @include respond(phone) {
+            transform: skewX(0deg);              
+        }
+        
     }
 
     &__caption {
@@ -84,14 +101,28 @@
 
     }
     
-    &:hover &__image {
+    &:hover &__image {       
         
-        
-        transform: translateX(-4rem) scale(1);
-        
+        transform: translateX(-4rem) scale(1);        
         filter: blur(.3rem) brightness(80%);
-
 
     }
 
+    .heading__tertiary {
+        @include respond(tab-port) {
+            font-size: 1.8rem;  
+            line-height: 1.4;            
+        }
+    }
+
+}
+
+@include respond(tab-port){
+    #row--story{
+        
+        &:not(:last-child) {
+            margin-bottom: 5rem;
+        }
+    
+    }
 }
