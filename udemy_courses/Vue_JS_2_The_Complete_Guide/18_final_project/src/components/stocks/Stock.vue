@@ -51,7 +51,9 @@
           quantity: this.quantity
         };
         console.log(order);
+        this.$store.dispatch('portfolio/buyStock', order)
         this.quantity = 0;
+        console.log(this.$store.getters['portfolio/stockPortfolio'])
       }
     }
   }
