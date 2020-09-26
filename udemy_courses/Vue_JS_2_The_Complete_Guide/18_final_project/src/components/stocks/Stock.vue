@@ -24,7 +24,10 @@
             <button 
                 class="btn btn-success"
                 @click="buyStock"
-                :disabled="quantity <= 0 || Number.isInteger(quantity)">Buy</button>
+                :disabled="quantity <= 0 || Number.isInteger(quantity) || insufficientFunds" 
+            >
+              {{ insufficientFunds ? 'Insufficient funds' : 'Buy'}}
+            </button>
           </div>
         </div>
 
@@ -43,6 +46,14 @@
         quantity: 0
       }
     },
+    computed: {
+      funds() {
+        return this.$store.getters['portfolio/fundsPortfolio']
+      },
+      insufficientFunds() {
+         return this.funds < this.quantity * this.stock.price
+      }
+    },
     methods: {
       buyStock() {
         const order = {
@@ -50,10 +61,8 @@
           stockPrice: this.stock.price, 
           quantity: this.quantity
         };
-        console.log(order);
         this.$store.dispatch('portfolio/buyStock', order)
         this.quantity = 0;
-        console.log(this.$store.getters['portfolio/stockPortfolio'])
       }
     }
   }
