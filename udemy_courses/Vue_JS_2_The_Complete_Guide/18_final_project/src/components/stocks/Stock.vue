@@ -5,7 +5,7 @@
       <div class="panel-heading">
         <h3 class="panel-title">
           {{ stock.name }} 
-          <small>(Price: {{ stock.price }})</small>
+          <small>(Price: {{ stock.price | currency }})</small>
         </h3>
       </div>
 
@@ -16,7 +16,8 @@
                 type="number" 
                 class="from-controll" 
                 placeholder="Quantity" 
-                v-model="quantity">
+                v-model="quantity"
+                :class="{'danger-brd': insufficientFunds}">
         </div>
 
         <div class="pull-right">
@@ -70,6 +71,14 @@
 
 </script>
 
-<style>
+<style scoped>
+
+
+  .danger-brd {
+    border: 2px solid crimson !important;
+    border-radius: 4px;
+  }
+
+
 
 </style>
