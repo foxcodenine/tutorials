@@ -28,3 +28,7 @@ installing the vuex:
     $ npm install --save vuex
 
 <!-- ______________________________________ -->
+
+installing vue-resource
+
+    $ npm install --save vue-resource

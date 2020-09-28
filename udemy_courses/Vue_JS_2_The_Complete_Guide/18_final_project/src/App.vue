@@ -4,7 +4,9 @@
     
     <div class="row">
       <div class="col-xs-12">
+        <transition mode="out-in">
         <router-view></router-view>
+        </transition>
       </div>
     </div>
 
@@ -28,5 +30,17 @@
 <style>
   body {
     padding: 30px;
+  }
+  .v-enter {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  .v-enter-active {
+    transition: all .35s ease-in;
+  }  
+  .v-leave-active {
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all .35s ease-out;
   }
 </style>
