@@ -29,20 +29,24 @@
         height: 15rem;
         width: 15rem;
         // border-radius: 10rem;
-        float: left;         
-
-        -webkit-shape-outside: circle(50% at 50% 50%);
-        shape-outside: circle(50% at 50% 50%); // <- only work if it is floaded and have a height and width
-
-        -webkit-clip-path: circle(50% at 50% 50%);
-        clip-path: circle(50% at 50% 50%);
+        float: left;       
 
         -webkit-transform: translateX(-3rem) skewX(12deg);
-        transform: translateX(-3rem) skewX(12deg);
-        
+        transform: translateX(-3rem) skewX(12deg);        
 
         position: relative;
         overflow: hidden;
+
+        border-radius: 50%; // <- quick-fix if clip-path does not work
+
+        @supports (clip-path: polygon(0 0)) or (-webkit-clip-path: polygon(0 0)) {
+            -webkit-clip-path: circle(50% at 50% 50%);
+            clip-path: circle(50% at 50% 50%);
+
+            -webkit-shape-outside: circle(50% at 50% 50%);
+            shape-outside: circle(50% at 50% 50%); // <- only work if it is floaded and have a height and width
+            border-radius: none;
+        }
 
         @include respond(phone) {
             transform: translateX(-3rem) skewX(0deg);              
