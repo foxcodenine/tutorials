@@ -14,6 +14,14 @@
 
     
 
+    @supports ( -webkit-backdrop-filter: blur(10px)) or ( backdrop-filter: blur(10px)) {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        background-color: rgba($color-black, .3);
+    }
+    
+    
+
     &__container {
         @include centerHorVer(-50%);
 
@@ -63,6 +71,19 @@
             text-align: center;
             
         }
+        @include respond(xs) {
+            padding: 3rem 2rem;
+            line-height: 1.5;
+            .heading-secondary  {
+                font-size: 2rem;
+            }
+            .heading-tertiary {
+                font-size: 1.5rem;
+            }
+            
+        }
+
+        
     }
 
     &__img {
