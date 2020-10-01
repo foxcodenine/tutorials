@@ -87,6 +87,9 @@
 
 <script>
     import countries from "../../data/countries";
+    import axios from 'axios';
+
+
     export default {
         data() {
             return {
@@ -106,7 +109,7 @@
             }
         },
         methods: {
-            onSubmit() {
+            async onSubmit() {
                 const formData = {
                     email: this.email,
                     age: this.age,
@@ -117,7 +120,21 @@
                     terms: this.terms
                 }
                 console.log(formData);
-                console.log(this.country)
+
+                try {
+                                   
+
+                  const response = await axios.post('/users.json', formData);
+                  // we are using baseURL in main.js so we only need the '/user.json'
+                  // users.json not required bu axios it is how firebase works 
+
+                  console.log(response)
+
+                } catch(err) {
+                  console.log(err);
+                }
+                
+
             },
             onAddHobby() {
               const newHobby = {
