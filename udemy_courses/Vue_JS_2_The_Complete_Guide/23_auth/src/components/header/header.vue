@@ -6,14 +6,34 @@
 
         <nav>
             <ul>
-                <li><router-link tag="a" to="/signup">Sign Up</router-link></li>
-                <li><router-link tag="a" to="/signin">Sign In</router-link></li>                
+                <li v-if=" !isAuthenticated "><router-link tag="a" to="/signup">Sign Up</router-link></li>
+                <li v-if=" !isAuthenticated "><router-link tag="a" to="/signin">Sign In</router-link></li>                
                 <li><router-link tag="a" to="/dashboard">Dashboard</router-link></li>
+                <li v-if=" isAuthenticated "><router-link exact tag="a" to="/"><i class="fas fa-sign-out-alt" @click="signOut()"></i></router-link></li>
+                
             </ul>
         </nav>
     </header>
 
 </template>
+
+<script>
+
+  import { mapActions, mapGetters } from "vuex";
+  export default {
+    computed: {
+      ...mapGetters({
+        isAuthenticated: 'isAuthenticated'
+      })
+    },
+    methods: {
+      ...mapActions({
+        signOut: 'signOut'
+      })
+    }
+  }
+
+</script>
 
 <style scoped>
   #header {

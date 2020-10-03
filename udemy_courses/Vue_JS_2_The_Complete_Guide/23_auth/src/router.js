@@ -6,6 +6,9 @@ import DashboardPage from './components/dashboard/dashboard.vue';
 import SignupPage from './components/auth/signup.vue';
 import SigninPage from './components/auth/signin.vue';
 
+import store from './store';
+
+
 // _____________________________________________________________________
 
 Vue.use(VueRouter);
@@ -14,7 +17,18 @@ const routes = [
     {path: '/', component: WelcomePage},
     {path: '/signup', component: SignupPage},
     {path: '/signin', component: SigninPage},
-    {path: '/dashboard', component: DashboardPage}
+    {
+        name: 'dashboard',
+        path: '/dashboard', 
+        component: DashboardPage, 
+        beforeEnter(to, from , next) {
+            if (store.state.idToken) {
+                next()
+            } else {
+                next('/signin')
+            }
+        }
+    }
 ]
     
 
