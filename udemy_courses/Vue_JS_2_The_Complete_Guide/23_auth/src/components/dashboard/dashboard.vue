@@ -2,7 +2,7 @@
   <div id="dashboard">
       <h1>That's the dashboard</h1>
       <p>You should only get here if yor're authenticated!</p>
-      <p>Your email is: {{ getActiveUser.email }}</p>
+      <p v-if="getActiveUser.email">Your email is: {{ getActiveUser.email }}</p>
   </div>
 </template>
 
@@ -29,8 +29,8 @@
           fetchUser: 'fetchUser'
         })
       },
-      async mounted() {        
-        this.fetchUser();
+      async mounted() {              
+        await this.fetchUser();
       }
 
     }

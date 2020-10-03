@@ -30,8 +30,8 @@
 
 <script>
 
-
-    import { mapActions } from "vuex";
+    
+    import { mapActions, mapGetters } from "vuex";
 
     export default {
         data() {
@@ -39,6 +39,11 @@
                 email: 'dorothy@yahoo.com',
                 password: 'redhorse',
             }
+        },
+        computed: {
+          ...mapGetters({
+            isAuthenticated: 'isAuthenticated'
+          }),
         },
         methods: {
 
@@ -51,7 +56,14 @@
                   password: this.password,
               }
 
-              this.logIn(formData);              
+              await this.logIn(formData); 
+
+              if (this.isAuthenticated) {
+                // this.$router.push({name: 'dashboard'})
+                this.$router.replace({name: 'dashboard'}) // <- this will replace the current route so we can't go back
+                
+                // you can use the router instead this.$router, you need to imported 
+              }             
             }
         }
     }
