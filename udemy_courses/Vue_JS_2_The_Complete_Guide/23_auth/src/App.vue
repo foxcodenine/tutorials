@@ -13,6 +13,9 @@
         name: 'app',
         components: {
             appHeader: Header
+        },
+        created() {
+            this.$store.dispatch('getDataFromLocalStorage');
         }
     }
 </script>

@@ -87,7 +87,7 @@
 
 <script>
     import countries from "../../data/countries";
-    import { mapActions } from "vuex";
+    import { mapActions, mapGetters } from "vuex";
 
     export default {
         data() {
@@ -103,13 +103,17 @@
             }
         },
         computed: {
+          ...mapGetters({
+            isAuthenticated: 'isAuthenticated'
+          }),
             countriesList() {
                 return this.countries;
             }
         },
         methods: {
             ...mapActions({
-              signUp: 'signUp'
+              signUp: 'signUp',
+              logIn: 'logIn'
             }),
             async onSubmit() {
                 const formData = {
@@ -123,8 +127,17 @@
                 }
                 // console.log(formData); 
                 
-                this.signUp(formData); 
+                await this.signUp(formData); 
+                // await this.logIn(formData); 
                 this.resetData(); 
+
+                if (this.isAuthenticated) {
+                  // this.$router.push({name: 'dashboard'})
+                  this.$router.replace({name: 'dashboard'}) // <- this will replace the current route so we can't go back
+                  
+                  // you can use the router instead this.$router, you need to imported 
+
+              }   
                           
 
             },
