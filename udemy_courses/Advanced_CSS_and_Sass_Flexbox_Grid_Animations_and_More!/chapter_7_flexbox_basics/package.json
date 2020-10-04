@@ -1,0 +1,17 @@
+{
+  "name": "7_flexbox_basics",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-sass": "node-sass ./sass/main.scss ./style.css -w",
+    "live-server": "live-server",
+    "dev-sass": "npm-run-all --parallel live-server watch-sass"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-sass": "^4.14.1"
+  }
+}
