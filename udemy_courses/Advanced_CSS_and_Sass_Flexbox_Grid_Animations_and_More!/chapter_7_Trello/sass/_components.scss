@@ -1,0 +1,141 @@
+
+////////////////////////////////////////
+// LOGO
+
+
+.logo {
+    height: 3.25rem;
+    margin-left: 2rem;
+    
+}
+////////////////////////////////////////
+// SEARCH
+.search {
+    // background-color: lightsalmon;
+    flex: 0 0 40%;
+    align-items: center;
+    justify-content: center;
+    // justify-items: center;
+
+    display: flex;
+    &__input {
+        font-size: inherit;
+        font-family: inherit;
+        columns: inherit;
+        background-color: var(--col-gry-lt2);
+        border: none;
+        border-radius: 2rem;
+        padding: .7rem 2rem;
+        width: 90%;
+        transition: all .3s;
+        margin-right: -3rem;
+        font-size: 1.4rem;
+        
+        &::-webkit-input-placeholder {
+            font-weight: 100;
+            color: var(--col-gry-lt4);
+            
+        }
+        
+        &:focus {
+            outline: none;
+            width: 100%;
+            background-color: var(--col-gry-lt3);
+        }
+    }
+
+    // sibling selector
+    &__input + &__btn {
+        background-color: var(--col-gry-lt3);
+    }
+    
+    &__btn {
+        border: none;
+        background-color: transparent;
+        // transform: translateY(4px);
+        transition: all .1s;
+        
+        &:focus {
+            outline: none;
+        }
+        &:hover {
+            transform: translateY(-3px);
+        }
+        &:active {
+            transform: translateY(-1px);
+        }
+    }
+    &__icon {
+        height: 2rem;
+        width: 2rem;
+        fill: var(--col-gry-dk3);
+    }
+}
+
+
+////////////////////////////////////////
+// USER NAVIGATION
+
+.user-nav {
+
+    // background-color: lightseagreen;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // height: 100%;
+    align-self: stretch;
+    margin: 0;
+
+    // select all the direct children
+    & > * {
+        padding: 0 2rem;
+        cursor: pointer;
+        height: 100%;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            background-color: var(--col-gry-lt2);
+        }
+    }
+
+    &__icon-box{
+        position: relative;
+    }
+    &__icon {
+        height: 2.25rem;
+        width: 2.25rem;
+        fill: var(--col-gry-dk2);
+        z-index: 12;
+    }
+    &__notification {
+        color: var(--col-wht);
+        font-size: 1rem;
+
+        height: 1.9rem;
+        width: 1.9rem;
+        border-radius: 50%;
+        background-color: var(--col-prm);
+
+        position: absolute;
+        top: 1.3rem;
+        left: 3.4rem;
+        z-index: 10;
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__user{
+
+    }
+    &__user-photo {
+        height: 3.75rem;
+        width: 3.75rem;
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+    &__user-name {
+
+    }
+}
