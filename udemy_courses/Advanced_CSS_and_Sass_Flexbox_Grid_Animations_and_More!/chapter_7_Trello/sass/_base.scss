@@ -1,0 +1,67 @@
+// https://codyhouse.co/blog/post/css-custom-properties-vs-sass-variables
+/*
+COLORS
+
+Primary: #eb2f64
+Primary light: #FF3366
+Primary dark: #BA265D
+
+Grey light 1: #faf9f9
+Grey light 2: #f4f2f2
+Grey light 3: #f0eeee
+Grey light 4: #ccc
+
+Grey dark 1: #333
+Grey dark 2: #777
+Grey dark 3: #999
+
+*/
+
+:root {
+    --col-prm: #eb2f64;
+    --col-prm-lt: #FF3366;
+    --col-prm-dk: #BA265D;
+     
+    --col-gry-lt1: #faf9f9;
+    --col-gry-lt2: #f4f2f2;
+    --col-gry-lt3: #f0eeee;
+    --col-gry-lt4: #ccc;
+
+    --col-gry-dk1: #333;
+    --col-gry-dk2: #777;
+    --col-gry-dk3: #999;
+
+    --col-blk: #000;
+
+    --col-wht: #fff;
+
+    --shodow-dark: 0 2rem 6rem rgba(0,0,0,.3);
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    font-size: 1.6rem;
+
+    background-image: linear-gradient(to bottom right, var(--col-prm-lt), var(--col-prm-dk));
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+
