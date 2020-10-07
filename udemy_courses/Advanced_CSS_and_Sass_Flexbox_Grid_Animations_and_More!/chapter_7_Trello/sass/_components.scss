@@ -15,7 +15,7 @@
     flex: 0 0 40%;
     align-items: center;
     justify-content: center;
-    // justify-items: center;
+
 
     display: flex;
     &__input {
@@ -138,4 +138,93 @@
     &__user-name {
 
     }
+}
+
+////////////////////////////////////////
+// SIDE NAVIGATION 
+
+.side-nav {
+
+    margin-top: 3.5rem;
+    list-style: none;
+    font-size: 1.4rem; 
+
+    /*FIX if animaton shakes */
+    backface-visibility: hidden;
+    
+
+
+    &__item {
+              
+        position: relative;
+
+        /*FIX if animaton shakes */
+        backface-visibility: hidden;
+
+        &:not(:last-child) {
+            margin-bottom: .5rem;
+        }
+
+        &::before {
+            content: '';
+            width: 3px;
+            height: 100%;
+            background-color: var(--col-prm);
+            position: absolute;
+            top: 0;
+            left: 0; 
+            
+
+
+            transform: scaleY(0);            
+            transform-origin: center;
+            transition: transform .2s,
+                        width .4s cubic-bezier(1,0,0,1) .2s,
+                        background-color .1s;
+        }
+
+        &:hover::before, &--active::before {
+
+
+            transform: scaleY(1);
+            width: 100%;
+            
+            
+        }
+        &:active::before {
+            background-color: var(--col-prm-lt);
+        }
+    }
+
+    &__link:visited, &__link:link {
+        
+        color: var(--col-gry-lt1);
+        text-decoration: none;
+        padding: 1.5rem 2rem;
+        text-transform: uppercase;
+        display: block;
+        display: flex;
+        align-items: center;
+
+        position: relative;
+            z-index: 10;
+        
+    }
+
+    &__icon {
+        width: 1.75rem;
+        height: 1.75rem;
+        fill: currentColor;
+        margin-right: 2rem;
+    }
+}
+
+////////////////////////////////////////
+// LEGAL TEXT 
+
+.legal {
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 2.5rem;
+    color: var(--col-gry-lt4);    
 }
