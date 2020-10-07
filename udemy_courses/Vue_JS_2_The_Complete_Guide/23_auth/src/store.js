@@ -27,6 +27,7 @@ export default new Vuex.Store({
         state.activeUser = user
       },
       signOut(state) {
+        console.log('<logout>');
         state.idToken = '';
         state.userId  = '';
         state.activeUser = '';
@@ -148,7 +149,7 @@ export default new Vuex.Store({
       },
       logoutTimer({commit, dispatch}, expirationTime) {
         setTimeout(()=>{
-          console.log('<logout>');
+          console.log('<timeUp>');
           commit('signOut');
           router.replace({path: '/'})
         }, expirationTime * 1000);
@@ -162,31 +163,43 @@ export default new Vuex.Store({
         localStorage.setItem('expires', expirationDate);
       },
       removeDataFromLocalStorage() {
+        console.log('<removeLocalStorage>')
         localStorage.removeItem('idTocken');        
         localStorage.removeItem('userId');
         localStorage.removeItem('expires');
       },
-      async getDataFromLocalStorage({state}) {
+      async getDataFromLocalStorage({dispatch, state}) {
         console.log('<getLocalStorage>')
 
-        const expires = await localStorage.getItem('expires');
+        const expires = new Date(await localStorage.getItem('expires'));
         const now = new Date();
 
-        if (now >= expires) {
-          return
-        }
+        if (expires) {
+          if (now >= expires) {
+            console.log('<expires>')
+            dispatch('removeDataFromLocalStorage');
+            return
+          }
+          console.log({now, expires})
+          console.log(now >= expires)
 
-        const idToken = await localStorage.getItem('idTocken');
-        const userId = await localStorage.getItem('userId');
-        if (!idToken || !userId) {
-          return
-        }
+          const idToken = await localStorage.getItem('idTocken');
+          const userId = await localStorage.getItem('userId');
 
-        state.userId = userId;
-        state.idToken = idToken;
+          if (!idToken || !userId) {
+            return
 
-        router.replace({name: 'dashboard'});
-        
+          } 
+          state.userId = userId;
+          state.idToken = idToken;
+
+          router.replace({name: 'dashboard'});
+                  
+
+        } 
+        console.log('<return>')
+        return
+               
       }
     },
     getters: {
