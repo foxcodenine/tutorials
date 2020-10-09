@@ -73,15 +73,20 @@
                   <div class="hobby-list">
                     <div 
                         class="input"
+                        
                         v-for="(hobbyInput, index) in hobbyInputs"
-                        :key="hobbyInput.id">
+                        :key="hobbyInput.id"                        
+                        :class="{'invaled': $v.hobbyInputs.$each[index].$error}">
                         <label :for="hobbyInput.id">Hobby #{{ index }}</label>
                         <input 
                             type="text"
                             :id="hobbyInput.id"
-                            v-model="hobbyInput.value">
-                        <button @click="onDeleteHobby(hobbyInput.id)" type="button">X</button>
+                            v-model="hobbyInput.value"
+                            @blur="$v.hobbyInputs.$each[index].value.$touch()"> 
+                        <button @click="onDeleteHobby(hobbyInput.id), $v.hobbyInputs.$touch()" type="button">X</button>
                     </div>
+                    <small v-if="!$v.hobbyInputs.required && $v.hobbyInputs.$dirty">Please add a hobby.</small>
+                    <!-- <small>{{$v.hobbyInputs}}</small> -->
                   </div>
 
                 </div>
@@ -101,7 +106,8 @@
                 </div>
 
                 <div class="submit">
-                    <button type="submit">Submit</button>
+                    <button type="submit" :disabled="$v.$invalid">Submit</button>
+                    <!-- <small>{{$v}}</small> -->
                 </div>
                 
             </form>
@@ -113,7 +119,10 @@
     import countries from "../../data/countries";
     import { mapActions, mapGetters } from "vuex";
 
-    import { required, email, minValue, integer, minLength, sameAs, requiredUnless, requiredIf } from "vuelidate/lib/validators";
+    import { required, email, minValue, integer, minLength, sameAs, requiredUnless } from "vuelidate/lib/validators";
+
+    import { api_01 } from '../../axios-auth';
+    import axiosGlobal from "axios";
 
     export default {
         data() {
@@ -132,7 +141,19 @@
           // These shuold have the same name of the data field you are vadidating.
           email: {            
             required,
-            email
+            email,
+            customValidator: val => {
+              // check if email is not 'dorothy@yahoo.com'
+              return val !== 'dorothy@yahoo.com'
+            },
+            uniqueCustomValidator: val => {
+              if (val === '') return true;
+              return axiosGlobal.get(`/users.json?orderBy="email"&equalTo${val}`)
+                    .then(data => console.log('>>>',data))
+                      
+
+                      
+            }
           },
           age: {
             integer,
@@ -150,12 +171,25 @@
             })
           },
           terms: {
+            // false is validate as a valid not an empty string (i did a quick fix in watch)
             required: requiredUnless(vm => {
               return vm.country === 'Malta'
             }),
+            // you can also to the following for a simple required (however the watch quick fix is better)
             // required: sameAs(() => {
             //   return true
             // }) 
+          },
+          hobbyInputs: {
+            // minLen: minLength(1),
+            required : required,
+            // $each represents each item in the array, here we are vadidting the value of each item
+            $each: {
+              value: {
+                required,
+                minLen: minLength(3)
+              }
+            }
           }
         },
         computed: {
