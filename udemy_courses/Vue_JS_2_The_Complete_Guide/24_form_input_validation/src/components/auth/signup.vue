@@ -14,6 +14,7 @@
                     <!-- <small>{{ $v.email }} To Check Error Fields</small>  -->
                     <small v-if="!$v.email.email && $v.email.$error">Please provide a valid email address.</small>
                     <small v-if="!$v.email.required && $v.email.$error">This field must not be empty.</small>
+                    <small v-if="!$v.email.uniqueCustomValidator">Email already in use.</small>
                 </div>
                 
 
@@ -25,6 +26,7 @@
                             @blur="$v.age.$touch()"
                             v-model.number="age">
                     <small v-if="!$v.age.minVal && $v.age.$error">You have to be at least {{ $v.age.$params.minVal.min }} years.</small>
+                    <small v-if="!$v.age.required && $v.age.$error">This field must not be empty.</small>
                     <!-- <small>{{ $v }} To Check Error Fields</small>   -->
                 </div>
 
@@ -142,17 +144,21 @@
           email: {            
             required,
             email,
-            customValidator: val => {
-              // check if email is not 'dorothy@yahoo.com'
-              return val !== 'dorothy@yahoo.com'
-            },
+            // customValidator: val => {
+            //   // check if email is not 'dorothy@yahoo.com'
+            //   return val !== 'dorothy@yahoo.com'
+            // },
             uniqueCustomValidator: val => {
               if (val === '') return true;
-              return axiosGlobal.get(`/users.json?orderBy="email"&equalTo${val}`)
-                    .then(data => console.log('>>>',data))
-                      
-
-                      
+              return fetch('https://vue-axios-cf540.firebaseio.com/users.json')
+                    .then(res => res.json())
+                    .then(data => {
+                      let emails = [];
+                      for (let user in data) {
+                        emails.push(data[user].email)
+                      }
+                      return !emails.includes(val);
+                    })                     
             }
           },
           age: {
