@@ -15,6 +15,7 @@
     flex: 0 0 40%;
     align-items: center;
     justify-content: center;
+    // border: 2px blue dashed;
 
 
     display: flex;
@@ -26,10 +27,10 @@
         border: none;
         border-radius: 2rem;
         padding: .7rem 2rem;
-        width: 90%;
-        transition: all .3s;
+        width: 90%;        
         margin-right: -3rem;
         font-size: 1.4rem;
+        transition: all .3s;
         
         &::-webkit-input-placeholder {
             font-weight: 100;
@@ -85,6 +86,7 @@
     // height: 100%;
     align-self: stretch;
     margin: 0;
+    // border: 2px blue dashed;
 
     // select all the direct children
     & > * {
@@ -101,6 +103,7 @@
 
     &__icon-box{
         position: relative;
+        // border: 2px blue dashed;
     }
     &__icon {
         height: 2.25rem;
@@ -127,17 +130,19 @@
         justify-content: center;
     }
     &__user{
+        // border: 2px blue dashed;
 
+        &-photo {
+            height: 3.75rem;
+            width: 3.75rem;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        &-name {
+    
+        }
     }
-    &__user-photo {
-        height: 3.75rem;
-        width: 3.75rem;
-        border-radius: 50%;
-        margin-right: 1rem;
-    }
-    &__user-name {
-
-    }
+    
 }
 
 ////////////////////////////////////////
@@ -173,8 +178,6 @@
             position: absolute;
             top: 0;
             left: 0; 
-            
-
 
             transform: scaleY(0);            
             transform-origin: center;
@@ -227,4 +230,123 @@
     text-align: center;
     padding: 2.5rem;
     color: var(--col-gry-lt4);    
+}
+
+
+////////////////////////////////////////
+// GALLERY
+.gallery {
+
+    display: flex;
+
+    &__photo {
+        width: 100%;
+        display: block;
+    }
+}
+
+////////////////////////////////////////
+// HOTEL OVERVIEW
+
+.overview {
+
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+
+    border-bottom: 1px solid var(--col-gry-lt2);
+    
+    &__heading{
+        font-size: 2.25rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 1.5rem 3rem;
+    }
+
+    &__stars {
+        margin-right: auto;
+        display: flex; // to center the svg set parant to flex
+    }
+
+    &__icon-star,
+    &__icon-location {
+        width: 1.75rem;
+        height: 1.75rem;
+        fill: var(--col-prm);
+    }
+
+    &__icon-location {
+        margin-right: .5rem;
+    }
+
+    &__location {
+        font-size: 1.2rem;
+        display: inline-flex;
+        align-items: center;
+    }
+   
+
+    &__rating {
+
+        background-color: var(--col-prm);
+        color: var(--col-wht);
+        margin-left: 2rem;
+        padding: 0px 5px;
+        align-self: stretch;
+        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        
+        &-average{
+            font-size: 2.25rem;
+            font-weight: 300;
+            margin-bottom: -5px;
+        }
+
+        &-count {
+            font-size: 1.2rem;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+    }
+}
+
+.btn-inline {
+    border: none;
+    color: var(--col-prm-lt);
+    font-size: inherit;
+    background-color: transparent;
+    border-bottom: 1px solid currentColor;
+    padding: 2px;
+    display: inline-block;
+    cursor: pointer;
+    transition: all .2s;
+
+    &:hover {
+        color: var(--col-gry-dk1);
+    }
+
+    &:focus {
+        outline: none;
+        animation: pulsate 1s infinite;
+        background-color: transparent;
+    }
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+        text-shadow: none;
+    }
+    50% {
+        transform: scale(1.05);
+        text-shadow: 0 0 1.5rem rgba(0,0,0, .5);
+    }
+    100% {
+        transform: scale(1);
+        text-shadow: none;
+    }
 }

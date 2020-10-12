@@ -8,9 +8,11 @@
 }
 
 .header {
+    font-size: 1.4rem;
     height: 7rem;
     background-color: var(--col-wht);
-    margin-bottom: 1px solid var(--col-gry-lt2);
+    border-bottom: 1px solid var(--col-gry-lt2);
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -18,7 +20,7 @@
 
 .content {
     display: flex;
-    height: 100%;
+    // border: red 2px dashed;
 }
 
 .sidebar {
@@ -37,7 +39,7 @@
 
     // testing
     min-height: 80rem;
-    background-color: lightgreen;
+    // background-color: lightgreen;
 }
 
 
