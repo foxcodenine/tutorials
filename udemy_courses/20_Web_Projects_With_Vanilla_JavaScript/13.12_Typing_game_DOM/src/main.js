@@ -16,7 +16,7 @@ let state = {
 
   randomWord: [],
   score: 0,
-  time: 10,
+  time: 1,
   difficulty: 'easy'
 }
 
@@ -39,7 +39,7 @@ function updateTimeUI() {
 
 // Display gameover in UI
 function gameOver() {
-  const markup = `  
+  const markup = `
     <h1>Time has ran out</h1>
     <p>Your final score is ${state.score}</p>
     <button onclick="window.location.reload()" >Reload</button>`;
@@ -50,7 +50,7 @@ function gameOver() {
 
 
 // Update select option in UI
-function selectedOption(id, valueToSelect) {    
+function selectedOption(id, valueToSelect) {
   let element = document.getElementById(id);
   element.value = valueToSelect;
 }
@@ -61,10 +61,10 @@ async function getRandomWord(){
   const respons = await fetch('https://random-word.ryanrk.com/api/en/word/random');
   const data = await respons.json();
   state.randomWord.unshift(data);
-  return data;  
+  return data;
 }
 
-// Update score function 
+// Update score function
 function updateScore() {
   state.score++
 }
@@ -77,7 +77,7 @@ function updateTime() {
 
 // Add time function
 function addTime() {
-  
+
   let addedTime;
 
   switch (state.difficulty) {
@@ -90,7 +90,7 @@ function addTime() {
     default:
       addedTime = 3;
   }
-  
+
   state.time = state.time + addedTime;
 }
 
@@ -101,7 +101,7 @@ const timeCountDown = setInterval(()=>{
   updateTime();
   updateTimeUI();
 
-  if (state.time === 0) {    
+  if (state.time === 0) {
     clearInterval(timeCountDown);
     gameOver();
   }
@@ -112,11 +112,11 @@ const timeCountDown = setInterval(()=>{
 // Init function
 const  controller = async () => {
 
-  // Internal functions:  
+  // Internal functions:
 
   async function init() {
 
-    
+
     // Clear input
     elems.text.value = '';
     // Get difficuly level from local store and set it in state
@@ -124,7 +124,7 @@ const  controller = async () => {
                             localStorage.getItem('difficulty') : 'easy';
     // Update Select UI
     selectedOption('difficulty', state.difficulty)
-       
+
      // Set place cursor in input
     elems.text.focus();
     // Get word
@@ -136,21 +136,21 @@ const  controller = async () => {
   init();
 
   // _______________
-  
+
   // Event listents:
-  
+
   // Input field
-  elems.text.addEventListener('input', (e)=>{    
+  elems.text.addEventListener('input', (e)=>{
     const inputText = e.target.value
 
     // Check input with DOM
-    if (inputText === elems.word.innerText) {      
-      
+    if (inputText === elems.word.innerText) {
+
       updateScore();
       updateScoreUI();
       addTime();
-      init();     
-    }    
+      init();
+    }
   });
 
   // Setting btn
@@ -159,10 +159,10 @@ const  controller = async () => {
   })
 
   // Select difficulty and update localStore
-  elems.difficultySelect.addEventListener('change', (e)=>{    
+  elems.difficultySelect.addEventListener('change', (e)=>{
     // Reset timer
-    state.time = 11; 
-    localStorage.setItem('difficulty', e.target.value)   
+    state.time = 11;
+    localStorage.setItem('difficulty', e.target.value)
     init();
   })
 
