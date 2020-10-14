@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <app-header></app-header>
     <div>
       <Logo />
       <app-my-logo></app-my-logo>
@@ -15,12 +16,14 @@
 </template>
 
 <script>
-
+import Header from '~/components/Header';
 import myLogo from "~/components/Logo";
 export default {
   components: {
-    appMyLogo: myLogo
-  }
+    appMyLogo: myLogo,
+    appHeader: Header
+  },
+
 }
 </script>
   
