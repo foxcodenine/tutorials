@@ -5,32 +5,18 @@
       <h1 class="intro__text">Get the latest tech news!</h1>
     </section>
 
-    <section class="featured-post post" >
-
-      <app-post-preview
-          v-for="(p, index) in postData" :key="index"
-          :id="p.id"
-          :title="p.title"
-          :sampleText="p.sampleText"
-          :thumbnail="p.thumbnail">
-      </app-post-preview>
-      
-    </section>
+    <app-post-section></app-post-section>
   </div>
 </template>
 
 <script>
-  import postData from "@/Data/postList";
-  import PostPreview from "@/components/Post/PostPreview";
+  import PostSection from "@/components/Post/PostSection";
+  
   export default {
     components: {
-      appPostPreview: PostPreview
+      appPostSection: PostSection
     },
-    data() {
-      return {
-        postData
-      }
-    }
+
   }
 
 </script>
@@ -44,6 +30,7 @@
     box-sizing: border-box;
     background-position: center;
     background-size: cover;
+    background-image: url('~assets/images/Crypto-1.jpg');
 
     &__text {
       position: absolute;
@@ -51,34 +38,21 @@
       left: 5%;
       width: 90%;
       font-size: 1.5rem;
-      color: black;
-      background-color: rgb(211, 211, 211);
+      color: rgba(0,0,0, .8);
+      background-color: rgba(211, 211, 211,.3);
       padding: 10px;
       border-radius: 10px;
-      box-shadow: 3px 3px 3px black;
+      box-shadow: 0px 3px 6px rgba(0,0,0, .5);
       box-sizing: border-box;
-      border: 1px solid black;
+      border: 1px solid rgba(0,0,0, .7);
+      font-family: 'Source Sans Pro', sans-serif;
+      font-weight: 500;
 
       @media (min-width: 768px) {
         font-size: 2rem;
       }
     }
   }
-  .post {
-    display: flex;
-    padding: 10px;
-    box-sizing: border-box;
-    flex-wrap: wrap;
-    align-items: stretch;
-    justify-content: center;
-    flex-direction: row-reverse;
-    width: 100%;
-    // background: crimson;
-    // min-height: 100%;
 
-    @media (min-width: 768px) {
-      flex-direction: row;
-    }
-  }
 
 </style>

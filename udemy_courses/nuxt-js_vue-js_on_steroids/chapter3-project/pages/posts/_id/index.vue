@@ -47,7 +47,7 @@ export default {
         &__details {
             padding: 10px;
             box-sizing: border-box;
-            border-bottom: 3px solid #ccc;
+            // border-bottom: 3px solid #ccc;
             display: flex;
             justify-content: center;
             align-items: center;
