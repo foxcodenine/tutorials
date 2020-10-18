@@ -1,6 +1,5 @@
 <template>
-
-    <nuxt-link class="post__link" :to="'/posts/' + id" >
+    <nuxt-link class="post__link" :to="postLink" >
         <article class="post__preview">
             <div class="post__thumbnail" :style="{backgroundImage: `url(${thumbnail})`}"></div>
             <div class="post__content">
@@ -32,7 +31,16 @@
             thumbnail: {
                 type: String,
                 required: true
-            }
+            },
+            isAdmin: {
+              type: Boolean,
+              required: true
+            }            
+        },
+        computed: {
+          postLink() {
+            return this.isAdmin ? `/admin/${this.id}`  : `/posts/${this.id}`
+          }
         }
     }
 

@@ -1,12 +1,13 @@
 <template>
     <section class="featured-post post" >
-      <app-post-preview
+      <PostPreview
           v-for="(p, index) in postData" :key="index"
           :id="p.id"
           :title="p.title"
+          :is-admin="isAdmin"
           :sampleText="p.sampleText"
           :thumbnail="p.thumbnail">
-      </app-post-preview>
+      </PostPreview>
       
     </section>
 </template>
@@ -16,8 +17,14 @@
     import PostPreview from "@/components/Post/PostPreview";
 
     export default {
+        props: {
+          isAdmin: {
+            type: Boolean,
+            default: false
+          }
+        },
         components: {
-            appPostPreview: PostPreview
+            PostPreview
         },
         data() {
             return {
