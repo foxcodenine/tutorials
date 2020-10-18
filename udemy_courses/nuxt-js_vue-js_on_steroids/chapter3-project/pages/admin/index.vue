@@ -2,14 +2,14 @@
   <div class="admin-page">
 
         <section class="new-post">
-            <button 
-                class="new-post__btn btn"
-                @click="onClick()">Create Post</button>
+            <AppButton                 
+                @click="onClick()">Create Post
+            </AppButton>
         </section>
 
         <section class="existing-post">
             <h1 class="existing-post__title">Existing Post</h1>
-            <app-post-section></app-post-section>
+            <PostSection isAdmin></PostSection>
         </section>
   </div>
 </template>
@@ -17,10 +17,12 @@
 
 
 <script>
-    import PostSection from "@/components/Post/PostSection";
+    import PostSection from "~/components/Post/PostSection";
+    import AppButton from "~/components/UI/AppButton";
     export default {
         components: {
-            appPostSection: PostSection
+            PostSection,
+            AppButton
         },
         methods: {
             onClick() {
@@ -41,10 +43,6 @@
         text-align: center;
         border-bottom: 2px solid #ccc;
         padding-bottom: 1rem;
-        &__btn {
-            padding: 1rem 2rem;
-            font-size: 1.6rem;
-        }
     }
     
     .existing-post {
