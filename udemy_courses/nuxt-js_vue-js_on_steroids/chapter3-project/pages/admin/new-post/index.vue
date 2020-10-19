@@ -12,9 +12,9 @@ import AdminPostForm from "~/components/Admin/AdminPostForm";
 
 
 export default {
+    layout: 'adminLayout',
     components: {
         AdminPostForm,
-
     },
 }
 

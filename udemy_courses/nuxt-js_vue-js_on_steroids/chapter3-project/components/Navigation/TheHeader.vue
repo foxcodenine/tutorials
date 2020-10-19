@@ -1,6 +1,6 @@
 <template>
     <div class="header-container">
-        <header class="header">
+        <header class="header" :class="{'blue': isAdmin}">
             <app-the-side-nav-toggle @toggle="sideNaveToggle()"></app-the-side-nav-toggle>
             <div class="header__logo">
                 <nuxt-link to="/" class="header__link">
@@ -8,7 +8,7 @@
                 </nuxt-link>
             </div>
             <div class="header__spacer"></div>
-            <div class="nav">
+            <div class="nav" :class="{'admin': isAdmin}">
                 <ul class="nav__list">                                
                     <li class="nav__list-item"><nuxt-link to="/posts" class="nav__link">Blog</nuxt-link></li>
                     <li class="nav__list-item"><nuxt-link to="/about" class="nav__link">About</nuxt-link></li>
@@ -26,14 +26,23 @@
     import TheSideNavToggle from "./TheSideNavToggle";
     export default {
         name: "TheHeader",
+        props: {
+            isAdmin: {
+                type: Boolean,
+                default: false
+            }
+        },
         components: {
             appTheSideNavToggle : TheSideNavToggle,
         },
         methods: {
             sideNaveToggle() {
                 console.log('eee')
-                this.$emit('sidenavToggle');
+                this.$emit('sideNavToggle');
             }
+        },
+        mounted() {
+            console.log(this.isAdmin)
         }
     }
 </script>
@@ -85,6 +94,7 @@
     @media (min-width: 768px) {
         display: block;
     }
+    
 
     &__list {
         list-style: none;
@@ -123,6 +133,13 @@
     &:active {
         fill: crimson;
     }
+}
+.admin {
+    display: block;
+    
+}
+.blue {
+    background-color: #1034a6;
 }
 
 
