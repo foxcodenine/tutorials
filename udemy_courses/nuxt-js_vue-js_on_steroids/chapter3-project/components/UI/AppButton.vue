@@ -39,6 +39,17 @@
             outline: none;
         }
     }
+    .blue {
+        background-color: #1034a6;
+        color: white;
+        border: 1px solid transparent;
+
+        &:hover,
+        &:active {
+            background-color: crimson; 
+            border: 1px solid transparent;        
+        }        
+    }
     .inverted {
         background-color: white;
         color: black;
@@ -52,7 +63,7 @@
         }        
     }
     .cancel {
-        background-color: red;
+        background-color: crimson;
         color: white;
         border: 1px solid transparent;   
 
@@ -61,10 +72,11 @@
             background-color: salmon;
             border: 1px solid transparent;
             color: white;           
-        }    
-        &:focus {
-            outline: none;
-            border-radius: none;
         }
     }
+    *:focus {
+        outline: none;
+        border-radius: none;
+    }
+
 </style>

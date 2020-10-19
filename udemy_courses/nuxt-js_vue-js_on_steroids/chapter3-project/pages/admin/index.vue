@@ -3,7 +3,8 @@
 
         <section class="new-post">
             <AppButton                 
-                @click="onClick()">Create Post
+                @click="onClick()"
+                btn-style="blue">Create Post
             </AppButton>
         </section>
 
@@ -20,6 +21,7 @@
     import PostSection from "~/components/Post/PostSection";
     import AppButton from "~/components/UI/AppButton";
     export default {
+        layout: 'adminLayout',
         components: {
             PostSection,
             AppButton

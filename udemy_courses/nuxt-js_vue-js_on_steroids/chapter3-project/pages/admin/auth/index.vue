@@ -4,7 +4,9 @@
           <form  class="auth__form">
               <AppControllInput type="email">E-Mail Address</AppControllInput>
               <AppControllInput type="password">Password</AppControllInput>
-              <AppButton type="submit">{{ isLogin ? 'Login' : 'Sign Up' }}</AppButton>
+              <AppButton 
+                btn-style="blue"
+                type="submit">{{ isLogin ? 'Login' : 'Sign Up' }}</AppButton>
               <AppButton 
                 type="button"
                 btn-style="inverted"
@@ -22,7 +24,7 @@ import AppControllInput from "~/components/UI/AppControllInput";
 
 export default {
     name: 'AdminAuthPage',
-
+    layout: 'adminLayout',
     components: {
         AppButton,
         AppControllInput
