@@ -1,7 +1,7 @@
 <template>
     <section class="featured-post post" >
       <PostPreview
-          v-for="(p, index) in postData" :key="index"
+          v-for="p in dataPost" :key="p.id"
           :id="p.id"
           :title="p.title"
           :is-admin="isAdmin"
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import postData from "@/Data/postList";
+    // import postData from "@/Data/postList";
     import PostPreview from "@/components/Post/PostPreview";
 
     export default {
@@ -21,16 +21,20 @@
           isAdmin: {
             type: Boolean,
             default: false
+          },
+          dataPost: {
+            type: Array,
+            required: true
           }
         },
         components: {
             PostPreview
         },
-        data() {
-            return {
-                postData
-            }
-        }
+        // data() {
+        //     return {
+        //         postData
+        //     }
+        // }
     }
 </script>
 

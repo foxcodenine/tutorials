@@ -5,17 +5,28 @@
       <h1 class="intro__text">Get the latest tech news!</h1>
     </section>
 
-    <app-post-section></app-post-section>
+    <PostSection :dataPost="dataPost"></PostSection>
   </div>
 </template>
 
 <script>
   import PostSection from "@/components/Post/PostSection";
+  import postData from "@/Data/postList";
   
   export default {
     components: {
-      appPostSection: PostSection
+      PostSection
     },
+    data() {
+      return {
+        dataPost: []
+      }
+    },
+    created() {
+      setTimeout(() => {
+        this.dataPost = [...postData];
+      },1500);
+    }
 
   }
 

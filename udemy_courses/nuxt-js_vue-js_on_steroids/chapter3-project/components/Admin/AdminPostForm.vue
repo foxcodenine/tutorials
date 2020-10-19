@@ -7,7 +7,9 @@
                     control-type="textarea"
                     v-model="editPost.content">Content</app-controll-input>
 
-            <AppButton type="submit">Save</AppButton>
+            <AppButton 
+                btn-style="blue"
+                type="submit">Save</AppButton>
 
             <AppButton
                 type="button"

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TheHeader @sidenavToggle="displaySideNave = !displaySideNave" />
+    <TheHeader @sideNavToggle="displaySideNave = !displaySideNave" />
     <TheSidenav
       @close="displaySideNave = !displaySideNave" 
       :show="displaySideNave" />
