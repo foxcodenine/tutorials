@@ -16,6 +16,14 @@ db = SQLAlchemy(app)
 CORS(app)
 
 # ______________________________________________________________________
+from my_app.modules.database import Posts
+# db.create_all()
+# db.session.commit()
+
+from my_app.modules.views import nuxtAPI
+app.register_blueprint(nuxtAPI)
+
+# ______________________________________________________________________
 
 @app.route('/')
 def index():
