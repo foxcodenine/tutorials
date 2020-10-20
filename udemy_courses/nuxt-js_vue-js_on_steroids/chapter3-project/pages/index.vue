@@ -11,7 +11,7 @@
 
 <script>
   import PostSection from "@/components/Post/PostSection";
-  import postData from "@/Data/postList";
+  import postList from "@/Data/postList";
   
   export default {
     components: {
@@ -24,7 +24,7 @@
     },
     created() {
       setTimeout(() => {
-        this.dataPost = [...postData];
+        this.dataPost = [...postList];
       },1500);
     }
 
