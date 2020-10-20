@@ -16,7 +16,7 @@ db = SQLAlchemy(app)
 CORS(app)
 
 # ______________________________________________________________________
-from my_app.modules.database import Posts
+from my_app.modules.database import NuxtApiPosts
 # db.create_all()
 # db.session.commit()
 
