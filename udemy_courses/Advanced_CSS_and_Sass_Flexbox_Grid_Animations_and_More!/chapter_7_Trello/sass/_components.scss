@@ -325,8 +325,17 @@
     cursor: pointer;
     transition: all .2s;
 
+    & span {
+        margin-left: 3px;  
+        transition: margin-left .2s;     
+    }
+
     &:hover {
         color: var(--col-gry-dk1);
+
+        & span {
+            margin-left: 8px;
+        }
     }
 
     &:focus {
@@ -348,5 +357,154 @@
     100% {
         transform: scale(1);
         text-shadow: none;
+    }
+}
+
+////////////////////////////////////////
+// PARAGRAGH
+.paragraph:not(:last-of-type) {
+    margin-bottom: 2rem;
+}
+
+
+////////////////////////////////////////
+// LIST
+.list {
+    list-style: none;
+    margin: 3rem 0;
+    padding: 3rem 0;
+    border-top: var(--line);
+    border-bottom: var(--line);
+    // border: red solid 1px;
+    justify-content: space-between;
+
+    display: flex;
+    flex-wrap: wrap;
+    
+    &__item {
+        flex: 0 0 48%;
+        margin-bottom: .7rem;
+        // border: red solid 1px;
+
+        @media(max-width: 950px) {
+            flex: 0 0 100%; 
+        }
+
+        &::before {
+            content: "";
+            display: inline-block;
+            height: 1.2rem;
+            width: 1.2rem;
+            margin-right: .7rem;
+
+            // Older browsers - backgroud-image:
+            // background-image: url('../img/chevron-thin-right.svg');
+            // background-size: cover;
+
+            // Newer browsers - mask:
+            background-color: var(--col-prm);
+            mask-image: url('../img/chevron-thin-right.svg');
+            mask-size: cover;
+
+        } 
+    }
+}
+
+
+////////////////////////////////////////
+// RECOMMEND
+
+.recommend {
+    display: flex;    
+    align-items: center;
+
+    &__count{        
+        font-size: 1.3rem;
+        color: var(--col-gry-dk3);
+    }
+    &__fiends {
+        margin-left: auto;
+    }
+    &__photo {
+        
+        width: 4rem;
+        height: 4rem;
+        border-radius: 50%;        
+        border: .3rem #fff solid;
+        box-sizing: content-box;
+
+        &:not(:last-child) {
+            margin-right: -1.5rem;
+        }
+    }
+}
+
+////////////////////////////////////////
+// REVIEWS 
+.user-reviews {
+    display: flex;
+    flex-direction: column;
+    align-items: center
+    
+}
+.review {
+    background-color: #fff;
+    box-shadow: var(--shodow-light);
+    margin: 0 0 3rem 0;
+    padding: 3.5rem;
+    position: relative;
+    overflow: hidden;
+
+    &__text {
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 10;
+    }
+
+    &__user {
+        
+        display: flex;
+        align-items: center;
+    }
+
+    &__photo {
+        width: 4.5rem;
+        height: 4.5rem;
+        border-radius: 50%;
+        
+    }
+
+    &__user-box {
+        margin: 0 auto 0 1.5rem;
+    }
+
+    &__user-name {
+        text-transform: uppercase;
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: .4rem;
+    }
+
+    &__user-date {
+        font-size: 1rem;
+        color: var(--col-gry-dk3);
+    }
+
+    &__rating {
+        color: var(--col-prm);
+        font-size: 2rem;
+    }
+
+    &::before {
+        content: "\201C";
+        position: absolute;
+        top: -2.75rem;
+        left: -1rem;
+        font-size: 20rem;
+        color: var(--col-gry-lt2);
+        font-family: sans-serif;
+        line-height: 1;
+        z-index: 5;
+        
     }
 }
