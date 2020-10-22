@@ -56,12 +56,39 @@ export default {
             // Save the post
             console.log(this.editPost)
 
+            const data = {
+                'title': this.editPost.title,
+                'author': this.editPost.author,
+                'sample_text': this.editPost.content,
+                'thumbnail': this.editPost.thumbnailLink
+            }
+            console.log('>>',JSON.stringify(data))
+
+            fetch('http://127.0.0.1:5000/nuxtAPI/', {
+                method: 'POST',
+                // mode: 'no-cors',                
+
+                body: JSON.stringify(data),
+
+                
+                headers: {
+                    'API-Nuxt-Key': '123#456#789',
+                    'Access-Control-Allow-Origin': '*',
+                }
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+
             this.editPost = {
                 author: '',
                 title: '',
                 thumbnailLink: '',
                 content: ''
             }
+            this.$router.push('/admin')
         }
     },
     mounted() {

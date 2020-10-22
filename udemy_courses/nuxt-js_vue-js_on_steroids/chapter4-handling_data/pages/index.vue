@@ -17,16 +17,31 @@
     components: {
       PostSection
     },
-    data() {
-      return {
-        dataPost: []
-      }
+    // data() {
+    //   return {
+    //     dataPost: []
+    //   }
+    // },
+    asyncData(context) {
+      console.log('asyncData is executed!');
+      // console.log(context);
+      return fetch(
+          'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
+          )
+          .then(res => res.json())
+          .then(data => {
+              return {dataPost : [...data].reverse()}
+            }          
+          )
+          .catch(e => {
+            context.error({ statusCode: 404, message: 'Post not found'})
+          })
     },
-    created() {
-      fetch('http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}})
-      .then(res => res.json())
-      .then(data => this.dataPost = [...data])
-    }
+    // created() {
+    //   fetch('http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}})
+    //   .then(res => res.json())
+    //   .then(data => this.dataPost = [...data].reverse())
+    // }
   }
 
 </script>
