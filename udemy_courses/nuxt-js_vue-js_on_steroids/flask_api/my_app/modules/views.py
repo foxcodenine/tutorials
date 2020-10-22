@@ -1,6 +1,7 @@
 from flask import redirect, request, jsonify, Blueprint, url_for, flash, render_template, abort
 from my_app import app, db
 from my_app.modules.database import NuxtApiPosts
+import ast
 
 
 nuxtAPI = Blueprint('nuxtAPI', __name__, url_prefix='/nuxtAPI')
@@ -15,10 +16,14 @@ def api():
 
         if request_xhr_key and request_xhr_key == '123#456#789':
 
-            title = request.form.get('title')  
-            author = request.form.get('author')      
-            sample_text = request.form.get('sampleText')  
-            thumbnail = request.form.get('thumbnail') 
+            dict_str = request.data.decode("UTF-8")
+            mydata = ast.literal_eval(dict_str)
+
+            title = mydata.get('title')  
+            author = mydata.get('author')      
+            sample_text = mydata.get('sample_text')  
+            thumbnail = mydata.get('thumbnail') 
+
 
             post = NuxtApiPosts(
                 title = title,
@@ -29,9 +34,11 @@ def api():
 
             db.session.add(post)
             db.session.commit()
+
+            return redirect(url_for('nuxtAPI.api'))
             
         else:
-            return abort(401)
+            return abort(404)
 
     #____________________________________________________
 
@@ -52,9 +59,9 @@ def api():
 
     if request_xhr_key and request_xhr_key == '123#456#789':
 
-        api_object = {
-            'title': 'The Mandalorian'
-        }
+        # api_object = {
+        #     'title': 'The Mandalorian'
+        # }
         return jsonify(api_data)
 
 
@@ -63,6 +70,65 @@ def api():
     # return jsonify(api_data)
     return abort(401)
     
+
+
+
+   #____________________________________________________________________
+
+@nuxtAPI.route('/update/<post_id>/', methods=['PUT','GET'])
+def updateAPI(post_id):
+
+    request_xhr_key = request.headers.get('API-Nuxt-Key')
+
+    if not request_xhr_key or request_xhr_key != '123#456#789':
+        return abort(401)
+# ___________________________________________________________
+# Fetch Record  
+    record = NuxtApiPosts.query.filter_by(id=post_id).first_or_404()
+
+    if request.method == 'GET':
+        api_data = {
+            'id': record.id,
+            'title': record.title,
+            'author': record.author,
+            'sampleText': record.sample_text,
+            'thumbnail': record.thumbnail       
+        }
+        return jsonify(api_data)
+
+# ___________________________________________________________
+# Update Record
+
+    if request.method == 'PUT':
+
+        dict_str = request.data.decode("UTF-8")
+        mydata = ast.literal_eval(dict_str)
+
+        record.title = mydata.get('title')  
+        record.author = mydata.get('author')      
+        record.sample_text = mydata.get('sample_text')  
+        record.thumbnail = mydata.get('thumbnail') 
+
+        db.session.commit()
+        return redirect(url_for('nuxtAPI.post_id'))
+
+
+# ___________________________________________________________
+# Method Not Allowed
+    return abort(405)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
