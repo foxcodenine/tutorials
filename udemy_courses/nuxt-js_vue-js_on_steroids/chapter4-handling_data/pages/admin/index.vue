@@ -26,21 +26,31 @@
             PostSection,
             AppButton
         },
-        data() {
-            return {
-                dataPost: []
-            }
+        asyncData() {
+            return fetch(
+                'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
+                )
+                .then(res => res.json())
+                .then(data => {
+                    return {dataPost : [...data].reverse()}
+                }
+            )
         },
+        // data() {
+        //     return {
+        //         dataPost: []
+        //     }
+        // },
         methods: {
             onClick() {
                 this.$router.push('/admin/new-post')
             }
         },
-        created() {
-            fetch('http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}})
-            .then(res => res.json())
-            .then(data => this.dataPost = [...data])
-        }
+        // created() {
+        //     fetch('http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}})
+        //     .then(res => res.json())
+        //     .then(data => this.dataPost = [...data].reverse())
+        // }
     }
 </script>
 

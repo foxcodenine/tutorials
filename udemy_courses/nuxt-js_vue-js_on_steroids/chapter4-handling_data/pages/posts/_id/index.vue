@@ -1,13 +1,14 @@
 <template>
-    <div class="single-post-page">
+     <div class="single-post-page">
+        <div class="post__background" :style="{'background-image':  `url(${dataPost.thumbnail})`}"></div>
         <section class="post">
-            <h1 class="post__title">Title of the Post</h1>
+            <h1 class="post__title">{{dataPost.title}}</h1>
             <div class="post__details">
-                <div class="post__date">Last updated on XXX</div>
-                <div class="post__author">Written by Name</div>   
+                <div class="post__date">Last updated on {{dataPost.date}}</div>
+                <div class="post__author">{{dataPost.author}}</div>   
             </div>
             <p class="post__content">
-                Content of the post
+                {{dataPost.sampleText}}
             </p>
         </section>
         <section class="feedback">
@@ -21,8 +22,27 @@
 </template>
 
 <script>
-export default {
 
+export default {
+    asyncData(context) {
+        console.log(context.params);
+        return fetch(
+            'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
+            )
+        .then(res =>res.json())
+        .then(data => {
+            
+            const dataPost = data.filter(p => {
+                return p.id == context.route.params['id']
+                // return p.id == context.params['id']  // or you can do this <--
+            })
+            dataPost[0].date = new Date().toLocaleString()
+            return {dataPost: dataPost[0]}
+        })
+        .catch(e => {
+            context.error({ statusCode: 404, message: 'Post not found'})
+        })
+    }
 }
 </script>
 
@@ -31,14 +51,30 @@ export default {
         padding: 3rem;
         text-align: center;
         box-sizing: border-box;
+        height: 100%;
+        // border: maroon dashed 2px;
     }
     .post {
         width: 100%;
+        
 
         @media (min-width: 768px) {
             width: 600px;
             margin: auto;
             // color: red;
+        }
+
+        &__background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: .2;
+            background-size: cover;
+            background-repeat: no-repeat;
+            
         }
 
         &__title {
@@ -64,7 +100,9 @@ export default {
         }
 
         &__content {
-
+            margin: 3rem 0;
+            color: navy;
+            text-align: justify;
         }
     }
     .feedback {
