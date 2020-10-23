@@ -75,16 +75,23 @@ def api():
 
    #____________________________________________________________________
 
-@nuxtAPI.route('/update/<post_id>/', methods=['PUT','GET'])
+@nuxtAPI.route('/update/<post_id>/', methods=['PUT','GET', 'DELETE'])
 def updateAPI(post_id):
+
+# ___________________________________________________________
+# Check if user is authorized 
 
     request_xhr_key = request.headers.get('API-Nuxt-Key')
 
     if not request_xhr_key or request_xhr_key != '123#456#789':
         return abort(401)
 # ___________________________________________________________
-# Fetch Record  
+# Fetch Record from Database
+
     record = NuxtApiPosts.query.filter_by(id=post_id).first_or_404()
+
+# ___________________________________________________________
+# Get Record    
 
     if request.method == 'GET':
         api_data = {
@@ -97,7 +104,7 @@ def updateAPI(post_id):
         return jsonify(api_data)
 
 # ___________________________________________________________
-# Update Record
+# Put Record
 
     if request.method == 'PUT':
 
@@ -112,9 +119,16 @@ def updateAPI(post_id):
         db.session.commit()
         return redirect(url_for('nuxtAPI.post_id'))
 
+# ___________________________________________________________
+# Delete Record
+    if request.method == 'DELETE':
 
+        db.session.delete(record)
+        db.session.commit()
+        return redirect(url_for('nuxtAPI.post_id'))
 # ___________________________________________________________
 # Method Not Allowed
+
     return abort(405)
 
 

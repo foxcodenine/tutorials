@@ -9,13 +9,21 @@
 
             <AppButton 
                 btn-style="blue"
-                type="submit">Save</AppButton>
-
+                type="submit">{{updatePost ? 'Update' : 'Save'}}</AppButton>
+            
             <AppButton
                 type="button"
                 style="margin-left: 10px"
                 btn-style="cancel"
                 @click="onCancel">Cancel</AppButton>
+            
+            <AppButton
+                type="button"
+                style="margin-left: 10px"
+                btn-style="cancel"
+                @click="onDelete">Delete</AppButton>
+
+            
     </form>
 </template>
 
@@ -35,10 +43,17 @@ export default {
         loadedPost: {
             type: Object,
             required: false
+        },
+        updatePost: {
+            type: Boolean,
+            default: false
         }
+        
     },
     data() {
         return {
+            postMethod: this.updatePost ? 'PUT' : 'POST',
+            postURL: this.updatePost ? `http://127.0.0.1:5000/nuxtAPI/update/${this.$route.params.postId}/` : 'http://127.0.0.1:5000/nuxtAPI/',
             editPost: this.loadedPost ? {...this.loadedPost} : {
                 author: '',
                 title: '',
@@ -50,22 +65,25 @@ export default {
     methods: {
         onCancel() {
             // Navigate back
+            console.log(this.$route.params.postId)
+
             this.$router.push('/admin')
         },
         onSave() {
-            // Save the post
-            console.log(this.editPost)
+            // Save or Updating the post 
 
+            // fetching the data from this.editPost and 
+            // set in in to an object to send it with fetch post or put
             const data = {
                 'title': this.editPost.title,
                 'author': this.editPost.author,
                 'sample_text': this.editPost.content,
                 'thumbnail': this.editPost.thumbnailLink
             }
-            console.log('>>',JSON.stringify(data))
 
-            fetch('http://127.0.0.1:5000/nuxtAPI/', {
-                method: 'POST',
+
+            fetch(this.postURL, {
+                method: this.postMethod,
                 // mode: 'no-cors',                
 
                 body: JSON.stringify(data),
@@ -82,13 +100,25 @@ export default {
                 console.error('Error:', error);
             })
 
-            this.editPost = {
-                author: '',
-                title: '',
-                thumbnailLink: '',
-                content: ''
-            }
-            this.$router.push('/admin')
+            // redirecting to admin page after half a sec
+            setTimeout(() => this.$router.push('/admin'), 300);          
+        },
+        
+        onDelete() {
+            // Delete a post 
+
+            if (confirm("Press 'OK' to delete post, else press 'Cancel'")) {
+
+                fetch(this.postURL, {
+                    method: 'DELETE',
+                    headers: {'API-Nuxt-Key': '123#456#789', 'Access-Control-Allow-Methods': 'POST, GET, DELETE, OPTIONS'}
+                })
+                .catch(e => {
+                    console.log('error >>', e)
+                })               
+                
+                setTimeout(() => this.$router.push('/admin'), 300);
+            };
         }
     },
     mounted() {

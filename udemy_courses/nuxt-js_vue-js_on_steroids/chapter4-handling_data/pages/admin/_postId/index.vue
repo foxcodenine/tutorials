@@ -1,6 +1,6 @@
 <template>
   <div class="admin-postid-page">
-      <AdminPostForm :loadedPost="loadedPost"></AdminPostForm>
+      <AdminPostForm :loadedPost="loadedPost" updatePost></AdminPostForm>
   </div>
 </template>
 
