@@ -51,8 +51,11 @@ export default {
         padding: 3rem;
         text-align: center;
         box-sizing: border-box;
+        
         height: 100%;
+        
         // border: maroon dashed 2px;
+        position: relative;
     }
     .post {
         width: 100%;
@@ -68,12 +71,17 @@ export default {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            bottom: 0;
+            right: 0;
+            min-height: 100vh;
+
             z-index: -1;
             opacity: .2;
+
             background-size: cover;
             background-repeat: no-repeat;
+            background-position: center;
+            // border: maroon dashed 2px;
             
         }
 
@@ -103,6 +111,7 @@ export default {
             margin: 3rem 0;
             color: navy;
             text-align: justify;
+            white-space: pre-line;
         }
     }
     .feedback {
