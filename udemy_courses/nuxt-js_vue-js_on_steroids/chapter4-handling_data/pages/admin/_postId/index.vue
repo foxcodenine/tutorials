@@ -12,6 +12,7 @@ export default {
     components: {
         AdminPostForm
     },
+    layout: 'adminLayout',
     asyncData(context) {
 
         // console.log(context.params.postId)

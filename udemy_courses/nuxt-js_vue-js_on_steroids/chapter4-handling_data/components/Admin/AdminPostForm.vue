@@ -18,6 +18,7 @@
                 @click="onCancel">Cancel</AppButton>
             
             <AppButton
+                v-if="updatePost"
                 type="button"
                 style="margin-left: 10px"
                 btn-style="cancel"
@@ -70,6 +71,7 @@ export default {
             this.$router.push('/admin')
         },
         onSave() {
+            // _________________________________________________________
             // Save or Updating the post 
 
             // fetching the data from this.editPost and 
@@ -101,7 +103,8 @@ export default {
             })
 
             // redirecting to admin page after half a sec
-            setTimeout(() => this.$router.push('/admin'), 300);          
+            setTimeout(() => this.$router.push('/admin'), 300);
+            // _________________________________________________________          
         },
         
         onDelete() {
