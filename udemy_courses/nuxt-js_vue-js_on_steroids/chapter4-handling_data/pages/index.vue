@@ -17,31 +17,71 @@
     components: {
       PostSection
     },
+    // _________________________________________________________________
+
+    // Superseded code - Using asyncData instaed
+
     // data() {
     //   return {
     //     dataPost: []
     //   }
     // },
-    asyncData(context) {
-      console.log('asyncData is executed!');
-      // console.log(context);
-      return fetch(
-          'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
-          )
-          .then(res => res.json())
-          .then(data => {
-              return {dataPost : [...data].reverse()}
-            }          
-          )
-          .catch(e => {
-            context.error({ statusCode: 404, message: 'Post not found'})
-          })
-    },
+
     // created() {
     //   fetch('http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}})
     //   .then(res => res.json())
     //   .then(data => this.dataPost = [...data].reverse())
-    // }
+    // },
+
+    // _________________________________________________________________
+
+    // Superseded code - Using fetch and retrive data from store with getter in computed
+
+    // asyncData(context) {
+    //   console.log('asyncData is executed!');
+    //   // console.log(context);
+    //   return fetch(
+    //       'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
+    //       )
+    //       .then(res => res.json())
+    //       .then(data => {
+    //           return {dataPost : [...data].reverse()}
+    //         }          
+    //       )
+    //       .catch(e => {
+    //         context.error({ statusCode: 404, message: 'Post not found'})
+    //       })
+    // },
+    
+    // _________________________________________________________________
+
+    // Superseded code - Using nuxtServerInit(vuexContext, context) in store instead
+    // And fetch data from store with getter in computed
+
+    // fetch(context) {
+    //   console.log('fetchData is executed!');
+    //   // console.log(context);
+    //   return fetch(
+    //       'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
+    //       )
+    //       .then(res => res.json())
+    //       .then(data => {
+    //           // return {dataPost : [...data].reverse()}
+    //           context.store.dispatch('setPost', data)              
+    //         }          
+    //       )
+    //       .catch(e => {
+    //         context.error({ statusCode: 404, message: 'Post not found'})
+    //       })
+    // },
+
+    // _________________________________________________________________
+    computed: {
+      dataPost() {
+        const loadedPost = this.$store.getters.fetchPost;
+        return loadedPost;
+      }
+    }
   }
 
 </script>

@@ -26,31 +26,45 @@
             PostSection,
             AppButton
         },
-        asyncData() {
-            return fetch(
-                'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
-                )
-                .then(res => res.json())
-                .then(data => {
-                    return {dataPost : [...data].reverse()}
-                }
-            )
-        },
+    // _________________________________________________________________
+
+    // Superseded code - Using asyncData instaed
+
         // data() {
         //     return {
         //         dataPost: []
         //     }
         // },
+        // created() {
+        //     fetch('http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}})
+        //     .then(res => res.json())
+        //     .then(data => this.dataPost = [...data].reverse())
+        // },
+    // _________________________________________________________________
+
+    // Superseded code - Using fetch and retrive data from store with getter in computed
+
+        fetch(context) {
+            return fetch(
+                'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
+                )
+                .then(res => res.json())
+                .then(data => {
+                    context.store.dispatch('setPost', data.reverse())
+                }
+            )
+        },
+        computed: {
+            dataPost() {
+                return this.$store.getters.fetchPost
+            }
+        },
         methods: {
             onClick() {
                 this.$router.push('/admin/new-post')
             }
         },
-        // created() {
-        //     fetch('http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}})
-        //     .then(res => res.json())
-        //     .then(data => this.dataPost = [...data].reverse())
-        // }
+
     }
 </script>
 
