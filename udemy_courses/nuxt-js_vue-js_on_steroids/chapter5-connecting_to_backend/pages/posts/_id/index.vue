@@ -24,24 +24,45 @@
 <script>
 
 export default {
+    
     asyncData(context) {
-        console.log(context.params);
-        return fetch(
-            'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
-            )
-        .then(res =>res.json())
-        .then(data => {
-            
-            const dataPost = data.filter(p => {
-                return p.id == context.route.params['id']
-                // return p.id == context.params['id']  // or you can do this <--
+
+        if(!context.store.getters.fetchSelectedBackend) {
+       
+        
+            // console.log('<><>',context.params);
+            // console.log('<><>',context.store.getters.fetchSelectedBackend);
+            return fetch(
+                'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
+                )
+            .then(res =>res.json())
+            .then(data => {
+                
+                const dataPost = data.filter(p => {
+                    return p.id == context.route.params['id']
+                    // return p.id == context.params['id']  // or you can do this <--
+                })
+                dataPost[0].date = new Date().toLocaleString()
+                console.log(dataPost[0])
+                return {dataPost: dataPost[0]}
             })
-            dataPost[0].date = new Date().toLocaleString()
-            return {dataPost: dataPost[0]}
-        })
-        .catch(e => {
-            context.error({ statusCode: 404, message: 'Post not found'})
-        })
+            .catch(e => {
+                context.error({ statusCode: 404, message: 'Post not found'})
+            })
+            
+        } else {
+            return fetch(`https://nuxtblogproject.firebaseio.com/post/${context.params['id']}.json`)
+            .then(res => res.json())
+            .then(dataPost => {
+                console.log(dataPost)
+                dataPost.date = new Date().toLocaleString()
+                dataPost.sampleText = dataPost.sample_text
+                return {dataPost: dataPost}
+            })
+            .catch(e => {
+                console.log(e);
+            })
+        }
     }
 }
 </script>
