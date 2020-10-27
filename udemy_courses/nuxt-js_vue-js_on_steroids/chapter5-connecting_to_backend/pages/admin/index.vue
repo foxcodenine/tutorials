@@ -44,15 +44,45 @@
     // _________________________________________________________________
 
     
-        fetch(context) {
-            return fetch(
-                'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
-                )
-                .then(res => res.json())
-                .then(data => {
-                    context.store.dispatch('setPost', data.reverse())
-                }
-            )
+        async fetch(context) {
+            // return fetch(
+            //     'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
+            //     )
+            //     .then(res => res.json())
+            //     .then(data => {
+            //         context.store.dispatch('setPost', data.reverse())
+            //     }
+            // )
+        // _____________________________________________________________
+            const response = await fetch(
+                'http://127.0.0.1:5000/nuxtAPI/', 
+                {headers: {'API-Nuxt-Key': '123#456#789'}}
+            );
+            const data = await response.json()
+            context.store.dispatch('setPost', data.reverse());
+        // _____________________________________________________________
+
+            const responseFB = await fetch(
+                'https://nuxtblogproject.firebaseio.com/post.json'
+            );
+            const dataFB = await responseFB.json()
+
+            let firebaseData = [];
+
+            for (let key in dataFB) {
+
+                firebaseData.unshift({
+                    id: key,                    
+                    author: dataFB[key].author,
+                    title: dataFB[key].title,
+                    sampleText: dataFB[key].sample_text,
+                    thumbnail: dataFB[key].thumbnail,                            
+                    flaskId: dataFB[key].flaskId,                            
+                })
+            }
+            context.store.dispatch('setFirebasePost', firebaseData);
+            
+
         },
         computed: {
             dataPost() {

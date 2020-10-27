@@ -1,7 +1,7 @@
 <template>
   <div class="admin-new-post-page">
       <section class="new-post">
-          <AdminPostForm @addingPost="addPost"></AdminPostForm>
+          <AdminPostForm></AdminPostForm>
       </section>
   </div>
 </template>
@@ -16,14 +16,6 @@ export default {
     components: {
         AdminPostForm,
     },
-    methods: {        
-        addPost(postData) {
-
-            axios.post('https://nuxtblogproject.firebaseio.com/post.json', postData)
-            .then(result => console.log(result))
-            .catch(e => console.log(e))
-        }
-    }
 }
 
 </script>
