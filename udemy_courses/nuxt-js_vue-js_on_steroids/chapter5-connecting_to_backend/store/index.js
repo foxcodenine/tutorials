@@ -6,6 +6,7 @@ const createStore = () => {
         state: {
             dataPost: [],
             firebasePost: [],
+            isBackendFirebase: false
         },
         mutations: {
             setPost(state, posts) {
@@ -13,11 +14,20 @@ const createStore = () => {
             },
             setFirebasePost(state, posts) {
                 state.firebasePost =posts;
+            },
+            toggleBackend(state) {
+                state.isBackendFirebase = !state.isBackendFirebase;
             }
         },
         actions: {
             setPost(vuexContext, posts) {
                 vuexContext.commit('setPost', posts);
+            },
+            setFirebasePost(vuexContext, posts) {
+                vuexContext.commit('setFirebasePost', posts);
+            },
+            toggleBackend(vuexContext) {
+                vuexContext.commit('toggleBackend')
             },
             async nuxtServerInit(vuexContext, context) {
                 if (!process.client) {
@@ -52,12 +62,13 @@ const createStore = () => {
                             id: key,
                             author: data[key].author,
                             title: data[key].title,
-                            sampleText: data[key].content,
-                            thumbnail: data[key].thumbnailLink,                            
+                            sampleText: data[key].sample_text,
+                            thumbnail: data[key].thumbnail,                            
+                            flaskId: data[key].flaskId,                            
                         })
                     }
                     vuexContext.commit('setFirebasePost', firebaseData);
-                    console.log(vuexContext.getters.fetchFirebasePost);
+                    
 
                 } catch(err) {
                     console.log('Firebase error: ',err)
@@ -69,7 +80,15 @@ const createStore = () => {
         },
         getters: {
             fetchPost(state) {
-                return state.dataPost;
+                if (state.isBackendFirebase) {
+                    return state.firebasePost;
+                } else {
+                    return state.dataPost;
+                }                
+            },
+            fetchSelectedBackend(state) {
+
+                return state.isBackendFirebase;
             },
             fetchFirebasePost(state) {
                 return state.firebasePost;

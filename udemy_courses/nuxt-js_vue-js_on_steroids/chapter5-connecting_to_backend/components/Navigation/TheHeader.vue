@@ -6,6 +6,12 @@
                 <nuxt-link to="/" class="header__link">
                     <svg class="icon icon-blog"><use xlink:href="@/static/icomoon/icomoon.svg/#icon-blog"></use></svg>
                 </nuxt-link>
+                <div class="header__backend" v-show="isAdmin" v-if="!isFirebase" @click="backendToggle()">
+                    <svg class="icon icon-blog"><use xlink:href="@/static/icomoon/icomoon.svg/#icon-flask"></use></svg>
+                </div>
+                <div class="header__backend" v-show="isAdmin" v-if="isFirebase" @click="backendToggle()">
+                    <svg class="icon icon-blog"><use xlink:href="@/static/icomoon/icomoon.svg/#icon-firebase"></use></svg>
+                </div>
             </div>
             <div class="header__spacer"></div>
             <div class="nav" :class="{'admin': isAdmin}">
@@ -30,14 +36,22 @@
             isAdmin: {
                 type: Boolean,
                 default: false
-            }
+            },
         },
         components: {
             appTheSideNavToggle : TheSideNavToggle,
         },
+        computed: {
+            isFirebase() {
+                return this.$store.getters.fetchSelectedBackend
+            }
+        },
         methods: {
             sideNaveToggle() {
-                 this.$emit('sideNavToggle');
+                this.$emit('sideNavToggle');
+            },
+            backendToggle() {
+                this.$store.dispatch('toggleBackend')
             }
         },
         mounted() {
@@ -75,6 +89,14 @@
     &__logo {
         margin: 0;
         font-size: 2.1rem;
+        display: flex;
+    }
+    &__backend {
+        margin-left: 2rem;
+        
+        svg {
+            fill: yellow;
+        }
     }
 
     &__link {
