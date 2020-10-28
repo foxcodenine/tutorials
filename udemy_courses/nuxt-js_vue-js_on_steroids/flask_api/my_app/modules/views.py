@@ -33,9 +33,9 @@ def api():
             )
 
             db.session.add(post)
-            db.session.commit()
+            db.session.commit()            
 
-            return redirect(url_for('nuxtAPI.api'))
+            return redirect(url_for('nuxtAPI.updateAPI', post_id=post.id))
             
         else:
             return abort(404)
@@ -69,9 +69,6 @@ def api():
 
     # return jsonify(api_data)
     return abort(401)
-    
-
-
 
    #____________________________________________________________________
 
@@ -117,7 +114,8 @@ def updateAPI(post_id):
         record.thumbnail = mydata.get('thumbnail') 
 
         db.session.commit()
-        return redirect(url_for('nuxtAPI.post_id'))
+        mydata['id'] = record.id
+        return jsonify(mydata)
 
 # ___________________________________________________________
 # Delete Record
@@ -125,7 +123,7 @@ def updateAPI(post_id):
 
         db.session.delete(record)
         db.session.commit()
-        return redirect(url_for('nuxtAPI.post_id'))
+        return jsonify({'message': 'record deleted'})
 # ___________________________________________________________
 # Method Not Allowed
 

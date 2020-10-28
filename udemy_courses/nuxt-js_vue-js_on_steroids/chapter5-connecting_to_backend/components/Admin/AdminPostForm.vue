@@ -74,20 +74,25 @@ export default {
         fetchIds() {     
 
             if(this.$store.getters.fetchSelectedBackend) {
-                this.firebaseId = this.$route.params.postId;
-                this.flaskId = this.loadedPost.flaskId;
+                this.firebaseId = this.$route.params.postId;         
 
-            } else {
+                this.flaskId = this.$store.getters.fetchFlaskPost.filter(post => {                    
+                    return post.thumbnail === this.loadedPost.thumbnail
+                })[0].id; 
+
+            } else {                
+
                 this.flaskId = this.$route.params.postId;
                 let firebaseId = this.$store.getters.fetchFirebasePost.filter(post => {
-                    return post.flaskId == this.flaskId
+                    return post.thumbnail === this.loadedPost.thumbnail
                 })[0];                
 
                 if (firebaseId) {
                     this.firebaseId = firebaseId.id;
-                } else {
-                    this.firebaseId = null;
-                }                    
+                    
+                } else {                    
+                    this.firebaseId = null;                    
+                }               
             }            
         },
         onSave() {
@@ -95,6 +100,7 @@ export default {
             // // Flask backend  -  Save or Updating the post 
 
             // _________________________________________________________
+
             if (this.postMethod !== 'POST') {
                 this.fetchIds();
             }            
@@ -116,7 +122,6 @@ export default {
                 // mode: 'no-cors',                
 
                 body: JSON.stringify(data),
-
                 
                 headers: {
                     'API-Nuxt-Key': '123#456#789',
@@ -167,7 +172,7 @@ export default {
             // Delete a post 
 
             if (confirm("Press 'OK' to delete post, else press 'Cancel'")) {
-
+                // Delete from flask
                 this.fetchIds();
 
                 fetch(`http://127.0.0.1:5000/nuxtAPI/update/${this.flaskId}/`, {
@@ -175,8 +180,17 @@ export default {
                     headers: {'API-Nuxt-Key': '123#456#789', 'Access-Control-Allow-Methods': 'POST, GET, DELETE, OPTIONS'}
                 })
                 .catch(e => {
-                    console.log('error >>', e)
-                })               
+                    console.log('error pos1 >>', e)
+                }) 
+                // _____________________________________________________
+                // Delete from firebase
+                
+                fetch(`https://nuxtblogproject.firebaseio.com/post/${this.firebaseId}.json`, {
+                    method: 'DELETE'
+                })
+                .catch(e => {
+                    console.log('error pos2 >>', e)
+                })
                 
                 setTimeout(() => this.$router.push('/admin'), 500);
             };
