@@ -92,6 +92,9 @@ const createStore = () => {
             },
             fetchFirebasePost(state) {
                 return state.firebasePost;
+            },
+            fetchFlaskPost(state) {
+                return state.dataPost;
             }
         }
     })
