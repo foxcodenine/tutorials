@@ -5,17 +5,18 @@
       <h1 class="intro__text">Get the latest tech news!</h1>
     </section>
 
-    <PostSection :dataPost="dataPost"></PostSection>
+    <PostSectionGlobal :dataPost="dataPost"></PostSectionGlobal>
   </div>
 </template>
 
 <script>
-  import PostSection from "@/components/Post/PostSection";
+  // import PostSection from "@/components/Post/PostSection";
+  // componente removed and using a global one instead
   import postList from "@/Data/postList";
   
   export default {
     components: {
-      PostSection
+      // PostSection
     },
     // _________________________________________________________________
 

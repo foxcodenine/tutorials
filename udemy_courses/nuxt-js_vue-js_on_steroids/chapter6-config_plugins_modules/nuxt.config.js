@@ -35,10 +35,13 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
+    '@/assets/styles/main.css'
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    '@/plugins/core-components.js',
+    '@/plugins/filter.js'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -50,7 +53,12 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
+    
   ],
+  // https://nuxtjs.org/guide/modules/
+  // https://modules.nuxtjs.org/
+  // https://github.com/nuxt-community/modules
+  // https://github.com/nuxt-community/awesome-nuxt
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
@@ -63,4 +71,23 @@ export default {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000'
   },
   // https://nuxtjs.org/api/configuration-env/
+
+  // rootDir: '/',
+  // https://nuxtjs.org/api/configuration-rootdir/
+
+  // router: {
+  //   base: '/app/',
+  //   linkActiveClass: 'active-link',
+  //   linkExactActiveClass: 'exact-active-link'
+  // },
+  // https://nuxtjs.org/api/configuration-router/
+
+  // srcDir: 'client/',
+  // https://nuxtjs.org/api/configuration-srcdir/
+
+  transition: {
+    name: 'fade',
+    mode: 'out-in'
+  },
+  // https://nuxtjs.org/api/pages-transition/
 }

@@ -4,7 +4,7 @@
         <section class="post">
             <h1 class="post__title">{{dataPost.title}}</h1>
             <div class="post__details">
-                <div class="post__date">Last updated on {{dataPost.date}}</div>
+                <div class="post__date">Last updated on {{dataPost.date | date}}</div>
                 <div class="post__author">{{dataPost.author}}</div>   
             </div>
             <p class="post__content">
@@ -25,44 +25,57 @@
 
 export default {
     
-    asyncData(context) {
+    // asyncData(context) {
 
-        if(!context.store.getters.fetchSelectedBackend) {
+    //     if(!context.store.getters.fetchSelectedBackend) {
        
         
-            // console.log('<><>',context.params);
-            // console.log('<><>',context.store.getters.fetchSelectedBackend);
-            return fetch(
-                'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
-                )
-            .then(res =>res.json())
-            .then(data => {
+    //         // console.log('<><>',context.params);
+    //         // console.log('<><>',context.store.getters.fetchSelectedBackend);
+    //         return fetch(
+    //             'http://127.0.0.1:5000/nuxtAPI/', {headers: {'API-Nuxt-Key': '123#456#789'}}
+    //             )
+    //         .then(res =>res.json())
+    //         .then(data => {
                 
-                const dataPost = data.filter(p => {
-                    return p.id == context.route.params['id']
-                    // return p.id == context.params['id']  // or you can do this <--
-                })
-                dataPost[0].date = new Date().toLocaleString()
-                console.log(dataPost[0])
-                return {dataPost: dataPost[0]}
-            })
-            .catch(e => {
-                context.error({ statusCode: 404, message: 'Post not found'})
-            })
+    //             const dataPost = data.filter(p => {
+    //                 return p.id == context.route.params['id']
+    //                 // return p.id == context.params['id']  // or you can do this <--
+    //             })
+    //             dataPost[0].date = new Date().toLocaleString()
+    //             console.log(dataPost[0])
+    //             return {dataPost: dataPost[0]}
+    //         })
+    //         .catch(e => {
+    //             context.error({ statusCode: 404, message: 'Post not found'})
+    //         })
             
-        } else {
-            return fetch(`https://nuxtblogproject.firebaseio.com/post/${context.params['id']}.json`)
-            .then(res => res.json())
-            .then(dataPost => {
-                console.log(dataPost)
-                dataPost.date = new Date().toLocaleString()
-                dataPost.sampleText = dataPost.sample_text
-                return {dataPost: dataPost}
+    //     } else {
+    //         return fetch(`https://nuxtblogproject.firebaseio.com/post/${context.params['id']}.json`)
+    //         .then(res => res.json())
+    //         .then(dataPost => {
+    //             console.log(dataPost)
+    //             dataPost.date = new Date().toLocaleString()
+    //             dataPost.sampleText = dataPost.sample_text
+    //             return {dataPost: dataPost}
+    //         })
+    //         .catch(e => {
+    //             console.log(e);
+    //         })
+    //     }
+    // },
+    computed: {
+        dataPost() {
+            const loadedPost = this.$store.getters.fetchPost;
+
+            const currentPost = loadedPost.filter(p => {
+                return p.id == this.$route.params.id;
             })
-            .catch(e => {
-                console.log(e);
-            })
-        }
+            currentPost[0].date = new Date();
+           
+            return currentPost[0];
+        },
+
     }
 }
 </script>
