@@ -44,6 +44,14 @@ Grey dark 3: #999
 
 }
 
+$bp-largest: 75em;
+$bp-large:  68.75em;
+$bp-big:  58.125em;
+$bp-medium:  56.25em;
+$bp-small:  37.5em;
+$bp-smallest:  27.5em;
+$bp-new-small: 22.5em;
+
 * {
     margin: 0;
     padding: 0;
@@ -55,6 +63,13 @@ Grey dark 3: #999
 html {
     font-size: 62.5%;
     box-sizing: border-box;
+
+    @media only  screen and (max-width: $bp-large) {
+        font-size: 55%;
+    }
+    @media only  screen and (max-width: $bp-big) {
+        font-size: 50%;
+    }
 }
 
 body {
@@ -67,6 +82,10 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
+    
+    width: 100%;
+    
+    
 }
 
 

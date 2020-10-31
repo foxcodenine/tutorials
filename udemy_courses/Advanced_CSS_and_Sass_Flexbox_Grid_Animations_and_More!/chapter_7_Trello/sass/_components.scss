@@ -16,9 +16,15 @@
     align-items: center;
     justify-content: center;
     // border: 2px blue dashed;
-
+    
+    @media only screen and (max-width: $bp-smallest) {
+        order: 1;
+        flex: 0 0 100%;
+        background-color: var(--col-gry-lt2);
+    }
 
     display: flex;
+    
     &__input {
         font-size: inherit;
         font-family: inherit;
@@ -31,6 +37,11 @@
         margin-right: -3rem;
         font-size: 1.4rem;
         transition: all .3s;
+
+        @media only screen and (max-width: $bp-smallest) {
+            // margin-right: -5rem;
+            margin-left: -4.2rem;
+        }
         
         &::-webkit-input-placeholder {
             font-weight: 100;
@@ -42,6 +53,10 @@
             outline: none;
             width: 100%;
             background-color: var(--col-gry-lt3);
+
+            @media only screen and (max-width: $bp-smallest) {
+                width: 95%;
+            }
         }
     }
 
@@ -156,6 +171,12 @@
 
     /*FIX if animaton shakes */
     backface-visibility: hidden;
+
+    @media only screen and (max-width: $bp-medium) {
+        display: flex;
+        justify-content: space-between;
+        margin: 0;        
+    }
     
 
 
@@ -197,6 +218,14 @@
         &:active::before {
             background-color: var(--col-prm-lt);
         }
+
+        @media only screen and (max-width: $bp-medium) {
+            flex: 1;
+            margin-bottom: 0 !important;
+            display: flex;
+            justify-content: center;
+            padding: .3rem;
+        }
     }
 
     &__link:visited, &__link:link {
@@ -210,7 +239,16 @@
         align-items: center;
 
         position: relative;
-            z-index: 10;
+        z-index: 10;
+
+        @media only screen and (max-width: $bp-small) {
+            flex-direction: column; 
+            padding: 1rem .5rem;                        
+        } 
+        @media only screen and (max-width: $bp-new-small) {
+            font-size: 1.15rem;           
+        }
+        
         
     }
 
@@ -219,6 +257,13 @@
         height: 1.75rem;
         fill: currentColor;
         margin-right: 2rem;
+
+        @media only screen and (max-width: $bp-small) {
+            margin-right: 0; 
+            margin-bottom: .3rem; 
+            width: 1.5rem;
+            height: 1.5rem;                    
+        } 
     }
 }
 
@@ -229,7 +274,11 @@
     font-size: 1.2rem;
     text-align: center;
     padding: 2.5rem;
-    color: var(--col-gry-lt4);    
+    color: var(--col-gry-lt4);   
+
+    @media only screen and (max-width: $bp-medium) {
+        display: none;      
+    } 
 }
 
 
@@ -255,6 +304,14 @@
     // justify-content: space-between;
 
     border-bottom: 1px solid var(--col-gry-lt2);
+
+    @media only screen and (max-width: $bp-new-small) {
+        position: relative;
+        height: 4.5rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    } 
+    
     
     &__heading{
         font-size: 2.25rem;
@@ -262,11 +319,32 @@
         text-transform: uppercase;
         letter-spacing: 1px;
         padding: 1.5rem 3rem;
+
+        @media only screen and (max-width: $bp-small) {
+            font-size: 2rem;
+            padding: 1rem 2rem 1rem 3rem;      
+        } 
+
+        @media only screen and (max-width: $bp-smallest) {
+            font-size: 1.6rem;
+            padding: 1rem 1rem 1rem 1.5rem;      
+        } 
+
+        @media only screen and (max-width: $bp-new-small) {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
     }
 
     &__stars {
         margin-right: auto;
         display: flex; // to center the svg set parant to flex
+        @media only screen and (max-width: $bp-new-small) {
+            margin-left: 17rem;
+            margin-right: 6rem;
+        } 
     }
 
     &__icon-star,
@@ -274,6 +352,16 @@
         width: 1.75rem;
         height: 1.75rem;
         fill: var(--col-prm);
+
+        @media only screen and (max-width: $bp-small) {
+            width: 1.5rem;
+            height: 1.5rem;
+        } 
+        @media only screen and (max-width: $bp-smallest) {
+            width: 1.1rem;
+            height: 1.1rem;
+
+        } 
     }
 
     &__icon-location {
@@ -284,6 +372,9 @@
         font-size: 1.2rem;
         display: inline-flex;
         align-items: center;
+        @media only screen and (max-width: $bp-new-small) {
+            margin-right: 6rem;           
+        }
     }
    
 
@@ -299,17 +390,47 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        @media only screen and (max-width: $bp-new-small) {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 4.5rem;
+            display: inline-block;
+            padding: 1rem;
+        }
+
+
         
         &-average{
             font-size: 2.25rem;
             font-weight: 300;
             margin-bottom: -5px;
+
+
+            @media only screen and (max-width: $bp-small) {
+                font-size: 1.75rem;
+   
+            }
+            @media only screen and (max-width: $bp-new-small) {
+                margin-bottom: 0;
+                // line-height: 4.5rem;
+                
+            } 
         }
 
         &-count {
             font-size: 1.2rem;
             font-weight: 300;
             text-transform: uppercase;
+
+            @media only screen and (max-width: $bp-small) {
+                font-size: 1rem;   
+            } 
+
+            @media only screen and (max-width: $bp-smallest) {
+                display: none;  
+            } 
         }
     }
 }
@@ -324,6 +445,16 @@
     display: inline-block;
     cursor: pointer;
     transition: all .2s;
+
+    &--overview{
+        @media only screen and (max-width: $bp-smallest) {
+            font-size: 1rem;
+            margin-right: -1rem;
+        }
+
+        
+    }
+
 
     & span {
         margin-left: 3px;  
@@ -384,10 +515,16 @@
     &__item {
         flex: 0 0 48%;
         margin-bottom: .7rem;
-        // border: red solid 1px;
+        @media only screen and (max-width: $bp-smallest) {
+            font-size: 1.2rem;
+        } 
 
-        @media(max-width: 950px) {
-            flex: 0 0 100%; 
+        // @media(max-width: 950px) {
+        //     flex: 0 0 100%; 
+        // }
+        @media only screen and (max-width: $bp-new-small) {
+            font-size: 1.4rem;
+            flex: 0 0 100%;
         }
 
         &::before {
@@ -404,7 +541,10 @@
             // Newer browsers - mask:
             background-color: var(--col-prm);
             mask-image: url('../img/chevron-thin-right.svg');
+            -webkit-mask-image: url('../img/chevron-thin-right.svg');
+            
             mask-size: cover;
+            -webkit-mask-size: cover;
 
         } 
     }
@@ -423,6 +563,7 @@
         color: var(--col-gry-dk3);
     }
     &__fiends {
+        display: flex;
         margin-left: auto;
     }
     &__photo {
@@ -434,9 +575,11 @@
         box-sizing: content-box;
 
         &:not(:last-child) {
-            margin-right: -1.5rem;
+            margin-right: -2rem;
         }
     }
+
+
 }
 
 ////////////////////////////////////////
@@ -450,10 +593,15 @@
 .review {
     background-color: #fff;
     box-shadow: var(--shodow-light);
-    margin: 0 0 3rem 0;
+    margin: 0 0 4.5rem 0;
     padding: 3.5rem;
     position: relative;
     overflow: hidden;
+
+    @media only screen and (max-width: $bp-medium) {
+        margin: 0 0 3rem 0;
+        padding: 2rem;
+    }
 
     &__text {
         margin-bottom: 2rem;
@@ -517,13 +665,23 @@
     padding: 3.5rem 0;
     text-align: center;
 
+    @media only screen and (max-width: $bp-medium) {
+        padding: 2.5rem 0;
+    }
+    
+
     &__book-now {
         font-size: 1.5rem;
         font-weight: 300;
         text-transform: uppercase;
         margin-bottom: 2.5rem;
-        
+
+        @media only screen and (max-width: $bp-smallest) {
+            font-size: 1.2rem;
+        }
     }
+    
+    
 
 }
 
@@ -608,4 +766,10 @@
 
 
     
+}
+.cts__btn {
+    @media only screen and (max-width: $bp-small) {
+        
+        transform: scale(.8) !important;
+    }
 }

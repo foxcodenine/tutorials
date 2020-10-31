@@ -43,6 +43,12 @@ Grey dark 3: #999
 html {
   font-size: 62.5%;
   box-sizing: border-box; }
+  @media only screen and (max-width: 68.75em) {
+    html {
+      font-size: 55%; } }
+  @media only screen and (max-width: 58.125em) {
+    html {
+      font-size: 50%; } }
 
 body {
   font-family: 'Open Sans', sans-serif;
@@ -52,14 +58,21 @@ body {
   background-image: linear-gradient(to bottom right, var(--col-prm-lt), var(--col-prm-dk));
   background-size: cover;
   background-repeat: no-repeat;
-  min-height: 100vh; }
+  min-height: 100vh;
+  width: 100%; }
 
 .container {
   max-width: 120rem;
   margin: 8rem auto;
   background-color: var(--col-gry-lt1);
   box-shadow: var(--shodow-dark);
-  min-height: 50rem; }
+  min-height: 50rem;
+  min-width: 21em !important; }
+  @media only screen and (max-width: 75em) {
+    .container {
+      margin: 0;
+      max-width: 100%;
+      width: 100%; } }
 
 .header {
   font-size: 1.4rem;
@@ -69,9 +82,17 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center; }
+  @media only screen and (max-width: 27.5em) {
+    .header {
+      flex-wrap: wrap;
+      height: 11rem;
+      align-content: space-evenly; } }
 
 .content {
   display: flex; }
+  @media only screen and (max-width: 56.25em) {
+    .content {
+      flex-direction: column; } }
 
 .sidebar {
   background-color: var(--col-gry-dk1);
@@ -90,6 +111,15 @@ body {
   background-color: var(--col-gry-lt1);
   border-bottom: var(--line);
   font-size: 1.4rem; }
+  @media only screen and (max-width: 56.25em) {
+    .detail {
+      padding: 3rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .detail {
+      flex-direction: column; } }
+  @media only screen and (max-width: 27.5em) {
+    .detail {
+      padding: 1.5rem; } }
 
 .description {
   background-color: #fff;
@@ -97,6 +127,14 @@ body {
   margin-right: 4.5rem;
   box-shadow: var(--shodow-light);
   padding: 3rem; }
+  @media only screen and (max-width: 56.25em) {
+    .description {
+      margin-right: 3rem;
+      padding: 2rem; } }
+  @media only screen and (max-width: 37.5em) {
+    .description {
+      flex-direction: column;
+      margin: 0 0 3rem 0; } }
 
 .user-reviews {
   flex: 1; }
@@ -110,6 +148,11 @@ body {
   align-items: center;
   justify-content: center;
   display: flex; }
+  @media only screen and (max-width: 27.5em) {
+    .search {
+      order: 1;
+      flex: 0 0 100%;
+      background-color: var(--col-gry-lt2); } }
   .search__input {
     font-size: inherit;
     font-family: inherit;
@@ -122,6 +165,9 @@ body {
     margin-right: -3rem;
     font-size: 1.4rem;
     transition: all .3s; }
+    @media only screen and (max-width: 27.5em) {
+      .search__input {
+        margin-left: -4.2rem; } }
     .search__input::-webkit-input-placeholder {
       font-weight: 100;
       color: var(--col-gry-lt4); }
@@ -129,6 +175,9 @@ body {
       outline: none;
       width: 100%;
       background-color: var(--col-gry-lt3); }
+      @media only screen and (max-width: 27.5em) {
+        .search__input:focus {
+          width: 95%; } }
   .search__input + .search__btn {
     background-color: var(--col-gry-lt3); }
   .search__btn {
@@ -193,6 +242,11 @@ body {
   font-size: 1.4rem;
   /*FIX if animaton shakes */
   backface-visibility: hidden; }
+  @media only screen and (max-width: 56.25em) {
+    .side-nav {
+      display: flex;
+      justify-content: space-between;
+      margin: 0; } }
   .side-nav__item {
     position: relative;
     /*FIX if animaton shakes */
@@ -215,6 +269,13 @@ body {
       width: 100%; }
     .side-nav__item:active::before {
       background-color: var(--col-prm-lt); }
+    @media only screen and (max-width: 56.25em) {
+      .side-nav__item {
+        flex: 1;
+        margin-bottom: 0 !important;
+        display: flex;
+        justify-content: center;
+        padding: .3rem; } }
   .side-nav__link:visited, .side-nav__link:link {
     color: var(--col-gry-lt1);
     text-decoration: none;
@@ -225,17 +286,33 @@ body {
     align-items: center;
     position: relative;
     z-index: 10; }
+    @media only screen and (max-width: 37.5em) {
+      .side-nav__link:visited, .side-nav__link:link {
+        flex-direction: column;
+        padding: 1rem .5rem; } }
+    @media only screen and (max-width: 22.5em) {
+      .side-nav__link:visited, .side-nav__link:link {
+        font-size: 1.15rem; } }
   .side-nav__icon {
     width: 1.75rem;
     height: 1.75rem;
     fill: currentColor;
     margin-right: 2rem; }
+    @media only screen and (max-width: 37.5em) {
+      .side-nav__icon {
+        margin-right: 0;
+        margin-bottom: .3rem;
+        width: 1.5rem;
+        height: 1.5rem; } }
 
 .legal {
   font-size: 1.2rem;
   text-align: center;
   padding: 2.5rem;
   color: var(--col-gry-lt4); }
+  @media only screen and (max-width: 56.25em) {
+    .legal {
+      display: none; } }
 
 .gallery {
   display: flex; }
@@ -247,25 +324,59 @@ body {
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--col-gry-lt2); }
+  @media only screen and (max-width: 22.5em) {
+    .overview {
+      position: relative;
+      height: 4.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-end; } }
   .overview__heading {
     font-size: 2.25rem;
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 1px;
     padding: 1.5rem 3rem; }
+    @media only screen and (max-width: 37.5em) {
+      .overview__heading {
+        font-size: 2rem;
+        padding: 1rem 2rem 1rem 3rem; } }
+    @media only screen and (max-width: 27.5em) {
+      .overview__heading {
+        font-size: 1.6rem;
+        padding: 1rem 1rem 1rem 1.5rem; } }
+    @media only screen and (max-width: 22.5em) {
+      .overview__heading {
+        position: absolute;
+        left: 0;
+        top: 0; } }
   .overview__stars {
     margin-right: auto;
     display: flex; }
+    @media only screen and (max-width: 22.5em) {
+      .overview__stars {
+        margin-left: 17rem;
+        margin-right: 6rem; } }
   .overview__icon-star, .overview__icon-location {
     width: 1.75rem;
     height: 1.75rem;
     fill: var(--col-prm); }
+    @media only screen and (max-width: 37.5em) {
+      .overview__icon-star, .overview__icon-location {
+        width: 1.5rem;
+        height: 1.5rem; } }
+    @media only screen and (max-width: 27.5em) {
+      .overview__icon-star, .overview__icon-location {
+        width: 1.1rem;
+        height: 1.1rem; } }
   .overview__icon-location {
     margin-right: .5rem; }
   .overview__location {
     font-size: 1.2rem;
     display: inline-flex;
     align-items: center; }
+    @media only screen and (max-width: 22.5em) {
+      .overview__location {
+        margin-right: 6rem; } }
   .overview__rating {
     background-color: var(--col-prm);
     color: var(--col-wht);
@@ -276,14 +387,34 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center; }
+    @media only screen and (max-width: 22.5em) {
+      .overview__rating {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 4.5rem;
+        display: inline-block;
+        padding: 1rem; } }
     .overview__rating-average {
       font-size: 2.25rem;
       font-weight: 300;
       margin-bottom: -5px; }
+      @media only screen and (max-width: 37.5em) {
+        .overview__rating-average {
+          font-size: 1.75rem; } }
+      @media only screen and (max-width: 22.5em) {
+        .overview__rating-average {
+          margin-bottom: 0; } }
     .overview__rating-count {
       font-size: 1.2rem;
       font-weight: 300;
       text-transform: uppercase; }
+      @media only screen and (max-width: 37.5em) {
+        .overview__rating-count {
+          font-size: 1rem; } }
+      @media only screen and (max-width: 27.5em) {
+        .overview__rating-count {
+          display: none; } }
 
 .btn-inline {
   border: none;
@@ -295,6 +426,10 @@ body {
   display: inline-block;
   cursor: pointer;
   transition: all .2s; }
+  @media only screen and (max-width: 27.5em) {
+    .btn-inline--overview {
+      font-size: 1rem;
+      margin-right: -1rem; } }
   .btn-inline span {
     margin-left: 3px;
     transition: margin-left .2s; }
@@ -333,8 +468,12 @@ body {
   .list__item {
     flex: 0 0 48%;
     margin-bottom: .7rem; }
-    @media (max-width: 950px) {
+    @media only screen and (max-width: 27.5em) {
       .list__item {
+        font-size: 1.2rem; } }
+    @media only screen and (max-width: 22.5em) {
+      .list__item {
+        font-size: 1.4rem;
         flex: 0 0 100%; } }
     .list__item::before {
       content: "";
@@ -344,7 +483,9 @@ body {
       margin-right: .7rem;
       background-color: var(--col-prm);
       mask-image: url("../img/chevron-thin-right.svg");
-      mask-size: cover; }
+      -webkit-mask-image: url("../img/chevron-thin-right.svg");
+      mask-size: cover;
+      -webkit-mask-size: cover; }
 
 .recommend {
   display: flex;
@@ -353,6 +494,7 @@ body {
     font-size: 1.3rem;
     color: var(--col-gry-dk3); }
   .recommend__fiends {
+    display: flex;
     margin-left: auto; }
   .recommend__photo {
     width: 4rem;
@@ -361,7 +503,7 @@ body {
     border: .3rem #fff solid;
     box-sizing: content-box; }
     .recommend__photo:not(:last-child) {
-      margin-right: -1.5rem; }
+      margin-right: -2rem; }
 
 .user-reviews {
   display: flex;
@@ -371,10 +513,14 @@ body {
 .review {
   background-color: #fff;
   box-shadow: var(--shodow-light);
-  margin: 0 0 3rem 0;
+  margin: 0 0 4.5rem 0;
   padding: 3.5rem;
   position: relative;
   overflow: hidden; }
+  @media only screen and (max-width: 56.25em) {
+    .review {
+      margin: 0 0 3rem 0;
+      padding: 2rem; } }
   .review__text {
     margin-bottom: 2rem;
     position: relative;
@@ -413,11 +559,17 @@ body {
 .cta {
   padding: 3.5rem 0;
   text-align: center; }
+  @media only screen and (max-width: 56.25em) {
+    .cta {
+      padding: 2.5rem 0; } }
   .cta__book-now {
     font-size: 1.5rem;
     font-weight: 300;
     text-transform: uppercase;
     margin-bottom: 2.5rem; }
+    @media only screen and (max-width: 27.5em) {
+      .cta__book-now {
+        font-size: 1.2rem; } }
 
 .btn {
   cursor: pointer;
@@ -466,3 +618,7 @@ body {
     opacity: 1; }
   .btn:hover .btn__visible {
     top: 120%; }
+
+@media only screen and (max-width: 37.5em) {
+  .cts__btn {
+    transform: scale(0.8) !important; } }
