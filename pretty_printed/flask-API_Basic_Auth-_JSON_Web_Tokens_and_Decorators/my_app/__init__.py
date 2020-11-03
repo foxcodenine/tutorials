@@ -106,10 +106,7 @@ def token_required(f):
             return jsonify({'message': 'Token is invalide! (Forbidden)'}), 403
         
         return f(*args, **kwargs)
-    return decorator
-
-        
-
+    return decorator       
 
 # ____________________________
 
@@ -122,7 +119,7 @@ def unprotected():
 @app.route('/protected')
 @token_required
 def protected():
-    return jsonify({'message': 'This is only avalible for people with valid tokens!'})
+    return jsonify({'message': 'Welcome! This page is only avalible for people with valid tokens!'})
 
 # ____________________________
 
@@ -133,7 +130,7 @@ def login():
 
     if auth and auth.username == 'user2' and auth.password == 'password2':
 
-        expiration = datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+        expiration = datetime.datetime.utcnow() + datetime.timedelta(minutes=1)
         token =  jwt.encode({'user': auth.username, 'exp': expiration}, app.config['SECRET_KEY'])
         return jsonify({'token': token.decode('UTF-8')})        
 
