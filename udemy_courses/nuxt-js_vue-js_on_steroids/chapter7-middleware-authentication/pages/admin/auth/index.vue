@@ -19,6 +19,7 @@
 </template>
 
 <script>
+// dorothy@gmail.com cassar
 
 import axios from "axios";
 import AppButton from "~/components/UI/AppButton";
@@ -40,14 +41,17 @@ export default {
     },
     methods: {
       onSubmit() {
-        axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.$config.fbApiKey}`,
+        this.$store.dispatch(
+          'authenticateUserFirebase', 
           {
-            "email": this.email,
-            "password": this.password,
-            "returnSecureToken": true
+            isLogin: this.isLogin,
+            email: this.email,
+            password: this.password
           }
-        ).then(result => { console.log(result); })
-        .catch(e => { console.log(e); })
+        )
+        .then(() => {
+          this.$router.push('/admin')
+        })
       }
     },
     mounted() {
