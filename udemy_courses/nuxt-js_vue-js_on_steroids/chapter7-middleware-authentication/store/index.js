@@ -6,17 +6,21 @@ const createStore = () => {
         state: {
             dataPost: [],
             firebasePost: [],
-            isBackendFirebase: false
+            isBackendFirebase: false,
+            tokenFirebase: null
         },
         mutations: {
             setPost(state, posts) {
                 state.dataPost = posts;
             },
             setFirebasePost(state, posts) {
-                state.firebasePost =posts;
+                state.firebasePost = posts;
             },
             toggleBackend(state) {
                 state.isBackendFirebase = !state.isBackendFirebase;
+            },
+            setTokenFirebase(state, token) {
+                state.tokenFirebase = token;
             }
         },
         actions: {
@@ -75,7 +79,27 @@ const createStore = () => {
                 }
                 
                 // _____________________________________________________
+            },
+            authenticateUserFirebase(vuexContext, authData) {
+                let authURL = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.$config.fbApiKey}`
 
+                if (!authData.isLogin) {
+                  authURL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${this.$config.fbApiKey}`
+                }
+        
+                // <- Below we using "return" 
+                // <- So this action will return a promise were it is used.
+                // <- And we can use the ".then" statement
+                return axios.post(authURL ,
+                  {
+                    "email": authData.email,
+                    "password": authData.password,
+                    "returnSecureToken": true
+                  }
+                ).then(result => { 
+                    vuexContext.commit('setTokenFirebase', result.data.idToken)
+                 })
+                .catch(e => { console.log(e); })
             }
         },
         getters: {
