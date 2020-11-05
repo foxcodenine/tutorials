@@ -41,13 +41,18 @@ export default {
     },
     methods: {
       onSubmit() {
-        this.$store.dispatch(
-          'authenticateUserFirebase', 
-          {
+        const payLoad = {
             isLogin: this.isLogin,
             email: this.email,
             password: this.password
           }
+
+        this.$store.dispatch('authenticateUserFlask', payLoad)
+
+        // _____________________________________________________________
+        this.$store.dispatch(
+          'authenticateUserFirebase',
+          payLoad
         )
         .then(() => {
           this.$router.push('/admin')
