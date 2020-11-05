@@ -1,6 +1,6 @@
 from flask import redirect, request, jsonify, Blueprint, url_for, flash, render_template, abort
 from my_app import app, db
-from my_app.modules.database import NuxtApiPosts
+from my_app.modules.database import NuxtApiPosts, NuxtApiUsers
 import ast
 
 
@@ -10,14 +10,15 @@ nuxtAPI = Blueprint('nuxtAPI', __name__, url_prefix='/nuxtAPI')
 def api():
     request_xhr_key = request.headers.get('API-Nuxt-Key')
 
-    #____________________________________________________
+    #________________________
 
     if request.method == 'POST':
 
         if request_xhr_key and request_xhr_key == '123#456#789':
 
-            dict_str = request.data.decode("UTF-8")
-            mydata = ast.literal_eval(dict_str)
+            dict_str = request.data.decode("UTF-8") # <-  '.decode("UTF-8")' 
+                                                    # decode a UTF-8-encoded byte string in Python
+            mydata = ast.literal_eval(dict_str) # <- Construct an object/dict from a string
 
             title = mydata.get('title')  
             author = mydata.get('author')      
@@ -40,7 +41,7 @@ def api():
         else:
             return abort(404)
 
-    #____________________________________________________
+    #________________________
 
     api_data =[]
     db_data = NuxtApiPosts.query.all()
@@ -55,7 +56,7 @@ def api():
         }
         api_data.append(post)
 
-    #____________________________________________________
+    #________________________
 
     if request_xhr_key and request_xhr_key == '123#456#789':
 
@@ -65,29 +66,31 @@ def api():
         return jsonify(api_data)
 
 
-    #____________________________________________________
+    #________________________
 
     # return jsonify(api_data)
     return abort(401)
 
-   #____________________________________________________________________
+#_______________________________________________________________________
+
+
 
 @nuxtAPI.route('/update/<post_id>/', methods=['PUT','GET', 'DELETE'])
 def updateAPI(post_id):
 
-# ___________________________________________________________
+#________________________
 # Check if user is authorized 
 
     request_xhr_key = request.headers.get('API-Nuxt-Key')
 
     if not request_xhr_key or request_xhr_key != '123#456#789':
         return abort(401)
-# ___________________________________________________________
+#________________________
 # Fetch Record from Database
 
     record = NuxtApiPosts.query.filter_by(id=post_id).first_or_404()
 
-# ___________________________________________________________
+#________________________
 # Get Record    
 
     if request.method == 'GET':
@@ -100,13 +103,14 @@ def updateAPI(post_id):
         }
         return jsonify(api_data)
 
-# ___________________________________________________________
+#________________________
 # Put Record
 
     if request.method == 'PUT':
 
-        dict_str = request.data.decode("UTF-8")
-        mydata = ast.literal_eval(dict_str)
+        dict_str = request.data.decode("UTF-8") # <-  '.decode("UTF-8")'
+                                                # decode a UTF-8-encoded byte string in Python
+        mydata = ast.literal_eval(dict_str) # <- Construct an object/dict from a string
 
         record.title = mydata.get('title')  
         record.author = mydata.get('author')      
@@ -117,17 +121,42 @@ def updateAPI(post_id):
         mydata['id'] = record.id
         return jsonify(mydata)
 
-# ___________________________________________________________
+#________________________
 # Delete Record
     if request.method == 'DELETE':
 
         db.session.delete(record)
         db.session.commit()
         return jsonify({'message': 'record deleted'})
-# ___________________________________________________________
+#________________________
 # Method Not Allowed
 
     return abort(405)
+#_______________________________________________________________________
+
+@nuxtAPI.route('/add-user', methods=['POST'])
+def add_user():
+    
+    request_xhr_key = request.headers.get('API-Nuxt-Key')
+
+    if request_xhr_key and request_xhr_key == '123#456#789':
+
+        dirt_str = request.data.decode("UTF-8")
+        mydata = ast.literal_eval(dirt_str)
+
+        user = NuxtApiUsers(email=mydata.email, password=mydata.email)
+        db.session.add(user)
+        db.session.commit()
+        
+        print('Yes >>',dirt_str)
+
+        return jsonify({'message': 'OK'})
+
+    else:
+        print('401')
+        return abort(401)
+    
+
 
 
 
