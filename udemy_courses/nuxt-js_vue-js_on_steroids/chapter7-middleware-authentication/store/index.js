@@ -100,6 +100,29 @@ const createStore = () => {
                     vuexContext.commit('setTokenFirebase', result.data.idToken)
                  })
                 .catch(e => { console.log(e); })
+            },
+            authenticateUserFlask(vuexContext, authData) {
+                console.log(22)
+                let authURL = 'http://127.0.0.1:5000/nuxtAPI/add-user'
+                let methodUse = 'POST'
+
+                if (authData.isLogin) {
+                    authURL = 'http://127.0.0.1:5000/nuxtAPI/add-user'
+                    methodUse = 'GET'
+                }
+                // https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/
+                console.log(33)
+
+                fetch(authURL, {
+                    method: methodUse,               
+    
+                    body: JSON.stringify({email: authData.email, password: authData.password}),
+                    
+                    headers: {
+                        'API-Nuxt-Key': '123#456#789',
+                        'Access-Control-Allow-Origin': '*',
+                    }
+                })
             }
         },
         getters: {
