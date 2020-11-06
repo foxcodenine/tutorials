@@ -2,12 +2,15 @@ import Vuex from 'vuex';
 import axios from 'axios';
 
 const createStore = () => {
+    // <- You reture the Store from a function so each client has its store!
     return new Vuex.Store({
         state: {
             dataPost: [],
             firebasePost: [],
             isBackendFirebase: false,
-            tokenFirebase: null
+            tokenFirebase: null,
+            tokenFlask: null,
+            email: null
         },
         mutations: {
             setPost(state, posts) {
@@ -21,6 +24,12 @@ const createStore = () => {
             },
             setTokenFirebase(state, token) {
                 state.tokenFirebase = token;
+            },
+            setTokenFlask(state, token) {
+                state.tokenFlask = token;
+            },
+            setEmail(state, email) {
+                state.email = email;
             }
         },
         actions: {
@@ -97,32 +106,47 @@ const createStore = () => {
                     "returnSecureToken": true
                   }
                 ).then(result => { 
+                    console.log('tokenFirebase >', result.data)
                     vuexContext.commit('setTokenFirebase', result.data.idToken)
                  })
                 .catch(e => { console.log(e); })
+                
+                // _____________________________________________________
             },
             authenticateUserFlask(vuexContext, authData) {
-                console.log(22)
+
                 let authURL = 'http://127.0.0.1:5000/nuxtAPI/add-user'
-                let methodUse = 'POST'
+                
 
-                if (authData.isLogin) {
-                    authURL = 'http://127.0.0.1:5000/nuxtAPI/add-user'
-                    methodUse = 'GET'
-                }
-                // https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/
-                console.log(33)
-
-                fetch(authURL, {
-                    method: methodUse,               
-    
+                let payload = {
+                    method: 'POST',
                     body: JSON.stringify({email: authData.email, password: authData.password}),
-                    
                     headers: {
                         'API-Nuxt-Key': '123#456#789',
                         'Access-Control-Allow-Origin': '*',
                     }
+                }
+
+                if (authData.isLogin) {
+                    authURL = 'http://127.0.0.1:5000/nuxtAPI/login-user'
+                }
+
+                
+                // https://blog.logrocket.com/how-to-make-http-requests-like-a-pro-with-axios/
+                
+                
+                fetch(authURL, payload)
+                .then(res => res.json())
+                .then(data => {
+                    console.log('tokenFlask >', data)
+                    vuexContext.commit('setTokenFlask', data.tokenFlask)
                 })
+                .catch(e => { console.log(e); })
+                
+                // _____________________________________________________
+            },
+            setEmail(vuexContext, email) {
+                vuexContext.commit('setEmail', email)
             }
         },
         getters: {
@@ -142,6 +166,9 @@ const createStore = () => {
             },
             fetchFlaskPost(state) {
                 return state.dataPost;
+            },
+            isNotAuthenticated(state) {
+                return state.tokenFlask === null || state.setTokenFirebase === null || state.email === null;
             }
         }
     })
