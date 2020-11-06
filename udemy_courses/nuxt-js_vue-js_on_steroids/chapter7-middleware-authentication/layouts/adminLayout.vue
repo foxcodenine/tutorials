@@ -16,6 +16,7 @@
     components: {
       TheHeader
     },
+    name: 'AdminLayout',
     data() {
       return {
         displaySideNave: false,

@@ -101,6 +101,10 @@ export default {
 
             // _________________________________________________________
 
+            const email = this.$store.state.email;
+            const tokenFlask = this.$store.state.tokenFlask;
+            const tokenFirebase = this.$store.state.tokenFirebase;
+
             if (this.postMethod !== 'POST') {
                 this.fetchIds();
             }            
@@ -117,7 +121,7 @@ export default {
             }
 
 
-            fetch(this.updatePost ? `http://127.0.0.1:5000/nuxtAPI/update/${this.flaskId}/` : 'http://127.0.0.1:5000/nuxtAPI/', {
+            fetch(this.updatePost ? `http://127.0.0.1:5000/nuxtAPI/update/${email}/${tokenFlask}/${this.flaskId}/` : `http://127.0.0.1:5000/nuxtAPI/add/${email}/${tokenFlask}`, {
                 method: this.postMethod,
                 // mode: 'no-cors',                
 
@@ -144,7 +148,7 @@ export default {
 
                 setTimeout(()=>{
 
-                    fetch('https://nuxtblogproject.firebaseio.com/post.json', {
+                    fetch(`https://nuxtblogproject.firebaseio.com/post.json?auth=${this.$store.state.tokenFirebase}`, {
                         body: JSON.stringify(this.editPost),
                         method: 'POST'
                     })
@@ -154,7 +158,7 @@ export default {
                 )
             } else if (this.postMethod === 'PUT') {
                 fetch(
-                    `https://nuxtblogproject.firebaseio.com/post/${this.firebaseId}.json`,
+                    `https://nuxtblogproject.firebaseio.com/post/${this.firebaseId}.json?auth=${this.$store.state.tokenFirebase}`,
                     {
                         method: 'PUT',
                         body: JSON.stringify(this.editPost),
@@ -170,12 +174,16 @@ export default {
         
         onDelete() {
             // Delete a post 
+            
+            const email = this.$store.state.email;
+            const tokenFlask = this.$store.state.tokenFlask;
+            const tokenFirebase = this.$store.state.tokenFirebase;
 
             if (confirm("Press 'OK' to delete post, else press 'Cancel'")) {
                 // Delete from flask
                 this.fetchIds();
 
-                fetch(`http://127.0.0.1:5000/nuxtAPI/update/${this.flaskId}/`, {
+                fetch(`http://127.0.0.1:5000/nuxtAPI/update/${email}/${tokenFlask}/${this.flaskId}/`, {
                     method: 'DELETE',
                     headers: {'API-Nuxt-Key': '123#456#789', 'Access-Control-Allow-Methods': 'POST, GET, DELETE, OPTIONS'}
                 })
@@ -185,7 +193,7 @@ export default {
                 // _____________________________________________________
                 // Delete from firebase
                 
-                fetch(`https://nuxtblogproject.firebaseio.com/post/${this.firebaseId}.json`, {
+                fetch(`https://nuxtblogproject.firebaseio.com/post/${this.firebaseId}.json?auth=${this.$store.state.tokenFirebase}`, {
                     method: 'DELETE'
                 })
                 .catch(e => {
