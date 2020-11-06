@@ -35,8 +35,8 @@ export default {
     data() {
       return {
         isLogin: true,
-        email: '',
-        password: '',
+        email: 'dorothy@gmail.com',
+        password: 'cassar',
       }
     },
     methods: {
@@ -48,14 +48,20 @@ export default {
           }
 
         this.$store.dispatch('authenticateUserFlask', payLoad)
+        
 
         // _____________________________________________________________
         this.$store.dispatch(
           'authenticateUserFirebase',
           payLoad
         )
+        .then(()=> {
+          this.$store.dispatch('setEmail', this.email)
+        })
         .then(() => {
-          this.$router.push('/admin')
+          setTimeout(()=>{
+            this.$router.push('/admin')
+          }, 400);
         })
       }
     },
