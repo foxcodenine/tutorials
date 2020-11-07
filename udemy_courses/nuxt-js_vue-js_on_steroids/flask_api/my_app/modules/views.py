@@ -1,47 +1,31 @@
-from flask import redirect, request, jsonify, Blueprint, url_for, flash, render_template, abort
+from flask import redirect, request, jsonify, Blueprint, url_for, flash, render_template, abort, session
 from my_app import app, db
 from my_app.modules.database import NuxtApiPosts, NuxtApiUsers
 import ast
-
+# ______________________________________________________________________
 
 nuxtAPI = Blueprint('nuxtAPI', __name__, url_prefix='/nuxtAPI')
 
-@nuxtAPI.route('/', methods=['POST', 'GET'])
+# ______________________________________________________________________
+
+def check_token(email, token):
+
+    user = NuxtApiUsers.query.filter_by(email=email).first()
+    decoded = user.decode_auth_token(token)
+    return user.password == decoded[user.email]
+
+
+
+def check_header(request_xhr_key):
+    if not request_xhr_key or request_xhr_key != '123#456#789':
+        return True
+
+
+
+# ______________________________________________________________________
+
+@nuxtAPI.route('/', methods=['GET'])
 def api():
-    request_xhr_key = request.headers.get('API-Nuxt-Key')
-
-    #________________________
-
-    if request.method == 'POST':
-
-        if request_xhr_key and request_xhr_key == '123#456#789':
-
-            dict_str = request.data.decode("UTF-8") # <-  '.decode("UTF-8")' 
-                                                    # decode a UTF-8-encoded byte string in Python
-            mydata = ast.literal_eval(dict_str) # <- Construct an object/dict from a string
-
-            title = mydata.get('title')  
-            author = mydata.get('author')      
-            sample_text = mydata.get('sample_text')  
-            thumbnail = mydata.get('thumbnail') 
-
-
-            post = NuxtApiPosts(
-                title = title,
-                author = author,
-                sample_text = sample_text,
-                thumbnail = thumbnail
-            )
-
-            db.session.add(post)
-            db.session.commit()            
-
-            return redirect(url_for('nuxtAPI.updateAPI', post_id=post.id))
-            
-        else:
-            return abort(404)
-
-    #________________________
 
     api_data =[]
     db_data = NuxtApiPosts.query.all()
@@ -58,33 +42,68 @@ def api():
 
     #________________________
 
-    if request_xhr_key and request_xhr_key == '123#456#789':
-
-        # api_object = {
-        #     'title': 'The Mandalorian'
-        # }
-        return jsonify(api_data)
-
+   
+    if check_header(request.headers.get('API-Nuxt-Key')):
+        return jsonify({'message': 'Unauthorized'}), 401
+    
 
     #________________________
 
     # return jsonify(api_data)
-    return abort(401)
+    return jsonify(api_data)
 
 #_______________________________________________________________________
+@nuxtAPI.route('/add/<email>/<token>', methods=['POST', 'GET'])
+def addAPI(email, token):
+
+    if check_header(request.headers.get('API-Nuxt-Key')):
+        return jsonify({'message': 'Unauthorized'}), 401
+
+    #________________________
+
+    if request.method == 'POST':
+
+        # Validating token
+        if not check_token(email, token):
+            return jsonify({'message': 'Invalid token'}), 401
 
 
 
-@nuxtAPI.route('/update/<post_id>/', methods=['PUT','GET', 'DELETE'])
-def updateAPI(post_id):
+
+        dict_str = request.data.decode("UTF-8") # <-  '.decode("UTF-8")' 
+                                                # decode a UTF-8-encoded byte string in Python
+        mydata = ast.literal_eval(dict_str) # <- Construct an object/dict from a string
+
+        title = mydata.get('title')  
+        author = mydata.get('author')      
+        sample_text = mydata.get('sample_text')  
+        thumbnail = mydata.get('thumbnail') 
+
+
+        post = NuxtApiPosts(
+            title = title,
+            author = author,
+            sample_text = sample_text,
+            thumbnail = thumbnail
+        )
+
+        db.session.add(post)
+        db.session.commit()            
+
+        return redirect(url_for('nuxtAPI.updateAPI', post_id=post.id))
+            
+
+#_______________________________________________________________________
+@nuxtAPI.route('/update/<post_id>/', methods=['GET'])
+@nuxtAPI.route('/update/<email>/<token>/<post_id>/', methods=['PUT','GET', 'DELETE'])
+
+def updateAPI(post_id, token=None, email=None):
 
 #________________________
 # Check if user is authorized 
 
-    request_xhr_key = request.headers.get('API-Nuxt-Key')
-
-    if not request_xhr_key or request_xhr_key != '123#456#789':
-        return abort(401)
+    if check_header(request.headers.get('API-Nuxt-Key')):
+        return jsonify({'message': 'Unauthorized'}), 401
 #________________________
 # Fetch Record from Database
 
@@ -103,10 +122,15 @@ def updateAPI(post_id):
         }
         return jsonify(api_data)
 
+    else:
+        # if Put or Delete check validate token
+        if not check_token(email, token):    
+            return jsonify({'message': 'Invalid token'}), 401
 #________________________
 # Put Record
 
     if request.method == 'PUT':
+
 
         dict_str = request.data.decode("UTF-8") # <-  '.decode("UTF-8")'
                                                 # decode a UTF-8-encoded byte string in Python
@@ -137,25 +161,70 @@ def updateAPI(post_id):
 @nuxtAPI.route('/add-user', methods=['POST'])
 def add_user():
     
-    request_xhr_key = request.headers.get('API-Nuxt-Key')
 
-    if request_xhr_key and request_xhr_key == '123#456#789':
+    if check_header(request.headers.get('API-Nuxt-Key')):
+        return jsonify({'message': 'Unauthorized'}), 401
+    # _____________________________________
 
-        dirt_str = request.data.decode("UTF-8")
-        mydata = ast.literal_eval(dirt_str)
+    dirt_str = request.data.decode("UTF-8")
+    mydata = ast.literal_eval(dirt_str)
 
-        user = NuxtApiUsers(email=mydata.email, password=mydata.email)
-        db.session.add(user)
-        db.session.commit()
-        
-        print('Yes >>',dirt_str)
+    # _____________________________________
+    # Check if email already exist 
 
-        return jsonify({'message': 'OK'})
+    check_email = NuxtApiUsers.query.filter_by(email=mydata['email']).first()
+    if check_email:
+        return jsonify({'message': 'This email already exists'}), 400
+    # _____________________________________
+    # Adding new user to db 
 
-    else:
-        print('401')
-        return abort(401)
+    user = NuxtApiUsers(email=mydata['email'], password=mydata['password'])
+    db.session.add(user)
+    db.session.commit()
+
+    session['user'] = user
+
+    # _____________________________________
+    # Retuning token to frontend
+    #  
+    token = user.encode_auth_token(user.email, user.password) 
+    return jsonify({'tokenFlask': token.decode('UTF-8')}), 200
+
+
+
+# ______________________________________________________________________
+
+@nuxtAPI.route('/login-user', methods=['POST'])
+def login_user():
+    # ______________________________________
+    # Check header
+
     
+    if check_header(request.headers.get('API-Nuxt-Key')):
+        return jsonify({'message': 'Unauthorized'}), 401
+    # ______________________________________
+    # Get Data from frontend
+    dirt_str = request.data.decode("UTF-8")
+    mydata = ast.literal_eval(dirt_str)
+
+    # ______________________________________
+    # Check email and password
+    user = NuxtApiUsers.query.filter_by(email=mydata['email']).first()
+
+    if not user:
+        return jsonify({'message': 'This email is not registed!'}), 400
+
+
+    if not user.password_check(user.password, mydata['password']):
+        return jsonify({'message': 'Email and password does not match!'}), 400
+
+    # _____________________________________
+    # Retuning token to frontend
+    
+    token = user.encode_auth_token(user.email, user.password) 
+    return jsonify({'tokenFlask': token.decode('UTF-8')}), 200
+
+
 
 
 
