@@ -38,6 +38,9 @@ user = NuxtApiUsers('chris12aug@yahoo.com', '12345')
 db.session.add(user)
 db.session.commit()
 user.encode_auth_token(user.email, user.password)
+
+token = NuxtApiUsers.encode_auth_token('james@yahoo.com', '32132154stas')
+
 '''
 
 class NuxtApiUsers(db.Model):
@@ -57,12 +60,16 @@ class NuxtApiUsers(db.Model):
         self.signed_in = datetime.now()
 
 
+    def password_check(self, pw_hash, candidate):
+        return bcrypt.check_password_hash(pw_hash, candidate)
+
+
     def encode_auth_token(self, email, hash_password):
         """Generates the Auth Token"""
         try:
             payload = {
                 email : hash_password,
-                'exp': datetime.utcnow() + timedelta(days=0, minutes=5),
+                'exp': datetime.utcnow() + timedelta(days=0, minutes=60),
                 'iat': datetime.utcnow()
             }
             
@@ -75,6 +82,20 @@ class NuxtApiUsers(db.Model):
             return token
             
         except Exception as e:
+            print(e)
+            return e
+    
+
+    def decode_auth_token(self, token):
+        try:
+            decoded = jwt.decode(
+                token, 
+                app.config.get('SECRET_KEY'),
+                algorithm='HS256'
+            )
+            return decoded
+
+        except Exception as e :
             print(e)
             return e
 
