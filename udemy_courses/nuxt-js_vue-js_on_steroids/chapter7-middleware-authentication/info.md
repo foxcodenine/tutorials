@@ -6,3 +6,6 @@ https://nuxtjs.org/guide/async-data/
 
 Axios
 https://github.com/axios/axios
+
+JWT  (jsonwebtoken)
+https://www.npmjs.com/package/jsonwebtoken 

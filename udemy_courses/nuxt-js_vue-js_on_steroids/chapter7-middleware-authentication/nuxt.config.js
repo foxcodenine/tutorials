@@ -98,7 +98,8 @@ export default {
 
   publicRuntimeConfig: {
     testPublic: process.env.TEST_ENV_PUBLIC,
-    fbApiKey: process.env.FB_API_KEY
+    fbApiKey: process.env.FB_API_KEY,
+    fkSecretKey: process.env.FK_SECRET_KEY
     // Value of this object is accessible from both client and server using $config.
   },
   privateRuntimeConfig: {
