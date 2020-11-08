@@ -22,7 +22,7 @@
     import AppButton from "~/components/UI/AppButton";
     export default {
         layout: 'adminLayout',
-        middleware: 'auth',
+        middleware: ['retrieveLocalStorage','auth'],
         components: {
             PostSection,
             AppButton

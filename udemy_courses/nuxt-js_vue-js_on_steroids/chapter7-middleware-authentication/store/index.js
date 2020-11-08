@@ -1,6 +1,42 @@
 import Vuex from 'vuex';
 import axios from 'axios';
 
+import jsonwebtoken from "jsonwebtoken";
+const jwt = require('jsonwebtoken')
+
+
+// _____________________________________________________________________
+// Helper functions:
+
+function expTokenFlask(token, key) {
+    
+    // This function validate the flask Token and retune time in seconde to expitation.
+
+    try {
+        const decodedTokenFlask = jwt.verify(token, key);
+        const utcNow = Math.floor(new Date().getTime() / 1000);
+        const expInSeconds = decodedTokenFlask.exp - utcNow;
+        console.log(expInSeconds)
+        return expInSeconds
+    } catch (err) {
+        if (err.message === "jwt expired") {
+            return -1
+        } else {
+            console.log(err)
+        }
+    }
+}
+// _____________________________
+
+function setTokenInLocalStorage(token, tokenName, expInSeconds) {
+    localStorage.setItem(tokenName, token);
+    
+    const expiration = parseInt(new Date().getTime()) + (expInSeconds * 1000)
+    localStorage.setItem(`${tokenName}Exp`, expiration)
+    // <- we have '*1000' cause .getTime is in milliseconds
+}
+
+// _____________________________________________________________________
 const createStore = () => {
     // <- You reture the Store from a function so each client has its store!
     return new Vuex.Store({
@@ -30,6 +66,13 @@ const createStore = () => {
             },
             setEmail(state, email) {
                 state.email = email;
+            },
+            clearTokens(state) {
+                state.tokenFlask = null;
+                state.tokenFirebase = null;
+            },
+            setToken(state, payload) {
+                state[payload.name] = payload.token;
             }
         },
         actions: {
@@ -45,6 +88,7 @@ const createStore = () => {
             async nuxtServerInit(vuexContext, context) {
                 if (!process.client) {
                     console.log('>> async await, running on server')
+                    console.log(`>>> Private .env server only ${context.$config.testPrivate}`)
                 }
                 // _____________________________________________________
                 // Flask backend
@@ -90,6 +134,7 @@ const createStore = () => {
                 // _____________________________________________________
             },
             authenticateUserFirebase(vuexContext, authData) {
+                // This action is used when user signin or signup (Firebase)
                 let authURL = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${this.$config.fbApiKey}`
 
                 if (!authData.isLogin) {
@@ -108,12 +153,16 @@ const createStore = () => {
                 ).then(result => { 
                     console.log('tokenFirebase >', result.data)
                     vuexContext.commit('setTokenFirebase', result.data.idToken)
+
+                    setTokenInLocalStorage(result.data.idToken, 'tokenFirebase', result.data.expiresIn);
+                    // <- store token to local storage after loggin.
                  })
                 .catch(e => { console.log(e); })
                 
                 // _____________________________________________________
             },
             authenticateUserFlask(vuexContext, authData) {
+                // This action is used when user signin or signup (Flask)
 
                 let authURL = 'http://127.0.0.1:5000/nuxtAPI/add-user'
                 
@@ -139,14 +188,56 @@ const createStore = () => {
                 .then(res => res.json())
                 .then(data => {
                     console.log('tokenFlask >', data)
-                    vuexContext.commit('setTokenFlask', data.tokenFlask)
+                    vuexContext.commit('setTokenFlask', data.tokenFlask)   
+                    
+                    const expTime = expTokenFlask(data.tokenFlask, this.$config.fkSecretKey)
+
+                    // <- expTime get the exp  time in sec by decoding the token.
+                    // <- Ideal this is fectch token instead of decoding it.
+
+                    vuexContext.dispatch('clearTokens', expTime ); 
+                    // <- remove token from store if it has exp.
+
+                    setTokenInLocalStorage(data.tokenFlask, 'tokenFlask', expTime);
+                    // <- store token to local storage after loggin
+                })
+                .then(()=>{
+                    this.$router.push('/admin');
                 })
                 .catch(e => { console.log(e); })
                 
                 // _____________________________________________________
             },
             setEmail(vuexContext, email) {
+                localStorage.setItem('emailFlask', email)
                 vuexContext.commit('setEmail', email)
+            },
+            clearTokens(vuexContext, duration) {
+                setTimeout(()=>{
+                    console.log('Time up Token exp!')
+                    vuexContext.commit('clearTokens')
+                }, 
+                duration * 1000);
+            },
+            retrieveLocalStorage(vuexContext, tokenName) {
+
+                const token = localStorage.getItem(tokenName);
+                const expirationDate = localStorage.getItem(`${tokenName}Exp`);
+                const email = localStorage.getItem('emailFlask');
+
+                if (!token || new Date().getTime() > expirationDate) {
+                    console.log('<No Token or Token Expired>')
+                    return
+                }
+                const payload = {
+                    name: tokenName,
+                    token: token
+                }
+                vuexContext.commit('setToken', payload);
+
+                if (email) {
+                    vuexContext.commit('setEmail', email);
+                }
             }
         },
         getters: {

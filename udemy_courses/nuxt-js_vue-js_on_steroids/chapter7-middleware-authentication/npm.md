@@ -16,4 +16,7 @@ https://levelup.gitconnected.com/what-are-env-files-and-how-to-use-them-in-nuxt-
 To install Nuxt dotenv:
     npm install @nuxtjs/dotenv
 
+To install jsonwebtoken
+    $ npm install --save jsonwebtoken
+
 
