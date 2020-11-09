@@ -20,3 +20,5 @@ To install jsonwebtoken
     $ npm install --save jsonwebtoken
 
 
+To install js-cookie
+    $ npm install --save js-cookie

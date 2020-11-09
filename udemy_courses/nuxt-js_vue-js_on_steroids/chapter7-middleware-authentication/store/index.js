@@ -4,6 +4,8 @@ import axios from 'axios';
 import jsonwebtoken from "jsonwebtoken";
 const jwt = require('jsonwebtoken')
 
+import Cookie from "js-cookie";
+
 
 // _____________________________________________________________________
 // Helper functions:
@@ -28,12 +30,32 @@ function expTokenFlask(token, key) {
 }
 // _____________________________
 
-function setTokenInLocalStorage(token, tokenName, expInSeconds) {
+function setTokenInLocalStorage(token, tokenName, expInSeconds, email=null) {
     localStorage.setItem(tokenName, token);
     
-    const expiration = parseInt(new Date().getTime()) + (expInSeconds * 1000)
-    localStorage.setItem(`${tokenName}Exp`, expiration)
+    const expiration = parseInt(new Date().getTime()) + (expInSeconds * 1000);
+    localStorage.setItem(`${tokenName}Exp`, expiration);
     // <- we have '*1000' cause .getTime is in milliseconds
+
+    if (email) {
+        localStorage.setItem('email', email)
+    }
+}
+
+// _____________________________
+
+function setTokenInCookie(token, tokenName, expInSeconds, email=null) {
+
+    Cookie.set(tokenName, token, { sameSite: 'strict' });
+
+    const expiration = parseInt(new Date().getTime()) + (expInSeconds * 1000);
+    // console.log(expiration)
+    Cookie.set(`${tokenName}Exp`, expiration, { sameSite: 'strict' });
+    // <- we have '*1000' cause .getTime is in milliseconds
+
+    if (email) {
+        Cookie.set('email', email, { sameSite: 'strict' })
+    }
 }
 
 // _____________________________________________________________________
@@ -151,11 +173,14 @@ const createStore = () => {
                     "returnSecureToken": true
                   }
                 ).then(result => { 
-                    console.log('tokenFirebase >', result.data)
+                    console.log('tokenFirebase >', result.data.email)
                     vuexContext.commit('setTokenFirebase', result.data.idToken)
 
-                    setTokenInLocalStorage(result.data.idToken, 'tokenFirebase', result.data.expiresIn);
+                    setTokenInLocalStorage(result.data.idToken, 'tokenFirebase', result.data.expiresIn, result.data.email);
                     // <- store token to local storage after loggin.
+
+                    setTokenInCookie(result.data.idToken, 'tokenFirebase', result.data.expiresIn, result.data.email);
+                    // <- store token to cookie after loggin.
                  })
                 .catch(e => { console.log(e); })
                 
@@ -191,6 +216,8 @@ const createStore = () => {
                     vuexContext.commit('setTokenFlask', data.tokenFlask)   
                     
                     const expTime = expTokenFlask(data.tokenFlask, this.$config.fkSecretKey)
+                    
+                    
 
                     // <- expTime get the exp  time in sec by decoding the token.
                     // <- Ideal this is fectch token instead of decoding it.
@@ -200,6 +227,9 @@ const createStore = () => {
 
                     setTokenInLocalStorage(data.tokenFlask, 'tokenFlask', expTime);
                     // <- store token to local storage after loggin
+
+                    setTokenInCookie(data.tokenFlask, 'tokenFlask', expTime);
+                    // <- store token to cookie after loggin
                 })
                 .then(()=>{
                     this.$router.push('/admin');
@@ -209,7 +239,7 @@ const createStore = () => {
                 // _____________________________________________________
             },
             setEmail(vuexContext, email) {
-                localStorage.setItem('emailFlask', email)
+                
                 vuexContext.commit('setEmail', email)
             },
             clearTokens(vuexContext, duration) {
@@ -223,7 +253,7 @@ const createStore = () => {
 
                 const token = localStorage.getItem(tokenName);
                 const expirationDate = localStorage.getItem(`${tokenName}Exp`);
-                const email = localStorage.getItem('emailFlask');
+                const email = localStorage.getItem('email');
 
                 if (!token || new Date().getTime() > expirationDate) {
                     console.log('<No Token or Token Expired>')
@@ -237,6 +267,29 @@ const createStore = () => {
 
                 if (email) {
                     vuexContext.commit('setEmail', email);
+                }
+            },
+            retrieveCookie(vuexContect, payload) {
+                
+                // if it was on client we could do this:
+                // const token = Cookie.get(payload.tokenName);
+                                
+                if (payload.req) {
+                    let cookies = payload.req.headers.cookie.split(';');
+
+                    let cookiesObject = {};
+                    cookies = cookies.forEach(m => {
+                        
+                        m = m.split('=');
+                        const key = m[0].trim();
+                        const value = m[1].trim();
+                        
+                        cookiesObject[key] = value;
+                    });
+
+                    console.log('cookie >', cookiesObject);
+
+
                 }
             }
         },

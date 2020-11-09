@@ -1,7 +1,7 @@
 <template>
     <div class="header-container">
         <header class="header" :class="{'blue': isAdmin}">
-            <app-the-side-nav-toggle @toggle="sideNaveToggle()"></app-the-side-nav-toggle>
+            <app-the-side-nav-toggle @toggle="sideNaveToggle()" v-if="!isAdmin"></app-the-side-nav-toggle>
             <div class="header__logo">
                 <nuxt-link to="/" class="header__link">
                     <svg class="icon icon-blog"><use xlink:href="@/static/icomoon/icomoon.svg/#icon-blog"></use></svg>
