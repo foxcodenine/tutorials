@@ -12,6 +12,7 @@ export default {
     components: {
         AdminPostForm
     },
+    middleware: ['retrieveToken','auth'],
     layout: 'adminLayout',
     asyncData(context) {
 
