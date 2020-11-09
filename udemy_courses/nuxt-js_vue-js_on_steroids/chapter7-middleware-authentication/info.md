@@ -9,3 +9,6 @@ https://github.com/axios/axios
 
 JWT  (jsonwebtoken)
 https://www.npmjs.com/package/jsonwebtoken 
+
+JS-Cookie
+https://github.com/js-cookie/js-cookie
