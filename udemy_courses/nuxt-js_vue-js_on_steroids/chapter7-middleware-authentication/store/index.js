@@ -22,7 +22,7 @@ function expTokenFlask(token, key) {
         return expInSeconds
     } catch (err) {
         if (err.message === "jwt expired") {
-            return -1
+            return 0
         } else {
             console.log(err)
         }
@@ -92,6 +92,7 @@ const createStore = () => {
             clearTokens(state) {
                 state.tokenFlask = null;
                 state.tokenFirebase = null;
+                state.email = null
             },
             setToken(state, payload) {
                 state[payload.name] = payload.token;
@@ -256,7 +257,8 @@ const createStore = () => {
                 const email = localStorage.getItem('email');
 
                 if (!token || new Date().getTime() > expirationDate) {
-                    console.log('<No Token or Token Expired>')
+                    console.log('<No Token or Token Expired in LocalStorage>');
+                    vuexContext.commit('clearTokens'); 
                     return
                 }
                 const payload = {
@@ -269,12 +271,17 @@ const createStore = () => {
                     vuexContext.commit('setEmail', email);
                 }
             },
-            retrieveCookie(vuexContect, payload) {
+            retrieveCookie(vuexContext, payload) {
                 
-                // if it was on client we could do this:
+                // if it was on the client we could do this to fetch token data:
                 // const token = Cookie.get(payload.tokenName);
-                                
-                if (payload.req) {
+                
+                // _____________________________________________________
+                // If cookie exits in header, we are fetching the token exp and email.
+                // And store it in to an object:
+
+                if (payload.req && payload.req.headers.cookie) {
+
                     let cookies = payload.req.headers.cookie.split(';');
 
                     let cookiesObject = {};
@@ -286,11 +293,53 @@ const createStore = () => {
                         
                         cookiesObject[key] = value;
                     });
+                
+                // _____________________________________________________
 
-                    console.log('cookie >', cookiesObject);
+                    const tokenName = payload.tokenName;
+                    const token = cookiesObject[payload.tokenName];
+                    const expirationDate = cookiesObject[`${tokenName}Exp`]
+                    const email = cookiesObject.email;  
 
+                // _____________________________________________________ 
 
+                    if (!token || new Date().getTime() > expirationDate) {
+                        console.log('<No Token or Token Expired in Cookie>');
+                        vuexContext.commit('clearTokens'); 
+                        return
+                    }
+                // _____________________________________________________
+                    const toSendPayload = {
+                        name: tokenName,
+                        token: token
+                    }               
+                
+                    // console.log('cookieObject >', cookiesObject);
+                    vuexContext.commit('setToken', toSendPayload)
+                // _____________________________________________________
+                    vuexContext.commit('setToken', toSendPayload);
+
+                    if (email) {
+                        vuexContext.commit('setEmail', email);
+                    }
+                // _____________________________________________________
                 }
+            },
+            logout(vuexContext) {
+
+                vuexContext.commit('clearTokens');
+
+                localStorage.removeItem('tokenFirebase');
+                localStorage.removeItem('tokenFirebaseExp');
+                localStorage.removeItem('tokenFlask');
+                localStorage.removeItem('tokenFlaskExp');
+                localStorage.removeItem('email');
+
+                Cookie.remove('tokenFirebase');
+                Cookie.remove('tokenFirebaseExp');
+                Cookie.remove('tokenFlask');
+                Cookie.remove('tokenFlaskExp');
+                Cookie.remove('email');                
             }
         },
         getters: {
@@ -313,6 +362,10 @@ const createStore = () => {
             },
             isNotAuthenticated(state) {
                 return state.tokenFlask === null || state.setTokenFirebase === null || state.email === null;
+            },
+            isUserLogin(state) {
+                return state.email !== null && state.tokenFlask && state.tokenFirebase;
+
             }
         }
     })
