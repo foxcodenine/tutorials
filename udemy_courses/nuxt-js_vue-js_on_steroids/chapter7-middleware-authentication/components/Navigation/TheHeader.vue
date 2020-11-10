@@ -15,10 +15,12 @@
             </div>
             <div class="header__spacer"></div>
             <div class="nav" :class="{'admin': isAdmin}">
-                <ul class="nav__list">                                
+                <ul class="nav__list">  
+                    <li v-if="!isUserLogin" @click="login()"><svg class="icon icon-blog"><use xlink:href="@/static/icomoon/icomoon.svg/#icon-sign-in"></use></svg></li>                              
+                    <li v-else @click="logout()"><svg class="icon icon-blog"><use xlink:href="@/static/icomoon/icomoon.svg/#icon-sign-out"></use></svg></li>                              
                     <li class="nav__list-item"><nuxt-link to="/posts" class="nav__link">Blog</nuxt-link></li>
                     <li class="nav__list-item"><nuxt-link to="/about" class="nav__link">About</nuxt-link></li>
-                    <li class="nav__list-item"><nuxt-link to="/admin" class="nav__link">Admin</nuxt-link></li>
+                    <li class="nav__list-item" v-if="isUserLogin"><nuxt-link to="/admin" class="nav__link">Admin</nuxt-link></li>
                 </ul>
             </div>
         </header>
@@ -44,6 +46,9 @@
         computed: {
             isFirebase() {
                 return this.$store.getters.fetchSelectedBackend
+            },
+            isUserLogin() {
+                return this.$store.getters.isUserLogin
             }
         },
         methods: {
@@ -52,6 +57,13 @@
             },
             backendToggle() {
                 this.$store.dispatch('toggleBackend')
+            },
+            logout() {
+                this.$store.dispatch('logout');
+                this.$router.push('/');
+            },
+            login() {
+                this.$router.push('/admin/auth');
             }
         },
         mounted() {
