@@ -1,0 +1,163 @@
+* {
+    box-sizing: border-box;
+}
+
+// METHOD 1: LINE NUMBERS
+// .container {
+//     background-color: #eee;
+//     width: 1000px;
+//     min-height: 1000px;
+    
+//     margin: 30px auto;
+  
+//     display: grid;
+//     grid-template-rows: 1fr 2fr 4fr 1fr;
+//     grid-template-columns: repeat(3, 1fr) 170px;
+//     grid-gap: 30px 30px;  
+// }  
+
+// .item {
+//     padding: 20px;
+//     font-size: 30px;
+//     font-family: 'Source Sans Pro', sans-serif;
+//     color: white;
+//     background-color: red;
+
+//     &--header {
+//         grid-column: 1 / 5 ;
+//     }
+
+//     &--box1 {
+        
+//     }
+
+//     &--box2 {
+
+//     }
+
+//     &--box3 {
+
+//     }
+
+//     &--side {
+//         grid-row: 2 / 4;
+//         grid-column: 4 / -1;
+//     }
+
+//     &--main {
+//         grid-column: 1 / span 3;
+//     }
+
+//     &--footer {
+//         grid-column: 1 / -1;
+//     }
+// }
+
+// _____________________________________________________________________
+
+// // METHOD 2: LINE NAMES
+// .container {
+//     background-color: #eee;
+//     width: 1000px;
+//     min-height: 1000px;
+    
+//     margin: 30px auto;
+  
+//     display: grid;
+//     grid-template-rows: [header-start] 1fr [header-end box-start] 2fr [box-end main-start] 4fr [main-end footer-start] 1fr [footer-end];
+//     grid-template-columns: repeat(3, [col-start] 1fr [col-end]) 170px [grid-end];
+//     grid-gap: 30px 30px;  
+// }  
+// .item {
+//     padding: 20px;
+//     font-size: 30px;
+//     font-family: 'Source Sans Pro', sans-serif;
+//     color: white;
+//     background-color: red;
+
+//     &--header {
+//         grid-column: col-start 1 / grid-end ;
+//     }
+
+//     &--box1 {
+        
+//     }
+
+//     &--box2 {
+
+//     }
+
+//     &--box3 {
+
+//     }
+
+//     &--side {
+//         grid-row: box-start / main-end;
+//         grid-column: col-end 3 / grid-end ;
+//     }
+
+//     &--main {
+//         grid-column: col-start 1 / col-end 3 ;
+//     }
+
+//     &--footer {
+//         grid-column: col-start 1 / grid-end;
+//     }
+// }
+  
+// _____________________________________________________________________
+
+
+// METHOD 2: LINE NAMES
+.container {
+    background-color: #eee;
+    width: 1000px;
+    min-height: 1000px;
+    
+    margin: 30px auto;
+  
+    display: grid;
+    grid-template-rows: [header-start] 1fr [header-end box-start] 2fr [box-end main-start] 4fr [main-end footer-start] 1fr [footer-end];
+    grid-template-columns: repeat(3, [col-start] 1fr [col-end]) 170px [grid-end];
+    grid-gap: 30px 30px;  
+
+    grid-template-areas:    '.    head head .'
+                            'box1 box2 box3 side'
+                            'main main main side'
+                            'foot foot foot foot';
+}  
+.item {
+    padding: 20px;
+    font-size: 30px;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: white;
+    background-color: red;
+
+    &--header {
+        grid-area: head;
+    }
+
+    &--box1 {
+        grid-area: box3;
+    }
+
+    &--box2 {
+        grid-area: box2;
+    }
+
+    &--box3 {
+        grid-area: box1;
+    }
+
+    &--side {
+        grid-area: side;
+    }
+
+    &--main {
+        grid-area: main;
+    }
+
+    &--footer {
+        grid-area: foot;
+    }
+}
