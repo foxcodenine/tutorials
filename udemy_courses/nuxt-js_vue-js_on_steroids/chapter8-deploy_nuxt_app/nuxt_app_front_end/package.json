@@ -1,0 +1,24 @@
+{
+  "name": "chapter3-project",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt --port 8181",
+    "build": "nuxt build",
+    "start": "nuxt start --port 8181",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@smartweb/vue-flash-message": "^0.6.10",
+    "axios": "^0.21.0",
+    "core-js": "^3.6.5",
+    "js-cookie": "^2.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "nuxt": "^2.14.6"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-module": "^3.0.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.0.3"
+  }
+}
