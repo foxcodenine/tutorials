@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+
+:root {
+    --col-bkg-1: #ffefea;
+    --col-bkg-2: #333;
+    --col-btn-1: darksalmon;
+    --col-wht-1: #fff;
+    --col-gry-1: #dadada;
+
+    --text-size: 1.6rem;
+  }
+
+
+html {
+    font-size: 62.5%;
+}
+
+
+body {
+    background-color: var(--col-bkg-1);
+    font-family: 'Lato', sans-serif;
+    font-size: var(--text-size);
+    margin: 0;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container {
+    margin: auto;
+    padding: 2rem;
+}
+
+.btn {
+    cursor: pointer;
+    background-color: var(--col-btn-1);
+    border: 0;
+    border-radius: .4rem;
+    color: var(--col-wht-1);    
+    padding: .8rem;
+    font-size: var(--text-size);
+
+    &:active {
+        transform: scale(.98);
+    }
+
+    &:focus {
+        outline: 0;
+    }
+
+    &-toggle {
+        display: block;
+        margin: auto;
+        margin-bottom: 2rem;
+    }
+}
+
+.text-box {
+    width: 70%;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    border: 1px black solid;    
+    transform: translate(-50%, -800px);
+    background-color:  var(--col-bkg-2);
+    color: var(--col-wht-1);
+    padding: 2rem;
+    border-radius: .5rem;
+    transition: all .5s ease-in-out;
+
+    &.show {
+        transform: translate(-50%, -10%);
+    }
+
+    & select {
+        background-color:  var(--col-btn-1);
+        border: 0;
+        color: var(--col-wht-1);
+        font-size: 1.2rem;
+        height: 3rem;
+        width: 100%;
+        outline: none;
+
+        & :active {
+            outline: none;
+        }
+    }
+
+    & textarea {
+        border: 1px solid var(--col-gry-1);
+        background-color: var(--col-wht-1);
+        border-radius: .5rem;
+        font-size: var(--text-size);
+        padding: .8rem;
+        margin: 1.5rem 0;
+        width: 100%;
+        height: 15rem;        
+    }
+
+    & .btn {
+        width: 100%;
+    }
+    .close {
+        float: right;
+        text-align: right;
+        cursor: pointer;
+        font-size: 2.5rem;
+    }
+}
+
+main {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(30rem, 1fr));
+    grid-gap: 1rem;
+
+    .box {
+
+        box-shadow: 0 .2rem 1rem rgba(0,0,0,.2);
+        border-radius: .5rem;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        text-align: center;
+
+        overflow: hidden;
+        transition: box-shadow 0.2s ease-out;
+
+        &.active {
+            box-shadow: 0 0 1rem .5rem var(--col-btn-1);
+        }
+
+        img {
+            width: 100%;
+            height: 20rem;
+            object-fit: cover;
+            
+        }
+
+        .info {
+            background-color: var(--col-btn-1);
+            color: var(--col-wht-1);
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 0;
+            padding: 1rem;
+            height: 100%;
+        }
+    }
+}
+
+
+
+
