@@ -1,0 +1,22 @@
+{
+  "name": "speech_text_reader_nuxt_app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev-sass": "node-sass ./static/sass/main.scss ./assets/styles/main.css -w",
+    "dev-nuxt": "nuxt --port=8282",
+    "dev": "npm-run-all --parallel dev-sass dev-nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "nuxt": "^2.14.6"
+  },
+  "devDependencies": {
+    "@nuxtjs/style-resources": "^1.0.0",
+    "sass": "^1.29.0",
+    "sass-loader": "^10.1.0"
+  }
+}
