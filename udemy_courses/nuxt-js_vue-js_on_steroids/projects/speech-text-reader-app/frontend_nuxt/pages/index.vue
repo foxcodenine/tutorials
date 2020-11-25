@@ -1,5 +1,5 @@
 <template>
-  <div class="container ">
+  <div class="container">
 
     <h1 class="heading-1 mt-lg">Speech Text Reader</h1>
     <button 
@@ -11,17 +11,25 @@
 
     <TextBox></TextBox>
 
+    
+
+    <transition name="fade">
+    <NotSupported v-if="this.$store.getters.getNoBrowserSupport"></NotSupported>
+    </transition>
+
   </div>
 </template>
 
 <script>
 import BoxGrid from "@/components/BoxGrid";
 import TextBox from "@/components/TextBox";
+import NotSupported from "@/components/NotSupported";
 
 export default {
   components: {
     BoxGrid,
-    TextBox
+    TextBox,
+    NotSupported
   },
   methods: {
     toggleTextBox() {
@@ -51,5 +59,8 @@ export default {
   justify-content: flex-start;
 
   color: rgba($color-gray-1, .9);
+  position: relative;
+
+
 }
 </style>

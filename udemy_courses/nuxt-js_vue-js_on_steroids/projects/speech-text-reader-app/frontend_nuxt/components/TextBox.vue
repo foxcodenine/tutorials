@@ -8,12 +8,13 @@
         <h2 class="heading-2 mb-sm">Choose Voice</h2>
 
         <select class="textbox__select mb-sm"
-            >
+            @change="changeVoice()" v-model="selectedVoice">
             
             <option 
                 v-for="voice in myPcVoices" 
                 :key="`${voice.lang}${voice.name}`"
-                :value="voice.lang">
+                :value="voice.name "
+                >
                     {{voice.name}} - {{voice.lang}}
             </option>
 
@@ -38,6 +39,7 @@
             return {
                 myPcVoices: [],
                 myText: '',
+                selectedVoice: 'English (Great Britain)'
             }
         },
         methods: {
@@ -75,6 +77,11 @@
 
                 }
                 
+            },
+            changeVoice() {
+                this.$store.dispatch('setSelectedVoice', this.selectedVoice)
+                const voice = this.myPcVoices.find(v => v.name === this.selectedVoice)
+                this.$store.getters.getUtterance.voice = voice;
             }
         },        
         mounted() {
@@ -82,7 +89,7 @@
 
                 let myPcVoices = this.$store.getters.getVoices;
                 
-                if (this.detectBrowser() === 'Chrome') {
+                if (this.detectBrowser() === 'Chrome' || this.myPcVoices.length < 1) {
                     myPcVoices = window.speechSynthesis.getVoices();
                 }
                 myPcVoices.sort( (a, b) =>  {
@@ -93,6 +100,11 @@
                     }
                 });
                 this.myPcVoices = myPcVoices; 
+
+                if (this.myPcVoices.length < 1) {
+                    this.$store.dispatch('setNoBrowserSupport', true);
+                }
+                
                 
             }, 300);            
         }
