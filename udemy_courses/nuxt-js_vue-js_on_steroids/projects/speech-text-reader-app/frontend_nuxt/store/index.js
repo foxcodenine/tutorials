@@ -17,8 +17,10 @@ const createStore = () => {
         state: {
             myBoxes: [],
             voices: [],
+            selectedVoice: 'English (Great Britain)',
             utterance: null,
             textBoxOn: false,
+            noBrowserSupport: false
         },
     // __________________________________
 
@@ -34,6 +36,12 @@ const createStore = () => {
             },
             setTextBox(state, payload) {
                 state.textBoxOn = payload;
+            },
+            setSelectedVoice(state, v) {
+                state.selectedVoice = v;
+            },
+            setNoBrowserSupport(state, s) {
+                state.noBrowserSupport = s;
             }
         },
     // __________________________________
@@ -53,6 +61,12 @@ const createStore = () => {
             },
             setTextBox(vuexContext, payload) {
                 vuexContext.commit('setTextBox', payload);
+            },
+            setSelectedVoice(vuexContext, payload) {
+                vuexContext.commit('setSelectedVoice', payload);
+            },
+            setNoBrowserSupport(vuexContext, payload) {
+                vuexContext.commit('setNoBrowserSupport', payload)
             }
         },
     // __________________________________
@@ -71,6 +85,12 @@ const createStore = () => {
             getTextBoxOn(state) {
                 return state.textBoxOn;
             },
+            getSelectedVoice(state) {
+                return state.selectedVoice;
+            },
+            getNoBrowserSupport(state) {
+                return state.noBrowserSupport;
+            }
         }
     })
 }
