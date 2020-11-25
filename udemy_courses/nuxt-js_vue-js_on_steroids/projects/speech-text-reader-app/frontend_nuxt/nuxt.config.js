@@ -1,5 +1,6 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
+  // ssr: false, // Disable Server Side rendering
   head: {
     title: 'Speech-Text-Reader',
     meta: [
@@ -20,6 +21,7 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    '@/plugins/detectBrowser.js'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)

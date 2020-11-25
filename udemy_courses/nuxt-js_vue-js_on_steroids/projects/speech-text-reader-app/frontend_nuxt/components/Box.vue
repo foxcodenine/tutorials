@@ -52,7 +52,7 @@ export default {
             padding: 1rem;
             font-size: 2.2rem;
             color: #fff;
-            font-family: 'Quicksand', 'Source Sans Pro';
+            font-family: 'Quicksand','Source Sans Pro';
             text-transform: uppercase;
             letter-spacing: 1px;
             
