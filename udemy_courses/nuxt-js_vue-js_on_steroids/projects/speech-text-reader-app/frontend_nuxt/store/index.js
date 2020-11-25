@@ -48,7 +48,6 @@ const createStore = () => {
 
         actions: {
             async nuxtServerInit(vuexContext, context) {
-
                 // ----- fetch and set boxes data:
                 vuexContext.commit('setMyBoxes', initData);
                 

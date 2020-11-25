@@ -46,37 +46,26 @@
             closeTextBox() {
                 this.$store.dispatch('setTextBox', false);
             },
-            detectBrowser() {
-                // console.log(navigator.platform, navigator.appCodeName,navigator.appName, navigator.product) 
+            // detectBrowser() {
+            //     // console.log(navigator.platform, navigator.appCodeName,navigator.appName, navigator.product) 
 
-                if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) {
-                    return 'Opera';
-                } else if(navigator.userAgent.indexOf("Chrome") != -1 ) {
-                    return 'Chrome';
-                } else if(navigator.userAgent.indexOf("Safari") != -1) {
-                    return 'Safari';
-                } else if(navigator.userAgent.indexOf("Firefox") != -1 ){
-                    return 'Firefox';
-                } else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) {
-                    return 'IE';//crap
-                } else {
-                    return 'Unknown';
-                }
-            },
-            readText() {
-                if (this.detectBrowser() === 'Chromeee') {
-
-                var audio = new Audio();
-                audio.src ='http://translate.google.com/translate_tts?ie=utf-8&tl=en&q=Hello%20World.';
-                audio.play();
-
-
-                } else {                
-                    this.$store.getters.getUtterance.text = this.myText;
-                    speechSynthesis.speak(this.$store.getters.getUtterance);
-
-                }
-                
+            //     if((navigator.userAgent.indexOf("Opera") || navigator.userAgent.indexOf('OPR')) != -1 ) {
+            //         return 'Opera';
+            //     } else if(navigator.userAgent.indexOf("Chrome") != -1 ) {
+            //         return 'Chrome';
+            //     } else if(navigator.userAgent.indexOf("Safari") != -1) {
+            //         return 'Safari';
+            //     } else if(navigator.userAgent.indexOf("Firefox") != -1 ){
+            //         return 'Firefox';
+            //     } else if((navigator.userAgent.indexOf("MSIE") != -1 ) || (!!document.documentMode == true )) {
+            //         return 'IE';//crap
+            //     } else {
+            //         return 'Unknown';
+            //     }
+            // },
+            readText() {              
+                this.$store.getters.getUtterance.text = this.myText;
+                speechSynthesis.speak(this.$store.getters.getUtterance);               
             },
             changeVoice() {
                 this.$store.dispatch('setSelectedVoice', this.selectedVoice)
@@ -89,7 +78,7 @@
 
                 let myPcVoices = this.$store.getters.getVoices;
                 
-                if (this.detectBrowser() === 'Chrome' || this.myPcVoices.length < 1) {
+                if (this.$detectBrowser() === 'Chrome' || this.myPcVoices.length < 1) {
                     myPcVoices = window.speechSynthesis.getVoices();
                 }
                 myPcVoices.sort( (a, b) =>  {
@@ -101,10 +90,9 @@
                 });
                 this.myPcVoices = myPcVoices; 
 
-                if (this.myPcVoices.length < 1) {
+                if (this.myPcVoices.length < 1 || ['Unknown', 'IE'].includes(this.$detectBrowser())) {
                     this.$store.dispatch('setNoBrowserSupport', true);
-                }
-                
+                }                
                 
             }, 300);            
         }

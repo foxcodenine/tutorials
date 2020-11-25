@@ -37,7 +37,15 @@ export default {
     }
   },
   mounted() {
+
+    if (['Unknown', 'IE'].includes(this.$detectBrowser())) {
+        throw  'This browser do not support this application!'
+    }  
+
+    // this.$store.dispatch('nuxtServerInit'); // <- if spa
+
     // ---- get voices from pc
+    
     let myPcVoices = window.speechSynthesis.getVoices();
     this.$store.dispatch('setVoices', myPcVoices);
 
