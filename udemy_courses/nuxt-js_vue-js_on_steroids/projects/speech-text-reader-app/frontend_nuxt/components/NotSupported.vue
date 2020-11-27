@@ -6,7 +6,7 @@
             @click="reload()"
             >&#x21bb;</p>
 
-            <h2 class="heading-2 mb-sm">Your browser does not support this application!</h2>
+            <h2 class="heading-2 mb-sm">{{errorMessage}}</h2>
 
 
         </div>
@@ -15,6 +15,12 @@
 
 <script>
     export default {
+        props: {            
+            errorMessage: {
+                type: String,
+                required: false
+            }
+        },
         data() {
             return {
                 myPcVoices: [],
@@ -29,8 +35,6 @@
                     location.reload();
                 },700)
             },
-
-
         },   
     }
 
@@ -74,7 +78,6 @@
 
         transition: all .5s ease-in-out;
         
-
         &__reload{
             align-self: flex-end;
             font-size: 2.2rem;
