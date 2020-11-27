@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-
-    <h1 class="heading-1 mt-lg">Speech Text Reader</h1>
+    <HeaderBar></HeaderBar>
+    <h1 class="heading-1 mt-lg error">Speech Text Reader</h1>
     <button 
       class="btn mt-sm"
       @click="toggleTextBox()"
@@ -9,12 +9,13 @@
 
     <BoxGrid class="mt-sm"></BoxGrid>
 
-    <TextBox></TextBox>
-
-    
+    <TextBox></TextBox>    
 
     <transition name="fade">
-    <NotSupported v-if="this.$store.getters.getNoBrowserSupport"></NotSupported>
+      <NotSupported 
+        v-if="this.$store.getters.getNoBrowserSupport" 
+        errorMessage='Your browser does not support this application!'>
+      </NotSupported>
     </transition>
 
   </div>
@@ -24,26 +25,29 @@
 import BoxGrid from "@/components/BoxGrid";
 import TextBox from "@/components/TextBox";
 import NotSupported from "@/components/NotSupported";
+import HeaderBar from "@/components/HeaderBar";
 
 export default {
   components: {
     BoxGrid,
     TextBox,
-    NotSupported
+    NotSupported,
+    HeaderBar
   },
   methods: {
     toggleTextBox() {
       this.$store.dispatch('setTextBox', !this.$store.getters.getTextBoxOn);
     }
   },
+  created() {
+    this.$store.dispatch('nuxtServerInit'); // <- if spa
+  },
+  beforeMount() {
+    if (this.$detectBrowser() === 'IE' || this.$detectBrowser() === 'Unknown') {
+        throw new Error('Application is not supported by this browser!!');
+    }
+  },
   mounted() {
-
-    if (['Unknown', 'IE'].includes(this.$detectBrowser())) {
-        throw  'This browser do not support this application!'
-    }  
-
-    // this.$store.dispatch('nuxtServerInit'); // <- if spa
-
     // ---- get voices from pc
     
     let myPcVoices = window.speechSynthesis.getVoices();
@@ -52,23 +56,12 @@ export default {
     // ---- init SpeechSynthesisUtterance
     const utterance = new SpeechSynthesisUtterance
     this.$store.dispatch('setUtterance', utterance);
+
+
   }
 }
 </script>
 
 <style lang='scss' scoped>
-.container {
-  background-color: $color-primary;  
-  min-height: 100vh;  
-  display: flex;
-  flex-direction: column;
 
-  align-items: center;
-  justify-content: flex-start;
-
-  color: rgba($color-gray-1, .9);
-  position: relative;
-
-
-}
 </style>

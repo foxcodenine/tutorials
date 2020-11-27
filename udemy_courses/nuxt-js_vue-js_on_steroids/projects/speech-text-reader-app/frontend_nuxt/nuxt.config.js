@@ -1,6 +1,6 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
-  // ssr: false, // Disable Server Side rendering
+  ssr: false, // Disable Server Side rendering
   head: {
     title: 'Speech-Text-Reader',
     meta: [
@@ -40,10 +40,10 @@ export default {
         'assets/styles/_variables.scss',
         // 'assets/styles/_base.scss',
     ]
-},
+  },
 
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-  }
+  },
 }
