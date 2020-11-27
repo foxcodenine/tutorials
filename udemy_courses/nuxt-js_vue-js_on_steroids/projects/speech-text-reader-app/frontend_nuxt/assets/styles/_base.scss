@@ -8,6 +8,13 @@
 
 html {
     font-size: 62.5%;
+
+    @media only  screen and (max-width: $bp-large) {
+        font-size: 55%;
+    }
+    @media only  screen and (max-width: $bp-big) {
+        font-size: 50%;
+    }
 }
 
 body {
@@ -90,3 +97,8 @@ body {
   .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
   }
+
+
+
+
+
