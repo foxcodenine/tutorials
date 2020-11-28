@@ -276,4 +276,35 @@ body {
 
 .footer {
   background-color: #101d2c;
-  grid-column: full-start / full-end; }
+  grid-column: full-start / full-end;
+  padding: 8rem; }
+
+.nav {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-gap: 2rem;
+  align-items: center; }
+  .nav__link:link, .nav__link:visited {
+    font-size: 1.4rem;
+    color: #fff;
+    text-decoration: none;
+    font-family: "Josefin Sans", sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1.5rem;
+    display: block;
+    transition: all .3s; }
+    .nav__link:link:hover, .nav__link:link:active, .nav__link:visited:hover, .nav__link:visited:active {
+      background-color: rgba(255, 255, 255, 0.05);
+      transform: translateY(-3px); }
+
+.copyright {
+  color: #f9f7f6;
+  font-size: 1.4rem;
+  line-height: 1.1;
+  grid-row: 1 / -1;
+  text-align: center;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 6rem; }
