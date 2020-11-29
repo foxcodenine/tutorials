@@ -1,9 +1,7 @@
 <template>
-    <div class="textbox" :class="{'active': this.$store.getters.getTextBoxOn}">
+    <div class="textbox" >
 
-        <p class="textbox__close"
-        @click="closeTextBox()"
-        >&times;</p>
+        <CloseAll></CloseAll>
 
         <h2 class="heading-2 mb-sm">Choose Voice</h2>
 
@@ -34,7 +32,11 @@
 </template>
 
 <script>
+    import CloseAll from "@/components/CloseAll";
     export default {
+        components: {
+            CloseAll
+        },
         data() {
             return {
                 myPcVoices: [],
@@ -75,7 +77,7 @@
 
                 if (this.myPcVoices.length < 1 || ['Unknown', 'IE'].includes(this.$detectBrowser())) {
                     this.$store.dispatch('setNoBrowserSupport', true);
-                }                
+                }               
                 
             }, 300);            
         }
@@ -86,7 +88,6 @@
 <style lang="scss" scoped>
 
     .textbox {
-
         width: 80vw;
         max-width: 108rem;
         min-height: 10rem;
@@ -104,11 +105,7 @@
         flex-direction: column;
 
         color: #fff;
-
-        transform: translate(-50%, -800px);
-
-        transition: all .7s ease-in-out;
-        
+        transform: translateX(-50%);       
 
         &__close {
             align-self: flex-end;
