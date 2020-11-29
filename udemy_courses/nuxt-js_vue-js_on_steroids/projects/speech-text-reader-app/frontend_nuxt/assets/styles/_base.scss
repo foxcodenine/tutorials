@@ -38,6 +38,13 @@ body {
 .mt-bg {margin-top: 6rem;}
 .mt-hg {margin-top: 8rem;}
 
+.mt-tn-n {margin-top: -1rem;}
+.mt-sm-n {margin-top: -2rem;}
+.mt-md-n {margin-top: -3rem;}
+.mt-lg-n {margin-top: -4rem;}
+.mt-bg-n {margin-top: -6rem;}
+.mt-hg-n {margin-top: -8rem;}
+
 // _____________________________________________________________________
 
 
@@ -61,7 +68,7 @@ body {
 
 
 .text {
-    font-family: 'Quicksand', 'Source Sans Pro';
+    font-family: 'Quicksand', 'Source Sans Pro', sans-serif;
     font-size: 2rem;
 }
 
@@ -69,6 +76,7 @@ body {
 // Components
 
 .btn {
+  min-width: 14rem;
     border: none;
     border-radius: .5rem;
     background-color: $color-primary-dark;
@@ -91,6 +99,22 @@ body {
   
   }
 
+.close-all {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  align-self: flex-end;
+  font-size: 2.2rem;
+  cursor: pointer;
+
+  &:hover {
+      font-weight: bolder;
+  }
+}
+
+
+// _____________________________________________________________________
+
   .fade-enter-active, .fade-leave-active {
     transition: opacity .5s;
   }
@@ -98,6 +122,16 @@ body {
     opacity: 0;
   }
 
+// _____________________________________________________________________
+
+.moveintop-enter-active, .moveintop-leave-active {
+    transform: translateY(0%)translateX(-50%) !important;
+    transition: all .8s ease-in-out;
+  }
+.moveintop-enter, .moveintop-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    
+    transform: translateY(-800px)translateX(-50%) !important;
+  }
 
 
 

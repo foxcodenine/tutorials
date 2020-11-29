@@ -19,7 +19,12 @@ const createStore = () => {
             voices: [],
             selectedVoice: 'English (Great Britain)',
             utterance: null,
+
             textBoxOn: false,
+            newBoxOn: false,
+            signInOn: false,
+            signUpOn: true,
+
             noBrowserSupport: false
         },
     // __________________________________
@@ -34,14 +39,20 @@ const createStore = () => {
             setUtterance(state, u) {
                 state.utterance = u;
             },
-            setTextBox(state, payload) {
-                state.textBoxOn = payload;
-            },
             setSelectedVoice(state, v) {
                 state.selectedVoice = v;
             },
             setNoBrowserSupport(state, s) {
                 state.noBrowserSupport = s;
+            },
+            setForm(state, payload) {
+                state[payload.name] = payload.action
+            },
+            closeAll(state) {
+                state.signInOn = false;
+                state.signUpOn = false;
+                state.newBoxOn = false;
+                state.textBoxOn = false;
             }
         },
     // __________________________________
@@ -58,14 +69,18 @@ const createStore = () => {
             setUtterance(vuexContext, payload) {
                 vuexContext.commit('setUtterance', payload);
             },
-            setTextBox(vuexContext, payload) {
-                vuexContext.commit('setTextBox', payload);
-            },
             setSelectedVoice(vuexContext, payload) {
                 vuexContext.commit('setSelectedVoice', payload);
             },
             setNoBrowserSupport(vuexContext, payload) {
                 vuexContext.commit('setNoBrowserSupport', payload)
+            },
+            setForm({commit, dispatch}, payload) {
+                dispatch('closeAll')
+                commit('setForm', payload);
+            },
+            closeAll({commit}) {
+                commit('closeAll');
             }
         },
     // __________________________________
@@ -83,6 +98,15 @@ const createStore = () => {
             },
             getTextBoxOn(state) {
                 return state.textBoxOn;
+            },
+            getSignUpOn(state) {
+                return state.signUpOn;
+            },
+            getSignInOn(state) {
+                return state.signInOn;
+            },
+            getNewBoxOn(state) {
+                return state.newBoxOn;
             },
             getSelectedVoice(state) {
                 return state.selectedVoice;

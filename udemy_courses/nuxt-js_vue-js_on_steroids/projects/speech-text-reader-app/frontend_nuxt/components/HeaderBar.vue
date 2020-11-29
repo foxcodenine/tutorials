@@ -9,12 +9,10 @@
 
         <div class="header__btns">
           <button class="header__btn">Home</button>
-          <!-- <button class="header__btn">Sign in</button> -->
-          <!-- <button class="header__btn">Sign up</button>           -->
+          <button class="header__btn" @click="openForm('signInOn')">Log in</button>
+          <button class="header__btn" @click="openForm('signUpOn')">Sign up</button>          
           <button class="header__btn">Sign out</button>
-        </div>
-
-        
+        </div>        
 
       </div>
   </header>
@@ -30,6 +28,15 @@ export default {
   computed: {
     isAdmin() {
       return this.admin ? 'Admin' : 'Hello';
+    }
+  },
+  methods: {
+    openForm(name) {
+      const payload = {
+        name: name,
+        action: true
+      }
+      this.$store.dispatch('setForm', payload);
     }
   }
 
@@ -70,7 +77,7 @@ export default {
     &__btns {
       // border: 1px solid #fff;
       display: flex;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       align-items: center;
       justify-content: flex-end;
 
