@@ -37,7 +37,7 @@ export default {
         cursor: pointer;
         display: flex;
         flex-direction: column;
-        height: 25rem;
+        height: 27rem;
         overflow: hidden;
         background-color: $color-primary-dark;
         border-radius: 1rem;
@@ -49,8 +49,9 @@ export default {
 
         p {
             align-self: center;
+            text-align: center;
             padding: 1rem;
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: #fff;
             font-family: 'Quicksand','Source Sans Pro';
             text-transform: uppercase;
