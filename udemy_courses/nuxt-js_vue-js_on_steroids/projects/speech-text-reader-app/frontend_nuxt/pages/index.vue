@@ -19,6 +19,7 @@
       </NotSupported>
     </transition>
 
+
     <transition name="moveintop" mode="out-in">
       <TextBox v-if="this.$store.getters.getTextBoxOn"></TextBox>  
       <SignUp v-if="this.$store.getters.getSignUpOn"></SignUp>
@@ -65,7 +66,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('nuxtServerInit'); // <- if spa
+    this.$store.dispatch('serverInit'); // <- if spa
   },
   beforeMount() {
     if (this.$detectBrowser() === 'IE' || this.$detectBrowser() === 'Unknown') {
@@ -74,7 +75,7 @@ export default {
   },
   mounted() {
     // ---- get voices from pc
-    
+
     let myPcVoices = window.speechSynthesis.getVoices();
     this.$store.dispatch('setVoices', myPcVoices);
 
@@ -82,6 +83,19 @@ export default {
     const utterance = new SpeechSynthesisUtterance
     this.$store.dispatch('setUtterance', utterance);
 
+
+
+    // ---- check if browser support app
+    setTimeout(()=>{   
+
+      if (this.$detectBrowser() === 'Chrome' || myPcVoices.length < 1) {
+        myPcVoices = window.speechSynthesis.getVoices();
+
+        if (myPcVoices.length < 1 || ['Unknown', 'IE'].includes(this.$detectBrowser())) {
+            this.$store.dispatch('setNoBrowserSupport', true);
+        }
+      }
+    },300);
 
   }
 }

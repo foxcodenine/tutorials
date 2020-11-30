@@ -23,7 +23,7 @@ const createStore = () => {
             textBoxOn: false,
             newBoxOn: false,
             signInOn: false,
-            signUpOn: true,
+            signUpOn: false,
 
             noBrowserSupport: false
         },
@@ -58,7 +58,7 @@ const createStore = () => {
     // __________________________________
 
         actions: {
-            async nuxtServerInit(vuexContext, context) {
+            async serverInit(vuexContext, context) {
                 // ----- fetch and set boxes data:
                 vuexContext.commit('setMyBoxes', initData);
                 

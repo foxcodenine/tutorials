@@ -52,7 +52,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 1.5rem;
-        padding-bottom: 4rem;
+        
 
 
 
@@ -63,6 +63,11 @@
             border-radius: .5rem;
             font-family: 'Source Sans Pro', sans-serif;
             // width: 100%;
+
+
+            .invalid {
+                border: 2px crimson solid !important;
+            }
             
             
 
@@ -70,6 +75,12 @@
                 color: #000;
                 opacity: 1;
             }
+        }
+    }
+    .btn {
+        &:disabled {
+            background-color: rgba(#fff, .1)  !important;
+            color: rgba(#fff, .4);
         }
     }
     &__subinput {
@@ -84,6 +95,11 @@
             justify-content: center;
             align-items: center;
             min-width: 1rem;
+
+
+
+
+
 
             &:active {
                 transform: scale(1);

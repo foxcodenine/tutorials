@@ -71,3 +71,51 @@ encodeURIComponent('hello my name is "chistopher\\"')
 "hello%20my%20name%20is%20%22chistopher%5C%22"
 
 <!-- --------------------------------------------------------------- -->
+
+Adding axios to nuxt modules
+
+https://axios.nuxtjs.org/setup
+
+    $ npm install --save @nuxtjs/axios
+
+
+                                                          nuxt.config.js
+export default {
+  modules: [
+    '@nuxtjs/axios',
+  ],
+
+  axios: {
+    // proxy: true
+  }
+}
+
+
+
+
+<!-- --------------------------------------------------------------- -->
+
+Vuelidate in nuxt
+https://github.com/nuxt/nuxt.js/issues/1391
+
+1.You need to install first:
+
+    $ npm install vuelidate --save
+    
+
+2.In the plugins file, add the following new file Vuelidate.js to add 
+the following:
+
+                                                            Vuelidate.js
+
+    import Vue from 'vue';
+    import Vuelidate from 'vuelidate';
+    Vue.use(Vuelidate);
+
+3. Register as a pluging in nuxt.config.js
+
+                                                          nuxt.config.js
+
+plugins: [
+     {src: '~/plugins/Vuelidate'}
+  ]
