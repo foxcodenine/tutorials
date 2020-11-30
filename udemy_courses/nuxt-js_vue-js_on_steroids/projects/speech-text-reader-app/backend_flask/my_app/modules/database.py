@@ -35,8 +35,8 @@ class TSA_Users(db.Model):
     def __init__(self, email, password, firstname, lastname, dob):
         self.email = email
         self.password = bcrypt.generate_password_hash(password)
-        self.firstname = firstname.lower() 
-        self.lastname = lastname.lower()
+        self.firstname = firstname.lower().capitalize() 
+        self.lastname = lastname.lower().capitalize()
         self.dob = dob
         self.signup = datetime.now()
         self.signup = datetime.now()

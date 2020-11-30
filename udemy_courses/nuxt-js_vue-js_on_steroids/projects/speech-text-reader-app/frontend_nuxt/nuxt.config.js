@@ -21,7 +21,8 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '@/plugins/detectBrowser.js'
+    '@/plugins/detectBrowser.js',
+    '@/plugins/Vuelidate.js'
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -33,7 +34,8 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    '@nuxtjs/axios',
   ],    
   styleResources: {
     scss: [
@@ -41,9 +43,27 @@ export default {
         // 'assets/styles/_base.scss',
     ]
   },
+  axios: {
+    baseURL: 'http://127.0.0.1:5000', 
+    // Used as fallback if no runtime config is provided
+    headers: {
+      // API_KEY: '123#456#789',
+      common: {
+        API_KEY: process.env.API_KEY
+      }
+    }
+  },
 
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
   },
+  publicRuntimeConfig: {
+    BESK: process.env.BACKEND_SECRET_KEY,
+    baseUrl: process.env.BASE_URL,
+
+    axios: {
+      baseURL: process.env.BASE_URL
+    }
+  }
 }
