@@ -63,9 +63,7 @@
 
                 let myPcVoices = this.$store.getters.getVoices;
                 
-                if (this.$detectBrowser() === 'Chrome' || this.myPcVoices.length < 1) {
-                    myPcVoices = window.speechSynthesis.getVoices();
-                }
+
                 myPcVoices.sort( (a, b) =>  {
                     if (a.lang > b.lang) {
                         return 1
@@ -75,11 +73,9 @@
                 });
                 this.myPcVoices = myPcVoices; 
 
-                if (this.myPcVoices.length < 1 || ['Unknown', 'IE'].includes(this.$detectBrowser())) {
-                    this.$store.dispatch('setNoBrowserSupport', true);
-                }               
+             
                 
-            }, 300);            
+            }, 400);            
         }
     }
 
