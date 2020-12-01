@@ -25,7 +25,7 @@
                 v-model="userInfo.email" 
                 @blur="$v.userInfo.email.$touch()"
                 :class="{'invalid': validateField('email')}"
-                type="email" 
+                type="text" 
                 placeholder="Email">
             <input 
                 v-model="userInfo.password" 
@@ -42,11 +42,11 @@
 
             <button 
                 class="btn formbox__btn full-span mt-md"
-                :disabled="$v.userInfo.$invalid" 
-
+                :class="{'disabled': $v.userInfo.$invalid || checkAge()}"
                 type="submit">Sign Up</button>
+           
         </form>
-        <!-- <small>{{$v}}</small> -->
+        <!-- <small>{{$v.userInfo.password.$invalid}}</small> -->
         <!-- <small>{{$v.userInfo.$invalid}}</small> -->
 
         
@@ -96,19 +96,29 @@
             }
         },
         methods: {
-            signUp() {    
-                console.log(this.userInfo)   
+
+            signUp() {   
+                
+                if (this.$v.userInfo.$invalid || this.checkAge()) {
+                    this.flashMessageInvalid()
+                    return
+                }
+                console.log(1, this.userInfo)   
                 
                 // this.$axios.get('/TSA/user/')
                 // .then(data => {
                 //     console.log(data)
                 // })
-
-                this.$axios.$post('/TSA/user/', {...this.userInfo})
-                .then(data => {
-                    console.log(data)
-                    this.clearUserInfo();
-                })
+                try {
+                    this.$store.dispatch('adduser', this.userInfo)
+                    .then(res => {
+                        console.log(2, res)
+                        this.clearUserInfo();
+                    });                    
+                    
+                } catch (e) {
+                    console.log(e)
+                }
 
             },
             clearUserInfo() {
@@ -123,9 +133,65 @@
             validateField(field) {
                 return  this.$v.userInfo[`${field}`].$invalid && 
                         this.$v.userInfo[`${field}`].$dirty
-            }
+
+            },
+            checkAge() {
+                return this.userInfo.dob.split('-')[0] >= new Date().getFullYear() - 12;
+            },
+            flashMessagefunction(html, time, status) {
+                
+                this.flashMessage.show({
+                    html,
+                    time,
+                    status,
+                    blockClass: 'custom-block-class'
+                });
+            },
+            flashMessageInvalid() {
+
+                let markup = ``
+
+                if (this.userInfo.firstname.trim() === '') {
+                    markup += '<li>First name is required!</li>';
+                }
+                if (this.userInfo.lastname.trim() === '') {
+                    markup += '<li>Last name is required!</li>';
+                }
+                if (this.userInfo.email.trim() === '') {
+                    markup += '<li>Email is required!</li>';
+                } else if (this.$v.userInfo.email.$invalid) {
+                    markup += '<li>Email address is invalid!</li>';
+                }
+                if (this.userInfo.password.trim() === '') {
+                    markup += '<li>Password is required!</li>';
+                } else if (this.$v.userInfo.password.$invalid) {
+                    markup += '<li>Password must be between 8 and 30 character long!</li>';
+                }
+                if (this.userInfo.dob.trim() === '') {
+                    markup += '<li>Date of birth is required!</li>';
+                } else if (this.checkAge() ) {
+                    markup += '<li>You must be at least 13 years old to register!</li>';
+                }
+
+                markup = `<ul class="flash_massage_markup">${markup}</ul>`                
+
+                this.flashMessagefunction(markup, 8000, 'warning')
+            },
         },
     }
 
 </script>
+
+<style lang="scss">
+    .flash_massage_markup {
+        padding: 2rem;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.8;
+
+        li {
+            list-style: none;
+            margin-left: 1rem;
+        }
+    }
+</style>
 

@@ -78,7 +78,7 @@
         }
     }
     .btn {
-        &:disabled {
+        &.disabled {
             background-color: rgba(#fff, .1)  !important;
             color: rgba(#fff, .4);
         }
