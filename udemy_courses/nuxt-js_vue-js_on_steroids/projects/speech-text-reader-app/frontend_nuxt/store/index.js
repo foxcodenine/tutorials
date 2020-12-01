@@ -81,6 +81,9 @@ const createStore = () => {
             },
             closeAll({commit}) {
                 commit('closeAll');
+            },
+            adduser(vuexContext, payload) {
+                return this.$axios.$post('/TSA/user/', {...payload});
             }
         },
     // __________________________________

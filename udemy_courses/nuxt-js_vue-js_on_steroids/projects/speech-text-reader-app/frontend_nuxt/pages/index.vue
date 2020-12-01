@@ -27,6 +27,8 @@
       <NewBox v-if="this.$store.getters.getNewBoxOn"></NewBox>    
     </transition>
 
+    <FlashMessage :position="'right bottom'"></FlashMessage>
+
   </div>
 </template>
 
