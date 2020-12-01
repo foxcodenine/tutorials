@@ -12,12 +12,13 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.12.2",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "@smartweb/vue-flash-message": "^0.6.10",
     "core-js": "^3.6.5",
     "nuxt": "^2.14.6",
     "vuelidate": "^0.7.6"
   },
   "devDependencies": {
-    "@nuxtjs/style-resources": "^1.0.0",
     "sass": "^1.29.0",
     "sass-loader": "^10.1.0"
   }

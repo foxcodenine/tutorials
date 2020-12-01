@@ -119,3 +119,33 @@ the following:
 plugins: [
      {src: '~/plugins/Vuelidate'}
   ]
+
+<!-- --------------------------------------------------------------- -->
+
+To install vue-flash-message 
+
+https://www.npmjs.com/package/@smartweb/vue-flash-message
+
+1. Install
+    $ npm i @smartweb/vue-flash-message@next --save
+
+    or stable version (vue2)
+    $ npm install --save vue-flash-message --save 
+
+    (note in my case I am useing this version because current
+    latest verssion is buged:
+    $ install --save @smartweb/vue-flash-message@^0.6.10)
+
+2. In plugings folder create flashMessage.js 
+
+												flashMessage.js
+	import Vue from 'vue';
+	import VueFlashMessage from '@smartweb/vue-flash-message';
+	 
+	Vue.use(VueFlashMessage);
+
+3. Register it in the nuxt.config.js in the plugins array:
+
+	  plugins: [
+	    { src: '@/plugins/flashMessage.js', mode: 'client' }
+	  ],
