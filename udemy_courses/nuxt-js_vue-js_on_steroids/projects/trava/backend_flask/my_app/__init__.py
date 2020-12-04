@@ -41,3 +41,8 @@ app.register_blueprint(app_user)
 @app.route('/')
 def index():
     return '{} {}'.format(app.config['CHECK_ENV'], app.config['SECRET_KEY'][::-1])
+
+
+@app.route('/mail-logo-trava')
+def mail_logo_image():
+    return render_template('image.html')

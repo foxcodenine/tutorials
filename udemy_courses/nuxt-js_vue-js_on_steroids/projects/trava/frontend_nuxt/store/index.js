@@ -27,11 +27,14 @@ const createStore = () => {
 
             noBrowserSupport: false,
 
+            isUserAdmin: false,
+
+            isUserLogedIn: false,
+
             userInfoState: {
-                email: ''
+                email: 'chris12aug@yahoo.com',
+                token: null
             }
-
-
         },
     // __________________________________
 
@@ -62,7 +65,7 @@ const createStore = () => {
             },
             setUserInfo(state, payload) {
                 state.userInfoState[payload.key] = payload.value;
-            }
+            },
         },
     // __________________________________
 
@@ -93,13 +96,41 @@ const createStore = () => {
             },
             adduser(vuexContext, payload) {
                 return this.$axios.$post('/trava/user/', {...payload})
-                .catch(e => { 
-                    console.log(e.response);
-                    if (e.response.data.message === 'Email Address is Already Registered!') {
-                        return e.response.data; 
+                .catch(err => { 
+                    console.log(err.response);
+                    if (err.response.data.state === 'error') {
+                        return err.response.data; 
                     }                   
                  })
-            }
+            },
+            loginUser(vuexContext, payload) {
+                return this.$axios.$post('/trava/user/signin/', {
+                    email: payload.email,
+                    password: payload.password
+                }).catch(err => {
+                    console.log(err.response);
+                    if (err.response.data.state === 'error') {
+                        return err.response.data; 
+                    }     
+                })
+            },
+            resendEmail(vuexContext, email) {
+                return this.$axios.$post('trava/user/resend/', {email})
+                .catch(err => {
+                    console.log(1111, err)
+                })
+            },
+            userSignIn({commit}, payload) {
+                commit('setForm', {name: 'isUserLogedIn', action: true});
+                commit('setUserInfo', {key: 'email', value: payload.email});
+                commit('setUserInfo', {key: 'token', value: payload.token});
+            },
+            userSignOut({commit}) {
+                commit('setForm', {name: 'isUserLogedIn', action: false});
+                commit('setUserInfo', {key: 'email', value: 'chris12aug@yahoo.com'}); //<--
+                commit('setUserInfo', {key: 'token', value: ''});
+            },
+
         },
     // __________________________________
 
@@ -135,6 +166,12 @@ const createStore = () => {
             getUserInfo(state) {
                 return state.userInfoState
             },
+            getIsUserAdmin(state) {
+                return state.isUserAdmin;
+            },
+            getIsUserLogedIn(state) {
+                return state.isUserLogedIn;
+            }
         }
     })
 }
