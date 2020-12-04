@@ -113,7 +113,7 @@
                 this.$store.dispatch('adduser', this.userInfo)
                 .then(data => {
 
-                    if(data.message === 'Email Address is Already Registered!') {
+                    if(data.state === 'error') {
                         this.flashMessage.show({
                             message: data.message,
                             time: 8000,
@@ -125,7 +125,7 @@
                     } else {
                         
                         this.flashMessage.show({
-                            message: `An email have been send to your email address, 
+                            message: `An email have been send to your email address. 
                                         Kindly confirm and signin into your account!`,
                             time: 8000,
                             status: 'info',
@@ -184,7 +184,7 @@
                 if (this.userInfo.password.trim() === '') {
                     markup += '<li>Password is required!</li>';
                 } else if (this.$v.userInfo.password.$invalid) {
-                    markup += '<li>Password must be between 8 and 30 character long!</li>';
+                    markup += '<li>Password is too short!</li>';
                 }
                 if (this.userInfo.dob.trim() === '') {
                     markup += '<li>Date of birth is required!</li>';
