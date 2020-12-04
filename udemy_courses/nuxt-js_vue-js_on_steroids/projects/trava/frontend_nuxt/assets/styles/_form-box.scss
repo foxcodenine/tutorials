@@ -29,9 +29,12 @@
         font-size: 1.6rem;
         align-self: flex-start;
         font-family: 'Quicksand', 'Source Sans Pro', sans-serif;
+        
 
         &--fp {
-            
+            align-self: center;
+            text-align: center;
+            a:visited, a:link {
             color: $color-primary;
             font-weight: 500;
             cursor: pointer;
@@ -39,10 +42,13 @@
             align-self: center;
 
             transform: all .3s;
+            text-decoration: none;
 
             &:hover {
                 text-decoration: underline;
+                }
             }
+
         }
     }
 
@@ -96,11 +102,6 @@
             justify-content: center;
             align-items: center;
             min-width: 1rem;
-
-
-
-
-
 
             &:active {
                 transform: scale(1);

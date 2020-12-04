@@ -34,7 +34,11 @@
         </form>
         <small></small>
 
-        <p class="formbox__text formbox__text--fp ">Forgot Password?</p>
+        <p class="formbox__text formbox__text--fp ">
+            <a href="#">Forgot Password?</a> &nbsp; 
+            <a href="#" @click="resedEmail()" >Resend Email Link!</a>
+        </p>
+        
         
     </div>
 
@@ -56,7 +60,7 @@
                 subTitle: 'Hi, welcome back.',
                 userInfo: {
                     email: '', 
-                    password: ''
+                    password: 'aaaaaaaaaaaaaaa'
                 }
             }
         },
@@ -77,8 +81,48 @@
                 if (this.$v.userInfo.$invalid) {
                     this.flashMessageInvalid()
                     return
-                }  
-                console.log(this.userInfo)          
+                } 
+
+                this.$store.dispatch('loginUser', {
+                    email: this.userInfo.email,
+                    password: this.userInfo.password
+                })
+                .then(data => {
+                    if (data.state === 'error') {
+                        
+                        this.flashMessage.show({
+                            message: data.message,
+                            time: 8000,
+                            status: 'warning',
+                            blockClass: 'flash_massage_markup'
+                        }); 
+
+                    } 
+                    else {
+                        this.$store.dispatch('closeAll');
+
+                        this.flashMessage.show({
+                            message: data.message,
+                            time: 8000,
+                            status: 'info',
+                            blockClass: 'flash_massage_markup'
+                        }); 
+
+                        this.$store.dispatch('userSignIn', {
+                            email: data.email,
+                            token: data.token
+                        })
+                        console.log(data);
+                    }
+                    
+                }) 
+                .catch(err => {
+                    console.log(err)
+                })                    
+                  
+            },
+            resedEmail() {
+                this.$store.dispatch('resendEmail', this.userInfo.email);
             },
             flashMessageInvalid() {
                 console.log('Invalid')
@@ -87,19 +131,21 @@
 
                 if (this.userInfo.email.trim() === '') {
                     markup += '<li>Email is required!</li>';
-                } else if (this.userInfo.email.$invalid) {
+                } else if (this.$v.userInfo.email.$invalid) {
                     markup += '<li>Email address is invalid!</li>';
                 } 
+                console.log(markup)
 
                 if (this.userInfo.password.trim() === '') {
                     markup += '<li>Password is required!</li>';
-                } else if (this.userInfo.password.$invalid) {
-                    markup += '<li>Password must be between 8 and 30 character long!</li>';
+                } else if (this.$v.userInfo.password.$invalid) {
+                    markup += '<li>Password is too short!</li>';
                 }
-                markup = `<ul class="flash_massage_markup">${markup}</ul>`
-
+                console.log(markup)
+                const html = `<ul class="flash_massage_markup">${markup}</ul>`
+                console.log(markup)
                 this.flashMessage.show({
-                    html: markup,
+                    html,
                     time: 10000,
                     status: 'warning',
                     blockClass: 'custom-block-class'

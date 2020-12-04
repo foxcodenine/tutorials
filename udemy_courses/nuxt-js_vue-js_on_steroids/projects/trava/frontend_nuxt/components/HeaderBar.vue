@@ -2,16 +2,16 @@
   <header class="header" :class="{'header__hide': this.$store.getters.getTextBoxOn}">
       <div class="header__bar">
 
-        <p class="header__name">{{isAdmin}} Christopher</p>
-        <p class="header__view-as">View As :<input type="text" placeholder="id"></p>
+        <p class="header__name" >{{isAdmin}} Christopher</p>
+        <p class="header__view-as" v-if="isUserAdmin">View As :<input type="text" placeholder="id"></p>
 
         
 
         <div class="header__btns">
-          <button class="header__btn">Home</button>
-          <button class="header__btn" @click="openForm('signInOn')">Log in</button>
-          <button class="header__btn" @click="openForm('signUpOn')">Sign up</button>          
-          <button class="header__btn">Sign out</button>
+          <button class="header__btn" v-if="isUserLogedIn">Home</button>
+          <button class="header__btn" v-if="!isUserLogedIn" @click="openForm('signInOn')">Log in</button>
+          <button class="header__btn" v-if="!isUserLogedIn" @click="openForm('signUpOn')">Sign up</button>          
+          <button class="header__btn" v-if="isUserLogedIn"  @click="signOut()">Sign out</button>
         </div>        
 
       </div>
@@ -22,13 +22,19 @@
 export default {
   data() {
     return {
-      admin: false
+      
     }
   },
   computed: {
     isAdmin() {
-      return this.admin ? 'Admin' : 'Hello';
-    }
+      return this.isUserAdmin ? 'Admin' : 'Hello';
+    },
+    isUserLogedIn() {
+      return this.$store.getters.getIsUserLogedIn
+    },
+    isUserAdmin() {
+      return this.$store.getters.getIsUserAdmin
+    },
   },
   methods: {
     openForm(name) {
@@ -37,6 +43,9 @@ export default {
         action: true
       }
       this.$store.dispatch('setForm', payload);
+    },
+    signOut() {
+      this.$store.dispatch('userSignOut')
     }
   }
 
@@ -58,17 +67,20 @@ export default {
       margin: 0 auto;
       border: 1px solid #000;
       max-width: 108rem;
-      height: 4rem;
+      padding: 1rem;
       border-radius: 0 0 1rem 1rem;
       border-top: none;
       background-color: $color-gray-1;
 
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
       align-items: center;
 
-      @media only  screen and (max-width: $bp-small) {
-        height: 8rem;
+
+      @media only  screen and (max-width: $bp-medium) {
+        
+        grid-template-columns: repeat(1, 1fr);
       }
       
 
@@ -77,15 +89,29 @@ export default {
     &__btns {
       // border: 1px solid #fff;
       display: flex;
-      grid-template-columns: repeat(4, 1fr);
+      width: 100%;
+      grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
       align-items: center;
-      justify-content: flex-end;
+      justify-content:flex-end;
+      justify-self: end;
 
+      @media only  screen and (max-width: $bp-medium) {
+        grid-column: 1 / -1;
+        
+      }
+      @media only  screen and (max-width: $bp-medium) {
+        justify-self: stretch; 
+        justify-content: center;       
+        
+
+        
+      }
     }
 
     &__btn {
+      min-width: 7.5rem;
       cursor: pointer;
-      margin-right: 1rem;
+      margin: 0 1rem;
       background-color: $color-gray-1;
       color: $color-primary;
       border: 1px solid $color-primary;
@@ -96,6 +122,8 @@ export default {
       font-family: 'Quicksand', 'Source Sans Pro';
       font-weight: 500; 
       transition: all .3s;
+
+  
       
       &:hover {
         background-color: $color-primary-dark;
@@ -116,6 +144,13 @@ export default {
       text-transform: uppercase;
       letter-spacing: 1px;
       // border: 1px solid #fff;
+
+      @media only  screen and (max-width: $bp-medium) {
+        justify-self: center;       
+
+        
+      }
+      
     }
     &__view-as {
 
@@ -123,6 +158,13 @@ export default {
       margin: 0 auto;
       display: flex;
       align-items: center;
+      @media only  screen and (max-width: $bp-medium) {
+        margin: 0 1rem 0 auto ;
+      }
+      @media only  screen and (max-width: $bp-medium) {
+        margin: 0 auto 0 auto ;
+        justify-self: center;        
+      }
       input {
         padding: .5;
         font-size: 1rem;
