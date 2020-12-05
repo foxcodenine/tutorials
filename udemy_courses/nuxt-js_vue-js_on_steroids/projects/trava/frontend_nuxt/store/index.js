@@ -25,6 +25,10 @@ const createStore = () => {
             signInOn: false,
             signUpOn: false,
 
+            resendValEmailOn: false,
+            resendPasswordOn: false,
+            resetPasswordOn: false,            
+
             noBrowserSupport: false,
 
             isUserAdmin: false,
@@ -55,6 +59,7 @@ const createStore = () => {
                 state.noBrowserSupport = s;
             },
             setForm(state, payload) {
+                console.log(payload.name)
                 state[payload.name] = payload.action
             },
             closeAll(state) {
@@ -62,6 +67,9 @@ const createStore = () => {
                 state.signUpOn = false;
                 state.newBoxOn = false;
                 state.textBoxOn = false;
+                state.resendPasswordOn = false;
+                state.resendValEmailOn = false;
+                state.resetPasswordOn = false;
             },
             setUserInfo(state, payload) {
                 state.userInfoState[payload.key] = payload.value;
@@ -117,7 +125,10 @@ const createStore = () => {
             resendEmail(vuexContext, email) {
                 return this.$axios.$post('trava/user/resend/', {email})
                 .catch(err => {
-                    console.log(1111, err)
+                    console.log(err.response)
+                    if (err.response.data.state === 'error') {
+                        return err.response.data;
+                    }
                 })
             },
             userSignIn({commit}, payload) {
@@ -171,7 +182,17 @@ const createStore = () => {
             },
             getIsUserLogedIn(state) {
                 return state.isUserLogedIn;
-            }
+            },
+            getResendValEmailOn(state) {
+                console.log(1111111)
+                return state.resendValEmailOn;
+            },
+            getResendPasswordOn(state) {
+                return state.resendPasswordOn;
+            },
+            getResetPassword(state) {
+                return state.resetPasswordOn;
+            },
         }
     })
 }

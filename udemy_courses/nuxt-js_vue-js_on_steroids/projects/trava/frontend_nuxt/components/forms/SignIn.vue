@@ -122,7 +122,7 @@
                   
             },
             resedEmail() {
-                this.$store.dispatch('resendEmail', this.userInfo.email);
+                this.$store.dispatch('setForm', {name: 'resendValEmailOn', action: true})
             },
             flashMessageInvalid() {
                 console.log('Invalid')
@@ -134,16 +134,16 @@
                 } else if (this.$v.userInfo.email.$invalid) {
                     markup += '<li>Email address is invalid!</li>';
                 } 
-                console.log(markup)
+
 
                 if (this.userInfo.password.trim() === '') {
                     markup += '<li>Password is required!</li>';
                 } else if (this.$v.userInfo.password.$invalid) {
                     markup += '<li>Password is too short!</li>';
                 }
-                console.log(markup)
+
                 const html = `<ul class="flash_massage_markup">${markup}</ul>`
-                console.log(markup)
+
                 this.flashMessage.show({
                     html,
                     time: 10000,
@@ -159,7 +159,7 @@
 
         },
         mounted() {
-            console.log(111)
+
             this.userInfo.email =  this.$store.getters.getUserInfo['email']
         }
     }
