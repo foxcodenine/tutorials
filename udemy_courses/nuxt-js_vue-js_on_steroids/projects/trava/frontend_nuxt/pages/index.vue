@@ -25,6 +25,9 @@
       <SignUp v-if="this.$store.getters.getSignUpOn"></SignUp>
       <SignIn v-if="this.$store.getters.getSignInOn"></SignIn>
       <NewBox v-if="this.$store.getters.getNewBoxOn"></NewBox>    
+      <ResetPassword v-if="this.$store.getters.getResetPasswordOn"/> 
+      <ResendValEmail v-if="this.$store.getters.getResendValEmailOn"/>
+      <ResendPassword v-if="this.$store.getters.getResendPasswordOn"/> 
     </transition>
 
     <FlashMessage :position="'right bottom'"></FlashMessage>
@@ -40,6 +43,9 @@ import HeaderBar from "@/components/HeaderBar";
 import SignUp from "@/components/forms/SignUp";
 import SignIn from "@/components/forms/SignIn";
 import NewBox from "@/components/forms/NewBox";
+import ResetPassword from "@/components/forms/ResetPassword";
+import ResendValEmail from "@/components/forms/ResendValEmail";
+import ResendPassword from "@/components/forms/ResendPassword";
 
 export default {
   components: {
@@ -50,6 +56,9 @@ export default {
     SignUp,
     SignIn,
     NewBox,
+    ResendPassword,
+    ResendValEmail,
+    ResetPassword,
   },
   methods: {
     toggleTextBox() {
