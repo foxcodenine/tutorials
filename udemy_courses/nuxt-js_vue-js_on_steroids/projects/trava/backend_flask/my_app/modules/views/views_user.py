@@ -57,7 +57,6 @@ def send_activtion_link(email, firstname):
 @app_user.route('/', methods=['GET','POST'])
 @app_user.route('/<goto>/', methods=['GET','POST'])
 def user(goto=False):
-    print(4444)
 
     if check_header(request.headers.get('API_KEY')):
         return jsonify({'message': 'Unauthorized', 'state': 'error'}), 401
@@ -141,10 +140,9 @@ def add_user():
         return jsonify({'error': e})
 
 # _______________________________
+
 @app_user.route('/login', methods=['POST', 'GET']) 
 def login():
-
-
 
     # ----- reciving new user info from frontend
     user_dict = retrive_data()
@@ -177,19 +175,26 @@ def login():
         'state': 'success'
     })
 # _______________________________
+
 @app_user.route('/resend_email', methods=['POST', 'GET'])
 def resend_email():
 
-    print(1111111111)
-
     email = retrive_data()['email']
-    firstname = Trava_Users.query.filter_by(email=email).first().firstname
+    user = Trava_Users.query.filter_by(email=email).first()
 
+
+
+
+    if not user:
+        return jsonify({'message': 'Email Address is not Recognized!', 'state': 'error'}), 400
+
+    if user.active:
+        return jsonify({'message': 'Email Address has been already Confirmed!', 'state': 'error'}), 400
 
     # ----- creating token, create validation link and send it to user email
-    send_activtion_link(email, firstname) 
+    send_activtion_link(email, user.firstname) 
 
-    return jsonify({ 'message' : f'Email has been resend to {email}!'})
+    return jsonify({ 'message' : f'A confirmation email has been send to {email}!'})
     
 
 # _______________________________
@@ -197,7 +202,7 @@ def resend_email():
 @app_user.route('/validate_email/<token>')
 def validate_email(token):
     try:
-        email = s.loads(token, salt='validate_email', max_age=3600)
+        email = s.loads(token, salt='validate_email', max_age=20)
 
         current_user = Trava_Users.query.filter_by(email=email).first()
         current_user.active = True 
@@ -208,9 +213,9 @@ def validate_email(token):
         return redirect('{}{}'.format(app.config['FRONTEND_BASE_URL'],email))
         # return f'<h3>(to be updated) {current_user.firstname} {current_user.lastname} {current_user.active}</h3>'
     except SignatureExpired :
-        return f'<h3>(to be updated) This confirmation link has expired!</h3>'
+        return redirect(url_for('app_user.timeout'))
     except BadTimeSignature:
-        return f'<h3>(to be updated) This confirmation link is invalid!</h3>'
+        return redirect(url_for('app_user.page_not_found'))
     
 # ______________________________________________________________________
 
@@ -220,6 +225,33 @@ def delete():
     db.session.delete(user_chris)
     db.session.commit()
     return  'user has been deleted'
+
+# ______________________________________________________________________
+@app_user.route('/timeout')
+def timeout():
+
+    return render_template(
+        'error_page.html',
+        error_code=408,
+        name='there',
+        message='It seems that the activation link has expired. Kindly try again!',
+        link=app.config['FRONTEND_BASE_URL'],
+        logo=app.config['MAIL_LOGO']
+    )
+
+# ______________________________________________________________________
+
+@app_user.route('/page_not_found')
+def page_not_found():
+
+    return render_template(
+        'error_page.html',
+        error_code=404,
+        name='there',
+        message='It seems the page you are loonking for does not exist. Sorry!',
+        link=app.config['FRONTEND_BASE_URL'],
+        logo=app.config['MAIL_LOGO']
+    )
 
 # ______________________________________________________________________
 @app_user.route('/test')
