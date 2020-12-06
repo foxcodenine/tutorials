@@ -6,7 +6,7 @@
         <h2 class="heading-2 mb-tn">{{mainTitle}}</h2>
         <p class="formbox__text mb-sm">{{subTitle}}</p>
 
-        <form class="formbox__content" @submit.prevent="sendEmail()">
+        <form class="formbox__content" @submit.prevent="onSubmit()">
 
             
             <input 
@@ -17,11 +17,20 @@
                 @blur="$v.email.$touch()"
                 :class="{'invalid': validateField('email')}">     
 
-            <button                  
+            <button  
+                v-if="taskSendEmail"                
                 class="full-span btn formbox__btn mb-tn " 
                 type="submit"
                 :class="{'disabled': $v.email.$invalid}">                
-                Send
+                Send Email
+            </button>
+
+            <button
+                v-if="taskSendPassword"                  
+                class="full-span btn formbox__btn mb-tn " 
+                type="submit"
+                :class="{'disabled': $v.email.$invalid}">                
+                Send Password
             </button>
 
         </form>
@@ -35,16 +44,20 @@
 
 <script>
 
+
     import CloseAll from "@/components/CloseAll";
     import { required, email } from "vuelidate/lib/validators";
+
+    const jwt = require('jsonwebtoken');
     export default {
         components: {
             CloseAll
         },
+        props: ['mainTitle', 'subTitle', 'taskSendEmail', 'taskSendPassword'],
         data() {
             return {
-                mainTitle: 'Send Validation Email',
-                subTitle: 'Make it quick!',
+                // mainTitle: 'Send Validation Email',
+                // subTitle: 'Make it quick!',
                 email: '',                
             }
         },
@@ -57,27 +70,52 @@
             
         },
         methods: {
-            sendEmail() {
+            onSubmit() {
                 if (this.$v.email.$invalid) {
-                    this.flashMessageInvalid()
+                    this.flashMessageInvalid();
                     return
                 } 
-                    
+                if (this.taskSendEmail) {
+                    this.sendEmail();
+                }
+                if (this.taskSendPassword) {
+                    this.sendPassword();
+                    return
+                }
+            },
+            jwtCreate(email) {
+                const token = jwt.sign({                    
+                    email
+                }, `${this.$config.BESK}`, { expiresIn: 600 });
+                return token;
+            },
+            sendPassword() {
+                const token = this.jwtCreate(this.email);
+
+                this.$store.dispatch('resetPassword', token )
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(err => console.log(err))
+
+
+            },
+            sendEmail() {                    
                 this.$store.dispatch('resendEmail', this.email)
                 .then(data => {
                     if (data.state === 'error') {
 
                         this.flashMessage.show({
-                            message: data.message,
+                            html: data.message,
                             time: 8000,
                             status: 'warning',
                             blockClass: 'flash_massage_markup'
                         }); 
                     } else {
                         this.$store.dispatch('closeAll');
-                        
+
                         this.flashMessage.show({
-                            message: data.message,
+                            html: data.message,
                             time: 8000,
                             status: 'info',
                             blockClass: 'flash_massage_markup'
@@ -117,7 +155,6 @@
             },
         },
         mounted() {
-
         }
     }
 

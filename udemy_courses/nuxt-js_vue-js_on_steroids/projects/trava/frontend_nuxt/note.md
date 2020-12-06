@@ -149,3 +149,12 @@ https://www.npmjs.com/package/@smartweb/vue-flash-message
 	  plugins: [
 	    { src: '@/plugins/flashMessage.js', mode: 'client' }
 	  ],
+
+
+<!-- --------------------------------------------------------------- -->
+JWT  (jsonwebtoken)
+https://www.npmjs.com/package/jsonwebtoken 
+https://github.com/vercel/ms // <- time
+
+to install:
+    $ npm install jsonwebtoken
