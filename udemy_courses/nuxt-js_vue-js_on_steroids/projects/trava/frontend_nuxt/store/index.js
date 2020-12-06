@@ -36,7 +36,7 @@ const createStore = () => {
             isUserLogedIn: false,
 
             userInfoState: {
-                email: 'chris12aug@yahoo.com',
+                email: '',
                 token: null
             }
         },
@@ -141,6 +141,15 @@ const createStore = () => {
                 commit('setUserInfo', {key: 'email', value: 'chris12aug@yahoo.com'}); //<--
                 commit('setUserInfo', {key: 'token', value: ''});
             },
+            resetPassword(vuexContext, token) {
+                return this.$axios.$post('trava/user/resetPassword/', {token})
+                .catch(err => {
+                    console.log(err.response)
+                    if (err.response.data.state === 'error') {
+                        return err.response.data;
+                    }
+                })
+            }
 
         },
     // __________________________________

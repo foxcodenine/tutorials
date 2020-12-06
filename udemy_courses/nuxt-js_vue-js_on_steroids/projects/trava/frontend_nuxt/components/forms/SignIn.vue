@@ -35,7 +35,7 @@
         <small></small>
 
         <p class="formbox__text formbox__text--fp ">
-            <a href="#">Forgot Password?</a> &nbsp; 
+            <a href="#" @click="forgotPassword()">Forgot Password?</a> &nbsp; 
             <a href="#" @click="resedEmail()" >Resend Email Link!</a>
         </p>
         
@@ -60,7 +60,7 @@
                 subTitle: 'Hi, welcome back.',
                 userInfo: {
                     email: '', 
-                    password: 'aaaaaaaaaaaaaaa'
+                    password: ''
                 }
             }
         },
@@ -123,6 +123,9 @@
             },
             resedEmail() {
                 this.$store.dispatch('setForm', {name: 'resendValEmailOn', action: true})
+            },
+            forgotPassword() {
+                this.$store.dispatch('setForm', {name: 'resendPasswordOn', action: true})
             },
             flashMessageInvalid() {
                 console.log('Invalid')
