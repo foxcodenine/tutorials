@@ -6,6 +6,9 @@ import ast
 from flask_mail import Message
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignature
 
+import jwt
+from jwt.exceptions import ExpiredSignatureError, InvalidSignatureError
+
 # ______________________________________________________________________
 
 app_user = Blueprint('app_user', __name__, url_prefix='/trava/user')
@@ -63,6 +66,9 @@ def user(goto=False):
 
     if request.method == 'POST' and goto == 'signin':
         return redirect(url_for('app_user.login'), code=307)
+
+    if request.method == 'POST' and goto == 'resetPassword':
+        return redirect(url_for('app_user.reset_password'), code=307)
 
     if request.method == 'POST' and goto == 'resend':
         return redirect(url_for('app_user.resend_email'), code=307)
@@ -183,8 +189,6 @@ def resend_email():
     user = Trava_Users.query.filter_by(email=email).first()
 
 
-
-
     if not user:
         return jsonify({'message': 'Email Address is not Recognized!', 'state': 'error'}), 400
 
@@ -202,7 +206,7 @@ def resend_email():
 @app_user.route('/validate_email/<token>')
 def validate_email(token):
     try:
-        email = s.loads(token, salt='validate_email', max_age=20)
+        email = s.loads(token, salt='validate_email', max_age=1800)
 
         current_user = Trava_Users.query.filter_by(email=email).first()
         current_user.active = True 
@@ -218,15 +222,21 @@ def validate_email(token):
         return redirect(url_for('app_user.page_not_found'))
     
 # ______________________________________________________________________
+@app_user.route('/reset_password', methods=['POST'])
+def reset_password():
+    try:
+        encoded_jwt = retrive_data()['token']
+        token = jwt.decode(encoded_jwt, app.config['SECRET_KEY'])
+        print(token)
+        return jsonify(token)
+    except ExpiredSignatureError :
+        return jsonify({'message': 'Token has expired!', 'state': 'error'}), 408
 
-@app_user.route('/delete')
-def delete():
-    user_chris = Trava_Users.query.filter_by(email='chris12aug@yahoo.com').first()
-    db.session.delete(user_chris)
-    db.session.commit()
-    return  'user has been deleted'
+    except InvalidSignatureError:
+        return jsonify({'message': 'Invalid Token!', 'state': 'error'}), 401
 
-# ______________________________________________________________________
+
+#_______________________________________________________________________
 @app_user.route('/timeout')
 def timeout():
 
@@ -254,6 +264,16 @@ def page_not_found():
     )
 
 # ______________________________________________________________________
+
+@app_user.route('/delete')
+def delete():
+    user_chris = Trava_Users.query.filter_by(email='chris12aug@yahoo.com').first()
+    db.session.delete(user_chris)
+    db.session.commit()
+    return  'user has been deleted'
+
+# ______________________________________________________________________
+
 @app_user.route('/test')
 def test():
 

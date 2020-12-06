@@ -26,8 +26,16 @@
       <SignIn v-if="this.$store.getters.getSignInOn"></SignIn>
       <NewBox v-if="this.$store.getters.getNewBoxOn"></NewBox>    
       <ResetPassword v-if="this.$store.getters.getResetPasswordOn"/> 
-      <ResendValEmail v-if="this.$store.getters.getResendValEmailOn"/>
-      <ResendPassword v-if="this.$store.getters.getResendPasswordOn"/> 
+      <ResendEmailPassword  
+        v-if="this.$store.getters.getResendValEmailOn"
+        mainTitle="Send Confirmation Email"
+        subTitle="Make it quick!"
+        taskSendEmail="true"/>
+      <ResendEmailPassword 
+        v-if="this.$store.getters.getResendPasswordOn"
+        mainTitle="Recover Password"
+        subTitle="Don't worry, have you covered!"
+        taskSendPassword="true"/> 
     </transition>
 
     <FlashMessage :position="'right bottom'"></FlashMessage>
@@ -44,8 +52,7 @@ import SignUp from "@/components/forms/SignUp";
 import SignIn from "@/components/forms/SignIn";
 import NewBox from "@/components/forms/NewBox";
 import ResetPassword from "@/components/forms/ResetPassword";
-import ResendValEmail from "@/components/forms/ResendValEmail";
-import ResendPassword from "@/components/forms/ResendPassword";
+import ResendEmailPassword from "@/components/forms/ResendEmailPassword";
 
 export default {
   components: {
@@ -56,9 +63,7 @@ export default {
     SignUp,
     SignIn,
     NewBox,
-    ResendPassword,
-    ResendValEmail,
-    ResetPassword,
+    ResendEmailPassword,
   },
   methods: {
     toggleTextBox() {
