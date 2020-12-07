@@ -13,10 +13,10 @@
     
 
     <transition name="fade">
-      <NotSupported 
+      <ErrorMessage 
         v-if="this.$store.getters.getNoBrowserSupport" 
         errorMessage='Your browser does not support this application!'>
-      </NotSupported>
+      </ErrorMessage>
     </transition>
 
 
@@ -46,7 +46,7 @@
 <script>
 import BoxGrid from "@/components/BoxGrid";
 import TextBox from "@/components/TextBox";
-import NotSupported from "@/components/NotSupported";
+import ErrorMessage from "@/components/ErrorMessage";
 import HeaderBar from "@/components/HeaderBar";
 import SignUp from "@/components/forms/SignUp";
 import SignIn from "@/components/forms/SignIn";
@@ -58,7 +58,7 @@ export default {
   components: {
     BoxGrid,
     TextBox,
-    NotSupported,
+    ErrorMessage,
     HeaderBar,
     SignUp,
     SignIn,

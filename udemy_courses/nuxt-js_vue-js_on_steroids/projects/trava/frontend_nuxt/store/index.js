@@ -149,6 +149,16 @@ const createStore = () => {
                         return err.response.data;
                     }
                 })
+            },
+            changePassword(vuexContext, data) {
+                return this.$axios.$post('trava/user/passwordChange/', data)
+                .catch(err => {
+                    console.log(err.response)
+                    if (err.response.data.state === 'error') {
+                        return err.response.data;
+                    }
+                })
+
             }
 
         },
@@ -193,13 +203,13 @@ const createStore = () => {
                 return state.isUserLogedIn;
             },
             getResendValEmailOn(state) {
-                console.log(1111111)
                 return state.resendValEmailOn;
             },
             getResendPasswordOn(state) {
                 return state.resendPasswordOn;
             },
-            getResetPassword(state) {
+            getResetPasswordOn(state) {
+
                 return state.resetPasswordOn;
             },
         }
