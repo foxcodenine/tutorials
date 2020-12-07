@@ -39,7 +39,7 @@ def send_activtion_link(email, firstname):
 
     # ----- 
     msg = Message(
-        'Confirm Email', 
+        'Email Confirmation', 
         sender=(app.config['MAIL_DEFAULT_SENDER'], 
         app.config['MAIL_USERNAME']) , recipients=[email]
     )
@@ -61,11 +61,15 @@ def send_activtion_link(email, firstname):
 @app_user.route('/<goto>/', methods=['GET','POST'])
 def user(goto=False):
 
+
     if check_header(request.headers.get('API_KEY')):
         return jsonify({'message': 'Unauthorized', 'state': 'error'}), 401
 
     if request.method == 'POST' and goto == 'signin':
         return redirect(url_for('app_user.login'), code=307)
+
+    if request.method == 'POST' and goto == 'passwordChange':
+        return redirect(url_for('app_user.change_password'), code=307)
 
     if request.method == 'POST' and goto == 'resetPassword':
         return redirect(url_for('app_user.reset_password'), code=307)
@@ -150,6 +154,8 @@ def add_user():
 @app_user.route('/login', methods=['POST', 'GET']) 
 def login():
 
+    
+
     # ----- reciving new user info from frontend
     user_dict = retrive_data()
 
@@ -162,10 +168,16 @@ def login():
     current_user = Trava_Users.query.filter_by(email=email).first()
 
     if not current_user:
-        return jsonify({'message': 'Email Address is not Recognized!', 'state': 'error'}), 400
+        return jsonify({
+            'message': 'The email you’ve entered doesn’t match any account!', 
+            'state': 'error'
+        }), 400
 
     if not current_user.password_check(current_user.password, password):
-        return jsonify({'message': 'Email and Password does not match!', 'state': 'error'}), 400
+        return jsonify({
+            'message': 'Email and Password does not match!', 
+            'state': 'error'
+        }), 400
 
     if not current_user.active:
         return jsonify({
@@ -190,7 +202,10 @@ def resend_email():
 
 
     if not user:
-        return jsonify({'message': 'Email Address is not Recognized!', 'state': 'error'}), 400
+        return jsonify({
+            'message': 'The email you’ve entered doesn’t match any account!', 
+            'state': 'error'
+        }), 400
 
     if user.active:
         return jsonify({'message': 'Email Address has been already Confirmed!', 'state': 'error'}), 400
@@ -206,7 +221,7 @@ def resend_email():
 @app_user.route('/validate_email/<token>')
 def validate_email(token):
     try:
-        email = s.loads(token, salt='validate_email', max_age=1800)
+        email = s.loads(token, salt='validate_email', max_age=3600)
 
         current_user = Trava_Users.query.filter_by(email=email).first()
         current_user.active = True 
@@ -214,7 +229,7 @@ def validate_email(token):
 
         # update db, activate user!
         
-        return redirect('{}{}'.format(app.config['FRONTEND_BASE_URL'],email))
+        return redirect('{}login/{}'.format(app.config['FRONTEND_BASE_URL'], email))
         # return f'<h3>(to be updated) {current_user.firstname} {current_user.lastname} {current_user.active}</h3>'
     except SignatureExpired :
         return redirect(url_for('app_user.timeout'))
@@ -227,13 +242,60 @@ def reset_password():
     try:
         encoded_jwt = retrive_data()['token']
         token = jwt.decode(encoded_jwt, app.config['SECRET_KEY'])
-        print(token)
-        return jsonify(token)
+       
+
+        current_user = Trava_Users.query.filter_by(email=token['email']).first()
+        
+        if not current_user:
+            return jsonify({
+                'message': 'The email you’ve entered doesn’t match any account!', 
+                'state': 'error'
+            }), 400
+
+
+        # ----- create link to frontend
+        link = f'{app.config["FRONTEND_BASE_URL"]}password/reset/{encoded_jwt}'
+
+        # ----- send the email
+        msg = Message(
+            'Password Reset', 
+            sender=(app.config['MAIL_DEFAULT_SENDER'], 
+            app.config['MAIL_USERNAME']) , recipients=[current_user.email]
+        )
+
+        msg.html = render_template(
+            'email_reset_password.html', 
+            name=current_user.firstname, 
+            link=link,
+            logo=app.config['MAIL_LOGO']
+        )
+        mail.send(msg) 
+
+        return jsonify({
+            'message': f'An email to reset the password has been send to {current_user.email}', 
+        })
+
     except ExpiredSignatureError :
         return jsonify({'message': 'Token has expired!', 'state': 'error'}), 408
 
     except InvalidSignatureError:
         return jsonify({'message': 'Invalid Token!', 'state': 'error'}), 401
+
+#_______________________________________________________________________
+
+@app_user.route('/change_password', methods=['POST'])
+def change_password():
+    user_data = retrive_data()
+
+    email, password = user_data.values()
+
+    current_user = Trava_Users.query.filter_by(email=email).first()
+
+    current_user.password = current_user.password_hash(password)
+
+    db.session.commit()
+
+    return jsonify({'message': 'Password have been change!'})
 
 
 #_______________________________________________________________________
@@ -278,9 +340,11 @@ def delete():
 def test():
 
     return render_template(
-        'email_validation.html', 
-        name='firstname', 
-        link='link'
+        # 'email_validation.html', 
+        'email_reset_password.html', 
+        name='Chris', 
+        link=app.config['MAIL_LOGO'],
+        logo=app.config['MAIL_LOGO']
     )
 
 # ______________________________________________________________________

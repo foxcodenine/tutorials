@@ -47,8 +47,8 @@
 
     import CloseAll from "@/components/CloseAll";
     import { required, email } from "vuelidate/lib/validators";
-
     const jwt = require('jsonwebtoken');
+    
     export default {
         components: {
             CloseAll
@@ -56,8 +56,6 @@
         props: ['mainTitle', 'subTitle', 'taskSendEmail', 'taskSendPassword'],
         data() {
             return {
-                // mainTitle: 'Send Validation Email',
-                // subTitle: 'Make it quick!',
                 email: '',                
             }
         },
@@ -94,7 +92,7 @@
 
                 this.$store.dispatch('resetPassword', token )
                 .then(data => {
-                    console.log(data);
+                    this.myThenFunction(data);
                 })
                 .catch(err => console.log(err))
 
@@ -103,28 +101,30 @@
             sendEmail() {                    
                 this.$store.dispatch('resendEmail', this.email)
                 .then(data => {
-                    if (data.state === 'error') {
-
-                        this.flashMessage.show({
-                            html: data.message,
-                            time: 8000,
-                            status: 'warning',
-                            blockClass: 'flash_massage_markup'
-                        }); 
-                    } else {
-                        this.$store.dispatch('closeAll');
-
-                        this.flashMessage.show({
-                            html: data.message,
-                            time: 8000,
-                            status: 'info',
-                            blockClass: 'flash_massage_markup'
-                        });
-                    }
+                    this.myThenFunction(data);
                 })
                 .catch(err => console.log(err))
 
-                
+            },
+            myThenFunction(data) {
+                if (data.state === 'error') {
+
+                    this.flashMessage.show({
+                        html: data.message,
+                        time: 8000,
+                        status: 'warning',
+                        blockClass: 'flash_massage_markup'
+                    }); 
+                } else {
+                    this.$store.dispatch('closeAll');
+
+                    this.flashMessage.show({
+                        html: data.message,
+                        time: 8000,
+                        status: 'info',
+                        blockClass: 'flash_massage_markup'
+                    });
+                }
             },
 
             flashMessageInvalid() {                

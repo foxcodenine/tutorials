@@ -2,19 +2,19 @@
     <div class="container">
 
         <BoxGrid style="filter: blur(4px);"></BoxGrid>
-        <NotSupported             
+        <ErrorMessage             
             :errorMessage="error.message">
-        </NotSupported>
+        </ErrorMessage>
 
   </div>
 </template>
 
 <script>
-import NotSupported from "@/components/NotSupported";
+import ErrorMessage from "@/components/ErrorMessage";
 import BoxGrid from "@/components/BoxGrid";
 export default {
     components: {
-        NotSupported,
+        ErrorMessage,
         BoxGrid
     },
     props: ['error']
