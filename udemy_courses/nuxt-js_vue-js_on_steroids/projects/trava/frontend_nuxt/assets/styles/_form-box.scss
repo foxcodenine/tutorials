@@ -18,6 +18,8 @@
 
     color: #fff;
     transform: translateX(-50%);   
+
+    
     
     .heading-2 {
         align-self: flex-start;
@@ -27,8 +29,10 @@
     &__text {
         color: #fff;
         font-size: 1.6rem;
-        align-self: flex-start;
+        // align-self: flex-start;
         font-family: 'Quicksand', 'Source Sans Pro', sans-serif;
+        display: flex;
+        justify-content: space-between;
         
 
         &--fp {

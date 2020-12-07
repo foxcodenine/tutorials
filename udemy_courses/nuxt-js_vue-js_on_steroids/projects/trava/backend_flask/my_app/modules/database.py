@@ -42,6 +42,9 @@ class Trava_Users(db.Model):
         self.signup = datetime.now()
         self.active = False
     
+    def password_hash(self, password):
+        return bcrypt.generate_password_hash(password)
+    
     def password_check(self, pw_hash, candidate):
         return bcrypt.check_password_hash(pw_hash, candidate)
 

@@ -4,7 +4,7 @@
         <CloseAll></CloseAll>
 
         <h2 class="heading-2 mb-tn">{{mainTitle}}</h2>
-        <p class="formbox__text mb-sm">{{subTitle}}</p>
+        <div class="formbox__text mb-sm"><div>{{subTitle}}</div> <div>{{ retuneEmail }}</div></div>
 
         <form class="formbox__content" @submit.prevent="updatePassword()">
 
@@ -13,35 +13,35 @@
                 v-model="password1" 
                 class="full-span" 
                 type="password" 
-                placeholder="Enter new password">
+                placeholder="Enter new password"
+                @blur="$v.password1.$touch()"
+                :class="{'invalid': validateField('password1')}">
 
             <input 
                 v-model="password2" 
                 class="full-span" 
                 type="password" 
-                placeholder="Re-enter new password">
-        
+                placeholder="Re-enter new password"
+                @blur="$v.password2.$touch()"
+                :class="{'invalid': validateField('password2')}">        
 
-            <button  
-                
+            <button                  
                 class="full-span btn formbox__btn mb-sm mt-sm" 
-                type="submit">
-                Update Password
+                type="submit"
+                :class="{'disabled': $v.$invalid}">
+                Update Password 
             </button>
 
         </form>
         <small></small>       
         
-    </div>
-
-    
-    
+    </div>     
 </template>
 
 <script>
 
     import CloseAll from "@/components/CloseAll";
-    import { required, minLength } from "vuelidate/lib/validators";
+    import { required, minLength, sameAs} from "vuelidate/lib/validators";
     export default {
         components: {
             CloseAll
@@ -51,29 +51,75 @@
                 mainTitle: 'Reset Password',
                 subTitle: 'Keep it secret!',
                 password1: '', 
-                password2: ''
+                password2: '',
+                email: 'chris12aug@yahoo.com'
                 
             }
         },
         validations: {
-            userInfo: {
-
-                password1: {
-                    required,
-                    minLength: minLength(6)
-                }
+            password1: {
+                required,
+                minLength: minLength(6)                
+            },
+            password2: {                
+                sameAsPassword: sameAs('password1')             
+            },
+        },
+        computed: {
+            retuneEmail() {
+                return this.email ?  this.email : '';
             }
         },
         methods: {
             updatePassword() {
+                if (this.$v.$invalid) {
+                    this.flashMessageInvalid();
+                    return
+                } 
 
+                this.$store.dispatch('changePassword', {
+                    email: this.email,
+                    password: this.password1
+                })
+                .then(data => {
+                    this.myThenFunction(data);
+                })
+                .catch(err => console.log(err))
             },
+            myThenFunction(data) {
+                if (data.state === 'error') {
 
+                    this.flashMessage.show({
+                        html: data.message,
+                        time: 8000,
+                        status: 'warning',
+                        blockClass: 'flash_massage_markup'
+                    }); 
+                } else {
+                    this.$store.dispatch('closeAll');
+
+                    this.flashMessage.show({
+                        html: data.message,
+                        time: 8000,
+                        status: 'info',
+                        blockClass: 'flash_massage_markup'
+                    });
+                }
+            },
             flashMessageInvalid() {                
 
                 let markup = ``;
 
                 // statments
+
+                if (!this.$v.password1.$dirty) {
+                    markup += '<li>Password is required!</li>'
+                } else if (this.$v.password1.$invalid) {
+                    markup += '<li>Password is too short!</li>'
+                } else if (this.$v.password2.$invalid) {
+                    markup += '<li>Passwords does not match!</li>'
+                }               
+                
 
                 const html = `<ul class="flash_massage_markup">${markup}</ul>`
 
@@ -86,13 +132,13 @@
             },
 
             validateField(field) {
-                return  this.$v.userInfo[`${field}`].$invalid && 
-                        this.$v.userInfo[`${field}`].$dirty
+                return  this.$v[`${field}`].$invalid && 
+                        this.$v[`${field}`].$dirty
 
             },
         },
         mounted() {
-
+            this.email = this.$store.getters.getUserInfo.email;
         }
     }
 

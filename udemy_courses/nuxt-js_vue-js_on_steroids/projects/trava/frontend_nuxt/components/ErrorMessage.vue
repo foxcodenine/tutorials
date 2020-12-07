@@ -8,6 +8,11 @@
 
             <h2 class="heading-2 mb-sm">{{errorMessage}}</h2>
 
+            <div class="buttons" style="text-align: center;">
+                <button class="btn" @click="$router.push('/')">Home</button>
+                <button class="btn" @click="reload()">Refresh</button>
+            </div>
+
 
         </div>
     </div>

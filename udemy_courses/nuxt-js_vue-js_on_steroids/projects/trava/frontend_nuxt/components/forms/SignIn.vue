@@ -162,7 +162,7 @@
 
         },
         mounted() {
-
+            console.log(this.$store.getters.getUserInfo['email'])
             this.userInfo.email =  this.$store.getters.getUserInfo['email']
         }
     }
