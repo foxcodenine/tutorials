@@ -88,12 +88,7 @@
             }
         }
     }
-    .btn {
-        &.disabled {
-            background-color: rgba(#fff, .1)  !important;
-            color: rgba(#fff, .4);
-        }
-    }
+
     &__subinput {
         display: flex;
         input {
@@ -130,4 +125,10 @@
     height: 2.5rem;
 
     transform: translate(1px, 1px);
+}
+.btn {
+    &.disabled {
+        background-color: rgba(#fff, .1)  !important;
+        color: rgba(#fff, .4);
+    }
 }
