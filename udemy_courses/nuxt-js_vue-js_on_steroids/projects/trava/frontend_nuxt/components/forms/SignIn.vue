@@ -35,7 +35,7 @@
         <small></small>
 
         <p class="formbox__text formbox__text--fp ">
-            <a href="#" @click="forgotPassword()">Forgot Password?</a> &nbsp; 
+            <a href="#" @click="forgotPassword()">Forgot Password?</a> &nbsp; &nbsp; 
             <a href="#" @click="resedEmail()" >Resend Email Link!</a>
         </p>
         
@@ -91,7 +91,7 @@
                     if (data.state === 'error') {
                         
                         this.flashMessage.show({
-                            message: data.message,
+                            html: data.message,
                             time: 8000,
                             status: 'warning',
                             blockClass: 'flash_massage_markup'
@@ -102,7 +102,7 @@
                         this.$store.dispatch('closeAll');
 
                         this.flashMessage.show({
-                            message: data.message,
+                            html: data.message,
                             time: 8000,
                             status: 'info',
                             blockClass: 'flash_massage_markup'

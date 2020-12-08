@@ -1,24 +1,22 @@
 <template>
   <div class="container">
     <HeaderBar></HeaderBar>
-    <h1 class="heading-1 mt-lg error">Speech Text Reader</h1>
+    <NuxtChild/>
+    <h1 class="heading-1 mt-lg error">Trava! Speech And Text Reader</h1>
 
     <div class="btns">      
       <button  class="btn mt-sm" @click="toggleTextBox()">Toogle Text Box</button>
-      <button  class="btn mt-sm" @click="toggleNewBox()">Add New Frame</button>
+      <button  class="btn mt-sm" @click="toggleNewBox()" v-if="isUserLogedIn">Add New Frame</button>
     </div>
 
-    <BoxGrid class="mt-sm"></BoxGrid>
-
-    
+    <BoxGrid class="mt-sm"></BoxGrid>    
 
     <transition name="fade">
       <ErrorMessage 
         v-if="this.$store.getters.getNoBrowserSupport" 
-        errorMessage='Your browser does not support this application!'>
+        errorMessage='It seems that your browser does not support this application! Try to refresh or use a different browser.'>
       </ErrorMessage>
     </transition>
-
 
     <transition name="moveintop" mode="out-in">
       <TextBox v-if="this.$store.getters.getTextBoxOn"></TextBox>  
@@ -64,6 +62,11 @@ export default {
     SignIn,
     NewBox,
     ResendEmailPassword,
+  },
+  computed: {
+    isUserLogedIn() {
+      return this.$store.getters.getIsUserLogedIn
+    }
   },
   methods: {
     toggleTextBox() {

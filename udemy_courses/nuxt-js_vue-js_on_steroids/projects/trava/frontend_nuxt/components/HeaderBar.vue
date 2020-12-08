@@ -2,13 +2,14 @@
   <header class="header" :class="{'header__hide': this.$store.getters.getTextBoxOn}">
       <div class="header__bar">
 
-        <p class="header__name" >{{isAdmin}} Christopher</p>
+        <p class="header__name" v-if="isUserLogedIn">{{isAdmin}} Christopher</p>
+        <p class="header__name" v-else>Sign up to use all features</p>
         <p class="header__view-as" v-if="isUserAdmin">View As :<input type="text" placeholder="id"></p>
 
         
 
         <div class="header__btns">
-          <button class="header__btn" v-if="isUserLogedIn">Home</button>
+          <button class="header__btn" v-if="isUserLogedIn" @click="$router.push('/profile')">Profile</button>
           <button class="header__btn" v-if="!isUserLogedIn" @click="openForm('signInOn')">Log in</button>
           <button class="header__btn" v-if="!isUserLogedIn" @click="openForm('signUpOn')">Sign up</button>          
           <button class="header__btn" v-if="isUserLogedIn"  @click="signOut()">Sign out</button>

@@ -6,6 +6,7 @@
 export default {
     methods: {
         closeAllForms() {
+            this.$router.push('/')
             this.$store.dispatch('closeAll');
         }
     }
