@@ -1,5 +1,7 @@
 import Vuex from 'vuex';
 import { initData } from "@/data/data";
+import Cookies from "js-cookie";
+const jwt = require('jsonwebtoken');
 
 // _____________________________________________________________________
 // Helper funtions
@@ -35,9 +37,14 @@ const createStore = () => {
 
             isUserLogedIn: false,
 
+            token: null,
+
             userInfoState: {
+                firstname: '',
+                lastname: '',
                 email: '',
-                token: null
+                dob: '',
+                signup: ''
             }
         },
     // __________________________________
@@ -71,9 +78,15 @@ const createStore = () => {
                 state.resendValEmailOn = false;
                 state.resetPasswordOn = false;
             },
-            setUserInfo(state, payload) {
+            setUserData(state, payload) {
                 state.userInfoState[payload.key] = payload.value;
             },
+            setUserInfo(state, payload) {
+                state.userInfoState = payload;
+            },
+            setToken(state, payload) {
+                state.token = payload;
+            }
         },
     // __________________________________
 
@@ -133,13 +146,28 @@ const createStore = () => {
             },
             userSignIn({commit}, payload) {
                 commit('setForm', {name: 'isUserLogedIn', action: true});
-                commit('setUserInfo', {key: 'email', value: payload.email});
-                commit('setUserInfo', {key: 'token', value: payload.token});
+                commit('setUserInfo', payload.userInfo);
+                commit('setToken', payload.token);
             },
             userSignOut({commit}) {
+
+                const userInfo = {
+                    firstname: '', lastname: '', email: '',  dob: '',signup: ''
+                }
                 commit('setForm', {name: 'isUserLogedIn', action: false});
-                commit('setUserInfo', {key: 'email', value: 'chris12aug@yahoo.com'}); //<--
-                commit('setUserInfo', {key: 'token', value: ''});
+                commit('setUserInfo', userInfo);
+                commit('setToken', null);
+            },
+            saveToCookie(vuexContext, token) {
+                console.log(this.$config.BESK)
+                console.log(token)
+                const decoded = jwt.verify(`${token}`, this.$config.BESK);
+                const expires = (decoded['seconds'] - 10) / 86400; 
+                // js-cookie expires is calc. in day, so I am giving a fraction of a day.
+                // 86400 are seconds in a day, I am removing it 10s earlier.
+                // I am have set the exp in my token as seconds & I am using in my cookie.
+                
+                Cookies.set('trava_jwt', token, {expires, sameSite: 'strict'})
             },
             resetPassword(vuexContext, token) {
                 return this.$axios.$post('trava/user/resetPassword/', {token})

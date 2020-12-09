@@ -65,7 +65,23 @@ export default {
             this.profileEdited = true;
             this.userInfo[key] = value;
         }
+    },
+    beforeCreate() {
+        if (!this.$store.getters.getIsUserLogedIn) {
+            this.$router.replace('/');
+        }
+    },
+    created() {
+        const d = this.$store.getters.getUserInfo;
+        this.userInfo.fistname = d.firstname;
+        this.userInfo.lastname = d.lastname;
+        this.userInfo.email = d.email;
+        this.userInfo['date of birth'] = d.dob.split(' ').splice(0,4).join(' ');
+        this.userInfo['registerd on'] = d.signup.split(' ').splice(0,4).join(' ');
+
+        // console.log(typeof d.dob);
     }
+    
 }
 </script>
 

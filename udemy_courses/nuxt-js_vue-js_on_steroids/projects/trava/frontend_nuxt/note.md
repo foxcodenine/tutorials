@@ -158,3 +158,16 @@ https://github.com/vercel/ms // <- time
 
 to install:
     $ npm install jsonwebtoken
+
+<!-- --------------------------------------------------------------- -->
+
+js-cookie
+https://github.com/js-cookie/js-cookie
+
+How to make the cookie expire in less than a day?
+https://github.com/js-cookie/js-cookie/wiki/Frequently-Asked-Questions#expire-cookies-in-less-than-a-day
+
+to install:
+    $ $ npm install js-cookie --save
+
+<!-- --------------------------------------------------------------- -->

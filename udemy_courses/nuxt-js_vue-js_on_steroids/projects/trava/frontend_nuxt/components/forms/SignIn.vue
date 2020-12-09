@@ -108,11 +108,11 @@
                             blockClass: 'flash_massage_markup'
                         }); 
 
-                        this.$store.dispatch('userSignIn', {
-                            email: data.email,
-                            token: data.token
-                        })
-                        console.log(data);
+                        const payload = {userInfo: data.userInfo, token: data.token};
+
+                        this.$store.dispatch('userSignIn', payload);
+                        this.$store.dispatch('saveToCookie', data.token);
+                        
                     }
                     
                 }) 
@@ -162,7 +162,6 @@
 
         },
         mounted() {
-            console.log(this.$store.getters.getUserInfo['email'])
             this.userInfo.email =  this.$store.getters.getUserInfo['email']
         }
     }
