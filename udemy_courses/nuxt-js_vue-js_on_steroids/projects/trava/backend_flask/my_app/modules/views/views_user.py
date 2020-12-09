@@ -9,6 +9,8 @@ from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadTimeSignat
 import jwt
 from jwt.exceptions import ExpiredSignatureError, InvalidSignatureError
 
+from datetime import datetime, timedelta
+
 # ______________________________________________________________________
 
 app_user = Blueprint('app_user', __name__, url_prefix='/trava/user')
@@ -185,11 +187,36 @@ def login():
             'state': 'error'
         }), 400
 
+    
 
+    token = jwt.encode({
+        current_user.email: current_user.password,
+        'exp': datetime.utcnow() + timedelta(seconds=3600),
+        'iat': datetime.utcnow(),
+        'seconds': 3600
+    }, app.config['SECRET_KEY']).decode("utf-8")
+
+    
+
+    user_info = {
+        'firstname': current_user.firstname,
+        'lastname': current_user.lastname,
+        'email': current_user.email,
+        'dob': current_user.dob,
+        'signup': current_user.signup,
+    }
+
+    
+
+    current_user.signin = datetime.utcnow()
+    db.session.commit()
+
+    
+    
     return jsonify({
         'message': 'You have just sign-in!',
-        'email': current_user.email,
-        'token': 'testtest', 
+        'userInfo': user_info,
+        'token': f'{token}', 
         'state': 'success'
     })
 # _______________________________

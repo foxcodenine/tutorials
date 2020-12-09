@@ -104,6 +104,7 @@
                     return
                 }
                 console.log(1, this.userInfo)   
+                console.log(2, typeof this.userInfo.dob)
                 
                 // this.$axios.get('/TSA/user/')
                 // .then(data => {
