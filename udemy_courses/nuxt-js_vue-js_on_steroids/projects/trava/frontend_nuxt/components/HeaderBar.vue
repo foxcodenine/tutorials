@@ -2,7 +2,7 @@
   <header class="header" :class="{'header__hide': this.$store.getters.getTextBoxOn}">
       <div class="header__bar">
 
-        <p class="header__name" v-if="isUserLogedIn">{{isAdmin}} Christopher</p>
+        <p class="header__name" v-if="isUserLogedIn">{{isAdmin}}</p>
         <p class="header__name" v-else>Sign up to use all features</p>
         <p class="header__view-as" v-if="isUserAdmin">View As :<input type="text" placeholder="id"></p>
 
@@ -28,7 +28,10 @@ export default {
   },
   computed: {
     isAdmin() {
-      return this.isUserAdmin ? 'Admin' : 'Hello';
+      return this.isUserAdmin ? 'Admin' : `Hi ${this.getUserInfo.firstname}, nice to see you!`;
+    },
+    getUserInfo() {
+      return this.$store.getters.getUserInfo
     },
     isUserLogedIn() {
       return this.$store.getters.getIsUserLogedIn

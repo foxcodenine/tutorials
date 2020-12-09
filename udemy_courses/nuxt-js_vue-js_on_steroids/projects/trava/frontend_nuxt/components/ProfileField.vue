@@ -43,7 +43,7 @@ export default {
     },
     computed: {
         myInputType() {
-            console.log(this.fieldKey)
+
             if (this.fieldKey === 'email') {
                 return 'text'
             } else if ( this.fieldKey === 'date of birth') {
@@ -57,17 +57,29 @@ export default {
         confirm() {
             if (this.fieldKey === 'date of birth') {
 
-                const d = this.fieldData.split('-');
-                const current_year = new Date().getYear()
-                    
-                this.fieldData = `${d[2]}/${d[1]}/${d[0]}`
 
+                // Splite string date into an array
+                const d = this.fieldData.split('-');
+
+                // Check if there is an undefined field (day, month or year)
                 if(!d[2] || !d[1] || !d[0]) {
                     this.reject();
                 }
+                // Check if user is under 13 years old
                 if(parseInt(d[0]) > new Date().getFullYear()-12) {
                     this.reject();
                 }
+                // Reformating Date String
+                this.fieldData = new Date(d[0], d[1]-1, d[2])
+                    .toLocaleString('en-MT',{ weekday: 'short', year: 'numeric', month: 'short', day: 'numeric'})
+
+
+                // let testDate = Date.parse(this.fieldData.split(',')[1])
+                // testDate = this.fieldData.split(',')[1]
+                // testDate = testDate.split(' ')
+                // testDate = `${testDate[3]}-${testDate[2]}-${testDate[1]}`
+                // console.log(testDate)
+ 
             }
 
             if (this.fieldKey === 'email') {

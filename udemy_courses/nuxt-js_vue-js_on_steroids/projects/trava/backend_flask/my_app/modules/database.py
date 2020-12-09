@@ -38,8 +38,8 @@ class Trava_Users(db.Model):
         self.firstname = firstname.lower().capitalize() 
         self.lastname = lastname.lower().capitalize()
         self.dob = dob
-        self.signup = datetime.now()
-        self.signup = datetime.now()
+        self.signup = datetime.utcnow()
+        self.signin = datetime.utcnow()
         self.active = False
     
     def password_hash(self, password):
