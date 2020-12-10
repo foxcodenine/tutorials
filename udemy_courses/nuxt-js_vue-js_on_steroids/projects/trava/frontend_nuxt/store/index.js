@@ -158,16 +158,83 @@ const createStore = () => {
                 commit('setUserInfo', userInfo);
                 commit('setToken', null);
             },
-            saveToCookie(vuexContext, token) {
-                console.log(this.$config.BESK)
-                console.log(token)
-                const decoded = jwt.verify(`${token}`, this.$config.BESK);
+            saveToCookie(vuexContext, payload) {
+                const decoded = jwt.verify(`${payload.token}`, this.$config.BESK);
                 const expires = (decoded['seconds'] - 10) / 86400; 
                 // js-cookie expires is calc. in day, so I am giving a fraction of a day.
                 // 86400 are seconds in a day, I am removing it 10s earlier.
                 // I am have set the exp in my token as seconds & I am using in my cookie.
                 
-                Cookies.set('trava_jwt', token, {expires, sameSite: 'strict'})
+                Cookies.set('trava_jwt_email', JSON.stringify(payload), {expires, sameSite: 'strict'})
+            },
+            async getFromCookie(vuexContext) {
+
+              
+                const cookie_string = Cookies.get('trava_jwt_email');
+
+                if (!cookie_string) return;
+
+                const cookie_object = JSON.parse(cookie_string);
+            
+                // let check_my_token = await vuexContext.dispatch('checkToken', cookie_object.token); // <-
+                // console.log(check_my_token);// <-
+
+                return cookie_object;
+
+
+            },
+            async checkToken(vuexContext, token) {
+                
+                try {
+                    jwt.verify(token, this.$config.BESK);
+                    return 'valide';
+                } catch(err) {
+
+                    console.log(err);
+                    return 'invalide';                    
+                }
+            },
+            async autoLogin(vuexContext) {
+                console.log('<<AutoLogin>>')
+
+                const cookie_object = await vuexContext.dispatch('getFromCookie');
+
+                if (!cookie_object) {
+                    console.log('<<NoCookie>>');
+                    return;
+                }
+
+                const {email, token} = cookie_object;
+
+                if (!email || !token)  {
+                    console.log('<<NoEmail/Token>>'); 
+                    return;
+                }
+
+                try {
+                    const data = await this.$axios.$post('trava/user/autoLogin/', {token, email});
+
+
+                    if (await vuexContext.dispatch('checkToken', data.token) === 'valide') {
+                       const payload = {
+                           token: data.token,
+                           userInfo: data.userInfo                           
+                       }
+
+                       vuexContext.dispatch('userSignIn', payload);
+                       return
+                    } else {
+                        return
+                    }
+
+                } catch(err) {
+                    if (err.response.data.state === 'error') {
+                        console.log(err.response.data.message)
+                    } else {
+                        console.log(err.response);
+                    }
+                    
+                }                
             },
             resetPassword(vuexContext, token) {
                 return this.$axios.$post('trava/user/resetPassword/', {token})
