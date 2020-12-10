@@ -93,9 +93,9 @@ export default {
     }
   },
   mounted() {
-    // ---- get voices from pc
+    this.$store.dispatch('autoLogin');   //<-                    
 
- 
+    // ---- get voices from pc 
     let myPcVoices = window.speechSynthesis.getVoices();
     this.$store.dispatch('setVoices', myPcVoices);
 

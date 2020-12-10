@@ -111,8 +111,10 @@
                         const payload = {userInfo: data.userInfo, token: data.token};
 
                         this.$store.dispatch('userSignIn', payload);
-                        this.$store.dispatch('saveToCookie', data.token);
-                        
+
+                        const payload_cookie = {email: data.userInfo.email, token: data.token};
+                        this.$store.dispatch('saveToCookie', payload_cookie);                       
+                        // this.$store.dispatch('getFromCookie', payload_cookie);   //<-                    
                     }
                     
                 }) 

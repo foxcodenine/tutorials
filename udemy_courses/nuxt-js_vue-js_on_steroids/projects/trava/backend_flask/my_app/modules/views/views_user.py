@@ -54,6 +54,28 @@ def send_activtion_link(email, firstname):
     )
     mail.send(msg) 
 
+# _______________________________
+
+def login_current_user(current_user, token):
+    user_info = {
+        'firstname': current_user.firstname,
+        'lastname': current_user.lastname,
+        'email': current_user.email,
+        'dob': current_user.dob,
+        'signup': current_user.signup,
+    }    
+
+    current_user.signin = datetime.utcnow()
+    db.session.commit()
+    
+    
+    return jsonify({
+        'message': 'You have just sign-in!',
+        'userInfo': user_info,
+        'token': f'{token}', 
+        'state': 'success'
+    })
+
 
 # ______________________________________________________________________
 
@@ -78,6 +100,9 @@ def user(goto=False):
 
     if request.method == 'POST' and goto == 'resend':
         return redirect(url_for('app_user.resend_email'), code=307)
+
+    if request.method == 'POST' and goto == 'autoLogin':
+        return redirect(url_for('app_user.auto_login'), code=307)
 
     if request.method == 'GET':
         return redirect(url_for('app_user.fetch_users'), code=307)
@@ -196,29 +221,8 @@ def login():
         'seconds': 3600
     }, app.config['SECRET_KEY']).decode("utf-8")
 
-    
-
-    user_info = {
-        'firstname': current_user.firstname,
-        'lastname': current_user.lastname,
-        'email': current_user.email,
-        'dob': current_user.dob,
-        'signup': current_user.signup,
-    }
-
-    
-
-    current_user.signin = datetime.utcnow()
-    db.session.commit()
-
-    
-    
-    return jsonify({
-        'message': 'You have just sign-in!',
-        'userInfo': user_info,
-        'token': f'{token}', 
-        'state': 'success'
-    })
+   
+    return login_current_user(current_user, token)
 # _______________________________
 
 @app_user.route('/resend_email', methods=['POST', 'GET'])
@@ -323,6 +327,58 @@ def change_password():
     db.session.commit()
 
     return jsonify({'message': 'Password have been change!'})
+
+
+#_______________________________________________________________________
+
+@app_user.route('/auto_login', methods=['POST'])
+def auto_login():
+    user_data = retrive_data()
+
+    token, email = user_data.values()
+
+    current_user = Trava_Users.query.filter_by(email=email).first()
+
+    if not current_user:
+        return jsonify({
+            'message': '<ERROR> user not found!', 
+            'state': 'error'
+        }), 400
+    
+    decoded = jwt.decode(token, app.config['SECRET_KEY'])
+    
+    if not decoded or not decoded[email] or decoded[email] != current_user.password:
+        return jsonify({
+            'message': '<ERROR> token is invalid!', 
+            'state': 'error'
+        }), 400
+    
+
+
+    # user_info = {
+    #     'firstname': current_user.firstname,
+    #     'lastname': current_user.lastname,
+    #     'email': current_user.email,
+    #     'dob': current_user.dob,
+    #     'signup': current_user.signup,
+    # }    
+
+    # current_user.signin = datetime.utcnow()
+    # db.session.commit()
+    
+    
+    # return jsonify({
+    #     'message': 'You have just sign-in!',
+    #     'userInfo': user_info,
+    #     'token': f'{token}', 
+    #     'state': 'success'
+    # })
+
+    return login_current_user(current_user, token)
+    
+
+
+
 
 
 #_______________________________________________________________________
