@@ -1,8 +1,21 @@
+
+:root {
+    --color-primary:  #c5f5e1;
+    // --color-primary:  #dff0f8;
+
+    --color-primary-dark:  #3ab07f;
+    // --color-primary-dark:  #7ba3cf;
+
+}
+
+
+
+
 $color-primary: #ffefea;
 $color-primary-dark: #e9967a;
 
-$color-primary: #c5f5e1;
-$color-primary-dark: #3ab07f;
+$color-primary: var(--color-primary);
+$color-primary-dark: var(--color-primary-dark);
 
 $color-gray-1: #333333;
 

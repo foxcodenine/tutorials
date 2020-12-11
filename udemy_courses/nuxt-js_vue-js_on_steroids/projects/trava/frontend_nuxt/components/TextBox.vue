@@ -57,7 +57,10 @@
                 const voice = this.myPcVoices.find(v => v.name === this.selectedVoice)
                 this.$store.getters.getUtterance.voice = voice;
             }
-        },        
+        },    
+        beforeCreate() {
+            this.$store.dispatch('authUser'); 
+        },    
         mounted() {
             setTimeout(()=>{
 

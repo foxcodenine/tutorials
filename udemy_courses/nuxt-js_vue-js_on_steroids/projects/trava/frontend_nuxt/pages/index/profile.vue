@@ -13,28 +13,27 @@
                 :fieldValue="value"
                 @fieldChange="updateField($event, key)"/> 
 
+                <div class="profile__links">
+                    <a href="#">Change Password!</a>
+                    <a href="#">Delete Account!</a>
+                </div>
+
+
+
         </div>
 
-        <p class="formbox__text formbox__text--fp mt-sm" 
-            style=" border-bottom: 1px #fff solid; 
-                    align-self: auto; 
-                    padding-bottom: 2rem;
-                    display: flex;
-                    justify-content: flex-start;                    
-                    font-size: 1.6rem;">
-
-            <a href="#" style="color: #fff;">Change Password!</a>
-        </p>
-
-
-        
+       
         <button 
  
             class="btn profile__btn--2 mt-sm"
-            :class="{'disabled': !profileEdited}">Save Updates</button>
+            :class="{'disabled': !profileEdited}"
+            @click="updateProfile()">Save Updates</button>
+
+        
 
        
     </div>
+    <FlashMessage :position="'right bottom'"></FlashMessage>
 </div>
 
 </template>
@@ -46,11 +45,11 @@ export default {
     data() {
         return {
             userInfo: {
-                fistname: 'Christopher',
+                firstname: 'Christopher',
                 lastname: 'Farrugia', 
                 email: 'chris12agu@yahoo.com',               
-                'date of birth': '12/08/1984',
-                'registerd on': '01/12/2020',
+                dob: '12/08/1984',
+                signup: '01/12/2020',
                 
             },
             profileEdited: false
@@ -64,20 +63,77 @@ export default {
         updateField(value, key) {
             this.profileEdited = true;
             this.userInfo[key] = value;
+        },
+        updateProfile() {
+            if (!this.profileEdited) {
+                return;
+            }
+            let payload = {...this.userInfo};
+
+
+            this.$store.dispatch('updateProfile', {
+                userInfo: payload,
+                token: this.$store.getters.getToken
+            })
+            .then( data => {
+                
+                this.$store.commit('setUserInfo', data.userInfo);  
+                this.$store.dispatch('saveToCookie', {token: data.token, userInfo: data.userInfo})              
+                this.profileEdited = false;
+                this.myThenFunction(data);
+            })
+            .then(()=>{
+                
+                this.updateData();
+                
+            })
+            .catch(err => console.log(err))
+        },
+        myThenFunction(data) {
+            if (data.state === 'error') {
+
+                this.flashMessage.show({
+                    html: data.message,
+                    time: 8000,
+                    status: 'warning',
+                    blockClass: 'flash_massage_markup'
+                }); 
+            } else {
+                this.$store.dispatch('closeAll');
+
+                this.flashMessage.show({
+                    html: data.message,
+                    time: 8000,
+                    status: 'info',
+                    blockClass: 'flash_massage_markup'
+                });
+            }
+        },
+        updateData() {
+            
+            const d = this.$store.getters.getUserInfo;
+            this.$set(this.userInfo, 'firstname', d.firstname)
+            this.$set(this.userInfo, 'lastname', d.lastname)
+            this.$set(this.userInfo, 'email', d.email)
+            this.$set(this.userInfo, 'dob', d.dob.split(' ').splice(0,4).join(' '))
+            this.$set(this.userInfo, 'signup', d.signup.split(' ').splice(0,4).join(' '))
+
         }
     },
-    beforeCreate() {
-        if (!this.$store.getters.getIsUserLogedIn) {
-            this.$router.replace('/');
-        }
+    beforeCreate() {       
+
+        // if (!this.$store.getters.getIsUserLogedIn) {
+        //     this.$router.replace('/');
+        //     this.$store.dispatch('authUser');
+        // }
     },
-    created() {
-        const d = this.$store.getters.getUserInfo;
-        this.userInfo.fistname = d.firstname;
-        this.userInfo.lastname = d.lastname;
-        this.userInfo.email = d.email;
-        this.userInfo['date of birth'] = d.dob.split(' ').splice(0,4).join(' ');
-        this.userInfo['registerd on'] = d.signup.split(' ').splice(0,4).join(' ');
+    async created() {
+        await this.$store.dispatch('autoLogin');   //<-
+        this.$store.dispatch('authUser');   //<- 
+
+        this.updateData();
+
+
 
         // console.log(typeof d.dob);
     }
@@ -113,7 +169,7 @@ export default {
 
     padding: 2rem;
 
-    position: fixed;
+    position: absolute;
     top: 10rem;
     left: 50%;
 
@@ -141,6 +197,30 @@ export default {
         padding-bottom: 1.5rem;
         border-bottom: 1px #fff solid;
         grid-auto-rows: 6rem;
+    }
+
+
+    &__links {
+        grid-column: 1 / -1 ;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1rem 5rem ;
+        border-top: 1px solid #fff;  
+        margin-top: 1.5rem;
+        
+        
+
+        a:link, a:visited {
+            color: #fff;
+            font-size: 1.8rem;
+            font-family: 'Quicksand', sans-serif;
+            text-decoration:  none;
+            padding-top: 1.8rem;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 
     &__field {

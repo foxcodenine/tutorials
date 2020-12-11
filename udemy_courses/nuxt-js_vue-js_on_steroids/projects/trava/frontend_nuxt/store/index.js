@@ -66,7 +66,6 @@ const createStore = () => {
                 state.noBrowserSupport = s;
             },
             setForm(state, payload) {
-                console.log(payload.name)
                 state[payload.name] = payload.action
             },
             closeAll(state) {
@@ -82,6 +81,7 @@ const createStore = () => {
                 state.userInfoState[payload.key] = payload.value;
             },
             setUserInfo(state, payload) {
+                console.log(1)
                 state.userInfoState = payload;
             },
             setToken(state, payload) {
@@ -148,6 +148,8 @@ const createStore = () => {
                 commit('setForm', {name: 'isUserLogedIn', action: true});
                 commit('setUserInfo', payload.userInfo);
                 commit('setToken', payload.token);
+                document.documentElement.style.setProperty('--color-primary', '#dff0f8');
+                document.documentElement.style.setProperty('--color-primary-dark', '#7ba3cf');
             },
             userSignOut({commit}) {
 
@@ -157,6 +159,9 @@ const createStore = () => {
                 commit('setForm', {name: 'isUserLogedIn', action: false});
                 commit('setUserInfo', userInfo);
                 commit('setToken', null);
+                Cookies.remove('trava_jwt_email');
+                document.documentElement.style.setProperty('--color-primary', '#c5f5e1');
+                document.documentElement.style.setProperty('--color-primary-dark', '#3ab07f');
             },
             saveToCookie(vuexContext, payload) {
                 const decoded = jwt.verify(`${payload.token}`, this.$config.BESK);
@@ -181,7 +186,6 @@ const createStore = () => {
 
                 return cookie_object;
 
-
             },
             async checkToken(vuexContext, token) {
                 
@@ -204,37 +208,25 @@ const createStore = () => {
                     return;
                 }
 
-                const {email, token} = cookie_object;
+                const {userInfo, token} = cookie_object;
 
-                if (!email || !token)  {
-                    console.log('<<NoEmail/Token>>'); 
+                if (!userInfo || !token)  {
+                    console.log('<<NoUser/Token>>'); 
+                    Cookies.remove('trava_jwt_email');
                     return;
                 }
 
-                try {
-                    const data = await this.$axios.$post('trava/user/autoLogin/', {token, email});
-
-
-                    if (await vuexContext.dispatch('checkToken', data.token) === 'valide') {
-                       const payload = {
-                           token: data.token,
-                           userInfo: data.userInfo                           
-                       }
-
-                       vuexContext.dispatch('userSignIn', payload);
-                       return
-                    } else {
-                        return
+                if (await vuexContext.dispatch('checkToken', token) === 'valide') {
+                    const payload = {
+                        token,
+                        userInfo                      
                     }
-
-                } catch(err) {
-                    if (err.response.data.state === 'error') {
-                        console.log(err.response.data.message)
-                    } else {
-                        console.log(err.response);
-                    }
-                    
-                }                
+                    vuexContext.dispatch('userSignIn', payload);
+                    return
+                } else {
+                    Cookies.remove('trava_jwt_email');
+                    return
+                }           
             },
             resetPassword(vuexContext, token) {
                 return this.$axios.$post('trava/user/resetPassword/', {token})
@@ -253,9 +245,30 @@ const createStore = () => {
                         return err.response.data;
                     }
                 })
-
+            },
+            updateProfile({commit, dispatch, getters}, payload) {
+                return this.$axios.$put('trava/user/profileUpdate/', payload)
+                .catch(err => {
+                    console.log(err.response)
+                    if (err.response.data.state === 'error') {
+                        return err.response.data;
+                    }
+                })                 
+            },
+            async authUser({getters, dispatch, commit}) {
+                
+                const token = getters.getToken;
+                const tokenState = await dispatch('checkToken', token);
+                
+                if (tokenState !== 'valide') {
+                    dispatch('userSignOut');
+                    commit('setForm', {name: 'signInOn', action: true});
+                    this.$router.push('/')
+                } else {
+                    console.log('<<AuthUser>>');
+                    return 
+                }
             }
-
         },
     // __________________________________
 
@@ -290,6 +303,9 @@ const createStore = () => {
             },
             getUserInfo(state) {
                 return state.userInfoState
+            },
+            getToken(state) {
+                return state.token;
             },
             getIsUserAdmin(state) {
                 return state.isUserAdmin;

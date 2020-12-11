@@ -171,3 +171,9 @@ to install:
     $ $ npm install js-cookie --save
 
 <!-- --------------------------------------------------------------- -->
+
+How to Get and Set CSS Variable Values with JavaScript
+https://davidwalsh.name/css-variables-javascript
+
+    console.log(getComputedStyle(document.documentElement).getPropertyValue('--color-primary'))
+    document.documentElement.style.setProperty('--color-primary', 'pink');
