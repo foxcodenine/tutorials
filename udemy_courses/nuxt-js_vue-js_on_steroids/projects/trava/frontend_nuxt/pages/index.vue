@@ -36,7 +36,7 @@
         taskSendPassword="true"/> 
     </transition>
 
-    <FlashMessage :position="'right bottom'"></FlashMessage>
+    <FlashMessage :position="'right bottom'" v-if="this.$route.path === '/'"></FlashMessage>
 
   </div>
 </template>
@@ -92,8 +92,10 @@ export default {
         throw new Error('Application is not supported by this browser!!');
     }
   },
-  mounted() {
-    this.$store.dispatch('autoLogin');   //<-                    
+  async mounted() {
+    await this.$store.dispatch('autoLogin');   //<-    
+       
+                    
 
     // ---- get voices from pc 
     let myPcVoices = window.speechSynthesis.getVoices();
@@ -102,8 +104,6 @@ export default {
     // ---- init SpeechSynthesisUtterance
     const utterance = new SpeechSynthesisUtterance
     this.$store.dispatch('setUtterance', utterance);
-
-
 
     // ---- check if browser support app
     setTimeout(()=>{   
@@ -116,6 +116,8 @@ export default {
         }
       }
     },300);
+
+    // console.log( this.$route.path === '/')
 
   }
 }

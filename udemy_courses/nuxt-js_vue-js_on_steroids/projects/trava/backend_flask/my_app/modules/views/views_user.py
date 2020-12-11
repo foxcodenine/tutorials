@@ -81,8 +81,8 @@ def login_current_user(current_user, token):
 
 # Routes
 
-@app_user.route('/', methods=['GET','POST'])
-@app_user.route('/<goto>/', methods=['GET','POST'])
+@app_user.route('/', methods=['GET','POST', 'PUT'])
+@app_user.route('/<goto>/', methods=['GET','POST', 'PUT'])
 def user(goto=False):
 
 
@@ -103,6 +103,9 @@ def user(goto=False):
 
     if request.method == 'POST' and goto == 'autoLogin':
         return redirect(url_for('app_user.auto_login'), code=307)
+
+    if request.method == 'PUT' and goto == 'profileUpdate':
+        return redirect(url_for('app_user.profile_update'), code=307)
 
     if request.method == 'GET':
         return redirect(url_for('app_user.fetch_users'), code=307)
@@ -171,7 +174,11 @@ def add_user():
         send_activtion_link(email, firstname)     
 
 
-        return jsonify({'message': 'user added to database', 'state': 'success'}), 200
+        return jsonify({
+            'message': 'An email have been send to your email address.\
+                         Kindly confirm and sign-in into your account!', 
+            'state': 'success'
+        }), 200
 
     except (AttributeError, TypeError) as e:
         return jsonify({'error': e})
@@ -212,13 +219,13 @@ def login():
             'state': 'error'
         }), 400
 
-    
+    exp = 3600 # token expires set in seconds
 
     token = jwt.encode({
         current_user.email: current_user.password,
-        'exp': datetime.utcnow() + timedelta(seconds=3600),
+        'exp': datetime.utcnow() + timedelta(seconds=exp),
         'iat': datetime.utcnow(),
-        'seconds': 3600
+        'seconds': exp
     }, app.config['SECRET_KEY']).decode("utf-8")
 
    
@@ -326,10 +333,55 @@ def change_password():
 
     db.session.commit()
 
-    return jsonify({'message': 'Password have been change!'})
+    return jsonify({'message': 'Password have been change!', 'state': 'success'}), 200
+
+#_______________________________________________________________________
+
+@app_user.route('/profile_update', methods=['PUT'])
+def profile_update():
+    user_data = retrive_data()
+
+    user_info, token = user_data.values()
+
+
+
+    decoded = jwt.decode(token, app.config['SECRET_KEY'])
+    current_user = Trava_Users.query.filter_by(email=user_info['email']).first()
+
+    if current_user.password == decoded[user_info['email']]:
+        
+
+        firstname, lastname, email, dob_string , signup = user_info.values()
+        
+        dob = datetime.strptime(dob_string, "%a, %d %b %Y")
+        
+        current_user.firstname = firstname
+        current_user.lastname = lastname
+        current_user.email = email
+        current_user.dob = dob
+        db.session.commit()
+
+        user_info['dob'] = dob
+
+        return jsonify({
+            'message': 'Your profile has been updated!',
+            'userInfo': user_info,
+            'token': f'{token}', 
+            'state': 'success'
+        })
+
+    # current_user = Trava_Users.query.filter_by(email=email).first()
+
+    # current_user.password = current_user.password_hash(password)
+
+    # db.session.commit()
+
+    return jsonify({'message': 'Profile has been updated', 'state': 'success'}), 200
 
 
 #_______________________________________________________________________
+
+# ----- Router depreciated
 
 @app_user.route('/auto_login', methods=['POST'])
 def auto_login():
@@ -352,34 +404,8 @@ def auto_login():
             'message': '<ERROR> token is invalid!', 
             'state': 'error'
         }), 400
-    
-
-
-    # user_info = {
-    #     'firstname': current_user.firstname,
-    #     'lastname': current_user.lastname,
-    #     'email': current_user.email,
-    #     'dob': current_user.dob,
-    #     'signup': current_user.signup,
-    # }    
-
-    # current_user.signin = datetime.utcnow()
-    # db.session.commit()
-    
-    
-    # return jsonify({
-    #     'message': 'You have just sign-in!',
-    #     'userInfo': user_info,
-    #     'token': f'{token}', 
-    #     'state': 'success'
-    # })
 
     return login_current_user(current_user, token)
-    
-
-
-
-
 
 #_______________________________________________________________________
 @app_user.route('/timeout')
