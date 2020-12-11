@@ -102,21 +102,15 @@
                 if (this.$v.userInfo.$invalid || this.checkAge()) {
                     this.flashMessageInvalid()
                     return
-                }
-                console.log(1, this.userInfo)   
-                console.log(2, typeof this.userInfo.dob)
-                
-                // this.$axios.get('/TSA/user/')
-                // .then(data => {
-                //     console.log(data)
-                // })
+                }                
+
                 
                 this.$store.dispatch('adduser', this.userInfo)
                 .then(data => {
 
                     if(data.state === 'error') {
                         this.flashMessage.show({
-                            message: data.message,
+                            html: data.message,
                             time: 8000,
                             status: 'warning',
                             blockClass: 'flash_massage_markup'
@@ -126,13 +120,12 @@
                     } else {
                         
                         this.flashMessage.show({
-                            message: `An email have been send to your email address. 
-                                        Kindly confirm and signin into your account!`,
+                            html: data.message,
                             time: 8000,
                             status: 'info',
                             blockClass: 'flash_massage_markup'
                         }); 
-                        console.log(data);
+
                         this.clearUserInfo();
                         this.$store.dispatch('setForm', {name: 'signInOn', action: true});
                     }

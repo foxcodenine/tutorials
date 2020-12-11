@@ -52,6 +52,9 @@
             submitForm() {                
             },
         },
+        beforeCreate() {
+            this.$store.dispatch('authUser'); 
+        },
     }
 
 </script>

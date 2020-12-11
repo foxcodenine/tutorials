@@ -9,7 +9,7 @@ export default {
         
         this.$store.dispatch('closeAll');
         this.$store.dispatch('setForm', {name: 'signInOn', action: true});
-        this.$store.commit('setUserInfo', {key:'email', value: this.$route.params.email})
+        this.$store.commit('setUserData', {key:'email', value: this.$route.params.email})
         this.$router.push('/');
     }
 }
