@@ -1,0 +1,146 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+
+}
+
+html {
+    font-size: 62.5%;
+
+    @media only  screen and (max-width: $bp-large) {
+        font-size: 55%;
+    }
+    @media only  screen and (max-width: $bp-big) {
+        font-size: 50%;
+    }
+}
+
+body {
+    box-sizing: border-box;
+    font-size: 1.6rem;
+    min-width: 400px;
+}
+
+// _____________________________________________________________________
+
+.mb-tn {margin-bottom: 1rem;}
+.mb-sm {margin-bottom: 2rem;}
+.mb-md {margin-bottom: 3rem;}
+.mb-lg {margin-bottom: 4rem;}
+.mb-bg {margin-bottom: 6rem;}
+.mb-hg {margin-bottom: 8rem;}
+
+.mt-tn {margin-top: 1rem;}
+.mt-sm {margin-top: 2rem;}
+.mt-md {margin-top: 3rem;}
+.mt-lg {margin-top: 4rem;}
+.mt-bg {margin-top: 6rem;}
+.mt-hg {margin-top: 8rem;}
+
+.mt-tn-n {margin-top: -1rem;}
+.mt-sm-n {margin-top: -2rem;}
+.mt-md-n {margin-top: -3rem;}
+.mt-lg-n {margin-top: -4rem;}
+.mt-bg-n {margin-top: -6rem;}
+.mt-hg-n {margin-top: -8rem;}
+
+.mb-tn-n {margin-top: -1rem;}
+.mb-sm-n {margin-top: -2rem;}
+.mb-md-n {margin-top: -3rem;}
+.mb-lg-n {margin-top: -4rem;}
+.mb-bg-n {margin-top: -6rem;}
+.mb-hg-n {margin-top: -8rem;}
+
+// _____________________________________________________________________
+
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+
+.heading-1 {
+    
+    font-size: 3.6rem;    
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;    
+}
+
+.heading-2 {
+    
+    font-size: 2rem;    
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;    
+}
+
+
+.text {
+    font-family: 'Quicksand', 'Source Sans Pro', sans-serif;
+    font-size: 2rem;
+}
+
+// _____________________________________________________________________
+// Components
+
+.btn {
+  min-width: 14rem;
+    border: none;
+    border-radius: .5rem;
+    background-color: $color-primary-dark;
+    padding: .8rem;
+    font-size: 1.6rem;
+    color: #fff;
+  
+    cursor: pointer;
+    transition: all .2s;
+  
+    &:active {
+      transform: scale(.98);
+      box-shadow: 0 .2rem 1rem rgba(#000, .2);
+      outline: none;
+    }
+
+    &:focus, &:active {
+        outline: none;
+    }  
+  }
+
+.close-all {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  align-self: flex-end;
+  font-size: 2.2rem;
+  cursor: pointer;
+
+  &:hover {
+      font-weight: bolder;
+  }
+}
+
+
+// _____________________________________________________________________
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+  }
+
+// _____________________________________________________________________
+
+.moveintop-enter-active, .moveintop-leave-active {
+    transform: translateY(0%)translateX(-50%) !important;
+    transition: all .8s ease-in-out;
+  }
+.moveintop-enter, .moveintop-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    
+    transform: translateY(-800px)translateX(-50%) !important;
+  }
+
+
+
+

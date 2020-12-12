@@ -1,5 +1,5 @@
 from my_app import app, mail
-from flask import Blueprint, jsonify, redirect, request, url_for, render_template
+from flask import Blueprint, jsonify, redirect, request, url_for, render_template, session
 # from my_app.modules.helper_functions import check_header
 from my_app.modules.database import db, Trava_Users
 import ast
@@ -219,10 +219,15 @@ def login():
             'state': 'error'
         }), 400
 
+
+    # ----- Create Token for login:
     exp = 3600 # token expires set in seconds
 
     token = jwt.encode({
-        current_user.email: current_user.password,
+        # current_user.email: current_user.password,
+        'name': 'user_login_token',
+        'user_id': current_user.id,
+        'hashed':current_user.password,
         'exp': datetime.utcnow() + timedelta(seconds=exp),
         'iat': datetime.utcnow(),
         'seconds': exp
@@ -251,8 +256,7 @@ def resend_email():
     # ----- creating token, create validation link and send it to user email
     send_activtion_link(email, user.firstname) 
 
-    return jsonify({ 'message' : f'A confirmation email has been send to {email}!'})
-    
+    return jsonify({ 'message' : f'A confirmation email has been send to {email}!'})    
 
 # _______________________________
 
@@ -335,50 +339,111 @@ def change_password():
 
     return jsonify({'message': 'Password have been change!', 'state': 'success'}), 200
 
+
 #_______________________________________________________________________
 
 @app_user.route('/profile_update', methods=['PUT'])
 def profile_update():
     user_data = retrive_data()
 
-    user_info, token = user_data.values()
+    user_info, token = user_data.values()    
 
 
 
     decoded = jwt.decode(token, app.config['SECRET_KEY'])
-    current_user = Trava_Users.query.filter_by(email=user_info['email']).first()
+    
+    current_user = Trava_Users.query.filter_by(id=decoded['user_id']).first()
 
-    if current_user.password == decoded[user_info['email']]:
+    if current_user.password == decoded['hashed']:
         
 
-        firstname, lastname, email, dob_string , signup = user_info.values()
+        firstname, lastname, new_email, dob_string , signup = user_info.values()
         
         dob = datetime.strptime(dob_string, "%a, %d %b %Y")
         
         current_user.firstname = firstname
         current_user.lastname = lastname
-        current_user.email = email
+        # current_user.email = email # <--
         current_user.dob = dob
         db.session.commit()
 
-        user_info['dob'] = dob
+        # reset user_info to python date 
+        # and email for db email till email confirmation
+        user_info['dob'] = dob        
+        user_info['email'] = current_user.email
+
+        message = 'Your profile has been updated!'
+        
+        # if email change send email confirmation
+        if new_email != current_user.email:
+            message = '''
+                An email have been send to your new address. 
+                Kindly confirm to update your profile email!
+            '''
+
+            change_email(current_user.firstname, new_email, current_user.email)
+
 
         return jsonify({
-            'message': 'Your profile has been updated!',
+            'message': message,
             'userInfo': user_info,
             'token': f'{token}', 
             'state': 'success'
         })
 
-    # current_user = Trava_Users.query.filter_by(email=email).first()
+    return jsonify({'message': 'Rejected', 'state': 'error'}), 400
 
-    # current_user.password = current_user.password_hash(password)
+#_______________________________________________________________________
+def change_email(firstname, new_email, current_email):
 
-    # db.session.commit()
+    
+    # ----- create Token :
 
-    return jsonify({'message': 'Profile has been updated', 'state': 'success'}), 200
+    payload = {
+        'new_email': new_email,
+        'current_email': current_email,
+    }
 
+    token = s.dumps(payload, salt='change_email')
 
+    # ----- create validation link
+    link = url_for('app_user.update_email', token=token, _external=True)
+
+    # ----- 
+    msg = Message(
+        'Confirm your new email address', 
+        sender=(app.config['MAIL_DEFAULT_SENDER'], 
+        app.config['MAIL_USERNAME']) , recipients=[new_email]
+    )
+
+    msg.html = render_template(
+        'email_change_address.html', 
+        name=firstname, 
+        link=link,
+        logo=app.config['MAIL_LOGO'],
+        new_email=new_email
+    )
+    mail.send(msg) 
+
+#_______________________________________________________________________
+@app_user.route('/update_email/<token>', methods=['Get'])
+def update_email(token):
+    try:
+        new_email, current_email = s.loads(token, salt='change_email', max_age=3600).values()
+
+        
+
+        current_user = Trava_Users.query.filter_by(email=current_email).first()
+
+        current_user.email = new_email
+        db.session.commit()
+        
+        return redirect('{}update/{}'.format(app.config['FRONTEND_BASE_URL'], new_email))
+    except SignatureExpired :
+        return redirect(url_for('app_user.timeout'))
+    except :
+        return redirect(url_for('app_user.page_not_found'))
+    
 #_______________________________________________________________________
 
 # ----- Router depreciated
@@ -415,7 +480,7 @@ def timeout():
         'error_page.html',
         error_code=408,
         name='there',
-        message='It seems that the activation link has expired. Kindly try again!',
+        message='Sorry, this link has expired. Kindly try again!',
         link=app.config['FRONTEND_BASE_URL'],
         logo=app.config['MAIL_LOGO']
     )
@@ -429,7 +494,7 @@ def page_not_found():
         'error_page.html',
         error_code=404,
         name='there',
-        message='It seems the page you are loonking for does not exist. Sorry!',
+        message='It seems the page you are looking for does not exist. Sorry!',
         link=app.config['FRONTEND_BASE_URL'],
         logo=app.config['MAIL_LOGO']
     )
@@ -450,10 +515,13 @@ def test():
 
     return render_template(
         # 'email_validation.html', 
-        'email_reset_password.html', 
+        # 'email_reset_password.html', 
+        'email_update.html', 
         name='Chris', 
         link=app.config['MAIL_LOGO'],
-        logo=app.config['MAIL_LOGO']
+        logo=app.config['MAIL_LOGO'],
+        current_email='chris12auh@yahoo.com',
+        new_email='chrismariojimmy@yahoo.com'
     )
 
 # ______________________________________________________________________
