@@ -18,22 +18,16 @@
                     <a href="#">Delete Account!</a>
                 </div>
 
-
-
         </div>
-
        
         <button 
  
             class="btn profile__btn--2 mt-sm"
             :class="{'disabled': !profileEdited}"
             @click="updateProfile()">Save Updates</button>
-
-        
-
        
     </div>
-    <FlashMessage :position="'right bottom'"></FlashMessage>
+    <FlashMessage :position="'right top'"></FlashMessage>
 </div>
 
 </template>
@@ -45,11 +39,11 @@ export default {
     data() {
         return {
             userInfo: {
-                firstname: 'Christopher',
-                lastname: 'Farrugia', 
-                email: 'chris12agu@yahoo.com',               
-                dob: '12/08/1984',
-                signup: '01/12/2020',
+                firstname: '',
+                lastname: '', 
+                email: '',               
+                dob: '',
+                signup: '',
                 
             },
             profileEdited: false
@@ -75,17 +69,15 @@ export default {
                 userInfo: payload,
                 token: this.$store.getters.getToken
             })
-            .then( data => {
-                
+            .then( data => {  
+                console.log(data.userInfo)              
                 this.$store.commit('setUserInfo', data.userInfo);  
                 this.$store.dispatch('saveToCookie', {token: data.token, userInfo: data.userInfo})              
                 this.profileEdited = false;
                 this.myThenFunction(data);
             })
-            .then(()=>{
-                
-                this.updateData();
-                
+            .then(()=>{                
+                this.updateData();                
             })
             .catch(err => console.log(err))
         },
