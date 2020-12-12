@@ -165,10 +165,12 @@ const createStore = () => {
             },
             saveToCookie(vuexContext, payload) {
                 const decoded = jwt.verify(`${payload.token}`, this.$config.BESK);
-                const expires = (decoded['seconds'] - 10) / 86400; 
+                const token_exp = decoded.exp - Date.parse(new Date()) / 1000;
+                const expires = (token_exp - 10) / 86400;                 
+                
+                // I am getting the exp of token and calulate time remaning in sec
+                // then i am dividing by 86400 (seconds in a day), I am removing 10s for safty
                 // js-cookie expires is calc. in day, so I am giving a fraction of a day.
-                // 86400 are seconds in a day, I am removing it 10s earlier.
-                // I am have set the exp in my token as seconds & I am using in my cookie.
                 
                 Cookies.set('trava_jwt_email', JSON.stringify(payload), {expires, sameSite: 'strict'})
             },
@@ -180,6 +182,13 @@ const createStore = () => {
                 if (!cookie_string) return;
 
                 const cookie_object = JSON.parse(cookie_string);
+
+                const token = cookie_object.token;
+                const decoded = jwt.verify(token, this.$config.BESK);
+                const token_exp = decoded.exp - Date.parse(new Date()) / 1000;
+                console.log(`Token expires in ${token_exp} seconds`);
+
+
             
                 // let check_my_token = await vuexContext.dispatch('checkToken', cookie_object.token); // <-
                 // console.log(check_my_token);// <-
