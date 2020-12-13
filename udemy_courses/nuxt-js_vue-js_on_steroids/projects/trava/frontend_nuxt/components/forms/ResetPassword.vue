@@ -10,6 +10,15 @@
 
             
             <input 
+                v-if="this.$store.getters.getIsUserLogedIn"
+                v-model="password0" 
+                class="full-span" 
+                type="password" 
+                placeholder="Enter current password"
+                @blur="$v.password0.$touch()"
+                :class="{'invalid': validateField('password0')}">
+
+            <input 
                 v-model="password1" 
                 class="full-span" 
                 type="password" 
@@ -48,15 +57,20 @@
         },
         data() {
             return {
-                mainTitle: 'Reset Password',
+
                 subTitle: 'Keep it secret!',
+                password0: '111111',
                 password1: '', 
                 password2: '',
-                email: 'chris12aug@yahoo.com'
+                email: null
                 
             }
         },
         validations: {
+            password0: {
+                required,
+                minLength: minLength(6)                
+            },
             password1: {
                 required,
                 minLength: minLength(6)                
@@ -68,6 +82,9 @@
         computed: {
             retuneEmail() {
                 return this.email ?  this.email : '';
+            },
+            mainTitle() {
+                return this.$store.getters.getIsUserLogedIn ? 'Change Password' : 'Reset Password'
             }
         },
         methods: {
@@ -76,18 +93,28 @@
                     this.flashMessageInvalid();
                     return
                 } 
+                let dispatch_function, payload;
+                if (this.$store.getters.getIsUserLogedIn){
 
-                this.$store.dispatch('changePassword', {
-                    email: this.email,
-                    password: this.password1
-                })
+                    dispatch_function = 'updatePassword';
+                    payload = {
+                        current_password: this.password0, 
+                        new_password: this.password1,
+                        token: this.$store.getters.getToken
+                    };
+                } else {
+
+                    dispatch_function = 'changePassword';
+                    payload = {email: this.email, password: this.password1}
+                }
+                this.$store.dispatch(dispatch_function, {...payload})
                 .then(data => {
                     this.myThenFunction(data);
                 })
                 .catch(err => console.log(err))
             },
             myThenFunction(data) {
-                if (data.state === 'error') {
+                if (data.state === 'error') {                    
 
                     this.flashMessage.show({
                         html: data.message,
@@ -96,6 +123,13 @@
                         blockClass: 'flash_massage_markup'
                     }); 
                 } else {
+                    console.log(data)
+                    this.$store.commit('setUserInfo', data.userInfo);
+                    this.$store.commit('setToken', data.token);
+
+                    const payload_cookie = {userInfo: data.userInfo, token: data.token};
+                    this.$store.dispatch('saveToCookie', payload_cookie); 
+
                     this.$store.dispatch('closeAll');
 
                     this.flashMessage.show({
@@ -137,8 +171,12 @@
 
             },
         },
-        mounted() {
+        async mounted() {
+            await this.$store.dispatch('autoLogin');   //<-
             this.email = this.$store.getters.getUserInfo.email;
+            if (this.$store.getters.getIsUserLogedIn) {
+                this.password0 = null;
+            }
         }
     }
 

@@ -240,7 +240,7 @@ const createStore = () => {
             resetPassword(vuexContext, token) {
                 return this.$axios.$post('trava/user/resetPassword/', {token})
                 .catch(err => {
-                    console.log(err.response)
+                    console.log(err.response);
                     if (err.response.data.state === 'error') {
                         return err.response.data;
                     }
@@ -249,10 +249,19 @@ const createStore = () => {
             changePassword(vuexContext, data) {
                 return this.$axios.$post('trava/user/passwordChange/', data)
                 .catch(err => {
-                    console.log(err.response)
+                    console.log(err.response);
                     if (err.response.data.state === 'error') {
                         return err.response.data;
                     }
+                })
+            },
+            updatePassword(vuexContext, payload) {
+                return this.$axios.$put('trava/user/updatePassword/', payload)
+                .catch(err => {
+                    console.log(err.response);
+                    if (err.response.data.state === 'error') {
+                        return err.response.data;
+                    } 
                 })
             },
             updateProfile({commit, dispatch, getters}, payload) {

@@ -14,7 +14,7 @@
                 @fieldChange="updateField($event, key)"/> 
 
                 <div class="profile__links">
-                    <a href="#">Change Password!</a>
+                    <a href="#" @click="changePassword()">Change Password!</a>
                     <a href="#">Delete Account!</a>
                 </div>
 
@@ -69,15 +69,9 @@ export default {
                 userInfo: payload,
                 token: this.$store.getters.getToken
             })
-            .then( data => {  
-                console.log(data.userInfo)              
-                this.$store.commit('setUserInfo', data.userInfo);  
-                this.$store.dispatch('saveToCookie', {token: data.token, userInfo: data.userInfo})              
-                this.profileEdited = false;
-                this.myThenFunction(data);
-            })
-            .then(()=>{                
-                this.updateData();                
+            .then( data => {   
+                this.myThenFunction(data);         
+               
             })
             .catch(err => console.log(err))
         },
@@ -90,8 +84,13 @@ export default {
                     status: 'warning',
                     blockClass: 'flash_massage_markup'
                 }); 
+
             } else {
                 this.$store.dispatch('closeAll');
+                this.$store.commit('setUserInfo', data.userInfo);  
+                this.$store.dispatch('saveToCookie', {token: data.token, userInfo: data.userInfo})              
+                this.profileEdited = false;
+                this.updateData(); 
 
                 this.flashMessage.show({
                     html: data.message,
@@ -110,6 +109,11 @@ export default {
             this.$set(this.userInfo, 'dob', d.dob.split(' ').splice(0,4).join(' '))
             this.$set(this.userInfo, 'signup', d.signup.split(' ').splice(0,4).join(' '))
 
+        },
+        changePassword() {
+            this.$router.replace('/')
+            this.$store.dispatch('closeAll');
+            this.$store.dispatch('setForm', {name: 'resetPasswordOn', action: true});
         }
     },
     beforeCreate() {       
@@ -211,6 +215,9 @@ export default {
 
             &:hover {
                 text-decoration: underline;
+            }
+            &:focus {
+                outline: none;
             }
         }
     }

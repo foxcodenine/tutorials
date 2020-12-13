@@ -16,12 +16,9 @@ export default {
         try {
             const decoded = jwt.verify(token, this.$config.BESK);
             console.log(decoded)
-            
+            this.$router.replace({path: '/'});
             this.$store.commit('setUserData', {key: 'email', value: decoded.email});
             this.$store.dispatch('setForm', {name: 'resetPasswordOn', action: true});
-
-            this.$router.push('/');
-
 
         } catch (err) {
             console.log(err)
