@@ -56,7 +56,7 @@ def send_activtion_link(email, firstname):
 
 # _______________________________
 
-def login_current_user(current_user, token):
+def login_current_user(current_user, token, commit=True, message='You have just sign-in!'):
     user_info = {
         'firstname': current_user.firstname,
         'lastname': current_user.lastname,
@@ -64,18 +64,34 @@ def login_current_user(current_user, token):
         'dob': current_user.dob,
         'signup': current_user.signup,
     }    
-
-    current_user.signin = datetime.utcnow()
-    db.session.commit()
+    
+    if commit:
+        current_user.signin = datetime.utcnow()
+        db.session.commit()
     
     
     return jsonify({
-        'message': 'You have just sign-in!',
+        'message': message,
         'userInfo': user_info,
         'token': f'{token}', 
         'state': 'success'
     })
 
+# _______________________________
+
+def create_token(current_user, exp, name='user_login_token'):
+
+    token = jwt.encode({
+        # current_user.email: current_user.password,
+        'name': name,
+        'user_id': current_user.id,
+        'hashed':current_user.password,
+        'exp': datetime.utcnow() + timedelta(seconds=exp),
+        'iat': datetime.utcnow(),
+        # 'seconds': exp
+    }, app.config['SECRET_KEY']).decode("utf-8")
+
+    return token
 
 # ______________________________________________________________________
 
@@ -101,11 +117,14 @@ def user(goto=False):
     if request.method == 'POST' and goto == 'resend':
         return redirect(url_for('app_user.resend_email'), code=307)
 
-    if request.method == 'POST' and goto == 'autoLogin':
-        return redirect(url_for('app_user.auto_login'), code=307)
+    # if request.method == 'POST' and goto == 'autoLogin':
+    #     return redirect(url_for('app_user.auto_login'), code=307)
 
     if request.method == 'PUT' and goto == 'profileUpdate':
         return redirect(url_for('app_user.profile_update'), code=307)
+
+    if request.method == 'PUT' and goto == 'updatePassword':
+        return redirect(url_for('app_user.update_password'), code=307)
 
     if request.method == 'GET':
         return redirect(url_for('app_user.fetch_users'), code=307)
@@ -221,17 +240,9 @@ def login():
 
 
     # ----- Create Token for login:
-    exp = 3600 # token expires set in seconds
 
-    token = jwt.encode({
-        # current_user.email: current_user.password,
-        'name': 'user_login_token',
-        'user_id': current_user.id,
-        'hashed':current_user.password,
-        'exp': datetime.utcnow() + timedelta(seconds=exp),
-        'iat': datetime.utcnow(),
-        'seconds': exp
-    }, app.config['SECRET_KEY']).decode("utf-8")
+    token = create_token(current_user, 3600)
+
 
    
     return login_current_user(current_user, token)
@@ -314,7 +325,7 @@ def reset_password():
         mail.send(msg) 
 
         return jsonify({
-            'message': f'An email to reset the password has been send to {current_user.email}', 
+            'message': f'An email with the password reset link was sent to {current_user.email}', 
         })
 
     except ExpiredSignatureError :
@@ -338,6 +349,47 @@ def change_password():
     db.session.commit()
 
     return jsonify({'message': 'Password have been change!', 'state': 'success'}), 200
+
+#_______________________________________________________________________
+
+@app_user.route('/update_password', methods=['PUT'])
+def update_password():
+    current_password, new_password, token = retrive_data().values()
+
+    
+    
+    
+
+    try: 
+        decoded = jwt.decode(token, app.config['SECRET_KEY'])
+
+        current_user = Trava_Users.query.filter_by(id=decoded['user_id']).first()
+
+
+        if current_user and current_user.password_check(current_user.password, current_password):
+
+            
+            current_user.signin = datetime.utcnow()
+            current_user.password = current_user.password_hash(new_password)
+            db.session.commit()
+
+            current_user = Trava_Users.query.filter_by(id=decoded['user_id']).first()
+            token = create_token(current_user, 3600)            
+
+            return login_current_user(current_user, token, commit=False, message='Password updated successfully')
+
+        else:        
+            return jsonify({'message': 'Current password is incorrect!', 'state': 'error'}), 401 # <-
+
+
+    except ExpiredSignatureError :
+        return jsonify({'message': 'Token has expired! Please sige-out and login again', 'state': 'error'}), 408
+
+    except InvalidSignatureError:
+        return jsonify({'message': 'Invalid Token!', 'state': 'error'}), 401
+    
+
+    
 
 
 #_______________________________________________________________________
@@ -380,6 +432,16 @@ def profile_update():
                 An email have been send to your new address. 
                 Kindly confirm to update your profile email!
             '''
+
+            # check if new email alread in db
+
+            chk_email = Trava_Users.query.filter_by(email=new_email).first()
+            if chk_email:
+                return  jsonify({
+                    'message': 'Email Address is Already Registered!', 
+                    'state': 'error'
+                }), 400
+             
 
             change_email(current_user.firstname, new_email, current_user.email)
 
@@ -426,7 +488,7 @@ def change_email(firstname, new_email, current_email):
     mail.send(msg) 
 
 #_______________________________________________________________________
-@app_user.route('/update_email/<token>', methods=['Get'])
+@app_user.route('/update_email/<token>', methods=['GET'])
 def update_email(token):
     try:
         new_email, current_email = s.loads(token, salt='change_email', max_age=3600).values()
