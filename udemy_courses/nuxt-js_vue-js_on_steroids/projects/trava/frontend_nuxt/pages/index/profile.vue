@@ -15,7 +15,7 @@
 
                 <div class="profile__links">
                     <a href="#" @click="changePassword()">Change Password!</a>
-                    <a href="#">Delete Account!</a>
+                    <a href="#" @click="deleteAccount()">Delete Account!</a>
                 </div>
 
         </div>
@@ -57,6 +57,10 @@ export default {
         updateField(value, key) {
             this.profileEdited = true;
             this.userInfo[key] = value;
+        },
+        deleteAccount() {
+            this.$router.push('/')
+            this.$store.dispatch('setForm', {name: 'deleteAccountOn', action: true})
         },
         updateProfile() {
             if (!this.profileEdited) {

@@ -34,6 +34,8 @@
         mainTitle="Recover Password"
         subTitle="Don't worry, have you covered!"
         taskSendPassword="true"/> 
+
+      <DeleteAccount v-if="this.$store.getters.getDeleteAccountOn" />
     </transition>
 
     <FlashMessage :position="'right bottom'" v-if="this.$route.path === '/'"></FlashMessage>
@@ -51,6 +53,7 @@ import SignIn from "@/components/forms/SignIn";
 import NewBox from "@/components/forms/NewBox";
 import ResetPassword from "@/components/forms/ResetPassword";
 import ResendEmailPassword from "@/components/forms/ResendEmailPassword";
+import DeleteAccount from "@/components/forms/DeleteAccount";
 
 export default {
   components: {
@@ -62,6 +65,7 @@ export default {
     SignIn,
     NewBox,
     ResendEmailPassword,
+    DeleteAccount,
   },
   computed: {
     isUserLogedIn() {

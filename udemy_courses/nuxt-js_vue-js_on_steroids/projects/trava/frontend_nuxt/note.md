@@ -177,3 +177,8 @@ https://davidwalsh.name/css-variables-javascript
 
     console.log(getComputedStyle(document.documentElement).getPropertyValue('--color-primary'))
     document.documentElement.style.setProperty('--color-primary', 'pink');
+
+<!-- --------------------------------------------------------------- -->
+
+Vue setInterval() And  clearInterval()
+https://renatello.com/vue-js-polling-using-setinterval/
