@@ -29,7 +29,9 @@ const createStore = () => {
 
             resendValEmailOn: false,
             resendPasswordOn: false,
-            resetPasswordOn: false,            
+            resetPasswordOn: false,  
+            
+            deleteAccountOn: false,
 
             noBrowserSupport: false,
 
@@ -76,6 +78,7 @@ const createStore = () => {
                 state.resendPasswordOn = false;
                 state.resendValEmailOn = false;
                 state.resetPasswordOn = false;
+                state.deleteAccountOn = false;
             },
             setUserData(state, payload) {
                 state.userInfoState[payload.key] = payload.value;
@@ -151,11 +154,12 @@ const createStore = () => {
                 document.documentElement.style.setProperty('--color-primary', '#dff0f8');
                 document.documentElement.style.setProperty('--color-primary-dark', '#7ba3cf');
             },
-            userSignOut({commit}) {
+            userSignOut({commit, dispatch}) {
 
                 const userInfo = {
                     firstname: '', lastname: '', email: '',  dob: '',signup: ''
                 }
+                dispatch('closeAll');
                 commit('setForm', {name: 'isUserLogedIn', action: false});
                 commit('setUserInfo', userInfo);
                 commit('setToken', null);
@@ -173,6 +177,9 @@ const createStore = () => {
                 // js-cookie expires is calc. in day, so I am giving a fraction of a day.
                 
                 Cookies.set('trava_jwt_email', JSON.stringify(payload), {expires, sameSite: 'strict'})
+            },
+            decodeJWT(vuexContext) {
+                return jwt.verify(vuexContext.getters.getToken, this.$config.BESK);
             },
             async getFromCookie(vuexContext) {
 
@@ -206,6 +213,14 @@ const createStore = () => {
                     console.log(err);
                     return 'invalide';                    
                 }
+            },
+            async checkPassword(vuexContext, password) {
+                const decoded = await vuexContext.dispatch('decodeJWT');
+                const hashed = decoded.hashed;
+
+                return this.$axios.$post('trava/user/checkPassword/', {hashed, password})
+                .then(data => data.result)
+                .catch(err => console.log(err)) 
             },
             async autoLogin(vuexContext) {
                 console.log('<<AutoLogin>>')
@@ -257,6 +272,22 @@ const createStore = () => {
             },
             updatePassword(vuexContext, payload) {
                 return this.$axios.$put('trava/user/updatePassword/', payload)
+                .catch(err => {
+                    console.log(err.response);
+                    if (err.response.data.state === 'error') {
+                        return err.response.data;
+                    } 
+                })
+            },
+            async deleteAccount(vuexContext) {
+
+                const decoded = await vuexContext.dispatch('decodeJWT');
+                const hashed = decoded.hashed;
+                const payload = {
+                    email: vuexContext.getters.getUserInfo['email'],
+                    hashed 
+                }
+                return this.$axios.$post('trava/user/deleteAccount/', payload)
                 .catch(err => {
                     console.log(err.response);
                     if (err.response.data.state === 'error') {
@@ -340,6 +371,9 @@ const createStore = () => {
             getResetPasswordOn(state) {
 
                 return state.resetPasswordOn;
+            },
+            getDeleteAccountOn(state) {
+                return state.deleteAccountOn;
             },
         }
     })

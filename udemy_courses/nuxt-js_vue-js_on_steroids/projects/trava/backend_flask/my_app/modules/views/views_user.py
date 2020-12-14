@@ -1,4 +1,4 @@
-from my_app import app, mail
+from my_app import app, mail, bcrypt
 from flask import Blueprint, jsonify, redirect, request, url_for, render_template, session
 # from my_app.modules.helper_functions import check_header
 from my_app.modules.database import db, Trava_Users
@@ -101,12 +101,18 @@ def create_token(current_user, exp, name='user_login_token'):
 @app_user.route('/<goto>/', methods=['GET','POST', 'PUT'])
 def user(goto=False):
 
+    print(1111)
+
 
     if check_header(request.headers.get('API_KEY')):
         return jsonify({'message': 'Unauthorized', 'state': 'error'}), 401
 
     if request.method == 'POST' and goto == 'signin':
         return redirect(url_for('app_user.login'), code=307)
+
+    if request.method == 'POST' and goto == 'deleteAccount':
+        print(5555)
+        return redirect(url_for('app_user.delete_account'), code=307)
 
     if request.method == 'POST' and goto == 'passwordChange':
         return redirect(url_for('app_user.change_password'), code=307)
@@ -116,6 +122,9 @@ def user(goto=False):
 
     if request.method == 'POST' and goto == 'resend':
         return redirect(url_for('app_user.resend_email'), code=307)
+
+    if request.method == 'POST' and goto == 'checkPassword':
+        return redirect(url_for('app_user.check_password'), code=307)
 
     # if request.method == 'POST' and goto == 'autoLogin':
     #     return redirect(url_for('app_user.auto_login'), code=307)
@@ -355,8 +364,6 @@ def change_password():
 @app_user.route('/update_password', methods=['PUT'])
 def update_password():
     current_password, new_password, token = retrive_data().values()
-
-    
     
     
 
@@ -387,10 +394,19 @@ def update_password():
 
     except InvalidSignatureError:
         return jsonify({'message': 'Invalid Token!', 'state': 'error'}), 401
-    
+
+#_______________________________________________________________________
+   
+@app_user.route('/check_password', methods=['POST'])
+def check_password():
+
+    pw_hash, candidate = retrive_data().values()
+
+    result = bcrypt.check_password_hash(pw_hash, candidate)
+
+    return jsonify({'result': result}), 200
 
     
-
 
 #_______________________________________________________________________
 
@@ -533,6 +549,26 @@ def auto_login():
         }), 400
 
     return login_current_user(current_user, token)
+
+
+@app_user.route('/delete_account', methods=['POST', 'DELETE'])
+def delete_account():
+
+    email, hashed = retrive_data().values()
+
+    current_user = Trava_Users.query.filter_by(email=email).first()
+
+    if current_user and current_user.password and current_user.password == hashed:
+        db.session.delete(current_user)
+        db.session.commit()
+        return  jsonify({
+            'message': 'You\'ve syccessfully deleted your Trava account!', 
+            'state': 'success'
+        }), 200
+    
+    else :
+        return jsonify({'message': 'Authorized!', 'state': 'error'}), 401
+
 
 #_______________________________________________________________________
 @app_user.route('/timeout')
