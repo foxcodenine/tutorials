@@ -1,7 +1,7 @@
 <template>
     <div class="formbox" >
 
-        <CloseAll></CloseAll>
+        <CloseAll v-if="!deleteAccountOn" />
 
         <h2 class="heading-2 mb-tn">{{mainTitle}}</h2>
         <div class="formbox__text mb-sm"><div>{{subTitle}}</div> <div>{{ retuneEmail }}</div></div>
@@ -30,10 +30,7 @@
 
             
 
-        </div>
-        <!-- <button class="formbox__btn mb-sm " @click="checkPassword">Test</button> -->
-       
-        
+        </div>        
     </div>     
 </template>
 
@@ -55,9 +52,6 @@
                 deleteAccountOn : false,
                 
                 timer: 60,
-                t:null
-
-                             
             }
         },
         validations: {
@@ -125,30 +119,15 @@
             },
             async checkPassword() {                
                 const result =  await this.$store.dispatch('checkPassword', this.password);
+                if (!result) {
+                    this.flashMessage.show({
+                        html: `<ul class="flash_massage_markup">Invalid password!</ul>`,
+                        time: 6000,
+                        status: 'warning',
+                        blockClass: 'custom-block-class'
+                    })
+                }
                 return result;
-            },
-            flashMessageInvalid() {                
-
-                let markup = ``;
-
-                // statments
-
-                // if (!this.$v.password1.$dirty) {
-                //     markup += '<li>Password is required!</li>'
-                // } else if (this.$v.password1.$invalid) {
-                //     markup += '<li>Password is too short!</li>'
-                // } else if (this.$v.password2.$invalid) {
-                //     markup += '<li>Passwords does not match!</li>'
-                // }               
-
-                const html = `<ul class="flash_massage_markup">${markup}</ul>`
-
-                this.flashMessage.show({
-                    html,
-                    time: 10000,
-                    status: 'warning',
-                    blockClass: 'custom-block-class'
-                })
             },
         },
         async mounted() {
