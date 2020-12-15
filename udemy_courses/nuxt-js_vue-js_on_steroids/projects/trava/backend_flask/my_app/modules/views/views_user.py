@@ -88,7 +88,7 @@ def create_token(current_user, exp, name='user_login_token'):
         'hashed':current_user.password,
         'exp': datetime.utcnow() + timedelta(seconds=exp),
         'iat': datetime.utcnow(),
-        # 'seconds': exp
+        'reset': exp
     }, app.config['SECRET_KEY']).decode("utf-8")
 
     return token
@@ -250,7 +250,7 @@ def login():
 
     # ----- Create Token for login:
 
-    token = create_token(current_user, 3600)
+    token = create_token(current_user, app.config['EXP_TIME_LOGIN'])
 
 
    
@@ -283,7 +283,7 @@ def resend_email():
 @app_user.route('/validate_email/<token>')
 def validate_email(token):
     try:
-        email = s.loads(token, salt='validate_email', max_age=3600)
+        email = s.loads(token, salt='validate_email', max_age=app.config['EXP_TIME_EMAIL_CONF'])
 
         current_user = Trava_Users.query.filter_by(email=email).first()
         current_user.active = True 
@@ -301,6 +301,8 @@ def validate_email(token):
 # ______________________________________________________________________
 @app_user.route('/reset_password', methods=['POST'])
 def reset_password():
+    # This Router is use when User Forgets the password.
+    # It will send email with link to fronted to create new password
     try:
         encoded_jwt = retrive_data()['token']
         token = jwt.decode(encoded_jwt, app.config['SECRET_KEY'])
@@ -347,6 +349,10 @@ def reset_password():
 
 @app_user.route('/change_password', methods=['POST'])
 def change_password():
+    # This Router is use when User Forgets the password 
+    # And is accessed from frontend after email is submited and link used!
+    # It will save new pw in db, no need to resend toke. Cause user ist'n logged in
+    
     user_data = retrive_data()
 
     email, password = user_data.values()
@@ -363,8 +369,11 @@ def change_password():
 
 @app_user.route('/update_password', methods=['PUT'])
 def update_password():
-    current_password, new_password, token = retrive_data().values()
+    # This Router is use to change password from frontend in profile page
+    # While use is loaged in. 
+    # New Token need to be send and new pw need to be saved in db
     
+    current_password, new_password, token = retrive_data().values()   
     
 
     try: 
@@ -381,7 +390,7 @@ def update_password():
             db.session.commit()
 
             current_user = Trava_Users.query.filter_by(id=decoded['user_id']).first()
-            token = create_token(current_user, 3600)            
+            token = create_token(current_user, app.config['EXP_TIME_LOGIN'])            
 
             return login_current_user(current_user, token, commit=False, message='Password updated successfully')
 
@@ -507,7 +516,7 @@ def change_email(firstname, new_email, current_email):
 @app_user.route('/update_email/<token>', methods=['GET'])
 def update_email(token):
     try:
-        new_email, current_email = s.loads(token, salt='change_email', max_age=3600).values()
+        new_email, current_email = s.loads(token, salt='change_email', max_age=app.config['EXP_TIME_EMAIL_CONF']).values()
 
         
 
@@ -550,6 +559,7 @@ def auto_login():
 
     return login_current_user(current_user, token)
 
+#_______________________________________________________________________
 
 @app_user.route('/delete_account', methods=['POST', 'DELETE'])
 def delete_account():

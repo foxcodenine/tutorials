@@ -41,6 +41,8 @@ const createStore = () => {
 
             token: null,
 
+            autoLogOut: null,
+
             userInfoState: {
                 firstname: '',
                 lastname: '',
@@ -89,6 +91,9 @@ const createStore = () => {
             },
             setToken(state, payload) {
                 state.token = payload;
+            },
+            setAutoLogOut(state, payload) {
+                state.autoLogOut = payload;
             }
         },
     // __________________________________
@@ -147,12 +152,18 @@ const createStore = () => {
                     }
                 })
             },
-            userSignIn({commit}, payload) {
+            async userSignIn({commit, dispatch, getters}, payload) {
                 commit('setForm', {name: 'isUserLogedIn', action: true});
                 commit('setUserInfo', payload.userInfo);
                 commit('setToken', payload.token);
                 document.documentElement.style.setProperty('--color-primary', '#dff0f8');
                 document.documentElement.style.setProperty('--color-primary-dark', '#7ba3cf');
+                
+                // Clear previous 'Sign-out if token exp'
+                clearTimeout(getters.getSetAutoLogOut);
+                // Sign-out if token exp
+                await dispatch('autoLogOut');
+
             },
             userSignOut({commit, dispatch}) {
 
@@ -222,6 +233,20 @@ const createStore = () => {
                 .then(data => data.result)
                 .catch(err => console.log(err)) 
             },
+            async autoLogOut({commit, dispatch, getters}) {
+                const token = await getters.getToken;
+                const decoded = jwt.verify(token, this.$config.BESK);
+                
+
+                commit('setAutoLogOut', 
+                    
+                    setTimeout(() => {
+                        console.log('<TimeUp>')
+                        dispatch('userSignOut');
+                        dispatch('setForm', {name: 'signInOn', action: true});
+                    }, decoded.reset * 1000)
+                ) 
+            },
             async autoLogin(vuexContext) {
                 console.log('<<AutoLogin>>')
 
@@ -241,11 +266,30 @@ const createStore = () => {
                 }
 
                 if (await vuexContext.dispatch('checkToken', token) === 'valide') {
+                    // Clear previous 'Sign-out if token exp'
+                    clearTimeout(vuexContext.getters.getSetAutoLogOut);
+
+                    // Decode Token
+                    let decoded = jwt.verify(token, this.$config.BESK)
+
+                    // Restart Token exp
+                    decoded.iat = Math.floor(Date.now() / 1000);
+                    console.log(decoded.iat)
+                    console.log(decoded.exp)
+                    delete decoded.exp;
+                    // Encode new Token
+                    const newToken = jwt.sign(decoded, this.$config.BESK, { expiresIn: decoded.reset }) 
                     const payload = {
-                        token,
+                        token: newToken,
                         userInfo                      
                     }
+                    // Save new Token in cookie and store with userInfo
                     vuexContext.dispatch('userSignIn', payload);
+                    vuexContext.dispatch('saveToCookie', payload);
+
+                    // Sign-out if token exp
+                    vuexContext.dispatch('autoLogOut');
+
                     return
                 } else {
                     Cookies.remove('trava_jwt_email');
@@ -375,6 +419,9 @@ const createStore = () => {
             getDeleteAccountOn(state) {
                 return state.deleteAccountOn;
             },
+            getSetAutoLogOut(state) {
+                return state.setAutoLogOut
+            }
         }
     })
 }

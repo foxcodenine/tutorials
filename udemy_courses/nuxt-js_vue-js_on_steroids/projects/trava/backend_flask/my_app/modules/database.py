@@ -48,21 +48,24 @@ class Trava_Users(db.Model):
     def password_check(self, pw_hash, candidate):
         return bcrypt.check_password_hash(pw_hash, candidate)
 
-    def encode_auth_token(self, email, hash_password):
+    def encode_auth_token(self, current_user, exp, name='user_login_token'):
         """Generates the Auth Token"""
         try:
             payload = {
-                email : hash_password,
-                'exp': datetime.utcnow() + timedelta(days=0, minutes=60),
-                'iat': datetime.utcnow()
+                'name': name,
+                'user_id': current_user.id,
+                'hashed':current_user.password,
+                'exp': datetime.utcnow() + timedelta(seconds=exp),
+                'iat': datetime.utcnow(),
+                'reset': exp
             }
             
             token = jwt.encode(
                 payload,
                 app.config.get('SECRET_KEY'),
                 algorithm='HS256'
-            )
-            print(token)
+            ).decode("utf-8")
+
             return token
             
         except Exception as e:
