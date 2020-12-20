@@ -24,7 +24,7 @@ class Trava_Users(db.Model):
     signin = db.Column(db.DateTime())
     active = db.Column(db.Boolean())
     role = db.relationship('Trava_Admin', backref='user', lazy='dynamic')
-    data = db.relationship('Trava_Data', backref='user', lazy='dynamic')
+    picture = db.relationship('Trava_Pictures', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return f'<User id: {self.id} name: {self.firstname} {self.lastname}>'
@@ -98,8 +98,8 @@ class Trava_Admin(db.Model):
 
 # _______________________________
 
-class Trava_Data(db.Model):
-    __tablename__ = 'trava_data'
+class Trava_Pictures(db.Model):
+    __tablename__ = 'trava_pictures'
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('trava_users.id'))
