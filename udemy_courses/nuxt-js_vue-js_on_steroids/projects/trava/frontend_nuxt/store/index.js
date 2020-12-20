@@ -10,6 +10,8 @@ const jwt = require('jsonwebtoken');
 
 // _____________________________________________________________________
 // Vuex store
+import pictures from "./modules/pictures";
+import * as actions from "./actions";
 
 const createStore = () => {
     // <- You reture the Store from a function so each client has its store!
@@ -52,7 +54,9 @@ const createStore = () => {
             }
         },
     // __________________________________
-
+        modules: {
+            pictures
+        },
         mutations: {
             setMyBoxes(state, boxs) {
                 state.myBoxes = boxs;
@@ -99,6 +103,7 @@ const createStore = () => {
     // __________________________________
 
         actions: {
+            ...actions,
             async serverInit(vuexContext, context) {
                 // ----- fetch and set boxes data:
                 vuexContext.commit('setMyBoxes', initData);

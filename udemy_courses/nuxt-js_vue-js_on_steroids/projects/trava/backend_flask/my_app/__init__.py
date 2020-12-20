@@ -26,12 +26,12 @@ mail = Mail(app)
 CORS(app)
 # ______________________________________________________________________
 
-from my_app.modules.database import Trava_Admin, Trava_Data, Trava_Users
+from my_app.modules.database import Trava_Admin, Trava_Pictures, Trava_Users
 from my_app.modules.views.views_user import app_user
 from my_app.modules.views.views_admin import app_admin
-from my_app.modules.views.views_data import app_data
+from my_app.modules.views.views_pictures import app_pictures
 
-app.register_blueprint(app_data)
+app.register_blueprint(app_pictures)
 app.register_blueprint(app_admin)
 app.register_blueprint(app_user)
 
