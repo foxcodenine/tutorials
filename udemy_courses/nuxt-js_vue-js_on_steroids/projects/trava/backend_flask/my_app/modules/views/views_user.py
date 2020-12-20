@@ -20,16 +20,8 @@ s = URLSafeTimedSerializer(app.config['SECRET_KEY'])
 
 # Helper Functions
 
-def check_header(request_xhr_key):
-    if not request_xhr_key or request_xhr_key != '123#456#789':
-        return True
+from ._views_helper_functions import *
 
-# _______________________________
-
-def retrive_data():
-    data_str = request.data.decode("UTF-8")
-    data_dict = ast.literal_eval(data_str)
-    return data_dict
 # _______________________________
 
 def send_activtion_link(email, firstname):
@@ -101,8 +93,6 @@ def create_token(current_user, exp, name='user_login_token'):
 @app_user.route('/<goto>/', methods=['GET','POST', 'PUT'])
 def user(goto=False):
 
-    print(1111)
-
 
     if check_header(request.headers.get('API_KEY')):
         return jsonify({'message': 'Unauthorized', 'state': 'error'}), 401
@@ -111,7 +101,6 @@ def user(goto=False):
         return redirect(url_for('app_user.login'), code=307)
 
     if request.method == 'POST' and goto == 'deleteAccount':
-        print(5555)
         return redirect(url_for('app_user.delete_account'), code=307)
 
     if request.method == 'POST' and goto == 'passwordChange':
