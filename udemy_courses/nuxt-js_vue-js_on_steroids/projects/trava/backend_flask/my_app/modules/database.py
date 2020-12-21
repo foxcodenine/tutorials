@@ -103,13 +103,14 @@ class Trava_Pictures(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('trava_users.id'))
-    image = db.Column(db.String(255), nullable=False)
-    name =  db.Column(db.Text, nullable=False)
+    image_url = db.Column(db.String(255), nullable=False)
+    image_text =  db.Column(db.Text, nullable=False)
+    # user = db.relationship('Trava_Users')
 
-    def __init__(self, user_id, image, name):
+    def __init__(self, user_id, image_url, image_text):
         self.user_id = user_id
-        self.image = image
-        self.name = name
+        self.image_url = image_url
+        self.image_text = image_text
 
 
 # _______________________________

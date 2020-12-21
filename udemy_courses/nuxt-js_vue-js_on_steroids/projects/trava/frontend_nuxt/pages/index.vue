@@ -89,7 +89,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('serverInit'); // <- if spa
+    this.$store.dispatch('serverInit'); // <- if SPA
   },
   beforeMount() {
     if (this.$detectBrowser() === 'IE' || this.$detectBrowser() === 'Unknown') {
@@ -97,7 +97,8 @@ export default {
     }
   },
   async mounted() {
-    await this.$store.dispatch('autoLogin');   //<-    
+    await this.$store.dispatch('autoLogin');   //<- 
+    await this.$store.dispatch('pictures/fetchUserBoxes')   
        
                     
 
