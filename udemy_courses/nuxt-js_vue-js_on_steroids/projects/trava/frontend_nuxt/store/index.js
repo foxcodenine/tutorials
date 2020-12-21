@@ -90,7 +90,6 @@ const createStore = () => {
                 state.userInfoState[payload.key] = payload.value;
             },
             setUserInfo(state, payload) {
-                console.log(1)
                 state.userInfoState = payload;
             },
             setToken(state, payload) {
@@ -105,9 +104,9 @@ const createStore = () => {
         actions: {
             ...actions,
             async serverInit(vuexContext, context) {
+
                 // ----- fetch and set boxes data:
-                vuexContext.commit('setMyBoxes', initData);
-                
+                vuexContext.commit('setMyBoxes', initData);                
             },
             setVoices(vuexContext, payload) {
                 vuexContext.commit('setVoices', payload);
@@ -279,8 +278,6 @@ const createStore = () => {
 
                     // Restart Token exp
                     decoded.iat = Math.floor(Date.now() / 1000);
-                    console.log(decoded.iat)
-                    console.log(decoded.exp)
                     delete decoded.exp;
                     // Encode new Token
                     const newToken = jwt.sign(decoded, this.$config.BESK, { expiresIn: decoded.reset }) 

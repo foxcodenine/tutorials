@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS, cross_origin
 from flask_mail import Mail
+import boto3
 
 def create_app():
     app = Flask(__name__)
@@ -24,6 +25,16 @@ db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 mail = Mail(app)
 CORS(app)
+
+# ______________________________________________________________________
+
+# Setting up boto3
+
+s3_client = boto3.client('s3')
+s3_resource = boto3.resource('s3')
+
+# Note. to access the client directly via the resource
+# s3_resource.meta.client
 # ______________________________________________________________________
 
 from my_app.modules.database import Trava_Admin, Trava_Pictures, Trava_Users
