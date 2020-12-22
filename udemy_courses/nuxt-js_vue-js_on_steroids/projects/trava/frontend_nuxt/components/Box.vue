@@ -11,6 +11,9 @@ export default {
     props: ['item'],
     computed: {
         getImgUrl() {
+            if (this.item.image.length > 50) {
+                return this.item.image
+            }
             return require(`@/assets/img/${this.item.image.split('/')[2]}`)
         }
     },

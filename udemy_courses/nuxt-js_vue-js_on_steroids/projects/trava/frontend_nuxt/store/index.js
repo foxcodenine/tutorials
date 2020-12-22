@@ -19,6 +19,7 @@ const createStore = () => {
     return new Vuex.Store({
 
         state: {
+            myDefault: [],
             myBoxes: [],
             voices: [],
             selectedVoice: 'English (Great Britain)',
@@ -106,6 +107,7 @@ const createStore = () => {
             async serverInit(vuexContext, context) {
 
                 // ----- fetch and set boxes data:
+                vuexContext.state.defaultBoxes = initData;                
                 vuexContext.commit('setMyBoxes', initData);                
             },
             setVoices(vuexContext, payload) {
@@ -169,7 +171,7 @@ const createStore = () => {
                 await dispatch('autoLogOut');
 
             },
-            userSignOut({commit, dispatch}) {
+            userSignOut({commit, dispatch, state}) {
 
                 const userInfo = {
                     firstname: '', lastname: '', email: '',  dob: '',signup: ''
@@ -178,6 +180,7 @@ const createStore = () => {
                 commit('setForm', {name: 'isUserLogedIn', action: false});
                 commit('setUserInfo', userInfo);
                 commit('setToken', null);
+                state.myBoxes = state.defaultBoxes;
                 Cookies.remove('trava_jwt_email');
                 document.documentElement.style.setProperty('--color-primary', '#c5f5e1');
                 document.documentElement.style.setProperty('--color-primary-dark', '#3ab07f');
@@ -251,7 +254,7 @@ const createStore = () => {
                     }, decoded.reset * 1000)
                 ) 
             },
-            async autoLogin(vuexContext) {
+            async autoLogin(vuexContext, userBoxData=null) {
                 console.log('<<AutoLogin>>')
 
                 const cookie_object = await vuexContext.dispatch('getFromCookie');
@@ -283,7 +286,8 @@ const createStore = () => {
                     const newToken = jwt.sign(decoded, this.$config.BESK, { expiresIn: decoded.reset }) 
                     const payload = {
                         token: newToken,
-                        userInfo                      
+                        userInfo,
+                        userBoxes: userBoxData ? [...cookie_object.userBoxes, userBoxData] : cookie_object.userBoxes                     
                     }
                     // Save new Token in cookie and store with userInfo
                     vuexContext.dispatch('userSignIn', payload);
@@ -291,6 +295,9 @@ const createStore = () => {
 
                     // Sign-out if token exp
                     vuexContext.dispatch('autoLogOut');
+
+                    // Add user boxes to UI
+                    vuexContext.state.myBoxes = [...vuexContext.state.myBoxes, ...cookie_object.userBoxes];
 
                     return
                 } else {

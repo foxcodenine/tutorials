@@ -1,10 +1,13 @@
-
-
 const actions = {
 
-    addPicture(context, payload) {
-        this.$axios.$post('trava/pictures/addPicture/', payload)
-        .then(res => console.log(res))
+    addPicture(vuexContext, payload) {
+        return this.$axios.$post('trava/pictures/addPicture/', payload)
+        .then(res => {
+            
+            console.log(res)
+            return res;
+            
+        })
     },
 
     async fetchUserBoxes({commit, dispatch, rootGetters}) {
@@ -14,7 +17,10 @@ const actions = {
             const respons =  await this.$axios.$post(
                 'trava/pictures/fetchPictures/', {token});
 
-            console.log(respons);
+
+
+            const userPictures = respons.user_pictures;
+            return userPictures;
 
         } catch(err) {
             console.log(err);

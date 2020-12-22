@@ -111,15 +111,31 @@
                         const payload = {userInfo: data.userInfo, token: data.token};
 
                         this.$store.dispatch('userSignIn', payload);
+                        
+                        
+                        // Fetching user picture from db
+                        this.$store.dispatch('pictures/fetchUserBoxes') 
+                        .then(res => {
 
-                        const payload_cookie = {userInfo: data.userInfo, token: data.token};
-                        this.$store.dispatch('saveToCookie', payload_cookie);                       
-                        
-                        
+
+                            if (res.length < 1 || !res) {
+                                const payload_cookie = {userInfo: data.userInfo, token: data.token, userBoxes: []};
+                                this.$store.dispatch('saveToCookie', payload_cookie);
+                                return
+                            }
+
+                            this.$store.state.myBoxes = [...this.$store.state.myBoxes, ...res];
+
+
+                            const payload_cookie = {userInfo: data.userInfo, token: data.token, userBoxes: res};
+                            this.$store.dispatch('saveToCookie', payload_cookie);
+
+
+                        }) 
 
                     }
                     
-                }) 
+                })
                 .catch(err => {
                     console.log(err)
                 })                    

@@ -106,15 +106,17 @@ def fetch_pictures():
         token = request.get_json()['token']
         user_id = validate_token(token)
 
-
+        user_pictures = []
 
         current_user = Trava_Users.query.get(user_id)
-        for n in current_user.picture:
-            print(n.image_text)
+        for m in current_user.picture:
+            user_pictures.append({'text': m.image_text, 'image' : m.image_url})   
+
+        print(user_pictures)  
 
         
 
-        return jsonify({'message':'in-fetch-pic-route'})
+        return jsonify({'user_pictures':user_pictures})
     
     return jsonify({'message': 'Page not found!', 'state': 'error'}), 404
 
