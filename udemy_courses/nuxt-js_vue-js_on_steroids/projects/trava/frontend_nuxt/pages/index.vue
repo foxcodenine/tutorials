@@ -98,7 +98,7 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch('autoLogin');   //<- 
-    await this.$store.dispatch('pictures/fetchUserBoxes')   
+      
        
                     
 

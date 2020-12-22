@@ -46,5 +46,5 @@ export const initData = [
     {
       image: './img/grandma.jpg',
       text: 'I Want To Go To Grandmas'
-    }
+    },
   ];
