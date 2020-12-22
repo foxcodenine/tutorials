@@ -77,8 +77,13 @@
                 }   
  
                 this.$store.dispatch('pictures/addPicture', this.createImagePayload())
-                // .then(respons => console.log(respons))
-                // .catch(err => console.log(err))
+                .then(respons => {
+                    // adding new user box in cookie while invoke autologing 
+                    // and refreshing page
+                    this.$store.dispatch('autoLogin', respons);     
+                    location.reload();          
+                })
+                .catch(err => console.log(err))
                 
             },
             readText() {              
