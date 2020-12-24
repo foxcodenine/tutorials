@@ -182,3 +182,7 @@ https://davidwalsh.name/css-variables-javascript
 
 Vue setInterval() And  clearInterval()
 https://renatello.com/vue-js-polling-using-setinterval/
+
+<!-- --------------------------------------------------------------- -->
+How TO - Custom Checkbox
+https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
