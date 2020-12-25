@@ -438,6 +438,9 @@ const createStore = () => {
             },
             getSetAutoLogOut(state) {
                 return state.setAutoLogOut
+            },
+            getBoxToDelete(state) {
+                return state.boxToDelete;
             }
         }
     })
