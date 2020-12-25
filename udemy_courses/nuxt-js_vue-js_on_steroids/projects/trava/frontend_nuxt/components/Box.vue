@@ -24,11 +24,11 @@ export default {
     watch: {
         deleteBox() {
             if (this.deleteBox) {
-                this.$store.commit('addBoxToDelete', this.item.image)
+                this.$store.commit('addBoxToDelete', this.item.image);
             } else {
-                this.$store.commit('removeBoxToDelete', this.item.image)
+                this.$store.commit('removeBoxToDelete', this.item.image);
             }
-            console.log(this.$store.state.boxToDelete);
+            // console.log(this.$store.state.boxToDelete);
         }
     },
     computed: {

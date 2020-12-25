@@ -32,6 +32,9 @@ def pictures(goto=False):
     if request.method == 'POST' and goto == 'addPicture':
         return redirect(url_for('app_pictures.add_picture'), code=307)
 
+    if request.method == 'POST' and goto == 'deletePicture':
+        return redirect(url_for('app_pictures.delete_picture'), code=307)
+
     if request.method == 'POST' and goto == 'fetchPictures':
         return redirect(url_for('app_pictures.fetch_pictures'), code=307)
 
@@ -95,7 +98,41 @@ def add_picture():
 
     return jsonify({'message': 'Page not found!', 'state': 'error'}), 404
 
-# ______________________________________________________________________
+# _______________________________
+
+@app_pictures.route('/delete_picture', methods=['POST', 'GET'])
+def delete_picture():
+
+
+    if request.method == 'POST':
+
+        to_delete, token = request.get_json().values()
+
+        # ----- Validating token & get user_id -----
+        user_id = validate_token(token)
+        if not user_id: 
+            return jsonify({'message': 'Invalid token!', 'state': 'error'}), 401   
+
+        # ----- Delete from db and delete from AWS -----
+
+        bucket = s3_resource.Bucket(os.getenv('my_bucket_name'))
+
+        for d in to_delete:
+            record = Trava_Pictures.query.get_or_404(int(d))
+            db.session.delete(record)
+            db.session.commit()
+
+            bucket.objects.filter(Prefix = f'{user_id}/{d}').delete()
+
+
+        
+        
+
+        return jsonify({'message': 'Picture/s deleted successfully', 'state': 'success'})
+    
+    return jsonify({'message': 'Page not found!', 'state': 'error'}), 404
+
+# _______________________________
 
 @app_pictures.route('/fetch_pictures', methods=['POST', 'GET'])
 def fetch_pictures():
