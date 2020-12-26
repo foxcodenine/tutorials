@@ -119,10 +119,11 @@ def delete_picture():
 
         for d in to_delete:
             record = Trava_Pictures.query.get_or_404(int(d))
-            db.session.delete(record)
-            db.session.commit()
+            db.session.delete(record)            
 
             bucket.objects.filter(Prefix = f'{user_id}/{d}').delete()
+
+        db.session.commit()
 
 
         
