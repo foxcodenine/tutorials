@@ -59,7 +59,7 @@
             }
         },    
         beforeCreate() {
-            this.$store.dispatch('authUser'); 
+            // this.$store.dispatch('authUser'); 
         },    
         mounted() {
             setTimeout(()=>{
