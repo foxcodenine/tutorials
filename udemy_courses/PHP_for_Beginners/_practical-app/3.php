@@ -25,6 +25,43 @@
 
  */
 
+ $var;
+
+ if ($var === 'php') {
+	 echo "I love php!";
+ } elseif ($var) {
+	echo "I don't live php but I love {$var}!";
+ } else {
+	echo "I don't love coding!";
+ }
+
+//  _____________________________________
+
+echo '<br>';
+
+for ($i = 0; $i < 10; $i++, print "{$i}<br>")
+
+//  _____________________________________
+
+$food = 'stone';
+
+switch ($food) {
+	case 'bread':
+		echo "I have bread for lunch today.";
+		break;
+	case 'fish':
+		echo "I have fish for lunch today.";
+		break;
+	case 'salid':
+		echo "I have salid for lunch today.";
+		break;
+	case 'meat':
+		echo "I have meat for lunch today.";
+		break;
+	default:
+		echo 'I have forgot my lunch at home!';
+
+}
 	
 ?>
 

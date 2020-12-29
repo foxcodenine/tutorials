@@ -23,6 +23,21 @@
 
  */
 
+echo '<br><br> --- question #1 --- <br>';
+
+function foo() {
+	return	10 * 10;
+}
+
+echo foo();
+
+echo '<br><br> --- question #2 --- <br>';
+
+function bar($a, $b) {
+	return $a / ($b ** 2);
+}
+
+echo bar(70, 1.65);
 	
 ?>
 
