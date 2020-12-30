@@ -11,62 +11,67 @@
 <?php
 
 // Addition
+echo '<br><br> ---- Addition ---- <br>';
 echo 45 + 55;
 
-echo '<br>';
-
 // Subtraction
+echo '<br><br> ---- Subtraction ---- <br>';
 echo 100 - 50;
 
-echo '<br>';
 
 // Multiplication
+echo '<br><br> ---- Multiplication ---- <br>';
 echo 56 * 44;
 
-echo '<br>';
-
 // Division
+echo '<br><br> ---- Division ---- <br>';
 echo 60 / 7;
 
-echo '<br>';
 
 // Exponentiation
+echo '<br><br> ---- Exponentiation ---- <br>';
 echo 5 ** 2;
 
-echo '<br>';
-
 // Modulo
+echo '<br><br> ---- Modulo ---- <br>';
 echo 5.5 % 2.1;
 
-echo '<br>';
+
 
 // _____________________________________________________________________
 
 // intdiv — Returns the integer quotient of the division of num1 by num2. 
+
+echo '<br><br> ---- intdiv() ---- <br>';
+
 echo intdiv (5, 2);
 
-echo '<br>';
+
 
 // _____________________________________________________________________
 
 
 // fmod — Returns the floating point remainder (modulo) of the division of the arguments
+echo '<br><br> ---- fmod() ---- <br>';
+
 echo fmod(5.5, 2.2);
 
-echo '<br>';
+
 
 // _____________________________________________________________________
-
 
 // Identity 	Conversion of $a to int or float as appropriate. 
+echo '<br><br> ---- Identit ---- <br>';
+
 $a = '100';
 echo $a . 'a' . "<br>";
-echo +$a + '1.11' . "<br>";
+echo +$a + '1.11';
 
 // _____________________________________________________________________
 
-
 // Negation 	Opposite of $a.
+echo '<br><br> ---- Negation ---- <br>';
+
 echo -$a;
 
 echo '<br>';
@@ -77,7 +82,7 @@ echo '<br>';
 
 
 // ---- Incrementing (++) and Decrementing Operators (--) 
-
+echo '<br><br> ---- Incrementing (++) and Decrementing Operators (--)---- <br>';
 
 // Pre-increment and Pre-decrement operator
  
@@ -104,9 +109,9 @@ echo  $i;
 echo '<br>';
 
 $i = 1;
-echo $i--;
+echo $i--; 
 echo '<br>';
-echo  $i;
+echo  $i; 
 
 echo '<br>';
 

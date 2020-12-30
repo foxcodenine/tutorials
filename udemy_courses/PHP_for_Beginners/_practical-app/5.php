@@ -25,6 +25,32 @@
 
  */
 
+
+echo '<br><br> --- question #1 --- <br>';
+
+ function circle_area($r) {
+	 return round(pi() * $r * $r, 1);
+ }
+
+ echo circle_area(5);
+
+ echo '<br><br> --- question #2 --- <br>';
+
+
+ echo ucwords('christopher farrugia');
+
+
+ echo '<br><br> --- question #3 --- <br>';
+
+ $list1 = array('a', 'bb', 'ccc', 'dddd', 'eeee');
+
+ $list2 = array_map(function($v) {
+
+	return $v . $v;
+
+ }, $list1);
+ 
+ print_r ($list2);
 	
 ?>
 
