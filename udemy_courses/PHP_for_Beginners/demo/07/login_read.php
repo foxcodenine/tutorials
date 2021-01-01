@@ -1,35 +1,38 @@
 <?php
 
+require 'db.php';
+require 'db_functions.php';
+
+    // $db_connection = mysqli_connect('Localhost',  'admin' , 'admin', 'phploginapp'); // <- replace by db.php
+
+$result = fetch_users_data();
+
+    // if (!$db_connection) {
+    //     die('Database connection failed!');
+    // } else {
+    //     echo 'Connected to database!';
+    // }
+
+    // $query  = "SELECT * FROM users";
 
 
-$db_connection = mysqli_connect('Localhost',  'admin' , 'admin', 'phploginapp');
+    // $result = mysqli_query($db_connection, $query);
 
-if (!$db_connection) {
-    die('Database connection failed!');
-} else {
-    echo 'Connected to database!';
-}
+    // if (!$result) {
+    //     die('Query Failed! ' . mysqli_error());
+    // }  // <- replace by db_functions/fetch_user_data.php
 
-$query  = "SELECT * FROM users";
-
-
-$result = mysqli_query($db_connection, $query);
-
-if (!$result) {
-    die('Query Failed! ' . mysqli_error());
-} 
+$title = 'Read';
 
 ?>
 
+<!-- --------------------------------------------------------------- -->
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-    <title>PHP Login Read</title>
-</head>
+<?php include 'include/header.php'?>
+
 <body>
 
 <div class="container">
