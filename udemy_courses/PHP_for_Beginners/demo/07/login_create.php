@@ -1,40 +1,17 @@
-<?php
+<?php require 'db.php'; ?>
+<?php require 'db_functions.php'; ?>
 
-if (isset($_POST['submit'])) {
-    // echo "form has been submitted!";
+<?php $result = create_users_record(); ?>
 
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+<?php $title = 'Create'; ?>
 
-    $db_connection = mysqli_connect('Localhost',  'admin' , 'admin', 'phploginapp');
-
-    if (!$db_connection) {
-        die('Database connection failed!');
-    } else {
-        echo 'Connected to database!';
-    }
-
-    $query  = "INSERT INTO users(username, password)";
-    $query .= "VALUES('{$username}', '{$password}')";
-
-    $result = mysqli_query($db_connection, $query);
-
-    if (!$result) {
-        die('Query Failed! ' . mysqli_error());
-    }
-}
-
-?>
+<!-- --------------------------------------------------------------- -->
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
-    <title>PHP Login Create</title>
-</head>
+<?php include 'include/header.php'?>
+
 <body>
 
 <div class="container">
@@ -54,7 +31,7 @@ if (isset($_POST['submit'])) {
                 <input type="password" class="form-control" id="password" name="password">
             </div>
 
-            <button type="submit" name="submit" value="Submit" class="btn btn-primary">Send</button>
+            <button type="submit" name="submit" value="create" class="btn btn-primary">CREATE</button>
 
         </form>
     </div>
