@@ -40,15 +40,22 @@ function update_users_data() {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $id = $_POST['id'];
-    // echo "{$username} {$password} {$id}";
+
+    global $db_connection;
+
+    $username = mysqli_real_escape_string($db_connection, $username);
+    $password = mysqli_real_escape_string($db_connection, $password);
+
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+    // password_verify ( string $password , string $hash);
 
     $query = "UPDATE users SET ";
     $query .= "username = '{$username}', ";
-    $query .= "password = '{$password}'  ";
+    $query .= "password = '{$hashed_password}'  ";
     $query .= "WHERE id = {$id};";
     // echo $query;
 
-    global $db_connection;
 
     $result = mysqli_query($db_connection, $query);
     
@@ -94,13 +101,19 @@ function create_users_record() {
     if (isset($_POST['submit']) && $_POST['submit'] == 'create') {
         // echo "form has been submitted!";
 
+        global $db_connection;
+
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        $query  = "INSERT INTO users(username, password)";
-        $query .= "VALUES('{$username}', '{$password}')";
+        $username = mysqli_real_escape_string($db_connection, $username);
+        $password = mysqli_real_escape_string($db_connection, $password);
 
-        global $db_connection;
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+        // password_verify ( string $password , string $hash);
+
+        $query  = "INSERT INTO users(username, password)";
+        $query .= "VALUES('{$username}', '{$hashed_password}')";
 
         $result = mysqli_query($db_connection, $query);
 
