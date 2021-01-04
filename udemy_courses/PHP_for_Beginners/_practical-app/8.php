@@ -17,15 +17,20 @@
 	
 	<?php  
 
-	/*  Step 1 -Make a variable with some text as value
+	/*  Step 1 -Make a variable with some text as value */
 
-		Step 2 - Use crypt() function to encrypt it
+	$password = 'sjsd32fg6sd5fg';
 
-		Step 3 - Assign the crypt result to a variable
+	/*	Step 2 - Use crypt() function to encrypt it */
+	/*	Step 3 - Assign the crypt result to a variable */
 
-		Step 4 - echo the variable
+	$hashed_password = password_hash($password, PASSWORD_BCRYPT, ["cost" => 12]);
 
-	*/
+	/*	Step 4 - echo the variable */
+
+	echo $hashed_password;
+
+	
 	
 	?>
 
