@@ -2,7 +2,6 @@
 <?php include "includes/header.php" ?>
 
 
-
 	<section class="content">
 
 		<aside class="col-xs-4">
@@ -54,8 +53,6 @@
 	
 
 	?>
-
-
 
 
 
