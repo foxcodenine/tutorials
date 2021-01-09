@@ -1,0 +1,14 @@
+
+.flash_message {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+
+.flash_message--success {
+    color: green;
+}
+
+.flash_message--warning {
+    color: crimson;
+}

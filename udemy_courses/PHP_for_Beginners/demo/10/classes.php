@@ -55,6 +55,7 @@ $bmw->turnOnCar(true);
 Car::turnOnCar(0);
 
 // _____________________________________________________________________
+
 echo '<br> 4. Adding properties: <br>';
 
 echo $bmw->color . '<br>';
