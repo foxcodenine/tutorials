@@ -9,6 +9,8 @@
 // private - the property or method can ONLY be accessed within the
 // class
 
+// _____________________________________________________________________
+
 class Person {
     public $name = 'Christopher';
     protected $surname = 'Farrugia';
@@ -26,7 +28,9 @@ class Person {
 $me = new Person();
 
 echo $me->name . "<br>";
-// echo $me->surname . "<br>"; // <- this will give an error
+// echo $me->surname . "<br>";  // <- this will give an error 
+                                // cause surname is protected
+
 
 echo $me->show_surname() . "<br>";
 echo $me->show_nickname() . "<br>";
@@ -50,7 +54,7 @@ function check_class_prop($class, $property) {
 
 check_class_prop('Human', 'name');
 check_class_prop('Human', 'surname');
-check_class_prop('Human', 'nickname');
-
+check_class_prop('Human', 'nickname');  // <- this will return false 
+                                        // since nickname is set to private
 
 ?>
