@@ -16,7 +16,7 @@ app.config['DEBUG'] = True
 web_db = mysql.connector.connect(
     host = 'remotemysql.com',
     user = 'F2udETTsO6',
-    passwd = 'I7hQzPXXBW',
+    passwd = 'U7hQzPXXBW',
     db = 'F2udETTsO6',
     raise_on_warnings = True,
     port = 3306
@@ -90,5 +90,3 @@ def cats(cat_id):
 
 if __name__ == '__main__':
            app.run()
-
-        

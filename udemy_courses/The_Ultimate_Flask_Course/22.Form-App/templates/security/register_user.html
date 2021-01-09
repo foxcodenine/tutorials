@@ -21,9 +21,7 @@
         {{ render_field_with_errors(register_user_form.email, class="form-control", placeholder="Enter email") }}
 
       </div>
-      <div class="form-group">
-        {{ render_field_with_errors(register_user_form.username, class="form-control", placeholder="Enter username") }}
-      </div>
+
       <div class="form-group">
         {{ render_field_with_errors(register_user_form.name, class="form-control", placeholder="Enter name") }}
       </div>
@@ -31,12 +29,18 @@
     </div>
     <div class="col-lg-6">
       <div class="form-group">
+        <div class="form-group">
+          {{ render_field_with_errors(register_user_form.username, class="form-control", placeholder="Enter username") }}
+        </div>
+
         <!-- <label for="password">Password</label> -->
         <!-- <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required="required"> -->
         {{ render_field_with_errors(register_user_form.password, class="form-control", placeholder="Enter password") }}
-        {% if register_user_form.password_confirm %}
+
+
+        {# {% if register_user_form.password_confirm %}
         {{ render_field_with_errors(register_user_form.password_confirm, class="form-control", placeholder="Renter password") }}
-        {% endif %}
+        {% endif %} #}
 
       </div>
     </div>

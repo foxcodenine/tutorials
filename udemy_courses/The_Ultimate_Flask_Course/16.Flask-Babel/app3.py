@@ -2,7 +2,7 @@
 # ______________________________________________________________________
 
 from flask import Flask, render_template, url_for, redirect, request 
-from flask_babel import Babel, get_locale, format_date, format_datetime 
+from flask_babel import Babel, get_locale, format_date, format_datetime , dates
 from datetime import date, datetime
 
 # ______________________________________________________________________
@@ -26,10 +26,12 @@ def index():
     d = date(2011, 1, 8)
     dt = datetime(2010, 4, 9, 21, 13)
 
-    local_date = format_date(d)
+    local_date = format_date(d) # local selected according web page
+    # local_date2 = dates.format_date(d, locale='en_US') #<- you select locale
     local_datetime = format_datetime(dt)
 
-    return render_template('index.html', Local=get_locale(), Local_date=local_date, Local_datetime=local_datetime)
+    return render_template('index.html', Local=get_locale(), \
+                           Local_date=local_date, Local_datetime=local_datetime)
 
 
 # ______________________________________________________________________

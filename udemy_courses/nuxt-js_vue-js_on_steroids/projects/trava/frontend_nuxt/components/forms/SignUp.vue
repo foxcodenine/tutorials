@@ -66,10 +66,10 @@
                 mainTitle: 'Sign Up',
                 subTitle: 'It’s quick and easy.',
                 userInfo: {
-                    firstname: '',
-                    lastname: '',
-                    email: '',
-                    password: '',
+                    firstname: 'Chris',
+                    lastname: 'Farruga',
+                    email: 'chris12aug@yahoo.com',
+                    password: 'aaaaaaaaaaaaaaa',
                     dob: ''
                 }
             }

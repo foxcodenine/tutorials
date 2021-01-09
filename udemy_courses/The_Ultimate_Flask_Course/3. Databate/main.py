@@ -60,6 +60,7 @@ def confirm():
                             id = results[-1]['id'],
                             name = results[-1]['name'],
                             location = results[-1]['location'])
+
            
 
 #_______________________________________________________________________

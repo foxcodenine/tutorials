@@ -41,7 +41,7 @@ def profile(name):
 def contact(number):
     return (
 '<h3>..if you have any question, contact me at {!r}</h3>'.format(number)
-        )  
+        ) 
 
 #____________________________________________________________
 
@@ -52,7 +52,6 @@ from flask import jsonify
 @app.route('/json')
 def json():
     return jsonify({'key' : 'value',   'listkey' : [1,2,3,4,5]})
-
 
 
 
