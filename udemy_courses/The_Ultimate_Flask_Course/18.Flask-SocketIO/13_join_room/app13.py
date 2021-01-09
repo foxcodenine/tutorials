@@ -17,7 +17,7 @@
 # ______________________________________________________________________
 
 from flask import Flask, render_template, request
-from flask_socketio import SocketIO , send, emit,  join_room
+from flask_socketio import SocketIO , send, emit,  join_room, leave_room, close_room, disconnect
 
 # ______________________________________________________________________
 
@@ -105,15 +105,42 @@ def private_message(payload):
 
 
 
-# To_Join_a_Room
+# 13. To_Join_a_Room
 @socketio.on('join_room', namespace='/private')
 def handle_join_room(room):
     join_room(room)
     emit('room_message','a new user has joined', room=room)
 
+# 14. To_Leave_a_Room
+@socketio.on('leave_the_room', namespace='/private')
+def handle_leave_room(room):
+    leave_room(room)
+    emit('room_message', '..a user has left the room!', room=room)
+
+# 15. To_Close_a_Room
+@app.route('/close/<room>')
+def handle_close_room(room):    
+    close_room(room, namespace='private')
+    return '<i>{}</i> room been closed!'.format(room)
 
 
 
+
+# 16. Connect_and_Disconnect
+@socketio.on('connect', namespace='/private')
+def on_connect():
+    print('<NEW_CONNECTION_ESTABLISHED!>')
+
+
+@socketio.on('disconnect', namespace='/private')
+def on_disconnect():
+    print('<CONNECTION_ENDED!>')
+
+
+@socketio.on('disconnect_me', namespace='/private')
+def disconnect_me(msg):
+    disconnect()
+    print('~~~~~{}~~~~~'.format(msg))
 
 # ______________________________________________________________________
 # https://flask-and-redis.readthedocs.io/en/latest/

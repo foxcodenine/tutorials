@@ -4,12 +4,12 @@
 
 {% block body %}
 <div class="pageTitle">
-    <a href="">{{ thread.title }}</a>
+    <a>{{ thread.title }}</a>
 </div>
 
 <div class="row">
     <div class="col-lg-4">
-        <a href="./index.html" class="btn btn-default btn-sm">
+        <a href="{{ url_for('index') }}" class="btn btn-default btn-sm">
             <i class="glyphicon glyphicon-arrow-left"></i> Back to Threads
         </a>
     </div>
@@ -31,7 +31,9 @@
                         <br />  
                         <i class="glyphicon glyphicon-calendar"></i> 
                         {{ thread.date_created.strftime('%d-%B-%Y') }} &nbsp;
+                        {% if current_user.active %}
                         <a href="#_reply"><i class="glyphicon glyphicon-comment"></i> Post Reply</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

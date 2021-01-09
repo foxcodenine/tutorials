@@ -1,4 +1,4 @@
-from my_app import app, mail, bcrypt, s3_resource
+from my_app import app, mail, bcrypt
 from flask import Blueprint, jsonify, redirect, request, url_for, render_template, session
 # from my_app.modules.helper_functions import check_header
 from my_app.modules.database import db, Trava_Users
@@ -10,8 +10,6 @@ import jwt
 from jwt.exceptions import ExpiredSignatureError, InvalidSignatureError
 
 from datetime import datetime, timedelta
-
-import os
 
 # ______________________________________________________________________
 
@@ -507,7 +505,9 @@ def change_email(firstname, new_email, current_email):
 @app_user.route('/update_email/<token>', methods=['GET'])
 def update_email(token):
     try:
-        new_email, current_email = s.loads(token, salt='change_email', max_age=app.config['EXP_TIME_EMAIL_CONF']).values()        
+        new_email, current_email = s.loads(token, salt='change_email', max_age=app.config['EXP_TIME_EMAIL_CONF']).values()
+
+        
 
         current_user = Trava_Users.query.filter_by(email=current_email).first()
 
@@ -556,26 +556,10 @@ def delete_account():
     email, hashed = retrive_data().values()
 
     current_user = Trava_Users.query.filter_by(email=email).first()
-    
 
     if current_user and current_user.password and current_user.password == hashed:
-        
-        # Select account pictures
-        user_pictures = current_user.picture
-
-        # Delete account pictures
-        for pic in user_pictures:
-            print(pic)
-            db.session.delete(pic)
-
-        # Delete account 
         db.session.delete(current_user)
         db.session.commit()
-
-        # Delete account folder pictures from AWS        
-        bucket = s3_resource.Bucket(os.getenv('my_bucket_name'))
-        bucket.objects.filter(Prefix = f'{current_user.id}/').delete()
-
         return  jsonify({
             'message': 'You\'ve syccessfully deleted your Trava account!', 
             'state': 'success'

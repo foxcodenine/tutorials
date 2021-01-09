@@ -12,15 +12,9 @@ const elems = {
 /*_______________________________ State _______________________________*/
 
 
-let state = {
-  data: [],
-  message: new SpeechSynthesisUtterance,
-  voices: []
-};
-
 /*_______________________________ Data _______________________________*/
 
-state.data = [
+const data = [
     {
       image: './img/drink.jpg',
       text: "I'm Thirsty"
@@ -74,6 +68,7 @@ state.data = [
 /*_______________________________ View _______________________________*/
 
 // Create speech box Function
+
 function createBox (item) {
     const box = document.createElement('div');
 
@@ -87,73 +82,14 @@ function createBox (item) {
 
     box.innerHTML = markup;
 
-    // Add speck Event
-    box.addEventListener('click', () => {
+    // @todo - speak event
 
-      let message = setTextMessage(text);
-      speakText(message);
-
-      // Add effect
-      box.classList.add('active');
-      setTimeout(() => box.classList.remove('active'), 800);
-    })
-
-
-    // Add box in main
-    elems.main.appendChild(box);        
+    elems.main.appendChild(box);    
 }
-
-
-
-function createVoiceOptions() {
-  voices = fetchVoices();
-
-  voices.forEach(v => {
-    const option = document.createElement('option');
-
-    option.value = v.name;
-    option.innerText = `${v.name} - ${v.lang}`
-
-    elems.voicesSelect.appendChild(option);
-  })
-}
-
-
 
 /*_______________________________ Model ______________________________*/
 
 
-// Function get voices:
-function fetchVoices() {
-
-  state.voices = speechSynthesis.getVoices();
-  return state.voices;
-}
-
-// Set Text
-function setTextMessage(text) {
-  
- 
-  // Set Text to message
-  state.message.text = text;
-
-  return state.message}
-
-
-// Speak text 
-function speakText(message) {
-  speechSynthesis.speak(message);
-}
-
-function setVoice(e) {
-  state.message.voice = state.voices.find(v.name === e.target.value)
-}
-
-function readText() {
-  state.message.text = elems.textarea.value;
-  
-  speechSynthesis.speak(state.message);
-}
 
 /*____________________________ Controller ____________________________*/
 
@@ -162,40 +98,15 @@ function readText() {
 
 const controller = () => {
 
-  // ___________________________________________________________________
-
   // Populate site with boxes from data:
-  state.data.forEach(createBox);
+  data.forEach(createBox);
 
-  // Populate voice selector:
-  createVoiceOptions();
-
-  setTimeout(()=>{
-    createVoiceOptions();
-  }, 300)
-
-  // ___________________________________________________________________
 
   /* Events Listners */
 
-  // Toggle textbox
+  // Display/Hide Textbox:
   elems.toggleBtn.addEventListener('click', () => elems.textBox.classList.toggle('show'));
-
-  // Close textbox
   elems.closeBtn.addEventListener('click', () => elems.textBox.classList.remove('show'));
-
-  // Voices changed
-  speechSynthesis.addEventListener('voiceschanged', createVoiceOptions);
-
-  // Select a different voice
-  elems.voicesSelect.addEventListener('change', setVoice);
-
-  // Read textbox
-
-  elems.readBtn.addEventListener('click', readText);
-
-
-  // ___________________________________________________________________
   
 }
 

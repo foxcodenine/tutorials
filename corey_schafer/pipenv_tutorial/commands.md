@@ -1,8 +1,10 @@
 ## pipenv
 
-Install pipenv:
+Install pipenv: 
 
 	$ pip install pipenv
+	or to install it globally on ubuntu
+	$ sudo pip install pipenv
 
 Install Packages with pipenv in project dir:
 	

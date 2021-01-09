@@ -83,7 +83,7 @@ def is_safe_url(target):
 
 
 class Users(UserMixin, db.Model): 
-    ''' This class is used to create the table in the database '''
+    ''' This class is used to create the table in the database (Users)'''
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30), unique=True)
     password = db.Column(db.String(255))
@@ -92,6 +92,27 @@ class Users(UserMixin, db.Model):
 
     def get_id(self):
         return str(self.session_token)
+
+
+
+# class Profile(UserMixin, db.Model):
+#     ''' This class is used to create the table in the database (Profile)'''
+#     id = db.Column(db.Integer, primary_key=True)
+#     first_name = db.Column(db.String(30))
+#     last_name = db.Column(db.String(30))
+#     email = db.Column(db.String(100), unique=True)
+#     password = db.Column(db.String(255))
+#     birthday = db.Column(db.String(100))
+#     gender = db.Column(db.String(50))
+#     profile = db.Column(db.Integer)
+#     session_token = db.Column(db.String(255), unique=True)
+#     field1 = db.Column(db.String(255))
+#     field2 = db.Column(db.String(255))
+#     field3 = db.Column(db.String(255))
+
+#     def get_id(self):
+#         return self.session_token
+
 
 
 def create_users(un, pw, em):
@@ -163,7 +184,7 @@ def load_user(session_token):
 def index():
 
  
-    filename = f'{current_user.username}.jpg'
+    filename = f'{current_user.username}.jpeg'
     profile_pic = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     
          
@@ -224,7 +245,6 @@ def change_pass():
     print(current_user.username)
     form = ChangePasswordForm()
 
-    
     wrong_password = None
     try:
         if form.validate_on_submit(): # <-- this will validate only if 'POST' is send

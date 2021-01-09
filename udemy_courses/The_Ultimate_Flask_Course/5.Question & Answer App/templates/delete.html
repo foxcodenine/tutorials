@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% from "_macro.html" import display_links %}
+
+{% block title %} Delete {% endblock %}
+
+{% block nav %} {{ display_links(user, active) }} {% endblock %}
+
+{% block body %}
+      <div class="page-header">
+        <h1>Remove Users</h1>
+        <h6>Select users to remove</h6>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="list-group">            
+            <form  action="{{url_for('delete')}}" method="POST" >
+              {% for user in users %}
+              <br>
+                <label id><h5><input name="{{ user.id }}" type="checkbox" value="{{ user.id }}" > {{ user.name }}</h5></label>
+              {% endfor %}
+              <br>
+              <input type="submit" value="Remove" >
+            </form>
+          </div>
+        </div><!-- /.col-lg-12 -->
+      </div>
+{% endblock %}

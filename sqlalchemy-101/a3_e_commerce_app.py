@@ -11,7 +11,7 @@ def pl(x=None):
         print('\n_______________________\n')
 
 
-engine = create_engine('mysql+pymysql://root:****@localhost/e_commerce')
+engine = create_engine('mysql+pymysql://root:ayanami9@localhost/e_commerce')
 metadata = MetaData(engine)
 
 customers = Table('customers', metadata,
