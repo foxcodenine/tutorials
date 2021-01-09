@@ -893,13 +893,9 @@ input_records = conn.execute(insert(customers), records)
 s = select([customers]).where(customers.c.last_name.like('%farrugia%'))
 
 results = conn.execute(s).fetchall()
-<<<<<<< HEAD
-for row in results: print(row)
-=======
 for row in results: print(
     row.id, row.first_name, row.last_name, row.username, row.email, row.town
 )
->>>>>>> 1fe4e1751c5a2087d4b01ecd0e052754110f1235
 
 
 s = delete(customers).where(customers.c.last_name.like('%farrugia%'))
@@ -907,9 +903,6 @@ s = delete(customers).where(customers.c.last_name.like('%farrugia%'))
 r = conn.execute(s)
 
 print('\nnumber_of_row_deleted >>', r.rowcount)
-<<<<<<< HEAD
-
-=======
 
 pl(41) # _______________________________________________________________
 
@@ -1164,4 +1157,3 @@ select items.name, order_lines.quantity as 'order_qty', items.quantity as 'avali
 # current I have 5 Chair and 3 Pen
             
 dispatch_order(1)
->>>>>>> 1fe4e1751c5a2087d4b01ecd0e052754110f1235

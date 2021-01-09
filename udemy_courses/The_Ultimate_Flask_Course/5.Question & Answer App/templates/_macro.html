@@ -1,0 +1,24 @@
+{% macro display_links(user, active) %}
+    <ul class="nav navbar-nav">
+        
+        <li class=" {% if active == 'home' %}active{% endif %}"><a href="{{ url_for('index') }}">Home</a></li>
+        {% if not user %}
+        <li class=" {% if active == 'login' %}active{% endif %}"><a href="{{ url_for('login') }}">Login</a></li>            
+        <li class=" {% if active == 'register' %}active{% endif %}"><a href="{{ url_for('register') }}">Register</a></li>
+        {% endif %}
+        {% if user and user['admin'] == 0 and user['expert'] == 0 %}
+        <li class=" {% if active == 'ask' %}active{% endif %}"><a href="{{ url_for('ask') }}">Ask Question</a></li>
+        {% endif %}
+        {% if user and user['expert'] == 1 %}
+        <li class=" {% if active == 'unanswered' %}active{% endif %}"><a href="{{ url_for('unanswered') }}">Answer Questions</a></li>
+        {% endif %}
+        {% if user and user['admin'] == 1 %}
+        <li class=" {% if active == 'users' %}active{% endif %}"><a href="{{ url_for('users') }}">User Setup</a></li>
+        <li class=" {% if active == 'delete' %}active{% endif %}"><a href="{{ url_for('delete') }}">Delete User</a></li>
+        <li class=" {% if active == 'remove' %}active{% endif %}"><a href="{{ url_for('remove') }}">Remove Question</a></li>
+        {% endif %}
+        {% if user %}
+        <li class=" {% if active == 'logout' %}active{% endif %}"><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% endif %}
+    </ul>
+{% endmacro %}

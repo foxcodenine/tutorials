@@ -6,12 +6,7 @@
 
     <div class="btns">      
       <button  class="btn mt-sm" @click="toggleTextBox()">Toogle Text Box</button>
-      <button  class="btn mt-sm" @click="toggleNewBox()" 
-            v-if="isUserLogedIn">Add New Frame</button>
-      <button  class="btn mt-sm" @click="deleteSelectedFrames()" 
-            v-if="framesToDelete > 0" style="background-color: coral;">
-              {{framesToDelete > 1 ? 'Delete Frames' : 'Delete Frame'}}
-      </button>
+      <button  class="btn mt-sm" @click="toggleNewBox()" v-if="isUserLogedIn">Add New Frame</button>
     </div>
 
     <BoxGrid class="mt-sm"></BoxGrid>    
@@ -75,9 +70,6 @@ export default {
   computed: {
     isUserLogedIn() {
       return this.$store.getters.getIsUserLogedIn
-    },
-    framesToDelete() {
-      return this.$store.state.boxToDelete.length
     }
   },
   methods: {
@@ -95,37 +87,6 @@ export default {
       }
       this.$store.dispatch('setForm', payload);
     },
-    async deleteSelectedFrames() {
-      const response = await this.$store.dispatch('pictures/deletePicture');
-
-      if (response && response.state === 'success') {
-
-        // ---- deleteing image from UI
-        const myBoxes = this.$store.getters.getMyBoxes;
-
-        const updatedBoxes = myBoxes.filter(b => {
-          
-          return !this.$store.state.boxToDelete.includes(b.image)
-        })
-        await this.$store.commit('setMyBoxes', updatedBoxes)
-        console.log(updatedBoxes)
-
-        // ---- deleing image from cookie
-
-        const payload_cookie = {
-          userInfo: this.$store.getters.getUserInfo, 
-          token: this.$store.getters.getToken, 
-          userBoxes: this.$store.getters.getMyBoxes
-        };
-        this.$store.dispatch('saveToCookie', payload_cookie);
-            
-        // ---- crear boxToDelete in state
-        this.$store.state.boxToDelete = [];
-      }
-      else {
-        return
-      }
-    }
   },
   created() {
     this.$store.dispatch('serverInit'); // <- if SPA

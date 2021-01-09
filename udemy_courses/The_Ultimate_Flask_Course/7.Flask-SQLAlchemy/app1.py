@@ -5,7 +5,7 @@
 # username = scott , password = tiger , host = localhost , 
 # port = 3306 , mydatabse = database name
 
-# 'mysql://3iuBR8bhga:oCGfAZji9J@ remotemysql.com:3306/3iuBR8bhga'
+# 'mysql://3iuBR8bhga:iCGfAZji9J@remotemysql.com:3306/3iuBR8bhga'
 
 # ______________________________________________________________________
 

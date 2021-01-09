@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <title>Sign-up</title>
+        <style>
+        * {margin: 0%;}
+        div.cc1 { 
+                background: #e7e7e7;                
+                margin: 0%;                            
+                padding: 5% 1cm 15% 1cm;
+                width: 100%;
+                text-align: center;                 
+                }
+
+        div.c2 {width: 500px;
+                height: 500px;             
+                border-radius: 10px;                
+                text-align: center;
+                padding: 10px 10px 0px 10px;
+                display: inline-block;
+                background-color: white;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);}
+
+        .label {
+            height: 35px;
+            margin-bottom: 5px;
+            width: 500px;
+            display:inline-block;
+            margin-bottom: 10px;
+            padding: 2px 2px 2px 20px;
+            font-family: Arial, Helvetica, sans-serif; 
+            font-size: 20px; 
+            border: 1px solid#e7e7e7;
+            border-radius: 10px;                   
+               }
+
+            input#create{width: 300px;
+                         border: 1px solid rgb(61, 204, 61);
+                         background-color: rgb(61, 204, 61);
+                         color: white;
+                         text-align: center;
+                         padding: 2px 2px 2px 2px;}
+            
+            #first_name {width: 245px;
+                            float: left;}
+            #last_name {width: 245px;
+                            float: right;}
+
+            #birthday {font-family: Arial, Helvetica, sans-serif;            
+                        color: rgb(129, 129, 129);
+                        font-weight: lighter;
+                        vertical-align: middle;
+                        float: left;
+                        margin: 10px 0px 7px 10px;
+                        font-size: 14px;}
+
+            #radio {text-align: center; margin-top: 33px;}
+            #male {width: 140px; display: inline-block;}
+            #female {width: 140px;  display: inline-block;}
+            #other {width: 140px;  display: inline-block;}
+            #gtext {margin: 5px 15px 0px 10px; display: inline-block;}
+
+            h1 {font-family: Arial, Helvetica, sans-serif;
+            font-size: 25px;
+            
+            text-align: left;
+            line-height: 40px;
+            }
+
+            h2 {font-family: Arial, Helvetica, sans-serif;
+            font-size: 18px;
+            font-weight: lighter;
+            text-align: left;
+            line-height: 30px;}
+
+            #terms {font-family: Arial, Helvetica, sans-serif;
+            font-weight: lighter;
+            font-size: 10px;
+            text-align: center;
+            margin-top: 10px;}
+                         
+    
+        </style>
+    </head>
+    <body>
+        <div class="cc1">
+            <div class="c2">
+                <h1>Create a New Account</h1>
+                <h2>It’s quick and easy.</h2><br>
+                <form action="#" method="POST" novalidate>
+
+
+                    <input type="text" name="first_name" placeholder="First name" id="first_name" class="label">
+                    <input type="text" name="last_name" placeholder="Last name" id="last_name" class="label">
+                    <input type="text" name="email" placeholder="Email"  class="label">
+                    <input type="text" name="password" placeholder="New password"  class="label">
+                    <label><h4 id="birthday">Birthday</h4>
+                        <input type="date" name="birthday"  class="label">
+                    </label>
+
+                    <label><h4 id="birthday">Gender</h4>
+   
+                    <p id="radio">
+                        <span class="label" id="male"><input type="radio" name="gender" value="Male"><span id="gtext">Male</span></span>
+                        <span class="label" id="female"><input type="radio" name="gender" value="Felame"><span id="gtext">Female</span></span>
+                        <span class="label" id="other"><input type="radio" name="gender" value="Other"><span id="gtext">Other</span></span>                                          
+                    
+                    <p id="terms">By clicking Sign Up, you agree to our Terms. Learn how we collect, use and 
+                        share your data in our Data Policy and how we use cookies and similar 
+                        technology in our Cookies Policy. You may receive SMS Notifications from us 
+                        and can opt out any time.
+                    </p>                   
+                    <br>        
+                    
+                    <input type="submit" value="Sign-Up" id="create" class="label">
+            </div>
+        </div>           
+
+            
+        </form>
+    </body>
+</html>

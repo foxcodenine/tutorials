@@ -21,6 +21,9 @@ from flask_migrate import Migrate
 # mysql://oOp9iEOuPn:SAEm6rAKiE@remotemysql.com:3306/oOp9iEOuPn
 
 # ______________________________________________________________________
+
+# pip install flask-script
+
 # to run python as python app.py migrate with out set or export 
 # and do   flask db migrate
 from flask_script import Manager                  #<- flask-setup method

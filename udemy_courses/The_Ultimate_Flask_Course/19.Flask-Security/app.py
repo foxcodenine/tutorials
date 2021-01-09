@@ -61,7 +61,7 @@ app.config['SECURITY_POST_CONFIRM_VIEW'] = '/confirmed'
 app.config.update(
     MAIL_SERVER = 'smtp.gmail.com',
     MAIL_USERNAME = 'farrugiachris12@gmail.com',
-    MAIL_PASSWORD = 'o-6',
+    MAIL_PASSWORD = 'orange-6',
     MAIL_DEFAULT_SENDER = ('Chris from flask-mail','no-reply@example.com'),
     MAIL_PORT = 465,
     MAIL_USE_TLS = False,
@@ -230,7 +230,7 @@ password1
 # To Customize the templates
 # the below code with print the flask-user directory
 # copy the form template file to your app directory 
-# note the directory from your app to trmplate should match that of the package
+# note the directory from your app to template should match that of the package
 # modifiy the copyed template (not the original package one)
 import os
 import flask_mail

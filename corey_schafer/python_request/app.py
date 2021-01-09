@@ -8,6 +8,7 @@ def ppp(i):
 
 # ______________________________________________________________________
 import requests
+from pprint import pprint
 
 ppp(1)#_________________________________________________________________
 
@@ -57,4 +58,89 @@ my_site = requests.get('http://foxhost9.com/mfp/')
 
 # This will get the site header
 print(my_site.headers)
+
+ppp(8)#_________________________________________________________________
+
+# Testing request on httpbin.org
+
+
+pay_load = {'name': 'Christopher', 'surname': 'Farrugia', 'age': 35}
+r_httpbin_get = requests.get('https://httpbin.org/get', params=pay_load)
+
+print(r_httpbin_get.text)
+
+# {
+#   "args": {
+#     "age": "35",
+#     "name": "Christopher",
+#     "surname": "Farrugia"
+#   },
+
+ppp(9)#_________________________________________________________________
+
+print(r_httpbin_get.url)
+
+ppp(10)#_________________________________________________________________
+
+pay_load = {'username': 'christopher', 'email': 'chris12aug@yahoo.com', 'password': 'testing35'}
+r_httpbin_post = requests.post('https://httpbin.org/post', data=pay_load)
+
+print(r_httpbin_post.text)
+print(r_httpbin_post.url)
+
+# "form": {
+#     "email": "chris12aug@yahoo.com",
+#     "password": "testing35",
+#     "username": "christopher"
+#   }
+
+ppp(11)#_________________________________________________________________
+
+# .json()
+
+r_dict = r_httpbin_post.json()
+pprint(r_dict)
+
+
+ppp(12)#_________________________________________________________________
+
+# Testing basic autentication:
+
+user = 'chris'
+password = 'orange'
+
+r_auth = requests.get('https://httpbin.org/basic-auth/{}/{}'.format(user, password))
+
+
+print(r_auth.url)
+# https://httpbin.org/basic-auth/chris/orange
+
+print(r_auth.text)
+
+print(r_auth)
+
+ppp(12)#_________________________________________________________________
+
+
+user = 'chris'
+password = 'orange'
+
+r_auth = requests.get(f'https://httpbin.org/basic-auth/{user}/{password}',  auth=('chris', 'orange'))
+
+
+print(r_auth.text)
+
+print(r_auth)
+
+
+ppp(13)#_________________________________________________________________
+
+# Setting a time to our request of 3sec, the site is going to delay 
+# for 2sec. If it exceeds 3 it with give a timeout error.
+
+
+r_auth = requests.get(f'https://httpbin.org/delay/2',  timeout=3)
+
+
+print(r_auth)
 

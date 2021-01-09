@@ -43,16 +43,19 @@ import shutil
 app = Flask(__name__, instance_relative_config=True)
 photos = UploadSet('photos', IMAGES)
 
+app.config.from_object('config')
 
-app.config['UPLOADED_PHOTOS_DEST'] = 'images'
-app.config['SQLALCHEMY_DATABASE_URI'] = config.mysql_db 
-# app.config['SQLALCHEMY_DATABASE_URI']='sqlite:////trendy.db' 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
-app.config['SECRET_KEY'] = config.sercret_key
-app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = True
+# app.config['UPLOADED_PHOTOS_DEST'] = 'images'
+# app.config['SQLALCHEMY_DATABASE_URI'] = config.mysql_db 
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
+# app.config[''] = config.sercret_key
+# app.config['PRESERVE_CONTEXT_ON_EXCEPTION'] = True
 
-# ______________________________________________________________________
 configure_uploads(app, photos)
+
+print(app.config)
+# ______________________________________________________________________
+
 
 db = SQLAlchemy(app)
 
@@ -600,7 +603,7 @@ def order(order_id):
 # ______________________________________________________________________
 
 if __name__ == '__main__':
-    manager.run() 
+    app.run(host='127.0.0.1', port=4447) 
 
 
 

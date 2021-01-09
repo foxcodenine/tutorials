@@ -26,7 +26,7 @@ class Cities(db.Model):
 # ______________________________________________________________________
 
 @app.route('/', methods=['POST', 'GET'])
-def index(): 
+def index():
 
     data = None
 
@@ -34,7 +34,7 @@ def index():
 
         city = request.form['city_name']
 
-        
+
 
         url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={os.getenv("API_KEY")}&units=metric'
 
@@ -45,27 +45,27 @@ def index():
             return redirect(url_for('index'))
 
         icon = (f"http://openweathermap.org/img/w/{r['weather'][0]['icon']}.png")
-        
+
         data = {
             'city': r['name'],
-            'country': r['sys']['country'], 
+            'country': r['sys']['country'],
             'temp': r['main']['temp'],
             'description': r['weather'][0]['description'],
             'icon': icon
         }
-    
+
 
     return render_template('weather.html', data=data)
 
 # ____________________________________
 
 @app.route('/all_cities')
-def all_cities(): 
+def all_cities():
 
     cities = Cities.query.all()
 
     weather_data = []
-    
+
     for city in cities:
         id = city.id
         city = city.name
@@ -73,10 +73,10 @@ def all_cities():
 
         r = requests.get(url).json()
         icon = (f"http://openweathermap.org/img/w/{r['weather'][0]['icon']}.png")
-        
+
         data = {
             'city': r['name'],
-            'country': r['sys']['country'], 
+            'country': r['sys']['country'],
             'temp': r['main']['temp'],
             'description': r['weather'][0]['description'],
             'icon': icon,
@@ -84,7 +84,7 @@ def all_cities():
         }
 
         weather_data.append(data)
-    
+
     return render_template('weather.html', weather_data=weather_data, current_route='all_cities')
 
 
@@ -92,10 +92,10 @@ def all_cities():
 # ____________________________________
 
 @app.route('/api/')
-def api(): 
+def api():
     city = 'valleta'
     url = f'api.openweathermap.org/data/2.5/weather?q={city}&appid={os.getenv("API_KEY")}&units=metric'
-    
+
     return redirect(f"http://{url}")
 
 # ____________________________________
@@ -110,17 +110,17 @@ def add_city():
 
 
 
-    if Cities.query.filter_by(name = city).first(): 
+    if Cities.query.filter_by(name = city).first():
 
-        
-        flash('City already listed!', 'is-danger')      
+
+        flash('City already listed!', 'is-danger')
         redirect(url_for('all_cities'))
 
     elif r_code != 200:
 
-        
+
         flash('City not found!', 'is-danger')
-    else:                
+    else:
         new_city = Cities(name=city)
         db.session.add(new_city)
         db.session.commit()

@@ -26,7 +26,7 @@ app.config.update(
 
     MAIL_DEBUG = True,
     MAIL_USERNAME = 'fourequus@gmail.com', 
-    MAIL_PASSWORD = 'a4',
+    MAIL_PASSWORD = 'ayanami4',
     MAIL_DEFAULT_SENDER = ('Chris from flask-mail','fourequus@gmail.com'),
     # MAIL_MAX_EMAILS = None,
     # MAIL_SUPPRESS_SEND = False,
@@ -116,6 +116,7 @@ def bulk():
             conn.send(msg)
     return '<h4>Bulky Emails Send!</h4>'
             
+
 
 if __name__ == '__main__':
     app.run()

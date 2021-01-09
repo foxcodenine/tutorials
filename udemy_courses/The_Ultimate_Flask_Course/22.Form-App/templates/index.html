@@ -3,6 +3,7 @@
 {% block title %}Threads Listing | Forum{% endblock %}
 
 {% block body %}
+
 <div class="pageTitle">Thread Listing </div>
 
 
@@ -12,6 +13,15 @@
             <i class="glyphicon glyphicon-plus-sign"></i> Add Thread
         </a>
     </div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="has-error" style="color: crimson;">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
 </div>
 
 <div class="row pad">
@@ -24,7 +34,7 @@
                     <div class="col-lg-4">Last Post</div>
                 </div>
             </div>
-
+            {% if current_user.active %}
             {% for t in threads %}
             <div class="panel-body">
                 <div class="row">
@@ -46,8 +56,8 @@
                     <div class="col-lg-4">
                         <p>
                             <i class="glyphicon glyphicon-calendar"></i>
-                            26 June, 2017 &nbsp;
-                            <a href="./thread.html#_reply">
+                            {{ t.last_reply_date().strftime('%d %B, %Y') }} &nbsp;
+                            <a href="{{ url_for('thread', thread_id=t.id) }}">
                                 <i class="glyphicon glyphicon-comment"></i> Reply
                             </a>
                         </p>
@@ -56,6 +66,7 @@
             </div>
 
             {% endfor %}
+            {% endif %}
 
             <!-- <div class="panel-body">
                 <div class="row">

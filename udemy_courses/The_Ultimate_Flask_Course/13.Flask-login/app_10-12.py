@@ -62,8 +62,8 @@ class User(UserMixin, db.Model):
 # db.session.commit()
 # ______________________________________________________________________
 
-# This decorator is spessifying that the following function is used by
-# flask_login to connect to an actual user
+# This decorator  spessify that the following function is used by
+# flask_login to connect to an actual user when a user is loged in
 
 @login_manager.user_loader
 def load_user(user_id):

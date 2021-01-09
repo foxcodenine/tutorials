@@ -79,6 +79,24 @@ $(document).ready(function(){
     });
 
 
+    //--------------------------
+
+    // Leave_a_room 
+    // (we are still using the same socket as in session.)
+
+    $('#leave_room').on('click', function(){
+
+        var room_to_leave = $('#room_to_join').val();
+        private_scoket.emit('leave_the_room', room_to_leave);
+
+    });
+
+    $('#disconnect').on('click', function(){
+        private_scoket.emit('disconnect_me', 'disconnect');
+    });
+    
+
+
 // //___________________________________________________________________
     // /* Here we are listening to the connect event and when it happens we are sending
     // a message from the client to server  */

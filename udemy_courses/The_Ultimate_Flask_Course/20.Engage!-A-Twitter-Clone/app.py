@@ -49,7 +49,7 @@ photos = UploadSet('photos', IMAGES)
 app.config['UPLOADED_PHOTOS_DEST'] = 'images'
 app.config['DEBUG'] = True 
 app.config['SECRET_KEY'] = uuid4().hex
-app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:a9@localhost/twitter_clone_engage'
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://admin:admin@localhost/twitter_clone_engage'
 
 # app.config['MAX_CONTENT_LENGTH'] = 1 * 960 * 960
 # ______________________________________________________________________
@@ -91,12 +91,13 @@ class Users(UserMixin, db.Model):
 
     # Note on the relationship column:
 
-    # the tweet_posts colune is used to access 'tweets' table data by
+    # the tweet_posts colune is used to access 'tweets' table data by:
     #  Users.tweet_posts.. querys.
 
     # the 'Tweets' is connecting the user to tweets table.
 
-    # the backref='user' is used to access Users table data by Tweeds.user.. querys.
+    # the backref='user' is used to access Users table data from the tweeds table by:
+    # Tweeds.user.. querys.
 
     # the 'Tweets' in the User table is like stating the right table in 
     # the join in mysql.
@@ -456,6 +457,7 @@ def logout():
 
 if __name__ == '__main__':
     manager.run()
+    # app.run()
 
 
 # to start app in comandline:

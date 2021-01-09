@@ -194,7 +194,8 @@ def add():
         db.commit()
 
     cur = db.execute("SELECT * FROM food")
-    results = cur.fetchall()        
+    results = cur.fetchall()
+        
  
 
     return render_template('add_food.html', results=results)

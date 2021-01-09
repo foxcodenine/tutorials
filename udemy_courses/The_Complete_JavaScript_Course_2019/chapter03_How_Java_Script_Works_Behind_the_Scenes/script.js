@@ -112,10 +112,44 @@ function first() {
 // Lecture: The this keyword
 
 
+console.log(this) 
+
+calculateAge(1984)
+
+function calculateAge(year) {
+    console.log(2020 - year)
+    console.log(this)
+}
+
+
+var chris = {
+    firstName: 'Christopher',
+    lastName: 'Farrugia', 
+    age: 36,
+    dOB: '12-Aug-1990',
+    myFunc: function() {
+        console.log(this);       // <- this Point to the object
+        console.log('Hi I am',this.firstName + '!')
+        /*
+        function innerFunction() {
+            console.log(this);  // <- this Point to the window object
+        }
+        innerFunction();
+        */
+    }
+}
+
+chris.myFunc();
 
 
 
+var mike = {
+    firstName: 'Micheal', 
+    lastName: 'Cassar',
+    age: 32
+}
 
+// function borrowing
+mike.myFunc = chris.myFunc
 
-
-
+mike.myFunc();
