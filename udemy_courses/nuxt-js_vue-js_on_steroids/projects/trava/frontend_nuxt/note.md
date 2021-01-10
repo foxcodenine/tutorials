@@ -3,6 +3,15 @@ https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-css
 
 
 <!-- --------------------------------------------------------------- -->
+To polyfill of the JavaScript standard library:
+
+    $ npm install core-js@2 --save // <- for now recomanded
+    or
+    $ npm install core-js@3 --save 
+
+https://www.npmjs.com/package/core-js 
+
+<!-- --------------------------------------------------------------- -->
 
 Nuxt Style Resources Module (sass variables)
 https://dev.to/ceppeu/using-sass-global-variables-in-nuxt-js-j0k
@@ -60,9 +69,6 @@ Google text-to-speech
 Easy JavaScript text-to-speech with Google Translate
 https://www.youtube.com/watch?v=DOtkNxmg9QY
 
-
-
-
 <!-- --------------------------------------------------------------- -->
 encodeURIComponent()
 
@@ -89,9 +95,6 @@ export default {
     // proxy: true
   }
 }
-
-
-
 
 <!-- --------------------------------------------------------------- -->
 
@@ -182,3 +185,7 @@ https://davidwalsh.name/css-variables-javascript
 
 Vue setInterval() And  clearInterval()
 https://renatello.com/vue-js-polling-using-setinterval/
+
+<!-- --------------------------------------------------------------- -->
+How TO - Custom Checkbox
+https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
