@@ -1,5 +1,14 @@
-from my_app import app 
+
 from flask_cors import CORS, cross_origin
+from dotenv import load_dotenv
+import os
+
+
+
+project_folder = os.path.expanduser(os.getcwd())
+load_dotenv(os.path.join(project_folder, '.env'))
+
+from my_app import app 
 
 CORS(app)
 

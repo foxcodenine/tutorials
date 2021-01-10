@@ -11,6 +11,7 @@ from flask_cors import CORS, cross_origin
 from flask_mail import Mail
 import boto3
 
+
 def create_app():
     app = Flask(__name__)
 
@@ -29,6 +30,8 @@ CORS(app)
 # ______________________________________________________________________
 
 # Setting up boto3
+
+
 
 s3_client = boto3.client('s3')
 s3_resource = boto3.resource('s3')

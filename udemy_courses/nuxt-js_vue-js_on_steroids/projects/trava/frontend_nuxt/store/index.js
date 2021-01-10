@@ -21,6 +21,7 @@ const createStore = () => {
         state: {
             myDefault: [],
             myBoxes: [],
+            boxToDelete: [],
             voices: [],
             selectedVoice: 'English (Great Britain)',
             utterance: null,
@@ -61,6 +62,13 @@ const createStore = () => {
         mutations: {
             setMyBoxes(state, boxs) {
                 state.myBoxes = boxs;
+            },
+            removeBoxToDelete(state, box) {
+                
+                state.boxToDelete = state.boxToDelete.filter(b => b !== box)
+            },
+            addBoxToDelete(state, box) {
+                state.boxToDelete.push(box);
             },
             setVoices(state, voices) {
                 state.voices = voices
@@ -430,6 +438,9 @@ const createStore = () => {
             },
             getSetAutoLogOut(state) {
                 return state.setAutoLogOut
+            },
+            getBoxToDelete(state) {
+                return state.boxToDelete;
             }
         }
     })

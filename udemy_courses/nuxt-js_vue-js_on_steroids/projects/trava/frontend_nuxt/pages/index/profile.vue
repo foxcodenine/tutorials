@@ -34,7 +34,7 @@
 
 <script>
 import CloseAll from "@/components/CloseAll";
-import { ProfileField } from "@/components/ProfileField";
+import ProfileField from "@/components/ProfileField";
 export default {
     data() {
         return {
