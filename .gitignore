@@ -37,3 +37,19 @@ node_modules
 **/.env
 **/Pipfile
 **/Pipfile.lock
+
+
+# vendor folder
+**./vendor
+./vendor
+**./vendor/*
+**./vendor/
+*/vendor/*
+**vendor
+vendor
+**/vendor
+*vendor/*
+./**vendor/
+./**/vendor/
+./**vendor/*
+./**vendor/**
