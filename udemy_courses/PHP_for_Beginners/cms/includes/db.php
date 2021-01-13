@@ -24,20 +24,58 @@ foreach($db as $key => $value) {
     define(strtoupper($key), $value);
 }
 
-$con = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-if (!$con) {
+if (!$conn) {
     die("Connection failed!");
-} else {
-    echo 'Connected successfully!';
-}
+} 
+// else {
+//     var_dump('Connected successfully!');
+// }
 
 // _____________________________________________________________________
+// create categories table
 
-$sql_create_table  = "CREATE TABLE IF NOT EXISTS cmd_category(";
+$sql_create_table  = "CREATE TABLE IF NOT EXISTS cmd_categories(";
 $sql_create_table .= "cat_id INT(3) PRIMARY KEY AUTO_INCREMENT, ";
 $sql_create_table .= "cat_title VARCHAR(255) NOT NULL);";
 
-if (!mysqli_query($con, $sql_create_table)){
-    die('Failed to create table: ' . mysqli_errno($con));
+if (!mysqli_query($conn, $sql_create_table)){
+    die('Failed to create table: ' . mysqli_errno($conn));
 }
+
+mysqli_close($conn);
+
+// _____________________________________________________________________
+// create posts table (OOP)
+
+
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+if ($conn->connect_errno) {
+    die("Connection failed:" . $conn->connect_errno);
+}
+
+$sql  = "CREATE TABLE IF NOT EXISTS cms_posts(";
+
+$sql .= "post_id INTEGER AUTO_INCREMENT PRIMARY KEY, ";
+
+$sql .= "post_cat_id INTEGER NOT NULL,";
+$sql .= "FOREIGN KEY (post_cat_id) REFERENCES cmd_categories(cat_id),";
+
+$sql .= "post_title VARCHAR(255) NOT NULL,";
+$sql .= "post_author VARCHAR(100) NOT NULL,";
+$sql .= "post_date DATETIME DEFAULT CURRENT_TIMESTAMP ,";
+$sql .= "post_image TEXT,";
+$sql .= "post_content TEXT, ";
+$sql .= "post__tags VARCHAR(255), ";
+$sql .= "post_comments_count INTEGER, ";
+$sql .= "post_statas VARCHAR(100) DEFAULT 'draft');";
+
+if ($conn->query($sql) !== TRUE) {
+    echo "Error create table: " . $conn->connect_errno;
+}
+
+// $conn->close();
+
+// _____________________________________________________________________
