@@ -31,11 +31,22 @@
                 // $testDate =  new DateTime();
                 // echo $testDate->format('Y\-m\-d\ h:i:s');
 
-                $sql = "SELECT * FROM cms_posts";
-                $post = mysqli_query($conn, $sql);
+                if (isset($_POST['search']) && $_POST['search'] !== '') 
+                {
+                    $search = $_POST['search'];
+        
+                    $sql = "SELECT * FROM cms_posts WHERE post_tags LIKE '%{$search}%'";
+        
+        
+                    $results = $conn->query($sql);
+        
 
-                if ($post) {
-                    while ($row = mysqli_fetch_assoc($post)) {  
+                }
+
+
+
+                if ($results->num_rows > 0) {
+                    while ($row = mysqli_fetch_assoc($results)) {  
                         
                     $title = $row['post_title'];
                     $author = $row['post_author'];
@@ -67,21 +78,6 @@
                 }
                 
                 ?>
-
-                <!-- <h2>
-                    <a href="#">Blog Post Title</a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php">Start Bootstrap</a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
-                <hr>
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-                <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-
-                <hr> -->
 
                 <?php/* include "./includes/pager.php" */?>
 

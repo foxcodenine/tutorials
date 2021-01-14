@@ -17,7 +17,7 @@
 
             <?php            
 
-            $query = "SELECT * FROM cmd_categories;";
+            $query = "SELECT * FROM cms_categories;";
 
             $categories = mysqli_query($conn, $query);
 
