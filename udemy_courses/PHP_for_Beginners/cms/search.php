@@ -33,19 +33,19 @@
 
                 if (isset($_POST['search']) && $_POST['search'] !== '') 
                 {
-                    $search = $_POST['search'];
+                    $search = mysqli_real_escape_string($conn, $_POST['search']);
+                    
         
-                    $sql = "SELECT * FROM cms_posts WHERE post_tags LIKE '%{$search}%'";
+                    $sql = "SELECT * FROM cms_posts WHERE post_tags LIKE '%{$search}%' ";
+                    $sql .= "OR post_author LIKE '%{$search}%' ";
+                    $sql .= "OR post_title LIKE '%{$search}%';";        
         
-        
-                    $results = $conn->query($sql);
-        
+                    $results = $conn->query($sql);        
 
                 }
 
 
-
-                if ($results->num_rows > 0) {
+                if (isset($results) && $results->num_rows > 0) {
                     while ($row = mysqli_fetch_assoc($results)) {  
                         
                     $title = $row['post_title'];
@@ -75,6 +75,8 @@
                     ";                
 
                     }
+                } else {
+                    echo "<h2><a href='#'>No Result</a></h2>";
                 }
                 
                 ?>
