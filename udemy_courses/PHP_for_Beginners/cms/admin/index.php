@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include './includes/header.php'?>
-<?php require_once '../includes/db.php'?>
+<?php include './includes/admin_header.php'?>
+
 
 <body>
 
     <div id="wrapper">
 
         <!-- Navigation -->
-        <?php include './includes/nav_admin.php'?>
+        <?php include './includes/admin_nav.php'?>
 <!-- --------------------------------------------------------------- -->
 
         <div id="page-wrapper">
@@ -48,7 +48,7 @@
     </div>
     <!-- /#wrapper -->
 
-    <?php require 'includes/scripts.php'; ?>
+    <?php require 'includes/admin_scripts.php'; ?>
 
 </body>
 
