@@ -31,54 +31,15 @@
                         // ______ Fetch Categories from db
 
                         $sql = 'SELECT * FROM cms_categories;';
-                        $categories = $conn->query($sql);                                     
-
+                        $categories = $conn->query($sql);  
+                                      
                         // _____________________________________________
-                        ?>
-                        <?php 
-                        // _____________________________________________
-                        // ______ New Add Categories
 
-                        if (isset($_POST['submit'])) {
+                        // ______ Add New Category to database
+                        add_cat_to_db();
 
-                            $cat_name_title = $_POST['cat_title'];
-                            
-                            if (trim($cat_name_title) === '' || empty($cat_name_title)) {
-
-                                echo '<h5 style="color: crimson;">This field should not be empty! </h5>';
-
-                            } else {    
-
-                                $sql = "INSERT INTO cms_categories (cat_title) VALUES ('{$cat_name_title}');";
-
-                                if ($conn->query($sql) !== TRUE) {
-                                    echo "Error: " . "<br>" . $conn->error;
-                                } else {
-                                    echo "<meta http-equiv='refresh' content='0'>";                                    
-                                }
-                            }
-                        } 
-                                                
-                                                
-                        // _____________________________________________                      
-                        ?>
-                        <?php
-                        // _____________________________________________
-                        // Deleteing Category
-                        
-                        if (isset($_GET['delete'])) {
-
-                            $delete_cat_id = $_GET['delete'];
-
-                            $sql = "DELETE FROM cms_categories WHERE cat_id = '{$delete_cat_id}'";
-
-                            if ($conn->query($sql) !== TRUE) {
-                                echo 'Error:' . '<br>' . $conn->error;
-                            } else {
-                                // echo "<meta http-equiv='refresh' content='0'>";  // <- to refresh
-                                header("Location: categories.php");                 // <- to refresh
-                            }
-                        }
+                        // ______ Deleteing Category
+                        delete_cat_from_db();
                         
                         // _____________________________________________  
                         ?>
@@ -94,45 +55,20 @@
                         </form>
 
                         <?php 
-                        // Update category
-                        if (isset($_GET['edit'])) {
 
-                            
-                            $sql = "SELECT * FROM cms_categories WHERE cat_id = '{$_GET['edit']}' LIMIT 1;";
+                        // _____________________________________________
+                        // ----- Select category to update/edit
+                        // ----- Insert update inputs
+                        // ----- Save update to database
 
-                            $edit_cat = $conn->query($sql);
-
-                            if ($conn->error) {
-                                die('Error: ' . '<br>' . $conn->error);
-                            } else {
-                                $edit_cat = mysqli_fetch_assoc($edit_cat);
-                            }
-
+                        if (isset($_GET['edit']) || isset($_POST['update'])) {
+                            include './includes/edit_categories.php';
                         }
-                        
+                        // _____________________________________________  
+
                         ?>
 
-                        <form action="?" method="POST">
-                            <div class="form-group">
-                            <label for="cat-title">Add Categories</label>
-                                <input class="form-control" type="text" name="cat_title"
-                                    <?php
-                                    if (isset($edit_cat)) {
-                                        echo "value='{$edit_cat['cat_title']}'";
-                                    }
-                                    
-                                    ?>                                
-                                >
-                            </div>
-                            <div class="form-group">
-                                <input class="btn btn-primary" type="submit" name="update" value="Update">
-                            </div>
-                        </form>
-
-
                         </div>
-
-
 
                         <div class="col-xs-6">
                             <table class="table table-bordered table-hover">
@@ -150,22 +86,7 @@
                                 // _____________________________________ 
 
                                 // echo Categories
-
-                                if (isset($categories) && $categories->num_rows > 0) {
-
-                                    while($row = mysqli_fetch_assoc($categories)) {
-
-                                        $cat_id = $row['cat_id'];
-                                        $cat_title = $row['cat_title'];
-
-                                                            echo "<tr>";
-                                                            echo "<td>{$cat_id}</td>";
-                                                            echo "<td>{$cat_title}</td>";
-                                                            echo "<td><a href='categories.php?delete={$cat_id}'>Delete</a></td>";
-                                                            echo "<td><a href='categories.php?edit={$cat_id}'>Edit</a></td>";
-                                                            echo "</tr>";                                            
-                                    }
-                                }               
+                                echo_categories();             
                                 // _____________________________________ 
                                 ?>
 

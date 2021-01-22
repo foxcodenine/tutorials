@@ -14,14 +14,16 @@
 
         <!-- <li><a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a></li> -->
         <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#post-drop-down"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
+            <a href="#" data-toggle="collapse" data-target="#post-drop-down">
+                <i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i>
+            </a>
             <ul id="post-drop-down" class="collapse">
-                <li><a href="#">View All Posts</a></li>
+                <li><a href="post.php">View All Posts</a></li>
                 <li><a href="#">Create Post</a></li>
             </ul>
         </li>
         
-        <li><a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Catagories</a></li>
+        <li><a href="categories.php"><i class="fa fa-fw fa-wrench"></i> Catagories</a></li>
         
         <li class="active"><a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Comments</a></li>
 
