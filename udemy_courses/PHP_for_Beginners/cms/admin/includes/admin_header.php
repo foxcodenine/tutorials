@@ -1,6 +1,7 @@
 <?php ob_start(); ?>
 
 <?php require_once '../includes/db.php'; ?>
+<?php require_once './admin_functions.php'; ?>
 <head>
 
     <meta charset="utf-8">
