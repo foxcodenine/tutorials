@@ -40,8 +40,8 @@
 
                     switch($source) {
 
-                        case '10';
-                        echo 'NICE 10';
+                        case 'add_post';
+                        include './includes/add_post.php';
                         break;
 
                         case '100';
