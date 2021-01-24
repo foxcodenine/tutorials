@@ -1,45 +1,8 @@
-<?php 
+<?php admin_add_post();?>
 
-if (isset($_POST['create_post']) && $_POST['create_post'] === 'Publish Post') {
+<h2>Add Post</h2>
 
-    $post_title = $_POST['post_title'];    
-    $post_author = $_POST['post_author'];
-    $post_category_id = $_POST['post_category_id'];
-    $post_statas = $_POST['post_statas'];
-
-
-    $post_image = $_FILES['post_image']['name'];
-    $post_image_temp = $_FILES['post_image']['tmp_name'];
-
-    $post_tags = $_POST['post_tags'];
-    $post_content = $conn -> real_escape_string($_POST['post_content']);
-    
-    $post_date = date('d-m-y');
-
-    $post_comments_count = 4;
-
-
-    move_uploaded_file($post_image_temp, "../images/{$post_image}");
-
-    $sql  = "INSERT INTO cms_posts(
-        post_cat_id, post_title, post_author, post_date, post_image, 
-        post_content, post_tags, post_comments_count, post_statas) ";
-
-    $sql .= "values({$post_category_id}, '{$post_title}', '{$post_author}', 
-        now(), 'http://localhost/htdocs/cms/images/{$post_image}', '{$post_content}', 
-        '{$post_tags}', '{$post_comments_count}', '{$post_statas}')";
-
-    
-
-    if($conn->query($sql) !== TRUE) {
-        echo 'Error' . $conn->error;
-    }
-}
-
-
-?>
-
-<form action="" method="post" enctype="multipart/form-data">
+<form action="<?php echo $_SERVER['PHP_SELF'] . '?source=add_post' ?>" method="post" enctype="multipart/form-data">
 
 
     <div class="form-group">
