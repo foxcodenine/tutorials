@@ -1,7 +1,7 @@
 <?php
 // _____________________________________________________________________
 
-// Function for categories.php
+// Function for admin/categories.php
 
 function add_cat_to_db() {
     if (isset($_POST['submit'])) {
@@ -78,7 +78,7 @@ function echo_categories() {
 // _____________________________________________________________________
 // _____________________________________________________________________
 
-// Function for includes/edit_categories.php
+// Function for admin/includes/edit_categories.php
 
 
 function edit_select_cat() {
@@ -124,8 +124,52 @@ function edit_update_cat() {
     }
 }
 // _____________________________________________________________________
+// _____________________________________________________________________
+
+// function for admin/post.php
+
+function admin_add_post() {
+
+    global $conn;
+
+    if (isset($_POST['create_post']) && $_POST['create_post'] === 'Publish Post') {
+
+        $post_title = $_POST['post_title'];    
+        $post_author = $_POST['post_author'];
+        $post_category_id = $_POST['post_category_id'];
+        $post_statas = $_POST['post_statas'];
 
 
+        $post_image = $_FILES['post_image']['name'];
+        $post_image_temp = $_FILES['post_image']['tmp_name'];
+
+        $post_tags = $_POST['post_tags'];
+        $post_content = $conn -> real_escape_string($_POST['post_content']);
+        
+        $post_date = date('d-m-y');
+
+        $post_comments_count = 4;
+
+
+        move_uploaded_file($post_image_temp, "../images/{$post_image}");
+
+        $sql  = "INSERT INTO cms_posts(
+            post_cat_id, post_title, post_author, post_date, post_image, 
+            post_content, post_tags, post_comments_count, post_statas) ";
+
+        $sql .= "values({$post_category_id}, '{$post_title}', '{$post_author}', 
+            now(), 'http://localhost/htdocs/cms/images/{$post_image}', '{$post_content}', 
+            '{$post_tags}', '{$post_comments_count}', '{$post_statas}')";
+
+        
+
+        if($conn->query($sql) !== TRUE) {
+            die('Error:' . '<br>' . $conn->error);
+        } else {
+            header('Location: '. $_SERVER['PHP_SELF']);
+        }
+    }
+}
 
 
 ?>

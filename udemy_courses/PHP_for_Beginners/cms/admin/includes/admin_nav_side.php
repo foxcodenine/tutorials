@@ -19,7 +19,7 @@
             </a>
             <ul id="post-drop-down" class="collapse">
                 <li><a href="post.php">View All Posts</a></li>
-                <li><a href="#">Create Post</a></li>
+                <li><a href="post.php?source=add_post">Create Post</a></li>
             </ul>
         </li>
         
