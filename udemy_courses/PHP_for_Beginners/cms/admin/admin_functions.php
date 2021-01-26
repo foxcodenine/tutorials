@@ -126,7 +126,7 @@ function edit_update_cat() {
 // _____________________________________________________________________
 // _____________________________________________________________________
 
-// function for admin/post.php
+// function for admin/include/add_post.php
 
 function admin_add_post() {
 
@@ -160,7 +160,6 @@ function admin_add_post() {
         $sql .= "values({$post_category_id}, '{$post_title}', '{$post_author}', 
             now(), 'http://localhost/htdocs/cms/images/{$post_image}', '{$post_content}', 
             '{$post_tags}', '{$post_comments_count}', '{$post_statas}')";
-
         
 
         if($conn->query($sql) !== TRUE) {

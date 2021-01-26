@@ -12,8 +12,28 @@
 
     <div class="form-group">
         <label for="post_category_id">Post Category Id</label>
-        <input type="text" class="form-control" name="post_category_id">
+
+        <select class="form-control" name="post_category_id" id="">
+
+<!-- --------------------------------------------------------------- -->
+        <?php
+            $sql = "SELECT * FROM cms_categories;";
+
+            $result = $conn->query($sql);
+            
+            if($result != TRUE) {
+                die('Error:' . '<br>' . $conn->error);
+            }
+
+            while ($row = $result->fetch_assoc()) {            
+                echo "<option  value='{$row['cat_id']}'>{$row['cat_title']}</option>";
+            }
+        ?>
+<!-- --------------------------------------------------------------- -->
+    </select>
     </div>
+
+
 
     <div class="form-group">
         <label for="post_author">Post Author</label>

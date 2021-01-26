@@ -104,7 +104,15 @@
             echo "<td>{$post_id}</td>";
             echo "<td>{$post_author}</td>";
             echo "<td>{$post_title}</td>";
-            echo "<td>{$post_cat_id}</td>";
+
+            // Fetching category title from  $post_cat_id:
+
+            $sql = "SELECT * FROM cms_categories  WHERE cat_id = $post_cat_id";
+
+            $result = $conn->query($sql);
+            $category = $result->fetch_assoc();
+            echo "<td>{$category['cat_title']}</td>";
+
             echo "<td>{$post_statas}</td>";
             echo "<td><img style='width: 200px;' src='{$post_image}'></td>";
             echo "<td>{$post_tags}</td>";
