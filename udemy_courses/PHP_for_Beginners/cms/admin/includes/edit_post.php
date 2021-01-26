@@ -1,6 +1,14 @@
 <?php 
 
-$form_action = $_SERVER['PHP_SELF'] .'?source=add_post';
+$form_action = $_SERVER['PHP_SELF'] . "?source=edit_post&p_id={$_GET['p_id']}"; 
+
+?>
+
+<!-- --------------------------------------------------------------- -->
+<?php 
+// Populating form with database data
+
+
 
 $post_title = '';
 $post_cat_id = '';
@@ -32,8 +40,68 @@ if ($result != True) {
     $post_content= $row["post_content"];
     
 }
+?>
+
+<!-- --------------------------------------------------------------- -->
+
+<?php
+// Updating changes data
+
+if (isset($_POST['update_post'])) {
+
+
+
+    $post_title = $_POST['post_title'];    
+    $post_author = $_POST['post_author'];
+    $post_cat_id = $_POST['post_category_id'];
+    $post_statas = $_POST['post_statas'];
+
+    $post_image_new = $_FILES['post_image_new']['name'];
+    $post_image_temp_new = $_FILES['post_image_new']['tmp_name'];
+
+    $post_tags = $_POST['post_tags'];
+    $post_content = $conn -> real_escape_string($_POST['post_content']);   
+
+
+    $sql  = "UPDATE cms_posts SET ";
+    $sql .= "post_title     = '{$post_title}', ";
+    $sql .= "post_cat_id    = {$post_cat_id}, ";
+    $sql .= "post_date      =  now() , ";
+    $sql .= "post_statas    = '{$post_statas}', ";
+    $sql .= "post_tags      = '{$post_tags}', ";    
+    
+    if (trim($post_image_new) !== '') { 
+
+        move_uploaded_file($post_image_temp_new, "../images/{$post_image_new}");
+
+
+        // deleteing current image from folder
+        $current_image_name = explode('/', $post_image);
+        $current_image_name = end($current_image_name);
+        $current_image_path = dirname(dirname(__DIR__)) . "/images/{$current_image_name}" ;
+        unlink($current_image_path);
+
+
+
+        $sql .= "post_image = 'http://localhost/htdocs/cms/images/{$post_image_new}', ";    
+    } 
+
+    $sql .= "post_content   = '{$post_content}'";
+    $sql .= "WHERE post_id = {$_GET['p_id']};";
+
+
+    if ($result = $conn->query($sql) != TRUE) {
+        die('Error: ' . '<br>' .  $conn-> error);
+    } else {
+        
+        header('Location: '. $_SERVER['PHP_SELF']);
+    }
+}
 
 ?>
+
+
+
 <!-- --------------------------------------------------------------- -->
 
 <h2>Edit Post</h2>
@@ -49,7 +117,31 @@ if ($result != True) {
 
 <div class="form-group">
     <label for="post_category_id">Post Category Id</label>
-    <input <?php echo "value='{$post_cat_id}'"; ?> type="text" class="form-control" name="post_category_id">
+    <!-- <input  type="text" class="form-control" name="post_category_id"> -->
+
+    <select class="form-control" name="post_category_id" id="">
+
+<!-- --------------------------------------------------------------- -->
+        <?php
+            $sql = "SELECT * FROM cms_categories;";
+
+            $result = $conn->query($sql);
+            
+            if($result != TRUE) {
+                die('Error:' . '<br>' . $conn->error);
+            }
+
+            while ($row = $result->fetch_assoc()) {            
+
+                if($post_cat_id === $row['cat_id']) {                    
+                    echo "<option selected value='{$row['cat_id']}'>{$row['cat_title']}</option>";
+                } else {
+                    echo "<option  value='{$row['cat_id']}'>{$row['cat_title']}</option>";
+                }
+            }
+        ?>
+<!-- --------------------------------------------------------------- -->
+    </select>
 </div>
 
 <div class="form-group">
@@ -63,8 +155,16 @@ if ($result != True) {
 </div>
 
 <div class="form-group">
-    <label for="post_image">Post Image</label>
-    <input type="file" name="post_image">
+    <label for="post_image">Post Image</label><br>
+    
+    <img 
+        width="100" alt="" name=post_image
+        src="<?php echo $post_image;?>"             
+    >
+
+    <br><br>
+    <input type="file" name="post_image_new">
+    
 </div>
 
 
@@ -75,9 +175,8 @@ if ($result != True) {
 
 <div class="form-group">
     <label for="post_content">Post Content</label>
-    <textarea  class="form-control" name="post_content" id="" cols="30" rows="10">
-    <?php echo "$post_content"; ?>
-    </textarea>
+    <textarea  class="form-control" name="post_content" 
+        id="" cols="30" rows="10"><?php echo "$post_content"; ?></textarea>
 </div>
 
 

@@ -7,68 +7,58 @@
 
     <div id="wrapper">
 
-        <!-- Navigation -->
-        <?php include './includes/admin_nav.php'?>
+    <!-- Navigation -->
+    <?php include './includes/admin_nav.php'?>
 <!-- --------------------------------------------------------------- -->
 
-        <div id="page-wrapper">
+    <div id="page-wrapper">
 
-            <div class="container-fluid">
+        <div class="container-fluid">
 
-                <!-- Page Heading -->
+            <!-- Page Heading -->
+            
+            <div class="row">
+                <div class="col-lg-12">
+
+                <h1 class="page-header">
+                    Welcome To Admin
+                    <small>Author Name</small>
+                </h1>
+
+<!-- -------------------------------------- -->
+                <?php 
                 
-                <div class="row">
-                    <div class="col-lg-12">
+                if (isset($_GET['source'])) {
+                    $source = $_GET['source'];
+                } else {
+                    $source = '';
+                }
 
-                    <h1 class="page-header">
-                        Welcome To Admin
-                        <small>Author Name</small>
-                    </h1>
+                switch($source) {
 
-                    
+                    case 'add_post';
+                    include './includes/add_post.php';
+                    break;
 
-                    
+                    case 'edit_post';
+                    include './includes/edit_post.php';
+                    break;
 
-                    
-                    <?php 
-                    
-                    if (isset($_GET['source'])) {
-                        $source = $_GET['source'];
-                    } else {
-                        $source = '';
-                    }
-
-                    switch($source) {
-
-                        case 'add_post';
-                        include './includes/add_post.php';
-                        break;
-
-                        case 'edit_post';
-                        include './includes/edit_post.php';
-                        break;
-
-                        default:
-                        include './includes/view_all_post.php';
-
-                    } 
-                    
-                    ?>
-
-
-
-
-                       
-
-                    </div>
+                    default:
+                    include './includes/view_all_post.php';
+                } 
+                
+                ?>                      
+<!-- -------------------------------------- -->
                 </div>
-                <!-- /.row -->
-
             </div>
-            <!-- /.container-fluid -->
+            <!-- /.row -->
 
         </div>
-        <!-- /#page-wrapper -->
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- /#page-wrapper -->
 <!-- --------------------------------------------------------------- -->
     </div>
     <!-- /#wrapper -->
