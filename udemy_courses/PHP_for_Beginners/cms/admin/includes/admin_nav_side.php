@@ -4,7 +4,7 @@
         
         <!-- <li><a><?php /*  if ($conn) {echo 'Yes we have db';} */ ?> </a></li> -->
         
-        <li><a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a></li>
 
         <!-- <li><a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a></li> -->
 

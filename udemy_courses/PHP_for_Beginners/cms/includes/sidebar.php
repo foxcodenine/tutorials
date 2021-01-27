@@ -31,8 +31,13 @@
 
                     if(isset($categories) && $categories->num_rows > 0) {
 
+                        
+
                         while($row = mysqli_fetch_assoc($categories)) {
-                            echo "<li><a href='#'>{$row['cat_title']}</a>";
+                            $cat_id = $row['cat_id'];
+                            $cat_title = $row['cat_title'];
+
+                            echo "<li><a href='category.php?c_id={$cat_id}'>{$cat_title}</a>";
                         }
                     }
                     ?>  
