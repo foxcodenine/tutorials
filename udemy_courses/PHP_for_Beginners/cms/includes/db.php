@@ -79,3 +79,22 @@ if ($conn->query($sql) !== TRUE) {
 // $conn->close();
 
 // _____________________________________________________________________
+
+
+$sql  =     "CREATE TABLE IF NOT EXISTS cms_comments(
+            comm_id INTEGER AUTO_INCREMENT PRIMARY KEY,
+
+            comm_post_id INTEGER NOT NULL,
+            FOREIGN KEY (comm_post_id) REFERENCES cms_posts(post_id),
+
+            comm_author VARCHAR(50) NOT NULL,
+            comm_email VARCHAR(50) NOT NULL,
+            comm_content TEXT NOT NULL,
+            comm_status VARCHAR(500) DEFAULT 'draft',
+            comm_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+            )";
+
+if ($conn->query($sql) !== TRUE) {
+    echo "Error create table: " . $conn->connect_errno;
+}
+// _____________________________________________________________________
