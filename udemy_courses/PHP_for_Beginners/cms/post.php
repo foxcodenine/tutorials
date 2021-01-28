@@ -28,12 +28,17 @@
                 </h1>
 
                 <!-- First Blog Post -->
+<!-- --------------------------------------------------------------- -->
                 <?php
 
                 // $testDate =  new DateTime();
                 // echo $testDate->format('Y\-m\-d\ h:i:s');
 
-                $sql = "SELECT * FROM cms_posts WHERE post_id = {$_GET['p_id']}";
+                $current_post_id = $_GET['p_id'];
+
+               
+
+                $sql = "SELECT * FROM cms_posts WHERE post_id = {$current_post_id}";
                 $post = mysqli_query($conn, $sql);
 
                 if ($post) {
@@ -69,7 +74,33 @@
                 }
                 
                 ?>
+<!-- --------------------------------------------------------------- -->
+                <?php
+                
+                if (isset($_POST['create_comment'])) {
 
+                    $comm_author  = mysqli_escape_string($conn, $_POST['comm_author']);
+                    $comm_email   = mysqli_escape_string($conn, $_POST['comm_email']);
+                    $conn_content = mysqli_escape_string($conn, $_POST['comm_content']);
+
+                    $conn_post_id = $current_post_id;
+
+
+                    $sql = "INSERT INTO cms_comments (
+                        comm_author, comm_email, comm_post_id, comm_content
+                        ) VALUES(
+                            '{$comm_author}', '{$comm_email}', {$conn_post_id}, '{$conn_content}'
+                        )";
+
+                    if ($conn->query($sql) != TRUE) {
+                        die('Error: <br>' . $conn->error);
+                    } else {
+                        header('Location: '. './admin/comments.php');
+                    }
+                }
+                
+                ?>
+<!-- --------------------------------------------------------------- -->
                 <?php/* include "./includes/pager.php" */?>
 
 <!-- Start Comment Section ----------------------------------------- -->         
@@ -79,11 +110,26 @@
                 <!-- Comments Form -->
                 <div class="well">
                     <h4>Leave a Comment:</h4>
-                    <form role="form">
+                    <form   method="post" action="post.php?p_id=<?php echo $current_post_id;?>"  >
+
+                    
                         <div class="form-group">
-                            <textarea class="form-control" rows="3"></textarea>
+                        <label for="comm_author">Author</label>
+                            <input type="text" class="form-control" name="comm_author">
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                    
+                        <div class="form-group">
+                        <label for="comm_email">Email</label>
+                            <input type="email" class="form-control" name="comm_email">
+                        </div>
+
+
+                        <div class="form-group">
+                        <label for="comm_content">Content</label>
+                            <textarea name="comm_content" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <button name="create_comment" type="submit" class="btn btn-primary" >Submit</button>
                     </form>
                 </div>
 
