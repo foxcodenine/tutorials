@@ -90,7 +90,7 @@ $sql  =     "CREATE TABLE IF NOT EXISTS cms_comments(
             comm_author VARCHAR(50) NOT NULL,
             comm_email VARCHAR(50) NOT NULL,
             comm_content TEXT NOT NULL,
-            comm_status VARCHAR(500) DEFAULT 'draft',
+            comm_status VARCHAR(500) DEFAULT 'unapproved',
             comm_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
             )";
 
