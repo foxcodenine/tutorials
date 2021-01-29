@@ -94,9 +94,8 @@
 
                     if ($conn->query($sql) != TRUE) {
                         die('Error: <br>' . $conn->error);
-                    } else {
-                        header('Location: '. './admin/comments.php');
-                    }
+                    } 
+
                 }
                 
                 ?>

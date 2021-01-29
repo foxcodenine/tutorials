@@ -14,40 +14,12 @@
         if (isset($_GET['delete']) && trim($_GET['delete']) !== '') {
 
 
-            // _________________________________________________________
 
-            // ----- getting image path 
-
-            $sql = "SELECT post_image FROM cms_posts WHERE post_id = {$_GET['delete']};";
-            $image_object = $conn->query($sql);
-
-            
-            if(isset($image_object) && mysqli_num_rows($image_object) > 0) {
-
-                // 1. converting to an url string
-                $image_url = $image_object->fetch_assoc()['post_image'];
-
-                // 2. splitting string to array
-                $image_array = explode('/', $image_url);
-
-                // 3. selecting image name from array
-                echo $image_name = end($image_array);
-
-                echo '<br>';
-
-                // 4. retuning absolute path to image
-                echo $image_path = dirname(dirname(__DIR__)) . "/images/{$image_name}";
-                
-                
-            } else {
-
-                die('Error! post_id not found in db');
-            }
 
             // _________________________________________________________
             
             // Deleting record from database 
-            $sql = "DELETE FROM cms_posts WHERE post_id = {$_GET['delete']}";
+            $sql = "DELETE FROM cms_comments WHERE comm_id = {$_GET['delete']}";
 
  
             if ($conn->query($sql) !== TRUE) {
@@ -105,13 +77,39 @@
             echo "<td>{$comm_author}</td>";
             echo "<td>{$comm_content}</td>";
             echo "<td>{$comm_email}</td>";
-            echo "<td>{$comm_status}</td>";
-            echo "<td>{$comm_post_id}</td>";
+            echo "<td>{$comm_status}</td>";            
+
+            // _________________________________________________________________
+
+            // displaying 
+
+            
+
+            $sql =  "SELECT * FROM cms_posts WHERE  post_id = $comm_post_id;";
+
+            $result = $conn->query($sql);
+
+            if ($conn->error) {
+                die('Error: <br>' . $conn->error);
+            } else {
+
+                $record = $result->fetch_assoc();
+
+                $post_id = $record['post_id'];
+                $post_title = $record['post_title'];
+
+                $path = dirname($_SERVER['PHP_SELF'], 2) . '/post.php?p_id=' . $post_id;
+
+                echo "<td><a href='$path'>{$post_title}</a></td>";
+            }
+
+            // _________________________________________________________________            
+
             echo "<td>{$comm_date}</td>";
             echo "<td><a href='#'>Approve</a></td>";
             echo "<td><a href='#'>Unapprove</a></td>";
             echo "<td><a href='#'>Edite</a></td>";
-            echo "<td><a href='#'>Delete</a></td>";
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?delete={$comm_id}'>Delete</a></td>";
 
 
 
