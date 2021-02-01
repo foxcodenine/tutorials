@@ -61,7 +61,7 @@ $sql  = "CREATE TABLE IF NOT EXISTS cms_posts(";
 $sql .= "post_id INTEGER AUTO_INCREMENT PRIMARY KEY, ";
 
 $sql .= "post_cat_id INTEGER NOT NULL,";
-$sql .= "FOREIGN KEY (post_cat_id) REFERENCES cms_categories(cat_id),";
+$sql .= "FOREIGN KEY (post_cat_id) REFERENCES cms_categories(cat_id) ON DELETE CASCADE,";
 
 $sql .= "post_title VARCHAR(255) NOT NULL,";
 $sql .= "post_author VARCHAR(100) NOT NULL,";

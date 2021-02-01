@@ -40,6 +40,34 @@
 
 <!-- --------------------------------------------------------------- -->
 
+<?php
+        if (isset($_GET['approve']) || isset($_GET['unapprove'])) {
+
+            $action = "";
+
+            if (isset($_GET['approve'])) {
+                $action = "approve";
+            } else {
+                $action = "unapprove";
+            }
+
+            $sql = "UPDATE cms_comments SET comm_status = '{$action}d' WHERE comm_id = {$_GET[$action]};";
+
+
+            if ($conn->query($sql) != TRUE) {
+                die('Errer: '. '<br>' . $conn->error);
+            } else {
+                header('Location: '. $_SERVER['PHP_SELF']);
+            }
+
+        }
+
+
+
+?>
+
+<!-- --------------------------------------------------------------- -->
+
 <table class="table table-bordered table-hover">
     <thead >
         <tr>
@@ -81,7 +109,7 @@
 
             // _________________________________________________________________
 
-            // displaying 
+            // displaying post title
 
             
 
@@ -106,8 +134,8 @@
             // _________________________________________________________________            
 
             echo "<td>{$comm_date}</td>";
-            echo "<td><a href='#'>Approve</a></td>";
-            echo "<td><a href='#'>Unapprove</a></td>";
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?approve={$comm_id}'>Approve</a></td>";
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?unapprove={$comm_id}'>Unapprove</a></td>";
             echo "<td><a href='#'>Edite</a></td>";
             echo "<td><a href='{$_SERVER['PHP_SELF']}?delete={$comm_id}'>Delete</a></td>";
 
