@@ -65,6 +65,7 @@ if (isset($_POST['update_post'])) {
 
     $sql  = "UPDATE cms_posts SET ";
     $sql .= "post_title     = '{$post_title}', ";
+    $sql .= "post_author     = '{$post_author}', ";
     $sql .= "post_cat_id    = {$post_cat_id}, ";
     $sql .= "post_date      =  now() , ";
     $sql .= "post_statas    = '{$post_statas}', ";
