@@ -31,7 +31,7 @@
                 // $testDate =  new DateTime();
                 // echo $testDate->format('Y\-m\-d\ h:i:s');
 
-                $sql = "SELECT * FROM cms_posts";
+                $sql = "SELECT * FROM cms_posts WHERE post_statas = 'published'";
                 $post = mysqli_query($conn, $sql);
 
                 if ($post) {

@@ -97,13 +97,26 @@
             $post_image = $row['post_image'];
             $post_content = $row['post_content'];
             $post_tags = $row['post_tags'];
-            $post_count = $row['post_comments_count'];
+
+            // ---------------------------------------------------------
+            $sql = "SELECT COUNT(*) AS 'count' FROM cms_comments WHERE comm_post_id = {$post_id}";
+            $result = $conn->query($sql);
+
+            if ($conn->error) {
+                die('Error' . '<br>' . $conn->error);
+            }
+
+            $record = $result->fetch_assoc();            
+            $post_count = $record['count'];
+
+            // ---------------------------------------------------------
+            
             $post_statas = $row['post_statas'];
 
             echo "<tr>";
             echo "<td>{$post_id}</td>";
             echo "<td>{$post_author}</td>";
-            echo "<td>{$post_title}</td>";
+            echo "<td><a href='../post.php?p_id={$post_id}'>{$post_title}</a></td>";
 
             // Fetching category title from  $post_cat_id:
 
@@ -123,6 +136,6 @@
             echo "</tr>";
         }
     ?>
-
+    
     </tbody>
 </table>
