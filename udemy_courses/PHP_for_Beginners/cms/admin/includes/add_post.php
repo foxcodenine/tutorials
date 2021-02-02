@@ -6,7 +6,7 @@
 
 
     <div class="form-group">
-        <label for="post_title">Post post_title</label>
+        <label for="post_title">Post Title</label>
         <input type="text" class="form-control" name="post_title">
     </div>
 

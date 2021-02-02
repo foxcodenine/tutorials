@@ -3,8 +3,8 @@
 
 // ---- Fetch all post from database and return
 
-        $sql = "SELECT * FROM cms_comments;";
-        $result_post = $conn->query($sql);
+        $sql = "SELECT * FROM cms_users;";
+        $result_users = $conn->query($sql);
 ?>
 <!-- --------------------------------------------------------------- -->
 
@@ -72,46 +72,53 @@
     <thead >
         <tr>
             <th>Id</th>
-            <th>Author</th>
-            <th>Comment</th>
+            <th>Username</th>
+            <th>Fistname</th>
+            <th>Lastname</th>
             <th>Email</th>
-            <th>Status</th>
-            <th>in Response to</th>
-            <th>Date</th>
-            <th>Approve</th>
-            <th>Unapprove</th>
-            <th>Edit</th>
-            <th>Delete</th>         
+            <th>Role</th>      
         </tr>
     </thead>
     <tbody>
 
     <?php
-        while ($row = mysqli_fetch_assoc($result_post)) {        
+        while ($row = $result_users->fetch_assoc()) {        
 
-            $comm_id = $row['comm_id'];
-            $comm_author = $row['comm_author'];
-            $comm_content = substr($row['comm_content'], 0, 20) . '...';
-            $comm_email = $row['comm_email'];
-            $comm_status = $row['comm_status'];
-            $comm_post_id = $row['comm_post_id'];
-            $comm_date = $row['comm_date'];
+            $user_id = $row['user_id'];
+            $user_username = $row['user_username'];
+            $user_password = $row['user_password'];
+            $user_firstname = $row['user_firstname'];
+            $user_lastname = $row['user_lastname'];
+            $user_email = $row['user_email'];
+            $user_image = $row['user_image'];
+            $user_role = $row['user_role'];
+            $user_date = $row['user_date'];
+            $user_randsalt = $row['user_randsalt'];
 
+            // <th>Id</th>
+            // <th>Username</th>
+            // <th>Fistname</th>
+            // <th>Lastname</th>
+            // <th>Email</th>
+            // <th>Role</th>
+            // <th>Date</th>
 
 
 
             echo "<tr>";
-            echo "<td>{$comm_id}</td>";
-            echo "<td>{$comm_author}</td>";
-            echo "<td>{$comm_content}</td>";
-            echo "<td>{$comm_email}</td>";
-            echo "<td>{$comm_status}</td>";            
+            echo "<td>{$user_id}</td>";
+            echo "<td>{$user_username}</td>";
+            echo "<td>{$user_firstname}</td>";
+            echo "<td>{$user_lastname}</td>";
+            echo "<td>{$user_email}</td>";
+            echo "<td>{$user_role}</td>";            
+        
 
             // _________________________________________________________________
 
             // displaying post title
 
-            
+            /*
 
             $sql =  "SELECT * FROM cms_posts WHERE  post_id = $comm_post_id;";
 
@@ -132,15 +139,14 @@
             }
 
             // _________________________________________________________________            
-
-            echo "<td>{$comm_date}</td>";
-            echo "<td><a href='{$_SERVER['PHP_SELF']}?approve={$comm_id}'>Approve</a></td>";
-            echo "<td><a href='{$_SERVER['PHP_SELF']}?unapprove={$comm_id}'>Unapprove</a></td>";
+            */
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?approve={#}'>Approve</a></td>";
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?unapprove={#}'>Unapprove</a></td>";
             echo "<td><a href='#'>Edite</a></td>";
-            echo "<td><a href='{$_SERVER['PHP_SELF']}?delete={$comm_id}'>Delete</a></td>";
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?delete={#}'>Delete</a></td>";
 
+     
             echo "</tr>";
-
         }
     ?>
 
