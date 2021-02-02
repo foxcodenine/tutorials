@@ -98,3 +98,30 @@ if ($conn->query($sql) !== TRUE) {
     echo "Error create table: " . $conn->connect_errno;
 }
 // _____________________________________________________________________
+
+$sql = "CREATE TABLE IF NOT EXISTS cms_users(
+        user_id INTEGER AUTO_INCREMENT PRIMARY KEY,        
+        user_username VARCHAR(50) NOT NULL, 
+        user_password VARCHAR(255) NOT NULL, 
+        user_firstname VARCHAR(50) NOT NULL, 
+        user_lastname VARCHAR(50) NOT NULL, 
+        user_email VARCHAR(100) NOT NULL, 
+        user_image VARCHAR(255) NOT NULL, 
+        user_role VARCHAR(50) NOT NULL, 
+        user_randsalt VARCHAR(255) NOT NULL 
+        );";
+
+if ($conn->query($sql) != TRUE) {
+    die('Error: ' . '<br>' . $conn->error);
+}
+
+
+
+// 'INSERT INTO `cms_users` 
+// (`user_id`, `user_username`, `user_password`, `user_firstname`, `user_lastname`, 
+// `user_email`, `user_image`, `user_role`, `user_randsalt`) 
+// VALUES (
+// NULL, 'rico', '123', 'Rico', 'Scuave', 'ricoscuave@gmial.com', '', 'admin', '');';
+
+
+// INSERT INTO `cms_users` (`user_id`, `user_username`, `user_password`, `user_firstname`, `user_lastname`, `user_email`, `user_image`, `user_role`, `user_date`, `user_randsalt`) VALUES (NULL, 'rico', '123', 'Rico', 'Scuave', 'ricoscuave@gmail.com', '', 'admin', '1984-02-02', '');
