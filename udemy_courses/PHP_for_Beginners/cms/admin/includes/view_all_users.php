@@ -19,7 +19,7 @@
             // _________________________________________________________
             
             // Deleting record from database 
-            $sql = "DELETE FROM cms_comments WHERE comm_id = {$_GET['delete']}";
+            $sql = "DELETE FROM cms_users WHERE user_id = {$_GET['delete']}";
 
  
             if ($conn->query($sql) !== TRUE) {
@@ -29,7 +29,7 @@
             } else {
 
             // Deleting image file and refresh page
-            unlink($image_path);
+            // unlink($image_path);
             header('Location: '. $_SERVER['PHP_SELF']);
             
             }
@@ -95,14 +95,6 @@
             $user_date = $row['user_date'];
             $user_randsalt = $row['user_randsalt'];
 
-            // <th>Id</th>
-            // <th>Username</th>
-            // <th>Fistname</th>
-            // <th>Lastname</th>
-            // <th>Email</th>
-            // <th>Role</th>
-            // <th>Date</th>
-
 
 
             echo "<tr>";
@@ -143,7 +135,7 @@
             echo "<td><a href='{$_SERVER['PHP_SELF']}?approve={#}'>Approve</a></td>";
             echo "<td><a href='{$_SERVER['PHP_SELF']}?unapprove={#}'>Unapprove</a></td>";
             echo "<td><a href='#'>Edite</a></td>";
-            echo "<td><a href='{$_SERVER['PHP_SELF']}?delete={#}'>Delete</a></td>";
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?delete={$user_id}'>Delete</a></td>";
 
      
             echo "</tr>";
