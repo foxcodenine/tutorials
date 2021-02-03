@@ -2,8 +2,7 @@
 
 <h2>Add User</h2>
 
-<form action="<?php echo $_SERVER['PHP_SELF'] . '?source=add_post' ?>" method="post" enctype="multipart/form-data">
-
+<form action="<?php echo $_SERVER['PHP_SELF'] . '?source=add_user' ?>" method="post" enctype="multipart/form-data">
 
     <div class="form-group">
         <label for="user_firstname">Firstname</label>
@@ -39,6 +38,10 @@
                 echo "<option  value='{$role}'>{$role}</option>";
             }
 
+
+
+
+
         ?>
 <!-- --------------------------------------------------------------- -->
     </select>
@@ -48,7 +51,7 @@
 
     <div class="form-group">
         <label for="user_username">Username</label>
-        <input type="text" class="form-control" name="user_name">
+        <input type="text" class="form-control" name="user_username">
     </div>
 
     <div class="form-group">
@@ -68,7 +71,7 @@
 
     <div class="form-group">
         <label for="user_date">Date</label>
-        <input type="text" class="form-control" name="user_date">
+        <input type="date" class="form-control" name="user_date">
     </div>
 
     <!-- <div class="form-group">

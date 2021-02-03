@@ -174,9 +174,38 @@ function admin_add_post() {
 // _____________________________________________________________________
 
 // function for admin/include/add_user.php
+
 function admin_add_user() {
+    if (isset($_POST['create_user'])) {
 
+        $user_firstname = $_POST['user_firstname'];
+        $user_lastname = $_POST['user_lastname'];
+        $user_role = $_POST['user_role'];
+        $user_username = $_POST['user_username'];
+        $user_password = $_POST['user_password'];
+        $user_email = $_POST['user_email'];
+        $user_date = $_POST['user_date'];
+
+
+
+        $sql = "INSERT INTO cms_users(
+                    user_firstname, user_lastname, user_role, user_username, 
+                    user_password, user_email, user_date, user_image, user_randsalt
+                ) VALUES (
+                    '{$user_firstname}', '{$user_lastname}', 
+                    '{$user_role}', '{$user_username}', '{$user_password}',
+                    '{$user_email}', '{$user_date}', 'Null', 'Null'
+                );";
+
+        global $conn;                
+        
+        if ($conn->query($sql) != TRUE) {
+            die('Error: ' . '<br>' . $conn->error);
+        } else {
+            header('Location: '. $_SERVER['PHP_SELF']);
+        }
+    }
+    
 }
-
 
 ?>
