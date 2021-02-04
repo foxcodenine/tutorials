@@ -41,17 +41,17 @@
 <!-- --------------------------------------------------------------- -->
 
 <?php
-        if (isset($_GET['approve']) || isset($_GET['unapprove'])) {
+        if (isset($_GET['Admin']) || isset($_GET['Subscriber'])) {
 
-            $action = "";
+            $role = "";
 
-            if (isset($_GET['approve'])) {
-                $action = "approve";
+            if (isset($_GET['Admin'])) {
+                $role = "Admin";
             } else {
-                $action = "unapprove";
+                $role = "Subscriber";
             }
 
-            $sql = "UPDATE cms_comments SET comm_status = '{$action}d' WHERE comm_id = {$_GET[$action]};";
+            $sql = "UPDATE cms_users SET user_role = '{$role}' WHERE user_id = {$_GET[$role]};";
 
 
             if ($conn->query($sql) != TRUE) {
@@ -61,8 +61,6 @@
             }
 
         }
-
-
 
 ?>
 
@@ -106,35 +104,9 @@
             echo "<td>{$user_role}</td>";            
         
 
-            // _________________________________________________________________
-
-            // displaying post title
-
-            /*
-
-            $sql =  "SELECT * FROM cms_posts WHERE  post_id = $comm_post_id;";
-
-            $result = $conn->query($sql);
-
-            if ($conn->error) {
-                die('Error: <br>' . $conn->error);
-            } else {
-
-                $record = $result->fetch_assoc();
-
-                $post_id = $record['post_id'];
-                $post_title = $record['post_title'];
-
-                $path = dirname($_SERVER['PHP_SELF'], 2) . '/post.php?p_id=' . $post_id;
-
-                echo "<td><a href='$path'>{$post_title}</a></td>";
-            }
-
-            // _________________________________________________________________            
-            */
-            echo "<td><a href='{$_SERVER['PHP_SELF']}?approve={#}'>Approve</a></td>";
-            echo "<td><a href='{$_SERVER['PHP_SELF']}?unapprove={#}'>Unapprove</a></td>";
-            echo "<td><a href='#'>Edite</a></td>";
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?Admin={$user_id}'>Admin</a></td>";
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?Subscriber={$user_id}'>Subscriber</a></td>";
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?source=edit_user&u_id={$user_id}'>Edite</a></td>";
             echo "<td><a href='{$_SERVER['PHP_SELF']}?delete={$user_id}'>Delete</a></td>";
 
      

@@ -22,7 +22,7 @@
 
                 <h1 class="page-header">
                     Welcome To Admin
-                    <small>Author Name</small>
+                    <small>Users</small>
                 </h1>
 
 <!-- -------------------------------------- -->
