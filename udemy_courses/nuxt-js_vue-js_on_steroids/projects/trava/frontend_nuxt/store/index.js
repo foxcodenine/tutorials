@@ -193,6 +193,9 @@ const createStore = () => {
                 document.documentElement.style.setProperty('--color-primary', '#c5f5e1');
                 document.documentElement.style.setProperty('--color-primary-dark', '#3ab07f');
             },
+            deleteCookie(vuexContext) {
+                Cookies.remove('trava_jwt_email');
+            },
             saveToCookie(vuexContext, payload) {
                 const decoded = jwt.verify(`${payload.token}`, this.$config.BESK);
                 const token_exp = decoded.exp - Date.parse(new Date()) / 1000;
@@ -225,7 +228,6 @@ const createStore = () => {
             
                 // let check_my_token = await vuexContext.dispatch('checkToken', cookie_object.token); // <-
                 // console.log(check_my_token);// <-
-
                 return cookie_object;
 
             },
@@ -235,7 +237,7 @@ const createStore = () => {
                     jwt.verify(token, this.$config.BESK);
                     return 'valide';
                 } catch(err) {
-
+        
                     console.log(err);
                     return 'invalide';                    
                 }
@@ -266,27 +268,28 @@ const createStore = () => {
                 console.log('<<AutoLogin>>')
 
                 const cookie_object = await vuexContext.dispatch('getFromCookie');
-
+                
                 if (!cookie_object) {
                     console.log('<<NoCookie>>');
                     return;
                 }
-
+                
                 const {userInfo, token} = cookie_object;
-
+                
                 if (!userInfo || !token)  {
                     console.log('<<NoUser/Token>>'); 
                     Cookies.remove('trava_jwt_email');
                     return;
                 }
-
+                
                 if (await vuexContext.dispatch('checkToken', token) === 'valide') {
                     // Clear previous 'Sign-out if token exp'
+                    
                     clearTimeout(vuexContext.getters.getSetAutoLogOut);
-
+                    
                     // Decode Token
                     let decoded = jwt.verify(token, this.$config.BESK)
-
+                    
                     // Restart Token exp
                     decoded.iat = Math.floor(Date.now() / 1000);
                     delete decoded.exp;
@@ -297,16 +300,23 @@ const createStore = () => {
                         userInfo,
                         userBoxes: userBoxData ? [...cookie_object.userBoxes, userBoxData] : cookie_object.userBoxes                     
                     }
+                    
                     // Save new Token in cookie and store with userInfo
                     vuexContext.dispatch('userSignIn', payload);
+                    
                     vuexContext.dispatch('saveToCookie', payload);
+                  
 
                     // Sign-out if token exp
                     vuexContext.dispatch('autoLogOut');
+                   
 
                     // Add user boxes to UI
-                    vuexContext.state.myBoxes = [...vuexContext.state.myBoxes, ...cookie_object.userBoxes];
-
+                    // console.log(vuexContext.state.myBoxes)
+                    // console.log(cookie_object.userBoxes)
+                    // vuexContext.state.myBoxes = [...vuexContext.state.myBoxes, ...cookie_object.userBoxes];
+                    vuexContext.state.myBoxes = cookie_object.userBoxes ? [...vuexContext.state.myBoxes, ...cookie_object.userBoxes] : vuexContext.state.myBoxes;
+       
                     return
                 } else {
                     Cookies.remove('trava_jwt_email');
