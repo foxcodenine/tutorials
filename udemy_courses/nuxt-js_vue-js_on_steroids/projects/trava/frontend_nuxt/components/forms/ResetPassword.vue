@@ -109,12 +109,15 @@
                 }
                 this.$store.dispatch(dispatch_function, {...payload})
                 .then(data => {
+                 
                     this.myThenFunction(data);
                 })
                 .catch(err => console.log(err))
             },
             myThenFunction(data) {
-                if (data.state === 'error') {                    
+   
+                if (data.state === 'error') {  
+                
 
                     this.flashMessage.show({
                         html: data.message,
@@ -123,14 +126,18 @@
                         blockClass: 'flash_massage_markup'
                     }); 
                 } else {
+         
                     console.log(data)
                     this.$store.commit('setUserInfo', data.userInfo);
                     this.$store.commit('setToken', data.token);
-
+                    console.log(data.userInfo)
+                    console.log(data.token)
                     const payload_cookie = {userInfo: data.userInfo, token: data.token};
                     this.$store.dispatch('saveToCookie', payload_cookie); 
-
+    
                     this.$store.dispatch('closeAll');
+
+      
 
                     this.flashMessage.show({
                         html: data.message,

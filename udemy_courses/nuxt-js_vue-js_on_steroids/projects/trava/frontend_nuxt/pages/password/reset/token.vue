@@ -8,9 +8,10 @@
 const jwt = require('jsonwebtoken');
 
 export default {
+    
 
-    mounted() {
-        const token = this.$route.params.token
+    beforeCreate() {
+        const token = this.$route.query.token
 
 
         try {
