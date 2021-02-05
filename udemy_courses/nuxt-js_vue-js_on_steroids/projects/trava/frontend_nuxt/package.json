@@ -6,7 +6,7 @@
     "dev-sass": "node-sass ./static/sass/main.scss ./assets/styles/main.css -w",
     "dev-nuxt": "nuxt --port=8282",
     "dev": "npm-run-all --parallel dev-sass dev-nuxt",
-    "build": "nuxt build",
+    "build": "nuxt build --port=8282",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },

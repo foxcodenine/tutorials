@@ -1,6 +1,10 @@
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   ssr: false, // Disable Server Side rendering
+  // target: 'static',
+  // generate: {
+  //   fallback: "index.html"
+  // },
   head: {
     title: 'Trava',
     meta: [

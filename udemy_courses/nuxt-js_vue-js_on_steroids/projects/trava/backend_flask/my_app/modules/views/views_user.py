@@ -282,7 +282,7 @@ def validate_email(token):
 
         # update db, activate user!
         
-        return redirect('{}login/{}'.format(app.config['FRONTEND_BASE_URL'], email))
+        return redirect('{}login/email?email={}'.format(app.config['FRONTEND_BASE_URL'], email))
         # return f'<h3>(to be updated) {current_user.firstname} {current_user.lastname} {current_user.active}</h3>'
     except SignatureExpired :
         return redirect(url_for('app_user.timeout'))
@@ -309,7 +309,7 @@ def reset_password():
 
 
         # ----- create link to frontend
-        link = f'{app.config["FRONTEND_BASE_URL"]}password/reset/{encoded_jwt}'
+        link = f'{app.config["FRONTEND_BASE_URL"]}password/reset/token?token={encoded_jwt}/'
 
         # ----- send the email
         msg = Message(
@@ -353,8 +353,24 @@ def change_password():
     current_user.password = current_user.password_hash(password)
 
     db.session.commit()
+    token = create_token(current_user, app.config['EXP_TIME_LOGIN'])
 
-    return jsonify({'message': 'Password have been change!', 'state': 'success'}), 200
+    user_info = {
+        'firstname': current_user.firstname,
+        'lastname': current_user.lastname,
+        'email': current_user.email,
+        'dob': current_user.dob,
+        'signup': current_user.signup,
+    }
+
+
+    current_user.signin = datetime.utcnow()
+    db.session.commit()
+    
+    
+ 
+
+    return jsonify({'message': 'Password have been change!', 'token': f'{token}', 'userInfo': user_info,'state': 'success'}), 200
 
 #_______________________________________________________________________
 
@@ -514,7 +530,7 @@ def update_email(token):
         current_user.email = new_email
         db.session.commit()
         
-        return redirect('{}update/{}'.format(app.config['FRONTEND_BASE_URL'], new_email))
+        return redirect('{}update/email?email={}'.format(app.config['FRONTEND_BASE_URL'], new_email))
     except SignatureExpired :
         return redirect(url_for('app_user.timeout'))
     except :

@@ -79,7 +79,7 @@ export default {
             })
             .catch(err => console.log(err))
         },
-        myThenFunction(data) {
+        async myThenFunction(data) {
             if (data.state === 'error') {
 
                 this.flashMessage.show({
@@ -90,9 +90,21 @@ export default {
                 }); 
 
             } else {
+                let cookie = await this.$store.dispatch('getFromCookie');
+                let userBoxes = [];
+
+                if (cookie.userBoxes) {            
+                    // await this.$store.dispatch('autoLogin', cookie.userBoxes); 
+                    userBoxes = cookie.userBoxes;
+                }
+
                 this.$store.dispatch('closeAll');
                 this.$store.commit('setUserInfo', data.userInfo);  
-                this.$store.dispatch('saveToCookie', {token: data.token, userInfo: data.userInfo})              
+                this.$store.dispatch(
+                    'saveToCookie', 
+                    {token: data.token, userInfo: data.userInfo, userBoxes}
+                )  
+
                 this.profileEdited = false;
                 this.updateData(); 
 
@@ -128,9 +140,10 @@ export default {
         // }
     },
     async created() {
-        await this.$store.dispatch('autoLogin');   //<-
+        // await this.$store.dispatch('autoLogin');   //<-
+        console.log(55555)
         this.$store.dispatch('authUser');   //<- 
-
+        console.log(55555)
         this.updateData();
 
 

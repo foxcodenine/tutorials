@@ -101,12 +101,19 @@ export default {
       if (response && response.state === 'success') {
 
         // ---- deleteing image from UI
-        const myBoxes = this.$store.getters.getMyBoxes;
+        // const myBoxes = this.$store.getters.getMyBoxes;
+        let tokenObject = await this.$store.dispatch('getFromCookie');
 
-        const updatedBoxes = myBoxes.filter(b => {
+        let myBoxes = tokenObject.userBoxes;
+    
+        let updatedBoxes = myBoxes.filter(b => {
           
           return !this.$store.state.boxToDelete.includes(b.image)
         })
+
+        
+
+        console.log(updatedBoxes)
         await this.$store.commit('setMyBoxes', updatedBoxes)
         console.log(updatedBoxes)
 
@@ -117,10 +124,13 @@ export default {
           token: this.$store.getters.getToken, 
           userBoxes: this.$store.getters.getMyBoxes
         };
+
         this.$store.dispatch('saveToCookie', payload_cookie);
             
         // ---- crear boxToDelete in state
         this.$store.state.boxToDelete = [];
+        location.reload();
+        
       }
       else {
         return
@@ -136,7 +146,10 @@ export default {
     }
   },
   async mounted() {
-    await this.$store.dispatch('autoLogin');   //<- 
+    if(!this.$store.getters.getIsUserLogedIn) {
+      await this.$store.dispatch('autoLogin');   //<- 
+    }
+    
       
        
                     

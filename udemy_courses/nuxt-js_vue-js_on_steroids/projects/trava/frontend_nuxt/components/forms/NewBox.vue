@@ -80,6 +80,7 @@
                 .then(respons => {
                     // adding new user box in cookie while invoke autologing 
                     // and refreshing page
+                    console.log('RES', respons)
                     this.$store.dispatch('autoLogin', respons);     
                     location.reload();          
                 })
