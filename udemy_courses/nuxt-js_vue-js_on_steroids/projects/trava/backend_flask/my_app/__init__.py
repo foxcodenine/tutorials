@@ -54,7 +54,28 @@ app.register_blueprint(app_user)
 
 @app.route('/')
 def index():
-    return '{} {}'.format(app.config['CHECK_ENV'], app.config['SECRET_KEY'][::-1])
+    import socket
+
+    hostname = socket.gethostname()    
+    local_host = socket.gethostbyname(hostname)    
+    host_addr = socket.gethostbyname(hostname + ".local") 
+
+    # print("Your Computer Name is: " + hostname)    
+    # print("Your Local Host Address is: " + local_host) 
+    # print("Your Computer IP Address is: " + host_addr)
+
+    markup = f"""
+        <p>Computer Name is: <b>{hostname}</b></p>
+        <p>Local Host Address is: <b>{local_host}</b></p>
+        <p>Computer IP Address is: <b>{host_addr}</b></p>
+        <p>Environment: <b>{app.env}</b></p>
+        <p>Debug: <b>{app.debug}</b></p>
+        <p>Testing: <b>{app.testing}</b></p>
+        <p>Secret Key: <b>{app.config['SECRET_KEY'][::-2]}</b></p>
+    
+    """
+
+    return markup
 
 
 @app.route('/mail-logo-trava')

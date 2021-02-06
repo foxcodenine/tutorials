@@ -282,7 +282,7 @@ def validate_email(token):
 
         # update db, activate user!
         
-        return redirect('{}login/email?email={}'.format(app.config['FRONTEND_BASE_URL'], email))
+        return redirect('{}'.format(app.config['FRONTEND_BASE_URL'], email))
         # return f'<h3>(to be updated) {current_user.firstname} {current_user.lastname} {current_user.active}</h3>'
     except SignatureExpired :
         return redirect(url_for('app_user.timeout'))
@@ -309,7 +309,7 @@ def reset_password():
 
 
         # ----- create link to frontend
-        link = f'{app.config["FRONTEND_BASE_URL"]}password/reset/token?token={encoded_jwt}/'
+        link = f'{app.config["FRONTEND_BASE_URL"]}password/reset/token/?token={encoded_jwt}'
 
         # ----- send the email
         msg = Message(
@@ -530,7 +530,7 @@ def update_email(token):
         current_user.email = new_email
         db.session.commit()
         
-        return redirect('{}update/email?email={}'.format(app.config['FRONTEND_BASE_URL'], new_email))
+        return redirect('{}update/email/?email={}'.format(app.config['FRONTEND_BASE_URL'], new_email))
     except SignatureExpired :
         return redirect(url_for('app_user.timeout'))
     except :
@@ -581,7 +581,7 @@ def delete_account():
 
         # Delete account pictures
         for pic in user_pictures:
-            print(pic)
+            # print(pic)
             db.session.delete(pic)
 
         # Delete account 

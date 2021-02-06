@@ -125,7 +125,7 @@
                             }
 
                             this.$store.state.myBoxes = [...this.$store.state.myBoxes, ...res];
-                            console.log(this.$store.state.myBoxes)
+                            // console.log(this.$store.state.myBoxes)
 
                             const payload_cookie = {userInfo: data.userInfo, token: data.token, userBoxes: res};
                             this.$store.dispatch('saveToCookie', payload_cookie);

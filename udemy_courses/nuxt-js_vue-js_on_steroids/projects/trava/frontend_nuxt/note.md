@@ -189,3 +189,43 @@ https://renatello.com/vue-js-polling-using-setinterval/
 <!-- --------------------------------------------------------------- -->
 How TO - Custom Checkbox
 https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
+
+
+<!-- --------------------------------------------------------------- -->
+
+Dynamic routes in spa generate 404:
+
+    dynamic routes like:
+
+        pages/user/_email/index.vue 
+
+    Will not be generated in an spa so you will get 404.
+    You also need to set apache or nginex to fallback to homepage.
+    (currently i do not know how to do so)
+
+    Solution:
+    My current solution, if you are planning to use a spa. Use a static route 
+    and pass the dynamic paramiters as GET requests example:
+
+        pages/user/email/index.vue
+
+    From backend i send request as:
+
+        "FRONTEND_BASE_URL"/user/email/?email=chris12aug@yahoo.com
+
+    From the front end 'pages/user/email/index.vue' i will get the dynamic info (this case 'email') as:
+
+    const email = this.$route.query.email   // <-spa aplication
+
+    instead of:
+
+    const email = this.$route.params.email  // <-universal application
+
+-------------------------------
+
+  Getting the query params from a URL in Nuxt:  
+
+    https://reactgo.com/nuxt-get-query-params/
+
+<!-- --------------------------------------------------------------- -->
+

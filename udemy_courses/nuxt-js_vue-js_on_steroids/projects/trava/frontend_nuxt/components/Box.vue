@@ -47,7 +47,7 @@ export default {
             ) {
                 return
             }
-            console.log(e.target.classList)
+            // console.log(e.target.classList)
             
             e.target.parentElement.classList.add('active');
 

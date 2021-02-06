@@ -114,7 +114,7 @@
                 })
                 .catch(err => console.log(err))
             },
-            myThenFunction(data) {
+            async myThenFunction(data) {
    
                 if (data.state === 'error') {  
                 
@@ -125,14 +125,26 @@
                         status: 'warning',
                         blockClass: 'flash_massage_markup'
                     }); 
+
+                } else if (!await this.$store.getters.getIsUserLogedIn) {
+
+                    this.$store.dispatch('closeAll');
+
                 } else {
-         
-                    console.log(data)
+
+
                     this.$store.commit('setUserInfo', data.userInfo);
                     this.$store.commit('setToken', data.token);
-                    console.log(data.userInfo)
-                    console.log(data.token)
-                    const payload_cookie = {userInfo: data.userInfo, token: data.token};
+
+                    let cookie = await this.$store.dispatch('getFromCookie');
+                    let userBoxes = [];
+
+                    if (cookie.userBoxes) {            
+                        // await this.$store.dispatch('autoLogin', cookie.userBoxes); 
+                        userBoxes = cookie.userBoxes;
+                    }
+
+                    const payload_cookie = {userInfo: data.userInfo, token: data.token, userBoxes};
                     this.$store.dispatch('saveToCookie', payload_cookie); 
     
                     this.$store.dispatch('closeAll');

@@ -110,12 +110,9 @@ export default {
           
           return !this.$store.state.boxToDelete.includes(b.image)
         })
-
         
-
-        console.log(updatedBoxes)
         await this.$store.commit('setMyBoxes', updatedBoxes)
-        console.log(updatedBoxes)
+ 
 
         // ---- deleing image from cookie
 

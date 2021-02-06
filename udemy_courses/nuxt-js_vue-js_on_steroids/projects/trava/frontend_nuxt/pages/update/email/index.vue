@@ -13,8 +13,10 @@ export default {
     },
     async created() {
         this.email = this.$route.query.email
+        
         let cookie = await this.$store.dispatch('getFromCookie');
         let userBoxes = [];
+
         if (cookie.userBoxes) {            
             await this.$store.dispatch('autoLogin', cookie.userBoxes); 
             userBoxes = cookie.userBoxes;
