@@ -140,13 +140,10 @@ export default {
         // }
     },
     async created() {
-        // await this.$store.dispatch('autoLogin');   //<-
-        console.log(55555)
-        this.$store.dispatch('authUser');   //<- 
-        console.log(55555)
+        await this.$store.dispatch('autoLogin');   //<-
+        await this.$store.dispatch('authUser');   //<- 
+
         this.updateData();
-
-
 
         // console.log(typeof d.dob);
     }

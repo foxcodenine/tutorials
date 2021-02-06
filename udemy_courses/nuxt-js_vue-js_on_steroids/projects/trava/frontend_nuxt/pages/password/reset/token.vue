@@ -16,7 +16,7 @@ export default {
 
         try {
             const decoded = jwt.verify(token, this.$config.BESK);
-            console.log(decoded)
+            // console.log(decoded)
             this.$router.replace({path: '/'});
             this.$store.commit('setUserData', {key: 'email', value: decoded.email});
             this.$store.dispatch('setForm', {name: 'resetPasswordOn', action: true});
@@ -24,6 +24,8 @@ export default {
         } catch (err) {
             console.log(err)
             console.log(err.message)
+
+            
 
             if (err.name === 'TokenExpiredError') {
                 throw new Error('This password reset link has expire. Please try again!');
