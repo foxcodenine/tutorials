@@ -115,7 +115,7 @@
                             status: 'warning',
                             blockClass: 'flash_massage_markup'
                         });                          
-                        console.log(data)  
+                        // console.log(data)  
 
                     } else {
                         

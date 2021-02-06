@@ -61,7 +61,7 @@
                 const acceptedImageType = ['image/gif', 'image/jpeg', 'image/png'];
 
                 if (!acceptedImageType.includes(this.imageFile['type'])) {
-                    console.log(this.$refs)
+                    // console.log(this.$refs)
                     
                     this.$refs['imageFileInput'].value = null;
                     this.imageFile = null;
@@ -72,7 +72,7 @@
 
             submitForm() {   
                 if (this.imageFile === null || this.imageText.trim() === '') {
-                    console.log('there is nothing to send')
+                    // console.log('there is nothing to send')
                     return
                 }   
  
@@ -80,7 +80,8 @@
                 .then(respons => {
                     // adding new user box in cookie while invoke autologing 
                     // and refreshing page
-                    console.log('RES', respons)
+                    
+                    // console.log('RES', respons)
                     this.$store.dispatch('autoLogin', respons);     
                     location.reload();          
                 })
