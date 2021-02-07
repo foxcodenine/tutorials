@@ -5,6 +5,13 @@ export default {
   // generate: {
   //   fallback: "index.html"
   // },
+  router: {
+    base: '/001/',
+  },
+  build: {
+    publicPath: '/nuxt/',
+    // ...
+  },
   head: {
     title: 'Trava',
     meta: [
@@ -65,8 +72,8 @@ export default {
 
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
-  build: {
-  },
+  // build: {
+  // },
   publicRuntimeConfig: {
     BESK: process.env.BACKEND_SECRET_KEY,
     baseUrl: process.env.BASE_URL,

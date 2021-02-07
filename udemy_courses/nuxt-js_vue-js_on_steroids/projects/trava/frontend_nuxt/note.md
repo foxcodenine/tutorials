@@ -1,9 +1,12 @@
-Setup sass
+### Setup sass
+
 https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-css
+
+    npm install --save-dev sass sass-loader fibers
 
 
 <!-- --------------------------------------------------------------- -->
-To polyfill of the JavaScript standard library:
+### To polyfill of the JavaScript standard library:
 
     $ npm install core-js@2 --save // <- for now recomanded
     or
@@ -11,9 +14,11 @@ To polyfill of the JavaScript standard library:
 
 https://www.npmjs.com/package/core-js 
 
+
+
 <!-- --------------------------------------------------------------- -->
 
-Nuxt Style Resources Module (sass variables)
+### Nuxt Style Resources Module (sass variables)
 https://dev.to/ceppeu/using-sass-global-variables-in-nuxt-js-j0k
 
 module.exports = {
@@ -28,15 +33,21 @@ module.exports = {
     }
 }
 
+
+
+
 <!-- --------------------------------------------------------------- -->
 
-Array.prototype.sort()
+### Array.prototype.sort()
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
 
 
+
+
+
 <!-- --------------------------------------------------------------- -->
-Javascript detect browser
+### Javascript detect browser
 
 https://www.codegrepper.com/code-examples/delphi/javascript+detect+browser+chrome+firefox
 
@@ -57,28 +68,39 @@ function detectBrowser() {
 } 
 
 <!-- --------------------------------------------------------------- -->
-JavaScript Window Navigator
+### JavaScript Window Navigator
 
 https://www.w3schools.com/js/js_window_navigator.asp
 
+//  ex: navigator.userAgent.indexOf("Chrome")
+
+used in plugins/detectBrowser.js
+
 
 
 <!-- --------------------------------------------------------------- -->
 
-Google text-to-speech
+### Google text-to-speech
 Easy JavaScript text-to-speech with Google Translate
 https://www.youtube.com/watch?v=DOtkNxmg9QY
 
+
+
+
 <!-- --------------------------------------------------------------- -->
-encodeURIComponent()
+
+### encodeURIComponent()
 
 encodeURIComponent('hello my name is "chistopher\\"')
 
 "hello%20my%20name%20is%20%22chistopher%5C%22"
 
+
+
+
 <!-- --------------------------------------------------------------- -->
 
-Adding axios to nuxt modules
+### Adding axios to nuxt modules
 
 https://axios.nuxtjs.org/setup
 
@@ -96,9 +118,10 @@ export default {
   }
 }
 
+
 <!-- --------------------------------------------------------------- -->
 
-Vuelidate in nuxt
+### Vuelidate in nuxt
 https://github.com/nuxt/nuxt.js/issues/1391
 
 1.You need to install first:
@@ -125,7 +148,7 @@ plugins: [
 
 <!-- --------------------------------------------------------------- -->
 
-To install vue-flash-message 
+### To install vue-flash-message 
 
 https://www.npmjs.com/package/@smartweb/vue-flash-message
 
@@ -155,16 +178,17 @@ https://www.npmjs.com/package/@smartweb/vue-flash-message
 
 
 <!-- --------------------------------------------------------------- -->
-JWT  (jsonwebtoken)
+### JWT  (jsonwebtoken)
 https://www.npmjs.com/package/jsonwebtoken 
 https://github.com/vercel/ms // <- time
 
 to install:
     $ npm install jsonwebtoken
 
+
 <!-- --------------------------------------------------------------- -->
 
-js-cookie
+### js-cookie
 https://github.com/js-cookie/js-cookie
 
 How to make the cookie expire in less than a day?
@@ -173,27 +197,45 @@ https://github.com/js-cookie/js-cookie/wiki/Frequently-Asked-Questions#expire-co
 to install:
     $ $ npm install js-cookie --save
 
+
+
+
 <!-- --------------------------------------------------------------- -->
 
-How to Get and Set CSS Variable Values with JavaScript
+### How to Get and Set CSS Variable Values with JavaScript
 https://davidwalsh.name/css-variables-javascript
 
+    # get color of css variable
     console.log(getComputedStyle(document.documentElement).getPropertyValue('--color-primary'))
+
+    # changing or setting a css variable
     document.documentElement.style.setProperty('--color-primary', 'pink');
 
+
+
+
+
 <!-- --------------------------------------------------------------- -->
 
-Vue setInterval() And  clearInterval()
+### Vue setInterval() And  clearInterval()
 https://renatello.com/vue-js-polling-using-setinterval/
 
+
+used in DeleteAccount.vue
+
 <!-- --------------------------------------------------------------- -->
+
 How TO - Custom Checkbox
 https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
 
 
+
+
+
+
 <!-- --------------------------------------------------------------- -->
 
-Dynamic routes in spa generate 404:
+### Dynamic routes in spa generate 404:
 
     dynamic routes like:
 
@@ -227,5 +269,87 @@ Dynamic routes in spa generate 404:
 
     https://reactgo.com/nuxt-get-query-params/
 
+
+
+
+
+
 <!-- --------------------------------------------------------------- -->
 
+### Deploying Nuxt spa
+
+-------------------------------
+
+1st error: SPA, no webserver and routing (this page could not be found)
+
+if yor domain is 'foxcode.io' and you are hosting your site on 'foxcode.io/001'
+you need set the route.base property in nuxt.config.js:
+
+        router: {
+            base: '/001/',
+        },
+
+-------------------------------
+
+2nd error: Static file like image css_styles and js not found give following 
+error in console:
+
+    GET http://foxcode.io/_nuxt/eb7ccd7.js 
+    net::ERR_ABORTED 404 (Not Found)
+
+in dist folder js files are stored in _nuxt folder _ might give error in some 
+browsers to change (automatically) it to nuxt in nuxt.config.js:
+
+        build: {
+        publicPath: '/nuxt/',
+        // ...
+        },
+
+also in the Virtual Host you need to redirect the staric folder with Alias.
+Direct a relative path to absolut ex:
+
+    error = GET http://foxcode.io/_nuxt/eb7ccd7.js 
+            net::ERR_ABORTED 404 (Not Found)
+
+    need to set Alias:
+    Alias /_nuxt /var/www/projects/001_trava/dist/_nuxt
+
+    In my case (A)
+
+-------------------------------
+
+Virtual Host:   foxcode.io.conf
+
+    <VirtualHost *:80>
+    ServerName foxcode.io
+
+        Alias /001/nuxt /var/www/projects/001_trava/dist/nuxt   # <- (A)
+        Alias /001 /var/www/projects/001_trava/dist             # <- (B)
+        <Directory "/var/www/projects/001_trava/dist" >
+            allow from all
+            AllowOverride All
+            Order allow,deny
+            Options +Indexes
+        </Directory>
+
+
+        RewriteEngine on
+    </VirtualHost>
+
+-------------------------------
+
+3rd             if your domain is 'foxcode.io' 
+    & your are hosting the app on 'foxcode.io/001'
+
+    you need to redirect /001 with an Alias as shown at (B) 
+
+-------------------------------
+
+router/base
+https://github.com/nuxt/nuxt.js/issues/3160
+https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-router/
+
+publicPath
+https://stackoverflow.com/questions/60316441/nuxt-js-this-page-could-not-be-found-on-static-page-with-base
+https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-build
+<!-- --------------------------------------------------------------- -->
