@@ -71,6 +71,7 @@
         <tr>
             <th>Id</th>
             <th>Username</th>
+            <th>Password</th>
             <th>Fistname</th>
             <th>Lastname</th>
             <th>Email</th>
@@ -98,6 +99,7 @@
             echo "<tr>";
             echo "<td>{$user_id}</td>";
             echo "<td>{$user_username}</td>";
+            echo "<td>{$user_password}</td>";
             echo "<td>{$user_firstname}</td>";
             echo "<td>{$user_lastname}</td>";
             echo "<td>{$user_email}</td>";

@@ -1,4 +1,19 @@
 <?php ob_start(); ?>
+<?php session_start(); ?>
+
+
+<?php
+if (!isset($_SESSION['role'])) {
+    header('Location: ../index.php');
+
+} else if ($_SESSION['role'] !== 'Admin') {
+    
+    header('Location: ../index.php');
+} else {
+    ;
+}
+
+?>
 
 <?php require_once '../includes/db.php'; ?>
 <?php require_once './admin_functions.php'; ?>
