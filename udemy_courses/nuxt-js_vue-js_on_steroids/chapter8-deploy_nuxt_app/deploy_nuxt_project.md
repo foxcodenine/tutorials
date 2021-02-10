@@ -190,13 +190,14 @@ _______________________________
 
         a. sudo pip3 install pipenv
         b. $ cd myproject
-        c. $ sudo pipenv install
+        c. $ pipenv --python 3.9
+        d. $ sudo pipenv install 'package_name'
 
         # if Pipenv fails to install psycopg2
         # sudo apt-get install libpq-dev
         # and retry
 
-        d. $ pipenv –venv
+        d. $ pipenv --venv
         /home/ubuntu/.local/share/virtualenvs/nuxt_api_flask-gPgGeqg6  
 
         e. Copy path and update flaskapp.wsgi  file.
@@ -220,19 +221,17 @@ _______________________________
 	$ sudo tail -f /var/log/apache2/error.log
 
 
-
-
 _______________________________
 
 
-### FRONTEND
+### FRONTEND  NUXT APPLICATION
 
 
-#####1. Install node-js and npm.
+##### 1. Install node-js and npm.
 
     $ sudo apt-get install nodejs npm
 
-#####2. Build project and Remove node_modules folder.
+##### 2. Build project and Remove node_modules folder.
 
     On pc run: 
         $ npm run  build 
@@ -240,7 +239,7 @@ _______________________________
     And when complete remove node_modules.
     (You can build project also after on the inctance)
 
-#####3. Copy/upload frontend project/folder using scp or filzila
+##### 3. Copy/upload frontend project/folder using scp or filzila
 
     
 
@@ -265,13 +264,13 @@ _______________________________
     $ scp -i ./deploy_web_apps.pem –r ../Projects/tutorials/Udemy/nuxt_/chapter8-deploy_app/nuxt_app_front_end/ ubuntu@ec2-52-59-227-217.eu-central-1.compute.amazonaws.com:/var/www/
 
 
-#####4. Install npm packages on the inctanse.
+##### 4. Install npm packages on the inctanse.
 
 
     $ cd /var/www/project_folder
     $ sudo npm install
 
-#####5. Install Process_Manager_2 globally
+##### 5. Install Process_Manager_2 globally
 
     $ sudo npm install pm2 -g
 
@@ -307,7 +306,7 @@ _______________________________
     https://coderrocketfuel.com/article/how-to-run-a-npm-start-script-with-pm2
     https://www.npmjs.com/package/pm2
 
-#####7. Copy frontend virtualhost 
+##### 7. Copy frontend virtualhost 
 
     Copy virtualhost to /etc/apacete2/sites-avalible
 
@@ -322,7 +321,7 @@ _______________________________
         </Location>
     </VirtualHost>
 
-#####8. Enable virtualhost
+##### 8. Enable virtualhost
 
     To enable these four modules, execute the following commands in succession:
 
@@ -339,6 +338,120 @@ _______________________________
     Reload apache:    
     $ sudo systemctl reload apache2
 
+
+_______________________________
+
+### Apache2
+https://hostadvice.com/how-to/how-to-enable-apache-mod_rewrite-on-an-ubuntu-18-04-vps-or-dedicated-server/
+
+
+
+
+The following is Trava VirtualHost which have a 'nust SPA' and a 'flask api':
+
+<VirtualHost *:80>
+ServerName foxcode.io
+
+        Alias /001/nuxt /var/www/projects/001_trava/dist/nuxt   # <- (A)
+        Alias /001 /var/www/projects/001_trava/dist             # <- (B)
+        RequestHeader append "API-KEY" "123#456#789"            # <- (C)
+        <Directory "/var/www/projects/001_trava/dist" >
+            allow from all
+            AllowOverride All
+            Order allow,deny
+            Options +Indexes
+        </Directory>
+
+
+        WSGIScriptAlias /api/001 /var/www/projects/001_trava/backend_flask_deploy/flaskapp.wsgi     # <- (D)
+        <Directory /var/www/projects/001_trava/backend_flask_deploy>
+            Order allow,deny
+            Allow from all
+        </Directory>
+
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        LogLevel warn
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        RewriteEngine on                                        # <- (E)
+</VirtualHost>
+
+
+_______________________________
+
+(A) Redirect Static file/folder
+
+If you have a static folder in your app that is holding files as images ccs and js files.
+Apache may not find them automaticaly and give an error in you console:
+
+    GET http://foxcode.io/_nuxt/eb7ccd7.js 
+    net::ERR_ABORTED 404 (Not Found)
+
+
+In the above example at "A" we redirected:
+    /001/nuxt 
+ to:   
+    /var/www/projects/001_trava/dist/nuxt
+with an "Alias"
+
+
+NB: also in nuxt.config.js we set it to rename the static folder 
+    form _nuxt to nuxt since apache my drop the underscores by:
+
+        build: {
+            publicPath: '/nuxt/',
+            // ...
+        },
+
+
+_______________________________
+
+(B) Multiple Apps on same domain
+
+if your domain is 'foxcode.io' 
+& your are hosting the app on 'foxcode.io/001'
+
+you need to redirect /001 with an Alias as shown above at "B"
+
+
+NB: also in nuxt you need set the route.base property in nuxt.config.js:
+
+        router: {
+            base: '/001/',
+        },
+
+_______________________________
+
+(C) Enable mod_headers
+
+You can add "Header" or "RequestHeader" in you VirtualHost 
+And pass commands as "set", "add", "append", "remove" etc
+To enable it: 
+
+    $ sudo a2enmod headers
+    $ sudo systemctl restart apache2
+
+_______________________________
+
+(D) Enable mod_wsgi
+
+If you set "WSGIScriptAlias"
+To enable it:
+
+    $ sudo apt-get install libapache2-mod-wsgi-py3
+    $ sudo a2enmod wsgi
+    $ sudo systemctl restart apache2
+
+_______________________________
+
+(E) Enable mod_rewrite
+
+If you set "RewriteEngine on"
+To enable it:
+
+    $ sudo a2enmod rewrite
+    $ sudo systemctl restart apache2
 _______________________________
 
 ### THE END
