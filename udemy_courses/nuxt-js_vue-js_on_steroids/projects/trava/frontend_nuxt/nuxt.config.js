@@ -56,10 +56,10 @@ export default {
     ]
   },
   axios: {
-    baseURL: 'http://127.0.0.1:5000', 
+    baseURL: process.env.BASE_URL, 
     // Used as fallback if no runtime config is provided
     headers: {
-      // API_KEY: '123#456#789',
+      API_KEY: process.env.API_KEY,
       common: {
         API_KEY: process.env.API_KEY
       }
