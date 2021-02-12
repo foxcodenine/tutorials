@@ -42,8 +42,16 @@
 
     <div class="form-group">
         <label for="post_statas">Post Statas</label>
-        <input type="text" class="form-control" name="post_statas">
+        <!-- <input type="text" class="form-control" name="post_statas"> -->
+        <select name="post_statas" class="form-control" >
+            <option value="published">Publish</option>
+            <option Selected value="draft">Draft</option>
+        </select>
+
     </div>
+
+
+
 
     <div class="form-group">
         <label for="post_image">Post Image</label>

@@ -54,6 +54,16 @@
     if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }
     
     $post_count = $result->num_rows;
+    
+
+    
+    $sql = "SELECT * FROM cms_posts WHERE post_statas='published';";
+    $result = $conn->query($sql);
+
+    if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }    
+    $post_published_count = $result->num_rows;
+
+    $post_draft_count = $post_count - $post_published_count;
 
     // __________________________________
 
@@ -64,6 +74,15 @@
     
     $comments_count = $result->num_rows;
 
+
+    $sql = "SELECT * FROM cms_comments WHERE NOT comm_status='unapproved';";
+    $result = $conn->query($sql);
+
+    if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }
+    
+    $comments_approved_count = $result->num_rows;
+    $comments_unapproved_count = $comments_count - $comments_approved_count;
+
     // __________________________________
 
     $sql = "SELECT * FROM cms_users;";
@@ -72,6 +91,17 @@
     if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }
     
     $users_count = $result->num_rows;
+
+
+
+    $sql = "SELECT * FROM cms_users WHERE user_role='Admin';";
+    $result = $conn->query($sql);
+
+    if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }
+    
+    $users_admin_count = $result->num_rows;
+    $users_subscriber_count = $users_count - $users_admin_count;
+
 
     // __________________________________
 
@@ -181,28 +211,41 @@
 
 <div class="row">
 <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', {'packages':['bar']});
+    google.charts.setOnLoadCallback(drawChart);
 
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Data', 'Count'],
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Data', 'Count'],
 
-        <?php ?>
+                <?php 
+                $elements_text = ['Active Post', 'Draft Post', 'Approved Comments', 'Unapproved Comments', 'Admin', 'Subscriber', 'Categories' ];
+                $elements_count = [
+                    $post_published_count, $post_draft_count, 
+                    $comments_approved_count, $comments_unapproved_count, 
+                    $users_admin_count, $users_subscriber_count,
+                    $categories_count
+                ];
 
-          ['Posts', 1000]
-        ]);
+                for ($i = 0; $i < 7; $i++) {
+                    echo "['{$elements_text[$i]}', {$elements_count[$i]}],";
+                }
+                
+                ?>
 
-        var options = {
-          chart: {
-            title: '',
-            subtitle: '',
-          }
-        };
+                // ['Posts', 1000]
+            ]);
 
-        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+            var options = {
+                chart: {
+                    title: '',
+                    subtitle: '',
+                }
+            };
 
-        chart.draw(data, google.charts.Bar.convertOptions(options));
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
       }
 </script>
 <div id="columnchart_material" style="width: 'auto'; height: 500px;"></div>
