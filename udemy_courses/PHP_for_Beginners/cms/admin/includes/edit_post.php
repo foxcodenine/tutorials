@@ -152,8 +152,24 @@ if (isset($_POST['update_post'])) {
 
 <div class="form-group">
     <label for="post_statas">Post Statas</label>
-    <input <?php echo "value='{$post_statas}'"; ?> type="text" class="form-control" name="post_statas">
+    <select name="post_statas" class="form-control" >
+    <?php 
+        if($post_statas === 'draft') {
+            echo '<option Selected value="draft">Draft</option>';
+            echo '<option  value="published">Publish</option>';
+        } else {
+            echo '<option  value="draft">Draft</option>';
+            echo '<option Selected value="published">Publish</option>';
+        }
+    ?>   
+   
+        
+    </select>
+
 </div>
+
+
+
 
 <div class="form-group">
     <label for="post_image">Post Image</label><br>
