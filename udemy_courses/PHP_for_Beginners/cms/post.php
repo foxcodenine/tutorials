@@ -65,7 +65,7 @@
                     <img class='img-responsive' src='{$image}' alt=''>
                     <hr>
                     <p>{$content}</p>
-                    <a class='btn btn-primary' href='#'>Read More <span class='glyphicon glyphicon-chevron-right'></span></a>
+                    
     
                     <hr>
                     ";                
