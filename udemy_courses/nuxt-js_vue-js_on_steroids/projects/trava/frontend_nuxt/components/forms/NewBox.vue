@@ -133,7 +133,17 @@ input.input--file {
 
     padding-left: 12rem;
 
-    &::-webkit-file-upload-button,
+    &::-webkit-file-upload-button {
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: #fff;
+        background-color: $color-primary-dark;
+        border: none;
+        cursor: pointer;
+        width: 11rem;      
+    }
     &::file-selector-button {
         height: 100%;
         position: absolute;

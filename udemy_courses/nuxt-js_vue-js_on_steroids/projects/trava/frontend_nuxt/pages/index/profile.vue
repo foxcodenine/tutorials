@@ -1,7 +1,7 @@
 <template>
 <div class="blur">
     <div class="profile">
-        <CloseAll   />
+        <CloseAll :reload="true"  />
         <h2 class="heading-1 mb-tn">Profile</h2>        
 
         <div class="profile__grid">
@@ -140,7 +140,12 @@ export default {
         // }
     },
     async created() {
-        await this.$store.dispatch('autoLogin');   //<-
+        
+        let skip = 'skip';
+        if (this.$route.query.skip === 'no') {
+            skip = false;
+        }
+        await this.$store.dispatch('autoLogin', skip);   //<-
         await this.$store.dispatch('authUser');   //<- 
 
         this.updateData();

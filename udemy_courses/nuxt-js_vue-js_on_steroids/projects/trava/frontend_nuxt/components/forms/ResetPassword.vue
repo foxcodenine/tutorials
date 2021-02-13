@@ -191,7 +191,7 @@
             },
         },
         async mounted() {
-            await this.$store.dispatch('autoLogin');   //<-
+            await this.$store.dispatch('autoLogin', skip);   //<-
             this.email = this.$store.getters.getUserInfo.email;
             if (this.$store.getters.getIsUserLogedIn) {
                 this.password0 = null;

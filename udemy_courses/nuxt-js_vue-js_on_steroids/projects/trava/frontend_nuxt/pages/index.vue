@@ -2,10 +2,10 @@
   <div class="container">
     <HeaderBar></HeaderBar>
     <NuxtChild/>
-    <h1 class="heading-1 mt-lg error">Trava! Speech And Text Reader</h1>
+    <h1 class="heading-1 mt-lg error center">Trava! Speech And Text Reader</h1>
 
     <div class="btns">      
-      <button  class="btn mt-sm" @click="toggleTextBox()">Toogle Text Box</button>
+      <button  class="btn mt-sm" @click="toggleTextBox()">Text To Speech</button>
       <button  class="btn mt-sm" @click="toggleNewBox()" 
             v-if="isUserLogedIn">Add New Frame</button>
       <button  class="btn mt-sm" @click="deleteSelectedFrames()" 
