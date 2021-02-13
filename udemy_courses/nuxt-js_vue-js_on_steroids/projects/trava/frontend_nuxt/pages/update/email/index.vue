@@ -28,6 +28,7 @@ export default {
 
 
         if (userLogedIn) {
+            
             this.$store.commit('setUserData', {key: 'email', value: this.email});
             const payload_cookie = {
                 userInfo: this.$store.getters.getUserInfo, 
@@ -35,7 +36,7 @@ export default {
                 userBoxes
             };
             this.$store.dispatch('saveToCookie', payload_cookie);
-            this.$router.replace('/profile');
+            this.$router.replace('/profile?skip=no');
             
             
         } else {

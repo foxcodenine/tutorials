@@ -4,10 +4,21 @@
 
 <script>
 export default {
+    props: {
+        'reload': {default: false}
+    },
     methods: {
         closeAllForms() {
             this.$router.push('/')
             this.$store.dispatch('closeAll');
+
+            // setTimeout(()=>{
+            //     if (this.reload) {
+            //         location.reload();
+            //     }              
+            // }, 100);
+
+            
         }
     }
 }

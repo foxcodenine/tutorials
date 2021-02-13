@@ -298,7 +298,7 @@ const createStore = () => {
                     const payload = {
                         token: newToken,
                         userInfo,
-                        userBoxes: userBoxData ? [...cookie_object.userBoxes, userBoxData] : cookie_object.userBoxes                     
+                        userBoxes: (userBoxData && userBoxData !== 'skip') ? [...cookie_object.userBoxes, userBoxData] : cookie_object.userBoxes                     
                     }
                     
                     // Save new Token in cookie and store with userInfo
@@ -315,7 +315,12 @@ const createStore = () => {
                     // console.log(vuexContext.state.myBoxes)
                     // console.log(cookie_object.userBoxes)
                     // vuexContext.state.myBoxes = [...vuexContext.state.myBoxes, ...cookie_object.userBoxes];
-                    vuexContext.state.myBoxes = cookie_object.userBoxes ? [...vuexContext.state.myBoxes, ...cookie_object.userBoxes] : vuexContext.state.myBoxes;
+                    
+                    if (userBoxData !== 'skip') {
+                        vuexContext.state.myBoxes = cookie_object.userBoxes ? 
+                        [...vuexContext.state.myBoxes, ...cookie_object.userBoxes] : vuexContext.state.myBoxes;
+                    }
+                    
        
                     return
                 } else {
