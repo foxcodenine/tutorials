@@ -94,8 +94,14 @@ if (isset($_POST['update_post'])) {
     if ($result = $conn->query($sql) != TRUE) {
         die('Error: ' . '<br>' .  $conn-> error);
     } else {
-        
-        header('Location: '. $_SERVER['PHP_SELF']);
+        echo "
+        <p class='bg-success'>Post updated! &nbsp 
+            <a href='../post.php?p_id={$_GET['p_id']}'>View Post</a>
+            or
+            <a href='./post.php'>Edit More Post</a>
+        </p>
+        ";
+        // header('Location: '. $_SERVER['PHP_SELF']);
     }
 }
 
@@ -193,7 +199,7 @@ if (isset($_POST['update_post'])) {
 <div class="form-group">
     <label for="post_content">Post Content</label>
     <textarea  class="form-control" name="post_content" 
-        id="" cols="30" rows="10"><?php echo "$post_content"; ?></textarea>
+        id="editor_body" cols="30" rows="10"><?php echo "$post_content"; ?></textarea>
 </div>
 
 

@@ -56,7 +56,9 @@
                     </p>
                     <p><span class='glyphicon glyphicon-time'></span> Posted on {$date}</p>
                     <hr>
-                    <img class='img-responsive' src='{$image}' alt=''>
+                    <a href='./post.php?p_id={$post_id}'>
+                        <img class='img-responsive' src='{$image}' alt=''>
+                    </a>
                     <hr>
                     <p>{$content}</p>
                     <a class='btn btn-primary' href='./post.php?p_id={$post_id}'>Read More <span class='glyphicon glyphicon-chevron-right'></span></a>
