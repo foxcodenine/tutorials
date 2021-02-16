@@ -8,7 +8,7 @@ document.onreadystatechange = function () {                    // <- (A)
 
 
 
-        // ---- Editor finction ----------------------------------------
+        // ---- Editor function ----------------------------------------
         if (document.querySelector('#editor_body')) {
         
             ClassicEditor
