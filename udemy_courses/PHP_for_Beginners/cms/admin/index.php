@@ -219,15 +219,15 @@
                 ['Data', 'Count'],
 
                 <?php 
-                $elements_text = ['Active Post', 'Draft Post', 'Approved Comments', 'Unapproved Comments', 'Admin', 'Subscriber', 'Categories' ];
+                $elements_text = ['All Post','Active Post', 'Draft Post', 'All Comments', 'Approved Comments', 'Unapproved Comments', 'Admin', 'Subscriber', 'Categories' ];
                 $elements_count = [
-                    $post_published_count, $post_draft_count, 
-                    $comments_approved_count, $comments_unapproved_count, 
+                    $post_count, $post_published_count, $post_draft_count, 
+                    $comments_count, $comments_approved_count, $comments_unapproved_count, 
                     $users_admin_count, $users_subscriber_count,
                     $categories_count
                 ];
 
-                for ($i = 0; $i < 7; $i++) {
+                for ($i = 0; $i < 9; $i++) {
                     echo "['{$elements_text[$i]}', {$elements_count[$i]}],";
                 }
                 
