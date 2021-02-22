@@ -108,7 +108,7 @@
 
             echo "<td><a href='{$_SERVER['PHP_SELF']}?Admin={$user_id}'>Admin</a></td>";
             echo "<td><a href='{$_SERVER['PHP_SELF']}?Subscriber={$user_id}'>Subscriber</a></td>";
-            echo "<td><a href='{$_SERVER['PHP_SELF']}?source=edit_user&u_id={$user_id}'>Edite</a></td>";
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?source=edit_user&u_id={$user_id}'>Edit</a></td>";
             echo "<td><a href='{$_SERVER['PHP_SELF']}?delete={$user_id}'>Delete</a></td>";
 
      
