@@ -8,8 +8,6 @@ $form_action = $_SERVER['PHP_SELF'] . "?source=edit_post&p_id={$_GET['p_id']}";
 <?php 
 // Populating form with database data
 
-
-
 $post_title = '';
 $post_cat_id = '';
 $post_author = '';
