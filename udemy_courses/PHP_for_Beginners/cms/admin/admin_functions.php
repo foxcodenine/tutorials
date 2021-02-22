@@ -165,11 +165,73 @@ function admin_add_post() {
         if($conn->query($sql) !== TRUE) {
             die('Error:' . '<br>' . $conn->error);
         } else {
-            header('Location: '. $_SERVER['PHP_SELF']);
+
+            // ---------------------------------------------------------
+            // // Selecting The post Id
+
+            // $sql = "SELECT post_id FROM cms_posts 
+            //         WHERE 
+            //         post_title='{$post_title}' AND 
+            //         post_content='{$post_content}' AND
+            //         post_tags='{$post_tags}';" ;
+
+            // $result = $conn->query($sql);
+
+            // if ($conn->error) {
+            //     die('Error :' . '<br>' . $conn->error);
+            // }
+
+            // while ($row = $result->fetch_assoc()) {
+            //     $current_post_id = $row['post_id'];
+            // }
+            // ---------------------------------------------------------
+
+            //  This function is an alternative to the above code 
+            //  It retrived the last insered id;
+            $current_post_id = $conn->insert_id;
+
+            header("Location: ". "../post.php?p_id={$current_post_id}");          
+
         }
     }
 }
 
+// _____________________________________________________________________
+// _____________________________________________________________________
+
+// function for admin/include/view_all_post.php
+
+
+function deleting_post_image($id) {
+                
+    global $conn;
+    
+    // ----- getting image path 
+    $sql = "SELECT post_image FROM cms_posts WHERE post_id = {$id};";
+    $image_object = $conn->query($sql);
+
+
+    if(isset($image_object) && mysqli_num_rows($image_object) > 0) {
+
+        // 1. converting to an url string
+        $image_url = $image_object->fetch_assoc()['post_image'];
+
+        // 2. splitting string to array
+        $image_array = explode('/', $image_url);
+
+        // 3. selecting image name from array
+        echo $image_name = end($image_array);
+
+        // 4. retuning absolute path to image
+        echo $image_path = dirname(__DIR__) . "/images/{$image_name}";
+        
+        // 5. Deleting image
+        unlink($image_path);
+    } else {
+
+        die('Error! post_id not found in db');
+    }
+}
 // _____________________________________________________________________
 // _____________________________________________________________________
 

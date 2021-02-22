@@ -30,7 +30,8 @@ if (isset($_POST['checkBoxArray'])) {
                     break;
                 case 'delete':
                     $sql = "DELETE FROM cms_posts WHERE post_id = {$checkboxValue};";
-   
+                    
+                    deleting_post_image($checkboxValue);   
                     break;
             }
             $conn->query($sql);
@@ -50,40 +51,16 @@ if (isset($_POST['checkBoxArray'])) {
 
 <!-- --------------------------------------------------------------- -->
 <?php 
-// ---- Delete post
+        // ---- Delete post
 
         if (isset($_GET['delete']) && trim($_GET['delete']) !== '') {
 
 
             // _________________________________________________________
 
-            // ----- getting image path 
-
-            $sql = "SELECT post_image FROM cms_posts WHERE post_id = {$_GET['delete']};";
-            $image_object = $conn->query($sql);
-
             
-            if(isset($image_object) && mysqli_num_rows($image_object) > 0) {
 
-                // 1. converting to an url string
-                $image_url = $image_object->fetch_assoc()['post_image'];
-
-                // 2. splitting string to array
-                $image_array = explode('/', $image_url);
-
-                // 3. selecting image name from array
-                echo $image_name = end($image_array);
-
-                echo '<br>';
-
-                // 4. retuning absolute path to image
-                echo $image_path = dirname(dirname(__DIR__)) . "/images/{$image_name}";
-                
-                
-            } else {
-
-                die('Error! post_id not found in db');
-            }
+            deleting_post_image($_GET['delete']);
 
             // _________________________________________________________
             
@@ -97,7 +74,7 @@ if (isset($_POST['checkBoxArray'])) {
 
             } else {
 
-            // Deleting image file and refresh page
+            // Refresh page
             unlink($image_path);
             header('Location: '. $_SERVER['PHP_SELF']);
             

@@ -51,8 +51,6 @@
     </div>
 
 
-
-
     <div class="form-group">
         <label for="post_image">Post Image</label>
         <input type="file" name="post_image">
