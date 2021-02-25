@@ -85,17 +85,23 @@
 
                     $conn_post_id = $current_post_id;
 
+                    if (
+                        !empty(trim($comm_author)) &&
+                        !empty(trim($comm_email)) &&
+                        !empty(trim($comm_content)) 
+                    ) {                    
+                        $sql = "INSERT INTO cms_comments (
+                            comm_author, comm_email, comm_post_id, comm_content
+                            ) VALUES(
+                                '{$comm_author}', '{$comm_email}', {$conn_post_id}, '{$conn_content}'
+                            )";
 
-                    $sql = "INSERT INTO cms_comments (
-                        comm_author, comm_email, comm_post_id, comm_content
-                        ) VALUES(
-                            '{$comm_author}', '{$comm_email}', {$conn_post_id}, '{$conn_content}'
-                        )";
-
-                    if ($conn->query($sql) != TRUE) {
-                        die('Error: <br>' . $conn->error);
-                    } 
-
+                        if ($conn->query($sql) != TRUE) {
+                            die('Error: <br>' . $conn->error);
+                        } 
+                    } else {
+                        echo "<script>alert('Fields cannot be empty!')</script>";
+                    }
                 }
                 
                 ?>
