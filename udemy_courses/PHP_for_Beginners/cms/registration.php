@@ -3,6 +3,8 @@
 
 <?php 
 
+$message = '<br>';
+
 if (isset($_POST['submit_reg'])) {
 
     $email_reg    = htmlspecialchars($_POST['email_reg']);    
@@ -11,12 +13,31 @@ if (isset($_POST['submit_reg'])) {
 
     $email_reg    = $conn->real_escape_string($email_reg);    
     $username_reg = $conn->real_escape_string($username_reg);
-    $password_reg = $conn->real_escape_string($password_reg);
+    $password_reg = $conn->real_escape_string($password_reg);    
 
+    if (
+        empty(trim($email_reg)) ||
+        empty(trim($username_reg)) ||
+        empty(trim($password_reg)) 
+    ) {
+        $message =  '<p class=\'bg-danger text-center\'>Field cannot be empty!</p>';
+    } else {
+        
+        $password_reg = password_hash($password_reg, PASSWORD_BCRYPT);
 
+        $sql = "INSERT INTO cms_users (
+                user_username, user_password, user_email, user_role
+                ) VALUES (
+                    '{$username_reg}', '{$password_reg}', '{$email_reg}', 'Subscriber' 
+                    
+                );";
 
-    echo "{$email_reg} {$username_reg} {$password_reg}";
-    
+        if ($conn->query($sql) == false) {
+            die('Error:' . '<br>' . $conn->error);
+        } else {
+            $message = '<p class=\'bg-success\'>Your Registation has been submitted!</p>';
+        }
+    }
 }
 
 
@@ -45,6 +66,7 @@ if (isset($_POST['submit_reg'])) {
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
                 <h1>Register</h1>
+                    <?php echo $message;?>
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>
