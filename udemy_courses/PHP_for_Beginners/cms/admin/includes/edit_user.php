@@ -33,7 +33,7 @@ if (isset($_POST['edit_user'])) {
     $user_role =        $_POST['user_role'];
     $user_username =    $_POST['user_username'];
     $user_email =       $_POST['user_email'];
-    $user_password =    $_POST['user_password'];
+    // $user_password =    $_POST['user_password'];
     $user_date =        $_POST['user_date'];
 
     $sql = "UPDATE cms_users SET 
@@ -42,7 +42,7 @@ if (isset($_POST['edit_user'])) {
             user_role = '{$user_role}',
             user_username = '{$user_username}',
             user_email = '{$user_email}',
-            user_password = '{$user_password}',
+            # user_password = '{$user_password}',
             user_date = '{$user_date}'
             
             WHERE user_id = '{$current_user_id}'";
@@ -121,10 +121,10 @@ if (isset($_POST['edit_user'])) {
 
 
 
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="user_password">Password</label>
-        <input type="text" class="form-control" name="user_password" value="<?php echo $user_password;?>">
-    </div>
+        <input type="password" class="form-control" name="user_password" value="<?php echo $user_password;?>">
+    </div> -->
 
     <div class="form-group">
         <label for="user_date">Date</label>

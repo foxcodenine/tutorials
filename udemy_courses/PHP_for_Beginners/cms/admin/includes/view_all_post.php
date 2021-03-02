@@ -55,13 +55,9 @@ if (isset($_POST['checkBoxArray'])) {
 
         if (isset($_GET['delete']) && trim($_GET['delete']) !== '') {
 
-
-            // _________________________________________________________
-
-            
+            // _________________________________________________________            
 
             deleting_post_image($_GET['delete']);
-
             // _________________________________________________________
             
             // Deleting record from database 
@@ -71,7 +67,6 @@ if (isset($_POST['checkBoxArray'])) {
             if ($conn->query($sql) !== TRUE) {
                 
                 die("Error deleting record: " . $conn->error); 
-
             } else {
 
             // Refresh page
@@ -89,7 +84,7 @@ if (isset($_POST['checkBoxArray'])) {
 <table class="table table-bordered table-hover">
 
         <div class="col-xs-4" id="bulkOptionContaiber">
-            <select id="" class="form-control" name="bulk_options">
+            <select id="" class="form-control bulk-options" name="bulk_options">
                 <option value="">Select Options</option>
                 <option value="published">Publish</option>
                 <option value="draft">Draft</option>
@@ -97,7 +92,7 @@ if (isset($_POST['checkBoxArray'])) {
             </select>
         </div>
         <div class="col-xs-4">
-            <input type="submit" name="submit" value="Apply" class="btn btn-success">
+            <input type="submit" name="submit" value="Apply" class="btn btn-success confirm-delete-all">
             <a href="post.php?source=add_post" class="btn btn-primary">Add New</a>
         </div>
     <thead >
@@ -174,7 +169,7 @@ if (isset($_POST['checkBoxArray'])) {
             echo "<td><a href='{$selected_post}'>View Post</a></td>"; 
             
             echo "<td><a href='{$_SERVER['PHP_SELF']}?source=edit_post&p_id={$post_id}'>Edit</a></td>";
-            echo "<td><a href='{$_SERVER['PHP_SELF']}?delete={$post_id}'>Delete</a></td>";
+            echo "<td><a class='confirm-delete' href='{$_SERVER['PHP_SELF']}?delete={$post_id}'>Delete</a></td>";
             echo "</tr>";
         }
     ?>

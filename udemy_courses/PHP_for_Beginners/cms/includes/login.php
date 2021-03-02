@@ -34,12 +34,13 @@ if (isset($_POST['login'])) {
         $db_user_role = $row['user_role'];
     }
 
-    if($username !== $db_user_username|| $password !== $db_user_password) {
+    if($username !== $db_user_username|| !password_verify($password, $db_user_password)) {
 
         $index_page = dirname(dirname($_SERVER['PHP_SELF']));
         header("Location: {$index_page}");
+        echo password_verify($password, $db_user_password);
 
-    } else if ($username === $db_user_username && $password === $db_user_password) {
+    } else if ($username === $db_user_username && password_verify($password, $db_user_password)) {
 
 
         $_SESSION['username'] = $db_user_username;

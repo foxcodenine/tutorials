@@ -67,7 +67,7 @@ function echo_categories() {
                                 echo "<tr>";
                                 echo "<td>{$cat_id}</td>";
                                 echo "<td>{$cat_title}</td>";
-                                echo "<td><a href='categories.php?delete={$cat_id}'>Delete</a></td>";
+                                echo "<td><a class='confirm-delete' href='categories.php?delete={$cat_id}'>Delete</a></td>";
                                 echo "<td><a href='categories.php?edit={$cat_id}'>Edit</a></td>";
                                 echo "</tr>";                                            
         }

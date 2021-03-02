@@ -80,7 +80,7 @@
             <th>Date</th>
             <th>Approve</th>
             <th>Unapprove</th>
-            <th>Edit</th>
+            <!-- <th>Edit</th> -->
             <th>Delete</th>         
         </tr>
     </thead>
@@ -136,8 +136,8 @@
             echo "<td>{$comm_date}</td>";
             echo "<td><a href='{$_SERVER['PHP_SELF']}?approve={$comm_id}'>Approve</a></td>";
             echo "<td><a href='{$_SERVER['PHP_SELF']}?unapprove={$comm_id}'>Unapprove</a></td>";
-            echo "<td><a href='#'>Edite</a></td>";
-            echo "<td><a href='{$_SERVER['PHP_SELF']}?delete={$comm_id}'>Delete</a></td>";
+            // echo "<td><a href='#'>Edit</a></td>";
+            echo "<td><a class='confirm-delete' href='{$_SERVER['PHP_SELF']}?delete={$comm_id}'>Delete</a></td>";
 
             echo "</tr>";
 

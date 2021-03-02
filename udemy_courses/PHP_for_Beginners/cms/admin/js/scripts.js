@@ -10,6 +10,8 @@ document.onreadystatechange = function () {                    // <- (A)
 
         wysiwyg ();
         selectAllBoxes ();
+        confirmDelete();
+        confirmDeleteAll();
 
         // -------------------------------------------------------------        
     }
@@ -38,20 +40,16 @@ function selectAllBoxes () {
 
     const selectAllBoxes = document.querySelector('#selectAllBoxes');
 
-    
     if (selectAllBoxes) {
 
         const allBoxes = document.querySelectorAll('.checkbox');
 
         selectAllBoxes.addEventListener('click',()=>{
             if (selectAllBoxes.checked == true) {
-
                 for (let i = 0; i < allBoxes.length; i++) {
                     allBoxes[i].checked = true;
                 }
-
             } else {
-
                 for (let i = 0; i < allBoxes.length; i++) {
                     allBoxes[i].checked = false;
                 }
@@ -60,6 +58,50 @@ function selectAllBoxes () {
     }
 }
 // ------------------------------------------------------------- 
+
+function confirmDelete() {
+    const fields = document.querySelectorAll('.confirm-delete');
+
+    if (fields) {
+    
+        fields.forEach(element => {
+            element.addEventListener('click', (e)=>{
+                
+                if (confirm('Are you sure you want to Delete?')){
+                    return true
+                } else {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    // Do nothing!
+                    return false
+                }
+            })
+        });
+    }
+}
+// ------------------------------------------------------------- 
+
+
+function confirmDeleteAll() {
+    const applyAllBtn = document.querySelector('.confirm-delete-all');
+    const bulkOptions = document.querySelector('.bulk-options');
+
+    if (applyAllBtn) {
+        applyAllBtn.addEventListener('click', (e)=>{
+            if (bulkOptions.value == 'delete') {
+                if (confirm('Delete All Selected?')) {
+                    return true
+                } else {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    // Do nothing!
+                    return false
+                }
+            }
+        });        
+    }
+
+}
 
     
 
