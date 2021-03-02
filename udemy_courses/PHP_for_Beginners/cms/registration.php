@@ -13,14 +13,24 @@ if (isset($_POST['submit_reg'])) {
 
     $email_reg    = $conn->real_escape_string($email_reg);    
     $username_reg = $conn->real_escape_string($username_reg);
-    $password_reg = $conn->real_escape_string($password_reg);    
+    $password_reg = $conn->real_escape_string($password_reg); 
+    
+    
+    $sql = "SELECT * FROM cms_users WHERE user_email = '{$email_reg}'";
+    $result = $conn->query($sql);
+
+    $row = $result->fetch_assoc();
+    
+
 
     if (
         empty(trim($email_reg)) ||
         empty(trim($username_reg)) ||
         empty(trim($password_reg)) 
     ) {
-        $message =  '<p class=\'bg-danger text-center\'>Field cannot be empty!</p>';
+        $message =  '<p class=\'bg-danger text-center\'>Fields cannot be empty!</p>';        
+    } else if($result->num_rows >= 1) {
+        $message = '<p class=\'bg-warning text-center\'>Your email address is already in use!</p>';
     } else {
         
         $password_reg = password_hash($password_reg, PASSWORD_BCRYPT);
@@ -33,9 +43,9 @@ if (isset($_POST['submit_reg'])) {
                 );";
 
         if ($conn->query($sql) == false) {
-            die('Error:' . '<br>' . $conn->error);
+            die('Error:' . '<br>' . $conn->error);        
         } else {
-            $message = '<p class=\'bg-success\'>Your Registation has been submitted!</p>';
+            $message = '<p class=\'bg-success text-center\'>Your Registation has been submitted!</p>';
         }
     }
 }
