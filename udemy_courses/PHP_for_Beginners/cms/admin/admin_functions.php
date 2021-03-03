@@ -148,17 +148,46 @@ function admin_add_post() {
         
         $post_date = date('d-m-y');
 
-        
+        // _____________________________________________________________
+        // check if file exits and rename if so
+
+        function check_if_file_exits($file) {
+
+            if (file_exists($file)) {
+                $file_array = explode('.', $file);
+                
+                $file_type = end($file_array);
+                $array_length = count($file_array) - 1;
+                array_splice($file_array, $array_length);
+
+                $file = implode('.', $file_array) . '(copy)' . '.' . $file_type;  
+
+                if (file_exists($file)){
+                    $file = check_if_file_exits($file);
+                }               
+                
+            }
+            return $file;
+        }
+
+        $file_path_file = "../images/{$post_image}";
+        $file_path_file = check_if_file_exits($file_path_file);
+
+        $file_name = end(explode('/', $file_path_file));
 
 
-        move_uploaded_file($post_image_temp, "../images/{$post_image}");
+
+        // _____________________________________________________________
+
+
+        move_uploaded_file($post_image_temp, $file_path_file);
 
         $sql  = "INSERT INTO cms_posts(
             post_cat_id, post_title, post_author, post_date, post_image, 
             post_content, post_tags,  post_statas) ";
 
         $sql .= "values({$post_category_id}, '{$post_title}', '{$post_author}', 
-            now(), 'http://localhost/htdocs/cms/images/{$post_image}', '{$post_content}', 
+            now(), 'http://localhost/htdocs/cms/images/{$file_name}', '{$post_content}', 
             '{$post_tags}', '{$post_statas}')";
         
 
