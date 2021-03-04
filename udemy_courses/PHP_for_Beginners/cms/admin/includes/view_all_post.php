@@ -3,7 +3,7 @@
 
 // ---- Fetch all post from database and return
 
-        $sql = "SELECT * FROM cms_posts;";
+        $sql = "SELECT * FROM cms_posts ORDER BY post_id DESC;";
         $result_post = $conn->query($sql);
 ?>
 <!-- --------------------------------------------------------------- -->
@@ -33,6 +33,28 @@ if (isset($_POST['checkBoxArray'])) {
                     
                     deleting_post_image($checkboxValue);   
                     break;
+                case 'clone':
+                    $sql = "SELECT * FROM cms_posts WHERE post_id = {$checkboxValue};";
+
+                    $result = $conn->query($sql);
+
+                    if($conn->error) {
+                        die('Error:' . '<br>' . $conn->error);                    
+                    }   
+                    $post_array = [];
+
+                    while ($row = $result->fetch_assoc()) {       
+
+                        $post_array = [
+                            $row['post_title'], $row['post_author'], 
+                            $row['post_cat_id'], $row['post_statas'], 
+                            $row['post_image'], $row['post_tags'], 
+                            $row['post_content']
+                        ];
+                    }
+                    
+                    $sql = clone_project($post_array);
+                    break;
             }
             $conn->query($sql);
 
@@ -43,9 +65,6 @@ if (isset($_POST['checkBoxArray'])) {
         header("Location: {$_SERVER['PHP_SELF']}");
     }
 }
-
-
-
 
 ?>
 
@@ -76,7 +95,6 @@ if (isset($_POST['checkBoxArray'])) {
             }
 
         }
-
 ?>
 
 <!-- --------------------------------------------------------------- -->
@@ -89,6 +107,7 @@ if (isset($_POST['checkBoxArray'])) {
                 <option value="published">Publish</option>
                 <option value="draft">Draft</option>
                 <option value="delete">Delete</option>
+                <option value="clone">Clone</option>
             </select>
         </div>
         <div class="col-xs-4">
