@@ -1,4 +1,17 @@
-<?php admin_add_post();?>
+<?php 
+
+// Add new post
+if (isset($_POST['create_post']) && $_POST['create_post'] === 'Publish Post') {
+
+    $post_array = fetch_post_data();
+    admin_add_post($post_array);   
+
+}
+
+
+
+
+;?>
 
 <h2>Add Post</h2>
 

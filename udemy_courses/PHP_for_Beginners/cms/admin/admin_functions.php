@@ -125,111 +125,183 @@ function edit_update_cat() {
 }
 // _____________________________________________________________________
 // _____________________________________________________________________
-
 // function for admin/include/add_post.php
 
-function admin_add_post() {
-
+function fetch_post_data() {
+    
     global $conn;
 
-    if (isset($_POST['create_post']) && $_POST['create_post'] === 'Publish Post') {
-
-        $post_title = $_POST['post_title'];    
-        $post_author = $_POST['post_author'];
-        $post_category_id = $_POST['post_category_id'];
-        $post_statas = $_POST['post_statas'];
+    $post_title = $_POST['post_title'];    
+    $post_author = $_POST['post_author'];
+    $post_category_id = $_POST['post_category_id'];
+    $post_statas = $_POST['post_statas'];
 
 
-        $post_image = $_FILES['post_image']['name'];
-        $post_image_temp = $_FILES['post_image']['tmp_name'];
+    $post_image = $_FILES['post_image']['name'];
+    $post_image_temp = $_FILES['post_image']['tmp_name'];
 
-        $post_tags = $_POST['post_tags'];
-        $post_content = $conn -> real_escape_string($_POST['post_content']);
-        
-        $post_date = date('d-m-y');
+    $post_tags = $_POST['post_tags'];
+    $post_content = $conn -> real_escape_string($_POST['post_content']);
+    
+    $post_date = date('d-m-y');
 
-        // _____________________________________________________________
-        // check if file exits and rename if so
-
-        function check_if_file_exits($file) {
-
-            if (file_exists($file)) {
-                $file_array = explode('.', $file);
-                
-                $file_type = end($file_array);
-                $array_length = count($file_array) - 1;
-                array_splice($file_array, $array_length);
-
-                $file = implode('.', $file_array) . '(copy)' . '.' . $file_type;  
-
-                if (file_exists($file)){
-                    $file = check_if_file_exits($file);
-                }               
-                
-            }
-            return $file;
-        }
-
-        $file_path_file = "../images/{$post_image}";
-        $file_path_file = check_if_file_exits($file_path_file);
-
-        $file_name = end(explode('/', $file_path_file));
-
-
-
-        // _____________________________________________________________
-
-
-        move_uploaded_file($post_image_temp, $file_path_file);
-
-        $sql  = "INSERT INTO cms_posts(
-            post_cat_id, post_title, post_author, post_date, post_image, 
-            post_content, post_tags,  post_statas) ";
-
-        $sql .= "values({$post_category_id}, '{$post_title}', '{$post_author}', 
-            now(), 'http://localhost/htdocs/cms/images/{$file_name}', '{$post_content}', 
-            '{$post_tags}', '{$post_statas}')";
-        
-
-        if($conn->query($sql) !== TRUE) {
-            die('Error:' . '<br>' . $conn->error);
-        } else {
-
-            // ---------------------------------------------------------
-            // // Selecting The post Id
-
-            // $sql = "SELECT post_id FROM cms_posts 
-            //         WHERE 
-            //         post_title='{$post_title}' AND 
-            //         post_content='{$post_content}' AND
-            //         post_tags='{$post_tags}';" ;
-
-            // $result = $conn->query($sql);
-
-            // if ($conn->error) {
-            //     die('Error :' . '<br>' . $conn->error);
-            // }
-
-            // while ($row = $result->fetch_assoc()) {
-            //     $current_post_id = $row['post_id'];
-            // }
-            // ---------------------------------------------------------
-
-            //  This function is an alternative to the above code 
-            //  It retrived the last insered id;
-            $current_post_id = $conn->insert_id;
-
-            header("Location: ". "../post.php?p_id={$current_post_id}");          
-
-        }
-    }
+    return [
+        $post_title, $post_author, $post_category_id, 
+        $post_statas, $post_image, 
+        $post_image_temp, $post_tags, $post_content
+    ];
 }
 
+// _____________________________
+
+function check_if_file_exits($file) {
+    //function check if file name exits, rename if so and return
+    if (file_exists($file)) {
+        $file_array = explode('.', $file);
+        
+        $file_type = end($file_array);
+        $array_length = count($file_array) - 1;
+        array_splice($file_array, $array_length);
+
+        $file = implode('.', $file_array) . '(copy)' . '.' . $file_type;  
+
+        if (file_exists($file)){
+            $file = check_if_file_exits($file);
+        }    
+        
+    }
+    return $file;
+}
+// _____________________________
+
+function admin_add_post($post_array) {
+
+    global $conn;
+    // _____________________________________________________________
+    // Fetching all NewPost data form $post_array
+
+    [
+        $post_title, $post_author, $post_category_id, 
+        $post_statas, $post_image, 
+        $post_image_temp, $post_tags, $post_content
+    
+    ] = $post_array;
+
+    // _____________________________________________________________
+    // check if file exits and rename if so
+
+    $file_path_file = "../images/{$post_image}";
+    $file_path_file = check_if_file_exits($file_path_file);
+
+    // _____________________________________________________________
+
+    // Get file name form filepath
+    $file_name = end(explode('/', $file_path_file));
+
+    // _____________________________________________________________
+
+    // Saving the image file from tmp to our file_path 
+    move_uploaded_file($post_image_temp, $file_path_file);
+
+    // _____________________________________________________________
+
+    // Saving all post data to db 
+
+    $sql  = "INSERT INTO cms_posts(
+        post_cat_id, post_title, post_author, post_date, post_image, 
+        post_content, post_tags,  post_statas) ";
+
+    $sql .= "values({$post_category_id}, '{$post_title}', '{$post_author}', 
+        now(), 'http://localhost/htdocs/cms/images/{$file_name}', '{$post_content}', 
+        '{$post_tags}', '{$post_statas}')";
+    
+
+    if($conn->query($sql) !== TRUE) {
+        die('Error:' . '<br>' . $conn->error);
+    } else {
+
+        // ---------------------------------------------------------
+        // // Selecting The post Id
+
+        // $sql = "SELECT post_id FROM cms_posts 
+        //         WHERE 
+        //         post_title='{$post_title}' AND 
+        //         post_content='{$post_content}' AND
+        //         post_tags='{$post_tags}';" ;
+
+        // $result = $conn->query($sql);
+
+        // if ($conn->error) {
+        //     die('Error :' . '<br>' . $conn->error);
+        // }
+
+        // while ($row = $result->fetch_assoc()) {
+        //     $current_post_id = $row['post_id'];
+        // }
+        // ---------------------------------------------------------
+
+        //  This function is an alternative to the above code 
+        //  It retrived the last insered id;
+        $current_post_id = $conn->insert_id;
+
+        header("Location: ". "../post.php?p_id={$current_post_id}");          
+
+    }
+    
+}
+
+
 // _____________________________________________________________________
 // _____________________________________________________________________
+
 
 // function for admin/include/view_all_post.php
 
+// _____________________________
+
+function clone_project($post_array) {
+        global $conn;
+    // _____________________________________________________________
+    // Fetching all NewPost data form $post_array
+
+    [
+        $post_title, $post_author, $post_category_id, 
+        $post_statas, $post_image, 
+        $post_tags, $post_content
+    
+    ] = $post_array;
+
+    // _____________________________________________________________
+    // check if file exits and rename if so
+    $file_name      = end(explode('/', $post_image));
+    $file_source    = "../images/{$file_name}";
+    $file_target    = check_if_file_exits($file_source);
+
+    // _____________________________________________________________
+    // update filename
+
+    $file_name = end(explode('/', $file_target));
+    
+    // _____________________________________________________________
+    // Saving the image file from tmp to our file_path 
+
+    copy($file_source, $file_target);
+
+    // _____________________________________________________________
+    // Saving all post data to db 
+
+    $sql  = "INSERT INTO cms_posts(
+        post_cat_id, post_title, post_author, post_date, post_image, 
+        post_content, post_tags,  post_statas) ";
+
+    $sql .= "values({$post_category_id}, '{$post_title}', '{$post_author}', 
+        now(), 'http://localhost/htdocs/cms/images/{$file_name}', '{$post_content}', 
+        '{$post_tags}', '{$post_statas}')";
+
+    return $sql;
+}
+
+// _____________________________
 
 function deleting_post_image($id) {
                 
@@ -260,6 +332,8 @@ function deleting_post_image($id) {
 
         die('Error! post_id not found in db');
     }
+
+    
 }
 // _____________________________________________________________________
 // _____________________________________________________________________
