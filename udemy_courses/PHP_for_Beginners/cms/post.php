@@ -31,11 +31,19 @@
 <!-- --------------------------------------------------------------- -->
                 <?php
 
+            if (!empty($_GET['p_id'])) {                
+
                 // $testDate =  new DateTime();
                 // echo $testDate->format('Y\-m\-d\ h:i:s');
 
                 $current_post_id = $_GET['p_id'];
 
+                $sql = "UPDATE cms_posts SET post_viewed = post_viewed + 1 WHERE post_id = {$current_post_id}";
+                mysqli_query($conn, $sql);
+
+                if ($conn->error) {
+                    die("Error: <br>" . $conn->error);
+                }
                
 
                 $sql = "SELECT * FROM cms_posts WHERE post_id = {$current_post_id}";
@@ -76,6 +84,8 @@
                 ?>
 <!-- --------------------------------------------------------------- -->
                 <?php
+
+                
                 
                 if (isset($_POST['create_comment'])) {
 
@@ -103,6 +113,10 @@
                         echo "<script>alert('Fields cannot be empty!')</script>";
                     }
                 }
+
+            } else {
+                header('Location: index.php');
+            }
                 
                 ?>
 <!-- --------------------------------------------------------------- -->
@@ -143,6 +157,8 @@
                 <!-- Posted Comments -->
 
                 <!-- Comment -->
+
+
 
 <!-- --------------------------------------------------------------- -->
 

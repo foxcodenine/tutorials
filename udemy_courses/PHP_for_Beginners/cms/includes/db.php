@@ -70,6 +70,7 @@ $sql .= "post_image TEXT,";
 $sql .= "post_content TEXT, ";
 $sql .= "post_tags VARCHAR(255), ";
 $sql .= "post_comments_count INTEGER, ";
+$sql .= "post_viewed INTEGER(11), ";
 $sql .= "post_statas VARCHAR(100) DEFAULT 'draft');";
 
 if ($conn->query($sql) !== TRUE) {
