@@ -12,15 +12,33 @@ document.onreadystatechange = function () {                    // <- (A)
         selectAllBoxes ();
         confirmDelete();
         confirmDeleteAll();
+        myLoader();
 
         // -------------------------------------------------------------        
     }
 }
 
 ////////////////////////////////////////////////////////////////////////
+function myLoader() {
+    const div_box = document.createElement('div');
 
+    div_box.setAttribute("id", "load-screen");
+    div_box.innerHTML = '<div id="loading"></div>';   
+    document.body.prepend(div_box);
+
+    setTimeout(()=>{
+        div_box.classList.add('fade-loading-screen')
+    }, 500);
+
+
+
+    setTimeout(()=>{
+        div_box.remove();
+    }, 700);
+};
 
 // ---- Editor function ------------------------------------------------
+
 
 function wysiwyg () {
     if (document.querySelector('#editor_body')) {

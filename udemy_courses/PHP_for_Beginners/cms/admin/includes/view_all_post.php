@@ -31,7 +31,10 @@ if (isset($_POST['checkBoxArray'])) {
                 case 'delete':
                     $sql = "DELETE FROM cms_posts WHERE post_id = {$checkboxValue};";
                     
-                    deleting_post_image($checkboxValue);   
+                    break;
+                case 'reset views':
+                    $sql = "UPDATE cms_posts SET post_viewed = 0 WHERE post_id = {$checkboxValue};";                    
+  
                     break;
                 case 'clone':
                     $sql = "SELECT * FROM cms_posts WHERE post_id = {$checkboxValue};";
@@ -108,6 +111,7 @@ if (isset($_POST['checkBoxArray'])) {
                 <option value="draft">Draft</option>
                 <option value="delete">Delete</option>
                 <option value="clone">Clone</option>
+                <option value="reset views">Reset view count</option>
             </select>
         </div>
         <div class="col-xs-4">
@@ -126,6 +130,7 @@ if (isset($_POST['checkBoxArray'])) {
             <th>Tags</th>
             <th>Comments</th>
             <th>Date</th>
+            <th>Views</th>
             <th></th>
             <th></th>
             <th></th>
@@ -144,6 +149,7 @@ if (isset($_POST['checkBoxArray'])) {
             $post_image = $row['post_image'];
             $post_content = $row['post_content'];
             $post_tags = $row['post_tags'];
+            $post_views = $row['post_viewed'];
 
             // ---------------------------------------------------------
             $sql = "SELECT COUNT(*) AS 'count' FROM cms_comments WHERE comm_post_id = {$post_id}";
@@ -178,11 +184,12 @@ if (isset($_POST['checkBoxArray'])) {
 
             
 
-            echo "<td>{$post_statas}</td>";
+            echo "<td>{$post_statas}</td>";            
             echo "<td><img style='width: 200px;' src='{$post_image}'></td>";
             echo "<td>{$post_tags}</td>";
             echo "<td>{$post_count}</td>";
             echo "<td>{$post_date}</td>";
+            echo "<td>{$post_views}</td>";
 
             $selected_post = dirname(dirname($_SERVER['PHP_SELF'])) . "/post.php?p_id={$post_id}";
             echo "<td><a href='{$selected_post}'>View Post</a></td>"; 
