@@ -292,11 +292,11 @@ function clone_project($post_array) {
 
     $sql  = "INSERT INTO cms_posts(
         post_cat_id, post_title, post_author, post_date, post_image, 
-        post_content, post_tags,  post_statas) ";
+        post_content, post_tags,  post_statas, post_viewed) ";
 
     $sql .= "values({$post_category_id}, '{$post_title}', '{$post_author}', 
         now(), 'http://localhost/htdocs/cms/images/{$file_name}', '{$post_content}', 
-        '{$post_tags}', '{$post_statas}')";
+        '{$post_tags}', '{$post_statas}', 0)";
 
     return $sql;
 }

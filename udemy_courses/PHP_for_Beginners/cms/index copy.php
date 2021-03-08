@@ -31,28 +31,8 @@
                 // $testDate =  new DateTime();
                 // echo $testDate->format('Y\-m\-d\ h:i:s');
 
-                // _____________________________________________________
-                // Pagination code
                 $sql = "SELECT * FROM cms_posts WHERE post_statas = 'published'";
-                $result = $conn->query($sql);
-                $post_per_page = 5;
-                $count_pages = ceil($result->num_rows / $post_per_page);
-
-                $page_number = 1;
-
-                if(isset($_GET['page'])) {
-                    $page_number = $_GET['page'];
-                } 
-
-                $start_post = 0 + (($page_number - 1) * $post_per_page);
-                // _____________________________________________________
-
-                
-
-                $sql = "SELECT * FROM cms_posts WHERE post_statas = 'published' LIMIT $start_post, $post_per_page";
                 $post = mysqli_query($conn, $sql);
-
-
 
                 if ($post) {
                     while ($row = mysqli_fetch_assoc($post)) {  
@@ -107,20 +87,6 @@
                 <hr> -->
 
                 <?php/* include "./includes/pager.php" */?>
-
-                <ul class="pager">
-                    
-                <?php 
-                    for ($i = 1; $i <= $count_pages; ++$i ) {
-                        if ($page_number == $i) {
-                            echo "<li><a class='active' href='{$_SERVER['PHP_SELF']}?page={$i}'>{$i}</a></li>";
-                        } else {
-                            echo "<li><a href='{$_SERVER['PHP_SELF']}?page={$i}'>{$i}</a></li>";
-                        }
-                    }
-                ?>
-                    
-                </ul>
 
             </div>
 <!-- --------------------------------------------------------------- -->
