@@ -1,8 +1,12 @@
 <!-- Top Menu Items -->
 <ul class="nav navbar-right top-nav">
     <!-- --------------------------------------------------------------- -->
+    <!-- <li><a href="#">Online Users <?php // echo users_online();?></a></li> --><!-- Updating users_online with JS get request insted (below) -->
+    <li><a href="#">Online Users <span class="users-on-line"></span></a></li>
 
     <li><a href="../">Home Page</a></li>
+
+    
 
     <!-- --------------------------------------------------------------- -->
 

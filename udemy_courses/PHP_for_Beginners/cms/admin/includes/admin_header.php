@@ -15,8 +15,15 @@ if (!isset($_SESSION['role'])) {
 
 ?>
 
+
 <?php require_once '../includes/db.php'; ?>
-<?php require_once './admin_functions.php'; ?>
+<?php require_once './admin_functions.php'; 
+// users_on_line_js();
+?>
+
+
+
+
 <head>
 
     <meta charset="utf-8">
