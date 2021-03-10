@@ -373,4 +373,71 @@ function admin_add_user() {
     
 }
 
+function users_online() {
+
+    global $conn;
+
+    // -----------------------------
+    $session = session_id();
+    $time = time();
+    $time_out_in_seconds = 60;
+    $time_out = $time - $time_out_in_seconds;
+
+    $sql = "SELECT * FROM cms_online WHERE session = '{$session}';";
+    $result = $conn->query($sql);
+    $count = $result->num_rows;
+
+    // -----------------------------
+    if ($count == NULL) {
+        $sql = "INSERT INTO cms_online(session, time)
+                VALUES(
+                    '{$session}', '{$time}'
+                );";
+    } else {
+        $sql = "UPDATE cms_online SET time='{$time}' WHERE session='{$session}'" ;
+    }
+    // -----------------------------
+    $result = $conn->query($sql);
+    if ($conn->error) {
+        die('Error3: ' . '<br>' . $conn->error);
+    }
+    // -----------------------------
+    $sql = "SELECT * FROM cms_online WHERE time > '{$time_out}'";
+    $result = $conn->query($sql);
+    if ($conn->error) {
+        die('Error2: ' . '<br>' . $conn->error);
+    }
+    return $result->num_rows;
+    // -----------------------------
+
+
+}
+
+// _____________________________________________________________________
+// _____________________________________________________________________
+
+// API function  
+// echo to JS frontend users_online() if $_GET['on_line_users'] is set.
+
+// https://stackoverflow.com/questions/39414008/fetch-api-get-data-from-php-file
+
+function users_on_line_js() {
+    if (isset($_GET['on_line_users'])) {
+        
+        global $conn;
+
+        if (!$conn) {
+            session_start();
+            require_once '../includes/db.php';
+        }
+
+        echo users_online();
+    } 
+}
+// __________________________________
+// Exect the function
+users_on_line_js();
+// _____________________________________________________________________
+
+
 ?>

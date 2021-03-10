@@ -116,7 +116,20 @@ if ($conn->query($sql) != TRUE) {
     die('Error: ' . '<br>' . $conn->error);
 }
 
+// _____________________________________________________________________
 
+$sql = "CREATE TABLE IF NOT EXISTS cms_online (
+    `id` INT PRIMARY KEY AUTO_INCREMENT, 
+    `session` VARCHAR(255) NOT NULL , 
+    `time` INT(11) NOT NULL
+    );";
+
+
+if($conn->query($sql) != TRUE) {
+    die('Error: ' . '<br>' . $conn->error);
+}
+
+// _____________________________________________________________________
 
 // 'INSERT INTO `cms_users` 
 // (`user_id`, `user_username`, `user_password`, `user_firstname`, `user_lastname`, 
