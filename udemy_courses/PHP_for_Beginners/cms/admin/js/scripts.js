@@ -14,6 +14,11 @@ document.onreadystatechange = function () {                    // <- (A)
         confirmDeleteAll();
         myLoader();
 
+        setInterval(() => {
+            usersOnLineJS();
+        }, 5000);
+        
+
         // -------------------------------------------------------------        
     }
 }
@@ -118,9 +123,22 @@ function confirmDeleteAll() {
             }
         });        
     }
-
 }
 
+
+// ------------------------------------------------------------- 
+// Fetch number of user on-line from baskend
+
+function usersOnLineJS() {
     
+    const placeholder = document.querySelector('.users-on-line');
+
+    fetch('admin_functions.php?on_line_users=true')
+    .then(response => response.text())
+    .then(data => placeholder.innerText = data)
+}
+// ------------------------------------------------------------- 
+
+
 
 
