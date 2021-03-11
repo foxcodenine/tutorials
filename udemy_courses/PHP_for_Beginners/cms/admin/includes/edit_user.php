@@ -3,6 +3,9 @@
 
 
 <?php
+if (!isset($_GET['u_id'])){
+    header('Location: '. dirname($_SERVER['PHP_SELF']));
+}
 $current_user_id = $_GET['u_id'];
 
 $form_action = $_SERVER['PHP_SELF'] . "?source=edit_user&u_id={$current_user_id }"; 
@@ -42,7 +45,7 @@ if (isset($_POST['edit_user'])) {
             user_role = '{$user_role}',
             user_username = '{$user_username}',
             user_email = '{$user_email}',
-            # user_password = '{$user_password}',
+            user_password = '{$user_password}',
             user_date = '{$user_date}'
             
             WHERE user_id = '{$current_user_id}'";

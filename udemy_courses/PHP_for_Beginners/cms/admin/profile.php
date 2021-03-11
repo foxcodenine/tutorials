@@ -120,9 +120,10 @@ if (isset($_POST['edit_user'])) {
 
                 if ($role == $user_role) {
                     echo "<option selected value='{$role}'>{$role}</option>";
-                } else {
-                    echo "<option  value='{$role}'>{$role}</option>";
-                }
+                } 
+                // else {
+                //     echo "<option  value='{$role}'>{$role}</option>";
+                // }
                 
             }
 
@@ -143,10 +144,10 @@ if (isset($_POST['edit_user'])) {
 
 
 
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="user_password">Password</label>
         <input type="text" class="form-control" name="user_password" value="<?php echo $user_password;?>">
-    </div>
+    </div> -->
 
     <div class="form-group">
         <label for="user_date">Date</label>
