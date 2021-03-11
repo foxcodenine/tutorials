@@ -347,7 +347,7 @@ function admin_add_user() {
         $user_lastname = $_POST['user_lastname'];
         $user_role = $_POST['user_role'];
         $user_username = $_POST['user_username'];
-        $user_password = $_POST['user_password'];
+        $user_password = password_hash($_POST['user_password'], PASSWORD_BCRYPT);
         $user_email = $_POST['user_email'];
         $user_date = $_POST['user_date'];
 
