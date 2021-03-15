@@ -91,7 +91,7 @@
 
                     $comm_author  = mysqli_escape_string($conn, $_POST['comm_author']);
                     $comm_email   = mysqli_escape_string($conn, $_POST['comm_email']);
-                    $conn_content = mysqli_escape_string($conn, $_POST['comm_content']);
+                    $comm_content = mysqli_escape_string($conn, $_POST['comm_content']);
 
                     $conn_post_id = $current_post_id;
 
@@ -103,7 +103,7 @@
                         $sql = "INSERT INTO cms_comments (
                             comm_author, comm_email, comm_post_id, comm_content
                             ) VALUES(
-                                '{$comm_author}', '{$comm_email}', {$conn_post_id}, '{$conn_content}'
+                                '{$comm_author}', '{$comm_email}', {$conn_post_id}, '{$comm_content}'
                             )";
 
                         if ($conn->query($sql) != TRUE) {
