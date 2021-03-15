@@ -2,8 +2,14 @@
 <?php
 
 // ---- Fetch all post from database and return
-
         $sql = "SELECT * FROM cms_comments;";
+
+        if (isset($_GET['p_id']) && $_GET['p_id'] != null) {
+            $p_id = $conn->real_escape_string($_GET['p_id']);
+
+            $sql = "SELECT * FROM cms_comments WHERE comm_post_id = {$p_id};";
+        } 
+
         $result_post = $conn->query($sql);
 ?>
 <!-- --------------------------------------------------------------- -->
@@ -25,11 +31,14 @@
             if ($conn->query($sql) !== TRUE) {
                 
                 die("Error deleting record: " . $conn->error); 
-
+                
+            } else if (isset($_GET['p_id']) && $_GET['p_id'] != null) {
+                header('Location: '. $_SERVER['PHP_SELF'] . '?p_id=' . $_GET['p_id']);            
+            
             } else {
 
-            // Deleting image file and refresh page
-            unlink($image_path);
+            // // Deleting image file and refresh page
+            // unlink($image_path);
             header('Location: '. $_SERVER['PHP_SELF']);
             
             }
@@ -56,6 +65,8 @@
 
             if ($conn->query($sql) != TRUE) {
                 die('Errer: '. '<br>' . $conn->error);
+            } else if (isset($_GET['p_id']) && $_GET['p_id'] != null) {
+                header('Location: '. $_SERVER['PHP_SELF'] . '?p_id=' . $_GET['p_id']);            
             } else {
                 header('Location: '. $_SERVER['PHP_SELF']);
             }
@@ -132,12 +143,17 @@
             }
 
             // _________________________________________________________________            
+            
+            if (isset($_GET['p_id'])) {
+                $p_id = $_GET['p_id'];
+            } else {
+                $p_id = null;
+            }
 
             echo "<td>{$comm_date}</td>";
-            echo "<td><a href='{$_SERVER['PHP_SELF']}?approve={$comm_id}'>Approve</a></td>";
-            echo "<td><a href='{$_SERVER['PHP_SELF']}?unapprove={$comm_id}'>Unapprove</a></td>";
-            // echo "<td><a href='#'>Edit</a></td>";
-            echo "<td><a class='confirm-delete' href='{$_SERVER['PHP_SELF']}?delete={$comm_id}'>Delete</a></td>";
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?approve={$comm_id}&p_id={$p_id}'>Approve</a></td>";
+            echo "<td><a href='{$_SERVER['PHP_SELF']}?unapprove={$comm_id}&p_id={$p_id}'>Unapprove</a></td>";
+            echo "<td><a class='confirm-delete' href='{$_SERVER['PHP_SELF']}?delete={$comm_id}&p_id={$p_id}'>Delete</a></td>";
 
             echo "</tr>";
 

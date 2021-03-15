@@ -187,7 +187,7 @@ if (isset($_POST['checkBoxArray'])) {
             echo "<td>{$post_statas}</td>";            
             echo "<td><img style='width: 200px;' src='{$post_image}'></td>";
             echo "<td>{$post_tags}</td>";
-            echo "<td>{$post_count}</td>";
+            echo "<td><a href='comments.php?p_id={$post_id}'>{$post_count}</a></td>";
             echo "<td>{$post_date}</td>";
             echo "<td>{$post_views}</td>";
 
