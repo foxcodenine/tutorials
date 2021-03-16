@@ -50,7 +50,28 @@ if (isset($_POST['create_post']) && $_POST['create_post'] === 'Publish Post') {
 
     <div class="form-group">
         <label for="post_author">Post Author</label>
-        <input type="text" class="form-control" name="post_author">
+        <input type=text class="form-control" name="post_author" list=authors_users>
+        <datalist  id="authors_users">
+
+        
+        <?php 
+        $sql = "SELECT * FROM cms_users;";
+
+        $result = $conn->query($sql);
+            
+        if($conn->error) {
+            die('Error:' . '<br>' . $conn->error);
+        }
+
+        while ($row = $result->fetch_assoc()) {            
+            echo "<option>{$row['user_username']}</option>";
+        }
+
+        ?>
+        </datalist>
+
+        
+        <!-- <input type="text" class="form-control" name="post_author"> -->
     </div>
 
     <div class="form-group">
