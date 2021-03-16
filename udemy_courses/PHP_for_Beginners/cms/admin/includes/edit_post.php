@@ -19,6 +19,7 @@ $post_content= '';
 $sql = "SELECT * FROM cms_posts WHERE post_id={$_GET['p_id']};";
 
 $result = $conn->query($sql);
+$current_user;
 
 
 if ($result != True) {
@@ -28,6 +29,8 @@ if ($result != True) {
     die('No data');
 } else {
     $row = $result->fetch_assoc();
+
+    $current_user = $row;
 
     $post_title = $row["post_title"];
     $post_cat_id = $row["post_cat_id"];
@@ -47,8 +50,6 @@ if ($result != True) {
 
 if (isset($_POST['update_post'])) {
 
-
-
     $post_title = $_POST['post_title'];    
     $post_author = $_POST['post_author'];
     $post_cat_id = $_POST['post_category_id'];
@@ -63,7 +64,14 @@ if (isset($_POST['update_post'])) {
 
     $sql  = "UPDATE cms_posts SET ";
     $sql .= "post_title     = '{$post_title}', ";
-    $sql .= "post_author     = '{$post_author}', ";
+    
+    if (!isset($post_author) || empty($post_author)) {
+        $post_author = $current_user["post_author"];
+        $sql .= "post_author     = '{$post_author}', ";
+    } else {
+        $sql .= "post_author     = '{$post_author}', ";
+    }
+    
     $sql .= "post_cat_id    = {$post_cat_id}, ";
     $sql .= "post_date      =  now() , ";
     $sql .= "post_statas    = '{$post_statas}', ";
@@ -151,7 +159,21 @@ if (isset($_POST['update_post'])) {
 
 <div class="form-group">
     <label for="post_author">Post Author</label>
-    <input <?php echo "value='{$post_author}'"; ?> type="text" class="form-control" name="post_author">
+    <input <?php echo "placeholder='{$post_author}'"; ?> list=authors_users type="text" class="form-control" name="post_author">
+    <datalist  id="authors_users">        
+        <?php 
+        $sql = "SELECT * FROM cms_users;";
+        $result = $conn->query($sql);            
+        if($conn->error) {
+            die('Error:' . '<br>' . $conn->error);
+        }
+        while ($row = $result->fetch_assoc()) {            
+            echo "<option>{$row['user_username']}</option>";
+            
+        }
+        ?>
+    </datalist>
+
 </div>
 
 <div class="form-group">

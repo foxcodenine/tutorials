@@ -13,27 +13,31 @@
 
         if (isset($_GET['delete']) && trim($_GET['delete']) !== '') {
 
-
-
-
-            // _________________________________________________________
+            if (!isset($_SESSION['role'])) {
+                header('Location: ../index.php');
             
-            // Deleting record from database 
-            $sql = "DELETE FROM cms_users WHERE user_id = {$_GET['delete']}";
-
- 
-            if ($conn->query($sql) !== TRUE) {
+            } else if ($_SESSION['role'] !== 'Admin') {
                 
-                die("Error deleting record: " . $conn->error); 
+                header('Location: ../index.php');
+            } else {    
 
-            } else {
+                // Deleting record from database 
+                $user_id = $conn->real_escape_string($_GET['delete']);
+                $sql = "DELETE FROM cms_users WHERE user_id = {$user_id}";
 
-            // Deleting image file and refresh page
-            // unlink($image_path);
-            header('Location: '. $_SERVER['PHP_SELF']);
-            
+    
+                if ($conn->query($sql) !== TRUE) {
+                    
+                    die("Error deleting record: " . $conn->error); 
+
+                } else {
+
+                // Deleting image file and refresh page
+                // unlink($image_path);
+                header('Location: '. $_SERVER['PHP_SELF']);
+                
+                }
             }
-
         }
 
 ?>
