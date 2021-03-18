@@ -36,7 +36,7 @@
                 // $testDate =  new DateTime();
                 // echo $testDate->format('Y\-m\-d\ h:i:s');
 
-                $current_post_id = $_GET['p_id'];
+                $current_post_id = escape($_GET['p_id']);
 
                 $sql = "UPDATE cms_posts SET post_viewed = post_viewed + 1 WHERE post_id = {$current_post_id}";
                 mysqli_query($conn, $sql);

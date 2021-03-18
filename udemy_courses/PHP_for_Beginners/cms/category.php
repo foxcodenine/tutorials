@@ -1,4 +1,5 @@
 <?php require './includes/db.php'; ?>
+<?php require_once './functions.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +32,7 @@
                 // $testDate =  new DateTime();
                 // echo $testDate->format('Y\-m\-d\ h:i:s');
 
-                $post_cat_id = $_GET['c_id'];
+                $post_cat_id = escape($_GET['c_id']);
 
                 $sql = "SELECT * FROM cms_posts WHERE post_cat_id = {$post_cat_id}";
                 $post = mysqli_query($conn, $sql);

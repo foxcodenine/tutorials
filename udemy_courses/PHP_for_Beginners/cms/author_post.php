@@ -1,6 +1,7 @@
 <!-- --------------------------------------------------------------- -->
 
 <?php require './includes/db.php'; ?>
+<?php require_once './functions.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,7 +25,7 @@
 
                 <h1 class="page-header">
                     <!-- Page Heading -->
-                    All Post by <?php echo $_GET['author']; ?>
+                    All Post by <?php echo escape($_GET['author']); ?>
                     <small>Secondary Text</small>
                 </h1>
 
@@ -35,8 +36,8 @@
                 // $testDate =  new DateTime();
                 // echo $testDate->format('Y\-m\-d\ h:i:s');
 
-                $current_post_id = $_GET['p_id'];
-                $current_author = $_GET['author'];
+                $current_post_id = escape($_GET['p_id']);
+                $current_author = escape($_GET['author']);
 
                
 

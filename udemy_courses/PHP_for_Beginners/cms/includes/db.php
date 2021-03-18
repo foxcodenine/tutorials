@@ -24,6 +24,11 @@ foreach($db as $key => $value) {
     define(strtoupper($key), $value);
 }
 
+// define('DB_HOST', "remotemysql.com:3306");
+// define('DB_USER', "8lX0Jan8Ko");
+// define('DB_PASS', "R7cPA4JTV5");
+// define('DB_NAME', "8lX0Jan8Ko");
+
 $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
 if (!$conn) {

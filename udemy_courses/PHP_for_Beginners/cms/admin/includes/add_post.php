@@ -8,9 +8,6 @@ if (isset($_POST['create_post']) && $_POST['create_post'] === 'Publish Post') {
 
 }
 
-
-
-
 ;?>
 
 <h2>Add Post</h2>
