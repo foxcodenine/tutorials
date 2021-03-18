@@ -50,15 +50,15 @@ if ($result != True) {
 
 if (isset($_POST['update_post'])) {
 
-    $post_title = $_POST['post_title'];    
-    $post_author = $_POST['post_author'];
-    $post_cat_id = $_POST['post_category_id'];
-    $post_statas = $_POST['post_statas'];
+    $post_title = escape($_POST['post_title']);    
+    $post_author = escape($_POST['post_author']);
+    $post_cat_id = escape($_POST['post_category_id']);
+    $post_statas = escape($_POST['post_statas']);
 
-    $post_image_new = $_FILES['post_image_new']['name'];
-    $post_image_temp_new = $_FILES['post_image_new']['tmp_name'];
+    $post_image_new = escape($_FILES['post_image_new']['name']);
+    $post_image_temp_new = escape($_FILES['post_image_new']['tmp_name']);
 
-    $post_tags = $_POST['post_tags'];
+    $post_tags = escape($_POST['post_tags']);
     $post_content = $conn -> real_escape_string($_POST['post_content']);   
 
 

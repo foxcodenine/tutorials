@@ -1,4 +1,5 @@
 <?php require './includes/db.php'; ?>
+<?php require_once './functions.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,7 +42,7 @@
                 $page_number = 1;
 
                 if(isset($_GET['page'])) {
-                    $page_number = $_GET['page'];
+                    $page_number = escape($_GET['page']);
                 } 
 
                 $start_post = 0 + (($page_number - 1) * $post_per_page);

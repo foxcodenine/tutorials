@@ -1,3 +1,4 @@
+<?php require_once './functions.php';?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -27,12 +28,15 @@
             } 
             
             echo "<li><a href='registration.php'>Registration</a></li>";
+            echo "<li><a href='contact.php'>Contact</a></li>";
             
             ?>
 
             <?php 
+            
                 if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin' && isset($_GET['p_id'])) {
-                    echo "<li><a href='./admin/post.php?source=edit_post&p_id={$_GET['p_id']}'>Edit</a></li>";
+                    $p_id = escape($_GET['p_id']);
+                    echo "<li><a href='./admin/post.php?source=edit_post&p_id={$p_id}'>Edit</a></li>";
                 } 
             ?>
                 
