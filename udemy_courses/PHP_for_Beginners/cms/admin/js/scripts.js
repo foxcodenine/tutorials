@@ -89,15 +89,45 @@ function confirmDelete() {
     
         fields.forEach(element => {
             element.addEventListener('click', (e)=>{
-                
-                if (confirm('Are you sure you want to Delete?')){
-                    return true
-                } else {
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
-                    // Do nothing!
+
+                // _____________________________________________________
+                // Using JS Confirm instead of custom modal
+
+                // if (confirm('Are you sure you want to Delete?')){
+                //     return true
+                // } else {
+                //     e.preventDefault();
+                //     e.stopImmediatePropagation();
+                //     // Do nothing!
+                //     return false
+                // }
+
+                // _____________________________________________________
+                // Using custom modal
+
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                const btn = document.querySelector('.modal-toggle-btn');
+                const _delete = document.querySelector('#modale_delete');
+                const _cancel = document.querySelector('#modale_cancel');
+                const _close = document.querySelector('#modale_close');
+
+                btn.click();
+
+                _cancel.addEventListener('click', ()=>{
                     return false
-                }
+                });
+
+                _close.addEventListener('click', ()=>{
+                    return false
+                });
+
+                _delete.addEventListener('click', ()=>{
+                    window.location.replace(`${e.target.getAttribute('href')}`)
+                });
+
+                // _____________________________________________________
             })
         });
     }
