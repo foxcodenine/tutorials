@@ -26,8 +26,12 @@
             while ($row = mysqli_fetch_assoc($categories)) {
                 echo "<li><a href='#'>{$row['cat_title']}</a></li>";
             } 
+                       
             
-            echo "<li><a href='registration.php'>Registration</a></li>";
+
+            if (!isset($_SESSION['role'])) {
+                echo "<li><a href='registration.php'>Registration</a></li>";
+            }
             echo "<li><a href='contact.php'>Contact</a></li>";
             
             ?>

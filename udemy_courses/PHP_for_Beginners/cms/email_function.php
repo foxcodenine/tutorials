@@ -17,7 +17,7 @@ use PHPMailer\PHPMailer\Exception;
 
 
 
-function send_this_mail($email_address, $recipient, $subject, $body) {
+function send_this_mail($to, $from, $subject, $body) {
     
 
     //Instantiation and passing `true` enables exceptions
@@ -34,8 +34,8 @@ function send_this_mail($email_address, $recipient, $subject, $body) {
         $mail->Port       = 587;                                    
 
         //Recipients
-        $mail->setFrom('farrugiachris12@gmail.com', 'PHP CMS');
-        $mail->addAddress('chris12aug@yahoo.com', $recipient); 
+        $mail->setFrom($from, 'PHP CMS');
+        $mail->addAddress($to, 'Recipient Name'); 
         // $mail->addAddress('ellen@example.com');               //Name is optional
         // $mail->addReplyTo('info@example.com', 'Information');
         // $mail->addCC('cc@example.com');
@@ -48,11 +48,11 @@ function send_this_mail($email_address, $recipient, $subject, $body) {
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
         $mail->Subject = $subject;
-        $mail->Body    = "<b>{$body}</b>";
-        $mail->AltBody = $body;
+        $mail->Body    = "<b>From: {$from}</b> <br><br> {$body}";
+        $mail->AltBody = $from . ' - ' . $body;
 
         $mail->send();
-        echo 'Message has been sent';
+        return  "<p class='bg-success'>Message has been sent </p>";
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
