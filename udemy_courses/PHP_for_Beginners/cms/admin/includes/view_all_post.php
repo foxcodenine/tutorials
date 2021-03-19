@@ -1,4 +1,5 @@
 <!-- --------------------------------------------------------------- -->
+<?php include 'delete_modal.php'?>
 <?php
 
 // ---- Fetch all post from database and return

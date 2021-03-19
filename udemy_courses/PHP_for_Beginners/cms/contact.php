@@ -7,7 +7,6 @@
 <?php  include "includes/db.php"; ?>
 <?php  include "./functions.php"; ?>
 <?php  include "includes/header.php"; ?>
-<?php $message = '<br>'; ?>
 
 <body>
 <?php  include "includes/navigation.php"; ?>
@@ -31,7 +30,7 @@ require_once './email_function.php';
 
 //______________________________________________________________________
 
-
+$message = '<br>';
 if (isset($_POST['submit_contact'])) {
 
 
@@ -40,7 +39,7 @@ if (isset($_POST['submit_contact'])) {
     $body_contact = escape($_POST['body_contact']);
     $to = "chris12aug@yahoo.com";
 
-    send_this_mail('chris12aug@yahoo.com', $email_contact, $subject_contact, $body_contact);
+    $message = send_this_mail('chris12aug@yahoo.com', $email_contact, $subject_contact, $body_contact);
 }
 
 
@@ -57,10 +56,10 @@ if (isset($_POST['submit_contact'])) {
         <div class="row">
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
-                <h1>Conteeeeeact</h1>
+                <h1>Contact</h1>
                     <?php echo $message;?>
                     <form role="form" action="contact.php" method="post" id="login-form" autocomplete="off">
-
+                        
                         <!-- <div class="form-group">
                             <label for="username" class="sr-only">username</label>
                             <input type="text" name="username_reg" id="username" class="form-control" placeholder="Enter Desired Username">
