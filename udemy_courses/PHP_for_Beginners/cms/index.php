@@ -35,6 +35,11 @@
                 // _____________________________________________________
                 // Pagination code
                 $sql = "SELECT * FROM cms_posts WHERE post_statas = 'published'";
+
+                if (isset($_SESSION['role']) && $_SESSION['role'] == 'Admin') {
+                    $sql = "SELECT * FROM cms_posts";
+                }
+
                 $result = $conn->query($sql);
                 $post_per_page = 5;
                 $count_pages = ceil($result->num_rows / $post_per_page);
@@ -51,6 +56,10 @@
                 
 
                 $sql = "SELECT * FROM cms_posts WHERE post_statas = 'published' LIMIT $start_post, $post_per_page";
+
+                if (isset($_SESSION['role']) && $_SESSION['role'] == 'Admin') {
+                    $sql = "SELECT * FROM cms_posts LIMIT $start_post, $post_per_page";
+                }
                 $post = mysqli_query($conn, $sql);
 
 
@@ -88,26 +97,16 @@
                     ";                
 
                     }
+                } 
+                if ($post->num_rows == 0) {
+                    echo "<h2><a style='text-decoration:none !important'> Sorry there is no post avalible!</a></h2>";
                 }
                 
                 ?>
 
-                <!-- <h2>
-                    <a href="#">Blog Post Title</a>
-                </h2>
-                <p class="lead">
-                    by <a href="index.php">Start Bootstrap</a>
-                </p>
-                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:00 PM</p>
-                <hr>
-                <img class="img-responsive" src="http://placehold.it/900x300" alt="">
-                <hr>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
-                <hr> -->
 
-                <?php/* include "./includes/pager.php" */?>
+                <!-- Pagination -->
 
                 <ul class="pager">
                     
