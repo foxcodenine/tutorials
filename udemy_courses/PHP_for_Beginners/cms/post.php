@@ -38,16 +38,30 @@
 
                 $current_post_id = escape($_GET['p_id']);
 
-                $sql = "UPDATE cms_posts SET post_viewed = post_viewed + 1 WHERE post_id = {$current_post_id}";
-                mysqli_query($conn, $sql);
 
                 if ($conn->error) {
                     die("Error: <br>" . $conn->error);
-                }
-               
+                }               
 
-                $sql = "SELECT * FROM cms_posts WHERE post_id = {$current_post_id}";
+                $sql = "SELECT * FROM cms_posts WHERE post_id = {$current_post_id} AND post_statas = 'published'";                
+
+                if (isset($_SESSION['role']) && $_SESSION['role'] == 'Admin') {
+                    $sql = "SELECT * FROM cms_posts WHERE post_id = {$current_post_id}";
+                }
+
                 $post = mysqli_query($conn, $sql);
+                if ($post->num_rows < 1) {
+                    header('Location: index.php');
+                }
+                
+
+                // _____________________________________________________
+                //  update post visit for current post 
+
+                $sql = "UPDATE cms_posts SET post_viewed = post_viewed + 1 WHERE post_id = {$current_post_id}";
+                mysqli_query($conn, $sql);
+                // _____________________________________________________
+
 
                 if ($post) {
                     while ($row = mysqli_fetch_assoc($post)) {  

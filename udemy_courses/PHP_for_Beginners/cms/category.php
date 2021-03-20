@@ -21,11 +21,6 @@
             <!-- Blog Entries Column -->
             <div class="col-md-8">
 
-                <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
-                </h1>
-
                 <!-- First Blog Post -->
                 <?php
 
@@ -34,7 +29,12 @@
 
                 $post_cat_id = escape($_GET['c_id']);
 
-                $sql = "SELECT * FROM cms_posts WHERE post_cat_id = {$post_cat_id}";
+                $sql = "SELECT * FROM cms_posts WHERE post_cat_id = {$post_cat_id} AND post_statas = 'published'";
+
+                if (isset($_SESSION['role']) && $_SESSION['role'] == 'Admin') {
+                    $sql = "SELECT * FROM cms_posts WHERE post_cat_id = {$post_cat_id} ";
+                }
+
                 $post = mysqli_query($conn, $sql);
 
                 if ($post) {
@@ -68,6 +68,9 @@
                     ";                
 
                     }
+                }
+                if ($post->num_rows == 0) {
+                    echo "<h2><a style='text-decoration:none !important'> Sorry there is no post avalible!</a></h2>";
                 }
                 
                 ?>
