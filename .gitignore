@@ -53,3 +53,19 @@ vendor
 ./**/vendor/
 ./**vendor/*
 ./**vendor/**
+
+
+# .aws folder
+**./.aws
+./.aws
+**./.aws/*
+**./.aws/
+*/.aws/*
+**.aws
+.aws
+**/.aws
+*.aws/*
+./**.aws/
+./**/.aws/
+./**.aws/*
+./**.aws/**
