@@ -17,7 +17,8 @@
 
             <li><a href="./admin/">Admin</a></li>
 
-            <?php /*           
+            <?php /*        
+               
 
             $query = "SELECT * FROM cms_categories;";
 
@@ -27,20 +28,39 @@
                 echo "<li><a href='#'>{$row['cat_title']}</a></li>";
             } 
              */
+
+            $active_edit = '';
+            $active_registration = '';
+            $active_contact = '';
+
+            $pagename = basename($_SERVER['PHP_SELF']);
+
+            switch ($pagename) {
+                case 'contact.php':
+                    $active_contact = 'active';
+                    break;
+                case 'registration.php':
+                    $active_registration = 'active';
+                    break;
+            }
             
             if (!isset($_SESSION['role'])) {
-                echo "<li><a href='registration.php'>Registration</a></li>";
+                echo "<li class='{$active_registration}'><a href='registration.php'>Registration</a></li>";
             }
-            echo "<li><a href='contact.php'>Contact</a></li>";
+            echo "<li class='{$active_contact}'><a href='contact.php' >Contact</a></li>";            
+
+
             
             ?>
 
+            
+
             <?php 
             
-                if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin' && isset($_GET['p_id'])) {
-                    $p_id = escape($_GET['p_id']);
-                    echo "<li><a href='./admin/post.php?source=edit_post&p_id={$p_id}'>Edit</a></li>";
-                } 
+            if (isset($_SESSION['role']) && $_SESSION['role'] === 'Admin' && isset($_GET['p_id'])) {
+                $p_id = escape($_GET['p_id']);
+                echo "<li><a href='./admin/post.php?source=edit_post&p_id={$p_id}'>Edit</a></li>";
+            } 
             ?>
                 
                 <!-- <li><a href="#">Services</a></li>
