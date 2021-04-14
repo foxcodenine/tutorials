@@ -19,8 +19,15 @@
 
     <!-- Login -->
     <div class="well">
-        <h4>Login</h4>
 
+    <?php if(isset($_SESSION['role'])): ?>
+
+    <h4>Login as <?php echo $_SESSION['username']; ?></h4>
+    <a href="./includes/logout.php" class='btn btn-primary'><i class="fa fa-fw fa-power-off"></i> Logout</a>
+
+    <?php else: ?>
+
+        <h4>Login</h4>
         <form action="<?php echo dirname($_SERVER['PHP_SELF']) . '/includes/login.php';?>" method="POST">
         
         <div class="form-group">
@@ -36,6 +43,11 @@
         </div>
 
         </form>  
+        
+    <?php endif; ?>
+
+
+
 
     </div>
 
