@@ -59,7 +59,7 @@ if (isset($_POST['update_post'])) {
     $post_image_temp_new = escape($_FILES['post_image_new']['tmp_name']);
 
     $post_tags = escape($_POST['post_tags']);
-    $post_content = $conn -> real_escape_string($_POST['post_content']);   
+    $post_content = escape($_POST['post_content']);   
 
 
     $sql  = "UPDATE cms_posts SET ";
@@ -219,7 +219,7 @@ if (isset($_POST['update_post'])) {
 <div class="form-group">
     <label for="post_content">Post Content</label>
     <textarea  class="form-control" name="post_content" 
-        id="editor_body" cols="30" rows="10"><?php echo "$post_content"; ?></textarea>
+        id="editor_body" cols="30" rows="10"><?php echo  str_replace('\\', '|', $post_content); ?></textarea>
 </div>
 
 
