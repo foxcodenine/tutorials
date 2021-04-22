@@ -47,70 +47,46 @@
     <?php 
 
     // __________________________________
-    
-    $sql = "SELECT * FROM cms_posts;";
-    $result = $conn->query($sql);
+    // Count Posts, Comments, Users and Categories
 
-    if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }
-    
-    $post_count = $result->num_rows;
-    
+    function myCount($table, $column=null, $status=null){
 
-    
-    $sql = "SELECT * FROM cms_posts WHERE post_statas='published';";
-    $result = $conn->query($sql);
+        global $conn;
 
-    if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }    
-    $post_published_count = $result->num_rows;
+        if  (!$column and !$status) {
+            $sql = "SELECT * FROM {$table};";
+        } else {
+            $sql = "SELECT * FROM {$table} WHERE {$column}='{$status}';";
+        }
 
-    $post_draft_count = $post_count - $post_published_count;
+        $result = $conn->query($sql);
+        if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }
+
+        return $result->num_rows;
+    }
+
 
     // __________________________________
 
-    $sql = "SELECT * FROM cms_comments;";
-    $result = $conn->query($sql);
-
-    if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }
+    $post_count = myCount('cms_posts');
+    $post_published_count = myCount('cms_posts', 'post_statas', 'published');
+    $post_draft_count = $post_count - $post_published_count;
     
-    $comments_count = $result->num_rows;
+    // __________________________________
 
-
-    $sql = "SELECT * FROM cms_comments WHERE NOT comm_status='unapproved';";
-    $result = $conn->query($sql);
-
-    if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }
-    
-    $comments_approved_count = $result->num_rows;
+    $comments_count = myCount('cms_comments');
+    $comments_approved_count = myCount('cms_comments', 'comm_status', 'unapproved');
     $comments_unapproved_count = $comments_count - $comments_approved_count;
 
     // __________________________________
 
-    $sql = "SELECT * FROM cms_users;";
-    $result = $conn->query($sql);
-
-    if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }
-    
-    $users_count = $result->num_rows;
-
-
-
-    $sql = "SELECT * FROM cms_users WHERE user_role='Admin';";
-    $result = $conn->query($sql);
-
-    if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }
-    
-    $users_admin_count = $result->num_rows;
+    $users_count = myCount('cms_users');
+    $users_admin_count = myCount('cms_users', 'user_role', 'Admin');
     $users_subscriber_count = $users_count - $users_admin_count;
-
 
     // __________________________________
 
-    $sql = "SELECT * FROM cms_categories;";
-    $result = $conn->query($sql);
-
-    if ($conn->error) {die('Error Post: ' . '<br>' . $conn->error); }
-    
-    $categories_count = $result->num_rows;
+    $categories_count = myCount('cms_categories');
 
     // __________________________________
     ?>
@@ -219,7 +195,7 @@
                 ['Data', 'Count'],
 
                 <?php 
-                $elements_text = ['All Post','Active Post', 'Draft Post', 'All Comments', 'Approved Comments', 'Unapproved Comments', 'Admin', 'Subscriber', 'Categories' ];
+                $elements_text = ['All Post','Active Post', 'Draft Post', 'All Comments', 'Approved Comments', 'Unapproved', 'Admin', 'Subscriber', 'Categories' ];
                 $elements_count = [
                     $post_count, $post_published_count, $post_draft_count, 
                     $comments_count, $comments_approved_count, $comments_unapproved_count, 
