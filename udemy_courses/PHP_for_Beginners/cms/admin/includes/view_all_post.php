@@ -4,8 +4,25 @@
 
 // ---- Fetch all post from database and return
 
-        $sql = "SELECT * FROM cms_posts ORDER BY post_id DESC;";
+        // $sql = "SELECT * FROM cms_posts ORDER BY post_id DESC;";
+        // $result_post = $conn->query($sql);
+
+        $sql = "
+            SELECT  cms_posts.post_id, cms_posts.post_cat_id, cms_posts.post_title, 
+                    cms_posts.post_author, cms_posts.post_date, cms_posts.post_image, 
+                    cms_posts.post_content, cms_posts.post_tags, cms_posts.post_viewed,
+                    cms_categories.cat_title,  
+                    cms_posts.post_statas
+            FROM cms_posts
+            LEFT JOIN cms_categories ON cms_posts.post_cat_id = cms_categories.cat_id;
+
+
+        ";
         $result_post = $conn->query($sql);
+        if ($conn->error) {
+            die('Error1' . '<br>' . $conn->error);
+        }
+        
 ?>
 <!-- --------------------------------------------------------------- -->
 <?php
@@ -140,6 +157,7 @@ if (isset($_POST['checkBoxArray'])) {
     <tbody>
 
     <?php
+    
         while ($row = mysqli_fetch_assoc($result_post)) {        
 
             $post_id = $row['post_id'];
@@ -151,6 +169,7 @@ if (isset($_POST['checkBoxArray'])) {
             $post_content = $row['post_content'];
             $post_tags = $row['post_tags'];
             $post_views = $row['post_viewed'];
+            $cat_title = $row['cat_title'];
 
             // ---------------------------------------------------------
             $sql = "SELECT COUNT(*) AS 'count' FROM cms_comments WHERE comm_post_id = {$post_id}";
@@ -177,11 +196,11 @@ if (isset($_POST['checkBoxArray'])) {
 
             // Fetching category title from  $post_cat_id:
 
-            $sql = "SELECT * FROM cms_categories  WHERE cat_id = $post_cat_id";
+            // $sql = "SELECT * FROM cms_categories  WHERE cat_id = $post_cat_id";
 
-            $result = $conn->query($sql);
-            $category = $result->fetch_assoc();
-            echo "<td>{$category['cat_title']}</td>";
+            // $result = $conn->query($sql);
+            // $category = $result->fetch_assoc();
+            echo "<td>{$cat_title}</td>";
 
             
 
