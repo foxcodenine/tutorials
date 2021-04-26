@@ -14,10 +14,10 @@
                     cms_categories.cat_title,  
                     cms_posts.post_statas
             FROM cms_posts
-            LEFT JOIN cms_categories ON cms_posts.post_cat_id = cms_categories.cat_id;
+            LEFT JOIN cms_categories ON cms_posts.post_cat_id = cms_categories.cat_id
+            ORDER BY post_id DESC;
+            ";
 
-
-        ";
         $result_post = $conn->query($sql);
         if ($conn->error) {
             die('Error1' . '<br>' . $conn->error);

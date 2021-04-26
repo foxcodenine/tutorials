@@ -445,6 +445,32 @@ function users_on_line_js() {
 // Exect the function
 users_on_line_js();
 // _____________________________________________________________________
+// _____________________________________________________________________
+
+function is_admin($username=''){
+
+    global $conn;
+
+    $sql = "SELECT user_role FROM  cms_users WHERE user_username = '{$username}';";
+    $result = $conn->query($sql);
+    
+    if ($conn->error) {
+        die('Error3: ' . '<br>' . $conn->error);
+    }
+    
+    $row = $result->fetch_assoc();
+    if($row['user_role'] == 'Admin'){
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+
+
+
+// _____________________________________________________________________
 
 
 ?>

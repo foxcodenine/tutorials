@@ -26,20 +26,11 @@
                 </h1>
 
 <!-- -------------------------------------- -->
-                <?php 
-                
-                if (isset($_GET['source'])) {
-                    $source = $_GET['source'];
-                } else {
-                    $source = '';
-                }
+                <?php
 
-                switch($source) {
-
-                    default:
-                    include './includes/view_all_comments.php';
-                } 
+                include './includes/view_all_comments.php';
                 
+               
                 ?>                      
 <!-- -------------------------------------- -->
                 </div>
