@@ -1,4 +1,6 @@
+<?php ob_start(); ?>
 <?php
+
 
 // _____________________________________________________________________
 // loading package with from vendor/autoload;
