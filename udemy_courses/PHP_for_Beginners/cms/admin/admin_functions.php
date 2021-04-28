@@ -109,6 +109,7 @@ function edit_select_cat() {
 }
 // _____________________________________________________________________
 
+
 function edit_update_cat() {
     // updating category from a POST request ($_POST['id'], $_POST['title'])
 
@@ -447,6 +448,8 @@ users_on_line_js();
 // _____________________________________________________________________
 // _____________________________________________________________________
 
+// used in admin/users.php
+
 function is_admin($username=''){
 
     global $conn;
@@ -464,13 +467,11 @@ function is_admin($username=''){
     } else {
         return false;
     }
-
 }
 
-
-
-
 // _____________________________________________________________________
+
+
 
 
 ?>

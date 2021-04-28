@@ -8,47 +8,44 @@ $message = '<br>';
 
 if (isset($_POST['submit_reg'])) {
 
-    $email_reg    = htmlspecialchars($_POST['email_reg']);    
-    $username_reg = htmlspecialchars($_POST['username_reg']);
-    $password_reg = htmlspecialchars($_POST['password_reg']);
 
-    $email_reg    = $conn->real_escape_string($email_reg);    
-    $username_reg = $conn->real_escape_string($username_reg);
-    $password_reg = $conn->real_escape_string($password_reg); 
+
+    $email_reg    = escape($_POST['email_reg']);    
+    $username_reg = escape($_POST['username_reg']);
+    $password_reg = escape($_POST['password_reg']);
     
     
-    $sql = "SELECT * FROM cms_users WHERE user_email = '{$email_reg}'";
-    $result = $conn->query($sql);
+    $errors = [
+        'username' => '',
+        'email' => '',
+        'password' => ''
+    ];
 
-    $row = $result->fetch_assoc();
-    
 
-
-    if (
-        empty(trim($email_reg)) ||
-        empty(trim($username_reg)) ||
-        empty(trim($password_reg)) 
-    ) {
-        $message =  '<p class=\'bg-danger text-center\'>Fields cannot be empty!</p>';        
-    } else if($result->num_rows >= 1) {
-        $message = '<p class=\'bg-warning text-center\'>Your email address is already in use!</p>';
-    } else {
-        
-        $password_reg = password_hash($password_reg, PASSWORD_BCRYPT);
-
-        $sql = "INSERT INTO cms_users (
-                user_username, user_password, user_email, user_role
-                ) VALUES (
-                    '{$username_reg}', '{$password_reg}', '{$email_reg}', 'Subscriber' 
-                    
-                );";
-
-        if ($conn->query($sql) == false) {
-            die('Error:' . '<br>' . $conn->error);        
-        } else {
-            $message = '<p class=\'bg-success text-center\'>Your Registation has been submitted!</p>';
-        }
+    if (user_exists($username_reg)) {
+        $errors['username'] = 'Username has already been taken';
     }
+    if (strlen('username') < 4) {
+        $errors['username'] = 'Usernames must be at least 4 characters long';
+    }
+    if (empty($username_reg)) {
+        $errors['username'] = 'Username cannot be empty';
+    }
+
+    if (email_exists($email_reg)) {
+        $errors['email'] = 'Email address already exists, <a href="index.php">Please login</a>';
+    }
+    if ($email_reg && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = 'Invalid email format';
+    }
+    if (empty($email_reg)) {
+        $errors['email'] = 'Email cannot be empty';
+    }
+
+
+    if (empty($password_reg)) {
+        $errors['password'] = 'Password cannot be empty';
+    }    
 }
 
 
