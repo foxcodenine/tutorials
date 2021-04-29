@@ -112,6 +112,8 @@ function loggin_user($username, $password) {
         $_SESSION['lastname'] = $db_user_lastname;
         $_SESSION['role'] = $db_user_role;
 
+        
+
         $admin_page = dirname(dirname($_SERVER['PHP_SELF'])) . '/admin';
         header("Location: {$admin_page}");
     }

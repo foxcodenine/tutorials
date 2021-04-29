@@ -25,7 +25,7 @@ if (isset($_POST['submit_reg'])) {
     if (user_exists($username_reg)) {
         $errors['username'] = 'Username has already been taken';
     }
-    if (strlen('username') < 4) {
+    if (strlen($username_reg) < 4) {
         $errors['username'] = 'Usernames must be at least 4 characters long';
     }
     if (empty($username_reg)) {
@@ -35,7 +35,7 @@ if (isset($_POST['submit_reg'])) {
     if (email_exists($email_reg)) {
         $errors['email'] = 'Email address already exists, <a href="index.php">Please login</a>';
     }
-    if ($email_reg && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if ($email_reg && !filter_var($email_reg, FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'Invalid email format';
     }
     if (empty($email_reg)) {
@@ -45,7 +45,20 @@ if (isset($_POST['submit_reg'])) {
 
     if (empty($password_reg)) {
         $errors['password'] = 'Password cannot be empty';
-    }    
+    }   
+    
+    
+
+    foreach ($errors as $key => $value) {
+        if(empty($value)) {
+            unset($errors[$key]);
+        }
+    }
+
+    if(empty($errors)) {
+        register_user($username_reg, $email_reg, $password_reg);
+        header("Location: index.php");        
+    }
 }
 
 
@@ -76,15 +89,28 @@ if (isset($_POST['submit_reg'])) {
                 <h1>Register</h1>
                     <?php echo $message;?>
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
+                        
+                        
                         <div class="form-group">
+                        <p class="text-danger"><?php echo isset($errors['username']) ? $errors['username'] : ''; ?></p>
                             <label for="username" class="sr-only">username</label>
-                            <input type="text" name="username_reg" id="username" class="form-control" placeholder="Enter Desired Username">
+                            <input type="text" name="username_reg" id="username" class="form-control" placeholder="Enter Desired Username"
+                            autocomplete="on"
+                            value="<?php echo isset($username_reg) ? $username_reg : '' ; ?>">
                         </div>
-                         <div class="form-group">
+                        
+                        
+                        <div class="form-group">
+                        <p class="text-danger"><?php echo isset($errors['email']) ? $errors['email'] : ''; ?></p>
                             <label for="email" class="sr-only">Email</label>
-                            <input type="email" name="email_reg" id="email" class="form-control" placeholder="somebody@example.com">
+                            <input type="email" name="email_reg" id="email" class="form-control" placeholder="somebody@example.com"
+                            autocomplete="on"
+                            value="<?php echo isset($email_reg) ? $email_reg : '' ; ?>">
                         </div>
-                         <div class="form-group">
+
+                        
+                        <div class="form-group">
+                        <p class="text-danger"><?php echo isset($errors['password']) ? $errors['password'] : ''; ?></p>
                             <label for="password" class="sr-only">Password</label>
                             <input type="password" name="password_reg" id="key" class="form-control" placeholder="Password">
                         </div>
