@@ -100,7 +100,8 @@ function loggin_user($username, $password) {
 
         $index_page = dirname(dirname($_SERVER['PHP_SELF']));
         header("Location: {$index_page}");
-        echo password_verify($password, $db_user_password);
+        
+
 
     } else if ($username === $db_user_username && password_verify($password, $db_user_password)) {
 
@@ -115,7 +116,8 @@ function loggin_user($username, $password) {
         
 
         $admin_page = dirname(dirname($_SERVER['PHP_SELF'])) . '/admin';
-        header("Location: {$admin_page}");
+        header("Location: /htdocs/cms/admin/");
+
     }
 }
 
