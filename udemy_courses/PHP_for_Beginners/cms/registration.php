@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<?php  include "includes/header.php"; ?>
 
 <?php  include "includes/db.php"; ?>
 <?php  include "./functions.php"; ?>
@@ -56,8 +60,8 @@ if (isset($_POST['submit_reg'])) {
     }
 
     if(empty($errors)) {
-        register_user($username_reg, $email_reg, $password_reg);
-        header("Location: index.php");        
+        register_user($username_reg, $email_reg, $password_reg);        
+        loggin_user($username_reg, $password_reg);       
     }
 }
 
@@ -65,10 +69,7 @@ if (isset($_POST['submit_reg'])) {
 ?>
 
 <!-- --------------------------------------------------------------- -->
-<!DOCTYPE html>
-<html lang="en">
 
-<?php  include "includes/header.php"; ?>
 
 <body>
 
