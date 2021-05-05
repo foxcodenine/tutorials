@@ -1,5 +1,5 @@
 https://phoenixnap.com/kb/remove-docker-images-containers-networks-volumes
-https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
+https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes 
 
 ------------------------------------------------------------------------
 
@@ -31,6 +31,10 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 
     $ sudo docker ps
 
+### List all container
+
+    $ sudo docker ps -a
+
 ### Run a container
     $ docker run -p 3000:3000 02b143e5fa69
 
@@ -40,8 +44,25 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 ### To stop all containers
     $ docker container stop $(docker container ls –aq)
 
+### To restart a container
+    $ sudo docker start container_name
+
 ### List container image name
+    $ sudo docker images
+
+    -a is for all it shows all images
+
+    $ sudo docker images -a
+
+### run a container
     $ docker run -p 3000:3000 02b143e5fa69
+
+    $ docker run node
+
+    (if image not found locally it will try to pull if from online library)
+
+### to expos an interactive session add -it flag
+    $ docker run -it node
 
 ------------------------------------------------------------------------
 
@@ -58,3 +79,24 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 
 ### Remove All Docker Containers
     $ sudo docker container stop $(docker container ls –aq) && docker system prune –af ––volumes
+
+------------------------------------------------------------------------
+
+### Remove images
+
+### Clean any images, containers, volumes, & networks — that are dangling (not associated with a container):
+
+    $ sudo docker system prune
+
+### To additionally remove any stopped containers and all unused images (not just dangling images), add the -a flag to the command:
+    $ sudo docker system prune -a
+
+### Remove one or more specific images
+    $ sudo  docker rmi 0d37472507bc
+
+
+------------------------------------------------------------------------
+
+### Add --help to see all options
+    $ sudo docker ps --help
+    $ sudo docker --help
