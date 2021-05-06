@@ -29,57 +29,29 @@
 
                 $post_cat_id = escape($_GET['c_id']);
 
+                $sql = "SELECT * FROM cms_posts WHERE post_cat_id = {$post_cat_id} AND post_statas = 'published'";
 
-                
-                if (is_admin($_SESSION['username'])) {                   
-
-                    $stmt1 = mysqli_prepare($conn, 
-                        "SELECT post_id, post_title, post_author, post_date, post_image, post_content 
-                         FROM cms_posts WHERE post_cat_id = ?"                    
-                    );
-
-                } else {
-
-                    $stmt2 = mysqli_prepare($conn, 
-                    "SELECT post_id, post_title, post_author, post_date, post_image, post_content 
-                     FROM cms_posts WHERE post_cat_id = ? AND post_statas = ?"   
-                    );
-
-                    $published = 'published';
+                // if (isset($_SESSION['role']) && $_SESSION['role'] == 'Admin') {
+                //     $sql = "SELECT * FROM cms_posts WHERE post_cat_id = {$post_cat_id} ";
+                // }
+                if (is_admin($_SESSION['username'])) {
+                    $sql = "SELECT * FROM cms_posts WHERE post_cat_id = {$post_cat_id} ";
                 }
 
+                $post = mysqli_query($conn, $sql);
 
-
-                if(isset($stmt1)) {
-
-                    mysqli_stmt_bind_param($stmt1, "i", $post_cat_id);
-                    mysqli_stmt_execute($stmt1);
-                    mysqli_stmt_bind_result($stmt1, $post_id, $title, $author, $date, $image, $content);
-
-                    $stmt = $stmt1;
-
-                } else {
-
-                    mysqli_stmt_bind_param($stmt2, "is", $post_cat_id, $published);
-                    mysqli_stmt_execute($stmt2);
-                    mysqli_stmt_bind_result($stmt2, $post_id, $title, $author, $date, $image, $content);
-
-                    $stmt = $stmt2;
-                }
-
-                if (mysqli_stmt_num_rows($stmt) >= 1) {
+                if ($post) {
+                    while ($row = mysqli_fetch_assoc($post)) {  
                     
-                    while (mysqli_stmt_fetch($stmt)) {  
-                    
-                    // $post_id = $row['post_id'];
-                    // $title = $row['post_title'];
-                    // $author = $row['post_author'];
+                    $post_id = $row['post_id'];
+                    $title = $row['post_title'];
+                    $author = $row['post_author'];
                         
-                    $date = new DateTime($date);
+                    $date = new DateTime($row['post_date']);
                     $date = $date->format('F d, o  g:i:s A');
 
-                    // $image = $row['post_image'];
-                    $content = substr($content, 0, 150) . '...';
+                    $image = $row['post_image'];
+                    $content = substr($row['post_content'], 0, 150) . '...';
 
                     echo "
                     <h2>
@@ -99,10 +71,9 @@
                     ";                
 
                     }
-                    mysqli_stmt_close($stmt);
-                } else {
+                }
+                if ($post->num_rows == 0) {
                     echo "<h2><a style='text-decoration:none !important'> Sorry there is no post avalible!</a></h2>";
-                    mysqli_stmt_close($stmt);
                 }
                 
                 ?>

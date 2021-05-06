@@ -63,6 +63,9 @@
                     $sql = "SELECT * FROM cms_categories LIMIT 10;";
                     $categories = $conn->query($sql);
 
+                    if ($conn->error) {
+                        die('Error1212: ' . '<br>' . $conn->error);}
+
                     if(isset($categories) && $categories->num_rows > 0) {
 
                         
