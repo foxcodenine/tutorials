@@ -121,6 +121,26 @@ function loggin_user($username, $password) {
     }
 }
 
+
+function is_admin($username=''){
+
+    global $conn;
+
+    $sql = "SELECT user_role FROM  cms_users WHERE user_username = '{$username}';";
+    $result = $conn->query($sql);
+    
+    if ($conn->error) {
+        die('Error3: ' . '<br>' . $conn->error);
+    }
+    
+    $row = $result->fetch_assoc();
+    if(isset($row['user_role']) && $row['user_role'] == 'Admin'){
+        return true;
+    } else {
+        return false;
+    }
+}
+
 // _____________________________________________________________________
 
 ?>

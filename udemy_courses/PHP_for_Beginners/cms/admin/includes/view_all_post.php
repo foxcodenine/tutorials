@@ -93,15 +93,18 @@ if (isset($_POST['checkBoxArray'])) {
 <?php 
         // ---- Delete post
 
-        if (isset($_GET['delete']) && trim($_GET['delete']) !== '') {
+        if (isset($_POST['delete_post']) && trim($_POST['delete_post']) !== '') {
 
+            $delete_id =$_POST['delete_post'];
+
+            
             // _________________________________________________________            
 
-            deleting_post_image($_GET['delete']);
+            deleting_post_image($delete_id);
             // _________________________________________________________
             
             // Deleting record from database 
-            $sql = "DELETE FROM cms_posts WHERE post_id = {$_GET['delete']}";
+            $sql = "DELETE FROM cms_posts WHERE post_id = {$delete_id}";
 
  
             if ($conn->query($sql) !== TRUE) {
@@ -114,8 +117,9 @@ if (isset($_POST['checkBoxArray'])) {
             header('Location: '. $_SERVER['PHP_SELF']);
             
             }
+            
 
-        }
+        } 
 ?>
 
 <!-- --------------------------------------------------------------- -->
@@ -215,10 +219,13 @@ if (isset($_POST['checkBoxArray'])) {
             echo "<td><a href='{$selected_post}'>View Post</a></td>"; 
             
             echo "<td><a href='{$_SERVER['PHP_SELF']}?source=edit_post&p_id={$post_id}'>Edit</a></td>";
-            echo "<td><a class='confirm-delete' href='{$_SERVER['PHP_SELF']}?delete={$post_id}'>Delete</a></td>";
+            // echo "<td><a class='confirm-delete' href='{$_SERVER['PHP_SELF']}?delete={$post_id}'>Delete</a></td>";
+            echo "<td><button class='btn confirm-delete-post' type='submit' name='delete_post' value='{$post_id}'>Delete</button></td>";
+            echo "";
             echo "</tr>";
         }
     ?>
+    
     
     </tbody>
 </table>

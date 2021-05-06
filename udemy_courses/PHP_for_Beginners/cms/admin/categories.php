@@ -9,6 +9,7 @@
 
         <!-- Navigation -->
         <?php include './includes/admin_nav.php'?>
+        <?php include './includes/delete_modal.php'?>
 <!-- --------------------------------------------------------------- -->
 
         <div id="page-wrapper">

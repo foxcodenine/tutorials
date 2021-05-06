@@ -12,6 +12,7 @@ document.onreadystatechange = function () {                    // <- (A)
         selectAllBoxes ();
         confirmDelete();
         confirmDeleteAll();
+        confirmDeletePost();
         myLoader();
 
         setInterval(() => {
@@ -134,6 +135,34 @@ function confirmDelete() {
 }
 // ------------------------------------------------------------- 
 
+
+function confirmDeletePost() {
+    const fields = document.querySelectorAll('.confirm-delete-post');
+
+    if (fields) {
+    
+        fields.forEach(element => {
+            element.addEventListener('click', (e)=>{
+
+
+                // _____________________________________________________
+                // Using JS Confirm instead of custom modal
+
+                if (confirm('Are you sure you want to Delete?')){
+                    return true
+                } else {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+
+                    // Do nothing!
+                    return false
+                }
+
+
+            })
+        });
+    }
+}
 
 function confirmDeleteAll() {
     const applyAllBtn = document.querySelector('.confirm-delete-all');
