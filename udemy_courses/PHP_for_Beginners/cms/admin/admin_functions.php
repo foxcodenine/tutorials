@@ -10,6 +10,30 @@ function escape($string) {
 
 // Function for admin/categories.php
 
+// function add_cat_to_db() {
+//     if (isset($_POST['submit'])) {
+
+//         global $conn;
+
+//         $cat_name_title = $_POST['cat_title'];
+        
+//         if (trim($cat_name_title) === '' || empty($cat_name_title)) {
+
+//             echo '<h5 style="color: crimson;">This field should not be empty! </h5>';
+
+//         } else {    
+
+//             $sql = "INSERT INTO cms_categories (cat_title) VALUES ('{$cat_name_title}');";
+
+//             if ($conn->query($sql) !== TRUE) {
+//                 echo "Error: " . "<br>" . $conn->error;
+//             } else {
+//                 echo "<meta http-equiv='refresh' content='0'>";                                    
+//             }
+//         }
+//     } 
+// }
+
 function add_cat_to_db() {
     if (isset($_POST['submit'])) {
 
@@ -23,13 +47,23 @@ function add_cat_to_db() {
 
         } else {    
 
-            $sql = "INSERT INTO cms_categories (cat_title) VALUES ('{$cat_name_title}');";
+            $stmt = mysqli_prepare(
+                $conn, 
+                "INSERT INTO cms_categories (cat_title) VALUES (?);"
+            );
 
-            if ($conn->query($sql) !== TRUE) {
+            // '{$cat_name_title}'
+
+            mysqli_stmt_bind_param($stmt, 's', $cat_name_title);
+            mysqli_stmt_execute($stmt);
+
+            if ( !$stmt !== TRUE) {
                 echo "Error: " . "<br>" . $conn->error;
             } else {
                 echo "<meta http-equiv='refresh' content='0'>";                                    
             }
+
+            mysqli_stmt_close($stmt);
         }
     } 
 }
@@ -78,6 +112,7 @@ function echo_categories() {
                                 echo "<td><a href='categories.php?edit={$cat_id}'>Edit</a></td>";
                                 echo "</tr>";                                            
         }
+
     }  
 }
 
