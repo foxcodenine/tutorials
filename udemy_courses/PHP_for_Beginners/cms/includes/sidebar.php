@@ -23,7 +23,7 @@
     <?php if(isset($_SESSION['role'])): ?>
 
     <h4>Login as <?php echo $_SESSION['username']; ?></h4>
-    <a href="./includes/logout.php" class='btn btn-primary'><i class="fa fa-fw fa-power-off"></i> Logout</a>
+    <a href="/htdocs/cms/includes/logout.php" class='btn btn-primary'><i class="fa fa-fw fa-power-off"></i> Logout</a>
 
     <?php else: ?>
 
@@ -74,7 +74,7 @@
                             $cat_id = $row['cat_id'];
                             $cat_title = $row['cat_title'];
 
-                            echo "<li><a href='category.php?c_id={$cat_id}'>{$cat_title}</a>";
+                            echo "<li><a href='/htdocs/cms/category.php?c_id={$cat_id}'>{$cat_title}</a>";
                         }
                     }
                     ?>  
