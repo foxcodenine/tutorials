@@ -506,7 +506,33 @@ function is_admin($username=''){
 
 // _____________________________________________________________________
 
+function redirect($location){
 
+    header('Location: ' . $location);
+    exit;
+}
+
+function ifItIsMethod($method=null){
+    if($_SERVER['REQUEST_METHOD'] == strtoupper($method)){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isLoggedIn(){
+    if (isset($_SESSION['role'])) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function ifUserLoggedInRedirect($redirectLocation) {
+    if(isLoggedIn()) {
+        redirect($redirectLocation);
+    }
+}
 
 
 ?>

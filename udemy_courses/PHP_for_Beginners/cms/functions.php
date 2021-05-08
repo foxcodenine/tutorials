@@ -1,19 +1,21 @@
 <?php
 
-function escape($string) {
+include_once './admin/admin_functions.php';
 
-    global $conn;
+// function escape($string) {
 
-    return $conn->real_escape_string(trim(htmlspecialchars($string)));
-}
+//     global $conn;
+
+//     return $conn->real_escape_string(trim(htmlspecialchars($string)));
+// }
 
 
 
 // _____________________________________________________________________
 
-function redirect($location) {
-    return header("Location: " . $location );
-}
+// function redirect($location) {
+//     return header("Location: " . $location );
+// }
 
 // _____________________________________________________________________
 function user_exists($username) {
@@ -94,52 +96,53 @@ function loggin_user($username, $password) {
         $db_user_firstname = $row['user_firstname'];
         $db_user_lastname = $row['user_lastname'];
         $db_user_role = $row['user_role'];
+    
+
+        if($username !== $db_user_username|| !password_verify($password, $db_user_password)) {
+            
+            // $index_page = dirname(dirname($_SERVER['PHP_SELF']));
+
+            // $index_page = '/htdocs/cms/login';
+            // header("Location: {$index_page}");
+
+            return false;
+
+        } else if ($username === $db_user_username && password_verify($password, $db_user_password)) {
+
+            $_SESSION['username'] = $db_user_username;
+            $_SESSION['password'] = $db_user_password;
+            $_SESSION['email'] = $db_user_email;
+            $_SESSION['firstname'] = $db_user_firstname;
+            $_SESSION['lastname'] = $db_user_lastname;
+            $_SESSION['role'] = $db_user_role;        
+
+            $admin_page = dirname(dirname($_SERVER['PHP_SELF'])) . '/admin';
+            header("Location: /htdocs/cms/admin/");
+
+        }
     }
-
-    if($username !== $db_user_username|| !password_verify($password, $db_user_password)) {
-
-        $index_page = dirname(dirname($_SERVER['PHP_SELF']));
-        header("Location: {$index_page}");
-        
-
-
-    } else if ($username === $db_user_username && password_verify($password, $db_user_password)) {
-
-
-        $_SESSION['username'] = $db_user_username;
-        $_SESSION['password'] = $db_user_password;
-        $_SESSION['email'] = $db_user_email;
-        $_SESSION['firstname'] = $db_user_firstname;
-        $_SESSION['lastname'] = $db_user_lastname;
-        $_SESSION['role'] = $db_user_role;
-
-        
-
-        $admin_page = dirname(dirname($_SERVER['PHP_SELF'])) . '/admin';
-        header("Location: /htdocs/cms/admin/");
-
-    }
+    return true;
 }
 
 
-function is_admin($username=''){
+// function is_admin($username=''){
 
-    global $conn;
+//     global $conn;
 
-    $sql = "SELECT user_role FROM  cms_users WHERE user_username = '{$username}';";
-    $result = $conn->query($sql);
+//     $sql = "SELECT user_role FROM  cms_users WHERE user_username = '{$username}';";
+//     $result = $conn->query($sql);
     
-    if ($conn->error) {
-        die('Error3: ' . '<br>' . $conn->error);
-    }
+//     if ($conn->error) {
+//         die('Error3: ' . '<br>' . $conn->error);
+//     }
     
-    $row = $result->fetch_assoc();
-    if(isset($row['user_role']) && $row['user_role'] == 'Admin'){
-        return true;
-    } else {
-        return false;
-    }
-}
+//     $row = $result->fetch_assoc();
+//     if(isset($row['user_role']) && $row['user_role'] == 'Admin'){
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
 
 // _____________________________________________________________________
 

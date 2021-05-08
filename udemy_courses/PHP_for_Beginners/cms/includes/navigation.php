@@ -15,7 +15,7 @@
         <div style='float: right;' class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
 
-            <li><a href="/htdocs/cms/admin/">Admin</a></li>
+            
 
             <?php /*        
                
@@ -32,28 +32,39 @@
             $active_edit = '';
             $active_registration = '';
             $active_contact = '';
+            $active_login = '';
 
             $pagename = basename($_SERVER['PHP_SELF']);
 
             switch ($pagename) {
-                case 'contact':
+                case 'contact.php':
                     $active_contact = 'active';
                     break;
-                case 'registration':
+                case 'registration.php':
                     $active_registration = 'active';
                     break;
-            }
-            
-            if (!isset($_SESSION['role'])) {
-                echo "<li class='{$active_registration}'><a href='registration'>Registration</a></li>";
-            }
-            echo "<li class='{$active_contact}'><a href='/htdocs/cms/contact' >Contact</a></li>";            
-
-
+                case 'login.php':
+                    $active_login = 'active';
+                    break;
+            }                          
             
             ?>
 
+            <?php if(!isLoggedIn()): ?>
+
+                <li <?php echo "class='{$active_registration}'"; ?>> <a href='registration'>Registration</a></li>
+                <li <?php echo "class='{$active_login}'"; ?>> <a href='/htdocs/cms/login' >Login</a></li>
+
+            <?php else: ?>
+
+                <li><a href="/htdocs/cms/admin/">Admin</a></li>
+                <li><a href="/htdocs/cms/includes/logout.php">Logout</a></li>
+
+            <?php endif; ?>
+
+            "<li <?php echo "class='{$active_contact}'"; ?>><a href='/htdocs/cms/contact' >Contact</a></li>";
             
+
 
             <?php 
             
@@ -63,8 +74,7 @@
             } 
             ?>
                 
-                <!-- <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li> -->
+
             </ul>
         </div>
         <!-- /.navbar-collapse -->
