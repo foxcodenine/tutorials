@@ -12,8 +12,8 @@
     <link href="/htdocs/cms/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/htdocs/cms//css/blog-home.css" rel="stylesheet">
-    <link href="/htdocs/cms/styles.css" rel="stylesheet">
+    <link href="/htdocs/cms/css/blog-home.css" rel="stylesheet">
+    <link href="/htdocs/cms/css/styles.css" rel="stylesheet">
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
