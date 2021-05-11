@@ -116,7 +116,8 @@ $sql = "CREATE TABLE IF NOT EXISTS cms_users(
         user_email VARCHAR(100) NOT NULL, 
         user_image VARCHAR(255) NOT NULL, 
         user_role VARCHAR(50) NOT NULL, 
-        user_randsalt VARCHAR(255) NOT NULL 
+        user_randsalt VARCHAR(255) NOT NULL,
+        user_token VARCHAR(255)  
         );";
 
 if ($conn->query($sql) != TRUE) {

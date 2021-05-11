@@ -1,3 +1,19 @@
+<?php
+
+if (ifItIsMethod('post')) {
+
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+        loggin_user($_POST['username'], $_POST['password']);
+    } else {
+        redirect('index');
+    }
+}
+
+
+
+?>
+
+
 <div class="col-md-4">
 
     <!-- Blog Search Well -->
@@ -28,11 +44,13 @@
     <?php else: ?>
 
         <h4>Login</h4>
-        <form action="<?php echo dirname($_SERVER['PHP_SELF']) . '/includes/login.php';?>" method="POST">
+        <form <?php /* echo action=" dirname($_SERVER['PHP_SELF']) . '/includes/login.php';" */ ?> method="POST">
         
         <div class="form-group">
             <input name="username" type="text" class="form-control" placeholder="Enter Username">
         </div>
+
+
         
         <div class="input-group">
             <input name="password" type="password" class="form-control" placeholder="Enter Password">
@@ -40,6 +58,10 @@
             <span class="input-group-btn">
             <button class="btn btn-primary" name="login" type="submit">Submit</button>
             </span>
+        </div>
+
+        <div class="form-group">
+            <a href="/htdocs/cms/forgot/<?php echo uniqid(true); ?>">Forgot Password</a>
         </div>
 
         </form>  
