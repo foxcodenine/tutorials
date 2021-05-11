@@ -1,6 +1,6 @@
 <?php
 
-include_once './admin/admin_functions.php';
+include_once 'admin/admin_functions.php';
 
 // function escape($string) {
 
