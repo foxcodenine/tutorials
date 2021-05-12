@@ -10,3 +10,8 @@ https://ckeditor.com/ckeditor-5/download/?undefined-addons=
     $ composer require vlucas/phpdotenv
 
     $ composer require phpmailer/phpmailer
+
+
+<!-- --------------------------------------------------------------- -->
+### PHP package repo
+https://packagist.org/
