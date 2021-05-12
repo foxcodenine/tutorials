@@ -1,3 +1,5 @@
+<?php require_once "./my_packages.php" ?>
+
 <?php
 // https://packagist.org/packages/phpmailer/phpmailer
 // https://alexwebdevelop.com/phpmailer-tutorial/
@@ -9,7 +11,7 @@
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
 
-include_once './vendor/autoload.php';
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -26,10 +28,10 @@ function send_this_mail($to, $from, $subject, $body) {
         // Server settings
         // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
         $mail->isSMTP();                                            
-        $mail->Host       = 'smtp.gmail.com';                     
+        $mail->Host       = $_ENV['EMAIL_HOST'];                     
         $mail->SMTPAuth   = true;                                   
-        $mail->Username   = 'farrugiachris12@gmail.com';                     
-        $mail->Password   = 'gkztxkpwtxexvoft';                               
+        $mail->Username   = $_ENV['EMAIL_ADDRESS'];                     
+        $mail->Password   = $_ENV['EMAIL_PASSWORD'];                              
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         
         $mail->Port       = 587;                                    
 

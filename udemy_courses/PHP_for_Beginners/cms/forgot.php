@@ -1,6 +1,11 @@
 <?php  include "includes/db.php"; ?>
 <?php  include "includes/header.php"; ?>
 <?php  include "functions.php"; ?>
+<?php  require_once "./email_function.php"; ?>
+
+
+
+
 
 <?php 
 
@@ -27,6 +32,16 @@ if (ifItIsMethod('post') && isset($_POST['email'])) {
             mysqli_stmt_bind_param($stmt, 's', $email);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
+
+            $to = $email;
+            $from = 'no_reply@php.com';
+            $subject = 'Change Password';
+            $body = $token;
+
+
+            send_this_mail($to, $from, $subject, $body);
+
+
         } else {
 
             echo 'Error :' .  '<br>' . $conn->error;
