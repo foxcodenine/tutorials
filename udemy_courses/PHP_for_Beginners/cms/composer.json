@@ -1,6 +1,14 @@
-{
+{   "name": "christopher/farrugia",
+
     "require": {
         "vlucas/phpdotenv": "^5.2",
         "phpmailer/phpmailer": "^6.3"
-    }
+    },
+    "autoload": {
+        "classmap": [
+            "classes"
+        ]
+    },
+
+    "description": "first php project"
 }

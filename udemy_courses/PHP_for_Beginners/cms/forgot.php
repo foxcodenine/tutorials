@@ -9,6 +9,9 @@
 
 <?php 
 
+
+
+
 if (!ifItIsMethod('get') && !isset($_GET['forgot'])) {
     redirect('index');
 }
@@ -36,10 +39,20 @@ if (ifItIsMethod('post') && isset($_POST['email'])) {
             $to = $email;
             $from = 'no_reply@php.com';
             $subject = 'Change Password';
-            $body = $token;
+            $body =     "<p>
+                            Click here to reset your password: 
+                            
+                            <a href='http://localhost/htdocs/cms/reset.php?email={$email}&token={$token}'>
+                                http://localhost/htdocs/cms/reset.php?email={$email}&token={$token}
+                            </a>
 
+                        </p>";
 
-            send_this_mail($to, $from, $subject, $body);
+            if (send_this_mail($to, $from, $subject, $body)) {
+                $message = '<h2>Please check you email!</h2>';
+            }
+            
+            
 
 
         } else {
@@ -57,6 +70,7 @@ if (ifItIsMethod('post') && isset($_POST['email'])) {
 <!-- Page Content -->
 <div class="container">
 
+
     <div class="form-gap"></div>
     <div class="container">
         <div class="row">
@@ -65,35 +79,37 @@ if (ifItIsMethod('post') && isset($_POST['email'])) {
                     <div class="panel-body">
                         <div class="text-center">
 
+                            <?php if (!isset($message)): ?>
 
-                                <h3><i class="fa fa-lock fa-4x"></i></h3>
-                                <h2 class="text-center">Forgot Password?</h2>
-                                <p>You can reset your password here.</p>
-                                <div class="panel-body">
+                                        <h3><i class="fa fa-lock fa-4x"></i></h3>
+                                        <h2 class="text-center">Forgot Password?</h2>
+                                        <p>You can reset your password here.</p>
+                                        <div class="panel-body">
 
+                                            <form id="register-form" role="form" autocomplete="off" class="form" method="post">
 
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
+                                                        <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
+                                                </div>
 
+                                                <input type="hidden" class="hide" name="token" id="token" value="">
+                                            </form>
 
-                                    <form id="register-form" role="form" autocomplete="off" class="form" method="post">
+                                        </div><!-- Body-->                                
 
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope color-blue"></i></span>
-                                                <input id="email" name="email" placeholder="email address" class="form-control"  type="email">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <input name="recover-submit" class="btn btn-lg btn-primary btn-block" value="Reset Password" type="submit">
-                                        </div>
+                                        <?php echo bin2hex(openssl_random_pseudo_bytes(5));?>
 
-                                        <input type="hidden" class="hide" name="token" id="token" value="">
-                                    </form>
+                            <?php else: ?>
 
-                                </div><!-- Body-->
+                                        <?php echo $message; ?>
 
-                                <h2>Please check you email!</h2>
-
-                                <?php echo bin2hex(openssl_random_pseudo_bytes(5));?>
+                            <?php endif; ?>
 
                         </div>
                     </div>
