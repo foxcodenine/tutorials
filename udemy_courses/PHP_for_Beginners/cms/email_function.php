@@ -24,13 +24,15 @@ function send_this_mail($to, $from, $subject, $body) {
 
     //Instantiation and passing `true` enables exceptions
     $mail = new PHPMailer(true);
+    $config = new Config();
     try {
         // Server settings
         // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      
         $mail->isSMTP();                                            
         $mail->Host       = $_ENV['EMAIL_HOST'];                     
         $mail->SMTPAuth   = true;                                   
-        $mail->Username   = $_ENV['EMAIL_ADDRESS'];                     
+        // $mail->Username   = $_ENV['EMAIL_ADDRESS'];    //<- from .env                 
+        $mail->Username   = $config::EMAIL_ADDRESS;       //<- from Config.php                
         $mail->Password   = $_ENV['EMAIL_PASSWORD'];                              
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         
         $mail->Port       = 587;                                    
@@ -49,9 +51,10 @@ function send_this_mail($to, $from, $subject, $body) {
         
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->CharSet = 'UTF-8';
         $mail->Subject = $subject;
-        $mail->Body    = "<b>From: {$from}</b> <br><br> {$body}";
-        $mail->AltBody = $from . ' - ' . $body;
+        $mail->Body    = "{$body}";
+        $mail->AltBody =  $body;
 
         $mail->send();
         return  "<p class='bg-success'>Message has been sent </p>";

@@ -15,3 +15,10 @@ https://ckeditor.com/ckeditor-5/download/?undefined-addons=
 <!-- --------------------------------------------------------------- -->
 ### PHP package repo
 https://packagist.org/
+
+
+<!-- --------------------------------------------------------------- -->
+### Updating composer.json
+    
+     After updating composer.json perfor:
+    $ composer dump-autoload
