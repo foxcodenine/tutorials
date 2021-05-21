@@ -1,7 +1,6 @@
 <?php ob_start(); ?>
 <?php
 
-
 // _____________________________________________________________________
 // loading package with from vendor/autoload;
 
@@ -112,7 +111,7 @@ if ($conn->query($sql) !== TRUE) {
 
 $sql = "CREATE TABLE IF NOT EXISTS cms_users(
         user_id INTEGER AUTO_INCREMENT PRIMARY KEY,        
-        user_username VARCHAR(50) NOT NULL, 
+        user_username VARCHAR(50) NOT NULL UNIQUE, 
         user_password VARCHAR(255) NOT NULL, 
         user_firstname VARCHAR(50) NOT NULL, 
         user_lastname VARCHAR(50) NOT NULL, 

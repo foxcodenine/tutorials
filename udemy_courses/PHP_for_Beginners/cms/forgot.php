@@ -4,12 +4,7 @@
 <?php  require_once "./email_function.php"; ?>
 
 
-
-
-
 <?php 
-
-
 
 
 if (!ifItIsMethod('get') && !isset($_GET['forgot'])) {
