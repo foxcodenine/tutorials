@@ -1,5 +1,7 @@
 <?php
 
+use PhpOption\None;
+
 function escape($string) {
 
     global $conn;
@@ -531,6 +533,18 @@ function isLoggedIn(){
 function ifUserLoggedInRedirect($redirectLocation) {
     if(isLoggedIn()) {
         redirect($redirectLocation);
+    }
+}
+
+
+
+
+
+function image_palceholder($image) {
+    if ($image) {
+        return $image;
+    } else {
+        return 'http://localhost/htdocs/cms/images/no_image.jpg';
     }
 }
 

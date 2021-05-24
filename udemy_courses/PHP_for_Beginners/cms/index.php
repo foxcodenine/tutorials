@@ -74,7 +74,7 @@
                     $date = new DateTime($row['post_date']);
                     $date = $date->format('F d, o  g:i:s A');
 
-                    $image = $row['post_image'];
+                    $image = image_palceholder($row['post_image']);
                     $content = substr($row['post_content'], 0, 150) . '...';
 
                     echo "

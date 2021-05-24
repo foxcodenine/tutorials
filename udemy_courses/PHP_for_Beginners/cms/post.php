@@ -72,7 +72,7 @@
                     $date = new DateTime($row['post_date']);
                     $date = $date->format('F d, o  g:i:s A');
 
-                    $image = $row['post_image'];
+                    $image = image_palceholder($row['post_image']);
                     $content = $row['post_content'];
 
                     echo "
@@ -134,7 +134,7 @@
                 
                 ?>
 <!-- --------------------------------------------------------------- -->
-                <?php/* include "./includes/pager.php" */?>
+                <?php /* include "./includes/pager.php" */ ?>
 
 <!-- Start Comment Section ----------------------------------------- -->         
 
