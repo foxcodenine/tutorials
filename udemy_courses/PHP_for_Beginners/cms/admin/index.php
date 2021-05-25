@@ -242,6 +242,47 @@
 
     <?php require 'includes/admin_scripts.php'; ?>
 
+
+<!-- --------------------------------------------------------------- -->
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+<script>
+
+document.onreadystatechange = function () {                    // <- (A)
+    if (document.readyState == "interactive") {                // <- (A)
+        // Initialize your application or run some code.        
+
+        // -------------------------------------------------------------
+
+        const pusher = new Pusher(
+            "<?php echo $_ENV['PUSHER_KEY'];?>",
+            {
+                cluster: "<?php echo $_ENV['PUSHER_CLUSTER'];?>",
+                encrypted: true
+            }
+        );
+        const channelNotify = pusher.subscribe('channel-notifications');
+
+        channelNotify.bind('new_user', (notification)=>{
+
+            let message = notification.message;
+
+            toastr.info(message);
+            console.log(message);
+        });
+
+
+        // -------------------------------------------------------------        
+    }
+}
+// (A)  Is non-jQuery equivalent of $(document).ready()
+//      Ready() to make a function available after the document is loaded
+
+</script>
+
+
 </body>
 
 </html>

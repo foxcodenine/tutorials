@@ -62,9 +62,9 @@ function register_user($username, $email, $password) {
     $password = password_hash($password, PASSWORD_BCRYPT);
 
     $sql = "INSERT INTO cms_users (
-            user_username, user_password, user_email, user_role
+            user_username, user_password, user_email, user_role, user_token
             ) VALUES (
-                '{$username}', '{$password}', '{$email}', 'Subscriber');";  
+                '{$username}', '{$password}', '{$email}', 'Subscriber', '');";  
         
     if ($conn->query($sql) == false) {
         die('Error:' . '<br>' . $conn->error);        
