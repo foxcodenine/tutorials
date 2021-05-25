@@ -3,8 +3,34 @@
 
 <?php  include "includes/header.php"; ?>
 
-<?php  include "includes/db.php"; ?>
-<?php  include "./functions.php"; ?>
+<?php 
+
+include "includes/db.php"; 
+include "./functions.php"; 
+
+
+?>
+
+<?php // pusher setup:
+
+require_once "./my_packages.php";
+
+
+$app_id = $_ENV['PUSHER_APP_ID'];
+$app_key = $_ENV['PUSHER_KEY'];
+$app_secret = $_ENV['PUSHER_SECRET'];
+$app_cluster = $_ENV['PUSHER_CLUSTER'];
+
+$options = array(
+    'cluster' => $app_cluster,
+    'useTLS' => true
+  );
+  $pusher = new Pusher\Pusher($app_key, $app_secret, $app_id, $options);
+
+?>
+
+
+
 
 <?php 
 
@@ -60,7 +86,11 @@ if (isset($_POST['submit_reg'])) {
     }
 
     if(empty($errors)) {
-        register_user($username_reg, $email_reg, $password_reg);        
+        register_user($username_reg, $email_reg, $password_reg);  
+        
+        $data['message'] = "{$username_reg} has registered!";
+        $pusher->trigger('channel-notifications', 'new_user', $data);
+
         loggin_user($username_reg, $password_reg);       
     }
 }
@@ -131,6 +161,8 @@ if (isset($_POST['submit_reg'])) {
 
 
 <?php include "includes/footer.php";?>
+
+
 
 </body>
 </html>

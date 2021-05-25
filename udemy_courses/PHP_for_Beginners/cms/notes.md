@@ -33,3 +33,22 @@ GoDaddy also refuses to send with a From address belonging to any aol,
 gmail, yahoo, hotmail, live, aim, or msn domain
 
 https://nz.godaddy.com/community/Using-WordPress/Emails-not-routing-through-SMTP-using-WP-Mail-SMTP-with-GoDaddy/td-p/171654
+
+<!-- --------------------------------------------------------------- -->
+
+### Pusher.com
+
+Site:
+    https://pusher.com/
+    https://dashboard.pusher.com/
+
+
+Composer package installation:
+    https://packagist.org/packages/pusher/pusher-php-server
+
+    $ composer require pusher/pusher-php-server
+    $ composer update
+
+
+### toastr.js (Flash message)
+https://github.com/CodeSeven/toastr
