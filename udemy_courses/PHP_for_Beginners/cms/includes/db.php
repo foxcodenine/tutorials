@@ -61,7 +61,7 @@ mysqli_close($conn);
 
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-if ($conn->connect_errno) {
+if ($conn->connect_error) {
     die("Connection failed:" . $conn->connect_errno);
 }
 
@@ -138,6 +138,19 @@ $sql = "CREATE TABLE IF NOT EXISTS cms_online (
 if($conn->query($sql) != TRUE) {
     die('Error: ' . '<br>' . $conn->error);
 }
+
+// _____________________________________________________________________
+
+$sql = "CREATE TABLE IF NOT EXISTS cms_likes(
+    like_id INTEGER AUTO_INCREMENT PRIMARY KEY,        
+    user_id INTEGER NOT NULL,
+    post_id INTEGER NOT NULL
+    );";
+
+if ($conn->query($sql) != TRUE) {
+die('Error: ' . '<br>' . $conn->error);
+}
+
 
 // _____________________________________________________________________
 

@@ -87,9 +87,21 @@
                     <img class='img-responsive' src='{$image}' alt=''>
                     <hr>
                     <p>{$content}</p>
+
+
                     
-    
+
+                    <p class='pull-right'>
+                        
+                        <a class='post_like' href='#'><span class='glyphicon glyphicon-thumbs-up'></span> Like</a> 
+                        <br>
+                        Likes: 10
+                    </p>
+                    <br>
+                    <br>
+
                     <hr>
+
                     ";                
 
                     }
@@ -139,10 +151,17 @@
 <!-- Start Comment Section ----------------------------------------- -->         
 
                 <!-- Blog Comments -->
+                    <?php 
+                        $input = json_decode(file_get_contents('php://input'), true);
 
+                        if($input) {
+                            print_r($input);
+                        }
+                    ?>
                 <!-- Comments Form -->
                 <div class="well">
                     <h4>Leave a Comment:</h4>
+
                     <form   method="post" action="post.php?p_id=<?php echo $current_post_id;?>"  >
 
                     
@@ -161,6 +180,8 @@
                         <label for="comm_content">Content</label>
                             <textarea name="comm_content" class="form-control" rows="3"></textarea>
                         </div>
+
+
 
                         <button name="create_comment" type="submit" class="btn btn-primary" >Submit</button>
                     </form>
@@ -199,13 +220,17 @@ while ($row = $result->fetch_assoc()) {
     ?>
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object" src="http://placehold.it/64x64" alt="">
+                        <!-- <img class="media-object" src="http://placehold.it/64x64" alt=""> -->
                     </a>
                     <div class="media-body">
                         <h4 class="media-heading"><?php echo $row['comm_author'];?>
                             <small><?php echo $date;?></small>
                         </h4>
                         <?php echo $row['comm_content'];?>
+
+                        <hr>
+
+
                     </div>
                 </div>
 
