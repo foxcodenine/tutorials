@@ -14,6 +14,7 @@ document.onreadystatechange = function () {                    // <- (A)
         confirmDeleteAll();
         confirmDeletePost();
         myLoader();
+        likeFunction();
 
         setInterval(() => {
             usersOnLineJS();
@@ -192,12 +193,81 @@ function usersOnLineJS() {
     
     const placeholder = document.querySelector('.users-on-line');
 
-    fetch('admin_functions.php?on_line_users=true')
-    .then(response => response.text())
-    .then(data => placeholder.innerText = data)
+    if (placeholder) {    
+
+        fetch('admin_functions.php?on_line_users=true')
+        .then(response => response.text())
+        .then(data => placeholder.innerText = data)
+
+    }
 }
 // ------------------------------------------------------------- 
 
+function likeFunction() {
+
+    postLike = document.querySelector('.post_like');
+
+    if (postLike) {
+        
+        postLike.addEventListener('click', (e)=>{
+            e.preventDefault();
+            console.log('...post has been liked!')
+
+            const urlAddressArray = window.location.pathname.split('/');
+            const postId = urlAddressArray[urlAddressArray.length - 1];
+            
+            console.log(postId);
+
+            const data = { like: 1};
+
+
+            fetch(`/htdocs/cms/post.php?p_id=${postId}`,{
+                method: 'POST',
+                // headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data),
+            })
+
+            .then(response => response.json())
+            .then(data => {
+            console.log('Success:', data);
+            })
+            .catch((error) => {
+            console.error('Error:', error);
+            });
+
+        })
+    }
+}
+
+// fetch('https://example.com/profile', {
+//   method: 'POST', // or 'PUT'
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   body: JSON.stringify(data),
+// })
+// .then(response => response.json())
+// .then(data => {
+//   console.log('Success:', data);
+// })
+// .catch((error) => {
+//   console.error('Error:', error);
+// });
+
+
+
+// function usersOnLineJS() {
+    
+//     const placeholder = document.querySelector('.users-on-line');
+
+//     if (placeholder) {    
+
+//         fetch('admin_functions.php?on_line_users=true')
+//         .then(response => response.text())
+//         .then(data => placeholder.innerText = data)
+
+//     }
+// }
 
 
 

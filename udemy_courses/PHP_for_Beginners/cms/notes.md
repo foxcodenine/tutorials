@@ -48,7 +48,19 @@ Composer package installation:
 
     $ composer require pusher/pusher-php-server
     $ composer update
-
+<!-- --------------------------------------------------------------- -->
 
 ### toastr.js (Flash message)
 https://github.com/CodeSeven/toastr
+
+<!-- --------------------------------------------------------------- -->
+
+### PHP to JavaScript - fetch GET or POST data
+
+    git/repo/research_n_study/php
+    or
+    https://www.mikestreety.co.uk/blog/how-to-use-fetch-in-javascript-to-get-or-post-data/
+
+
+    https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    
