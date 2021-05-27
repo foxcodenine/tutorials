@@ -63,4 +63,23 @@ https://github.com/CodeSeven/toastr
 
 
     https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
-    
+
+
+<!-- --------------------------------------------------------------- -->
+### JavaScript URL parameters 
+
+    https://www.sitepoint.com/get-url-parameters-with-javascript/#:~:text=URL%20parameters%20(also%20called%20query,%2C%20user%20preferences%2C%20and%20more.
+
+    window.location.search;
+    The search property sets or returns the querystring part of a URL, including the question mark (?).
+
+
+    window.location.pathname;
+    Return the path name of the current URL
+
+    window.location.hostname;
+    The hostname property sets or returns the hostname of a URL.
+
+    https://www.w3schools.com/jsref/obj_location.asp
+
+<!-- --------------------------------------------------------------- -->
