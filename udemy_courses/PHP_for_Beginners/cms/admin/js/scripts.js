@@ -213,24 +213,31 @@ function likeFunction() {
             e.preventDefault();
             console.log('...post has been liked!')
 
-            const urlAddressArray = window.location.pathname.split('/');
-            const postId = urlAddressArray[urlAddressArray.length - 1];
+
             
-            console.log(postId);
+            let urlAddress = window.location.search;
+            let urlAddressArray;
+           
 
-            const data = { like: 1};
+            if (urlAddress.includes('=')) {
+                urlAddressArray = urlAddress.split('=');
+            } else {
+                urlAddress = window.location.pathname;
+                urlAddressArray = urlAddress.split('/');
+            }
+            
+            const postId = urlAddressArray[urlAddressArray.length - 1];           
 
+            const data = {liked: 1, post_id: postId, user_id: 3};
 
             fetch(`/htdocs/cms/post.php?p_id=${postId}`,{
                 method: 'POST',
-                // headers: {'Content-Type': 'application/json'},
+                headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data),
             })
 
-            .then(response => response.json())
-            .then(data => {
-            console.log('Success:', data);
-            })
+            .then(response => response.text())
+            // .then(data => {console.log('Success:', data);})
             .catch((error) => {
             console.error('Error:', error);
             });
@@ -253,6 +260,8 @@ function likeFunction() {
 // .catch((error) => {
 //   console.error('Error:', error);
 // });
+
+
 
 
 

@@ -29,7 +29,36 @@
 
                 <!-- First Blog Post -->
 <!-- --------------------------------------------------------------- -->
-                <?php
+            <?php 
+                        $input = json_decode(file_get_contents('php://input'), true);
+
+                        if($input) {
+                            // print_r($input);
+
+                            // 1. Select Post
+
+                            $post_id = $input['liked'];
+
+                            $sql = "SELECT * FROM cms_posts WHERE post_id = {$post_id}";
+                            
+                            if ($result = $conn->query($sql)) {
+                                $row = $result->fetch_assoc();
+                                $likes = $row['post_likes'];
+                                echo $likes;
+                                        
+                            } else {
+                                die('error ' . $conn->error);
+                            }
+ 
+
+                            // 2. Update post with likes
+
+                            // 3. Create likes for post
+                        }
+            ?>
+<!-- --------------------------------------------------------------- -->
+            <?php
+
 
             if (!empty($_GET['p_id'])) {                
 
@@ -151,14 +180,8 @@
 <!-- Start Comment Section ----------------------------------------- -->         
 
                 <!-- Blog Comments -->
-                    <?php 
-                        $input = json_decode(file_get_contents('php://input'), true);
 
-                        if($input) {
-                            print_r($input);
-                        }
-                    ?>
-                <!-- Comments Form -->
+                <!-- Comments Form --
                 <div class="well">
                     <h4>Leave a Comment:</h4>
 
