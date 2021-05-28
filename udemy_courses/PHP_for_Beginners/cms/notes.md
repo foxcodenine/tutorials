@@ -83,3 +83,18 @@ https://github.com/CodeSeven/toastr
     https://www.w3schools.com/jsref/obj_location.asp
 
 <!-- --------------------------------------------------------------- -->
+### How to render html tags from mysql database in PHP?
+
+https://stackoverflow.com/questions/35218019/how-to-render-html-tags-from-mysql-database-in-php
+
+        Use htmlspecialchars_decode function as below :
+
+        echo htmlspecialchars_decode(stripslashes($row3['description'])); 
+        
+        Instead of:
+
+        echo stripslashes($row3['description']);
+
+
+
+<!-- --------------------------------------------------------------- -->

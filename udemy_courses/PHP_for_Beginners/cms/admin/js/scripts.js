@@ -15,6 +15,7 @@ document.onreadystatechange = function () {                    // <- (A)
         confirmDeletePost();
         myLoader();
         likeFunction();
+        unlikeFunction();
 
         setInterval(() => {
             usersOnLineJS();
@@ -213,7 +214,8 @@ function likeFunction() {
             e.preventDefault();
             console.log('...post has been liked!')
 
-
+            userId = document.querySelector('#post_user_id').innerText
+            console.log(userId);
             
             let urlAddress = window.location.search;
             let urlAddressArray;
@@ -228,7 +230,7 @@ function likeFunction() {
             
             const postId = urlAddressArray[urlAddressArray.length - 1];           
 
-            const data = {liked: 1, post_id: postId, user_id: 3};
+            const data = {liked: 1, post_id: postId, user_id: userId};
 
             fetch(`/htdocs/cms/post.php?p_id=${postId}`,{
                 method: 'POST',
@@ -242,6 +244,49 @@ function likeFunction() {
             console.error('Error:', error);
             });
 
+        })
+    }
+}
+// -------------------------------------------------------------
+function unlikeFunction() {
+
+    postUnlike = document.querySelector('.post_unlike');
+
+    if (postUnlike) {
+        
+        postUnlike.addEventListener('click', (e)=>{
+            e.preventDefault();
+            console.log('...post has been unliked!')
+
+            userId = document.querySelector('#post_user_id').innerText
+            console.log(userId);
+            
+            let urlAddress = window.location.search;
+            let urlAddressArray;
+           
+
+            if (urlAddress.includes('=')) {
+                urlAddressArray = urlAddress.split('=');
+            } else {
+                urlAddress = window.location.pathname;
+                urlAddressArray = urlAddress.split('/');
+            }
+            
+            const postId = urlAddressArray[urlAddressArray.length - 1];           
+
+            const data = {unliked: 1, post_id: postId, user_id: userId};
+
+            fetch(`/htdocs/cms/post.php?p_id=${postId}`,{
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data),
+            })
+
+            .then(response => response.text())
+            // .then(data => {console.log('Success:', data);})
+            .catch((error) => {
+            console.error('Error:', error);
+            });
         })
     }
 }
