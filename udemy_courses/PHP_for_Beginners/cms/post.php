@@ -29,31 +29,68 @@
 
                 <!-- First Blog Post -->
 <!-- --------------------------------------------------------------- -->
-            <?php 
+            <?php       
                         $input = json_decode(file_get_contents('php://input'), true);
 
                         if($input) {
-                            // print_r($input);
-
                             // 1. Select Post
 
-                            $post_id = $input['liked'];
+                            $post_id = $input['post_id'];
+                            $user_id = $input['user_id'];
 
                             $sql = "SELECT * FROM cms_posts WHERE post_id = {$post_id}";
                             
                             if ($result = $conn->query($sql)) {
                                 $row = $result->fetch_assoc();
                                 $likes = $row['post_likes'];
-                                echo $likes;
-                                        
                             } else {
                                 die('error ' . $conn->error);
-                            }
- 
+                            } 
 
-                            // 2. Update post with likes
+                            if(isset($input['liked'])) {                            
 
-                            // 3. Create likes for post
+                                // 2. Update post with likes
+
+                                $sql = "UPDATE  cms_posts SET post_likes={$likes}+1 WHERE post_id={$post_id}";
+
+                                $conn->query($sql);
+                                if ($conn->error) {
+                                    die('error ' . $conn->error);                                        
+                                }                           
+
+                                // 3. Create likes for post
+
+                                $sql = "INSERT INTO cms_likes(post_id, user_id) VALUES('$post_id', '$user_id')";
+
+                                $conn->query($sql);
+                                if ($conn->error) {
+                                    die('error ' . $conn->error);                                        
+                                } 
+                            } 
+
+                            if(isset($input['unliked'])) {                            
+
+                                // 2. Update post with likes
+
+                                echo ('unliked');
+
+                                // $sql = "UPDATE  cms_posts SET post_likes={$likes}+1 WHERE post_id={$post_id}";
+
+                                // $conn->query($sql);
+                                // if ($conn->error) {
+                                //     die('error ' . $conn->error);                                        
+                                // }                           
+
+                                // // 3. Create likes for post
+
+                                // $sql = "INSERT INTO cms_likes(post_id, user_id) VALUES('$post_id', '$user_id')";
+
+                                // $conn->query($sql);
+                                // if ($conn->error) {
+                                //     die('error ' . $conn->error);                                        
+                                // } 
+                            } 
+
                         }
             ?>
 <!-- --------------------------------------------------------------- -->
@@ -64,6 +101,7 @@
 
                 // $testDate =  new DateTime();
                 // echo $testDate->format('Y\-m\-d\ h:i:s');
+                
 
                 $current_post_id = escape($_GET['p_id']);
 
@@ -114,29 +152,32 @@
                     <p><span class='glyphicon glyphicon-time'></span> Posted on {$date}</p>
                     <hr>
                     <img class='img-responsive' src='{$image}' alt=''>
-                    <hr>
-                    <p>{$content}</p>
+                    <hr>";
+
+                    echo htmlspecialchars_decode("<p>{$content}</p>");
+                   
+                    if (isset($_SESSION['user_id'])) {
 
 
+                        $user_id = $_SESSION['user_id'];
+                        echo "<p id='post_user_id' hidden>{$user_id}</p>";
                     
-
-                    <p class='pull-right'>
-                        
-                        <a class='post_like' href='#'><span class='glyphicon glyphicon-thumbs-up'></span> Like</a> 
-                        <br>
-                        Likes: 10
-                    </p>
-                    <br>
-                    <br>
-
-                    <hr>
-
-                    ";                
+                        echo "<p class='pull-right'>                        
+                            <a class='post_like'   href='#'><span class='glyphicon glyphicon-thumbs-up'></span> Like</a> 
+                            <br>
+                            <a class='post_unlike' href='#'><span class='glyphicon glyphicon-thumbs-down'></span> Unlike</a> 
+                            <br>
+                            Likes: 10
+                            </p>
+                            <br><br><br>";
+                    }
+                    echo "<hr>";                
 
                     }
                 }
                 
                 ?>
+                
 <!-- --------------------------------------------------------------- -->
                 <?php
 
