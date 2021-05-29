@@ -46,10 +46,10 @@
                             } else {
                                 die('error ' . $conn->error);
                             } 
-
+                            // -----------------------------------------
                             if(isset($input['liked'])) {                            
 
-                                // 2. Update post with likes
+                                // 2. Update post (Add Likes)
 
                                 $sql = "UPDATE  cms_posts SET post_likes={$likes}+1 WHERE post_id={$post_id}";
 
@@ -58,7 +58,7 @@
                                     die('error ' . $conn->error);                                        
                                 }                           
 
-                                // 3. Create likes for post
+                                // 3. Add record to cms_likes with new like
 
                                 $sql = "INSERT INTO cms_likes(post_id, user_id) VALUES('$post_id', '$user_id')";
 
@@ -67,30 +67,37 @@
                                     die('error ' . $conn->error);                                        
                                 } 
                             } 
+                            // -----------------------------------------
+                            if(isset($input['unliked'])) {   
+                                
+                                
+                                // 2. Remove record to cms_likes there post is unliked
 
-                            if(isset($input['unliked'])) {                            
+                                $sql = "DELETE FROM cms_likes 
+                                        WHERE 
+                                        post_id = {$post_id}
+                                        AND
+                                        user_id = {$user_id}";
 
-                                // 2. Update post with likes
+                                $conn->query($sql);
+                                if ($conn->error) {
+                                    die('Error AX: ' . '<br>' . $user_id);
+                                }
 
-                                echo ('unliked');
 
-                                // $sql = "UPDATE  cms_posts SET post_likes={$likes}+1 WHERE post_id={$post_id}";
+                                // 3. Update post (Delete Likes)
+                                
+                                $sql = "UPDATE cms_posts 
+                                        SET post_likes={$likes}-1 
+                                        WHERE post_id={$post_id}";
 
-                                // $conn->query($sql);
-                                // if ($conn->error) {
-                                //     die('error ' . $conn->error);                                        
-                                // }                           
-
-                                // // 3. Create likes for post
-
-                                // $sql = "INSERT INTO cms_likes(post_id, user_id) VALUES('$post_id', '$user_id')";
-
-                                // $conn->query($sql);
-                                // if ($conn->error) {
-                                //     die('error ' . $conn->error);                                        
-                                // } 
+                                $conn->query($sql);
+                                if ($conn->error) {
+                                    die('Error BX: ' . '<br>' . $user_id);
+                                }
                             } 
 
+                            exit();
                         }
             ?>
 <!-- --------------------------------------------------------------- -->
