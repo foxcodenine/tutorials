@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Welcome To Admin
+                            Welcome To Admin 
                             <small><?php echo  $_SESSION['firstname'] . ' ' . $_SESSION['lastname']; ?></small>
 
                             
