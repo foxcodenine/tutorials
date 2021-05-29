@@ -537,9 +537,6 @@ function ifUserLoggedInRedirect($redirectLocation) {
 }
 
 
-
-
-
 function image_palceholder($image) {
     if ($image) {
         return $image;
@@ -547,6 +544,40 @@ function image_palceholder($image) {
         return 'http://localhost/htdocs/cms/images/no_image.jpg';
     }
 }
+
+function my_query($sql) {
+    global $conn;
+
+    $result = $conn->query($sql);
+
+    if ($conn->error) {
+        die('Error: <br>' . $conn->error);
+    } else {
+        return $result;
+    }
+}
+
+function logged_in_user_id() {
+    if(isLoggedIn()) { 
+        $username = $_SESSION['username'];
+        $result = my_query(
+            "SELECT * FROM cms_users WHERE user_username = '{$username}'"
+        );
+
+        if ($result->num_rows >= 1) {
+            $row = $result->fetch_assoc();
+            return $row['user_id'];
+        }
+        return false;
+        
+    }
+}
+
+
+
+// _____________________________________________________________________
+
+
 
 
 ?>
