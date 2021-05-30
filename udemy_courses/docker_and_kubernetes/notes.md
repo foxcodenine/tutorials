@@ -47,6 +47,9 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 ### To restart a container
     $ sudo docker start container_name
 
+### To restart a container in attached mode and interactive 
+    $ sudo docker start -ai container_name
+
 ### List container image name
     $ sudo docker images
 
@@ -73,12 +76,17 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 
 ### Remove a Stopped Container
     $ sudo docker container rm [container_id]
+    or
+    $ sudo docker rm [1st_container_name] [2nd_container_name] [3rd_container_name]
 
 ### Remove All Stopped Containers
-    $ sudo docker container rm $(docker container ls –aq)
+    $ sudo docker container prune
 
 ### Remove All Docker Containers
     $ sudo docker container stop $(docker container ls –aq) && docker system prune –af ––volumes
+
+### Auto remove container when it exits
+    $ sudo docker run --rm [image_id]
 
 ------------------------------------------------------------------------
 
@@ -94,9 +102,65 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 ### Remove one or more specific images
     $ sudo  docker rmi 0d37472507bc
 
+### Remove all images
+    $ sudo  docker image prune
+
 
 ------------------------------------------------------------------------
 
 ### Add --help to see all options
     $ sudo docker ps --help
     $ sudo docker --help
+
+### Restart and attached to container
+
+    $ sudo docker start -a CONTAINER
+
+### Get logs of not attached container
+
+    $ sudo docker logs CONTAINER
+
+### Get logs and attach to container
+
+    $ sudo docker logs -f CONTAINER
+
+### Attaching to an already-running Container
+    $ sudo docker attach CONTAINER
+
+### Run a container in detached mode 
+    $ sudo docker run CONTAINER
+
+------------------------------------------------------------------------
+
+### Display detailed information on one or more images
+
+    $ sudo docker image inspect 05c9afe3bd3e
+
+------------------------------------------------------------------------
+
+### copyfiles and folders localy to container
+
+    $ sudo docker cp ./folder_name/file_name.txt container_name:/folder_in_container
+    ex :
+    $ sudo docker cp  test_folder/. priceless_chatterjee:/folders/
+
+### copy files or folders from container to local pc
+    $ sudo docker cp container_name:/folder_in_container/file_name.txt ./folder_name 
+    ex:
+    $ sudo docker cp  priceless_chatterjee:/folders/. ./test_folder/
+
+
+------------------------------------------------------------------------
+
+### name a container
+    $ sudo docker run --name [container_name] [image_id]
+    $ sudo docker run --name python_app bcf8baebde8e
+
+### assign a tag to an image
+    $ sudo docker build -t [repositorye]:[tag] .
+    $ sudo docker build -t python_app:1 .
+
+### build a container with image rep and tag
+    $ sudo docker run -it --name python_app python_app:1
+    $ sudo docker run python_app:1
+    $ sudo docker run [repositorye]:[tag]
