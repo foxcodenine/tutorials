@@ -240,6 +240,7 @@ function likeFunction() {
 
             .then(response => response.text())
             // .then(data => {console.log('Success:', data);})
+            .then(()=> location.reload())
             .catch((error) => {
             console.error('Error:', error);
             });
@@ -284,6 +285,7 @@ function unlikeFunction() {
 
             .then(response => response.text())
             // .then(data => {console.log('Success:', data);})
+            .then(()=> location.reload())
             .catch((error) => {
             console.error('Error:', error);
             });
