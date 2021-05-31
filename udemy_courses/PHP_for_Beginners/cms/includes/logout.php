@@ -6,6 +6,7 @@
 
 echo '<h1>' .  $_SESSION['username'] . '</h1>';
 
+$_SESSION['user_id'] = null;
 $_SESSION['username'] = null;
 $_SESSION['password'] = null;
 $_SESSION['email'] = null;

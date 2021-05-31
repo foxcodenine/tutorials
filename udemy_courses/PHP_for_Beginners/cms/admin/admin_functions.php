@@ -514,6 +514,8 @@ function redirect($location){
     exit;
 }
 
+// _____________________________________________________________________
+
 function ifItIsMethod($method=null){
     if($_SERVER['REQUEST_METHOD'] == strtoupper($method)){
         return true;
@@ -521,6 +523,8 @@ function ifItIsMethod($method=null){
         return false;
     }
 }
+
+// _____________________________________________________________________
 
 function isLoggedIn(){
     if (isset($_SESSION['role'])) {
@@ -536,6 +540,7 @@ function ifUserLoggedInRedirect($redirectLocation) {
     }
 }
 
+// _____________________________________________________________________
 
 function image_palceholder($image) {
     if ($image) {
@@ -544,6 +549,8 @@ function image_palceholder($image) {
         return 'http://localhost/htdocs/cms/images/no_image.jpg';
     }
 }
+
+// _____________________________________________________________________
 
 function my_query($sql) {
     global $conn;
@@ -557,6 +564,8 @@ function my_query($sql) {
     }
 }
 
+// _____________________________________________________________________
+
 function logged_in_user_id() {
     if(isLoggedIn()) { 
         $username = $_SESSION['username'];
@@ -568,16 +577,50 @@ function logged_in_user_id() {
             $row = $result->fetch_assoc();
             return $row['user_id'];
         }
-        return false;
-        
+        return false;        
     }
 }
 
 
 
+
+function user_liked_this_post($post_id=false){
+
+    $user_id = logged_in_user_id();
+
+    if ($user_id && $post_id) {
+
+        $sql = "SELECT * FROM cms_likes
+                WHERE post_id = {$post_id}
+                AND user_id = {$user_id}";
+
+        $result = my_query($sql);
+
+        return $result->num_rows > 0 ? true : false;
+
+    } else {
+        die('Error: post_id or user_id not provided');
+    }
+}
+
+
+function fetch_likes_count($post_id=false){
+    if ($post_id) {
+
+        $sql = "SELECT * FROM cms_posts WHERE post_id={$post_id}";
+
+        $result = my_query($sql);
+
+        $row = $result->fetch_assoc();
+        return $row['post_likes'];
+    } else {
+        die('Error: No post id!');
+    }
+    
+}
+
+
 // _____________________________________________________________________
-
-
 
 
 ?>

@@ -168,15 +168,27 @@
 
                         $user_id = $_SESSION['user_id'];
                         echo "<p id='post_user_id' hidden>{$user_id}</p>";
+
+
+                        $markup =  "<p class='pull-right'>";                       
+
+                        if (user_liked_this_post($_GET['p_id'])) {
+
+                            $markup .= "<a class='post_unlike' href='#'><span class='glyphicon glyphicon-thumbs-down'></span> Unlike</a>";
                     
-                        echo "<p class='pull-right'>                        
-                            <a class='post_like'   href='#'><span class='glyphicon glyphicon-thumbs-up'></span> Like</a> 
-                            <br>
-                            <a class='post_unlike' href='#'><span class='glyphicon glyphicon-thumbs-down'></span> Unlike</a> 
-                            <br>
-                            Likes: 10
-                            </p>
-                            <br><br><br>";
+                        } else {
+                            
+                            $markup .= "<a class='post_like'   href='#'><span class='glyphicon glyphicon-thumbs-up'></span> Like</a>";
+                        }
+                        $likes_count =fetch_likes_count($_GET['p_id']);
+                        $markup .= "<br> Likes: {$likes_count} </p> <br><br>";
+                        echo $markup;
+                    } else {
+                        $likes_count =fetch_likes_count($_GET['p_id']);
+                        echo "<p class='pull-right'>
+                                You need to <a href='/htdocs/cms/login'>login</a> to like <br> Likes: {$likes_count}
+                              </p>
+                              <br><br>"; 
                     }
                     echo "<hr>";                
 
