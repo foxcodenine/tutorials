@@ -178,7 +178,7 @@
                     
                         } else {
                             
-                            $markup .= "<a class='post_like'   href='#'><span class='glyphicon glyphicon-thumbs-up'></span> Like</a>";
+                            $markup .= "<a class='post_like'  href='#'><span class='glyphicon glyphicon-thumbs-up'></span> Like</a>";
                         }
                         $likes_count =fetch_likes_count($_GET['p_id']);
                         $markup .= "<br> Likes: {$likes_count} </p> <br><br>";
@@ -340,6 +340,10 @@ while ($row = $result->fetch_assoc()) {
     </div>
     <!-- /.container -->    
     <?php include "./includes/scripts.php"?>
+
+
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
 
 </body>
 

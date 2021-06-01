@@ -206,6 +206,10 @@ function usersOnLineJS() {
 
 function likeFunction() {
 
+    tippy('.post_like', {
+        content: "Do you want to like this?",
+      });
+
     postLike = document.querySelector('.post_like');
 
     if (postLike) {
@@ -250,6 +254,10 @@ function likeFunction() {
 }
 // -------------------------------------------------------------
 function unlikeFunction() {
+
+    tippy('.post_unlike', {
+        content: "I have like this befor!",
+      });
 
     postUnlike = document.querySelector('.post_unlike');
 

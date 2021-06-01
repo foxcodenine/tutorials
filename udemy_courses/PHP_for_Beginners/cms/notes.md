@@ -98,3 +98,35 @@ https://stackoverflow.com/questions/35218019/how-to-render-html-tags-from-mysql-
 
 
 <!-- --------------------------------------------------------------- -->
+
+### tippyjs 
+
+https://atomiks.github.io/tippyjs/
+https://github.com/atomiks/tippyjs
+
+    1. INSTALL
+
+        npm i tippy.js     OR    yarn add tippy.js
+
+    2. CDN
+        <!-- Development -->
+        <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js"></script>
+        <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+
+        <!-- Production -->
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/tippy.js@6"></script>
+
+
+    3. USE
+    With a button element on the document like this:
+
+        <button id="myButton">My Button</button>
+
+    You can initialize it like so:
+
+        tippy('#myButton', {
+            content: "I'm a Tippy tooltip!",
+        });
+
+<!-- --------------------------------------------------------------- -->
