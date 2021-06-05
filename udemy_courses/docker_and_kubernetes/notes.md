@@ -164,3 +164,29 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
     $ sudo docker run -it --name python_app python_app:1
     $ sudo docker run python_app:1
     $ sudo docker run [repositorye]:[tag]
+
+------------------------------------------------------------------------
+
+### rename images 
+    $ sudo docker build -t node:hello-world .
+    $ sudo docker tag node:hello-world foxcodenine/node-hello-world
+    
+    S sudo docker images
+
+
+### login in to docker hub 
+    $ sudo docker login
+        Username: foxcodenine
+        Password: ***********
+
+### logout
+    $ sudo docker logout
+
+### docker push image
+    $ sudo docker push foxcodenine/node-hello-world
+
+### pull docker image
+    $ sudo docker pull foxcodenine/node-hello-world
+
+        ### test pulled images:
+            $ sudo docker run -p 8000:3000 --rm foxcodenine/node-hello-world
