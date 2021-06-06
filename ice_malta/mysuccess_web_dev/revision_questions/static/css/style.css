@@ -1,0 +1,42 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  outline: none; }
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth; }
+
+body {
+  font-size: 1.6rem;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif; }
+
+.container {
+  width: 95vw;
+  max-width: 100rem;
+  padding: 2rem 2rem;
+  margin: 2rem auto; }
+  .container h2 {
+    padding-left: 2rem;
+    padding-bottom: .75rem;
+    color: #000036;
+    margin-bottom: 2rem;
+    font-size: 3rem;
+    border-bottom: 1px solid #000036; }
+  .container section {
+    padding: 2rem 2rem;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid #000036; }
+  .container h3 {
+    margin-bottom: 1.5rem;
+    text-decoration: underline;
+    color: #000036; }
+  .container p {
+    margin-bottom: 1rem;
+    color: #000036; }
+  .container .answer {
+    color: #033b1c; }
