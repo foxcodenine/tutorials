@@ -45,7 +45,7 @@
 
                     function averageVar(...$nums) {
 
-                        $my_array = func_get_args(); // <- not required u can use $num below
+                        $my_array = func_get_args(); // <- not required u can use $num directly below
                         return array_sum($my_array) / count(($my_array));
                     }
 

@@ -20,13 +20,23 @@
                 </p>  
 
                 <?php
-
-                    function incrementByN($n) {
+                    // ----- 1st solution
+                    function _incrementByN($n) {
                         $GLOBALS['n'] = $n;
                         
                         // return an anonymous function
                         return function($i) {
                             global $n;
+                            return $i + $n;
+                        };                        
+                    }
+
+                    // ----- 2nd better and solution 
+                    function incrementByN($n) {
+                        
+                        // return an anonymous function
+                        return function($i) use ($n) {
+
                             return $i + $n;
                         };                        
                     }
@@ -61,7 +71,7 @@
                     function iter_fib($n) {
 
                         if ($n < 1) {
-                            return 'invalid value';
+                            return '<span class=\'danger\'>invalid value</span>';
                         }
 
                         for ($i=[0, 1]; count($i) <= $n;) {
@@ -73,7 +83,7 @@
                     }
 
                     
-                    $fib =  iter_fib(1);
+                    $fib =  iter_fib(0);
                     echo "<p class='answer'>Fib by itrative function: {$fib}<p>";
 
                     // -------------------------------------------------
@@ -81,12 +91,13 @@
 
                     function recur_fib($n) {
 
+                        // local scope variable
                         $i = [0, 1];
 
                         function inner(&$n, &$i) {
 
                             if ($n < 1) {
-                                return 'invalid value';
+                                return '<span class=\'danger\'>invalid value</span>';
 
                             } else if(count($i) - 1 == $n) {
                                 return end($i);
@@ -122,16 +133,21 @@
                     //  iterativ
 
                     function power_compute_i($a, $b) {
-
+                        
+                        //check if power is 0 
                         $aa = $b  ? $a : 1;
+
+                        //check if power is negative
+                        [$b, $negative] = $b < 0 ? [abs($b), true] : [$b, false];
+                        
 
                         for ($i=1; $i < $b; $i++) {
                             $aa = $aa * $a;
                         }
-                        return $aa;
+                        return $negative ? 1 / $aa : $aa;
                     }
 
-                    $fib = power_compute_i(2, 0);
+                    $fib = power_compute_i(2, -3);
                     echo "<p class='answer'>Iterativ power_compute function: {$fib}<p>";
                     
 
@@ -139,6 +155,11 @@
                     //  recursive
 
                     function power_compute_r($a, $b) {
+
+                        if ($b < 0) {
+                            $negative = true;
+                            $b = abs($b);
+                        }
 
                         $aa = $b  ? $a : 1; 
 
@@ -157,11 +178,13 @@
                             }
                         } 
 
-                        return inner_r($a, $b, $aa);
+                        $inner_value =  inner_r($a, $b, $aa);
+
+                        return isset($negative) ? 1 / $inner_value : $inner_value;
                         
                         // -------------------------------------------------
                     }
-                    $fib = power_compute_r(3, 7);
+                    $fib = power_compute_r(3, -5);
                     echo "<p class='answer'>Recursive power_compute function: {$fib}<p>";
                     
                 ?> 
