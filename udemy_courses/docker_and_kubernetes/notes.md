@@ -190,3 +190,45 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 
         ### test pulled images:
             $ sudo docker run -p 8000:3000 --rm foxcodenine/node-hello-world
+
+------------------------------------------------------------------------
+
+## Volumn Mount
+
+### Anonymous Volumes
+
+    In the Dockerfile add the volumn as:
+
+    VOLUMN   ["/app/feedback"]
+
+### Named Volumes
+
+    Named volumn are created when you run a container
+    (so you can remove VOLUMN form DockerfilE)
+
+    $ sudo Docker run -v <name_volumn:/path/directory> <image_name>
+
+    example:
+    sudo docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback feedback-node:volumns
+
+### lists volumes
+
+    $ sudo docker volume ls
+
+### remove a volume
+
+    $ sudo docker volume rm volumn_name
+
+### remove all volumes
+
+    $ sudo docker volume prune
+
+------------------------------------------------------------------------
+
+## Bind Mounts
+
+    $ sudo Docker run -v <path_to_mounted_dir_or_file:/path/directory> <image_name>
+
+    example:
+
+    sudo docker run -d -p 3000:80 --rm --name feedback-app   -v /home/foxcodenine/Desktop/docker_and_kubernetes/section_3/a.data-volumes-01-starting-setup:/app feedback-node:volumns
