@@ -1,0 +1,1 @@
+sudo docker run -d -p 3000:80 --rm --name feedback-app  -v $(pwd):/app -v /app/node_modules feedback-node:volumns
