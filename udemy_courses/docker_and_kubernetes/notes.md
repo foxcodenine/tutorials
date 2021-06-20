@@ -229,6 +229,29 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 
     $ sudo Docker run -v <path_to_mounted_dir_or_file:/path/directory> <image_name>
 
+    or 
+
+    $ sudo Docker run -v $(pwd):</path/directory> <image_name>
+
     example:
 
-    sudo docker run -d -p 3000:80 --rm --name feedback-app   -v /home/foxcodenine/Desktop/docker_and_kubernetes/section_3/a.data-volumes-01-starting-setup:/app feedback-node:volumns
+    $ sudo docker run -d -p 3000:80 --rm --name feedback-app   -v "/home/foxcodenine/Desktop/docker_and_kubernetes/section_3/a.data-volumes-01-starting-setup:/app" feedback-node:volumns
+
+
+    $ sudo docker run -d -p 3000:80 --rm --name feedback-app  -v $(pwd):/app feedback-node:volumns
+
+### Adding an Anonymous Volume with Bind Mounts
+
+    Since we don't have a node_modules folder on our local folder 
+    this will be delete from our container. In this case we need to 
+    mount it to an Anonymous Volume
+
+    $ sudo docker run -d -p 3000:80 --rm --name feedback-app  -v $(pwd):/app -v /app/node_modules feedback-node:volumns
+
+
+### Check logs
+    $ sudo docker logs {container_name}
+
+    ex:
+    
+    $ sudo docker logs feedback-app
