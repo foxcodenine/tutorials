@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  outline: none; }
+
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth; }
+
+body {
+  font-size: 1.6rem;
+  box-sizing: border-box;
+  font-family: 'Open Sans', Verdana, Geneva, Tahoma, sans-serif; }
+
+.container {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 4rem 2rem; }
+
+.calc {
+  border: 0.1rem solid #192636;
+  border-radius: .2rem;
+  padding: 2rem 2rem;
+  background-color: lightgreen;
+  width: 50rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center; }
+  .calc__title {
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #192636;
+    margin-bottom: 1.5rem;
+    text-align: center; }
+  .calc__row {
+    width: 100%;
+    border: none;
+    margin-bottom: 1rem;
+    background-color: white;
+    height: 3.2rem;
+    border: 0.1rem solid #192636;
+    border-radius: .2rem; }
+    .calc__row--3 {
+      background-color: transparent;
+      border: none;
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between; }
+    .calc__row--4 {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 1rem; }
+    .calc__row input {
+      width: 100%;
+      height: 100%;
+      border: none;
+      padding-left: 1rem; }
+    .calc__row select {
+      width: 80%;
+      height: 100%;
+      background-color: white;
+      border: 0.1rem solid #192636;
+      border-radius: .2rem;
+      margin-right: .5rem;
+      padding-left: .7rem; }
+  .calc__btn {
+    cursor: pointer;
+    width: 17%;
+    height: 100%;
+    background-color: white;
+    border: 0.1rem solid #192636;
+    border-radius: .2rem;
+    transition: .1s ease;
+    transition: all 0.1s ease-in-out; }
+    .calc__btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0.3rem 0.6rem rgba(25, 38, 54, 0.4); }
+    .calc__btn:active {
+      transform: translateY(-2px);
+      box-shadow: 0 0.2rem 0.3rem rgba(25, 38, 54, 0.3); }
+    .calc__btn:focus {
+      border-radius: none;
+      outline: none; }
