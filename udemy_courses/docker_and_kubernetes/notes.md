@@ -255,3 +255,18 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
     ex:
     
     $ sudo docker logs feedback-app
+
+<!-- --------------------------------------------------------------- -->
+
+    $ sudo docker run -d -p 3000:80 --rm --name feedback-app -v feedback:/app/feedback  -v $(pwd):/app -v /app/node_modules feedback-node:volumns
+
+    in the above code we are:
+
+    1. createing a docker container on              'feedback-node:volumns' image
+    2. run it in detached mode                      '-d'
+    3. run it on port 3000                          '-p 3000:80'
+    4. set to auto delete container after running   '--rm'
+    5. naming the container                         'feedback-app'
+    6. setup an named volume                        '-v feedback:/app/feedback'
+    7. binding work dir to a container's dir        '-v $(pwd):/app'
+    8. setup an anonymous volume                    '-v /app/node_modules'
