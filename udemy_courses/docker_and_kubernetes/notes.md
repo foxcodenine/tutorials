@@ -163,7 +163,7 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 ### build a container with image rep and tag
     $ sudo docker run -it --name python_app python_app:1
     $ sudo docker run python_app:1
-    $ sudo docker run [repositorye]:[tag]
+    $ sudo docker run [repository]:[tag]
 
 ------------------------------------------------------------------------
 
