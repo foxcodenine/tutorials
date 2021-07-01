@@ -1,31 +1,29 @@
 <?php
-session_start(); // Tell PHP that we want to use the session
+session_start(); // ------ Tell PHP that we want to use the session
 
+// _____________________________________________________________________
 
-
+// ------ Init Array $studentList  or repopulated from SESSION
 if (isset($_SESSION['studentList'])) {
     $studentList = $_SESSION['studentList'];
 } else {
     $studentList = array();
 }
 
-
-// $studentList = array(); // empty array
 $action = null;
+$sortBy = null;
 
-// Get the action we received, if any
+// ------ If $_GET['action'] isset or changed update $action
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
-
 }
 
-// Get the sorting method, if any
-$sortBy = null;
+// ------ If $_GET['sortBy'] isset or changed update $sortBy 
 if (isset($_SESSION['sortBy'])) {
     $sortBy = $_SESSION['sortBy'];
 }
 
-// Call a function depending on the value of $action
+// ------ Call a function depending on the value of $action
 switch($action) {
     case "add": addStudent();       break;
     case "delete": deleteStudent(); break;
@@ -33,6 +31,8 @@ switch($action) {
 }
 
 // _____________________________________________________________________
+
+// ------ Action functions
 
 function addStudent() {
     global $studentList;
@@ -46,6 +46,7 @@ function addStudent() {
     $_SESSION['studentList'] = $studentList;
 }
 
+// ___________________________
 
 function deleteStudent() {
     global $studentList;
@@ -56,6 +57,7 @@ function deleteStudent() {
     $_SESSION['studentList'] = $studentList;
 }
 
+// ___________________________
 
 function sortStudents() {
     global $studentList, $sortBy;
@@ -97,6 +99,9 @@ function sortStudents() {
     $_SESSION['studentList'] = $studentList; 
 }
 
+// _____________________________________________________________________
+
+// ------ Helper functions
 
 function studCompare($a, $b) {
     global $sortBy;
@@ -123,36 +128,63 @@ function studCompare($a, $b) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" 
     href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
     crossorigin="anonymous"/>
+    
     <title>Student Management System</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap');
+        body {font-family: 'Lato', sans-serif; padding:10px}
+        fieldset{border: none; padding: 0; margin: 0;}
+        input {margin-bottom: 10px;}
+        td {padding: 3px;}
+        a {text-decoration: none;}
+        a:visited {color: blue;}
+        .fa-caret-up {color: green;}
+        .fa-caret-down {color: crimson;}        
+    </style>
+    
 </head>
-<body style="font-family: Arial, Helvetica, sans-serif; padding:10px">
+<body >
     <h1>Student List</h1>
     <table border="1">
         <thead>
             <tr>
             <?php 
-
-                $dataColumes = ['id'=>'ID', 'name'=>'Name', 'surname'=>'Surname', 'grade'=>'Grade'];
+                // ------ Looping table headers-------------------------
+                $dataColumes = [
+                    'id'=>'ID', 'name'=>'Name', 
+                    'surname'=>'Surname', 'grade'=>'Grade'
+                ];
 
                 foreach($dataColumes as $k => $v) {
+
                     echo "<th><a href='index.php?action=sort&sortBy={$k}'>";
+
                     if(isset($_SESSION['sortAscending']) && $_SESSION['sortBy'] === $k) {
-                        echo $_SESSION['sortAscending'] ? "{$v}<i class='fas fa-caret-up'></i>" : "{$v}<i class='fas fa-caret-down'></i>";
+                            // --- echo th name with arrow
+                            echo $_SESSION['sortAscending'] ? 
+                                 "{$v}<i class='fas fa-caret-up'></i>" : 
+                                 "{$v}<i class='fas fa-caret-down'></i>"; // --- arrow up or down
                     } else {
-                        echo "{$v}";
-                    }                    
+                            // --- just echo th name
+                            echo "{$v}";
+                    }                                                                
                     echo"</a></th>";
                 }
+                // -----------------------------------------------------
             ?>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
+        
             <?php
+            // ------ Looping table rows -------------------------------
             
             foreach($studentList as $id => $stud) {
                 echo "<tr>";
@@ -163,7 +195,8 @@ function studCompare($a, $b) {
                 echo "<td><a href='index.php?action=delete&studId={$id}'>Delete</a></td>";
                 echo "<tr>";
             }
-            
+
+            // ---------------------------------------------------------            
             ?>
             
         </tbody>
@@ -172,19 +205,19 @@ function studCompare($a, $b) {
     <h1>Add Student</h1>
     <form action="index.php?action=add" method="POST" name="addStudent">
 
-        <!-- <fieldset> -->
+        <fieldset>
             <!-- <label for="name">Name</label> -->
-            <input type="text" name="name" placeholder="Enter name" style="margin-bottom: 10px;"><br>
+            <input type="text" name="name" placeholder="Enter name"><br>
 
             <!-- <label for="surname">Surname</label> -->
-            <input type="text" name="surname" placeholder="Enter surname" style="margin-bottom: 10px;"><br>
+            <input type="text" name="surname" placeholder="Enter surname" ><br>
             
             <!-- <label for="grade">Grade</label> -->
-            <input type="text" name="grade" placeholder="Enter grade" style="margin-bottom: 10px;"><br>
+            <input type="text" name="grade" placeholder="Enter grade" ><br>
 
             <input type="submit" value="Add" name="submitAdd">
 
-        <!-- </fieldset> -->
+        </fieldset>
     </form>
 </body>
 </html>
