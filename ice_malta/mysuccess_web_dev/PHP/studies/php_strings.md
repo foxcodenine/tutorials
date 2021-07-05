@@ -87,7 +87,7 @@ The join() function is an alias of the implode() function.
 ************************************************************************
 
 ### nl2br() Function
-The nl2br() function inserts HTML line breaks (<br> or <br />) 
+The nl2br() function inserts HTML line breaks (< br> or < br />) 
 in front of each newline (\n) in a string.
 >nl2br(string, *xhtml*)
 ************************************************************************
