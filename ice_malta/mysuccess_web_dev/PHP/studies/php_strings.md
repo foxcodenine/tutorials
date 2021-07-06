@@ -24,14 +24,34 @@ predefined characters.
 >addslashes(string)
 ************************************************************************
 
-### echo() Function
+### chunk_split() Function
 >echo(strings)
 >echo string1, *string2*, *string++*
+************************************************************************
+
+### echo() Function
+The chunk_split() function splits a string into a series of smaller parts.
+Note: This function does not alter the original string.
+>chunk_split(string, *length*, *end*)
 ************************************************************************
 
 ### explode() Function
 The explode() function breaks a string into an array.    
 >explode(separator, string, *limit*)
+************************************************************************
+
+### fprintf() Function
+The fprintf() function writes a formatted string to a specified output 
+stream (example: file or database).
+
+    Write some text to a text file named "test.txt":
+
+    <?php
+    $number = 9;
+    $str = "Beijing";
+    $file = fopen("test.txt","w");
+    echo fprintf($file,"There are %u million bicycles in %s.",$number,$str);
+    ?>
 ************************************************************************
 
 ### html_entity_decode() Function
@@ -87,9 +107,24 @@ The join() function is an alias of the implode() function.
 ************************************************************************
 
 ### nl2br() Function
-The nl2br() function inserts HTML line breaks (< br> or < br />) 
+The nl2br() function inserts HTML line breaks (<br> or <br />) 
 in front of each newline (\n) in a string.
 >nl2br(string, *xhtml*)
+************************************************************************
+
+### number_format() Function
+The number_format() function formats a number with grouped thousands.
+Note: This function supports one, two, or four parameters (not three).
+>number_format(number, *decimals*, *decimalpoint*, *separator*)
+
+    echo number_format("1000000")."<br>";
+    echo number_format("1000000",2)."<br>";
+    echo number_format("1000000",2,",",".");
+
+    1,000,000
+    1,000,000.00
+    1.000.000,00
+    
 ************************************************************************
 
 ### parse_str() Function
