@@ -29,6 +29,8 @@ you use it.
 * 
 * Classes can implement an interface while inheriting from another class at the
 * same time
+*
+* A class can implement multy interfaces but extends only one abs class 
 
 */
 
