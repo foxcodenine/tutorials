@@ -1,5 +1,7 @@
 <?php
 
+// <!------------------------------------------------------------------>
+
 function delete_employee($id) {
     global $conn;
     $sql = 'DELETE FROM employee WHERE id = :id';
@@ -8,18 +10,7 @@ function delete_employee($id) {
     $stat->execute();
   }
 
-function return_employee($id): object {
-    global $conn;
-    $sql = 'SELECT * FROM employee WHERE id = :id';
-    $stat = $conn->prepare($sql);
-
-    $stat->bindParam(':id', $id);
-
-    $stat->execute();
-    $result = $stat->fetch(PDO::FETCH_OBJ);
-
-    return $result;
-}
+// <!------------------------------------------------------------------>
 
 function fetch_employees($select=0): array {
   global $conn;
@@ -40,7 +31,10 @@ function fetch_employees($select=0): array {
 }
 
 
-function employee_is_partimer($id) {
+// <!------------------------------------------------------------------>
+
+
+function is_partimer($id) {
   global $conn;
 
   $sql = 'SELECT * FROM employee WHERE id =' . $id;
@@ -52,4 +46,4 @@ function employee_is_partimer($id) {
     return $employee->part_time;
 }
 
-
+// <!------------------------------------------------------------------>

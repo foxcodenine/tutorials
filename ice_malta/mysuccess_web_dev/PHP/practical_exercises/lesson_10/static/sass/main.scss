@@ -132,3 +132,54 @@ body {
   .btn-secondary {
     margin-top: 1rem;
   }
+  $col-payslip: #6c757d;
+.payslip {
+  // border: $col-payslip 1px solid;
+  border-bottom: none;
+  color: $col-payslip;
+  font-size: 1.4rem;
+  
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+
+  &__left, &__right {
+    border-bottom: $col-payslip 1px solid;
+    color: $col-payslip;
+    padding: .5rem 1rem;
+  }
+
+  &__left {
+    font-weight: 600;
+    text-transform: uppercase;
+    border-left: $col-payslip 1px solid;
+    
+  }
+  &__right {
+    border-right: $col-payslip 1px solid;
+    // border-top: $col-payslip 1px solid;
+    margin: none;
+  }
+
+  &__left--bottom, &__left--top,
+  &__right--bottom, &__right--top {
+    background-color: $col-payslip;
+    width: 100%;
+    height: 1.2rem;
+  }
+
+
+  &__left--top {
+    border-top-left-radius: .8rem;
+  }
+
+  &__right--top {
+    border-top-right-radius: .8rem;
+  }
+  &__right--bottom {
+    border-bottom-right-radius: .8rem;
+  }
+  &__left--bottom {
+    border-bottom-left-radius: .8rem;
+  }
+}
