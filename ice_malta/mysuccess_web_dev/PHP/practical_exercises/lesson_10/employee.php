@@ -1,139 +1,147 @@
-<?php
-// _____________________________________________________________________
+<?php require_once './database.php'; 
 
-interface EmployeeInterface {
-    function calculateMonthlySalary(int $hrs);
-    function calculatePayslip();
-}
+// <!------- Main ----------------------------------------------------->
 
-// _____________________________________________________________________
+if (isset($_POST['add_employee']) || isset($_POST['update_employee'])) {    
 
-trait GetWorkingHoursTrait {
-
-    static function monthly($m,$y) {
-        $lastday = date("t",mktime(0,0,0,$m,1,$y));
-        $weekdays=0;
-        for($d=29;$d<=$lastday;$d++) {
-            $wd = date("w",mktime(0,0,0,$m,$d,$y));
-            if($wd > 0 && $wd < 6) $weekdays++;
-            }
-        return ($weekdays+20) * 8;
-    }    
-    
-    static function yearly($year) {
-      $total = 0;
-      $months = range(1,12);
-      foreach($months as $m) {
-        $total += self::monthly($m,$year);
-      }
-      return $total;
-    }
-}
-// _____________________________________________________________________
-
-abstract class Employee implements EmployeeInterface {
-    
-    protected $firstname;
-    protected $lastname;
-    protected $jobTitle;
-    protected $hourlyRate;
-
-    const CURRENCY = '₳';
-
-    public function __construct($first, $last, $jobTitle, $hourlyRate)
-    {   
-        $this->setFirstname($first);
-        $this->setLastname($last);
-        $this->setJobTitle($jobTitle);
-        $this->setHourlyRate($hourlyRate);
-        
-    }
-    
-    public function setFirstname($firstname) {
-        $this->firstname = $firstname;
-    }
-    public function getFirstname() {
-        return $this->firstname;
-    }
-
-    public function setLastname($lastname) {
-        $this->lastname = $lastname;
-    }
-    public function getLastname() {
-        return $this->lastname;
-    }
-
-    public function setJobTitle($jobTitle) {
-        $this->jobTitle = $jobTitle;
-    }
-    public function getJobTitle() {
-        return $this->jobTitle;
-    }
-
-    public function setHourlyRate($hourlyRate) {
-        $this->hourlyRate = $hourlyRate;
-    }
-    public function getHourlyRate() {
-        return $this->hourlyRate;
-    }
-}
-// _____________________________________________________________________
+    $fildsEmpty = empty(trim($_POST['firstname'])) && 
+                  empty(trim($_POST['lastname']))  && 
+                  empty(trim($_POST['job_title'])) && 
+                  empty(trim($_POST['hourly_rate']));
 
 
-class FullTimer extends Employee {
-    
-    private $anualSalary;
-    private $overtimeAllowed;
-    private $vacationLeaveTake = 0;
+    if(!$fildsEmpty) {
 
-    private $monthlyGross;
-    private $monthlyTax;
-    private $monthlyNi;
-    private $monthlyNet;
-
-    use GetWorkingHoursTrait;
+        $firstname   = $_POST['firstname'];
+        $lastname    = $_POST['lastname'];
+        $job_title   = $_POST['job_title'];
+        $hourly_rate = $_POST['hourly_rate'];
+        $part_time   = (bool) isset($_POST['part_time']) ? '1' : '0';
+        $overtime_allowed = (bool) isset($_POST['overtime_allowed']) && (bool) !$part_time ? '1' : '0';
 
 
-    public function __construct($first, $last, $jobTitle, $hourlyRate, $overtimeAllowed) {   
+$sql = 'INSERT INTO employee(
+                firstname, lastname, job_title, hourly_rate, part_time, overtime_allowed
+            )VALUES(
+                :firstname, :lastname, :job_title, :hourly_rate, :part_time, :overtime_allowed
+            );';
 
-        parent::__construct($first, $last, $jobTitle, $hourlyRate);
-
-        $this->salary = self::yearly(date('Y'));
-        $this->overtimeAllowed = $overtimeAllowed;
-        
-    }
-
-    function calculateMonthlySalary(int $hrs) {
-
-        $monthyHrs = self::monthly(date('m'),date('Y'));
-        $this->monthlyGross = $monthyHrs * $this->hourlyRate;
-        $this->monthlyNi    = $this->monthlyGross * 0.1;
-        $this->monthlyTax   = $this->monthlyGross * 0.15;
-
-        if ($hrs < $monthyHrs) {
-
-            $this->vacationLeaveTake = $monthyHrs - $hrs;
-        } else {
-
-            $overtimeHours = $hrs - $monthyHrs;
-            $this->monthlyTax   += $overtimeHours * $this->hourlyRate * 1.5 * 0.15;
-            $this->monthlyGross += $overtimeHours * $this->hourlyRate * 1.5;            
+        if (isset($_POST['update_employee'])) {
+            
+            $e_id = $_POST['e_id'];
+            $sql = 'UPDATE employee set
+                        firstname=:firstname,
+                        lastname=:lastname,
+                        job_title=:job_title,
+                        hourly_rate=:hourly_rate,
+                        part_time=:part_time,
+                        overtime_allowed=:overtime_allowed
+                    WHERE id = :id';
         }
-        $this->monthlyNet = $this->monthlyGross - $this->monthlyNi - $this->monthlyTax;
-    }
-    function calculatePayslip(){
-        $payslip =  [
-            'Gross'=>$this->monthlyGross, 'Tax'=>$this->monthlyTax, 'Ni'=>$this->monthlyNi, 'Net'=>$this->monthlyNet
-        ];
 
-        // print_r($payslip);
-        return $payslip;
+        $stat = $conn->prepare($sql);
+        if (isset($e_id)) { $stat->bindParam(':id', $e_id);}
+        $stat->bindParam(':firstname', $firstname);
+        $stat->bindParam(':lastname', $lastname);
+        $stat->bindParam(':job_title', $job_title);
+        $stat->bindParam(':hourly_rate', $hourly_rate);
+        $stat->bindParam(':part_time', $part_time);
+        $stat->bindParam(':overtime_allowed', $overtime_allowed);
+        $stat->execute();
+
+        unset($_POST['firstname']);
+        unset($_POST['add_employee']);
+        header("location: {$_SERVER['PHP_SELF']}");
+
     }
-    
-}
-class  PartTimer extends Employee {
-    function calculateMonthlySalary(int $hrs) {}
-    function calculatePayslip(){}
+} 
+?>
+
+<?php 
+
+// <!------- Delete_Employee ------------------------------------------>
+
+if(isset($_POST['delete_employee'])) {
+    echo 'delete employee' . ' id: ' . $_POST['e_id'];
+
+    delete_employee($_POST['e_id']);
+    unset($_POST['e_id']);
+    header("location: {$_SERVER['PHP_SELF']}");
 }
 
-// _____________________________________________________________________
+// <!------- Set_Edit_Employee ---------------------------------------->
+
+// ----- Edit
+$edit =  isset($_POST['edit_employee']) ? true : false;
+
+if ($edit) {
+    $emp = FetchEmployeeTrait::fetchEmployee($_POST['e_id']);
+} 
+
+// <!------- Cancel_Edit_Employee ------------------------------------->
+
+
+if (isset($_POST['cancel_employee'])) {
+    unset($_POST['edit_employee']);
+}
+
+?>
+
+<!---------- Employee_Fields_Markup ----------------------------------->
+
+<section>
+    <div class="container containerAA ">
+        <div class="contact">
+            <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="POST">
+
+            <?php if($edit): ?> <!------ Edit Employee Fields --------->
+
+                    <div class="row">
+                        <input type="hidden" class="form-control" name="e_id"   value="<?= $emp->id;?>"/>
+                        <div class="col-md-3"> <input type="text" class="form-control" name="firstname"   value="<?= $emp->firstname;?>" /> </div>
+                        <div class="col-md-3"> <input type="text" class="form-control" name="lastname"    value="<?= $emp->lastname;?>"  /> </div>
+                        <div class="col-md-3"> <input type="text" class="form-control" name="job_title"   value="<?= $emp->job_title;?>" /> </div>
+                        <div class="col-md-3"> <input type="text" class="form-control" name="hourly_rate" value="<?= $emp->hourly_rate;?>" /> </div>
+                    </div>
+            
+                    <div class="form-check">
+
+                        <input class="form-check-input" type="checkbox" 
+                            name="part_time" id="defaultCheck1" <?php  if($emp->part_time) echo'checked'; ?> >
+                        <label class="form-check-label" for="defaultCheck1" >part-time basis</label>
+
+                        <input class="form-check-input" type="checkbox" 
+                            name="overtime_allowed"  id="defaultCheck2"<?php  if($emp->overtime_allowed) echo'checked'; ?> >
+                        <label class="form-check-label" for="defaultCheck1">overtime allowed (only full timers)</label>
+
+                    </div>
+                     <button class="btn btn-success btn-success-1 mt-2 px-5 " type="submit" name="update_employee">Update</button> 
+                     <button class="btn btn-info btn-info-1 mt-2 px-5 " type="submit" name="cancel_employee">Cancel</button> 
+
+            <?php else: ?> <!----------- Add Employee Fields ---------->
+
+                    <div class="row">
+                        <div class="col-md-3"> <input type="text" class="form-control" name="firstname"  placeholder="firstname" /> </div>
+                        <div class="col-md-3"> <input type="text" class="form-control" name="lastname"   placeholder="lastname" /> </div>
+                        <div class="col-md-3"> <input type="text" class="form-control" name="job_title"   placeholder="job title" /> </div>
+                        <div class="col-md-3"> <input type="text" class="form-control" name="hourly_rate" placeholder="hourly rate (₳) " /> </div>
+                    </div>
+            
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="part_time" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1" >part-time basis</label>
+                        <input class="form-check-input" type="checkbox" name="overtime_allowed"  id="defaultCheck2">
+                        <label class="form-check-label" for="defaultCheck1">overtime allowed (only full timers)</label>
+                    </div>
+                    <button class="btn btn-success btn-success-1 mt-2 px-5 " type="submit" name="add_employee">Add Employee</button>
+
+            <?php endif ?> <!----------- End_If ----------------------->
+
+            
+            </form>
+        </div>    
+    </div>
+    <table class="table table-sm table-dark"><thead><caption>Add / Update Employee</caption></thead></table>
+</section>
+
+<!-- --------------------------------------------------------------- -->

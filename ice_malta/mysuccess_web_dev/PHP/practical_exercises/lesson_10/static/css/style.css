@@ -89,3 +89,33 @@ body {
 
 .btn-secondary {
   margin-top: 1rem; }
+
+.payslip {
+  border-bottom: none;
+  color: #6c757d;
+  font-size: 1.4rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); }
+  .payslip__left, .payslip__right {
+    border-bottom: #6c757d 1px solid;
+    color: #6c757d;
+    padding: .5rem 1rem; }
+  .payslip__left {
+    font-weight: 600;
+    text-transform: uppercase;
+    border-left: #6c757d 1px solid; }
+  .payslip__right {
+    border-right: #6c757d 1px solid;
+    margin: none; }
+  .payslip__left--bottom, .payslip__left--top, .payslip__right--bottom, .payslip__right--top {
+    background-color: #6c757d;
+    width: 100%;
+    height: 1.2rem; }
+  .payslip__left--top {
+    border-top-left-radius: .8rem; }
+  .payslip__right--top {
+    border-top-right-radius: .8rem; }
+  .payslip__right--bottom {
+    border-bottom-right-radius: .8rem; }
+  .payslip__left--bottom {
+    border-bottom-left-radius: .8rem; }
