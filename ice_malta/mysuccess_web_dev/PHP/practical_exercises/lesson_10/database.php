@@ -1,5 +1,7 @@
 <?php
 
+// <!------- Load_Vendor_and_Set_Enviormental_Variables --------------->
+
 // composer require vlucas/phpdotenv
 
 require './vendor/autoload.php';
@@ -8,14 +10,14 @@ use Dotenv\Dotenv;
 $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
 
-// _____________________________________________________________________
+// <!------- Database_Variables --------------------------------------->
+
 $servername = $_ENV['servername'];
 $username   = $_ENV['username'];
 $password   = $_ENV['password'];
 
-// _____________________________________________________________________
+// <!------- Database_Connection -------------------------------------->
 
-// connection;
 try {
     $conn = new PDO($servername, $username, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -25,14 +27,12 @@ try {
     echo "Connection failed: " . $e->getMessage();
 }
 
-// _____________________________________________________________________
+// <!------- Don't_Import_Code ---------------------------------------->
 
 if (!debug_backtrace()) {
     
 
-    // _________________________________________________________________
-
-    // create table employee; 
+    // <!------- Create_Table_Employee -------------------------------->
 
     $sql = 'CREATE TABLE IF NOT EXISTS employee (
         id INT PRIMARY KEY AUTO_INCREMENT,
@@ -50,10 +50,8 @@ if (!debug_backtrace()) {
         echo 'Error Create Table Employee:' . '<br>' . $e->getMessage();
     }
 
-    // _________________________________________________________________
+    // <!------- Check ------------------------------------------------>
 
     print_r(".....so Far so good!.\n");
 
 }
-// _____________________________________________________________________
-?>

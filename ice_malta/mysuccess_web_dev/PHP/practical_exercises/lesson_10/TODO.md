@@ -1,7 +1,8 @@
-### Hosting on line
+##### to hosting online:
 
-change addresses from `/practical_exercises/` to `/ice_malta/php/`
+1. Change addresses from `/practical_exercises/` to `/ice_malta/php/`
 
-create databes `ice_php_lesson_10`
+2. Create databes `ice_php_lesson_10` & setup
 
-update `env variables`
+3. Update `.env variables`
+
