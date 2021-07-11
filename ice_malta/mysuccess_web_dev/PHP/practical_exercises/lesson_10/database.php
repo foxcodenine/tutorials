@@ -15,11 +15,14 @@ $dotenv->safeLoad();
 $servername = $_ENV['servername'];
 $username   = $_ENV['username'];
 $password   = $_ENV['password'];
+$database   = $_ENV['database'];
 
 // <!------- Database_Connection -------------------------------------->
 
 try {
     $conn = new PDO($servername, $username, $password);
+    $sss = $conn->prepare("use {$database}");
+    $sss->execute();
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
