@@ -73,4 +73,48 @@ interface Cat extends Mammal, Carnivore {
     public function hissing();
 }
 
+
+
+Class  CatPet implements Cat {
+    
+    public function breathe() {
+        echo 'breathe!<br>';
+    }
+
+    public function consume() {
+        echo 'consume<br>';
+    }
+
+    public function move() {
+        echo 'move<br>';
+    }
+
+    public function haveHairOrFur() {
+        echo 'fur<br>';
+    }
+
+    public function eatMeat() {
+        echo 'eatMeat<br>';
+    }
+
+    public function meowing() {
+        echo 'meowing<br>';
+    }
+
+    public function purring() {
+        echo 'purring<br>';
+    }
+
+    public function hissing() {
+        echo 'hissing<br>';
+    }
+
+}
+
+$c = new CatPet();
+
+$c->move();
+$c->meowing();
+$c->breathe();
+$c->purring();
 // _____________________________________________________________________
