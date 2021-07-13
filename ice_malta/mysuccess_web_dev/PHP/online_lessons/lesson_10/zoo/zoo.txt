@@ -1,0 +1,65 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.0.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Jan 21, 2020 at 10:16 AM
+-- Server version: 5.7.26
+-- PHP Version: 7.3.8
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Database: `zoo`
+--
+CREATE DATABASE IF NOT EXISTS `zoo` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `zoo`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `animal`
+--
+
+DROP TABLE IF EXISTS `animal`;
+CREATE TABLE `animal` (
+  `id` int(11) NOT NULL,
+  `tClass` varchar(45) DEFAULT NULL,
+  `tOrder` varchar(45) DEFAULT NULL,
+  `tFamily` varchar(45) DEFAULT NULL,
+  `tGenus` varchar(45) DEFAULT NULL,
+  `tSpecies` varchar(45) DEFAULT NULL,
+  `commonName` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `animal`
+--
+
+INSERT INTO `animal` (`id`, `tClass`, `tOrder`, `tFamily`, `tGenus`, `tSpecies`, `commonName`) VALUES
+(1, 'Mammalia', 'Carnivora', 'Felidae', 'Felis', 'catus', 'Cat'),
+(2, 'Mammalia', 'Carnivora', 'Canidae', 'Canis', 'lupus', 'Dog'),
+(3, 'Mammalia', 'Monatremata', 'Ornithorhynchidae', 'Ornithorhynchus', 'anatinus', 'Platypus'),
+(4, 'Mammalia', 'Carnivora', 'Felidae', 'Panthera', 'perdus', 'Tiger'),
+(5, 'Mammalia', 'Primate', 'Hominidae', 'Homo', 'sapien', 'Human');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `animal`
+--
+ALTER TABLE `animal`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `animal`
+--
+ALTER TABLE `animal`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
