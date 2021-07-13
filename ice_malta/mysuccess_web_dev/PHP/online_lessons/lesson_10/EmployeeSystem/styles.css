@@ -1,0 +1,58 @@
+html {
+    font-family: 'Open Sans', sans-serif;
+}
+body {
+    margin-top: 0px;
+}
+h1 {
+    background-color: #c0c0c0;
+    display: block;
+    padding: 10px;
+}
+.boldLabel {
+    display: inline-block;
+    min-width: 100px;
+    text-align: right;
+    font-weight: bold;
+}
+.otCheck {
+    font-weight: normal;
+    margin-left: 104px;
+}
+.bar {
+    display: block;
+    background-color: #c0c0c0;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.wrapper {
+    width: 210mm;
+    margin-left: 0;
+}
+.info {
+    display: inline-block;
+    min-width: 100px;
+}
+
+table { 
+    width: 750px; 
+    border-collapse: collapse; 
+}
+
+/* Zebra striping */
+tr:nth-of-type(odd) { 
+	background: #eee; 
+	}
+
+th { 
+    background: #3498db; 
+    color: white; 
+    font-weight: bold; 
+}
+
+td, th { 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    text-align: left; 
+    font-size: 12px;
+}
