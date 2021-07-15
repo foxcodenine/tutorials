@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
+$col-black: rgb(0, 0, 0);
+$col-red: crimson;
+$col-blue: navy;
+$col-green: green;
+$col-gray: #404040;
+
+
+// ---------------------------------------------------------------------
+//
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding:0;
+    outline: none;   
+}
+
+html {
+    font-size: 62.5%;    
+    scroll-behavior: smooth;
+}
+
+body {
+    font-size: 1.6rem;
+    box-sizing: border-box;
+    font-family: 'Lato', Verdana, Geneva, Tahoma, sans-serif;
+    
+}
+
+//----------------------------------------------------------------------
+
+.container {
+
+    position: relative;
+    
+    width: 95vw;
+    min-width: 80rem;
+    max-width: 100rem;
+    padding: 2rem 2rem;    
+    margin: 0 auto;
+    
+
+    h2 {
+        padding-left: 2rem;
+        padding-bottom: .75rem;
+        color: $col-black;
+        margin-top: 5rem;
+        margin-bottom: 2rem;
+        font-size: 3rem;
+        border-bottom: 1px solid rgb(0,0,54);
+    }
+
+
+    h3 {
+        margin-bottom: 1.5rem;
+        text-decoration: underline;
+        color: $col-black;
+    }
+
+    .question {
+       margin-bottom: 1rem;
+       color: $col-blue;
+    }
+
+    .result {
+        color: $col-green; 
+        font-size: 1.5rem;
+        font-family: 'Fira Code',Verdana, Geneva, Tahoma, sans-serif; 
+        span.danger {
+            color: $col-red; 
+        }
+    }  
+    
+    section {
+        // border: 1px solid  $col-black;
+        padding: 2rem 2rem;
+        margin-bottom: 0rem;
+        // border-bottom: 1px solid rgb(0,0,54);
+        min-height: 100%;
+
+        display: flex;
+        justify-content: space-between;
+        background-size: cover;
+        background-position: center;
+        background-image: linear-gradient(to right, rgba(#fff, .2) , rgba(#fff, .1)), url("../../image/20190814.jpg");
+   
+        
+        
+    }
+
+    .left {
+        // border: 1px solid black;
+        width: 35%;
+        height: min-content;
+        background-color: rgba(#fff, .7);
+        border-radius: 1.5rem;
+        padding: 2rem 2rem;
+        display: flex;
+        flex-direction: column;
+        
+        // justify-content: center;
+        // align-items: stretch;
+        text-transform: capitalize;
+
+        box-shadow: -1px -1px 10px 1px rgba( #000000, .1);
+
+        &__title {
+            color: $col-gray;
+            color: #95a127;
+            line-height: 1;
+            font-size: 2.8rem;
+            // text-align: justify;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            font-family: 'Laila', sans-serif;
+            text-shadow: 1px 1px 2px rgba($col-gray, .7);
+        }
+
+        &__room {
+            margin-top: 2rem;
+        }
+
+        &__label {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: .4rem;
+            color: rgba($col-gray, .7);
+            
+        }
+        &__btn {
+            border: none;
+            background-color: #95a127 ;
+            width: 100%;
+            font-size: 2rem;
+            color: #fff;
+            padding: .8rem;
+            // text-transform: uppercase;
+            border-radius: .4rem;
+
+            transition: .2s ease;
+
+            &:hover {
+                transform: translateY(-3px);
+            }
+            &:focus {
+                transform: translateY(-1px);
+            }
+        }
+        &__input {
+            margin-bottom: 1.4rem;
+            width: 100%;
+            padding: .5rem;
+            border: #95a127 1px solid;
+            border-radius: .4rem;
+            background-color: transparent;
+            font-size: 1.6rem;
+            color: rgba($col-gray, .8);
+
+
+            &::-webkit-calendar-picker-indicator {
+                cursor: pointer;
+                opacity: .2;
+            }
+
+            &--adults, &--children, &--room {
+                margin: 0;
+                border-radius: 0;
+            } 
+
+
+            &--adults {
+                grid-column: 1 / span 2;
+                border-top-left-radius: .4rem;
+                border-top-right-radius: .4rem;
+                
+            }
+
+            &--children {
+                border-bottom-left-radius: .4rem;
+            }
+            &--room {
+                border-bottom-right-radius: .4rem;
+            }
+        }
+
+        &__room {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3px;
+            margin-bottom: 2rem;
+        }
+
+    }
+
+}
+
+
+
+
