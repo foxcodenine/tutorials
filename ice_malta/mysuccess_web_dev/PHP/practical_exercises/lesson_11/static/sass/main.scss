@@ -86,26 +86,33 @@ body {
         justify-content: space-between;
         background-size: cover;
         background-position: center;
-        background-image: linear-gradient(to right, rgba(#fff, .2) , rgba(#fff, .1)), url("../../image/20190814.jpg");
-   
-        
+        background-image: linear-gradient(to right, rgba(#fff, .2) , rgba(#fff, .1)), url("../../static/image/20190814.jpg");
+        outline: white 5px solid;
+        outline-offset: -1px;
         
     }
 
+    .right {
+        width: 60%;
+        background-color: rgba(#fff, .7);
+        border-radius: 1.5rem;
+        padding: 2rem 2rem;
+        display: flex;
+        flex-direction: column;
+        box-shadow: -1px -1px 10px 1px rgba( #000000, .1);
+    }
+
     .left {
-        // border: 1px solid black;
         width: 35%;
         height: min-content;
         background-color: rgba(#fff, .7);
         border-radius: 1.5rem;
         padding: 2rem 2rem;
         display: flex;
-        flex-direction: column;
-        
+        flex-direction: column;       
         // justify-content: center;
         // align-items: stretch;
         text-transform: capitalize;
-
         box-shadow: -1px -1px 10px 1px rgba( #000000, .1);
 
         &__title {
@@ -129,6 +136,8 @@ body {
             font-size: 1.2rem;
             margin-bottom: .4rem;
             color: rgba($col-gray, .7);
+            display: flex;
+            justify-content: space-between;
             
         }
         &__btn {
@@ -193,11 +202,46 @@ body {
             gap: 3px;
             margin-bottom: 2rem;
         }
-
     }
-
 }
 
+.invaled {
+    color: crimson;
+}
 
+// _____________________________________________________________________
+
+input[type="date"]::-webkit-datetime-edit, input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
+    color: transparent !important;
+    position: relative !important;
+    font-family: 'Lato', Verdana, Geneva, Tahoma, sans-serif !important;
+    font-size: 1.6rem !important;
+  }
+  
+  input[type="date"]::-webkit-datetime-edit-year-field{
+    position: absolute !important;
+    padding: 2px !important;
+    color:rgba(64, 64, 64, 0.7) !important;
+    left: 54px !important;
+
+  }
+  
+  input[type="date"]::-webkit-datetime-edit-month-field{
+    position: absolute !important;
+    padding: 2px !important;
+    color:rgba(64, 64, 64, 0.7) !important;
+    left: 31px !important;
+  }
+  
+  
+  input[type="date"]::-webkit-datetime-edit-day-field{
+    position: absolute !important;
+    color:rgba(64, 64, 64, 0.7) !important;
+    padding: 2px !important;
+    left: 8px !important;
+
+  }
+
+// _____________________________________________________________________
 
 

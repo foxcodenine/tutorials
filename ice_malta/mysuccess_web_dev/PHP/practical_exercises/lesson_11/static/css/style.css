@@ -54,7 +54,20 @@ body {
     justify-content: space-between;
     background-size: cover;
     background-position: center;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1)), url("../../image/20190814.jpg"); }
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1)), url("../../static/image/20190814.jpg");
+    outline: white 5px solid;
+    outline-offset: -1px; }
+  .container .right {
+    height: min-content;
+    /* justify-self: center;
+    align-self: center; */
+    width: 60%;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 1.5rem;
+    padding: 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -1px -1px 10px 1px rgba(0, 0, 0, 0.1); }
   .container .left {
     width: 35%;
     height: min-content;
@@ -80,7 +93,9 @@ body {
       display: block;
       font-size: 1.2rem;
       margin-bottom: .4rem;
-      color: rgba(64, 64, 64, 0.7); }
+      color: rgba(64, 64, 64, 0.7);
+      display: flex;
+      justify-content: space-between; }
     .container .left__btn {
       border: none;
       background-color: #95a127;
@@ -122,3 +137,30 @@ body {
       grid-template-columns: repeat(2, 1fr);
       gap: 3px;
       margin-bottom: 2rem; }
+
+.invaled {
+  color: crimson; }
+
+input[type="date"]::-webkit-datetime-edit, input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
+  color: transparent !important;
+  position: relative !important;
+  font-family: 'Lato', Verdana, Geneva, Tahoma, sans-serif !important;
+  font-size: 1.6rem !important; }
+
+input[type="date"]::-webkit-datetime-edit-year-field {
+  position: absolute !important;
+  padding: 2px !important;
+  color: rgba(64, 64, 64, 0.7) !important;
+  left: 54px !important; }
+
+input[type="date"]::-webkit-datetime-edit-month-field {
+  position: absolute !important;
+  padding: 2px !important;
+  color: rgba(64, 64, 64, 0.7) !important;
+  left: 31px !important; }
+
+input[type="date"]::-webkit-datetime-edit-day-field {
+  position: absolute !important;
+  color: rgba(64, 64, 64, 0.7) !important;
+  padding: 2px !important;
+  left: 8px !important; }
