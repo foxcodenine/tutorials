@@ -8,7 +8,7 @@ document.onreadystatechange = function () {                    // <- (A)
         // Calling functions:
       
         toastrFunction()
-        pusherFunction();
+
 
         // -------------------------------------------------------------        
     }
@@ -23,37 +23,16 @@ function toastrFunction() {
     toastr.options.closeDuration = 500;
     toastr.options.closeEasing = 'swing';
 
-    let pusherMessage = sessionStorage.getItem('pusherMessage');
 
-    if (pusherMessage) {
+    let emailMessage = Cookies.get('icemalta_php_lesson_11_email');
+
+    if (emailMessage && emailMessage !== 'null') {
             
 
-            toastr.info(pusherMessage);
-            sessionStorage.removeItem('pusherMessage'); 
+        toastr.info(emailMessage);
+        Cookies.set('icemalta_php_lesson_11_email', 'null', { expires: 1 }); 
 
       
         
     } 
-}
-
-function pusherFunction() {   
-
-
-    const pusher = new Pusher(
-        pusherKey, {cluster: pusherCluster, encrypted: true}
-    );
-
-    document.getElementById('submitBtn').addEventListener('click', ()=>{
-
-    const channelNotify = pusher.subscribe('channelPhpLesson11Practical');
-    channelNotify.bind('emailSent', (notification)=>{
-
-           
-            message = notification.message;
-            sessionStorage.setItem('pusherMessage', message);
-
-            console.log('active');
-
-        });
-    })
 }

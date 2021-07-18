@@ -3,6 +3,7 @@ namespace src\Model;
 
 use PHPMailer\PHPMailer\PHPMailer;
 
+
 class Mailer {
 
 
@@ -15,12 +16,12 @@ class Mailer {
         $mail->Host       = "sxb1plzcpnl453528.prod.sxb1.secureserver.net";                     
         $mail->SMTPAuth   = true;                                   
         $mail->Username   = "no_reply@foxcodes.co";           
-        $mail->Password   = $_ENV['PUSHER_SECRET'];                              
+        $mail->Password   = $_ENV['EMAIL_PASSWORD'];                              
         $mail->SMTPSecure = 'ssl';         
         $mail->Port       = 465;                                    
 
         //Recipients
-        $mail->setFrom('no_reply@foxcodes.co', 'Chris Farrugia');
+        $mail->setFrom('no_reply@foxcodes.co', 'no_reply@foxcodes.co');
         $mail->addAddress($_POST['email'], 'Recipient Name'); 
 
         //Content

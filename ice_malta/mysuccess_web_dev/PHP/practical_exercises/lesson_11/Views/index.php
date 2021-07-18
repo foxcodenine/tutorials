@@ -44,7 +44,7 @@
         const pusherCluster = "<?php echo $_ENV['PUSHER_CLUSTER']?>";
     </script>
     <script src="./static/js/jquery.js"></script>
-    <script src="https://js.pusher.com/7.0.3/pusher.min.js"></script>
+    <script src="./static/js/js.cookie.min.js"></script>
     <script src="./static/js/toastr.min.js"></script>
     <script src="./static/js/script.js"></script>
 </body>
