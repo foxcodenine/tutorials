@@ -14,22 +14,24 @@ class Controller {
 
         self::retriveBackgroundColor();
         State::setDefaultDate();
-
-
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
+        
+        if($_SERVER['REQUEST_METHOD'] === 'POST' ) {
             
             self::validateFields();
             self::stickyFields();
             self::updateBackgroundColor();
         
             if (self::allFieldsValid()){     
-
-                self::pusherEventEmailSend ();
+                
+                self::setEmailMassage ();
                 $code = uniqid(); 
                 Mailer::send($code); 
                 self::saveCode($code);
                 State::clear();
-                State::setDefaultDate();               
+                State::setDefaultDate();   
+                
+                header("location: http://{$_SERVER['SERVER_NAME']}/ice_malta/php/lesson_11/index.php");
+                
             } 
         }
     }
@@ -135,25 +137,19 @@ class Controller {
 
     // _________________________________________________________________
 
-    public static function pusherEventEmailSend () {
+    public static function setEmailMassage () {
 
-        $options = array(
-            'cluster' => $_ENV['PUSHER_CLUSTER'],
-            'useTLS' => true
-        );
-        $pusher = new Pusher(
-            $_ENV['PUSHER_KEY'], $_ENV['PUSHER_SECRET'], 
-            $_ENV['PUSHER_APP_ID'], $options
-        );
 
         $email = State::$email;
-        $channel = 'channelPhpLesson11Practical';
-        $event = 'emailSent';
         
-        $data['message'] = "An Email has been sent at {$email}, please check your inbox or span folder!";
+        $message = "An Email has been sent at {$email}, please check your inbox or span folder!";
 
-        $pusher->trigger($channel, $event, $data);
-        
+        setcookie(
+            'icemalta_php_lesson_11_email',
+            "{$message}",
+            time() + 60, 
+            "/"
+        );
 
     }
     
