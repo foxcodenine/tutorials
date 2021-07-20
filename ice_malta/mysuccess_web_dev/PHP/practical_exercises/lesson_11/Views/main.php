@@ -2,6 +2,7 @@
 
 use src\Model\State;
 use src\Controller\Controller;
+use src\Model\Database;
 
 ?>
 
@@ -11,7 +12,7 @@ use src\Controller\Controller;
     <div class="left__title">discover the icelandic turf house</div>   
 
     <form action="index.php" class="left__form" method="POST">
-
+        
         <label for="firstname" class="left__label">firstname<span class="invaled"><?= State::$validateFirstname;?></span></label>
         
         <input type="text" class="left__input" name="firstname" value="<?= State::$firstname; ?>" >
@@ -23,10 +24,10 @@ use src\Controller\Controller;
         <input type="text" class="left__input" name="email"  value="<?= State::$email; ?>" >
 
         <label for="checkIn" class="left__label">check in<span class="invaled"><?= State::$validateCheckIn;?></span></label>
-        <input type="date" class="left__input" name="checkIn"  value="<?= State::$checkIn; ?>" >
+        <input type="text" class="left__input dateFormat" name="checkIn"  value="<?= State::$checkIn; ?>">
 
         <label for="checkOut"  class="left__label">check out<span class="invaled"><?= State::$validateCheckOut;?></span></label>
-        <input type="date" class="left__input" name="checkOut" value="<?= State::$checkOut; ?>">
+        <input type="text" class="left__input dateFormat" name="checkOut" value="<?= State::$checkOut; ?>">
 
         <div class="left__room">
         
@@ -87,9 +88,7 @@ use src\Controller\Controller;
             
         </div>
 
-        <label for="check_out" class="left__label">select color</label>
-        <!-- <input type="date" class="left__input" name="check_out" id="check_out"> -->
-        
+        <label for="check_out" class="left__label">select color</label>               
         <select name="bgColor" class="left__input" >
             <?php
                 foreach (State::COLORS as $k => $v) {
@@ -111,7 +110,23 @@ use src\Controller\Controller;
     
 
    <?php 
-        if($_GET['complete'] == Controller::retriveCode()) {
+        if($_GET['complete'] == Controller::retriveCode() && Controller::retriveCode()) {
+            $b = Database::fetchRecord(Controller::retriveCode()); //<- and udjust dates
+
+            $adults = $b->adults == 1 ? 'adult' : 'adults';
+            $children = $b->children == 1 ? 'child' : 'children';
+            $room = $b->rooms == 1 ? 'room' : 'rooms';
+
+            $markup = <<<END
+            Fullname: $b->firstname $b->lastname,  &nbsp; Email: $b->email <br><br>
+            Dates from: $b->checkIn &nbsp; to: $b->checkOut <br><br>
+            Booking: &nbsp;&nbsp;
+            $b->adults $adults &nbsp;|&nbsp; $b->children $children &nbsp;|&nbsp; $b->rooms $room
+            <br>
+            END;
+
+            echo $markup;
+
             echo $_ENV['MESSAGE1'];
         } else {
             echo $_ENV['MESSAGE2'];

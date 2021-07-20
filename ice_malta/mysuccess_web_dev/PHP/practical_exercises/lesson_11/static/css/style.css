@@ -58,9 +58,6 @@ body {
     outline: white 5px solid;
     outline-offset: -1px; }
   .container .right {
-    height: min-content;
-    /* justify-self: center;
-    align-self: center; */
     width: 60%;
     background-color: rgba(255, 255, 255, 0.7);
     border-radius: 1.5rem;
@@ -141,26 +138,6 @@ body {
 .invaled {
   color: crimson; }
 
-input[type="date"]::-webkit-datetime-edit, input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
-  color: transparent !important;
-  position: relative !important;
-  font-family: 'Lato', Verdana, Geneva, Tahoma, sans-serif !important;
-  font-size: 1.6rem !important; }
-
-input[type="date"]::-webkit-datetime-edit-year-field {
-  position: absolute !important;
-  padding: 2px !important;
-  color: rgba(64, 64, 64, 0.7) !important;
-  left: 54px !important; }
-
-input[type="date"]::-webkit-datetime-edit-month-field {
-  position: absolute !important;
-  padding: 2px !important;
-  color: rgba(64, 64, 64, 0.7) !important;
-  left: 31px !important; }
-
-input[type="date"]::-webkit-datetime-edit-day-field {
-  position: absolute !important;
-  color: rgba(64, 64, 64, 0.7) !important;
-  padding: 2px !important;
-  left: 8px !important; }
+hr.new1 {
+  border-left: 1px solid transparent;
+  border-top: 1px solid white; }

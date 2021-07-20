@@ -7,7 +7,9 @@ document.onreadystatechange = function () {                    // <- (A)
         // -------------------------------------------------------------
         // Calling functions:
       
-        toastrFunction()
+        toastrFunction();
+        formatDateInput();
+        // adjustDate();
 
 
         // -------------------------------------------------------------        
@@ -36,3 +38,19 @@ function toastrFunction() {
         
     } 
 }
+
+
+function formatDateInput() {
+
+    const datesInputs = document.querySelectorAll('.dateFormat');
+
+    datesInputs.forEach(dateInput => {
+        const datepicker = new Datepicker(dateInput, {
+            // format : 'dd-mm-yyyy'
+            format : 'dd/mm/yyyy'
+        });    
+    });
+}
+
+
+
