@@ -209,38 +209,43 @@ body {
     color: crimson;
 }
 
+hr.new1 {
+
+    border-left: 1px solid transparent ;
+    border-top: 1px solid white ;
+  }
 // _____________________________________________________________________
 
-input[type="date"]::-webkit-datetime-edit, input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
-    color: transparent !important;
-    position: relative !important;
-    font-family: 'Lato', Verdana, Geneva, Tahoma, sans-serif !important;
-    font-size: 1.6rem !important;
-  }
+// input[type="date"]::-webkit-datetime-edit, input[type="date"]::-webkit-inner-spin-button, input[type="date"]::-webkit-clear-button {
+//     color: transparent !important;
+//     position: relative !important;
+//     font-family: 'Lato', Verdana, Geneva, Tahoma, sans-serif !important;
+//     font-size: 1.6rem !important;
+//   }
   
-  input[type="date"]::-webkit-datetime-edit-year-field{
-    position: absolute !important;
-    padding: 2px !important;
-    color:rgba(64, 64, 64, 0.7) !important;
-    left: 54px !important;
+//   input[type="date"]::-webkit-datetime-edit-year-field{
+//     position: absolute !important;
+//     padding: 2px !important;
+//     color:rgba(64, 64, 64, 0.7) !important;
+//     left: 54px !important;
 
-  }
+//   }
   
-  input[type="date"]::-webkit-datetime-edit-month-field{
-    position: absolute !important;
-    padding: 2px !important;
-    color:rgba(64, 64, 64, 0.7) !important;
-    left: 31px !important;
-  }
+//   input[type="date"]::-webkit-datetime-edit-month-field{
+//     position: absolute !important;
+//     padding: 2px !important;
+//     color:rgba(64, 64, 64, 0.7) !important;
+//     left: 31px !important;
+//   }
   
   
-  input[type="date"]::-webkit-datetime-edit-day-field{
-    position: absolute !important;
-    color:rgba(64, 64, 64, 0.7) !important;
-    padding: 2px !important;
-    left: 8px !important;
+//   input[type="date"]::-webkit-datetime-edit-day-field{
+//     position: absolute !important;
+//     color:rgba(64, 64, 64, 0.7) !important;
+//     padding: 2px !important;
+//     left: 8px !important;
 
-  }
+//   }
 
 // _____________________________________________________________________
 

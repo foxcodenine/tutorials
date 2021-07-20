@@ -2,6 +2,7 @@
 namespace src\Controller;
 
 use Pusher\Pusher;
+use src\Model\Database;
 use src\Model\Mailer;
 use src\Model\State;
 
@@ -27,6 +28,7 @@ class Controller {
                 $code = uniqid(); 
                 Mailer::send($code); 
                 self::saveCode($code);
+                self::saveData($code);
                 State::clear();
                 State::setDefaultDate();   
                 
@@ -56,9 +58,21 @@ class Controller {
 
     // _________________________________________________________________
 
+    public static function dateArrange($string) {
+        preg_match('/(^\d\d)\/(\d\d)\/(\d\d\d\d$)/', $string, $a);
+        return "{$a[3]}-{$a[2]}-{$a[1]}";
+    }
+    // _________________________________________________________________
+
     public static function validateFields() {
 
- 
+
+        $checkIn = $_POST['checkIn'];
+        $checkOut = $_POST['checkOut'];
+
+        $checkIn = self::dateArrange($checkIn);
+        $checkOut = self::dateArrange($checkOut);
+        
         if(isset($_POST['submitBtn']) && ($_POST['submitBtn']) === 'submitted') {
             
             State::$validateFirstname = trim($_POST['firstname']) !== '' ? '' : 'firstname is required!';
@@ -66,14 +80,14 @@ class Controller {
             State::$validateEmail  = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) ? '' : 'email is invalid!';
             State::$validateEmail = trim($_POST['email']) !== '' ? State::$validateEmail : 'email is required!';
             
-            if ($_POST['checkIn'] !== '' && $_POST['checkOut'] !== '') {
-                State::$validateCheckIn = State::$validateCheckOut = $_POST['checkIn'] < $_POST['checkOut'] ? '' : 'Invalid Dates!';
+            if ($checkIn !== '' && $checkOut !== '') {
+                State::$validateCheckIn = State::$validateCheckOut = $checkIn < $checkOut ? '' : 'Invalid Dates!';
             }
 
-            State::$validateCheckIn = $_POST['checkIn'] >= date('Y-m-d') ? State::$validateCheckIn : 'Invalid Date!';
+            State::$validateCheckIn = $checkIn >= date('Y-m-d') ? State::$validateCheckIn : 'Invalid Date!';
 
-            State::$validateCheckIn = $_POST['checkIn'] !== '' ? State::$validateCheckIn : 'select check in  date!';
-            State::$validateCheckOut = $_POST['checkOut'] !== '' ? State::$validateCheckOut : 'select check out date!';             
+            State::$validateCheckIn = $checkIn !== '' ? State::$validateCheckIn : 'select check in  date!';
+            State::$validateCheckOut = $checkOut !== '' ? State::$validateCheckOut : 'select check out date!';             
         }
     }
 
@@ -129,10 +143,8 @@ class Controller {
     public static function retriveCode() {
         if(isset($_COOKIE['icemalta_php_lesson_11_code'])) {
             return $_COOKIE['icemalta_php_lesson_11_code'];
-        } else {
-            return 'nothing to return';
-        }
-        return 'no cookie';
+        } 
+        return null;
     }
 
     // _________________________________________________________________
@@ -152,5 +164,13 @@ class Controller {
         );
 
     }
-    
+    // _________________________________________________________________
+
+    public static function saveData($code) {
+            Database::insertRecord(
+                $code, State::$firstname, State::$lastname, State::$email, 
+                self::dateArrange(State::$checkIn), self::dateArrange(State::$checkOut), State::$adults, 
+                State::$children, State::$rooms
+            );
+        }    
 }

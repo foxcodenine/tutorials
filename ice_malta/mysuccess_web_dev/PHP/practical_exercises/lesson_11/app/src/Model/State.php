@@ -56,7 +56,7 @@ class  State {
 
     public static function setDefaultDate() {
         if(self::$checkIn == '') {
-            self::$checkIn = date('Y-m-d');
+            self::$checkIn = date('d-m-Y');
 
         } 
         if(self::$checkOut == '') {            
@@ -64,7 +64,7 @@ class  State {
             $oldDate = date('Y-m-d');
             $newDate = new \DateTime($oldDate);
             $newDate->add(new \DateInterval('P1D')); // P1D means a period of 1 day
-            self::$checkOut = $newDate->format('Y-m-d');
+            self::$checkOut = $newDate->format('d-m-Y');
         } 
     }
 }
