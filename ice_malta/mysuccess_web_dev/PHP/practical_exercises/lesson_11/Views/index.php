@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./static/css/style.css">
     <link rel="stylesheet" href="/ice_malta/php/header/static/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker.min.css">
     <!-- toastr -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
     
@@ -43,6 +44,7 @@
         const pusherKey     = "<?php echo $_ENV['PUSHER_KEY']?>"
         const pusherCluster = "<?php echo $_ENV['PUSHER_CLUSTER']?>";
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker-full.min.js"></script>
     <script src="./static/js/jquery.js"></script>
     <script src="./static/js/js.cookie.min.js"></script>
     <script src="./static/js/toastr.min.js"></script>
