@@ -93,6 +93,7 @@ body {
     }
 
     .right {
+        height: min-content;
         width: 60%;
         background-color: rgba(#fff, .7);
         border-radius: 1.5rem;
@@ -212,7 +213,8 @@ body {
 hr.new1 {
 
     border-left: 1px solid transparent ;
-    border-top: 1px solid white ;
+    border-top: 1px solid black ;
+    border-bottom: 1px solid transparent;
   }
 // _____________________________________________________________________
 

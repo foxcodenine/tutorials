@@ -16,3 +16,7 @@ https://github.com/pusher/pusher-http-php
 
     $ composer require pusher/pusher-php-server
     $ composer dump-autoload -o
+
+
+#### vanillajs-datepicker
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker-full.min.js"></script>

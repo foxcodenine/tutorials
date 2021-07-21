@@ -44,7 +44,7 @@
         const pusherKey     = "<?php echo $_ENV['PUSHER_KEY']?>"
         const pusherCluster = "<?php echo $_ENV['PUSHER_CLUSTER']?>";
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker-full.min.js"></script>
+    <script src="./static/js/datepicker-full.min.js"></script>
     <script src="./static/js/jquery.js"></script>
     <script src="./static/js/js.cookie.min.js"></script>
     <script src="./static/js/toastr.min.js"></script>
