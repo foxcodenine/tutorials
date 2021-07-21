@@ -46,13 +46,13 @@ class Mailer {
         return <<< END
         Hi {$_POST['firstname']},<br>just click 
         <a href="http://foxcodes.co/ice_malta/php/lesson_11/index.php?complete={$code}">here</a> 
-        and your be on your way to Iclandic Adventure!
+        to confirm your booking for your Iclandic Adventure!
         <br>
         <br>        
-        ...or copy the following address to your browser:
+        Also you can copy the following address into your browser:
         <br>
         <br>
-        foxcodes.co/ice_malta/php/lesson_11/index.php?complete={$code}
+        foxcodes.co/ice_malta/php/lesson_11/index.php?complete={$code}        
         <br>
         <br>
         This link will expire in 1 hour!  
