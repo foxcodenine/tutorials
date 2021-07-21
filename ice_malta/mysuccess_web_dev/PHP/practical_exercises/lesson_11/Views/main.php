@@ -101,7 +101,7 @@ use src\Model\Database;
             ?>
         </select>
 
-        <button class="left__btn" type="submit" id="submitBtn" name="submitBtn"  value="submitted">Check</button>
+        <button class="left__btn" type="submit" id="submitBtn" name="submitBtn"  value="submitted">Reserve</button>
     </form>
    </div>
 
@@ -112,14 +112,17 @@ use src\Model\Database;
    <?php 
         if($_GET['complete'] == Controller::retriveCode() && Controller::retriveCode()) {
             $b = Database::fetchRecord(Controller::retriveCode()); //<- and udjust dates
-
+            
             $adults = $b->adults == 1 ? 'adult' : 'adults';
             $children = $b->children == 1 ? 'child' : 'children';
             $room = $b->rooms == 1 ? 'room' : 'rooms';
 
+            $checkIn = Controller::dateRearrange($b->checkIn);
+            $checkOut = Controller::dateRearrange($b->checkOut);
+
             $markup = <<<END
             Fullname: $b->firstname $b->lastname,  &nbsp; Email: $b->email <br><br>
-            Dates from: $b->checkIn &nbsp; to: $b->checkOut <br><br>
+            Dates from: $checkIn &nbsp; to: $checkOut <br><br>
             Booking: &nbsp;&nbsp;
             $b->adults $adults &nbsp;|&nbsp; $b->children $children &nbsp;|&nbsp; $b->rooms $room
             <br>

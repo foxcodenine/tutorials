@@ -64,6 +64,12 @@ class Controller {
     }
     // _________________________________________________________________
 
+    public static function dateRearrange($string) {
+        preg_match('/(^\d\d\d\d)-(\d\d)-(\d\d$)/', $string, $a);
+        return "{$a[3]}-{$a[2]}-{$a[1]}";
+    }
+    // _________________________________________________________________
+
     public static function validateFields() {
 
 
@@ -133,7 +139,7 @@ class Controller {
         setcookie(
             'icemalta_php_lesson_11_code',
             "{$code}",
-            time() + 6000, 
+            time() + 3600, 
             "/"
         );
     }
@@ -154,12 +160,12 @@ class Controller {
 
         $email = State::$email;
         
-        $message = "An Email has been sent at {$email}, please check your inbox or span folder!";
+        $message = "An email has been sent at {$email}, please check your inbox or span folder!";
 
         setcookie(
             'icemalta_php_lesson_11_email',
             "{$message}",
-            time() + 60, 
+            time() + 180, 
             "/"
         );
 
