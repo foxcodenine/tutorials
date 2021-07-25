@@ -1,0 +1,7 @@
+<?php 
+include './Controller/Controller.php';
+
+
+$controller  = new Controller();
+include './View/menu.php';
+$controller->invoke();
