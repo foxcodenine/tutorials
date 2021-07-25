@@ -1,0 +1,23 @@
+CREATE DATABASE bookapp;
+
+USE bookapp;
+
+CREATE TABLE book (
+  id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(100) NOT NULL,
+  author VARCHAR(100) NOT NULL,
+  description VARCHAR(500)
+);
+
+CREATE TABLE admin(
+  id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(11) NOT NULL,
+  password VARCHAR(200) NOT NULL
+);
+
+INSERT INTO admin(username, password) VALUES('admin', 'd033e22ae348aeb5660fc2140aec35850c4da997');
+
+INSERT INTO book(id, title, author, description) VALUES
+  (1, 'War and Peace', 'Leo Tolstoy', 'A vast epic centured on Napoleons war with Russia.'),
+  (2, 'The Art of War', 'Sun Tzu', 'A vastly influential treatise on military strategy in the east from the time of the Warring States in China'),
+  (3, 'Oliver Twist', 'Charles Dickens', NULL);
