@@ -8,7 +8,9 @@
 
     require_once './app/init.php';
 
-    
+    // echo get_current_user() . '<br><br>';
+    // echo $_SERVER['SERVER_SIGNATURE'] . '<br>';
+    // echo $_SERVER['SERVER_NAME'] . '<br>';
 
     // _________________________________________________________________
 

@@ -15,11 +15,19 @@ class DBConnect {
     private static $DB_PASSWORD;
 
     public function __construct() {
+
+        if (get_current_user() === 'foxcodenine') {
+            $username = $_ENV['DB_USERNAME'];
+            $password = $_ENV['DB_PASSWORD'];
+        } else {
+            $username = $_ENV['DB_USERNAME_WORK'];
+            $password = $_ENV['DB_PASSWORD_WORK'];
+        }
         self::$DB_TYPE = $_ENV['DB_TYPE'];
         self::$DB_HOST = $_ENV['DB_HOST'];
         self::$DB_SCHEMA = $_ENV['DB_SCHEMA'];
-        self::$DB_USERNAME = $_ENV['DB_USERNAME'];
-        self::$DB_PASSWORD = $_ENV['DB_PASSWORD'];
+        self::$DB_USERNAME = $username;
+        self::$DB_PASSWORD = $password;
     }
 
     

@@ -6,11 +6,22 @@
     
 
     // _________________________________________________________________
-    
-    $showRegisterSuccess = false;
+
+use Foxcode\Model\Account;
+require_once './app/init.php';
+
+$showRegisterSuccess = false;
     $errorMessage = null;
     
-    // TODO: Take user to admin if already logged in.
+    // Take user to admin if already logged in.
+
+    if (isset($_SESSION['account'])) {
+        header('location: admin.php');
+    } elseif (isset($_COOKIE['account'])) {
+        $_SESSION['account'] = unserialize($_COOKIE['account']);
+        header('location: admin.php');
+    }
+
     
     $action = null;
     if (isset($_GET['action'])) {
@@ -24,11 +35,40 @@
     }
     
     function checkLogin() {
-        // TODO: Check account
-    }
+        // Check account
+        global $errorMessage;
+
+        $username = $_POST['inputEmail'];
+        $password = $_POST['inputPassword'];
+        $remember = isset($_POST['remember-me']);
+
+        // Get account data (or null)
+        try {
+            $account = Account::getAccount($username, $password);
+        } catch (Exception $e) {            
+            $errorMessage .= "An internal error occored :( We're sorry about this. <br>";
+        }
+
+        // if the account is valis, save it to session
+
+        if ($account) {
+            $_SESSION['account'] = $account;
+        
+            if ($remember) {
+                setcookie('account', serialize($account), time() + 3600 * 24 * 30 ,'/');
+            }
+            header('location: admin.php');
+
+        } else {
+            $errorMessage .= "<br>Incorrect username or password.<br>";
+        }
+        
+    } 
     
     function logout() {
-        // TODO: Log the user out
+        $_SESSION['account'] = null;
+        session_destroy();
+        setcookie('account', null, -1, '/');
     }
 ?>
 <!DOCTYPE html>
@@ -58,7 +98,7 @@
             </div>
             <?php } ?>
 
-            <form class="form-signin">
+            <form class="form-signin" method="POST" action="index.php?action=signIn">
                 <h2 class="form-signin-heading">Please sign in</h2>
                 <label for="inputEmail" class="sr-only">Email address</label>
                 <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>

@@ -1,3 +1,11 @@
+<?php 
+require_once './app/init.php';
+if (!isset($_SESSION['account']) && !isset($_COOKIE['account'])) {
+    header('location: index.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
