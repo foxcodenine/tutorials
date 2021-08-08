@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>SimpleChat</title>
+        <link rel="stylesheet" href="lib/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="css/template.css">
+    </head>
+    <body class="bg-light">
+        <div class="container">
+            <div id="chatStartArea" class="bg-dark" class="col-md-6">
+                <form id="startChatForm">
+                    <div class="row chat-start">
+                      <div class="col-md-3 mb-3">
+                        <input type="text" class="form-control" id="personName" placeholder="Your Name" required>
+                      </div>
+                      <div class="col-md3">
+                          <button type="submit" class="btn btn-primary" id="btnStartChat">Chat</button>
+                      </div>
+                    </div>
+                </form>
+            </div>
+            <div id="chatArea" class="col-sm-12">
+                <div id="chatArea-Chats" class="bg-dark">
+                    
+                </div>
+                <div id="chatArea-NewChat">
+                    <form id="addMessageForm">
+                        <div class="row chat-start">
+                          <div class="col-md-3 mb-3">
+                            <input type="text" class="form-control" id="newMessage" placeholder="Say Something" required>
+                          </div>
+                          <div class="col-md3">
+                              <button type="submit" class="btn btn-primary" id="btnStartChat">Chat</button>
+                          </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="lib/jquery/jquery-3.3.1.min.js" type="text/javascript"></script>
+        <script src="lib/popper/popper.js" type="text/javascript"></script>
+        <script src="lib/bootstrap/bootstrap.min.js" type="text/javascript"></script>
+        <script src="js/index.js" type="text/javascript"></script>
+    </body>
+</html>

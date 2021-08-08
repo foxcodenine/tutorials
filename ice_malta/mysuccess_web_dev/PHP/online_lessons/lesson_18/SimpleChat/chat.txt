@@ -1,0 +1,21 @@
+$('#startChatForm').submit(function(event) {
+personName = $('#personName').val();
+$('#chatStartArea').hide();
+$('#chatArea').show();
+addChat("System", personName + " has joined the chat.");
+setInterval(fetchChats, 1000);
+bindChatForm();
+event.preventDefault();
+}); 
+
+
+hatAreaHtml += "<div class='chat-box-container'><div class='chat-box" + classMyChat + "'>";
+chatAreaHtml += "<div class='chat-box-header'>" + chat.who + "</div>";
+chatAreaHtml += "<div class='chat-box-body'>" + chat.message + "</div>";
+chatAreaHtml += "</div></div>"; 
+
+
+chatAreaHtml += "<div class='chat-box-container'><div class='chat-box" + classMyChat + "'>";
+chatAreaHtml += "<div class='chat-box-header'>" + chat.who + "</div>";
+chatAreaHtml += "<div class='chat-box-body'>" + chat.message + "</div>";
+chatAreaHtml += "</div></div>"; 
