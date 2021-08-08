@@ -1,0 +1,35 @@
+.chat-start {
+    padding-top: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+}
+#chatArea-Chats {
+    margin-top: 10px;
+    width: 800px;
+    display: block;
+    min-height: 500px;
+    max-height: 500px;
+    overflow-y: scroll;
+}
+.chat-box-container {
+    display: block;
+}
+.chat-box {
+    display:inline-block;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    max-width: 600px;
+    padding: 5px;
+}
+.chat-box-header {
+    font-weight: bold;
+    font-size: 10px;
+}
+.chat-box-body {
+    
+}
+.my-chat {
+    background-color: lightblue;
+}
