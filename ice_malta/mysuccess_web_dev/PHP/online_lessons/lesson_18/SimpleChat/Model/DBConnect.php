@@ -8,8 +8,8 @@ class DBConnect {
     private static $_singleton;
     private $_connection;
     
-    const DB_USERNAME = 'admin';
-    const DB_PASSWORD = 'umbrella';
+    const DB_USERNAME = '****';
+    const DB_PASSWORD = '****';
     const DB_HOST = 'localhost';
     const DB_NAME = 'SimpleChat';
     
