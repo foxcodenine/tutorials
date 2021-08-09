@@ -9,20 +9,17 @@ class Chat {
     }
     
     public function getChats() {
-        $st = $this->db->getHandler()->prepare("SELECT * FROM Chat ORDER BY id");
-        $st->execute();
-        return $st->fetchAll(PDO::FETCH_OBJ);
+        $sql = "SELECT * FROM Chat ORDER BY id";
+        $stmt = $this->db->getHandler()->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
     
     public function addChat($who, $message) {
-        $query = <<<chat
-        INSERT INTO Chat(who, message)
-        VALUES (:who, :message)
-        chat;
-
-        $st = $this->db->getHandler()->prepare($query);
-        $st->bindParam(':who', $who);
-        $st->bindParam(':message', $message);
-        $st->execute();
-    }    
+        $sql = "INSERT INTO Chat (who, message) VALUES (:who, :message)";
+        $stmt = $this->db->getHandler()->prepare($sql);
+        $stmt->bindParam(':who', $who);
+        $stmt->bindParam(':message', $message);
+        $stmt->execute();
+    }
 }
