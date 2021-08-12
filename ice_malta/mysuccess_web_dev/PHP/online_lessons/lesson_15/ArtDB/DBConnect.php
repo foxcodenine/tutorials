@@ -3,8 +3,8 @@ class DBConnect {
     private static $_singleton;
     private $_connection;
     
-    private $DB_USERNAME = 'admin';
-    private $DB_PASSWORD = 'umbrella';
+    private $DB_USERNAME = '****';
+    private $DB_PASSWORD = '****';
     private $DB_HOST = 'localhost';
     
     /**

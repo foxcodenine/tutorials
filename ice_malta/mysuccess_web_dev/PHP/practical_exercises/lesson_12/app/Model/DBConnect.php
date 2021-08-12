@@ -1,6 +1,6 @@
 <?php
 
-namespace Model;
+namespace app\Model;
 
 use PDO;
 use PDOException;
@@ -63,6 +63,14 @@ class DBConnect {
         if(gethostbyaddr($_SERVER['REMOTE_ADDR']) === $_ENV['PC_WORK']){
             self::$db_username = $_ENV['DB_USERNAME_WORK'];
             self::$db_password = $_ENV['DB_PASSWORD_WORK'];
+            
+        } else if(get_current_user() === 'foxcodenine' && gethostbyaddr($_SERVER['REMOTE_ADDR']) === 'ip6-localhost') {
+            self::$db_username = $_ENV['DB_USERNAME_HOME'];
+            self::$db_password = $_ENV['DB_PASSWORD_HOME'];
+
+        } else if($_ENV['PHP_ENV'] === 'production') {
+            self::$db_username = $_ENV['DB_USERNAME'];
+            self::$db_password = $_ENV['DB_PASSWORD']; 
         }
     }
     // _________________________________________
