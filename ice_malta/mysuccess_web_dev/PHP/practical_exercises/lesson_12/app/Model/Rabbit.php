@@ -1,10 +1,9 @@
 <?php
 
-namespace Model;
+namespace app\Model;
 
 class Rabbit {
-    public function __construct()
-    {
+    public function __construct() {
         echo '<br>A rabbit was born!</br>';
     }
 }

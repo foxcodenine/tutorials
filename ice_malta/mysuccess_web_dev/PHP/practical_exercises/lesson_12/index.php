@@ -8,7 +8,11 @@
     <link rel="stylesheet" href="/ice_malta/php/header/static/css/style.css">
     <title>PHP Lesson 12</title>
     <?php
-        require_once './app/init.php';
+
+use app\Model\Rabbit;
+use app\Model\Student;
+
+require_once './app/init.php';
     ?>
 
 </head>
@@ -22,7 +26,18 @@
     <?php 
     
     
-    var_dump($_ENV);
+    // var_dump($_ENV);
+
+    // $r = new Rabbit;
+    // var_dump(Student::updateStudentList());
+
+    // header('Content-Type: application/json');
+
+    echo '<div class="json">';
+    echo json_encode(Student::updateStudentList(), JSON_PRETTY_PRINT ,512);
+    echo '</div>';
+
+    // echo gethostbyaddr($_SERVER['REMOTE_ADDR']);
     
     
     ?>
@@ -30,5 +45,15 @@
 
 
 </div>
+
+<script>
+
+data = document.querySelector(".json").textContent;
+console.log (data);
+document.querySelector(".json").innerHTML = JSON.stringify(data).replace(/\\n/g, '<br>').replace(/\\/g, ' &nbsp; ').replace(/"/g, '');
+
+
+</script>
 </body>
 </html>
+

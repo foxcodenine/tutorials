@@ -1,11 +1,12 @@
 <?php
 
 
-namespace Model;
+namespace app\Model;
 
-use PDOException;
+use JsonSerializable;
+use PDOException, PDO;
 
-class Student {
+class Student implements JsonSerializable{
 
     private $id;
     private $firstname;
@@ -16,12 +17,18 @@ class Student {
 
     private static $studentList = array();
 
-    public function __construct($firstname, $lastname, $age, $email, $phone) {
+    public function __construct($firstname, $lastname, $age, $email, $phone,  $id=null) {
+
         $this->setFirstname($firstname);
         $this->setLastname($lastname);
         $this->setAge($age);
         $this->setEmail($email);
         $this->setPhone($phone);
+        $this->setId($id);
+
+        if ($id === null) {
+            $this->addStudent();
+        }        
     }
 
 
@@ -49,22 +56,40 @@ class Student {
 
             try {
                 $stmt->execute();
+                $this->setId($conn->lastInsertId());
+
             } catch (PDOException $e) {
                 die('Error addStudent: <br>' . $e->getMessage());
             }            
         }
     }
 
-    public function updateList () {
+    public static function updateStudentList () {
+        // TODO: Update with courses;
+
         $conn = DBConnect::getConnection();
 
-        $sql = "SELECT * FROM student";        
+        $sql = "SELECT * FROM student";       
 
-        $result = $conn->exec($sql);
+        $stmt = $conn->prepare($sql);
 
-        return $result->
-        
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        // return $result;
+
+        foreach($result as $r) {
+
+             array_push(self::$studentList, new Student(
+                $r->firstname, $r->lastname, $r->age, $r->email, $r->phone, $r->id
+            ));
+            
+        }         
+        return self::$studentList;
     }
+
+
 
     public function fetchStudent () {
         
@@ -77,6 +102,15 @@ class Student {
 
 
     // _________________________________________________________________
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+        return $this;
+    }
 
     public function getFirstname() {
         return $this->firstname;
@@ -114,6 +148,14 @@ class Student {
         return $this;
     }
     // _________________________________________________________________
+
+    public function jsonSerialize() {
+        return array (
+            'id' => $this->getId(),
+            'firstname' => $this->getFirstname(),
+            'lastname' => $this->getLastname(),
+        );
+    }
 }
 
 
