@@ -1,3 +1,6 @@
 
 RewriteEngine on
 
+RewriteRule ^(index|api/student)$ $1.php [NC,L]
+
+RewriteRule ^api/student/(\d+)$  api/student.php?p_id=$1 [NC,L]

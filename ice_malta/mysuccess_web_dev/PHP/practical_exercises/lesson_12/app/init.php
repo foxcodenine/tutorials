@@ -1,7 +1,7 @@
 <?php
 
-use Model\DBConnect;
-use Model\Student;
+use app\Model\DBConnect;
+use app\Model\Student;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
