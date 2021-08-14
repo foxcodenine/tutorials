@@ -1,5 +1,6 @@
 <?php
 
+use app\Model\Course;
 use app\Model\DBConnect;
 use app\Model\Student;
 
@@ -52,6 +53,10 @@ if (!debug_backtrace()) {
 
     // echo '...so far so good!<br>';
     // echo($testStudent->getFirstname());
-    // $testStudent->addStudent();
+
+    $testCourse = new Course(
+        'PHP', '2021-08-12', 'Mon & Wed', '18:00', '21:00', 40, 1895
+    );
+    
 }
 //         

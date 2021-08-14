@@ -5,18 +5,28 @@ https://github.com/vlucas/phpdotenv
     $ composer require vlucas/phpdotenv
     $ composer dump-autoload -o
 
-#### PHPMailer
-https://github.com/PHPMailer/PHPMailer
+#### Accessing Incoming PUT Data from PHP
+https://lornajane.net/posts/2008/accessing-incoming-put-data-from-php
 
-    $ composer require phpmailer/phpmailer
-    $ composer dump-autoload -o
-    
-#### pusher-http-php
-https://github.com/pusher/pusher-http-php
-
-    $ composer require pusher/pusher-php-server
-    $ composer dump-autoload -o
+parse_str(file_get_contents("php://input"),$post_vars);
 
 
-#### vanillajs-datepicker
-    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker-full.min.js"></script>
+
+#### PHP __get and __set magic methods
+https://stackoverflow.com/questions/4713680/php-get-and-set-magic-methods
+
+    class foo {
+
+        public $bar;
+        public function __get($name) {
+
+            echo "Get:$name";
+            return $this->$name;
+        }
+
+        public function __set($name, $value) {
+
+            echo "Set:$name to $value";
+            $this->$name = $value;
+        }
+    }
