@@ -8,16 +8,16 @@ use PDOException, PDO;
 
 class Student implements JsonSerializable{
 
+    private static $studentList = array();
+
     private $id;
     private $firstname;
     private $lastname;
     private $age;
     private $email;
-    private $phone;
+    private $phone;    
 
-    private static $studentList = array();
-
-    public function __construct($firstname, $lastname, $age, $email, $phone,  $id=null) {
+    public function __construct($firstname, $lastname, $age, $email, $phone,  $id=NULL) {
 
         $this->setFirstname($firstname);
         $this->setLastname($lastname);
@@ -26,82 +26,123 @@ class Student implements JsonSerializable{
         $this->setPhone($phone);
         $this->setId($id);
 
-        if ($id === null) {
-            $this->addStudent();
-        }        
+        if ($id === NULL) {
+            $this->addUpdateStudent();
+        }       
     }
 
-
-
-    public function addStudent() {
-        if (!$this->id) {
-
-            $conn = DBConnect::getConnection();
-
-
-            $sql = "INSERT INTO student(
-                firstname, lastname, age, email, phone
-            ) VALUES (
-                :firstname, :lastname, :age, :email, :phone
-            )";
-
-            $stmt = $conn->prepare($sql);
-
-            $stmt->bindValue(':firstname', $this->getFirstname());
-            $stmt->bindValue(':lastname',  $this->getLastname());
-            $stmt->bindValue(':age',       $this->getAge());
-            $stmt->bindValue(':email',     $this->getEmail());
-            $stmt->bindValue(':phone',     $this->getPhone());
-
-
-            try {
-                $stmt->execute();
-                $this->setId($conn->lastInsertId());
-
-            } catch (PDOException $e) {
-                die('Error addStudent: <br>' . $e->getMessage());
-            }            
-        }
+    public function __set($key, $value) {
+        $this->$key = $value;
     }
 
     public static function updateStudentList () {
-        // TODO: Update with courses;
-
-        $conn = DBConnect::getConnection();
+        
+        $dbh = DBConnect::getConnection();
 
         $sql = "SELECT * FROM student";       
 
-        $stmt = $conn->prepare($sql);
+        $stmt = $dbh->prepare($sql);
 
         $stmt->execute();
 
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 
-        // return $result;
-
         foreach($result as $r) {
-
              array_push(self::$studentList, new Student(
                 $r->firstname, $r->lastname, $r->age, $r->email, $r->phone, $r->id
-            ));
-            
-        }         
+            ));            
+        }                    
+    }
+
+    public static function fetchAllIds() {
+        self::updateStudentList();
+
+        return array_map(function($s) {
+            return $s->getId();
+        }, self::$studentList);
+    }
+
+    // ----- CRUD functions --------------------------------------------
+
+    // ----- Create / Update
+    public function addUpdateStudent() {        
+
+        $dbh = DBConnect::getConnection();
+
+        if ($this->getId()) {
+
+            $sql = "UPDATE student 
+                    SET firstname = :firstname, lastname = :lastname, 
+                        age = :age, email = :email, phone = :phone
+                    WHERE id = :id";
+        } else {
+            $sql = "INSERT INTO student(
+                firstname, lastname, age, email, phone
+            ) VALUES (
+                :firstname, :lastname, :age, :email, :phone
+            )";
+        }
+
+        $stmt = $dbh->prepare($sql);
+
+        $stmt->bindValue(':firstname', $this->getFirstname());
+        $stmt->bindValue(':lastname',  $this->getLastname());
+        $stmt->bindValue(':age',       $this->getAge());
+        $stmt->bindValue(':email',     $this->getEmail());
+        $stmt->bindValue(':phone',     $this->getPhone());
+
+        if ($this->getId()) $stmt->bindValue(':id', $this->getId());
+
+        try {
+            $stmt->execute();
+            if(empty($this->getId())) $this->setId($dbh->lastInsertId());
+            self::updateStudentList();
+
+        } catch (PDOException $e) {
+            die('Error addUpdateStudent: <br>' . $e->getMessage());
+        }        
+    }
+
+    // ----- Read
+    public static function fetchAllStudent () {
+        self::updateStudentList();
         return self::$studentList;
     }
 
-
-
-    public function fetchStudent () {
+    public static function fetchStudent ($id) {
+        self::updateStudentList();
         
+        $student = array_filter(self::$studentList, function($s) use ($id) {
+            return $s->getId() == $id;
+        });
+
+        return array_values($student)[0];        
     }
 
+    // ----- Delete
 
+    public function deleteStudent() {
+        self::updateStudentList();
+        
 
+        if (in_array( $this, self::fetchAllStudent())) {
+            $dbh = DBConnect::getConnection();
+            $sql = "DELETE FROM student WHERE id = :id";
+            
+            $stmt = $dbh->prepare($sql);
+            $stmt->bindValue(':id', $this->getId());
 
+            try {
+                $stmt->execute();
+                self::updateStudentList();
 
+            } catch (PDOException $e) {
+                die('Error deleteStudent: <br>' . $e->getMessage());
+            }
+        }        
+    }
 
-
-    // _________________________________________________________________
+    // ----- Getters and Setters ---------------------------------------
 
     public function getId() {
         return $this->id;
@@ -150,10 +191,14 @@ class Student implements JsonSerializable{
     // _________________________________________________________________
 
     public function jsonSerialize() {
+        // TODO: Update with courses;
         return array (
             'id' => $this->getId(),
             'firstname' => $this->getFirstname(),
             'lastname' => $this->getLastname(),
+            'email' => $this->getemail(),
+            'age' => $this->getage(),
+            'phone' => $this->getPhone(),
         );
     }
 }
