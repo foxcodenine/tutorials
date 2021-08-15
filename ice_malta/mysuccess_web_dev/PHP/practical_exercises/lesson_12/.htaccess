@@ -5,3 +5,6 @@ RewriteRule ^(api/student|api/student/)$ api/api_student.php [NC,L]
 
 RewriteRule ^api/student/(\d+)$  api/api_student.php?id=$1 [NC,L]
 
+RewriteRule ^((key.+)/api/student|(key.+)/api/student/)$  api/api_student.php?key=$1 [NC,L]
+
+RewriteRule ^(key.+)/api/student/(\d+)/?$  api/api_student.php?key=$1&id=$2 [NC,L]

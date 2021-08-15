@@ -51,7 +51,6 @@ class DBConnect {
             die("Error createTable: <br>" .  $e->getMessage());
         }
     }
-
     // _________________________________________
 
     public static function loadENV() {
