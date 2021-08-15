@@ -71,12 +71,12 @@ class Student implements JsonSerializable{
 
         if ($this->getId()) {
 
-            $sql = "UPDATE student 
+            $sql = "UPDATE Student 
                     SET firstname = :firstname, lastname = :lastname, 
                         age = :age, email = :email, phone = :phone
                     WHERE id = :id";
         } else {
-            $sql = "INSERT INTO student(
+            $sql = "INSERT INTO Student(
                 firstname, lastname, age, email, phone
             ) VALUES (
                 :firstname, :lastname, :age, :email, :phone
@@ -127,7 +127,7 @@ class Student implements JsonSerializable{
 
         if (in_array( $this, self::fetchAllStudent())) {
             $dbh = DBConnect::getConnection();
-            $sql = "DELETE FROM student WHERE id = :id";
+            $sql = "DELETE FROM Student WHERE id = :id";
             
             $stmt = $dbh->prepare($sql);
             $stmt->bindValue(':id', $this->getId());

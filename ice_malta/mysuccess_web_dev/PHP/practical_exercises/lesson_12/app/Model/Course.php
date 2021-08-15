@@ -37,7 +37,7 @@ class Course {
     public static function updateCourseList () {
         $dbh = DBConnect::getConnection();
 
-        $sql = 'SELECT * FROM course';
+        $sql = 'SELECT * FROM Course';
 
         $stmt = $dbh->prepare($sql);
 
@@ -63,14 +63,14 @@ class Course {
         $dbh = DBConnect::getConnection();
 
         if ($this->getId()) {
-            $sql = "UPDATE course 
+            $sql = "UPDATE Course 
             SET name = :name, startDate = :startDate, days = :days, 
                 timeFrom = :timeFrom, timeTo = :timeTo, 
                 duration = :duration, price = :price
             WHERE id = :id";
 
         } else {
-            $sql = "INSERT INTO course (
+            $sql = "INSERT INTO Course (
                 name, startDate, days, timeFrom, timeTo, duration, price 
             ) VALUES (
                 :name, :startDate, :days, :timeFrom, :timeTo, :duration, :price
