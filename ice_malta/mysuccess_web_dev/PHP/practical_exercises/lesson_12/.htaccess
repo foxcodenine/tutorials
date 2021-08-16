@@ -1,10 +1,17 @@
 
 RewriteEngine on
 
-RewriteRule ^(api/student|api/student/)$ api/api_student.php [NC,L]
-
+RewriteRule ^(api/student|key/api/student)/?$ api/api_student.php [NC,L]
 RewriteRule ^api/student/(\d+)$  api/api_student.php?id=$1 [NC,L]
 
-RewriteRule ^((key.+)/api/student|(key.+)/api/student/)$  api/api_student.php?key=$1 [NC,L]
-
+RewriteRule ^(key.+)/api/student/?$  api/api_student.php?key=$1 [NC,L]
 RewriteRule ^(key.+)/api/student/(\d+)/?$  api/api_student.php?key=$1&id=$2 [NC,L]
+
+
+
+
+RewriteRule ^(api/course|key/api/course)/?$ api/api_course.php [NC,L]
+RewriteRule ^api/course/(\d+)$  api/api_course.php?id=$1 [NC,L]
+
+RewriteRule ^(key.+)/api/course/?$  api/api_course.php?key=$1 [NC,L]
+RewriteRule ^(key.+)/api/course/(\d+)/?$  api/api_course.php?key=$1&id=$2 [NC,L]

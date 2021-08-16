@@ -1,14 +1,11 @@
 <?php 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ice_malta/php/lesson_12/app/init.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ice_malta/php/lesson_12/api/api_functions.php';
 use app\Model\Student;
+
 header('Content-Type: application/json');
 
-if (!isset($_GET['key'])) {
-    echo json_encode(
-        ['Status'=>'Failure', 'Message'=>'Unauthorized User']
-    ); 
-    exit();
-}
+$user = verifyUser();
 
 // _____________________________________________________________________
 
@@ -28,15 +25,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
     } else {        
-        echo json_encode(Student::fetchAllStudent(), JSON_PRETTY_PRINT ,512);
+        echo json_encode(Student::fetchAllStudents(), JSON_PRETTY_PRINT , 512);
     }    
 }
 
 // _____________________________________________________________________
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
 
+    verifyAdmin($user);
+    
     $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING) ?: NULL;
     $lastname  = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING) ?: NULL;
     $age       = filter_input(INPUT_POST, 'age', FILTER_SANITIZE_STRING) ?: NULL;
@@ -68,11 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
     
-    
-    // parse_str(file_get_contents("php://input"), $deleteVars);
-
-    // $id = $deleteVars['id'] ?? NULL;
-    // $id = filter_var($id, FILTER_SANITIZE_STRING) ?? NULL;
+    verifyAdmin($user);
 
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?: NULL;
 
@@ -103,9 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') { 
 
+    verifyAdmin($user);
+
     parse_str(file_get_contents("php://input"),$putVars);
-    $id = $putVars['id'] ?? NULL;
-    $id = filter_var($id, FILTER_SANITIZE_STRING);
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?: NULL;
     
     if ($id) {
 

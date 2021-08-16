@@ -1,6 +1,4 @@
 <?php
-
-
 namespace app\Model;
 
 use JsonSerializable;
@@ -39,7 +37,7 @@ class Student implements JsonSerializable{
         
         $dbh = DBConnect::getConnection();
 
-        $sql = "SELECT * FROM student";       
+        $sql = "SELECT * FROM Student";       
 
         $stmt = $dbh->prepare($sql);
 
@@ -104,7 +102,7 @@ class Student implements JsonSerializable{
     }
 
     // ----- Read
-    public static function fetchAllStudent () {
+    public static function fetchAllStudents () {
         self::updateStudentList();
         return self::$studentList;
     }
@@ -125,7 +123,7 @@ class Student implements JsonSerializable{
         self::updateStudentList();
         
 
-        if (in_array( $this, self::fetchAllStudent())) {
+        if (in_array( $this, self::fetchAllStudents())) {
             $dbh = DBConnect::getConnection();
             $sql = "DELETE FROM Student WHERE id = :id";
             
