@@ -1,11 +1,11 @@
 <?php
-
 namespace app\Model;
 
+use JsonSerializable;
 use PDO;
 use PDOException;
 
-class Course {
+class Course implements JsonSerializable {
     private static $courseList = array();
 
     private $id;
@@ -28,6 +28,9 @@ class Course {
         $this->setTimeTo($timeTo);
         $this->setDuration($duration);
         $this->setPrice($price);
+        $this->setId($id);
+
+        
 
         if ($id === NULL) {
             $this->addUpdateCourse();
@@ -54,11 +57,20 @@ class Course {
 
         } catch (PDOException $e) {
             die('Error updateCourseList: <br>' . $e->getMessage());
-        }
-        
+        }        
     }
 
+    public static function fetchAllIds() {
+        self::updateCourseList();
 
+        return array_map(function($c) {
+            return $c->getId();
+        }, self::fetchAllCourses());
+    }
+
+    // ----- CRUD functions --------------------------------------------
+
+    // ----- Create / Update
     public function addUpdateCourse() {
         $dbh = DBConnect::getConnection();
 
@@ -97,6 +109,22 @@ class Course {
         } catch (PDOException $e) {
             die('Error addUpdateCourse: <br>' . $e->getMessage());
         }
+    }
+
+    // ----- Read
+
+    public static function fetchAllCourses () {
+        self::updateCourseList();
+        return self::$courseList;
+    }
+
+    public static function fetchCourse ($id) {
+        self::updateCourseList();
+        $course = array_filter(self::fetchAllCourses(), function($c) use ($id){
+            return $c->getId() == $id;
+        });
+
+        return array_values($course)[0];
     }
 
 // _____________________________________________________________________
@@ -164,4 +192,50 @@ class Course {
 	public function setPrice($price)	{
 		$this->price = $price;
 	}
+
+    // _________________________________________________________________
+
+    public static function arrangeDate($date, $decode=False) {
+        if (!$decode) {
+            preg_match('/(^\d{4}|^\d{2})-(\d+)-(\d+$)/', $date, $array);
+
+            foreach($array as $a){
+                if (empty($a)) return FALSE;
+            }
+
+            $dd   = strlen($array[3]) === 2 ? $array[3] : '0' . $array[3];
+            $mm   = strlen($array[2]) === 2 ? $array[2] : '0' . $array[2];
+            $yyyy = strlen($array[1]) === 4 ? $array[1] : ( 21 >= (int)$array[1] ? '20' . $array[1] : '19' . $array[1]);
+            
+            return "{$dd}-{$mm}-{$yyyy}";
+        }
+        else {
+            preg_match('/(^\d+)-(\d+)-(\d{4}$|\d{2}$)/', $date, $array);
+
+            foreach($array as $a){
+                if (empty($a)) return FALSE;
+            }
+
+            $dd   = strlen($array[1]) === 2 ? $array[1] : '0' . $array[1];
+            $mm   = strlen($array[2]) === 2 ? $array[2] : '0' . $array[2];
+            $yyyy = strlen($array[3]) === 4 ? $array[3] : ( 21 >= (int)$array[3] ? '20' . $array[3] : '19' . $array[3]);
+            
+            return "{$yyyy}-{$mm}-{$dd}";
+        }
+    }
+
+    // _________________________________________________________________
+    
+    public function jsonSerialize () {
+        
+        return Array (
+            'id'=> $this->getId(),
+            'name'=>$this->getName(),
+            'startDate'=>self::arrangeDate($this->getStartDate()),
+            'days'=> explode(' ', $this->getDays()),
+            'time'=> Array ('from'=>$this->getTimeFrom(), 'to'=>$this->getTimeTo()),
+            'duration'=>"{$this->getDuration()}hr",
+            'price'=>$this->getPrice()
+        );
+    }
 }
