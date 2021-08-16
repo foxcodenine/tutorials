@@ -5,6 +5,14 @@ https://github.com/vlucas/phpdotenv
     $ composer require vlucas/phpdotenv
     $ composer dump-autoload -o
 
+#### ramsey/uuid
+https://packagist.org/packages/ramsey/uuid
+
+    $ composer require ramsey/uuid
+    $ composer dump-autoload -o
+
+
+
 #### Accessing Incoming PUT Data from PHP
 https://lornajane.net/posts/2008/accessing-incoming-put-data-from-php
 

@@ -2,7 +2,8 @@
 
 namespace app\Model;
 
-use openssl_encrypt, uniqid, password_hash, password_verify;
+use Exception;
+use PDO;
 use PDOException;
 use Ramsey\Uuid\Nonstandard\Uuid;
 
@@ -23,7 +24,7 @@ class User {
         $this->setHash(password_hash($password, PASSWORD_DEFAULT));
         $this->setRole($role);
         $this->setSalt(Uuid::uuid4());
-		$this->setApiKey(@openssl_encrypt($this->getEmail(), 'aes128', $this->getSalt()->toString()));
+		$this->setApiKey(@openssl_encrypt($this->getEmail(), 'AES-256-CBC', $this->getSalt()->toString()));
 
         if (!$id) $this->addUser();
     }
@@ -52,10 +53,34 @@ class User {
 
     }
 
+	// _________________________________________________________________
+
+	public static function fetchUser($apiKey) {
+		$dbh = DBConnect::getConnection();   
+		
+		$sql = "SELECT * FROM User WHERE apiKey = :apiKey";
+		$stmt = $dbh->prepare($sql);
+		$stmt->bindValue(':apiKey', $apiKey);
+
+		try {
+			$stmt->execute();
+			$user = $stmt->fetch(PDO::FETCH_OBJ);
+		} catch (PDOException $e) {
+			die('Error fetchUser1: <br>' . $e->getMessage());
+		}
+
+		try {
+			if ($user && 
+				$user->email === openssl_decrypt($apiKey, 'AES-256-CBC', $user->salt)) {
+					return $user;
+			} 
+			return FALSE;
 
 
-
-
+		} catch (Exception $e) {
+			die('Error fetchUser2: <br>' . $e->getMessage());
+		}
+	}
 
     // _________________________________________________________________
 	public function getId() {
