@@ -29,9 +29,14 @@ class Student implements JsonSerializable{
         }       
     }
 
+    // __________________________________
+
     public function __set($key, $value) {
-        $this->$key = $value;
+        $set = "set" . ucfirst($key);
+        $this->$set($value);
     }
+
+    // __________________________________
 
     public static function updateStudentList () {
         
@@ -51,6 +56,8 @@ class Student implements JsonSerializable{
             ));            
         }                    
     }
+
+    // __________________________________
 
     public static function fetchAllIds() {
         self::updateStudentList();
@@ -189,7 +196,7 @@ class Student implements JsonSerializable{
     // _________________________________________________________________
 
     public function jsonSerialize() {
-        // TODO: Update with courses;
+
         return array (
             'id' => $this->getId(),
             'firstname' => $this->getFirstname(),
@@ -197,27 +204,41 @@ class Student implements JsonSerializable{
             'email' => $this->getemail(),
             'age' => $this->getage(),
             'phone' => $this->getPhone(),
+            'REGISTER' => $this->fetchStudentCourses()
         );
+    }
+
+    // _________________________________________________________________
+
+    public function fetchStudentCourses() {
+        $dbh = DBConnect::getConnection();
+        $sql = <<<'SQL_END'
+            SELECT Course.id, Course.name 
+            FROM Course 
+            INNER JOIN Register ON Register.courseId = Course.id
+            INNER JOIN Student ON Student.id = Register.studentId
+            WHERE Student.id = :courseId ORDER BY Course.id;
+        SQL_END;
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':courseId', $this->getId());
+
+        try {
+            $stmt->execute();
+            $coures = $stmt->fetchAll(PDO::FETCH_OBJ);
+            if (!empty($coures)) {
+                $studentCourses = Array();
+
+                foreach($coures as $c) {
+                    array_push($studentCourses, "ID {$c->id} - {$c->name}");
+                }
+                return $studentCourses;
+            }
+            
+        } catch (PDOException $e) {
+            die('Error fetchStudentCourses: <br>' . $e->getMessage());
+        }
     }
 }
 
+   
 
-
-/*
-    private static function updateAll() {
-        $db = DBConnect::getInstance()->getHandler();
-        $st = $db->prepare("SELECT * FROM Artwork");
-        $st->execute();
-        $result = $st->fetchAll(PDO::FETCH_OBJ);
-        
-        foreach($result as $artwork) {
-            array_push(self::$artworkList, new ArtWork(
-                    $artwork->title,
-                    $artwork->year,
-                    $artwork->artist,
-                    $artwork->medium,
-                    $artwork->id
-            ));
-        }
-    }
-*/

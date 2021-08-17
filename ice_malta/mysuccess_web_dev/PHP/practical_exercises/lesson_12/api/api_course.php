@@ -67,5 +67,82 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 }
 
+// _____________________________________________________________________
 
-// echo 'sofarsogood!2';
+
+if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+    verifyAdmin($user);
+
+    $id = filter_input(INPUT_GET,  'id', FILTER_SANITIZE_STRING) ?: NULL;
+    
+    if ($id) {
+
+        if (in_array($id, Course::fetchAllIds())) {
+
+            $course = Course::fetchCourse($id);
+            $course->deleteCourse();
+            echo json_encode(
+                [
+                    'Status'=>'Success', 
+                    'Message'=> 'Course with ID:' . $course->getId() . ' has been deleted'
+                ], 
+                JSON_PRETTY_PRINT ,512
+            );
+
+        } else {
+            echo json_encode(
+                ['Status'=>'Failure', 'Message'=>'Course with ID: ' . $id . ' not found']
+            );
+        }
+
+    } else {
+        echo json_encode(['Status'=>'Failure', 'Message'=>'No ID Provided']);
+    }
+}
+
+// _____________________________________________________________________
+
+if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+    verifyAdmin($user);
+    
+    $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?: NULL;
+
+    parse_str(file_get_contents("php://input"), $putVars);
+
+    if ($id) {
+
+        if(in_array($id, Course::fetchAllIds())) {
+            $course = Course::fetchCourse($id);
+            
+            foreach ($putVars as $key=>$value) {
+                
+                $key = filter_var($key, FILTER_SANITIZE_STRING) ?? NULL;
+                $value = filter_var($value, FILTER_SANITIZE_STRING) ?? NULL;
+
+                if ($key == 'id') continue; 
+                if ($key == 'startDate') $value = Course::arrangeDate($value, TRUE); 
+
+                if ($key && $value) {
+                    
+                    $course->__set($key, $value);
+                }
+            }
+
+            $course->addUpdateCourse();
+            echo json_encode(
+                ['Status'=>'Success', 'Message'=>'Course Updated', 'Course'=> $course], 
+                JSON_PRETTY_PRINT ,512
+            );
+
+        } else {
+            echo json_encode(
+                ['Status'=>'Failure', 'Message'=>'Course with ID: ' . $id . ' not found']
+            );          
+        }
+
+    } else {
+        echo json_encode(['Status'=>'Failure', 'Message'=>'No ID Provided']);
+    }
+}
+
+// _____________________________________________________________________

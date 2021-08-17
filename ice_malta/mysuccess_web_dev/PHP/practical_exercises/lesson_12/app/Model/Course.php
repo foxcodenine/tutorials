@@ -30,12 +30,19 @@ class Course implements JsonSerializable {
         $this->setPrice($price);
         $this->setId($id);
 
-        
-
         if ($id === NULL) {
             $this->addUpdateCourse();
         }
     }
+
+    // __________________________________
+
+    public function __set($key, $value) {
+        $set = "set" . ucfirst($key);
+        $this->$set($value);
+    }
+
+    // __________________________________
 
     public static function updateCourseList () {
         $dbh = DBConnect::getConnection();
@@ -59,6 +66,8 @@ class Course implements JsonSerializable {
             die('Error updateCourseList: <br>' . $e->getMessage());
         }        
     }
+
+    // __________________________________
 
     public static function fetchAllIds() {
         self::updateCourseList();
@@ -102,8 +111,9 @@ class Course implements JsonSerializable {
         if($this->getId()) $stmt->bindValue(':id', $this->getId());
 
         try {
-            $stmt->execute();            
-            if (empty($this->getId)) $this->setId($dbh->lastInsertId());
+            $stmt->execute();   
+    
+            if (empty($this->getId())) $this->setId($dbh->lastInsertId());
             self::updateCourseList();
 
         } catch (PDOException $e) {
@@ -125,6 +135,28 @@ class Course implements JsonSerializable {
         });
 
         return array_values($course)[0];
+    }
+
+    // ----- Delete
+
+    public function deleteCourse() {
+        self::updateCourseList();
+
+        if (in_array($this, self::fetchAllCourses())) {
+            $dbh = DBConnect::getConnection();        
+            $sql = 'DELETE FROM Course WHERE id = :id';
+
+            $stmt = $dbh->prepare($sql);
+            $stmt->bindValue(':id', $this->getId());
+
+            try {
+                $stmt->execute();
+                self::updateCourseList();                
+
+            } catch (PDOException $e) {
+                die('Error deleteCourse: <br>' . $e->getMessage());
+            }
+        }
     }
 
 // _____________________________________________________________________
@@ -235,7 +267,41 @@ class Course implements JsonSerializable {
             'days'=> explode(' ', $this->getDays()),
             'time'=> Array ('from'=>$this->getTimeFrom(), 'to'=>$this->getTimeTo()),
             'duration'=>"{$this->getDuration()}hr",
-            'price'=>$this->getPrice()
+            'price'=>"EUR " . (int)($this->getPrice()),
+            'REGISTER'=>$this->fetchCourseStudents()
         );
     }
+
+    // _________________________________________________________________
+
+    public function fetchCourseStudents() {
+        $dbh = DBConnect::getConnection();
+        $sql = <<<'SQL_END'
+            SELECT Student.id, Student.firstname, Student.lastname
+            FROM Course 
+            INNER JOIN Register ON Register.courseId = Course.id
+            INNER JOIN Student ON Student.id = Register.studentId
+            WHERE Course.id = :courseId ORDER BY Student.id;
+        SQL_END;
+
+        $stmt = $dbh->prepare($sql);
+        $stmt->bindValue(':courseId', $this->getId());
+
+        try {
+            $stmt->execute();
+            $students = $stmt->fetchAll(PDO::FETCH_OBJ);
+            if(!empty($students)) {
+                $courseStudents = Array();
+
+                foreach($students as $s) {
+                    array_push($courseStudents, "ID {$s->id} - {$s->firstname} {$s->lastname}");
+                }
+                return $courseStudents;
+            }
+        } catch (PDOException $e) {
+            die('Error fetchCourseStudents: <br>'. $e->getMessage());
+        }
+
+    }
+    
 }
