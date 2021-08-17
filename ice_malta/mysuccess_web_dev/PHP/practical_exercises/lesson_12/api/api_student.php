@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postVars = compact('firstname', 'lastname', 'age', 'email', 'phone');
 
     foreach($postVars as $k=>$v) {
+        
         if (empty($v)) {
             echo json_encode(['Status'=>'Failure', 'Message'=>"No {$k} Provided"]);
             exit();
@@ -100,6 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     verifyAdmin($user);
 
     parse_str(file_get_contents("php://input"),$putVars);
+    
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?: NULL;
     
     if ($id) {
@@ -108,14 +110,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             $student = Student::fetchStudent($id);
 
             foreach($putVars as $key=>$value) {
-
+                
                 $key = filter_var($key, FILTER_SANITIZE_STRING) ?? NULL;
                 $value = filter_var($value, FILTER_SANITIZE_STRING) ?? NULL;
-
+                if ($key == 'id') continue;
+                
                 if ($key && $value) {
+                    
                     $student->__set($key, $value);
-                }                
+                }
+                                
             }
+
             $student->addUpdateStudent();
             echo json_encode(
                 ['Status'=>'Success', 'Message'=>'Student Updated', 'Student'=> $student], 
