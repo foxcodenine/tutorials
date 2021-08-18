@@ -10,6 +10,7 @@ function verifyUser () {
         
     } 
     if (!isset($user) || empty($user)){
+        header('Status: 401 Unauthorized');
         echo json_encode(['Status'=>'Failure', 'Message'=>'Unauthorized User']); 
         exit();
     } 
@@ -19,6 +20,7 @@ function verifyUser () {
 function verifyAdmin($user) {
     
     if (!$user || !$user->role == 'admin') {
+        header('Status: 401 Unauthorized');
         echo json_encode(['Status'=>'Failure', 'Message'=>'Unauthorized User']); 
         exit();
     }

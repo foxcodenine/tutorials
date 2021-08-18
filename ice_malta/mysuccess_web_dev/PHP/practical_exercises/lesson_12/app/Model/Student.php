@@ -229,7 +229,7 @@ class Student implements JsonSerializable{
                 $studentCourses = Array();
 
                 foreach($coures as $c) {
-                    array_push($studentCourses, "ID {$c->id} - {$c->name}");
+                    array_push($studentCourses, "id {$c->id} - {$c->name}");
                 }
                 return $studentCourses;
             }

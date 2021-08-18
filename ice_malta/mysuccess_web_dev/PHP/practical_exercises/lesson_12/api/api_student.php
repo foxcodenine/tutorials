@@ -16,15 +16,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if($id) {
 
         if (in_array($id, Student::fetchAllIds())) {
-            $student = Student::fetchStudent($id);        
+            $student = Student::fetchStudent($id);
+            header('Status: 200 OK');        
             echo json_encode($student, JSON_PRETTY_PRINT ,512);
         } else {
+            header('Status: 400 Bad Request');
             echo json_encode(
                 ['Status'=>'Failure', 'Message'=>'Student with ID: ' . $id . ' not found']
             ); 
         }
 
-    } else {        
+    } else {    
+        header('Status: 200 OK');    
         echo json_encode(Student::fetchAllStudents(), JSON_PRETTY_PRINT , 512);
     }    
 }
