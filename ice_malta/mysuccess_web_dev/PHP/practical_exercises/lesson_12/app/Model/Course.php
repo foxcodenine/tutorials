@@ -294,7 +294,7 @@ class Course implements JsonSerializable {
                 $courseStudents = Array();
 
                 foreach($students as $s) {
-                    array_push($courseStudents, "ID {$s->id} - {$s->firstname} {$s->lastname}");
+                    array_push($courseStudents, "id {$s->id} - {$s->firstname} {$s->lastname}");
                 }
                 return $courseStudents;
             }

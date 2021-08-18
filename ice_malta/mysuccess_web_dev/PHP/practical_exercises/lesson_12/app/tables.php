@@ -32,7 +32,7 @@ $sqlRegisterTable = 'CREATE TABLE IF NOT EXISTS Register (
     id INT PRIMARY KEY AUTO_INCREMENT,
     courseId INT NOT NULL,
     studentId INT NOT NULL,
-    RegisterDate DATE NOT NULL, 
+    registerDate DATE NOT NULL, 
 
     CONSTRAINT Course_Register
     FOREIGN KEY (courseId) REFERENCES Course (id),
