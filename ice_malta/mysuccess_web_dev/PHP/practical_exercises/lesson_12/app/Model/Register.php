@@ -65,7 +65,7 @@ class Register implements JsonSerializable {
 
         try {
             $stmt->execute();
-            $this->setId($dbh->lastInsertId);
+            $this->setId($dbh->lastInsertId());
             self::updateRegisterList();
 
         } catch (PDOException $e) {
@@ -85,10 +85,7 @@ class Register implements JsonSerializable {
     public static function deleteFromRegister($cID, $sID) {
         $dbh = DBConnect::getConnection();
         
-        if ($cID == $sID && strtolower($cID) == 'all') {
-            echo json_encode(['Status'=>'Failure', 'Message'=>'Illegal action']);
-            exit();
-        } else if (strtolower($cID) == 'all') {
+        if (strtolower($cID) == 'all') {
             $sql = 'DELETE FROM Register 
             WHERE studentId = :studentId';
         } else if (strtolower($sID) == 'all') {
@@ -101,8 +98,8 @@ class Register implements JsonSerializable {
         }
 
         $stmt = $dbh->prepare($sql);
-        $stmt->bindValue(':studentId', $sID);
-        $stmt->bindValue(':courseId', $cID);
+        if (strtolower($sID) !== 'all') $stmt->bindValue(':studentId', $sID);
+        if (strtolower($cID) !== 'all') $stmt->bindValue(':courseId', $cID);
         try {
             $stmt->execute();
             self::updateRegisterList();
