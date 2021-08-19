@@ -35,10 +35,12 @@ $sqlRegisterTable = 'CREATE TABLE IF NOT EXISTS Register (
     registerDate DATE NOT NULL, 
 
     CONSTRAINT Course_Register
-    FOREIGN KEY (courseId) REFERENCES Course (id),
+    FOREIGN KEY (courseId) REFERENCES Course (id)
+    ON DELETE CASCADE,
     
     CONSTRAINT Student_Register
-    FOREIGN KEY (studentId) REFERENCES  Student (id)  
+    FOREIGN KEY (studentId) REFERENCES  Student (id)
+    ON DELETE CASCADE  
 )';
 
 $sqlUserTable = 'CREATE TABLE IF NOT EXISTS User (
@@ -55,8 +57,8 @@ DBConnect::createTable($sqlCourseTable);
 DBConnect::createTable($sqlRegisterTable);
 DBConnect::createTable($sqlUserTable);
 
-$adminUser  = new User('chrismariojimmy@yahoo.com', 'foxcode9', 'admin');
-$normalUser = new User('yanika@gmail.com', 'candyGirl', NULL);
+// $adminUser  = new User('chrismariojimmy@yahoo.com', 'foxcode9', 'admin');
+// $normalUser = new User('yanika@gmail.com', 'candyGirl', NULL);
 
 // $testStudent = new Student('Dorothy', 'Cassar', 31, 'dormond@gmail.com', 99257468);
 // $testStudent = new Student('Tania', 'Cardona', 34, 'drvodka@yahoo.com', 79265258);

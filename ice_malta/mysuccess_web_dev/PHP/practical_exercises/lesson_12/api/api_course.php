@@ -17,14 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if ($id) {
         
         if(in_array($id, Course::fetchAllIds())) {
+            header('Status: 200 OK');
             echo json_encode(Course::fetchCourse($id), JSON_PRETTY_PRINT, 512);
         } else {
+            header('Status: 400 Bad Request');
             echo json_encode(
                 ['Status'=>'Failure', 'Message'=>'Course with ID: ' . $id . ' not found']
             ); 
         }
 
     } else {
+        header('Status: 200 OK');
         echo json_encode(Course::fetchAllCourses(), JSON_PRETTY_PRINT, 512);
     }
 }
@@ -48,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     foreach($postVars as $k=>$v) {
         if (empty($v)) {
+            header('Status: 400 Bad Request');
             echo json_encode(['Status'=>'Failure', 'Message'=>"No {$k} Provided"]);
             exit();
         }
@@ -57,11 +61,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $newCourse = new Course($name, $startDate, $days, $timeFrom, $timeTo, $duration, $price);
 
     if ($newCourse->getId()) {
+        header('Status: 201 Created');
         echo json_encode(
             ['Status'=>'Success', 'Message'=>'Course Added', 'Course'=> $newCourse], 
             JSON_PRETTY_PRINT ,512
         );
     } else {
+        header('Status: 400 Bad Request');
         echo json_encode(['Status'=>'Failure']);
     }
 
@@ -81,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 
             $course = Course::fetchCourse($id);
             $course->deleteCourse();
+            header('Status: 200 OK');
             echo json_encode(
                 [
                     'Status'=>'Success', 
@@ -90,12 +97,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
             );
 
         } else {
+            header('Status: 400 Bad Request');
             echo json_encode(
                 ['Status'=>'Failure', 'Message'=>'Course with ID: ' . $id . ' not found']
             );
         }
 
     } else {
+        header('Status: 400 Bad Request');
         echo json_encode(['Status'=>'Failure', 'Message'=>'No ID Provided']);
     }
 }
@@ -129,18 +138,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
             }
 
             $course->addUpdateCourse();
+            header('Status: 200 OK');
             echo json_encode(
                 ['Status'=>'Success', 'Message'=>'Course Updated', 'Course'=> $course], 
                 JSON_PRETTY_PRINT ,512
             );
 
         } else {
+            header('Status: 400 Bad Request');
             echo json_encode(
                 ['Status'=>'Failure', 'Message'=>'Course with ID: ' . $id . ' not found']
             );          
         }
 
     } else {
+        header('Status: 400 Bad Request');
         echo json_encode(['Status'=>'Failure', 'Message'=>'No ID Provided']);
     }
 }

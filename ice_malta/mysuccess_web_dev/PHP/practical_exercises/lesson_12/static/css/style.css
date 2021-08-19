@@ -1,6 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Laila:wght@300;400;500;600;700&family=Work+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap");
 *,
 *::before,
 *::after {
@@ -21,7 +20,6 @@ body {
 .container {
   position: relative;
   width: 95vw;
-  min-width: 80rem;
   max-width: 100rem;
   padding: 2rem 2rem;
   margin: 0 auto; }
@@ -33,113 +31,26 @@ body {
     margin-bottom: 2rem;
     font-size: 3rem;
     border-bottom: 1px solid #000036; }
+  .container section {
+    padding: 2rem 2rem;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid #000036; }
   .container h3 {
     margin-bottom: 1.5rem;
     text-decoration: underline;
     color: black; }
-  .container .question {
+  .container .info {
     margin-bottom: 1rem;
     color: navy; }
-  .container .result {
+  .container .result, pre {
     color: green;
     font-size: 1.5rem;
     font-family: 'Fira Code',Verdana, Geneva, Tahoma, sans-serif; }
     .container .result span.danger {
       color: crimson; }
-  .container section {
-    padding: 2rem 2rem;
-    margin-bottom: 0rem;
-    min-height: 100%;
-    display: flex;
-    justify-content: space-between;
-    background-size: cover;
-    background-position: center;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1)), url("../../static/image/20190814.jpg");
-    outline: white 5px solid;
-    outline-offset: -1px; }
-  .container .right {
-    height: min-content;
-    width: 60%;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 1.5rem;
-    padding: 2rem 2rem;
-    display: flex;
-    flex-direction: column;
-    box-shadow: -1px -1px 10px 1px rgba(0, 0, 0, 0.1); }
-  .container .left {
-    width: 35%;
-    height: min-content;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 1.5rem;
-    padding: 2rem 2rem;
-    display: flex;
-    flex-direction: column;
-    text-transform: capitalize;
-    box-shadow: -1px -1px 10px 1px rgba(0, 0, 0, 0.1); }
-    .container .left__title {
-      color: #404040;
-      color: #95a127;
-      line-height: 1;
-      font-size: 2.8rem;
-      margin-bottom: 2rem;
-      font-weight: 600;
-      font-family: 'Laila', sans-serif;
-      text-shadow: 1px 1px 2px rgba(64, 64, 64, 0.7); }
-    .container .left__room {
-      margin-top: 2rem; }
-    .container .left__label {
-      display: block;
-      font-size: 1.2rem;
-      margin-bottom: .4rem;
-      color: rgba(64, 64, 64, 0.7);
-      display: flex;
-      justify-content: space-between; }
-    .container .left__btn {
-      border: none;
-      background-color: #95a127;
-      width: 100%;
-      font-size: 2rem;
-      color: #fff;
-      padding: .8rem;
-      border-radius: .4rem;
-      transition: .2s ease; }
-      .container .left__btn:hover {
-        transform: translateY(-3px); }
-      .container .left__btn:focus {
-        transform: translateY(-1px); }
-    .container .left__input {
-      margin-bottom: 1.4rem;
-      width: 100%;
-      padding: .5rem;
-      border: #95a127 1px solid;
-      border-radius: .4rem;
-      background-color: transparent;
-      font-size: 1.6rem;
-      color: rgba(64, 64, 64, 0.8); }
-      .container .left__input::-webkit-calendar-picker-indicator {
-        cursor: pointer;
-        opacity: .2; }
-      .container .left__input--adults, .container .left__input--children, .container .left__input--room {
-        margin: 0;
-        border-radius: 0; }
-      .container .left__input--adults {
-        grid-column: 1 / span 2;
-        border-top-left-radius: .4rem;
-        border-top-right-radius: .4rem; }
-      .container .left__input--children {
-        border-bottom-left-radius: .4rem; }
-      .container .left__input--room {
-        border-bottom-right-radius: .4rem; }
-    .container .left__room {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 3px;
-      margin-bottom: 2rem; }
 
-.invaled {
-  color: crimson; }
-
-hr.new1 {
-  border-left: 1px solid transparent;
-  border-top: 1px solid black;
-  border-bottom: 1px solid transparent; }
+.api__image {
+  width: 100%;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}

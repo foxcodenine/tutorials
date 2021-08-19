@@ -5,7 +5,7 @@ use app\Model\User;
 function verifyUser () {
     if (isset($_GET['key'])) {
         $key = filter_input(INPUT_GET, 'key', FILTER_SANITIZE_STRING);
-        $key = str_replace(' ', '+', substr($key, 3),);
+        $key = str_replace(' ', '+', substr($key, 4),);
         $user = User::fetchUser($key);
         
     } 

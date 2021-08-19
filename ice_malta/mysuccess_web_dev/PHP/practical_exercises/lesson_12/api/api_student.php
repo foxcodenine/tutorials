@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach($postVars as $k=>$v) {
         
         if (empty($v)) {
+            header('Status: 400 Bad Request');
             echo json_encode(['Status'=>'Failure', 'Message'=>"No {$k} Provided"]);
             exit();
         }
@@ -57,11 +58,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newStudent = new Student($firstname, $lastname, $age, $email, $phone);
 
     if ($newStudent->getId()) {
+        header('Status: 201 Created'); 
         echo json_encode(
-            ['Status'=>'Success', 'Message'=>'Student Added', 'Student'=> $newStudent], 
+            ['Status'=>'Success', 'Message'=>'Student Created', 'Student'=> $newStudent], 
             JSON_PRETTY_PRINT ,512
         );
     } else {
+        header('Status: 400 Bad Request');
         echo json_encode(['Status'=>'Failure']);
     }    
 }
@@ -78,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
         if (in_array($id, Student::fetchAllIds())) {
             $student = Student::fetchStudent($id);
             $student->deleteStudent();
-
+            header('Status: 200 OK'); 
             echo json_encode(
                 [
                     'Status'=>'Success', 
@@ -88,11 +91,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
             );
 
         } else {
+            header('Status: 400 Bad Request');
             echo json_encode(
                 ['Status'=>'Failure', 'Message'=>'Student with ID: ' . $id . ' not found']
             );
         }
     } else {
+        header('Status: 400 Bad Request');
         echo json_encode(['Status'=>'Failure', 'Message'=>'No ID Provided']);
     }
 }
@@ -126,16 +131,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             }
 
             $student->addUpdateStudent();
+            header('Status: 200 OK');
             echo json_encode(
                 ['Status'=>'Success', 'Message'=>'Student Updated', 'Student'=> $student], 
                 JSON_PRETTY_PRINT ,512
             );
         } else {
+            header('Status: 400 Bad Request');
             echo json_encode(
                 ['Status'=>'Failure', 'Message'=>'Student with ID: ' . $id . ' not found']
             );
         }   
     } else {
+        header('Status: 400 Bad Request');
         echo json_encode(['Status'=>'Failure', 'Message'=>'No ID Provided']);
     }
 }

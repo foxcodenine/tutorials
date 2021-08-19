@@ -17,5 +17,8 @@ RewriteRule ^(key.+)/api/course/?$  api/api_course.php?key=$1 [NC,L]
 RewriteRule ^(key.+)/api/course/(\d+)/?$  api/api_course.php?key=$1&id=$2 [NC,L]
 
 RewriteRule ^(key.+)/api/register/?$  api/api_register.php?key=$1 [NC,L]
-RewriteRule ^(key.+)/api/register/(c\d+)/(s\d+)/?$  api/api_register.php?key=$1&cID=$2&sID=$3 [NC,L]
-RewriteRule ^(key.+)/api/register/(s\d+)/(c\d+)/?$  api/api_register.php?key=$1&sID=$2&cID=$3 [NC,L]
+RewriteRule ^(key.+)/api/register/c_(\w*)/s_(\w*)/?$  api/api_register.php?key=$1&cID=$2&sID=$3 [NC,L]
+RewriteRule ^(key.+)/api/register/s_(\w*)/c_(\w*)/?$  api/api_register.php?key=$1&sID=$2&cID=$3 [NC,L]
+
+RewriteRule ^(key.+)/api/register/c_(\w*)/?$  api/api_register.php?key=$1&cID=$2 [NC,L]
+RewriteRule ^(key.+)/api/register/s_(\w*)/?$  api/api_register.php?key=$1&sID=$2 [NC,L]
