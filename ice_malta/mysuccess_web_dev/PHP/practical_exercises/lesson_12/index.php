@@ -9,7 +9,7 @@
     <title>PHP Lesson 12</title>
     <?php
 
-use app\Model\Student;
+
 
 require_once './app/init.php';
     ?>
@@ -17,18 +17,14 @@ require_once './app/init.php';
 </head>
 
 <body>
-<div class="container"> 
+<div class="container">
 
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/ice_malta/php/header/index.php'?>
     <h2>MySuccess Website Developer - PHP Lesson 12</h2>
     
     <?php 
     
-    
-
-    echo '<div class="json">';
-    echo json_encode(Student::updateStudentList(), JSON_PRETTY_PRINT ,512);
-    echo '</div>';
+    include './view/apiDoc.php';
 
    
     ?>
