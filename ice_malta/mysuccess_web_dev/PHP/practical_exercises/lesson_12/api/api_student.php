@@ -1,6 +1,8 @@
 <?php 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ice_malta/php/lesson_12/app/init.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ice_malta/php/lesson_12/api/api_functions.php';
+
+use app\Model\Register;
 use app\Model\Student;
 
 header('Content-Type: application/json');
@@ -82,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
             $student = Student::fetchStudent($id);
             $student->deleteStudent();
             header('Status: 200 OK'); 
+            Register::deleteFromRegister('all', $id);
             echo json_encode(
                 [
                     'Status'=>'Success', 
@@ -104,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
 // _____________________________________________________________________
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'PUT') { 
+if ($_SERVER['REQUEST_METHOD'] === 'PUT' || $_SERVER['REQUEST_METHOD'] === 'PATCH') { 
 
     verifyAdmin($user);
 

@@ -63,7 +63,7 @@ class DBConnect {
             self::$db_username = $_ENV['DB_USERNAME_WORK'];
             self::$db_password = $_ENV['DB_PASSWORD_WORK'];
             
-        } else if(get_current_user() === 'foxcodenine' && gethostbyaddr($_SERVER['REMOTE_ADDR']) === 'ip6-localhost') {
+        } else if(get_current_user() === 'foxcodenine' && gethostbyaddr($_SERVER['REMOTE_ADDR']) === $_ENV['PC_HOME']) {
             self::$db_username = $_ENV['DB_USERNAME_HOME'];
             self::$db_password = $_ENV['DB_PASSWORD_HOME'];
 
