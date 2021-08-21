@@ -9,8 +9,6 @@
     <title>PHP Lesson 12</title>
     <?php
 
-
-
 require_once './app/init.php';
     ?>
 
@@ -22,14 +20,9 @@ require_once './app/init.php';
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/ice_malta/php/header/index.php'?>
     <h2>MySuccess Website Developer - PHP Lesson 12</h2>
     
-    <?php 
-    
-    include './view/apiDoc.php';
-
-   
+    <?php     
+    include './view/apiDoc.php';   
     ?>
-
-
 
 </div>
 

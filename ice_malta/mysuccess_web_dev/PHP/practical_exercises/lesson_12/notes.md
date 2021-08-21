@@ -38,16 +38,6 @@ https://stackoverflow.com/questions/4713680/php-get-and-set-magic-methods
             $this->$name = $value;
         }
     }
-
-user_key  = keycTM7gqkDa7XJLdbRoIT70kFzbpEwubejo34eKKGqtjY=
-admin_key = key_VBeiaUvaq6UrUShwIr5MRK1FSe8eq+Zya+mogRt5OBI=
-
-http://localhost/ice_malta/php/lesson_12/key_nuYnR8DflXzR2MW+fJkMJVjfocSPzJtHBHUpcPAhGyI=/api/student    
-http://localhost/ice_malta/php/lesson_12/key_hsjZG/k2QGQQsR0GdcmNWkE6AdD1paOOwd7locx57jQ=/api/student    
-
-
-
-http://localhost/ice_malta/php/lesson_12/key_VBeiaUvaq6UrUShwIr5MRK1FSe8eq+Zya+mogRt5OBI=/api/student    
-http://localhost/ice_malta/php/lesson_12/key_VBeiaUvaq6UrUShwIr5MRK1FSe8eq+Zya+mogRt5OBI=/api/student    
+ 
 
 
