@@ -2,6 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ice_malta/php/lesson_12/app/init.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ice_malta/php/lesson_12/api/api_functions.php';
 use app\Model\Course;
+use app\Model\Register;
 
 header('Content-Type: application/json');
 
@@ -87,6 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 
             $course = Course::fetchCourse($id);
             $course->deleteCourse();
+            Register::deleteFromRegister($id, 'all');
             header('Status: 200 OK');
             echo json_encode(
                 [
@@ -111,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 
 // _____________________________________________________________________
 
-if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+if ($_SERVER['REQUEST_METHOD'] === 'PUT' || $_SERVER['REQUEST_METHOD'] === 'PATCH') {
     verifyAdmin($user);
     
     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_STRING) ?: NULL;
@@ -128,6 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                 $key = filter_var($key, FILTER_SANITIZE_STRING) ?? NULL;
                 $value = filter_var($value, FILTER_SANITIZE_STRING) ?? NULL;
 
+                $value = trim($value);
+
                 if ($key == 'id') continue; 
                 if ($key == 'startDate') $value = Course::arrangeDate($value, TRUE); 
 
@@ -137,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                 }
             }
 
-            $course->addUpdateCourse();
+            $course->addUpdateCourse();            
             header('Status: 200 OK');
             echo json_encode(
                 ['Status'=>'Success', 'Message'=>'Course Updated', 'Course'=> $course], 
