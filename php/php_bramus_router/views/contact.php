@@ -72,5 +72,19 @@
       </div>
     </div>
   </section>
+  <?php if(isset($contentSent) && $contentSent !== FALSE): ?>
+    <section>
+    <div class="container" style="width: 800px; ">
+      <div class="section-title text-center ">
+        <h2>Message</h2>
+        <p class="separator" style="text-align: left;"><b>NAME:</b> &nbsp; <?= $_SESSION['name']; ?></p>
+        <p class="separator" style="text-align: left;"><b>EMAIL:</b> &nbsp; <?= $_SESSION['email']; ?></p>
+        <p class="separator" style="text-align: left;"><b>SUBJECT:</b> &nbsp; <?= $_SESSION['subject']; ?></p>
+        <p class="separator" style="text-align: left;padding-bottom:200px;"><b>Message:</b> &nbsp; <?= $_SESSION['message']; ?></p>
+      </div>
+    </div>
+    </section>
+  <?php endif; ?>  
+
 
 <?php include 'views/parts/foot.php'?>

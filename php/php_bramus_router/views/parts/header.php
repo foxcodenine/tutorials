@@ -1,4 +1,5 @@
 <?php
+require './data/team.php';
 
 function active($current) {
   global $endpoint;
@@ -6,6 +7,7 @@ function active($current) {
     return "menu-active";
   }
 }
+
 
 ?>
 <header id="header" class="header header-hide">
@@ -21,19 +23,17 @@ function active($current) {
           <li class="menu-has-children <?=active('members')?>"><a href="">Members</a>
 
             <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-              <li><a href="#">Drop Down 5</a></li>
+              <?php foreach($team as $k=>$v): ?>
+              <?= "<li><a href='{$_ENV['BASE_URL']}/member/{$k}'>". ucfirst($v['name']) . ' ' . ucfirst($v['surname']) ."</a></li>" ?>
+              <?php endforeach; ?>
             </ul>
           </li>
 
           <li  class='<?=active('contact')?>' ><a href="<?=$_ENV['BASE_URL'] . '/contact'?>">Contact</a></li>
         </ul>
-      </nav><!-- #nav-menu-container -->
+      </nav>
     </div>
-  </header><!-- #header -->
+</header>
 
 
 
- 
