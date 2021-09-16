@@ -1,0 +1,36 @@
+.navbar{
+    height: 6rem;
+    background-color: $col-white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    border-bottom: 1px solid $col-gray-2;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    &__icon {
+        margin-right: 2rem;
+        font-size: 2rem;
+
+        a {.fas { color: $col-gray-5;}
+        }
+    }
+
+    &__profile {
+
+        margin-right: 1.5rem;
+
+        img {
+            width: 3.7rem;
+            height: 3.7rem;
+            object-fit: cover;
+            border-radius: 5rem;
+ 
+        }
+    }
+
+}

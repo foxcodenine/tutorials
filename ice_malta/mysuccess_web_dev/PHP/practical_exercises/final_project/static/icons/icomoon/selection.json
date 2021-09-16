@@ -1,0 +1,120 @@
+{
+  "IcoMoonType": "selection",
+  "icons": [
+    {
+      "icon": {
+        "paths": [
+          "M426 256q0-36 25-61t61-25 61 25 25 61-25 61-61 25-61-25-25-61zM896 682v-84q-72 0-132-30t-106-86l-58-68q-26-30-66-30h-44q-40 0-66 30l-56 68q-48 56-108 86t-132 30v84q88 0 164-36t134-102v96l-164 66q-22 8-35 28t-13 42q0 32 22 55t54 23h94v-22q0-44 31-75t75-31h128q10 0 16 6t6 14q0 10-6 16t-16 6h-128q-26 0-45 19t-19 45v22h308q32 0 54-23t22-55q0-22-13-42t-35-28l-164-66v-96q58 66 134 102t164 36z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": [
+          "self_improvement"
+        ],
+        "grid": 24
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 1,
+        "id": 1,
+        "prevSize": 24,
+        "name": "self_improvement"
+      },
+      "setIdx": 0,
+      "setId": 4,
+      "iconIdx": 0
+    },
+    {
+      "icon": {
+        "paths": [
+          "M512 854h-426v-86h244q-22-90-88-156t-156-88q20-6 41-9t43-3q72 0 134 27t108 73 73 108 27 134zM938 524q-20-6-41-9t-43-3q-94 0-172 46t-122 122q10 20 17 42t11 46q8 42 8 86h342v-86h-246q24-90 90-156t156-88zM668 470q24-66 69-121t105-93q-68 4-128 31t-105 73-71 107-26 131v0 0q62-82 156-128zM488 378q-28-70-80-124t-122-84q46 60 72 133t26 153q0 8-1 14t-1 12q14 8 27 17t25 19q8-38 21-73t33-67z"
+        ],
+        "attrs": [
+          {}
+        ],
+        "isMulticolor": false,
+        "isMulticolor2": false,
+        "tags": [
+          "grass"
+        ],
+        "grid": 24
+      },
+      "attrs": [
+        {}
+      ],
+      "properties": {
+        "order": 4,
+        "id": 0,
+        "prevSize": 24,
+        "name": "grass"
+      },
+      "setIdx": 0,
+      "setId": 4,
+      "iconIdx": 1
+    },
+    {
+      "icon": {
+        "paths": [
+          "M512 32l-512 512 96 96 96-96v416h256v-192h128v192h256v-416l96 96 96-96-512-512zM512 448c-35.346 0-64-28.654-64-64s28.654-64 64-64c35.346 0 64 28.654 64 64s-28.654 64-64 64z"
+        ],
+        "tags": [
+          "home",
+          "house"
+        ],
+        "defaultCode": 59649,
+        "grid": 16,
+        "attrs": []
+      },
+      "attrs": [],
+      "properties": {
+        "ligatures": "home2, house2",
+        "name": "home2",
+        "order": 3,
+        "id": 2,
+        "prevSize": 32
+      },
+      "setIdx": 3,
+      "setId": 1,
+      "iconIdx": 1
+    }
+  ],
+  "height": 1024,
+  "preferences": {
+    "showGlyphs": true,
+    "showQuickUse": true,
+    "showQuickUse2": true,
+    "showSVGs": true,
+    "fontPref": {
+      "prefix": "icon-",
+      "metadata": {
+        "fontFamily": "icomoon"
+      },
+      "metrics": {
+        "emSize": 1024,
+        "baseline": 6.25,
+        "whitespace": 50
+      },
+      "embed": false
+    },
+    "imagePref": {
+      "prefix": "icon-",
+      "png": false,
+      "useClassSelector": true,
+      "color": 3846271,
+      "bgColor": 16777215,
+      "classSelector": ".icon",
+      "name": "icomoon",
+      "height": 32,
+      "columns": 16,
+      "margin": 16
+    },
+    "historySize": 50,
+    "showCodes": true,
+    "gridSize": 16
+  }
+}

@@ -1,1 +1,15 @@
+
+@import './base/animations';
 @import './base/base';
+@import './base/functions';
+@import './base/mixins';
+@import './base/typography';
+@import './base/utilities';
+@import './base/variables';
+
+
+@import './pages/page';
+@import './components/sidebar.scss';
+@import './components/navbar.scss';
+
+

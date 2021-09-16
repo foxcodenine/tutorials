@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lemon&family=Nova+Round&family=Righteous&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Shojumaru&family=Sonsie+One&family=Syncopate:wght@400;700&display=swap");
 *,
 *::after,
 *::before {
@@ -12,6 +17,154 @@ html {
 
 body {
   box-sizing: border-box;
+}
+
+.tippy-box {
+  font-size: 1.2rem;
+  font-family: "Open Sans";
+}
+
+.page {
+  background-color: #F2F2F2;
+  min-height: 100vh;
+  margin: 0 auto;
+  z-index: 0;
+  margin-top: 6rem;
+  margin-left: 5rem;
+  transition: all 0.15s ease;
+}
+
+.sidebar:hover ~ .page {
+  margin-left: 21rem;
+}
+
+.sidebar {
+  background-color: #1A1A1A;
+  min-height: 100vh;
+  width: 5rem;
+  transition: all 0.15s ease;
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #000000;
+}
+.sidebar:hover {
+  width: 21rem;
+}
+.sidebar__title {
+  color: #FFFFFF;
+  font-size: 3rem;
+  font-family: "Syncopate";
+  padding-top: 1.5rem;
+  padding-left: 1.25rem;
+  padding-bottom: 0.5rem;
+  transition: all 0.2s ease;
+  height: 6rem;
+  margin-bottom: 2rem;
+}
+.sidebar__title--close {
+  display: block;
+}
+.sidebar__title--open {
+  display: none;
+  color: transparent;
+}
+.sidebar:hover .sidebar__title--close {
+  display: none;
+}
+.sidebar:hover .sidebar__title--open {
+  display: block;
+  color: #FFFFFF;
+}
+.sidebar__item {
+  min-height: 3rem;
+  width: 100%;
+  padding: 1rem 0 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
+  transition: all 0.15s ease-in;
+}
+.sidebar__item--small {
+  height: 2rem;
+  transition: all 0.2s ease;
+}
+.sidebar__item--small .sidebar__text {
+  font-size: 1.4rem !important;
+}
+.sidebar__item:hover {
+  background-color: rgba(0, 255, 179, 0.2);
+}
+.sidebar__item:hover .sidebar__icon {
+  fill: #F2F2F2;
+}
+.sidebar__icon {
+  fill: #5F5F5F;
+}
+.sidebar__icon svg {
+  height: 2rem;
+  width: 2rem;
+}
+.sidebar__text {
+  display: none;
+  color: transparent;
+}
+.sidebar:hover .sidebar__text {
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  color: #F2F2F2;
+  font-size: 1.6rem;
+  margin-left: 1rem;
+  font-weight: 500;
+}
+.sidebar__item:hover .sidebar__text {
+  font-weight: 600;
+}
+.sidebar__active {
+  background-color: #1A1A1A !important;
+  background-color: rgba(0, 255, 179, 0.2) !important;
+}
+.sidebar__hidden {
+  display: none;
+}
+.sidebar__separator {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-top: solid 1.5px #000000;
+}
+
+.navbar {
+  height: 6rem;
+  background-color: #FFFFFF;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  border-bottom: 1px solid #E5E5E5;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.navbar__icon {
+  margin-right: 2rem;
+  font-size: 2rem;
+}
+.navbar__icon a .fas {
+  color: #252525;
+}
+.navbar__profile {
+  margin-right: 1.5rem;
+}
+.navbar__profile img {
+  width: 3.7rem;
+  height: 3.7rem;
+  object-fit: cover;
+  border-radius: 5rem;
 }
 
 /*# sourceMappingURL=style.css.map */
