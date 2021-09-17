@@ -4,19 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Connect</title>
     <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" type="image/jpg" href="../static/icons/sound-waves.png"/>
 </head>
-<body>
+<body>         
+
+        <input type="checkbox" class="burger__checkbox" id="burger__checkbox">
+        <label for="burger__checkbox" class="burger__label">
+            <svg><use xlink:href="../static/icons/mycollection/sprite.svg#down-chevron"></use></svg>
+        </label>
+
     
-        <div class="navbar">
-            <div class="navbar__icon lessons"><a href="http://localhost/ice_malta/php/lesson_12/"><i class="fas fa-sort-amount-up"></i></a></div>
-            <div class="navbar__profile">
-                <img src="../static/images/img1.jpg" alt="">
-            </div>
-            
-        </div>
+
         <div class="sidebar">
 
             <div class="sidebar__title sidebar__title--open">connect</div>
@@ -45,19 +49,37 @@
                         <svg><use xlink:href="../static/icons/mycollection/sprite.svg#gear"></use></svg>                    
                     </div>
                     <div class="sidebar__text" >Settings</div>
+                    <div class="sidebar__icon sidebar__icon--arrow">
+                        <svg><use xlink:href="../static/icons/mycollection/sprite.svg#down-chevron"></use></svg>                    
+                    </div>
                 </div>
 
                 <a href="#" class="sidebar__item sidebar__hidden sidebar__item--small settings__sub">
                     <div class="sidebar__icon">
                         <svg></svg>                    
                     </div>
-                    <div class="sidebar__text">Add Device</div>
+                    <div class="sidebar__text">
+                        <svg><use xlink:href="../static/icons/mycollection/sprite.svg#plus"></use></svg>
+                        Add Device
+                    </div>
                 </a>
                 <a href="#" class="sidebar__item sidebar__hidden sidebar__item--small settings__sub">
                     <div class="sidebar__icon">
                         <svg></svg>                    
                     </div>
-                    <div class="sidebar__text">Sleep Mode Off</div>
+                    <div class="sidebar__text">
+                        <svg><use xlink:href="../static/icons/mycollection/sprite.svg#zzz-sleep-symbol"></use></svg>
+                        Sleep Mode Off
+                    </div>
+                </a>
+                <a href="#" class="sidebar__item sidebar__hidden sidebar__item--small settings__sub">
+                    <div class="sidebar__icon">
+                        <svg></svg>                    
+                    </div>
+                    <div class="sidebar__text">
+                        <svg><use xlink:href="../static/icons/mycollection/sprite.svg#zzz-sleep-symbol"></use></svg>
+                        Sleep Mode On
+                    </div>
                 </a>
    
             </div>
@@ -73,6 +95,14 @@
 
 
 
+        </div>
+        <div class="navbar">
+
+            <div class="navbar__icon lessons"><a href="http://localhost/ice_malta/php/lesson_12/"><i class="fas fa-sort-amount-up"></i></a></div>
+            <div class="navbar__profile">
+                <img src="../static/images/img1.jpg" alt="">
+            </div>
+            
         </div>
     <div class="page sidebar__close">
     </div>
