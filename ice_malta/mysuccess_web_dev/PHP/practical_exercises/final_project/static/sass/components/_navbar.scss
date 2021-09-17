@@ -1,0 +1,57 @@
+.navbar{
+    height: 6rem;
+    background-color: $col-white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    border-bottom: 1px solid $col-gray-2;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    padding-left: 5rem;
+    transition: all .15s ease;
+
+
+    &__icon {
+            height: 3.8rem;
+            width: 3.8rem;
+            margin-right: 1rem;
+            border-radius: 5rem;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            
+        &:hover {
+            background-color: $col-trans;
+        }
+
+        a {
+            font-size: 2rem;
+            .fas { color: $col-gray-5;}
+        }
+    }
+
+    &__profile {
+        margin-right: 1.5rem;
+
+        img {
+            width: 3.7rem;
+            height: 3.7rem;
+            object-fit: cover;
+            border-radius: 5rem; 
+        }
+    }
+}
+
+
+
+
+.sidebar:hover ~ .navbar{
+    padding-left: 21rem;
+}
