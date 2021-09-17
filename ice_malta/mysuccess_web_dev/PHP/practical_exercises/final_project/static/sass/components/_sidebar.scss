@@ -13,7 +13,7 @@
     border-right: 1px solid $col-black;
 
     &:hover {
-        width: 21rem;
+        width: 25rem;
     }
 
     &__title {
@@ -56,14 +56,15 @@
             .sidebar__text {
                 font-size: 1.4rem !important;
             }
+
         }
 
         &:hover {
-            background-color: rgba(rgb(0, 255, 179), 0.2);
+            background-color: $col-trans;
 
             .sidebar {
-                &__icon {
-                    fill: $col-gray-1;
+                &__icon, &__icon--arrow svg {
+                    fill: $col-gray-1 !important;
                 }
             }
         }
@@ -74,12 +75,31 @@
         svg {
             height: 2rem;
             width: 2rem;
+   
+        }
+        &--arrow {
+            svg {
+                height: 1.2rem;
+                width: 1.2rem;
+                margin-left: 12rem;
+                visibility: hidden;                
+                fill: transparent;
+                transition: fill .3s ease;
+            }
         }
     }
 
     &__text {
         display: none;
-        color: transparent
+        color: transparent;
+    
+        svg {
+            height: 1rem;
+            width: 1rem;
+            margin-right: .5rem;
+            fill: $col-gray-1;
+        }
+        
     }
     &:hover   &__text{
         display: block; 
@@ -90,13 +110,19 @@
         font-weight: 500;
     }
 
+    &:hover   &__icon--arrow svg{
+        visibility: visible;
+        fill: $col-gray-4;
+        
+    }
+
     &__item:hover &__text {
         font-weight: 600;
     }
 
     &__active {
         background-color: $col-gray-6 !important;
-        background-color: rgba(rgb(0, 255, 179), 0.2) !important;
+        background-color: $col-trans !important;
     }
     &__hidden {
         display: none;

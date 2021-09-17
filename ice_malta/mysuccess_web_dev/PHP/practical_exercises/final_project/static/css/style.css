@@ -14,9 +14,15 @@
 html {
   font-size: 62.5%;
 }
+@media (max-width: 37.5em) {
+  html {
+    font-size: 50%;
+  }
+}
 
 body {
   box-sizing: border-box;
+  min-width: 30rem;
 }
 
 .tippy-box {
@@ -52,7 +58,7 @@ body {
   border-right: 1px solid #000000;
 }
 .sidebar:hover {
-  width: 21rem;
+  width: 25rem;
 }
 .sidebar__title {
   color: #FFFFFF;
@@ -99,8 +105,8 @@ body {
 .sidebar__item:hover {
   background-color: rgba(0, 255, 179, 0.2);
 }
-.sidebar__item:hover .sidebar__icon {
-  fill: #F2F2F2;
+.sidebar__item:hover .sidebar__icon, .sidebar__item:hover .sidebar__icon--arrow svg {
+  fill: #F2F2F2 !important;
 }
 .sidebar__icon {
   fill: #5F5F5F;
@@ -109,9 +115,23 @@ body {
   height: 2rem;
   width: 2rem;
 }
+.sidebar__icon--arrow svg {
+  height: 1.2rem;
+  width: 1.2rem;
+  margin-left: 12rem;
+  visibility: hidden;
+  fill: transparent;
+  transition: fill 0.3s ease;
+}
 .sidebar__text {
   display: none;
   color: transparent;
+}
+.sidebar__text svg {
+  height: 1rem;
+  width: 1rem;
+  margin-right: 0.5rem;
+  fill: #F2F2F2;
 }
 .sidebar:hover .sidebar__text {
   display: block;
@@ -120,6 +140,10 @@ body {
   font-size: 1.6rem;
   margin-left: 1rem;
   font-weight: 500;
+}
+.sidebar:hover .sidebar__icon--arrow svg {
+  visibility: visible;
+  fill: #5F5F5F;
 }
 .sidebar__item:hover .sidebar__text {
   font-weight: 600;
@@ -149,9 +173,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  padding-left: 5rem;
+  transition: all 0.15s ease;
 }
 .navbar__icon {
-  margin-right: 2rem;
+  height: 3.8rem;
+  width: 3.8rem;
+  margin-right: 1rem;
+  border-radius: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar__icon:hover {
+  background-color: rgba(0, 255, 179, 0.2);
+}
+.navbar__icon a {
   font-size: 2rem;
 }
 .navbar__icon a .fas {
@@ -165,6 +202,72 @@ body {
   height: 3.7rem;
   object-fit: cover;
   border-radius: 5rem;
+}
+
+.sidebar:hover ~ .navbar {
+  padding-left: 21rem;
+}
+
+.burger__checkbox {
+  display: none;
+}
+.burger__label {
+  width: 3.5rem;
+  height: 3.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0.3rem;
+  transform: rotate(-90deg);
+  position: fixed;
+  top: 1.2rem;
+  left: 6rem;
+  z-index: 5;
+  transition: all 0.15s ease;
+  transition: transform 0.4s ease 0.2s;
+  border: 1px solid rgba(113, 113, 113, 0.5);
+  border-radius: 6rem;
+}
+.burger__label:hover {
+  background-color: rgba(0, 255, 179, 0.2);
+}
+.burger__label svg {
+  height: 1.7rem;
+  width: 1.7rem;
+  fill: rgba(113, 113, 113, 0.5);
+}
+
+.burger__checkbox:checked ~ .burger__label {
+  left: 26rem !important;
+  transform: rotate(90deg);
+}
+
+.burger__checkbox:checked ~ .sidebar {
+  width: 25rem !important;
+}
+
+.burger__checkbox:checked ~ .sidebar .sidebar__title--close {
+  display: none;
+}
+
+.burger__checkbox:checked ~ .sidebar .sidebar__title--open {
+  display: block;
+  color: #FFFFFF;
+}
+
+.burger__checkbox:checked ~ .sidebar .sidebar__text {
+  display: block;
+  font-family: "Open Sans", sans-serif;
+  color: #F2F2F2;
+  font-size: 1.6rem;
+  margin-left: 1rem;
+  font-weight: 500;
+}
+
+.burger__checkbox:checked ~ .sidebar .sidebar__icon--arrow svg {
+  visibility: visible;
+  fill: #5F5F5F;
 }
 
 /*# sourceMappingURL=style.css.map */
