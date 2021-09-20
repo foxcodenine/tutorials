@@ -7,11 +7,12 @@
     &__label {
         width: 3.5rem;
         height: 3.5rem;
-
         cursor: pointer;
+
         display: flex;
         align-items: center;
         justify-content: center;
+
         padding-top: .3rem;
         transform: rotate(-90deg);
         position: fixed;
@@ -20,17 +21,29 @@
         z-index: 5; 
         transition: all .15s ease; 
         transition: transform .4s ease .2s;
-        // transition-delay: .2s;
         border: 1px solid rgba($col-gray-3, .5);
         border-radius: 6rem;
+
+        @include respond(br_small) {
+            left: 1rem;
+            border-color: rgba($col-gray-5, .9);            
+        }
         &:hover {
             background-color: rgba(rgb(0, 255, 179), 0.2);
+            
+            @include respond(br_small) {
+                background-color: #fff;           
+            }
         }
+ 
         
         svg {
             height: 1.7rem;
             width: 1.7rem;
             fill: rgba($col-gray-3, .5);
+            @include respond(br_small) {
+                fill: rgba($col-gray-5, .9);
+            }
         }
     }
 
@@ -39,11 +52,17 @@
 .burger__checkbox:checked ~ .burger__label{
     left: 26rem !important;
     transform: rotate(90deg);
-    // fill: white;
-    // background-color: $col-gray-6;
+    
+    @include respond(br_small) {
+        background-color: rgba(rgb(0, 255, 179), 0.2);          
+    }
+
 }
 .burger__checkbox:checked ~ .sidebar {
     width: 25rem !important;
+    @include respond(br_small) {
+        transform: translateX(0%);
+    }
 }
 .burger__checkbox:checked ~ .sidebar .sidebar__title--close {
      display: none;   
@@ -64,5 +83,13 @@
     visibility: visible;
     fill: $col-gray-4;
 
+}
+.burger__checkbox:checked ~ .page{ 
+    margin-left: 25rem;
+}
+.burger__checkbox:checked ~ .navbar .lessons{ 
+    @include respond(br_tiny) {
+        visibility: hidden;
+    }
 }
 
