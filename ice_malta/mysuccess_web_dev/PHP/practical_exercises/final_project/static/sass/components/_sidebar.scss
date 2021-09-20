@@ -1,5 +1,5 @@
 .sidebar {
-    background-color: $col-gray-6;
+    background-color: $col-blue;
     min-height: 100vh;
     width: 5rem;
     transition: all .15s ease;
@@ -9,8 +9,11 @@
     left: 0;
     display: flex;
     flex-direction: column;
+    border-right: 1px solid $col-gray-4;
 
-    border-right: 1px solid $col-black;
+    @include respond(br_small) {
+        transform: translateX(-100%);
+    }
 
     &:hover {
         width: 25rem;
@@ -18,9 +21,9 @@
 
     &__title {
         color: $col-white;
-        font-size: 3rem;
-        font-family:  'Syncopate';
-        padding-top: 1.5rem;
+        font-size: 3.6rem;
+        font-family:  'Dancing Script', 'La Belle Aurore', 'Sofia', 'Grechen Fuemen','Syncopate';
+        padding-top: 1.3rem;
         padding-left: 1.25rem;
         padding-bottom: .5rem;
         transition: all .2s ease;
@@ -131,7 +134,7 @@
     &__separator {
         margin-top: 1rem;
         margin-bottom: 1rem;
-        border-top:  solid 1.5px $col-black;
+        border-top:  solid 1.5px $col-gray-4;
     }
 }
 

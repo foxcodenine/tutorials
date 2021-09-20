@@ -11,17 +11,18 @@ html {
     font-size: 62.5%;
 
     @include respond(br_small) {
-      font-size: 50%;
+      font-size: 55%;
     }
-    @include respond(br_900) {
-      font-size: 60%;
-    }
-    
+   
 
 }
 body {
     box-sizing: border-box;
-    min-width: 30rem;
+    min-width: 20em;
+
+  @include respond(br_small) {
+    border: 1px solid $col-gray-2;
+  }
 }
 
 

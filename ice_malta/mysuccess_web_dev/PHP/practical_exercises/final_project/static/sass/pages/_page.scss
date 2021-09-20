@@ -6,8 +6,14 @@
     margin-top: 6rem;
     margin-left: 5rem;
     transition: all .15s ease;
+
+    @include respond(br_small) {
+        margin-left: 0rem;
+    }
 }
 
 .sidebar:hover ~ .page{
-    margin-left: 21rem;
+    margin-left: 25rem;
 }
+
+
