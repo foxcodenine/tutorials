@@ -25,5 +25,5 @@ export default class Search {
 };
 
 
-
-
+// test if api still works
+// https://api.spoonacular.com/recipes/complexSearch?query=red&number=100&apiKey=57f70fde3bf84b6188194d0b5f8d4400
