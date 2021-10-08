@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet"> -->
  
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" type="image/png" href="img/favicon.png">
@@ -23,7 +23,9 @@
             <h1 class="heading-primary">
                 <span class="heading-primary-main">Outdoors</span>
                 <span class="heading-primary-sub">is where life happens</span>
-            </h1>            
+            </h1>  
+            
+            <a href="#" class="btn btn-white btn-animation">Discover our tours</a>
         </div>
 
 
