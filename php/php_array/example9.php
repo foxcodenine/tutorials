@@ -11,8 +11,8 @@
 // echo '<br><br>';
 // echo '<br><br>';
 // echo count('hello');
-
-
+?>
+<?php
 class MyClass {
     public $prop1     = 'one';
     public $prop2     = 'two';
@@ -30,6 +30,8 @@ class MyClass {
 $obj = new MyClass();
 
 foreach ($obj as $prop) echo $prop, ' ';
+?>
 
+<?php
 $obj->iterateProps();
 ?>
