@@ -1,0 +1,53 @@
+.row {
+    max-width: $grid-width;
+    background-color: rgb(192, 188, 188);
+    margin: 0 auto;
+    
+
+    &:not(:last-child) {
+        margin-bottom: $gutter-horizontal;
+    }
+
+    @include clearfix;
+
+    .col {        
+
+        &-1of2 {
+            
+            background-color: crimson;
+            width: calc((100% - #{$gutter-vertical}) / 2);
+            &:not(:last-child) {margin-right: $gutter-vertical;}
+            float: left;
+        }
+        &-1of3 {
+            background-color: crimson;
+            width: calc((100% - #{$gutter-vertical} * 2) / 3);
+            &:not(:last-child) {margin-right: $gutter-vertical;}
+            float: left;
+        }
+        &-2of3 {
+            background-color: crimson;
+            width: calc(((100% - #{$gutter-vertical} * 2) / 1.5) + $gutter-vertical);
+            &:not(:last-child) {margin-right: $gutter-vertical;}
+            float: left;
+        }
+        &-1of4 {
+            background-color: crimson;
+            width: calc((100% - #{$gutter-vertical} * 3) / 4);
+            &:not(:last-child) {margin-right: $gutter-vertical;}
+            float: left;
+        }
+        &-3of4 { 
+            background-color: crimson;
+            width: calc(((100% - #{$gutter-vertical} * 3) / 4 * 3) + (#{$gutter-vertical} * 2));
+            &:not(:last-child) {margin-right: $gutter-vertical;}
+            float: left;
+        }
+    }
+}
+
+
+
+
+// $gutter-vertical: 8rem;
+// $gutter-horizontal: 6rem
