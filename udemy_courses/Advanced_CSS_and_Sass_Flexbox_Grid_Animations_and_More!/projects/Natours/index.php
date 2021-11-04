@@ -28,5 +28,30 @@
             <a href="#" class="btn btn--white btn--animation">Discover our tours</a>
         </div>
     </header>
+    <section class="grid-test">
+        <div class="row">
+            <div class="col col-1of2">Column 1 of 2</div>
+            <div class="col col-1of2">Column 1 of 2</div>
+        </div>
+        <div class="row">
+            <div class="col col-1of3">Column 1 of 3</div>
+            <div class="col col-1of3">Column 1 of 3</div>
+            <div class="col col-1of3">Column 1 of 3</div>
+        </div>
+        <div class="row">
+            <div class="col col-1of3">Column 1 of 3</div>
+            <div class="col col-2of3">Column 2 of 3</div>
+        </div>
+        <div class="row">
+            <div class="col col-1of4">Column 1 of 4</div>
+            <div class="col col-3of4">Column 3 of 4</div>
+        </div>
+        <div class="row">
+            <div class="col col-1of4">Column 1 of 4</div>
+            <div class="col col-1of4">Column 1 of 4</div>
+            <div class="col col-1of4">Column 1 of 4</div>
+            <div class="col col-1of4">Column 1 of 4</div>            
+        </div>
+    </section>
 </body>
 </html>
