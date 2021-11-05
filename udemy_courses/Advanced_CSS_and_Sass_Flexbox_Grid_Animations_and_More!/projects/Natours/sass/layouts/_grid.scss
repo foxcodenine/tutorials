@@ -10,40 +10,20 @@
 
     @include clearfix;
 
-    .col {        
-
-        &-1of2 {
-            
-            background-color: crimson;
-            width: calc((100% - #{$gutter-vertical}) / 2);
-            &:not(:last-child) {margin-right: $gutter-vertical;}
+    [class^="col-"] {  
+        background-color: crimson;
+        &:not(:last-child) {margin-right: $gutter-vertical;}
             float: left;
-        }
-        &-1of3 {
-            background-color: crimson;
-            width: calc((100% - #{$gutter-vertical} * 2) / 3);
-            &:not(:last-child) {margin-right: $gutter-vertical;}
-            float: left;
-        }
-        &-2of3 {
-            background-color: crimson;
-            width: calc(((100% - #{$gutter-vertical} * 2) / 1.5) + $gutter-vertical);
-            &:not(:last-child) {margin-right: $gutter-vertical;}
-            float: left;
-        }
-        &-1of4 {
-            background-color: crimson;
-            width: calc((100% - #{$gutter-vertical} * 3) / 4);
-            &:not(:last-child) {margin-right: $gutter-vertical;}
-            float: left;
-        }
-        &-3of4 { 
-            background-color: crimson;
-            width: calc(((100% - #{$gutter-vertical} * 3) / 4 * 3) + (#{$gutter-vertical} * 2));
-            &:not(:last-child) {margin-right: $gutter-vertical;}
-            float: left;
-        }
+        // $= *=
     }
+    
+    .col-1of2 {width: calc((100% - #{$gutter-vertical}) / 2);}
+    .col-1of3 {width: calc((100% - #{$gutter-vertical} * 2) / 3);}
+    .col-2of3 {width: calc(((100% - #{$gutter-vertical} * 2) / 1.5) + $gutter-vertical);}
+    .col-1of4 {width: calc((100% - #{$gutter-vertical} * 3) / 4);}
+    .col-2of4 {width: calc((100% - #{$gutter-vertical}) / 2);}
+    .col-3of4 {width: calc(((100% - #{$gutter-vertical} * 3) / 4 * 3) + (#{$gutter-vertical} * 2));}
+  
 }
 
 
