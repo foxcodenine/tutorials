@@ -162,52 +162,37 @@ body {
   margin: 0 auto;
 }
 .row:not(:last-child) {
-  margin-bottom: 6rem;
+  margin-bottom: 8rem;
 }
 .row::after {
   content: "";
   display: table;
   clear: both;
 }
-.row .col-1of2 {
+.row [class^=col-] {
   background-color: crimson;
-  width: calc((100% - 2rem) / 2);
   float: left;
 }
-.row .col-1of2:not(:last-child) {
+.row [class^=col-]:not(:last-child) {
   margin-right: 2rem;
+}
+.row .col-1of2 {
+  width: calc((100% - 2rem) / 2);
 }
 .row .col-1of3 {
-  background-color: crimson;
   width: calc((100% - 2rem * 2) / 3);
-  float: left;
-}
-.row .col-1of3:not(:last-child) {
-  margin-right: 2rem;
 }
 .row .col-2of3 {
-  background-color: crimson;
   width: calc((100% - 2rem * 2) / 1.5 + 2rem);
-  float: left;
-}
-.row .col-2of3:not(:last-child) {
-  margin-right: 2rem;
 }
 .row .col-1of4 {
-  background-color: crimson;
   width: calc((100% - 2rem * 3) / 4);
-  float: left;
 }
-.row .col-1of4:not(:last-child) {
-  margin-right: 2rem;
+.row .col-2of4 {
+  width: calc((100% - 2rem) / 2);
 }
 .row .col-3of4 {
-  background-color: crimson;
   width: calc((100% - 2rem * 3) / 4 * 3 + (2rem * 2));
-  float: left;
-}
-.row .col-3of4:not(:last-child) {
-  margin-right: 2rem;
 }
 
 /*# sourceMappingURL=style.css.map */
