@@ -10,6 +10,8 @@ class MyTestClass implements Iterator, ArrayAccess {
         "three",
     );  
 
+    // _________________________________________________________________
+
     public function __construct() {
         $this->position = 0;
     }
@@ -93,7 +95,9 @@ for($i = 0; isset($obj[$i]); $i++ ) {
 // }
 
 $arr = each($obj);
+var_dump($arr);
 
+$arr = each($obj->$arr);
 var_dump($arr);
 ?>
 
