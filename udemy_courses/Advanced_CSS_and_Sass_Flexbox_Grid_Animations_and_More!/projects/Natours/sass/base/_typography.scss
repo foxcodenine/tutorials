@@ -1,7 +1,7 @@
 body {
     font-family: "Lato", sans-serif;
     font-weight: 400;
-    font-size: 1.6rem;
+    font-size: $font-size-default;
     line-height: 1.7;
     color: $color-gray-dark;
 }
@@ -31,5 +31,39 @@ body {
         font-weight: 700;
         letter-spacing: 1.8rem;
         animation: moveInRight 1s ease-in;
+    }
+}
+
+.heading-secondary {
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: .2rem;
+
+    background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+    display: inline-block;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    transition: .1s;
+
+    &:hover {
+        transform: skewY(1.5deg) skewX(12deg) scale(1.05);
+        text-shadow: .5rem 1rem 2rem rgba($color-black, .2);
+    }
+}
+
+.heading-tertiary {
+    font-size: $font-size-default;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.paragraph {
+    font-size: $font-size-default;
+    
+    &:not(:last-child) {
+        margin-bottom: 3rem;
     }
 }
