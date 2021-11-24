@@ -1,12 +1,10 @@
 #!/bin/bash
   
-
 homedir=$(echo $HOME)
 suffix=$(date +%m%d)
 username=$(whoami)
 
 #---------------------------------------------------------------------------------------
-
 
 if [ ! -d $homedir ]
 
@@ -15,9 +13,7 @@ then
         exit 0
 fi
 
-
 #---------------------------------------------------------------------------------------
-
 
 if [ -e "/tmp/$username.$suffix" ]
 then
@@ -33,7 +29,6 @@ then
         tar  --exclude=$homedir/.ssh -czf "/tmp/$username.$suffix"  $homedir 2> /dev/null
         echo "Home directory backed up at /tmp/$username.$suffix"
 fi
-
 
 #---------------------------------------------------------------------------------------
 
