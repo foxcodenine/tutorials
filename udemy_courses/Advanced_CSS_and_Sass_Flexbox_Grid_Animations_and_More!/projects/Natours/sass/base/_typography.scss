@@ -13,6 +13,8 @@ body {
     backface-visibility: hidden; /* animation fixen */
     margin-bottom: 6rem;
 
+    
+
 
     &--main {
         display: block;
@@ -23,7 +25,12 @@ body {
         animation-name: moveInLeft;
         animation-duration: 1s;
         animation-timing-function: ease-in;
-        /* animation-iteration-count: 3; */ /* 4 ref */
+        /* animation-iteration-count: 3; */                             // NOTE: 
+        
+        @include respond (phone) {
+            letter-spacing: 1rem;
+            font-size: 5rem;
+        }
     }
     &--sub {
         display: block;
@@ -31,6 +38,11 @@ body {
         font-weight: 700;
         letter-spacing: 1.8rem;
         animation: moveInRight 1s ease-in;
+
+        @include respond (phone) {
+            letter-spacing: .5rem;
+            
+        }
     }
 }
 
@@ -45,8 +57,16 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    transition: all .1s ease;
 
-    transition: .1s;
+    @include respond (tab_port) {        
+        font-size: 3rem;
+        letter-spacing: .1rem;
+    }
+    @include respond (phone) {        
+        font-size: 2.5rem;
+        letter-spacing: 0rem;
+    }
 
     &:hover {
         transform: skewY(1.5deg) skewX(12deg) scale(1.05);

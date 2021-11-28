@@ -8,6 +8,9 @@
 
 1em = 16px
 
+ORDER TO ADD THE RESPOND MIXEN
+Base + typography >general layout + grid > page layout >components
+
 */
 @keyframes moveInLeft {
   0% {
@@ -54,10 +57,35 @@
 html {
   font-size: 62.5%;
 }
+@media (max-width: 75em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+@media (max-width: 56.25em) {
+  html {
+    font-size: 50%;
+  }
+}
+@media (max-width: 37.5em) {
+  html {
+    font-size: 43.75%;
+  }
+}
+@media (min-width: 112.5em) {
+  html {
+    font-size: 75%;
+  }
+}
 
 body {
   padding: 1rem;
   box-sizing: border-box;
+}
+@media (max-width: 56.25em) {
+  body {
+    padding: 0;
+  }
 }
 
 body {
@@ -84,7 +112,12 @@ body {
   animation-duration: 1s;
   animation-timing-function: ease-in;
   /* animation-iteration-count: 3; */
-  /* 4 ref */
+}
+@media (max-width: 37.5em) {
+  .heading-primary--main {
+    letter-spacing: 1rem;
+    font-size: 5rem;
+  }
 }
 .heading-primary--sub {
   display: block;
@@ -92,6 +125,11 @@ body {
   font-weight: 700;
   letter-spacing: 1.8rem;
   animation: moveInRight 1s ease-in;
+}
+@media (max-width: 37.5em) {
+  .heading-primary--sub {
+    letter-spacing: 0.5rem;
+  }
 }
 
 .heading-secondary {
@@ -104,7 +142,19 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  transition: 0.1s;
+  transition: all 0.1s ease;
+}
+@media (max-width: 56.25em) {
+  .heading-secondary {
+    font-size: 3rem;
+    letter-spacing: 0.1rem;
+  }
+}
+@media (max-width: 37.5em) {
+  .heading-secondary {
+    font-size: 2.5rem;
+    letter-spacing: 0rem;
+  }
 }
 .heading-secondary:hover {
   transform: skewY(1.5deg) skewX(12deg) scale(1.05);
@@ -667,6 +717,11 @@ body {
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0% 100%);
   position: relative;
 }
+@media (max-width: 37.5em) {
+  .header {
+    clip-path: polygon(0 0, 100% 0, 100% 85vh, 0% 100%);
+  }
+}
 .header__logo-box {
   position: absolute;
   top: 4rem;
@@ -689,6 +744,11 @@ body {
   font-size: 1.4rem;
   color: #f7f7f7;
 }
+@media (max-width: 56.25em) {
+  .footer {
+    padding: 8rem 0;
+  }
+}
 .footer__logo-box {
   text-align: center;
   margin-bottom: 8rem;
@@ -701,6 +761,12 @@ body {
   border-top: #777 1px solid;
   padding-top: 2rem;
   display: inline-block;
+}
+@media (max-width: 56.25em) {
+  .footer__navigation {
+    width: 100%;
+    text-align: center;
+  }
 }
 .footer__list {
   list-style: none;
@@ -733,13 +799,34 @@ body {
   text-align-last: left;
   word-break: break-word;
 }
+@media (max-width: 56.25em) {
+  .footer__copyright {
+    width: 100%;
+    float: none;
+  }
+}
 
 .row {
   max-width: 114rem;
   margin: 0 auto;
 }
+@media (max-width: 56.25em) {
+  .row {
+    max-width: 50rem;
+  }
+}
+@media (max-width: 37.5em) {
+  .row {
+    padding: 0 3rem;
+  }
+}
 .row:not(:last-child) {
   margin-bottom: 8rem;
+}
+@media (max-width: 56.25em) {
+  .row:not(:last-child) {
+    margin-bottom: 6rem;
+  }
 }
 .row::after {
   content: "";
@@ -751,6 +838,17 @@ body {
 }
 .row [class^=col-]:not(:last-child) {
   margin-right: 6rem;
+}
+@media (max-width: 56.25em) {
+  .row [class^=col-]:not(:last-child) {
+    margin-right: 0;
+    margin-bottom: 6rem;
+  }
+}
+@media (max-width: 56.25em) {
+  .row [class^=col-] {
+    width: 100% !important;
+  }
 }
 .row .col-1of2 {
   width: calc((100% - 6rem) / 2);
@@ -787,6 +885,12 @@ body {
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
   text-align: center;
 }
+@media (max-width: 56.25em) {
+  .navigation__button {
+    top: 3rem;
+    right: 3.5rem;
+  }
+}
 .navigation__background {
   cursor: pointer;
   height: 6rem;
@@ -799,6 +903,12 @@ body {
   z-index: 100;
   transform: scale(1);
   transition: all 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+}
+@media (max-width: 56.25em) {
+  .navigation__background {
+    top: 3.5rem;
+    right: 4rem;
+  }
 }
 .navigation__nav {
   height: 100vh;

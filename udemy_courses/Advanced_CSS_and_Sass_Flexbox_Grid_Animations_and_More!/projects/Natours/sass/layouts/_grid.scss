@@ -1,20 +1,42 @@
 .row {
     max-width: $grid-width;
-    // background-color: rgb(192, 188, 188);
     margin: 0 auto;
+
+    @include respond (tab_port) {
+        max-width: 50rem;
+    }
+    @include respond (phone) {
+        padding: 0 3rem;
+    }
     
 
     &:not(:last-child) {
         margin-bottom: $gutter-horizontal;
+
+        @include respond (tab_port) {
+            margin-bottom: $gutter-horizontal-small;
+        }
     }
 
     @include clearfix;
 
     [class^="col-"] {  
-        // background-color: crimson;
-        &:not(:last-child) {margin-right: $gutter-vertical;}
-            float: left;
+        float: left;
+
+        &:not(:last-child) {
+            margin-right: $gutter-vertical;
+
+            @include respond (tab_port) {
+                margin-right: 0;
+                margin-bottom: $gutter-horizontal-small;
+            }
+        }
+            
         // $= *=
+
+        @include respond (tab_port) {
+            width: 100% !important;
+        }
     }
     
     .col-1of2 {width: calc((100% - #{$gutter-vertical}) / 2);}
