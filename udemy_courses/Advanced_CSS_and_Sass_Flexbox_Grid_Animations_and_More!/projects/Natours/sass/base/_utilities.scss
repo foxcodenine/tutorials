@@ -1,10 +1,10 @@
 .u-center-text { text-align: center;}
 
-.u-margen-bottom-8 {margin-bottom: 8rem;}
-.u-margen-bottom-6 {margin-bottom: 6rem;}
-.u-margen-bottom-4 {margin-bottom: 4rem;}
-.u-margen-bottom-2 {margin-bottom: 2rem;}
-.u-margen-bottom-1 {margin-bottom: 1rem;}
+.u-margen-bottom-8 {margin-bottom: 8rem;    @include respond (tab_port) {margin-bottom: 7rem;}}
+.u-margen-bottom-6 {margin-bottom: 6rem;    @include respond (tab_port) {margin-bottom: 4.5rem;}}
+.u-margen-bottom-4 {margin-bottom: 4rem;    @include respond (tab_port) {margin-bottom: 3rem;}}
+.u-margen-bottom-2 {margin-bottom: 2rem;    @include respond (tab_port) {margin-bottom: 1.5rem;}}
+.u-margen-bottom-1 {margin-bottom: 1rem;    @include respond (tab_port) {margin-bottom: .7rem;}}
 
 .u-margen-top-8 {margin-top: 8rem;}
 .u-margen-top-6 {margin-top: 6rem;}
