@@ -2,10 +2,15 @@
     background-color: $color-gray-light-1;
     padding: 25rem 0;
     margin-top: -20vh;
+
+    @include respond(tab_port) {
+        padding: 22rem 0 20rem 0;
+    }
 }
 
 .section-features {
     padding: 20rem 0;
+    margin-top: -10rem;
     background-image: linear-gradient(
         to right bottom, rgba($color-primary-light, 0.5), rgba( $color-primary-dark, 0.5)) , 
         url(../img/nat-4.jpg
@@ -18,7 +23,10 @@
         transform: skewY(7deg);
     }
 
-    margin-top: -10rem;
+    @include respond(tab_port) {
+        padding: 10rem 0;
+    }
+    
 }
 
 .section-tours {
@@ -26,17 +34,29 @@
     padding: 25rem 0 15rem 0;
     margin-top: -10rem;
 
+    @include respond(tab_port) {
+        padding: 20rem 0 10rem 0;
+    }
+
 }
 
 .section-stories {
-    padding: 12rem 0 15rem 0;
+    padding: 10rem 0 15rem 0;
     // background-color: $color-gray-light-1;
     position: relative;
+
+    @include respond(tab_port) {
+        padding: 10rem 0;
+    }
 }
 
 .section-book {
     padding: 15rem 0;
     background-image: linear-gradient(to right bottom, $color-primary-light, $color-primary-dark);
+
+    @include respond(tab_port) {
+        padding: 10rem 0;
+    }
 }
 
 .book {
