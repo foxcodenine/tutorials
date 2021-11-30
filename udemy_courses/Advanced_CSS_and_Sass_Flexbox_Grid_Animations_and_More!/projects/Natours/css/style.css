@@ -567,7 +567,7 @@ body {
 .composition__photo:hover {
   transform: scale(1.05) translateY(-0.4rem);
   box-shadow: 0 2.5rem 6rem rgba(0, 0, 0, 0.5);
-  z-index: 10;
+  z-index: 205;
   outline: 1.5rem solid #55c57a;
 }
 .composition:hover .composition__photo:not(:hover) {
@@ -853,11 +853,16 @@ body {
 
 .header {
   height: 95vh;
-  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.5), rgba(40, 180, 133, 0.5)), url(../img/hero.jpg);
+  background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.5), rgba(40, 180, 133, 0.5)), url(../img/hero-small.jpg);
   background-size: cover;
   background-position: top;
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0% 100%);
   position: relative;
+}
+@media (min-width: 75em), (min-width: 37.5em) and (min-resolution: 192dpi) {
+  .header {
+    background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.5), rgba(40, 180, 133, 0.5)), url(../img/hero.jpg);
+  }
 }
 @media (max-width: 37.5em) {
   .header {
@@ -964,7 +969,7 @@ body {
 }
 @media (max-width: 37.5em) {
   .row {
-    padding: 0 3rem;
+    padding: 0 1rem;
   }
 }
 .row:not(:last-child) {
@@ -1028,7 +1033,7 @@ body {
   position: fixed;
   top: 5rem;
   right: 5rem;
-  z-index: 102;
+  z-index: 302;
   box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
   text-align: center;
 }
@@ -1047,7 +1052,7 @@ body {
   top: 5.5rem;
   right: 5.5rem;
   background-image: radial-gradient(#7ed56f, #28b485);
-  z-index: 100;
+  z-index: 300;
   transform: scale(1);
   transition: all 0.8s cubic-bezier(0.86, 0, 0.07, 1);
 }
@@ -1062,7 +1067,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 101;
+  z-index: 301;
   transform: translateX(-100%);
   opacity: 0;
   width: 100%;

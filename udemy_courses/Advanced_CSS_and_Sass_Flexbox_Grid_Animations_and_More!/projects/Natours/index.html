@@ -75,9 +75,25 @@
                 </div>
                 <div class="col-1of2">
                     <div class="composition">
-                        <div class="composition__photo composition__photo--p1"><img src="img/nat-1-large.jpg" alt="Photo 1"></div>
-                        <div class="composition__photo composition__photo--p2"><img src="img/nat-2-large.jpg" alt="Photo 2"></div>
-                        <div class="composition__photo composition__photo--p3"><img src="img/nat-3-large.jpg" alt="Photo 3"></div>                      
+
+                        <div class="composition__photo composition__photo--p1">
+                            <img    src="img/nat-1-large.jpg" alt="Photo 1"
+                                    srcset="img/nat-1.jpg 300w, img/nat-1-large.jpg 1000w"
+                                    sizes="(max-width:112.5em) 17.5vw, (max-width:75em) 22.25vw, (max-width:56.25em) 20vw, (max-width:37.5em) 25vw, 310px"                            
+                            >
+                        </div>
+                        <div class="composition__photo composition__photo--p2">
+                            <img    src="img/nat-2-large.jpg" alt="Photo 2"
+                                    srcset="img/nat-2.jpg 300w, img/nat-2-large.jpg 1000w"
+                                    sizes="(max-width:112.5em) 17.5vw, (max-width:75em) 22.25vw, (max-width:56.25em) 20vw, (max-width:37.5em) 25vw, 310px"                            
+                            >
+                        </div>
+                        <div class="composition__photo composition__photo--p3">
+                            <img    src="img/nat-3-large.jpg" alt="Photo 3"
+                                    srcset="img/nat-3.jpg 300w, img/nat-3-large.jpg 1000w"
+                                    sizes="(max-width:112.5em) 17.5vw, (max-width:75em) 22.25vw, (max-width:56.25em) 20vw, (max-width:37.5em) 25vw, 310px"                            
+                            >
+                        </div>
 
                     </div>
                 </div>
@@ -320,12 +336,19 @@
 
     <footer class="footer">
         <div class="footer__logo-box">
-            <img src="./img/logo-green-2x.png" alt="Full logo" class="footer__logo">
+            <picture class="footer__logo">                              <!-- NOTE: chaper6 video 8 -->                  
+                <source srcset="./img/logo-green-small-1x.png 1x, ./img/logo-green-small-2x.png 2x" media="(max-width: 37.5em)"> 
+                <img  srcset="./img/logo-green-1x.png 1x , ./img/logo-green-2x.png 2x" alt="Full logo" 
+                         src="./img/logo-green-2x.png"
+                >
+            </picture>
+            <!-- <img  srcset="./img/logo-green-1x.png 1x , ./img/logo-green-2x.png 2x" alt="Full logo" class="footer__logo"> -->
+
         </div>
         <div class="row">
             <div class="col-1of2">
                 <div class="footer__navigation">
-                    <ul class="fotter__list">
+                    <ul class="footer__list">
                         <li class="footer__item"><a href="#" class="footer__link">Company</a></li>
                         <li class="footer__item"><a href="#" class="footer__link">Contact us</a></li>
                         <li class="footer__item"><a href="#" class="footer__link">Carrers</a></li>
