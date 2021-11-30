@@ -2,8 +2,16 @@
     height: 95vh;
     background-image: linear-gradient(
         to right bottom, rgba($color-primary-light, 0.5), rgba( $color-primary-dark, 0.5)) , 
-        url(../img/hero.jpg
+        url(../img/hero-small.jpg
     );   
+
+    @media  (min-width: 75em) ,                                         // NOTE: Chapter 6, Video 9
+            (min-width: 37.5em) and (min-resolution: 192dpi) {
+        background-image: linear-gradient(
+            to right bottom, rgba($color-primary-light, 0.5), rgba( $color-primary-dark, 0.5)) , 
+            url(../img/hero.jpg
+        );  
+    }
 
     background-size: cover;
     background-position: top;

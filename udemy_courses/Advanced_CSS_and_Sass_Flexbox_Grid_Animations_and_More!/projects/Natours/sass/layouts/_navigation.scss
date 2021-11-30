@@ -13,7 +13,7 @@
         position: fixed;
         top: 5rem; 
         right: 5rem;
-        z-index: 102;
+        z-index: 302;
         box-shadow: $box-shadow-6;
         text-align: center;
 
@@ -32,7 +32,7 @@
         top: 5.5rem; 
         right: 5.5rem;
         background-image: radial-gradient($color-primary-light, $color-primary-dark);
-        z-index: 100;
+        z-index: 300;
 
         transform: scale(1);
         transition: all .8s cubic-bezier(0.86, 0, 0.07, 1);             // NOTE:
@@ -48,7 +48,7 @@
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 101;
+        z-index: 301;
         transform: translateX(-100%);
         opacity: 0;
         width: 100%;
