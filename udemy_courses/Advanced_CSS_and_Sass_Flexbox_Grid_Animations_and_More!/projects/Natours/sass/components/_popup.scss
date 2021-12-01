@@ -12,6 +12,12 @@
     visibility: hidden;
 
     transition:  all .3s ease;
+
+    @supports  (backdrop-filter: blur(10px)){                           // NOTE: @support chapter 6 , video 11
+        backdrop-filter: blur(10px);
+        background-color: rgba($color-black, .3);
+    }
+
     
 
 
