@@ -25,12 +25,19 @@
         height: 15rem;
         background-color: lightcoral;
         float: left;
-        -webkit-shape-outside: circle(50% at 50% 50%);    
-        shape-outside: circle(50% at 50% 50%);                          // NOTE:
-        clip-path: circle(50% at 50% 50%);
         transform: translateX(-3rem)skewX(12deg);
         position: relative;
         overflow: hidden;
+        border-radius: 50%;
+
+        @supports(clip-path: polygon(0 0)) {                            // NOTE: Support Chapter 6, Video 11
+            clip-path: circle(50% at 50% 50%);
+            border-radius: none;
+
+            -webkit-shape-outside: circle(50% at 50% 50%);    
+            shape-outside: circle(50% at 50% 50%);                      // NOTE:
+        }
+
         @include respond (phone) {
             transform: translateX(-3rem)skewX(0deg);
         }
