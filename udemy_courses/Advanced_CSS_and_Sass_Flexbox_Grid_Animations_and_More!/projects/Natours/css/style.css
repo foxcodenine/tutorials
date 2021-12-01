@@ -714,6 +714,12 @@ body {
   visibility: hidden;
   transition: all 0.3s ease;
 }
+@supports (backdrop-filter: blur(10px)) {
+  .popup {
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}
 .popup__content {
   position: absolute;
   top: 50%;
@@ -802,12 +808,18 @@ body {
   height: 15rem;
   background-color: lightcoral;
   float: left;
-  -webkit-shape-outside: circle(50% at 50% 50%);
-  shape-outside: circle(50% at 50% 50%);
-  clip-path: circle(50% at 50% 50%);
   transform: translateX(-3rem) skewX(12deg);
   position: relative;
   overflow: hidden;
+  border-radius: 50%;
+}
+@supports (clip-path: polygon(0 0)) {
+  .story__shape {
+    clip-path: circle(50% at 50% 50%);
+    border-radius: none;
+    -webkit-shape-outside: circle(50% at 50% 50%);
+    shape-outside: circle(50% at 50% 50%);
+  }
 }
 @media (max-width: 37.5em) {
   .story__shape {
@@ -852,21 +864,26 @@ body {
 }
 
 .header {
-  height: 95vh;
+  height: 85vh;
   background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.5), rgba(40, 180, 133, 0.5)), url(../img/hero-small.jpg);
   background-size: cover;
   background-position: top;
-  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0% 100%);
   position: relative;
+}
+@supports (clip-path: polygon(0 0)) {
+  .header {
+    height: 95vh;
+    clip-path: polygon(0 0, 100% 0, 100% 75vh, 0% 100%);
+  }
+  @media (max-width: 37.5em) {
+    .header {
+      clip-path: polygon(0 0, 100% 0, 100% 85vh, 0% 100%);
+    }
+  }
 }
 @media (min-width: 75em), (min-width: 37.5em) and (min-resolution: 192dpi) {
   .header {
     background-image: linear-gradient(to right bottom, rgba(126, 213, 111, 0.5), rgba(40, 180, 133, 0.5)), url(../img/hero.jpg);
-  }
-}
-@media (max-width: 37.5em) {
-  .header {
-    clip-path: polygon(0 0, 100% 0, 100% 85vh, 0% 100%);
   }
 }
 .header__logo-box {
