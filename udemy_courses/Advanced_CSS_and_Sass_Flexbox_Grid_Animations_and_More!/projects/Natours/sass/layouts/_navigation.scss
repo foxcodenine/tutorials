@@ -11,8 +11,8 @@
         width: 7rem;
         border-radius: 50%;
         position: fixed;
-        top: 5rem; 
-        right: 5rem;
+        top: 4rem; 
+        right: 4rem;
         z-index: 302;
         box-shadow: $box-shadow-6;
         text-align: center;
@@ -29,9 +29,9 @@
         width: 6rem;
         border-radius: 50%;
         position: fixed;
-        top: 5.5rem; 
-        right: 5.5rem;
-        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        top: 4.5rem; 
+        right: 4.5rem;
+        background-image: radial-gradient($color-primary-light 5%, $color-primary-dark 40%);
         z-index: 300;
 
         transform: scale(1);

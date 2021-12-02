@@ -18,10 +18,10 @@ body {
 
     &--main {
         display: block;
-        font-size: 6rem;
+        font-size: 7rem;
         font-weight: 400;
-        letter-spacing: 3.5rem;
-
+        letter-spacing: 3rem;
+        line-height: 1.3;
         animation-name: moveInLeft;
         animation-duration: 1s;
         animation-timing-function: ease-in;
@@ -29,18 +29,20 @@ body {
         
         @include respond (phone) {
             letter-spacing: 1rem;
-            font-size: 5rem;
+            font-size: 6rem;
         }
     }
     &--sub {
         display: block;
         font-size: 2rem;
-        font-weight: 700;
+        font-weight: 400;
         letter-spacing: 1.8rem;
         animation: moveInRight 1s ease-in;
+        margin-left: -1rem;
 
         @include respond (phone) {
             letter-spacing: .5rem;
+            margin-left: 0rem;
             
         }
     }

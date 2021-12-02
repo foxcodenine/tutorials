@@ -1,16 +1,20 @@
 .feature-box {
-    background-color: rgba($color-white, .8);
+    background-color: rgba($color-white, .7);
     font-size: 1.5rem;
     padding: 2.5rem;
     text-align: center;
     border-radius: $border-radius;
     box-shadow: $box-shadow-1;
     transition: all .2s ease;
+    animation-fill-mode: backwards;
+    // display: none;
+    min-height: 38rem;
 
     @include respond (tab_port) {
         padding: 2rem;
         width: 80%;
         margin: 0 auto;
+        min-height: 20rem;
     }
 
     
@@ -33,4 +37,13 @@
         box-shadow: $box-shadow-2;
     }
 
+    .heading-tertiary {                                                 // NOTE: I customed bottom margia 
+        margin-bottom: 4rem !important;
+    }
+
+    @media (max-width: 62.5em) {
+        .heading-tertiary {
+            margin-bottom: 2rem !important;
+        }
+    }
 }
