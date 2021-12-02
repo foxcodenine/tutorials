@@ -6,7 +6,7 @@
     top: 0;
     left: 0;
     background-color: rgba($color-black, .8);
-    z-index: 200;
+    z-index: 400;
 
     opacity: 0;
     visibility: hidden;
@@ -38,7 +38,17 @@
 
     &__left {
         width: 33.3333333%;
-        display: table-cell;                                            // NOTE:       
+        display: table-cell;                                            // NOTE:  
+        
+        @include respond (tab_land) {
+            width: 50%;
+        }
+        @include respond (tab_port) {
+            width: 100%;
+            float: left;            
+            overflow: hidden;
+  
+        }
                                                                         
     }
     &__right {
@@ -46,13 +56,34 @@
         display: table-cell;
         vertical-align: middle;                                         // NOTE:
         padding: 3rem 5rem;
+
+        @include respond (tab_land) {
+            width: 50%;
+
+            h2 {font-size: 3rem !important;}
+            
+        }
+  
+
+        @include respond (tab_port) {
+            width: 100%;
+            float: left;        
+        }
         
     }
     &__img {
         display: block;
         width: 100%;
-        object-fit: cover;
         
+        object-fit: cover;
+        object-position: bottom;
+
+
+        @include respond (tab_port) {
+            width: 50%;
+            float: left;
+            height: 22rem;
+        }
         
     }
     &__text {
@@ -65,6 +96,10 @@
 
         hyphens: auto;
         text-align: justify;
+
+        @include respond (tab_land) {
+            column-count: 1;
+        }
         
     }
 
@@ -100,3 +135,4 @@
         }
     }
 }
+

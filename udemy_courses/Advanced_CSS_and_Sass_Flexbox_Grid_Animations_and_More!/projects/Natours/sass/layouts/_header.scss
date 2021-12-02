@@ -19,8 +19,8 @@
         }
     }
 
-    @media  (min-width: 75em) ,                                         // NOTE: Chapter 6, Video 9
-            (min-width: 37.5em) and (min-resolution: 192dpi) {
+    @media  only screen and (min-width: 75em) ,                                 // NOTE: Chapter 6, Video 9
+            only screen and (min-width: 37.5em) and (min-resolution: 192dpi) {
         background-image: linear-gradient(
             to right bottom, rgba($color-primary-light, 0.5), rgba( $color-primary-dark, 0.5)) , 
             url(../img/hero.jpg
@@ -32,11 +32,13 @@
     &__logo-box {
         position: absolute;
         top: 4rem;
-        left: 4rem;
+        left: 3rem;
     }
 
     &__logo {
-        height: 3.5rem;
+        height: 4rem;
+
+        animation: iconHeader 3.7s ease-out  .3s backwards;
     }
 
     &__text-box {

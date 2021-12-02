@@ -7,11 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "sass-watch": "sass sass/main.scss css/style.css -w",
     "sass-compile": "sass sass/main.scss css/style.compile.css",
-    "css-concat": "concat -o ./css/style.concat.css ./css/style.compile.css",
+    "css-concat": "concat -o ./css/style.concat.css  ./third_party/linea_basic_1.0/_ICONFONT/styles.css ./css/style.compile.css" ,
     "css-prefix": "postcss --use autoprefixer -b 'last 8 versions' ./css/style.concat.css -o ./css/style.prefix.css",
     "css-compress": "sass --style=compressed ./css/style.prefix.css ./css/style.css",
-    "css-remove": "rm ./css/style.prefix.css ./css/style.compile.css ./css/style.compile.css.map ./css/style.concat.css",
-    "css-build": "npm-run-all sass-compile css-concat css-prefix css-compress css-remove"
+    "css-remove": "rm ./css/style.prefix.css ./css/style.compile.css ./css/style.compile.css.map ./css/style.concat.css ./css/style.css.map",
+    "css-copyfonts": "cp -rf ./third_party/linea_basic_1.0/_ICONFONT/fonts ./css",
+    "css-build": "npm-run-all sass-compile css-concat css-prefix css-compress css-remove css-copyfonts"
   },
   "author": "",
   "license": "ISC",
