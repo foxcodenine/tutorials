@@ -1,0 +1,14 @@
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+        text-shadow: none;
+    }
+    50% {
+        transform: scale(1.05);
+        text-shadow: 0 0 1.5rem rgba(0,0,0, .5);
+    }
+    100% {
+        transform: scale(1);
+        text-shadow: none;
+    }
+}
