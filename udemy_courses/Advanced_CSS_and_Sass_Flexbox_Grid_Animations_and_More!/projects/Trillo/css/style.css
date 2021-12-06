@@ -321,6 +321,63 @@ body {
   background-color: transparent;
 }
 
+.paragraph:not(:last-of-type) {
+  margin-bottom: 2rem;
+}
+
+.list {
+  list-style: none;
+  margin: 3rem 0;
+  padding: 3rem 0;
+  border-top: var(--line);
+  border-bottom: var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.list__item {
+  flex: 0 0 48%;
+  margin-bottom: 0.7rem;
+}
+.list__item::before {
+  content: "";
+  display: inline-block;
+  height: 1.2rem;
+  width: 1.2rem;
+  margin-right: 0.7rem;
+  background-image: url("../img/chevron-thin-right.svg");
+  background-size: cover;
+}
+@supports (mask-image: url()) or (-webkit-mask-image: url()) {
+  .list__item::before {
+    background-image: none;
+    background-size: none;
+    background-color: var(--color-primary);
+    mask-image: url("../img/chevron-thin-right.svg");
+    -webkit-mask-image: url("../img/chevron-thin-right.svg");
+    mask-size: cover;
+    -webkit-mask-size: cover;
+  }
+}
+
+.recommend {
+  font-size: 1.3rem;
+  color: var(--color-grey-dark-3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.recommend__photo {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  border: 0.3rem solid var(--color-white);
+  box-sizing: content-box;
+}
+.recommend__photo:not(:last-child) {
+  margin-right: -1.2rem;
+}
+
 .container {
   max-width: 120rem;
   margin: 8rem auto;
