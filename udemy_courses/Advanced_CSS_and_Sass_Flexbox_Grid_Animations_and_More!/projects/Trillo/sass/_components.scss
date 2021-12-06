@@ -349,3 +349,109 @@
     }
 }
 
+// ---------------------------------------------------------------------
+// ----- PARAGRAPH
+
+.paragraph {
+    
+    &:not(:last-of-type) {                                              // NOTE: last-of-type
+        margin-bottom: 2rem;
+    }
+}
+
+
+// ---------------------------------------------------------------------
+// ----- LIST
+
+.list {
+    list-style: none;
+
+    margin: 3rem 0;
+    padding: 3rem 0;
+
+    border-top: var(--line);
+    border-bottom: var(--line);
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+
+    &__item {
+        flex: 0 0 48%;      
+        margin-bottom: .7rem;  
+    }
+
+    &__item::before {                                                   // NOTE: adding chevron as ::before element
+        content: "";
+        display: inline-block;
+        height: 1.2rem;
+        width: 1.2rem;
+        margin-right: .7rem;
+
+        // Older browsers - backgroud-image:
+        background-image: url('../img/chevron-thin-right.svg');
+        background-size: cover;
+
+
+        // Newer browsers - mask:
+        @supports (mask-image: url()) or (-webkit-mask-image: url()) {  // NOTE: using mask to color svg
+            background-image: none;
+            background-size: none;
+            
+            background-color: var(--color-primary);
+            mask-image: url('../img/chevron-thin-right.svg');
+            -webkit-mask-image: url('../img/chevron-thin-right.svg');
+            
+            mask-size: cover;
+            -webkit-mask-size: cover;
+
+        }
+    }
+}
+
+
+// ---------------------------------------------------------------------
+// ----- RECOMMEND
+
+.recommend {
+    font-size: 1.3rem;
+    color: var(--color-grey-dark-3);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+
+    &__count {
+
+    }
+
+    &__fiends {
+
+    }
+
+    &__photo {
+        height: 4rem;
+        width:  4rem;
+        border-radius: 50%;
+        border: .3rem solid var(--color-white);
+        box-sizing: content-box;                                        // NOTE: reseting boxsizing to default
+
+        &:not(:last-child) {
+            margin-right: -1.2rem;
+        }
+
+        
+    }
+
+
+
+}
+
+// ---------------------------------------------------------------------
+// ----- user-reviews 
+
+.user-reviews {
+
+}
