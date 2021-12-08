@@ -49,6 +49,7 @@ Grey dark 3: #999
   --line: .1rem solid var(--color-grey-light-2);
   --box-shadow-1: 0 2rem 6rem rgba(0,0,0, .3);
   --box-shadow-2: 0 2rem 4rem rgba(0,0,0, .06);
+  --box-shadow-3: 0 1rem 2rem rgba(0,0,0, .2);
 }
 
 * {
@@ -320,16 +321,14 @@ body {
   margin-left: 0.3rem;
   font-family: "Murecho", sans-serif;
   transition: margin-left 0.2s ease;
+  font-size: 1.6rem;
 }
 .btn-inline:hover {
   color: var(--color-grey-dark-1);
+  animation: pulsate 1s infinite 1s;
 }
 .btn-inline:hover span {
   margin-left: 0.8rem;
-}
-.btn-inline:focus {
-  animation: pulsate 1s infinite;
-  background-color: transparent;
 }
 
 .paragraph:not(:last-of-type) {
@@ -377,6 +376,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.recommend__count {
+  margin: 0;
+}
+.recommend__fiends {
+  margin: 0;
 }
 .recommend__photo {
   height: 4rem;
@@ -442,6 +447,60 @@ body {
   color: var(--color-grey-light-2);
   font-family: "Arimo", sans-serif;
   z-index: 1;
+}
+
+.cta {
+  padding: 3.5rem 0;
+  text-align: center;
+}
+.cta__book-now {
+  font-size: 1.5rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+}
+
+.btn-2 {
+  font-size: 1.4rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  border-radius: 50rem;
+  color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark));
+  height: 4.8rem;
+  width: 21rem;
+  transition: all 0.1s ease;
+}
+.btn-2:hover {
+  box-shadow: var(--box-shadow-3);
+  background-image: linear-gradient(to right, var(--color-primary-dark), var(--color-primary-light));
+  animation: pulsate 1s infinite 1s;
+}
+.btn-2__visable, .btn-2__invisable {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: inherit;
+}
+.btn-2__visable {
+  top: 0;
+}
+.btn-2__invisable {
+  top: -100%;
+}
+.btn-2:hover .btn-2__visable {
+  top: 100%;
+}
+.btn-2:hover .btn-2__invisable {
+  top: 0%;
 }
 
 .container {
