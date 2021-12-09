@@ -12,3 +12,18 @@
         text-shadow: none;
     }
 }
+
+@keyframes pulsate_small {
+    0% {
+        transform: scale(.8);
+        text-shadow: none;
+    }
+    50% {
+        transform: scale(.87);
+        text-shadow: 0 0 1.5rem rgba(0,0,0, .5);
+    }
+    100% {
+        transform: scale(.8);
+        text-shadow: none;
+    }
+}

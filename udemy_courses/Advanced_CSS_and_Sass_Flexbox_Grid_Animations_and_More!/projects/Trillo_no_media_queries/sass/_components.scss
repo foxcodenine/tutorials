@@ -4,10 +4,6 @@
 .logo {
     height: 3.25rem;
     margin-left: 2rem;
-
-    @include respond($bp-smallest) {
-        margin: 1rem 2rem;
-    }
 }
 
 
@@ -15,23 +11,13 @@
 // ----- SEARCH
 
 .search {
-    
-    // @include part-name('search');
+    // background-color: lightgreen;
 
     flex: 0 0 40%;
 
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    
-
-    @include respond($bp-smallest) {
-        order: 1;
-        flex: 0 0 100%;
-        background-color: var(--color-grey-light-2);
-        margin-bottom: 1rem;
-    }
 
     &__input {
         font-family: inherit;
@@ -60,16 +46,6 @@
             width: 100%;
             background-color: var(--color-grey-light-3);
         }
-
-        @include respond($bp-smallest) {
-            margin: 0 -4rem;
-
-            &:focus {
-                width: 95%;
-                background-color: var(--color-grey-light-2);
-            }
-        }
-        
 
     }
 
@@ -183,27 +159,14 @@
     list-style: none;
     margin-top: 3.5rem;
 
-    @include respond($bp-medium) {
-        display: flex;
-        margin-top: 0;
-    }
+
 
     &__item {
-        // @include part-name('item');
         position: relative;
-
-
-        @include respond($bp-medium) {
-            flex: 1;
-        }
 
         &:not(:last-child) {
             margin-bottom: .5rem;
-            
-            @include respond($bp-medium) {
-                margin-bottom: 0rem;   
-            }
-        }        
+        }
 
         &::before {
             content: '';
@@ -248,15 +211,6 @@
         z-index: 10;           // z-index only works if you set position
         position: relative;
         
-        @include respond($bp-medium) {
-            justify-content: center;
-            padding: 2rem;
-        }
-        @include respond($bp-small) {
-            flex-direction: column;
-            padding: 1.5rem .5rem ;
-        }
-
     }
    
 
@@ -265,14 +219,6 @@
         height: 1.75rem;
         margin-right: 2rem;
         fill: currentColor;
-
-        @include respond($bp-small) {
-            margin-right: 0;
-            margin-bottom: .4rem;
-            width:  1.5rem;
-            height: 1.5rem;
-
-        }
     }
 }
 
@@ -288,9 +234,6 @@
     padding: 2.5rem;
 
     
-    @include respond ($bp-medium) {
-        display:  none;
-    }
 }
 
 
@@ -322,12 +265,7 @@
         font-weight: 300;
         text-transform: uppercase;
         letter-spacing: .1rem;
-        padding: 1.5rem var(--gap);
-
-        @include respond($bp-small) {
-            font-size: 1.8rem;
-            padding: 1.25rem 1.25rem 1.25rem var(--gap);
-        }
+        padding: 1.5rem 3rem;
     }
 
     &__stars {
@@ -341,11 +279,6 @@
         width: 1.75rem;
         height: 1.75rem;
         fill: var(--color-primary);
-
-        @include respond($bp-small) {
-            width: 1.25rem;
-            height: 1.25rem;
-        }
     }
 
     &__icon-location {
@@ -372,26 +305,16 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
     }
 
     &__rating-average {
         font-size: 2.25rem;
         margin-bottom: -5px;
-
-
-        @include respond($bp-small) {
-            font-size: 1.8rem;
-        }
     }
 
     &__rating-count {
         font-size: 1.2rem;
         text-transform: uppercase;
-
-        @include respond($bp-small) {
-            font-size: 1rem;
-        }
     }
 }
 
@@ -461,28 +384,11 @@
     flex-wrap: wrap;
     justify-content: space-between;
 
-    @include respond(400) {
-
-    }
-
 
     &__item {
         flex: 0 0 48%;      
-        margin-bottom: .7rem; 
-
-        
-        @include respond($bp-medium) {
-            font-size: 1.3rem; 
-       }
-        @include respond($bp-small) {
-            font-size: 1.4rem; 
-       }
-        @include respond($bp-smallest) {
-            font-size: 1.3rem; 
-       }
+        margin-bottom: .7rem;  
     }
-
-
 
     &__item::before {                                                   // NOTE: adding chevron as ::before element
         content: "";
@@ -530,7 +436,7 @@
     }
 
     &__fiends {
-        display: flex;              
+        margin: 0;
     }
 
     &__photo {
@@ -544,11 +450,6 @@
             margin-right: -1.2rem;
         }
 
-        @include respond($bp-largest) {
-            &:not(:last-child) {
-                margin-right: -2rem;
-            }
-        }
         
     }
 
@@ -563,11 +464,11 @@
 
     background-color: var(--color-white);
     box-shadow: var(--box-shadow-2);
-    padding: var(--pad);
-    margin-bottom: var(--gap);
+    padding: 3.5rem;
+    margin-bottom: 3.5rem;
     position: relative;
     overflow: hidden;
-    
+
     &__text {
         margin-bottom: 2rem;
         z-index: 1;
@@ -630,35 +531,18 @@
 // ----- CTA (CALL TO ACTION)
 
 .cta {
-    padding: 3.5rem;
+    padding: 3.5rem 0;
     text-align: center;
 
     &__book-now {
         font-size: 1.5rem;
         font-weight: 300;
         text-transform: uppercase;
-        margin-bottom: 2.5rem;    
-        
-        @include respond($bp-medium) {
-            margin-bottom: 2rem;
-        }
-        @include respond(400) {
-            font-size: 1.3rem;
-        }
-    }
-    @include respond($bp-medium) {
-        padding: 2.5rem;
+        margin-bottom: 2.5rem;
     }
 }
 
 .btn-2 {
-
-
-    @include respond($bp-small) {
-        transform: scale(.80);
-        font-size: 1.6rem;
-   }
-
     
     font-size: 1.4rem;
     font-weight: 300;
@@ -684,11 +568,7 @@
         background-image: linear-gradient(
             to right, var(--color-primary-dark), var(--color-primary-light)
         );
-        animation: pulsate 1s infinite 1s; 
-        
-        @include respond($bp-small) {
-            animation: pulsate_small 1s infinite 1s;
-       }
+        animation: pulsate 1s infinite 1s;      
     }
 
     &__visable, &__invisable {
