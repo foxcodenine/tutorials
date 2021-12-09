@@ -15,4 +15,3 @@ ________________________________________________________________________
 
 https://cubic-bezier.com/#.17,.67,.83,.67
 https://css-tricks.com/snippets/html/glyphs/
-https://caniuse.com/
