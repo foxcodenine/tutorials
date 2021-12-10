@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+}
+
+.container {
+  background-color: #eee;
+  width: 1000px;
+  margin: 3rem auto;
+  display: grid;
+  grid-template-rows: 15rem 15rem;
+  grid-template-columns: 15rem 15rem 15rem;
+  gap: 1rem 3rem;
+}
+
+.item {
+  padding: 2rem;
+  font-size: 3rem;
+  font-family: sans-serif;
+  color: #fff;
+}
+.item--1 {
+  background-color: orangered;
+}
+.item--2 {
+  background-color: greenyellow;
+}
+.item--3 {
+  background-color: purple;
+}
+.item--4 {
+  background-color: pink;
+}
+.item--5 {
+  background-color: royalblue;
+}
+.item--6 {
+  background-color: brown;
+}
+
+/*# sourceMappingURL=style.css.map */
