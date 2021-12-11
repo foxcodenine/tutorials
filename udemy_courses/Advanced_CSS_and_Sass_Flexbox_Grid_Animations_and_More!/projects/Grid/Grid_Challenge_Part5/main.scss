@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    // box-sizing:  border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.6rem;
+}
+
+// _____________________________________________________________________
+
+
+
+.container {
+    width:  100rem;
+    height: 80rem;
+    margin: 3rem auto;
+
+    display: grid;
+
+    grid-template-rows: [header-start] 1fr [header-end box-start] 2fr 
+                        [box-end main-start] 4fr [main-end footer-start] 1fr 
+                        [footer-end];
+                        
+    grid-template-columns: repeat(3, [col-start] 1fr [col-end]) 20rem [grid-end];
+    grid-gap: 1.5rem;
+
+    grid-template-areas: "head head head head"
+                         "box1 box2 box3 side"
+                         "main main main side"
+                         "foot foot foot foot";
+
+
+    & > * {
+        background-color: crimson;
+        color: #fff;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-size: 1.6rem;
+        padding: 1rem;        
+    }
+}
+
+// _____________________________________________________________________
+
+/* Method 1 */
+
+// .header { grid-column: 1 / -1; }
+
+// .small-box {
+//     &-1 { grid-row: 2 / 3;  grid-column: 1 / 2; }
+//     &-2 { grid-row: 2 / 3;  grid-column: 2 / 3; }
+//     &-3 { grid-row: 2 / 3;  grid-column: 3 / 4; }
+// }
+// .sidebar { grid-row: 2  / 4; grid-column: 4 / 5; }
+// .main    { grid-row: 3  / 4; grid-column: 1 / 4; }
+// .footer  { grid-row: 4  / 5; grid-column: 1 / -1;}
+
+// _____________________________________________________________________
+
+// /* Method 2 */
+
+// .header {
+//     grid-row: header-start / header-end;
+//     grid-column: col-start 1 / grid-end;
+// }
+
+// .small-box {
+
+//     &-1 {        
+//         grid-row: box-start / box-end;
+//         grid-column: col-start 1 / col-end 1;
+//     }
+//     &-2 {        
+//         grid-row: box-start / box-end;
+//         grid-column: col-start 2 / col-end 2;
+//     }
+//     &-3 {        
+//         grid-row: box-start / box-end;
+//         grid-column: col-start 3 / col-end 3;
+//     }
+// }
+
+// .sidebar {
+//     grid-row: box-start / main-end;
+//     grid-column: col-end 3 / grid-end;
+// }
+
+// .main {
+//     grid-row: main-start / main-end;
+//     grid-column: col-start 1 / col-end 3;
+// }
+
+// .footer {
+//     grid-row: footer-start / footer-end;
+//     grid-column: col-start 1 / grid-end;
+// }
+
+// _____________________________________________________________________
+
+// /* Method 3 */
+
+.header {
+    grid-area: head;
+}
+.small-box-1 {
+    grid-area: box1;
+}
+.small-box-2 {
+    grid-area: box2;
+}
+.small-box-3 {
+    grid-area: box3;
+}
+.sidebar {
+    grid-area: side;
+}
+.main {
+    grid-area: main;
+}
+.footer {
+    grid-area: foot;
+}
+
+
