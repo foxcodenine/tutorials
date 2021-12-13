@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,700&display=swap");
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Nunito", sans-serif;
+  color: #6D5D4B;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: 80vh min-content 40vw repeat(3, min-content);
+  grid-template-columns: [sidebar-start] 8rem [full-start sidebar-end] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+}
+.container > * {
+  font-size: 3rem;
+  padding: 4rem;
+}
+
+.sidebar {
+  background-color: #c69963;
+  grid-column: sidebar-start/sidebar-end;
+  grid-row: 1/-1;
+}
+
+.header {
+  background-color: #54483A;
+  grid-row: 1/2;
+  grid-column: full-start/col-end 6;
+}
+
+.realtors {
+  background-color: #101d2c;
+  grid-row: 1/2;
+  grid-column: col-start 7/full-end;
+}
+
+.features {
+  background-color: #aaa;
+  grid-row: 2/3;
+  grid-column: center-start/center-end;
+}
+
+.story__pictures {
+  background-color: #c69963;
+  grid-row: 3/4;
+  grid-column: full-start/col-end 4;
+}
+.story__content {
+  background-color: #f9f7f6;
+  grid-row: 3/4;
+  grid-column: col-start 5/full-end;
+}
+
+.homes {
+  background-color: #101d2c;
+  grid-row: 4/5;
+  grid-column: center-start/center-end;
+}
+
+.gallery {
+  background-color: #54483A;
+  grid-row: 5/6;
+  grid-column: full-start/full-end;
+}
+
+.footer {
+  background-color: #101d2c;
+  grid-row: 6/7;
+  grid-column: full-start/full-end;
+}
+
+/*# sourceMappingURL=style.css.map */
