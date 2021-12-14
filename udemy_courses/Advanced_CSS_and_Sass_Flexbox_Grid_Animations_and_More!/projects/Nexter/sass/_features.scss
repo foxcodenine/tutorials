@@ -1,6 +1,38 @@
 .features {
-    background-color: $color-grey-light-2;
+    // background-color: $color-grey-light-2;
     
     grid-row: 2 / 3;
     grid-column:  center-start / center-end;
+
+    display: grid;
+    // grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+    align-items: flex-start;
+
+    margin: 15rem 0;
+    grid-gap: 6rem;
+}
+
+.feature {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    // grid-template-rows: min-content 1fr;
+    grid-row-gap: 1.5rem;
+    grid-column-gap: 2.5rem;
+
+    align-items: start;
+
+    &__icon {
+        fill: $color-primary;
+        width: 4.5rem;
+        height: 4.5rem;
+        transform: translateY(-1rem);
+        
+    }
+
+    &__text {
+        font-size: 1.7rem;
+        grid-column: 2 / 3;
+        
+    }
 }
