@@ -1,13 +1,12 @@
-@import "mixin";
-@import "variables";
-@import "base";
-@import "typography";
+@use "base";
+@use "typography";
+@use "./components";
 
-@import "sidebar";
-@import "header";
-@import "realtors";
-@import "features";
-@import "story";
-@import "homes";
-@import "gallery";
-@import "footer";
+@use "sidebar";
+@use "header";
+@use "realtors";
+@use "features";
+@use "story";
+@use "homes";
+@use "gallery";
+@use "footer";
