@@ -12,17 +12,25 @@
     </head>
     <body class="container">
 
+        <!-- ------------------------------------------------------- -->
+
         <div class="sidebar">
             Sidebar
         </div>
+
+        <!-- ------------------------------------------------------- -->
 
         <Header class="header">
             Header
         </Header>
 
+        <!-- ------------------------------------------------------- -->
+
         <div class="realtors">
             Top 3 realtors
         </div>
+
+        <!-- ------------------------------------------------------- -->
 
         <div class="features">
             <div class="feature">
@@ -76,6 +84,8 @@
 
         </div>
 
+        <!-- ------------------------------------------------------- -->
+
         <div class="story__pictures">
             <img src="img/story-1.jpeg" alt="Couple with new house" class="story__img--1">
             <img src="img/story-2.jpeg" alt="Couple with new house" class="story__img--2">
@@ -93,17 +103,96 @@
             <button class="btn">Find your own home</button>
         </div>
 
+        <!-- ------------------------------------------------------- -->
+
         <section class="homes">
-            Homes
+
+            <?php
+            for($i = 0; $i <= 5 ; $i++) {
+
+            $homes_names = [
+                'Beautifull Familiy House',     'Modern Glass Villa',
+                'Cozy Country House',           'Large Rustical Villa',
+                'Majestic Palace House',        'Modern Familiy Apartment'
+            ];
+
+            $homes_locations = ['USA', 'Canada', 'UK', 'Portugal', 'Germany', 'Italy'];
+
+            $homes_areas    = ['325', '450', '250', '480', '4230', '180'];
+
+            $homes_prices  = ['1,200,000', '2,750,000', '850,000', '1,950,000', '9,500,000', '600,000'];
+
+            $homes_rooms   = ['5', '6', '4', '6', '18', '3'];
+
+            $home_img_src = './img/house-' . $i + 1 .'.jpeg';
+            $home_img_alt = 'House ' . $i + 1;
+            $home_name      = $homes_names[$i];
+            $home_location  = $homes_locations[$i];
+            $home_price     = $homes_prices[$i];
+            $home_area      = $homes_areas[$i];
+            $home_rooms     = $homes_rooms[$i];
+
+
+
+
+
+            $home = <<<HOMEEND
+            <div class="home">
+                <img src="{$home_img_src}" alt="{$home_img_alt}" class="home__img">
+                <svg class="home__like">
+                    <use xlink:href="./img/sprite.svg#icon-heart-full"></use>
+                </svg>
+                <h5 class="home__name">{$home_name}</h5>
+                <div class="home__location">
+                    <svg>
+                        <use xlink:href="./img/sprite.svg#icon-map-pin"></use>
+                    </svg>
+                    <p>{$home_location}</p>
+                </div>
+                <div class="home__rooms">
+                    <svg>
+                        <use xlink:href="./img/sprite.svg#icon-profile-male"></use>
+                    </svg>
+                    <p>{$home_rooms} rooms</p>
+                </div>
+                <div class="home__area">
+                    <svg>
+                        <use xlink:href="./img/sprite.svg#icon-expand"></use>
+                    </svg>
+                    <p>{$home_area} m <sup>2</sup></p>
+                </div>
+                <div class="home__price">
+                    <svg>
+                        <use xlink:href="./img/sprite.svg#icon-key"></use>
+                    </svg>
+                    <p>\${$home_price}</p>
+                </div>
+                <button class="btn home__btn">Contact realtor</button>
+            </div>
+            HOMEEND;  
+
+                echo $home;
+            }
+
+            ?>
+
+
+
         </section>
+
+        <!-- ------------------------------------------------------- -->
 
         <section class="gallery">
             Gallery
         </section>
 
+        <!-- ------------------------------------------------------- -->
+
         <footer class="footer">
             Footer
         </footer>
+
+        <!-- ------------------------------------------------------- -->
 
         <div class="empty"></div>
 
