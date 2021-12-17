@@ -16,3 +16,10 @@ ________________________________________________________________________
 https://cubic-bezier.com/#.17,.67,.83,.67
 https://css-tricks.com/snippets/html/glyphs/
 https://caniuse.com/
+
+________________________________________________________________________
+
+During this project I have also learned by reserce about:
+1. gap in flexbox;
+2. subgrid
+3. use, fowerd & namespace instead of import
