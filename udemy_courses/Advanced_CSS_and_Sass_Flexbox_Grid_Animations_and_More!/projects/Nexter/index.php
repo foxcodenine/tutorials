@@ -170,20 +170,32 @@
                 <button class="btn home__btn">Contact realtor</button>
             </div>
             HOMEEND;  
-
                 echo $home;
             }
 
             ?>
 
-
+v
 
         </section>
 
         <!-- ------------------------------------------------------- -->
 
         <section class="gallery">
-            Gallery
+            <img src="img/gal-1.jpeg" alt="" class="gallery__img gallery__img--1" alt="gallery_image">
+            <img src="img/gal-2.jpeg" alt="" class="gallery__img gallery__img--2" alt="gallery_image">
+            <img src="img/gal-3.jpeg" alt="" class="gallery__img gallery__img--3" alt="gallery_image">
+            <img src="img/gal-4.jpeg" alt="" class="gallery__img gallery__img--4" alt="gallery_image">
+            <img src="img/gal-5.jpeg" alt="" class="gallery__img gallery__img--5" alt="gallery_image">
+            <img src="img/gal-6.jpeg" alt="" class="gallery__img gallery__img--6" alt="gallery_image">
+            <img src="img/gal-7.jpeg" alt="" class="gallery__img gallery__img--7" alt="gallery_image">
+            <img src="img/gal-8.jpeg" alt="" class="gallery__img gallery__img--8" alt="gallery_image">
+            <img src="img/gal-9.jpeg" alt="" class="gallery__img gallery__img--9" alt="gallery_image">
+            <img src="img/gal-10.jpeg" alt="" class="gallery__img gallery__img--10" alt="gallery_image">
+            <img src="img/gal-11.jpeg" alt="" class="gallery__img gallery__img--11" alt="gallery_image">
+            <img src="img/gal-12.jpeg" alt="" class="gallery__img gallery__img--12" alt="gallery_image">
+            <img src="img/gal-13.jpeg" alt="" class="gallery__img gallery__img--13" alt="gallery_image">
+            <img src="img/gal-14.jpeg" alt="" class="gallery__img gallery__img--14" alt="gallery_image">
         </section>
 
         <!-- ------------------------------------------------------- -->
