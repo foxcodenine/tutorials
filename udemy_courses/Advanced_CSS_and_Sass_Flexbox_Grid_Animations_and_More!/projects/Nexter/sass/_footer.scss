@@ -5,4 +5,48 @@
 
     grid-row: 6 / 7;
     grid-column: full-start / full-end;
+    padding: 8rem;
+}
+
+.nav {
+    list-style: none;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 2rem;
+    align-items: center;
+
+    &__item {
+        
+
+    }
+
+    &__link:link, &__link:visited {
+        font-size: 1.4rem;
+        color: $color-white;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: $font-display;
+        text-align: center;
+        padding: 1.5rem;
+        display: block;
+
+        
+        transition: all .2s ease;
+
+        &:hover, &:active {
+            background-color: rgba($color-white, .05);
+            transform: translateY(-.3rem);
+        }
+    }
+}
+
+.copyright {
+    font-size: 1.4rem;
+    color: $color-grey-light-2;
+    margin-top: 6rem;
+    text-align: center;
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
 }
