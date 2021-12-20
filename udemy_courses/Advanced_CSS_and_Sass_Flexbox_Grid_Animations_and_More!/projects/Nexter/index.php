@@ -15,7 +15,40 @@
         <!-- ------------------------------------------------------- -->
 
         <div class="sidebar">
-            Sidebar
+            <div class="side">
+                <ul class="side__list">
+                    <li class="side__item">
+                        <a href="#" class="side__link">
+                            <span><svg class="side__icon"><use xlink:href="./img/sprite.svg#icon-home"></use></svg></span>
+                            <span class="side__text">Home</span>
+                        </a>
+                    </li>
+                    <li class="side__item">
+                        <a href="#" class="side__link">
+                            <span><svg class="side__icon"><use xlink:href="./img/sprite.svg#icon-alarm"></use></svg></span>
+                            <span class="side__text">Notification</span>
+                        </a>
+                    </li>
+                    <li class="side__item">
+                        <a href="#" class="side__link">
+                            <span><svg class="side__icon"><use xlink:href="./img/sprite.svg#icon-bullhorn"></use></svg></span>
+                            <span class="side__text">Message</span>
+                        </a>
+                    </li>
+                    <li class="side__item">
+                        <a href="#" class="side__link">
+                            <span><svg class="side__icon"><use xlink:href="./img/sprite.svg#icon-bookmark"></use></svg></span>
+                            <span class="side__text">Bookmarks</span>
+                        </a>
+                    </li>
+                    <li class="side__item">
+                        <a href="#" class="side__link">
+                            <span><svg class="side__icon"><use xlink:href="./img/sprite.svg#icon-star"></use></svg></span>
+                            <span class="side__text">Favrotes</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <!-- ------------------------------------------------------- -->

@@ -5,4 +5,65 @@
 
     grid-column: sidebar-start / sidebar-end;
     grid-row: 1 / -1;
+    width: 6rem;
+    height: 100%;
+    z-index: 50;
+    transition: all .1s;
+    border-right: darken($color-primary, 7%) solid .1rem;
+    position: fixed;
+
+    &:hover {
+        width: 20rem;
+    }
+
+
+}
+
+.side {
+
+    height: 100%;
+
+    &:hover > &__list &__link &__text {         
+        opacity: 1;   
+        transform: translateX(0rem);  
+    }
+
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        
+    }
+    &__item {
+        width: 100%;
+    }
+    &__text {
+        display: block; 
+        opacity: 0;
+        font-size: 1.4rem;
+        transform: translateX(-30rem);
+        transition: opacity .2s ease .1s;
+        
+    }
+    &__link:link, &__link:visited {
+        text-decoration: none;
+        color: $color-white;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;  
+        padding: 1.5rem 2rem;
+        transition: all .1s; 
+        
+        &:hover {
+            background-color: $color-primary-dark;
+        }            
+    }
+
+    &__icon {
+        fill: $color-white;
+        height: 1.9rem;
+        width: 1.9rem;
+        transform: translateY(.2rem);
+    }
 }

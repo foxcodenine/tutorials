@@ -22,7 +22,7 @@ body {
 .container {
   display: grid;
   grid-template-rows: 80vh min-content 40vw repeat(3, min-content);
-  grid-template-columns: [sidebar-start] 8rem [full-start sidebar-end] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+  grid-template-columns: [sidebar-start] 6rem [full-start sidebar-end] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
 }
 
 .mb-sm {
@@ -95,6 +95,56 @@ body {
   background-color: #c69963;
   grid-column: sidebar-start/sidebar-end;
   grid-row: 1/-1;
+  width: 6rem;
+  height: 100%;
+  z-index: 50;
+  transition: all 0.1s;
+  border-right: #bc8849 solid 0.1rem;
+  position: fixed;
+}
+.sidebar:hover {
+  width: 20rem;
+}
+
+.side {
+  height: 100%;
+}
+.side:hover > .side__list .side__link .side__text {
+  opacity: 1;
+  transform: translateX(0rem);
+}
+.side__list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+.side__item {
+  width: 100%;
+}
+.side__text {
+  display: block;
+  opacity: 0;
+  font-size: 1.4rem;
+  transform: translateX(-30rem);
+  transition: opacity 0.2s ease 0.1s;
+}
+.side__link:link, .side__link:visited {
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  transition: all 0.1s;
+}
+.side__link:link:hover, .side__link:visited:hover {
+  background-color: #B28451;
+}
+.side__icon {
+  fill: #fff;
+  height: 1.9rem;
+  width: 1.9rem;
+  transform: translateY(0.2rem);
 }
 
 .header {
