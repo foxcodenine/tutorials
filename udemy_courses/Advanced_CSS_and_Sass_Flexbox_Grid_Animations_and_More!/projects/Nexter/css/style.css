@@ -10,6 +10,11 @@ html {
   box-sizing: border-box;
   font-size: 62.5%;
 }
+@media only screen and (max-width: 75em) {
+  html {
+    font-size: 50%;
+  }
+}
 
 body {
   font-size: 1.6rem;
@@ -23,6 +28,11 @@ body {
   display: grid;
   grid-template-rows: 80vh min-content 40vw repeat(3, min-content);
   grid-template-columns: [sidebar-start] 6rem [full-start sidebar-end] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+}
+@media only screen and (max-width: 62.5em) {
+  .container {
+    grid-template-columns: [sidebar-start] 0rem [full-start sidebar-end] minmax(6rem, 1fr) [center-start] repeat(8, [col-start] minmax(min-content, 14rem) [col-end]) [center-end] minmax(6rem, 1fr) [full-end];
+  }
 }
 
 .mb-sm {
@@ -111,6 +121,62 @@ body {
 .sidebar:hover {
   width: 20rem;
 }
+@media only screen and (max-width: 62.5em) {
+  .sidebar {
+    transform: translateX(-250%);
+    transition: all 0.3s;
+  }
+}
+
+.menu__checkbox {
+  display: none;
+}
+.menu__label {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 1.4rem;
+  left: 1rem;
+  display: none;
+  z-index: 100;
+  transition: all 0.5s;
+}
+.menu__label:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.menu__label::before, .menu__label::after {
+  content: "";
+  background-color: rgba(255, 255, 255, 0.4);
+  height: 0.1rem;
+  width: 1.5rem;
+  display: inline-block;
+  transform-origin: right;
+  position: absolute;
+  top: 47%;
+  left: 20%;
+}
+.menu__label::before {
+  transform: rotate(45deg);
+}
+.menu__label::after {
+  transform: rotate(-45deg);
+}
+@media only screen and (max-width: 62.5em) {
+  .menu__label {
+    display: block;
+  }
+}
+.menu__checkbox:checked ~ .menu__label {
+  left: 16rem;
+  transform: rotate(180deg);
+}
+.menu__checkbox:checked ~ .sidebar {
+  width: 20rem;
+  transform: translateX(0);
+}
 
 .side {
   height: 100%;
@@ -133,6 +199,12 @@ body {
   font-size: 1.4rem;
   transform: translateX(-30rem);
   transition: opacity 0.2s ease 0.1s;
+}
+@media only screen and (max-width: 62.5em) {
+  .side__text {
+    opacity: 1;
+    transform: translateX(0rem);
+  }
 }
 .side__link:link, .side__link:visited {
   text-decoration: none;
@@ -161,8 +233,8 @@ body {
   grid-row: 1/2;
   grid-column: full-start/col-end 6;
   display: grid;
-  grid-template-rows: 1fr min-content 6rem 1fr;
-  grid-template-columns: max-content;
+  grid-template-rows: 1fr min-content minmax(min-content, 6rem) 1fr;
+  grid-template-columns: minmax(min-content, max-content);
   gap: 1.5rem;
   justify-content: center;
 }
@@ -193,9 +265,11 @@ body {
   grid-template-columns: repeat(4, 1fr);
   gap: 3rem;
   justify-items: center;
+  align-items: center;
 }
 .header__seenon-logos img {
-  height: 2.5rem;
+  max-height: 2.5rem;
+  max-width: 100%;
   filter: brightness(70%);
 }
 
@@ -203,6 +277,40 @@ body {
   background-color: #101d2c;
   grid-row: 1/2;
   grid-column: col-start 7/full-end;
+  width: 100.2%;
+  transform: translateX(-0.2%);
+}
+
+.realtors {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.realtors__list {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 5vh 2rem;
+  align-items: center;
+}
+.realtors__img {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  display: block;
+}
+.realtors__details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+.realtors__sold {
+  font-size: 1rem;
+  color: #aaa;
+  text-transform: uppercase;
 }
 
 .features {

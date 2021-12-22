@@ -5,6 +5,45 @@
     grid-row: 1 / 2;
     grid-column: col-start 7  / full-end;
 
-    // width: 100.2%;
-    // transform: translateX(-.2%);
+    width: 100.2%;
+    transform: translateX(-.2%);
+}
+
+
+.realtors {
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+
+    &__list {
+
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+        gap: 5vh 2rem;
+        align-items: center;
+    }
+
+    &__img {
+        width: 7rem;
+        height: 7rem;
+        border-radius: 50%;
+        display: block;
+    }
+
+    &__details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        line-height: 1.2;
+    }
+
+    &__sold {
+        font-size: 1rem;
+        color: $color-grey-light-2;
+        text-transform: uppercase;
+    }
+    
 }

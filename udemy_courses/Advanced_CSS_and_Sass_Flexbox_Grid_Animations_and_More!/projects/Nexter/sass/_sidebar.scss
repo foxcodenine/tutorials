@@ -1,7 +1,7 @@
 @use './abstracts/' as *;
 
 .sidebar {
-    background-color: $color-primary;
+    background-color: $color-primary;    
 
     grid-column: sidebar-start / sidebar-end;
     grid-row: 1 / -1;
@@ -16,10 +16,67 @@
         width: 20rem;
     }
 
+    @include respond ($bp-larg) {
+        transform: translateX(-250%);
+        transition: all .3s;
+    }
+
 
 }
 
+.menu {
+    &__checkbox { display: none; }
+
+    &__label{
+        cursor: pointer;
+        background-color: rgba($color-white, .1);
+        width: 2.9rem;
+        height: 2.9rem;
+        border-radius: 50%;
+        
+        position: absolute;
+        top: 1.4rem;
+        left: 1rem;
+        
+        display: none;
+        z-index: 100;
+        transition: all .5s;
+
+        &:hover { background-color: rgba($color-white, .2);}
+
+        &::before, &::after {
+            content: '';
+            background-color: rgba($color-white, .4);
+            height: .1rem;
+            width: 1.5rem;            
+            display: inline-block;
+            
+            transform-origin: right;
+            position: absolute;
+            top: 47%;
+            left: 20%;
+        }
+
+        &::before {transform: rotate(45deg);  }
+        &::after  {transform: rotate(-45deg); }
+
+        @include respond ($bp-larg) { display: block;  }
+    }
+
+    &__checkbox:checked ~  &__label {
+        left: 16rem;
+        transform: rotate(180deg);
+    }
+
+    &__checkbox:checked ~  .sidebar {
+        width: 20rem;
+        transform: translateX(0);
+    }    
+}
+
 .side {
+
+    // border: deeppink 2px dashed;
 
     height: 100%;
 
@@ -44,6 +101,11 @@
         font-size: 1.4rem;
         transform: translateX(-30rem);
         transition: opacity .2s ease .1s;
+
+        @include respond ($bp-larg) {
+            opacity: 1;   
+            transform: translateX(0rem);  
+        }
         
     }
     &__link:link, &__link:visited {
