@@ -34,15 +34,16 @@ body {
                             repeat(8, [col-start] minmax(min-content,  14rem ) [col-end]) 
                             [center-end] minmax(6rem, 1fr) [full-end] ;
 
-    // & > * {
-    //     font-size: 3rem;
-    //     padding: 4rem;
-    // }
+    // & > * { font-size: 3rem; padding: 4rem; }
 
     @include respond ($bp-larg) {
         grid-template-columns:  [sidebar-start] 0rem  [full-start sidebar-end ] minmax(6rem, 1fr) [center-start] 
-        repeat(8, [col-start] minmax(min-content,  14rem ) [col-end]) 
-        [center-end] minmax(6rem, 1fr) [full-end] ;
+                                repeat(8, [col-start] minmax(min-content,  14rem ) [col-end]) 
+                                [center-end] minmax(6rem, 1fr) [full-end] ;
+    }
+
+    @include respond ($bp-medium) {
+        grid-template-rows: 84vh  repeat(6, min-content);
     }
 }
 
