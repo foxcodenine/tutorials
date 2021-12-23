@@ -76,7 +76,7 @@
         <!-- ------------------------------------------------------- -->
 
         <div class="realtors">
-            <h3 class="heading-3">Top 3 Realtors</h3>
+            <h3 class="heading-3 ">Top 3 Realtors</h3>
 
             <div class="realtors__list">
                 <img src="./img/realtor-1.jpeg" alt="Realtor 1" class="realtors__img">

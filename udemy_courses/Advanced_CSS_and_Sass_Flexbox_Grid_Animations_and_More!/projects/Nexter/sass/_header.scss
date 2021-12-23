@@ -1,8 +1,7 @@
 @use './abstracts/' as *;
 
 .header {
-    // border: brown dashed 2px;
-    // min-height: min-content;
+
     background-image: linear-gradient(
                                 rgba($color-secondary, .93), 
                                 rgba($color-secondary, .93),                    
@@ -20,6 +19,15 @@
     gap: 1.5rem;
 
     justify-content: center;
+
+    @include respond ($bp-medium) {
+        grid-column: full-start  / full-end;
+    }
+
+    @include respond ($bp-small) {
+        padding: 6rem;
+        gap: 5rem;
+    }
 
     &__logo {
         height: 3rem;
@@ -45,6 +53,9 @@
             height: 1px;
             display: block;
             background-color: currentColor;
+        }
+        @include respond ($bp-small) {
+            margin-bottom: -2.5rem;
         }
     }
 
