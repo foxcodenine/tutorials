@@ -2,15 +2,16 @@
 .realtors {
     background-color: $color-secondary;
 
-    grid-row: 1 / 2;
+    // grid-row: 1 / 2;
     grid-column: col-start 7  / full-end;
+
+    @include respond ($bp-medium) {
+        grid-column: full-start  / full-end;
+    }
 
     width: 100.2%;
     transform: translateX(-.2%);
-}
 
-
-.realtors {
     padding: 3rem;
     display: flex;
     flex-direction: column;
@@ -19,11 +20,22 @@
     gap: 2rem;
 
     &__list {
-
         display: grid;
         grid-template-columns: repeat(2, max-content);
         gap: 5vh 2rem;
         align-items: center;
+
+        @include respond ($bp-medium) {
+            // width: 100%;
+            grid-template-columns: repeat(3, min-content max-content);
+
+        }
+        @include respond ($bp-small) {
+            grid-template-columns: repeat(2, min-content max-content);
+        }
+        @include respond ($bp-minwidt) {
+            grid-template-columns: repeat(1, min-content max-content);
+        }
     }
 
     &__img {
