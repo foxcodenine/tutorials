@@ -108,7 +108,7 @@ function loggin_user($username, $password) {
             return false;
 
         } else if ($username === $db_user_username && password_verify($password, $db_user_password)) {
-            
+            session_regenerate_id();
             $_SESSION['user_id'] = $db_user_id;
             $_SESSION['username'] = $db_user_username;
             $_SESSION['password'] = $db_user_password;

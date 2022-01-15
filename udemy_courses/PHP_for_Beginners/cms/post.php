@@ -63,6 +63,7 @@
                                 $sql = "INSERT INTO cms_likes(post_id, user_id) VALUES('$post_id', '$user_id')";
 
                                 $conn->query($sql);
+                                echo '<h1>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>';
                                 if ($conn->error) {
                                     die('error ' . $conn->error);                                        
                                 } 
@@ -92,10 +93,13 @@
                                         WHERE post_id={$post_id}";
 
                                 $conn->query($sql);
+                                echo '<h1>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h1>';
                                 if ($conn->error) {
                                     die('Error BX: ' . '<br>' . $user_id);
                                 }
                             } 
+
+                            
 
                             exit();
                         }
