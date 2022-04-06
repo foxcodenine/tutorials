@@ -11,15 +11,15 @@ async function getData() {
 (async function(){
 
     let myData = await getData();
-    // console.log(myData[0]);
+    console.log(myData[0]);
 
 })()
 
 
-let myData = await getData();
-myData = await myData[1];
+// let myData = await getData();
+// myData = await myData[1];
 
-console.log(myData);
+// console.log(myData);
 
 
 

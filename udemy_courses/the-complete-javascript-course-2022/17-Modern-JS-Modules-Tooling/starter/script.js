@@ -2,8 +2,9 @@
 
 import {addToCart, totalPrice as price, qty} from './modules/shoppingCart.js';
 import * as ShoppingCart from './modules/shoppingCart.js';
-// import * as test from './modules/testAsyncAndAwait.js';
-
+import * as test from './modules/testAsyncAndAwait.js';
+import 'core-js/stable';
+import "regenerator-runtime/runtime.js";
 // _____________________________________________________________________
 
 console.log('import module');
@@ -19,10 +20,11 @@ console.log(ShoppingCart.totalPrice);
 // _____________________________________________________________________
 
 
-// (async function() {
-//     let data = await test.data;
-//     console.log(data);
-// })();
+(async function() {
+    let data = await test.data;
+    console.log(data);
+    console.log(123123);
+})();
 
 // _____________________________________________________________________
 
@@ -54,7 +56,9 @@ console.log(objB);
 console.log(objC);
 console.log(objD);
 
+// _____________________________________________________________________
 
+Promise.resolve('Hello world').then(x => console.log(x));
 // _____________________________________________________________________
 
 if (module.hot) {
