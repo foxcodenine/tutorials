@@ -45,7 +45,7 @@ doesn't work with this older parcel so we are setting a previous version ]
 
 ### parcel 2
 
-to install parcel2 you need to upgrade yor node verstion
+to install parcel2 you need to upgrade your node js  verstion
 
 https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
 
