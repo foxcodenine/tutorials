@@ -19,7 +19,8 @@ export async function getJSON (url) {
 
         const res = await Promise.race([ fetch(url), timeout( TIMEOUT_SEC )]);        
         // ______________________________________
-        
+
+       
         if (!res.ok) {
             throw new Error (`${data.message} (${res.status})`);
         }    
@@ -28,7 +29,7 @@ export async function getJSON (url) {
         return await res.json();    
 
     } catch (err) {
-        throw err;
+        throw `helper.js -> getJSON(): ${err}`;
     }
 }
 
