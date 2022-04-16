@@ -596,6 +596,9 @@ function controlServings(newServings) {
     _recipeViewJsDefault.default.update(_moduelJs.state.recipe);
 }
 // _____________________________________________________________________
+function controlBookmarks() {
+    _previewView.bookmarksView.render(_moduelJs.state.bookmarks);
+}
 function controlToggleBookmark() {
     // --- Add and remove bookmaks
     _moduelJs.toggleBookmark(_moduelJs.state.recipe);
@@ -607,6 +610,9 @@ function controlToggleBookmark() {
 // _____________________________________________________________________
 // init function
 (function() {
+    // model.clearBookmarks();
+    _moduelJs.fetchBookmarks();
+    _previewView.bookmarksView.addHandlerRender(controlBookmarks);
     _recipeViewJsDefault.default.addHandlerRender(controlRecipies);
     _recipeViewJsDefault.default.addHandlerUpdateServings(controlServings);
     _recipeViewJsDefault.default.addHandlerToggleBookmark(controlToggleBookmark);
@@ -2266,9 +2272,14 @@ parcelHelpers.export(exports, "getSeachResultsPage", ()=>getSeachResultsPage
 // _____________________________________________________________________
 parcelHelpers.export(exports, "updateServings", ()=>updateServings
 );
+parcelHelpers.export(exports, "fetchBookmarks", ()=>fetchBookmarks
+);
+parcelHelpers.export(exports, "clearBookmarks", ()=>clearBookmarks
+);
 // _____________________________________________________________________
 parcelHelpers.export(exports, "toggleBookmark", ()=>toggleBookmark
-);
+) // _____________________________________________________________________
+;
 var _regeneratorRuntime = require("regenerator-runtime");
 var _configJs = require("./config.js");
 var _helpersJs = require("./helpers.js");
@@ -2336,6 +2347,20 @@ function updateServings(newServings) {
     });
     state.recipe.servings = newServings;
 }
+// _____________________________________________________________________
+function persistBookmarks() {
+    localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+}
+function fetchBookmarks() {
+    const storage = localStorage.getItem('bookmarks');
+    if (storage) {
+        console.log(JSON.parse(storage));
+        state.bookmarks = JSON.parse(storage);
+    }
+}
+function clearBookmarks() {
+    localStorage.clear('bookmarks');
+}
 function toggleBookmark(recipe) {
     if (recipe.id !== state.recipe.id) return;
     if (state.recipe.bookmark === false) {
@@ -2351,6 +2376,8 @@ function toggleBookmark(recipe) {
         );
         state.bookmarks.splice(index, 1);
     }
+    // Update localstoage:
+    persistBookmarks();
 }
 
 },{"regenerator-runtime":"dXNgZ","./config.js":"k5Hzs","./helpers.js":"hGI1E","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"k5Hzs":[function(require,module,exports) {
@@ -2889,7 +2916,11 @@ class previewView extends _abstractViewJsDefault.default {
         const markup = markupArray.join('');
         return markup;
     }
+    addHandlerRender(handler) {
+        window.addEventListener('load', handler);
+    }
 }
+// _____________________________________________________________________
 const resultsView = new previewView('.results', 'No recipe found for your search. Please try again!', '');
 const bookmarksView = new previewView('.bookmarks__list', 'No bookmarks yet. Find a nice recipe and bookmark it!', '');
 
