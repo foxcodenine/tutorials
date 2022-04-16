@@ -47,19 +47,25 @@ class previewView extends AbstractView {
 
         return markup;
     }
+
+    addHandlerRender(handler) {
+        window.addEventListener('load', handler);
+    }
 }
 
 
 // _____________________________________________________________________
 
-export const resultsView = new previewView(
+const resultsView = new previewView(
     '.results', 
     'No recipe found for your search. Please try again!', 
     ''
 );
 
-export const bookmarksView = new previewView(
+const bookmarksView = new previewView(
     '.bookmarks__list', 
     'No bookmarks yet. Find a nice recipe and bookmark it!', 
     ''
 );
+
+export {resultsView, bookmarksView};
