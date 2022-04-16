@@ -133,6 +133,12 @@ function controlServings(newServings) {
 
 // _____________________________________________________________________
 
+function controlBookmarks() {
+
+  bookmarksView.render(model.state.bookmarks)
+}
+
+
 function controlToggleBookmark() {
 
   // --- Add and remove bookmaks
@@ -149,11 +155,15 @@ function controlToggleBookmark() {
 // init function
 
 (function() {  
-  recipeView.addHandlerRender(controlRecipies);
+  // model.clearBookmarks();
+  model.fetchBookmarks();  
+  
+  bookmarksView.addHandlerRender(controlBookmarks);
+  recipeView.addHandlerRender(controlRecipies);  
   recipeView.addHandlerUpdateServings(controlServings);
   recipeView.addHandlerToggleBookmark(controlToggleBookmark);
   searchView.addHandlerSearch(controlSearchResults);
-  paginationView.addHandlerButtonClick(controlPagination);
+  paginationView.addHandlerButtonClick(controlPagination);  
   
 })();
 

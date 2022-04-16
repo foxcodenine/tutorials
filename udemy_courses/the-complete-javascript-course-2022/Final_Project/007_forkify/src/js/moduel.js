@@ -114,6 +114,24 @@ export function updateServings (newServings) {
 
 // _____________________________________________________________________
 
+function persistBookmarks () {
+    localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+}
+
+export function fetchBookmarks () {
+    const storage = localStorage.getItem('bookmarks');
+    if (storage) {
+        console.log(JSON.parse(storage))
+        state.bookmarks = JSON.parse(storage);
+    }
+    
+}
+
+export function clearBookmarks() {
+    localStorage.clear('bookmarks');
+}
+// _____________________________________________________________________
+
 export function toggleBookmark (recipe) {
 
        
@@ -126,7 +144,8 @@ export function toggleBookmark (recipe) {
         state.recipe.bookmark = true;
 
         // Add bookmark to bookmarks array
-        state.bookmarks.push(recipe)
+        state.bookmarks.push(recipe);
+
 
     } else {
 
@@ -136,6 +155,12 @@ export function toggleBookmark (recipe) {
         // Find bookmark index and Remove it from bookmarks array
         const index = state.bookmarks.findIndex(el => el.id === recipe.id);
 
-        state.bookmarks.splice(index, 1);
+        state.bookmarks.splice(index, 1);        
     }
+
+    // Update localstoage:
+    persistBookmarks();
 }
+
+// _____________________________________________________________________
+
