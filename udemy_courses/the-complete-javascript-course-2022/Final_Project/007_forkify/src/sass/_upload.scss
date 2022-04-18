@@ -93,7 +93,17 @@
   }
 
   &__btn {
-    grid-column: 1 / -1;
-    justify-self: center;
+    min-width: 22rem;
+    display: flex;
+    justify-content: center;
+    
+  }
+
+  &__btn-group {
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    justify-content: center;
+    grid-column: 1/-1;
   }
 }
