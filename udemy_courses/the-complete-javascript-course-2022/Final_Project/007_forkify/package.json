@@ -4,7 +4,7 @@
   "description": "Recipe application",
   "scripts": {
     "parcel-start": "parcel index.html --public-url /007",
-    "parcel-build": "parcel build index.html"
+    "parcel-build": "parcel build index.html --dist-dir ./dist --public-url /007"
   },
   "license": "ISC",
   "devDependencies": {

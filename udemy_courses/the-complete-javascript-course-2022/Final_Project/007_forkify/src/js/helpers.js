@@ -17,7 +17,8 @@ export async function getJSON (url) {
 
     try {
 
-        const res = await Promise.race([ fetch(url), timeout( TIMEOUT_SEC )]);        
+        const res  = await Promise.race([ fetch(url), timeout( TIMEOUT_SEC )]);
+        const data = await res.json();        
         // ______________________________________
 
        
@@ -26,7 +27,7 @@ export async function getJSON (url) {
         }    
         // ______________________________________
         
-        return await res.json();    
+        return data;
 
     } catch (err) {
         throw `helper.js -> getJSON(): ${err}`;
@@ -35,3 +36,35 @@ export async function getJSON (url) {
 
 
 // _____________________________________________________________________
+
+
+export async function sendJSON (url, updoalData) {
+
+    try {
+        const fetchPro = fetch(url, {
+
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(updoalData)
+        });
+
+
+
+        const res = await Promise.race([ fetchPro, timeout( TIMEOUT_SEC )]);   
+        const data = await res.json();     
+        // ______________________________________
+
+       
+        if (!res.ok) {
+            throw new Error (`${data.message} (${res.status})`);
+        }    
+        // ______________________________________
+        
+        return data;    
+
+    } catch (err) {
+        throw `helper.js -> getJSON(): ${err}`;
+    }
+}

@@ -13,13 +13,15 @@ import { async } from 'regenerator-runtime/runtime.js';
 
 
 import * as model     from './moduel.js';
-import recipeView     from './views/recipeView.js'
-import searchView     from './views/seachView.js'
-import paginationView from './views/paginationView.js'
+import recipeView     from './views/recipeView.js';
+import searchView     from './views/seachView.js';
+import paginationView from './views/paginationView.js';
+import addRecipeView from './views/addRecipeView.js';
 
 // import resultsView    from './views/resultsView.js'
 // import bookmarksView    from './views/bookmarksView.js'
 import { resultsView, bookmarksView } from './views/previewView';
+import {  MODAL_CLOSE_SEC } from "./config.js";
 
 
 // _____________________________________________________________________
@@ -57,12 +59,12 @@ async function controlRecipies() {
     
     // ______________________________________
 
-    // 3) Update resultsView list (highlight current reciepy)
+    // 3) Update resultsView list (highlight current recipe)
     resultsView.update(model.getSeachResultsPage());
 
     // ______________________________________
 
-    // 4) Update bookmarksView list (highlight current reciepy)
+    // 4) Update bookmarksView list (highlight current recipe)
     bookmarksView.update(model.state.bookmarks);
 
     // ______________________________________
@@ -152,7 +154,43 @@ function controlToggleBookmark() {
 }
 
 // _____________________________________________________________________
-// init function
+
+async function controlAddRecipe(newRecipe) {
+  try {
+    // Show loading spinner
+    addRecipeView.renderSpinner();
+
+    // Upload the new recipe data
+    await model.uploadRecipe(newRecipe);
+    console.log(model.state.recipe);
+
+    // Render recipe
+    recipeView.render(model.state.recipe);
+
+    // Success message
+    addRecipeView.renderMessage();
+
+    // Render bookmark view
+    bookmarksView.render(model.state.bookmarks);
+
+    // Change id in the URL
+    window.history.pushState(null, '', `#${model.state.recipe.id}`);
+
+    // Close form window
+    setTimeout(function(){
+      addRecipeView._toggleWindow();
+    }, MODAL_CLOSE_SEC * 1000);
+
+  } catch (err) {
+    console.error(`CONTROLLER: ${err}`);
+    addRecipeView.renderError(err.message);
+  }
+  
+}
+
+// _____________________________________________________________________
+
+// init function (use publisher subscriber pattern)
 
 (function() {  
   // model.clearBookmarks();
@@ -164,8 +202,11 @@ function controlToggleBookmark() {
   recipeView.addHandlerToggleBookmark(controlToggleBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerButtonClick(controlPagination);  
+  addRecipeView.addHandlerUpload(controlAddRecipe) 
   
 })();
+
+
 
 
 
