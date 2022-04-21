@@ -16,11 +16,29 @@
     <header>
       <h1>Vue Events</h1>
     </header>
+
     <section id="events">
+
       <h2>Events in Action</h2>
-      <button>Add</button>
-      <button>Remove</button>
+
+      <button v-on:click="addCounter()" >Add</button>
+
+      <button v-on:click="reduceCounter()" >Remove</button>
+
+      <p v-once >Result (update once): {{ counter }}</p>
       <p>Result: {{ counter }}</p>
+
+      <input type="text" v-on:input="setName($event)" v-on:keydown.enter=" setConfirmName()">
+
+      <p>Your Name: {{ name }}</p>
+      <p>Confirm Name: {{ confirmName }}</p>
+
+      <form v-on:submit.prevent="submitForm">
+        <input type="text">
+        <button>Sign Up</button>
+      </form>
+
     </section>
+
   </body>
 </html>
