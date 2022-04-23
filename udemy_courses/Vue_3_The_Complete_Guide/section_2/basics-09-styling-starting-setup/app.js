@@ -25,6 +25,11 @@ const app = Vue.createApp({
             }            
         },
     },
+    computed: {
+        boxCStyle() {
+            return {borderColor: this.boxCSelected ? 'red' : '#ccc'}
+        }
+    },
 
     methods: {
         boxSelected(box) {
