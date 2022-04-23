@@ -12,18 +12,25 @@
     <script src="https://unpkg.com/vue@next" defer></script>
     <script src="app.js" defer></script>
   </head>
-
   <body>
     <header>
-      <h1>Vue Dynamic Styling</h1>
+      <h1>Vue Lists and Conditional Content</h1>
     </header>
 
-    <section id="styling">
-      <div class="demo" v-bind:class="boxAClass" v-on:click="boxSelected('A')" ></div>
-      <div class="demo" v-bind:class="{active: boxBSelected}" v-on:click="boxSelected('B')" ></div>
-      <div     v-bind:class="['demo', {active: boxCSelected}]" v-on:click="boxSelected('C')" ></div>
+    <section id="assignment">
+      <h2>Assignment</h2>
+
+      <input type="text" v-model="taskInput">
+      <button v-on:click="addTask" >Add Task</button>
+
+      <ul v-if="fetchTaskkShow">
+          <li v-for="task in taskList" :key="task.id">{{ task.input }}</li>
+      </ul>
+
+      <div v-else>List is hidden!</div>
+
+      <button v-on:click="toggleTaskShow">{{ fetchTaskkShow ? 'Hide' : 'Show List' }}</button>
     </section>
 
   </body>
-
 </html>
