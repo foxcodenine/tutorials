@@ -1,5 +1,1 @@
-.testclass {
-    color: red;
-    background-color: lightblue;
-    border: 2px dashed rgb(8, 9, 85);
-}
+@use './testclass';

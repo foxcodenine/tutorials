@@ -27,7 +27,7 @@ use phpDocumentor\Reflection\Types\Null_;
 // })->name('home.index');
 
 
-Route::view('/', 'home.index');
+Route::view('/', 'home.index')->name('home.index');
 
 
 // ---------------------------------------------------------------------
