@@ -1,14 +1,20 @@
-@extends('layout.app')
+@extends('layout.app2')
 
 
 
 @section('article')
 
     @forelse ($news as $n)
-        <h2 style="font-family: Arial, Helvetica, sans-serif">{{ $n->title }}</h2>
-        <p style="font-family: Arial, Helvetica, sans-serif">{{ $n->author }}</p>
+        <h2> <a href="{{ route('news.show', ['news' => $n->id]) }}"> {{ $n->title }} </a></h2>
+        
+        <p>{{ $n->author }}</p>
         <img src="{{ $n->urlToImage }}" alt="" width="300px">
-        <p style="font-family: Arial, Helvetica, sans-serif">{{ $n->publishedAt }}</p>
+
+        <p>{{ $n->created_at->diffForHumans() }}</p>
+
+        @if(now()->diffInMinutes($n->created_at) < 5)
+            <div class="alert alert-info" >New!</div>
+        @endif
 
         @include('news.partials.delete_form', ['news' => $n])
         <br><hr><br>
