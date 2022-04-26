@@ -5,19 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Laravel App - @yield('title')</title>
-    <link rel="stylesheet" href="/css/app.css">
-    <style>
-            * {box-sizing:border-box;}
-            body{display:flex;min-height:100vh;flex-direction:column;margin:0;}
-            #main{display:flex;flex:1;}
-            #main>article{flex:1;}
-            #main>nav,#main>aside{flex:0 0 10vw;background:beige;}
-            #main>nav{order:-1;}
-            header,footer{background:yellowgreen;height:20vh;}
-            header,footer,article,nav,aside{padding:1em;}
-    </style>
+
+    {{-- // --- UPDATED: --}}
+    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="{{ asset('js/app.js') }}" defer ></script> --}}
+
+    {{-- // --- TO: --}}
+    <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
+    <script src="{{ asset(mix('js/app.js')) }}" defer ></script>
 </head>
 <body>
+
+    
 
     <header>
         @if(session('status')) {{ session('status') }} @endif
