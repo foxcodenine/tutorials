@@ -19,11 +19,13 @@
     
 
     <header>
+        @include('includes.nav_bar')
         @if(session('status')) {{ session('status') }} @endif
         @yield('header')
     </header>
 
     <div id="main">
+        
         <nav>@yield('nav')</nav>
         <article> @yield('article') </article>
         <aside>@yield('aside')</aside>
