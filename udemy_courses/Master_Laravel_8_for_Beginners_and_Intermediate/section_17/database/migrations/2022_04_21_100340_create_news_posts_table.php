@@ -17,6 +17,7 @@ class CreateNewsPostsTable extends Migration
             $table->id();
             $table->timestamps();
 
+            // $table->string('title')->nullable(false);
             $table->string('title');
             $table->string('author');
             $table->string('publishedAt');
