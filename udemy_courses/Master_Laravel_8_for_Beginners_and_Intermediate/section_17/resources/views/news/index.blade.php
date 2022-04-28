@@ -19,7 +19,7 @@
         @include('news.partials.delete_form', ['news' => $n])
         <br><hr><br>
     @empty
-        <h2>No news</h2>
+        <h2>No news yet!</h2>
     @endforelse
 
 
