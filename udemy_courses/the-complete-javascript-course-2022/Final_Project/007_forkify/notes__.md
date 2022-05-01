@@ -7,7 +7,7 @@
 to install parcel2 you need to upgrade your node js to  verstion 16
 
 Simples way to install npm on ubuntu or fedora is trough apt and dnf and the update it and the upgraded to v16:
-
+    $ sudo apt install nodejs
     $ sudo apt install npm
     or
     $ sudo dnf install npm
