@@ -10,6 +10,8 @@
             <li><strong>Phone:</strong> {{ phoneNumber }} </li>
             <li><strong>Email:</strong> {{ emailAddress }} </li>
         </ul>
+
+        <button v-on:click="$emit('delete', index)" >Delete</button>
     </li>
 </template>
 
@@ -37,6 +39,15 @@ export default {
     },
     // https://v3.vuejs.org/guide/component-props.html
 
+    // emits: ['toggle-favorite', 'delete-friend'],
+    emits: {
+        'toggle-favorite': function(index) {
+            return index >= 0 ? true : console.warn('index is missing !!!');
+        },
+        'delete': function() {return true}
+    },
+    // https://vuejs.org/guide/components/events.html#declaring-emitted-events
+
     data() {
         return {
             deatailsAreVisible: false,            
@@ -49,7 +60,7 @@ export default {
         toggleFavorite() {
             // this.friendIsFavorite = Number(!this.friendIsFavorite);
             this.$emit('toggle-favorite', this.index);
-        }
+        },
     }
 }
 </script>
