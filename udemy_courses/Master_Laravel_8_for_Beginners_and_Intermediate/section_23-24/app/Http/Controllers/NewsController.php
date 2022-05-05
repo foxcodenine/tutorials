@@ -35,6 +35,15 @@ class NewsController extends Controller {
         ],
     ];
 
+    // _________________________________________________________________
+
+    public function __construct() {
+        
+        // $this->middleware('auth');
+        // $this->middleware('auth')->only(['create', 'edit', 'store', 'edit', 'distroy']);
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
 
     // _________________________________________________________________
 
@@ -73,6 +82,9 @@ class NewsController extends Controller {
     public function store(StoreNews $request) {
 
         // dd($request);
+
+
+        
 
         // --- Validateing Form input ----------------------------------
         

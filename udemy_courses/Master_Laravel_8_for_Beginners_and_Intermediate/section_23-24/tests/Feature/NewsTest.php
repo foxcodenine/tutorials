@@ -81,6 +81,11 @@ class NewsTest extends TestCase
 
     public function test_store_valid_news() {
 
+        // (Method 1 - using actingAS  - Method 2 in test_store_fail_news )
+
+        $testUser = $this->createUser();
+        $this->actingAs($testUser);
+
         $params = [
             'title'         => 'title min five chr',
             'author'        => 'author min five chr and max 100',
@@ -111,7 +116,15 @@ class NewsTest extends TestCase
             'content'       => '',
         ];
 
-        $response = $this->post('/news', $params);
+        
+        // --- UPDATED:  
+        // $response = $this->post('/news', $params);
+
+        // --- TO: (Method 2 - using actingAS directly)
+        $response = $this->actingAS($this->createUser())
+                         ->post('/news', $params);
+
+
         $response->assertStatus(302)
                  ->assertSessionHas('errors');
 
@@ -138,6 +151,11 @@ class NewsTest extends TestCase
     // _________________________________________________________________
 
     public function test_update_valid_news() {
+
+        // ----- 0 create a test user to test this route
+
+        $testUser = $this->createUser();
+        $this->actingAs($testUser);
 
         // ----- 1st we create the  news post
 
@@ -188,6 +206,11 @@ class NewsTest extends TestCase
     // _________________________________________________________________
 
     public function test_delete_news_post() {
+
+        // ----- 0 create a test user to test this route
+
+        $testUser = $this->createUser();
+        $this->actingAs($testUser);
 
         // ----- 1st we create the  news post
         $newsPost = $this->createDummyNewsPost(); 
