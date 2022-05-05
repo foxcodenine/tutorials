@@ -25,15 +25,35 @@
             <a class="p-2 text-dark" href="{{ route('home.contacts') }}">Contact</a>
             <a class="p-2 text-dark" href="{{ route('news.index') }}">News Post</a>
             <a class="p-2 text-dark" href="{{ route('news.create') }}">Add News Post</a>
+
+            @guest
+                @if (Route::has('register'))
+                <a class="p-2 text-dark"  href="{{ route('register') }}">Register</a>
+                @endif
+                <a class="p-2 text-dark"  href="{{ route('login') }}">Login</a>
+            @else
+                <a  class="p-2 text-dark" href="{{ route('logout') }}"                    
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();" >
+                    Logout {{ Auth::user()->name }}
+                </a>
+
+                <form   id="logout-form" action="{{ route('logout') }}" 
+                        method="POST"    style="display: none" >
+                    @csrf 
+                </form>
+            @endguest
         </nav>
     </div>
 
     <div class="container">
+
         @if(session('status'))
         <div class="alert alert-success">
             {{session('status')}}
         </div>
         @endif
+
+        @yield('content')
         @yield('article')
     </div>
 

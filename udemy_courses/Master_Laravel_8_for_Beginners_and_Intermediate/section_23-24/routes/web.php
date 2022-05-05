@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use phpDocumentor\Reflection\Types\Null_;
 
@@ -17,17 +18,24 @@ use phpDocumentor\Reflection\Types\Null_;
 |
 */
 
+// --- UPDATED:
 // Route::get('/', function () {
 //     return view('welcome');
 // })->name('home.index');
 
-
+// --- TO:
 // Route::get('/', function () {
 //     return view('home.index');
 // })->name('home.index');
 
-
+// --- TO:
 Route::view('/', 'home.index')->name('home.index');
+// Route::view('/', 'home.index')->name('home.index')->middleware('auth');
+
+// --- TO:
+// Route::get('/', [HomeController::class, 'home'])->name('home.index')
+    //  ->middleware('auth')
+    //  ;
 
 
 // ---------------------------------------------------------------------
@@ -247,6 +255,11 @@ Route::get('/request-boolean', function() {
  * and check https://laravel.com/docs/9.x/requests#retrieving-input
  * 
  */
+
+//  ____________________________________________________________________
+
+Auth::routes();
+
 
 
 
