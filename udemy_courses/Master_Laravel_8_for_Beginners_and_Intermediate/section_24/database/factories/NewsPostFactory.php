@@ -43,6 +43,6 @@ class NewsPostFactory extends Factory
 
         return $this->state($params);
 
-        // --- USE: NewsPost::factory()->newTitle()->create(); 
+        // --- USE: NewsPost::factory()->newTitle('authorName')->create(); 
     }
 }
