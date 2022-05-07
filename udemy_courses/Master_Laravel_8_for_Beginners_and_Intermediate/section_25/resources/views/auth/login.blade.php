@@ -36,7 +36,7 @@
 
         <div class="fom-group mt-3">
             <div class="form-check">
-                <input type="check" class="form-check-input" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                <input type="checkbox" class="form-check-input" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
                 <label class="form-check-label" for="remember">Remember Me</label>
             </div>
         </div>
