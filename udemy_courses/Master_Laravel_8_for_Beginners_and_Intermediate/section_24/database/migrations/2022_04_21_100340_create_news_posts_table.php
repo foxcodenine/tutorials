@@ -22,7 +22,15 @@ class CreateNewsPostsTable extends Migration
             $table->string('author');
             $table->string('publishedAt');
             $table->string('urlToImage');
-            $table->text('content');
+
+            // In sqlite you can't have a column not null with out a 
+            // default value, or used to be. 
+            // And we are useing sqlite for testing:
+            if (env('DB_CONNECTION') === 'sqlite_testing') {
+                $table->text('content')->default('');
+            } else {
+                $table->text('content');
+            }
         });
     }
 
