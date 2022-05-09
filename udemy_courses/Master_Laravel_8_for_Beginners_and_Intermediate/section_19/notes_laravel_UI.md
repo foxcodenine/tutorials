@@ -1,6 +1,7 @@
 ### Laravel UI
-
+```php
     <!-- $ composer require laravel/ui 3.0.0 -->
+
     $ composer require laravel/ui 
 
     $ php artisan ui bootstrap
@@ -11,6 +12,11 @@
 
     $ npm run dev
 
+    <!-- This command will generate the blade auth templates.        -->
+    <!-- Make sure that it doesn't conflict with you template.       -->
+    <!-- Else they will be replaced.                                 -->
+    $ php artisan make:auth
+```
 
 ### Errors in npm packages, conflicting versions
 
