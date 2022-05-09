@@ -4,12 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+// _____________________________________________________________________
+
+
 
 class NewsPost extends Model {   
 
     use HasFactory;
 
-    // --- to use NewsPost::create()  &  NewPost::make()
+    use SoftDeletes;
+
+    // ______________________________________
+
+    // --- TO: use NewsPost::create()  &  NewPost::make()
     protected $fillable = ['title', 'author', 'publishedAt', 'urlToImage', 'content'];
 
     // ______________________________________
@@ -28,6 +37,14 @@ class NewsPost extends Model {
         static::deleting(function (NewsPost $newsPost) {
             $newsPost->comments()->delete();
         });
+
+        static::restored(function (NewsPost $newsPost) {
+            $newsPost->comments()->restore();
+        });
+
+        // static::restoring(function (NewsPost $newsPost) {
+        //     $newsPost->comments()->restore();
+        // });
     }
     
 }
