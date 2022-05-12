@@ -5,10 +5,10 @@
 
             <header>
                 <h3>{{ title }}</h3>
-                <base-button mode="flat" type="button">Delete</base-button>
+                <base-button mode="flat" type="button" v-on:click="removeResource(id)">Delete</base-button>
             </header>
 
-            <p>{{ desciption }}</p>
+            <p>{{ description }}</p>
 
             <nav><a v-bind:href="link">View Resource</a></nav>
 
@@ -20,14 +20,16 @@
 <!--------------------------------------------------------------------->
 
 <script>
-import BaseButton from '../UI/BaseButton.vue'
+
 export default {
-  components: { BaseButton },
+
     props: {
+        'id': String,
         'title': String,
-        'desciption': String,
+        'description': String,
         'link': String
     },
+    inject: ['removeResource']
 }
 </script>
 
