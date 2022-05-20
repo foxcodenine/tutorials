@@ -68,16 +68,19 @@ class NewsController extends Controller {
         // dd(DB::getQueryLog());
 
         // ____________________________
+
+        // --- NOTE: (we are useing View Composer/ActivityComposer to fetch data)
         
-        $mostCommented = Cache::tags(['news-post'])->remember('newspost-most-commented', now()->addSeconds(60), function() {
-            return  NewsPost::mostCommented()->take(5)->get();
-        });
-        $mostActive = Cache::tags(['news-post'])->remember('users-most-active', now()->addSeconds(60), function() {
-            return  User::withMostNewsPosts()->take(5)->get();
-        });
-        $mostActiveLastMonth = Cache::tags(['news-post'])->remember('users-most-active-last-month', now()->addSeconds(60), function() {
-            return  User::withMostNewsPostsLastMonth()->take(5)->get();
-        });
+        // $mostCommented = Cache::tags(['news-post'])->remember('newspost-most-commented', now()->addSeconds(60), function() {
+        //     return  NewsPost::mostCommented()->take(5)->get();
+        // });
+        // $mostActive = Cache::tags(['news-post'])->remember('users-most-active', now()->addSeconds(60), function() {
+        //     return  User::withMostNewsPosts()->take(5)->get();
+        // });
+        // $mostActiveLastMonth = Cache::tags(['news-post'])->remember('users-most-active-last-month', now()->addSeconds(60), function() {
+        //     return  User::withMostNewsPostsLastMonth()->take(5)->get();
+        // });
+
 
         // ____________________________
 
@@ -86,10 +89,10 @@ class NewsController extends Controller {
 
         // --- NOTE: we added the latest and mostCommented which are local scope methods:
         return view('news.index', [
-            'news'          => NewsPost::latest()->withCount('comments')->with('users')->get(),
-            'mostCommented' => $mostCommented,
-            'mostActive'    => $mostActive , 
-            'mostActiveLastMonth'  => $mostActiveLastMonth, 
+            'news'          => NewsPost::latest()->withCount('comments')->with('users')->with('tags')->get(),
+            // 'mostCommented' => $mostCommented,
+            // 'mostActive'    => $mostActive , 
+            // 'mostActiveLastMonth'  => $mostActiveLastMonth, 
         ]);
 
         // --- Commented out to use the scope inside the modal boot method to orderBy (which is a global scope)
@@ -199,11 +202,17 @@ class NewsController extends Controller {
         // $newsPost = Cache::remember("news-post-{$id}", 60, function() use ($id) {
         
         // --- TO:
-        $newsPost = Cache::tags(['news-post'])->remember("news-post-{$id}", 60, function() use ($id) {
-            return NewsPost::with(
-                ['comments' => function( HasMany $query){ return $query->latest(); } ]
-            )->findOrFail($id);
-        });
+        $newsPost = Cache::tags(['news-post'])
+                    ->remember(
+                        
+                        "news-post-{$id}", 60, function() use ($id) { 
+
+                            return NewsPost::with( ['comments' => function( HasMany $query){ 
+
+                                return $query->latest();
+
+                            } ] )->with('users')->with('tags')->findOrFail($id);
+                        });
 
         // ________________________________________________
         // --- number of user on page

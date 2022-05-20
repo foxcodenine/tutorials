@@ -10,7 +10,7 @@
 <form action="{{ route('news.store') }}" method="POST">
     @csrf
     @php $currentNews=null @endphp
-    @include('news.partials.form')
+    @include('news.partials._form')
 </form>
 
 @endsection

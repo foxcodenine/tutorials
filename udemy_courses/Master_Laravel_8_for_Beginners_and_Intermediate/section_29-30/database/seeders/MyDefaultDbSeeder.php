@@ -18,7 +18,6 @@ class MyDefaultDbSeeder extends Seeder
         // To be used insted of the default class (DatabaseSeeder.php)
 
         
-
         // --- prompt to refresh the db
 
         if ($this->command->confirm('Refresh the database?')) {
@@ -35,7 +34,9 @@ class MyDefaultDbSeeder extends Seeder
         $this->call([
             UserTableSeeder::class,
             NewsPostTableSeeder::class,
-            CommentsTableSeeder::class
+            CommentsTableSeeder::class,
+            TagsTablesSeeder::class,
+            NewsPostTagTableSeeder::class
         ]);
 
         // --- USE: $ php artisan db:seed --class=MyDefaultDbSeeder

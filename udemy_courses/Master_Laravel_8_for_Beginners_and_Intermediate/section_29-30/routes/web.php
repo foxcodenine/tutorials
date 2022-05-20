@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\NewsTagController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use phpDocumentor\Reflection\Types\Null_;
@@ -76,6 +77,7 @@ Route::resource('/news', NewsController::class)
         ->only('index', 'show', 'create', 'store', 'edit', 'update', 'destroy');
 
 
+Route::get('/news/tag/{tagId}', [NewsTagController::class, 'index'])->name('news.tags.index');
 
 
 // ---------------------------------------------------------------------

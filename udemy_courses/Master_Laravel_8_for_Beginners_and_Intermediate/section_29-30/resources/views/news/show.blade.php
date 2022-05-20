@@ -2,7 +2,14 @@
 
 
 
+@section('title', 'news.show')
 @section('article')
+
+<div class="row">
+
+    {{-- SIDE ----------------------------------------------------- --}}
+
+    <div class="col-8">
     
     <h2 style="font-family: Arial, Helvetica, sans-serif">
         {{ $news->title }}
@@ -13,6 +20,7 @@
     <img src="{{ $news->urlToImage }}" alt="" width="300px">
 
     <x-updated :name="$news->users->name" :date="$news->created_at"></x-updated>
+    <x-tags  :newstags="$news->tags"></x-tags>
     
     <p>Currently read by {{ $counter }}</p> people.
     
@@ -21,7 +29,7 @@
     
 
 
-    @include('news.partials.delete_form')
+    @include('news.partials._delete_form')
 
 
 
@@ -32,6 +40,18 @@
         <h3>No Comments</h3>
     @endforelse
 
+    </div>
 
+    {{-- END MAIN ------------------------------------------------- --}}
+
+    {{-- SIDE ----------------------------------------------------- --}}
+
+    <div class="col-4">
+        @include('news.partials._activity')
+    </div>
+
+    {{-- END SIDE ------------------------------------------------- --}}
+
+</div>
     
 @endsection
