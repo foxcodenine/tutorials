@@ -11,6 +11,7 @@
     <script src="{{ asset('js/app.js') }}" defer ></script> --}}
 
     {{-- // --- TO: --}}
+    <link rel="icon" href="{{ asset('css/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset(mix('css/app.css')) }}">
     <script src="{{ asset(mix('js/app.js')) }}" defer ></script>
 

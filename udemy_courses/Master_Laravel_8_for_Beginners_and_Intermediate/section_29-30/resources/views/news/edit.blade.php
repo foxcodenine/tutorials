@@ -10,7 +10,7 @@
 <form action="{{ route('news.update', ['news' => $currentNews->id]) }}" method="POST">
     @csrf
     @method('PUT')
-    @include('news.partials.form')
+    @include('news.partials._form')
 
 </form>
 
