@@ -21,8 +21,17 @@ https://codex.wordpress.org/Main_Page
     get_the_title('#enter_an_id');
 
     the_content();
+    get_the_content();
 
+    the_excerpt();
+    get_the_excerpt();
 
+    the_time();
+    get_the_time();
+    get_the_time('j/n/Y')
+
+    the_author_posts_link();
+    get_the_author_posts_link();
 
     the_permalink();
     get_permalink('#enter_an_id')
@@ -32,6 +41,8 @@ https://codex.wordpress.org/Main_Page
 
     wp_head();
     wp_footer();
+
+    paginate_links();
 
     <html <?php language_attributes() ?> 
     <meta charset="<?php bloginfo('charset') ?>" >
@@ -47,6 +58,25 @@ https://codex.wordpress.org/Main_Page
     get_the_ID();
 
     wp_get_post_parent_id( '#enter_an_id' );
+
+    is_author();
+    is_category();
+    in_category( int|string|int[]|string[] $category, int|object $post = null )
+
+    the_author();
+    get_the_author();
+
+    single_cat_title();
+
+    the_archive_title();
+    the_archive_description();
+
+    get_the_archive_title();
+    get_the_archive_description();
+
+    wp_trim_words(get_the_content(), 18);
+
+    wp_reset_postdata();
 
 ```
 
@@ -102,3 +132,18 @@ https://codex.wordpress.org/Main_Page
 
     wp_nav_menu(['theme_location' => 'headerMenuLocation']);
 ```
+
+```php
+        $homepagePosts = new WP_Query([
+            'posts_per_page' => 2,
+            // 'category_name' => 'myCategoryName',
+            // 'post_type' => 'post',
+            'post_type' => 'page',
+        ]); 
+```
+
+
+### Info
+
+single.php - is for individual posts
+page.php - is fo individual pages
