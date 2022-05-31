@@ -16,9 +16,11 @@
                 <nav class="main-navigation">
                     <!-- <?php wp_nav_menu(['theme_location' => 'headerMenuLocation']) ?> -->
 
-                    <?php function isActive($pageName, $pageId) {
-                        return  is_page($pageName) || wp_get_post_parent_id(0) == 
-                                            $pageId ? 'current-menu-item' : '';
+                    <?php function isActive($pageName=false, $pageId=false, $postType=false, ) {
+                        return  is_page($pageName) || 
+                                wp_get_post_parent_id(0) === $pageId ||
+                                get_post_type() === $postType  ? 
+                                'current-menu-item' : '';
                     }?>
                     
                     <ul>
@@ -26,7 +28,7 @@
                     <li><a href="#">Programs</a></li>
                     <li><a href="#">Events</a></li>
                     <li><a href="#">Campuses</a></li>
-                    <li><a href="#">Blog</a></li>
+                    <li class="<?= isActive('blog', false, 'post') ?>"><a href="<?= site_url('/blog'); ?>">Blog</a></li>
                     </ul> 
                    
                 </nav>
