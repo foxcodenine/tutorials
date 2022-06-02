@@ -18,9 +18,10 @@ get_header();
     <?php while(have_posts()): the_post(); ?>
 
         <div class="event-summary">
-            <a class="event-summary__date t-center" href="#">
-                <span class="event-summary__month">Mar</span>
-                <span class="event-summary__day">25</span>
+            <a class="event-summary__date t-center" href="<?= get_the_permalink(); ?>">
+                <?php $eventDate = new DateTime(get_field('event_date'))?>
+                <span class="event-summary__month"><?= $eventDate->format('M')?></span>
+                <span class="event-summary__day"><?= $eventDate->format('d')?></span>
             </a>
             <div class="event-summary__content">
                 <h5 class="event-summary__title headline headline--tiny">
@@ -33,7 +34,13 @@ get_header();
             </div>
         </div>
         
-    <?php endwhile; echo paginate_links(); ?>
+    <?php endwhile; wp_reset_postdata(); ?>
+    <?= paginate_links(); ?>
+
+    <hr class="section-break">
+    
+    <p>Looking for a recap of the past events? <a href="<?= site_url('/past-events') ?>">Check out our past events archive.</a></p>
+
 
 </div>
 

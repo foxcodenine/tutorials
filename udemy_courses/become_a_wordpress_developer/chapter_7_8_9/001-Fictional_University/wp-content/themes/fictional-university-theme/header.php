@@ -3,7 +3,7 @@
     <meta charset="<?php bloginfo('charset') ?>" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php wp_head(); ?>
-    <body <?php body_class(); ?> >
+    <body <?php body_class(); ?> style="min-height: 100vh; display: flex; flex-direction: column;" >
         <!-- header start --------------------------------------------->
         <header class="site-header">`
             <div class="container">
@@ -26,7 +26,7 @@
                     <ul>
                     <li class="<?= isActive('about-us', 16) ?>" ><a href="<?= site_url('/about-us')?>">About Us</a></li>
                     <li><a href="#">Programs</a></li>
-                    <li class="<?= isActive('event', false, 'event') ?>"><a href="<?= get_post_type_archive_link('event'); ?>">Events</a></li>
+                    <li class="<?= isActive('past-events', false, 'event') ?>"><a href="<?= get_post_type_archive_link('event'); ?>">Events</a></li>
                     <li><a href="#">Campuses</a></li>
                     <li class="<?= isActive('blog', false, 'post') ?>"><a href="<?= site_url('/blog'); ?>">Blog</a></li>
                     </ul> 
