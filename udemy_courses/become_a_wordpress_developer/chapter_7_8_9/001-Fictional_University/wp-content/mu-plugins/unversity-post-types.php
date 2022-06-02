@@ -9,6 +9,7 @@ function university_post_type () {
         'has_archive' => true,
         'menu_icon' => 'dashicons-calendar',
         'show_in_rest' => true,
+        // 'supports' => ['title','editor','excerpt', 'custom-fields'],
         'supports' => ['title','editor','excerpt'],
         'rewrite' => ['slug'=> 'events'],
         'labels' => [
