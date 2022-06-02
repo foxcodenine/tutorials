@@ -46,6 +46,7 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
     wp_footer();
 
     paginate_links();
+    paginate_links([ 'total' => $pastEvents->max_num_pages ]);
 
     <html <?php language_attributes() ?> 
     <meta charset="<?php bloginfo('charset') ?>" >
@@ -81,9 +82,23 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
 
     wp_reset_postdata();
 
-    get_post_type_archive_link('post_type_name')
+    get_post_type_archive_link('post_type_name');
+
+    the_field('field_name')
+    get_field('field_name')
+
+    get_query_var( string $var, mixed $default = '' );
+    get_query_var('paged', 1);
 
 ```
+
+```php
+    wp_list_pages( [ 'title_li' => NULL, 'child_of' => $theId, 'sort_column' => 'menu_order' ] );
+
+    wp_nav_menu(['theme_location' => 'headerMenuLocation']);
+```
+
+### Adds a callback function to an action hook.
 
 ```php
     function myFunction() {
@@ -168,11 +183,44 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
 
 ```
 
-```php
-    wp_list_pages( [ 'title_li' => NULL, 'child_of' => $theId, 'sort_column' => 'menu_order' ] );
 
-    wp_nav_menu(['theme_location' => 'headerMenuLocation']);
+```php
+function myFunction ($query) {
+    // $query->set('posts_per_page', '1');
+
+    if (!is_admin() && is_post_type_archive('event') && $query->is_main_query()) {
+        $query->set( 'meta_key', 'event_date' );
+        $query->set( 'orderby', 'meta_value_num' );
+        $query->set( 'order', 'ASC' );
+        $today = date('Ymd');
+        $query->set( 'meta_query', ['key' => 'event_date', 'compare' => '>=', 'value' => $today, 'type' => 'numeric'] );
+    }
+    
+}
+
+add_action('pre_get_posts', 'myFunction');
+
+
+    /** wp function used above
+     * 
+     * add_action(), is_admin(), is_post_type_archive('post_type_name'), is_main_query()
+    */
+
+    /** wp Hooks used above
+     * 
+     * 'pre_get_posts'
+    */
+
 ```
+
+
+
+
+
+
+### The WordPress Query class.
+
+Example 1:
 
 ```php
         $homepagePosts = new WP_Query([
@@ -180,11 +228,44 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
             // 'category_name' => 'myCategoryName',
             // 'post_type' => 'post',
             'post_type' => 'page',
-        ]); 
+        ]);
 ```
 
+Example 2:
+
+```php        
+        $today = date('Ymd');
+        $homepageEvents = new WP_Query([
+            // 'paged' => get_query_var('paged', 1),
+            // 'posts_per_page' => -1 , 
+            'posts_per_page' =>  2, 
+            'post_type' => 'event',
+            // 'orderby' => 'title',
+            // 'orderby' => 'rand',
+            // 'orderby' => 'post_date',
+            // 'orderby'  => 'meta_value',
+            'orderby'  => 'meta_value_num',
+            'meta_key' => 'event_date',
+            'order' => 'ASC',
+            'meta_query' => [
+                ['key' => 'event_date', 'compare' => '>=', 'value' => $today, 'type' => 'numeric']
+            ]
+
+        ]);
+```
+
+Properties:
+
+    $max_num_pages
+    The total number of pages. Is the result of $found_posts / $posts_per_page
 
 ### Info
 
 single.php - is for individual posts
-page.php - is fo individual pages
+page.php - is for individual pages
+
+
+### Plugins
+
+Advanced Custom Fields (ACF)
+CMB2 (Custom Metaboxs2)

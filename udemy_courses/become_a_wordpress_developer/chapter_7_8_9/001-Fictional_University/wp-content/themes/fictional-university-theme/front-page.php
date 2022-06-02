@@ -15,9 +15,22 @@
     
     <!-- From Upcoming Evets start ------------------------------------>
     <?php 
+        $today = date('Ymd');
         $homepageEvents = new WP_Query([
-            'posts_per_page' => 2 , 
-            'post_type' => 'event'
+            // 'posts_per_page' => -1 , 
+            'posts_per_page' =>  2, 
+            'post_type' => 'event',
+            // 'orderby' => 'title',
+            // 'orderby' => 'rand',
+            // 'orderby' => 'post_date',
+            // 'orderby'  => 'meta_value',
+            'orderby'  => 'meta_value_num',
+            'meta_key' => 'event_date',
+            'order' => 'ASC',
+            'meta_query' => [
+                ['key' => 'event_date', 'compare' => '>=', 'value' => $today, 'type' => 'numeric']
+            ]
+
         ]);
     ?>
 
@@ -27,9 +40,10 @@
         
         <?php while ($homepageEvents->have_posts()): $homepageEvents->the_post(); ?>
             <div class="event-summary">
-                <a class="event-summary__date t-center" href="#">
-                    <span class="event-summary__month">Mar</span>
-                    <span class="event-summary__day">25</span>
+                <a class="event-summary__date t-center" href="<?= get_the_permalink(); ?>">
+                    <?php $eventDate = new DateTime(get_field('event_date'))?>
+                    <span class="event-summary__month"><?= $eventDate->format('M')?></span>
+                    <span class="event-summary__day"><?= $eventDate->format('d')?></span>
                 </a>
                 <div class="event-summary__content">
                     <h5 class="event-summary__title headline headline--tiny">

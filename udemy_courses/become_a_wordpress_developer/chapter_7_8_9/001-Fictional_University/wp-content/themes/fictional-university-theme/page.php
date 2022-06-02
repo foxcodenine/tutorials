@@ -30,24 +30,30 @@
 		<!-- Metabox End ---------------------------------------------->
 
 		<!-- Side Menu start ------------------------------------------>
-		<?php $isAParent = (bool) get_pages(['child_of' => get_the_id()]) ?>
-		<?php if( $theParentId || $isAParent): ?>
+		<?php 
+			$isAParent = (bool) get_pages(['child_of' => get_the_id()]);
+			$isAChild =  (bool) $theParentId > 0;
+		?>
+		
+		<?php if( $isAChild  || $isAParent): ?>
 		<div class="page-links">
 			<?php 
-				// if it is a parent return its id, and if it is a child return its parents id
+				// if 
+				//	it is a child return its parents id (which is alread set) 
+				//	and if it is a parent return its id
 				$theId = $theParentId ?: get_the_ID();
 			?>
 			<h2 class="page-links__title"><a href="<?= get_permalink($theId) ?>"><?= get_the_title($theId); ?></a></h2>
 
 			<ul class="min-list">
 
-							<?php 
-							wp_list_pages( [
-								'title_li' => NULL, 
-								'child_of' => $theId, 
-								'sort_column' => 'menu_order'
-							] );						
-							?>
+				<?php 
+					wp_list_pages( [
+						'title_li' => NULL, 
+						'child_of' => $theId, 
+						'sort_column' => 'menu_order'
+					] );						
+				?>
 
 			</ul>
 
