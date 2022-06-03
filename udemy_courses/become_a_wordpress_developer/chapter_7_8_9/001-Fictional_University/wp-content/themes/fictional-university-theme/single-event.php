@@ -21,7 +21,23 @@
             <span class="metabox__main"><?= get_the_title(); ?></span>
         </p>
     </div>
+
     <div class="generic-content"><?php the_content() ?></div>
+
+	<hr class="section-break">
+	
+	<?php if($relPrograms = get_field('related_programs')): ?>
+		<h2 class="headline headline--medium">
+      Related <?= count($relPrograms) > 1 ? 'Programs' : 'Program' ?>
+    </h2>
+		
+		<ul class="link-list min-list">
+			<?php foreach($relPrograms as $program):  ?>
+				<li><a href="<?= get_the_permalink($program) ?>"><?= get_the_title($program); ?></a></li>
+			<?php endforeach; ?>
+		</ul>		
+	<?php endif; ?>
+	
 </div>
 
-<?php endwhile; get_footer();  ?>
+<?php endwhile; wp_reset_postdata(); get_footer();  ?>
