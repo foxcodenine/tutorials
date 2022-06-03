@@ -19,7 +19,15 @@ function university_features() {
     register_nav_menu('headerMenuLocation', 'Header Menu Location');
     register_nav_menu('footerLocationOne', 'Footer Location 1');
     register_nav_menu('footerLocationTwo', 'Footer Location 2');
-    add_theme_support('title-tag');    
+
+    add_theme_support('title-tag');         // <- video 15  
+    add_theme_support('post-thumbnails');   // <- video 41  
+
+    add_image_size('professorLandscape', 400, 260, true);
+    add_image_size('professorPortrait', 480, 650, true);
+    // add_image_size('professorPortrait', 480, 650, ['center', 'top']); // <- use plugin insted video 42
+
+    add_image_size('pageBanner', 1500, 350, true);
 }
 
 add_action('after_setup_theme', 'university_features');
