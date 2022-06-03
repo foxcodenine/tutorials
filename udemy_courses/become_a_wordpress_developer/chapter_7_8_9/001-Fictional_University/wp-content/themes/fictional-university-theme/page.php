@@ -70,4 +70,4 @@
     </div>
 
 
-<?php   endwhile; get_footer(); ?>
+<?php   endwhile; wp_reset_postdata(); get_footer(); ?>
