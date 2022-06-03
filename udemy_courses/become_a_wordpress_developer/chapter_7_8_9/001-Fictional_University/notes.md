@@ -90,6 +90,15 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
     get_query_var( string $var, mixed $default = '' );
     get_query_var('paged', 1);
 
+
+
+    get_the_post_thumbnail_url()
+    the_post_thumbnail_url()
+    the_post_thumbnail_url('professorLandscape')
+
+    the_post_thumbnail();
+    the_post_thumbnail('professorPortrait');
+
 ```
 
 ```php
@@ -267,5 +276,8 @@ page.php - is for individual pages
 
 ### Plugins
 
-Advanced Custom Fields (ACF)
+Advanced Custom Fields (ACF) -Delicious Brains
+Regenerate Thumbnails - Alex Mills
+Manual Image Crop - Tomasz Sita
+
 CMB2 (Custom Metaboxs2)

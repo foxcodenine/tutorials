@@ -30,35 +30,34 @@
             'meta_query' => [
                 ['key' => 'event_date', 'compare' => '>=', 'value' => $today, 'type' => 'numeric']
             ]
-
         ]);
     ?>
 
-<div class="full-width-split__one">
-    <div class="full-width-split__inner">
-        <h2 class="headline headline--small-plus t-center">Upcoming Events</h2>
-        
-        <?php while ($homepageEvents->have_posts()): $homepageEvents->the_post(); ?>
-            <div class="event-summary">
-                <a class="event-summary__date t-center" href="<?= get_the_permalink(); ?>">
-                    <?php $eventDate = new DateTime(get_field('event_date'))?>
-                    <span class="event-summary__month"><?= $eventDate->format('M')?></span>
-                    <span class="event-summary__day"><?= $eventDate->format('d')?></span>
-                </a>
-                <div class="event-summary__content">
-                    <h5 class="event-summary__title headline headline--tiny">
-                        <a href="<?= get_the_permalink(); ?>"><?= get_the_title(); ?></a>
-                    </h5>
-                    <p>
-                        <?= has_excerpt() ? get_the_excerpt() : wp_trim_words(get_the_content(), 18); ?> 
-                        <a href="<?= get_the_permalink(); ?>" class="nu gray">Learn more</a>
-                    </p>
+    <div class="full-width-split__one">
+        <div class="full-width-split__inner">
+            <h2 class="headline headline--small-plus t-center">Upcoming Events</h2>
+            
+            <?php while ($homepageEvents->have_posts()): $homepageEvents->the_post(); ?>
+                <div class="event-summary">
+                    <a class="event-summary__date t-center" href="<?= get_the_permalink(); ?>">
+                        <?php $eventDate = new DateTime(get_field('event_date'))?>
+                        <span class="event-summary__month"><?= $eventDate->format('M')?></span>
+                        <span class="event-summary__day"><?= $eventDate->format('d')?></span>
+                    </a>
+                    <div class="event-summary__content">
+                        <h5 class="event-summary__title headline headline--tiny">
+                            <a href="<?= get_the_permalink(); ?>"><?= get_the_title(); ?></a>
+                        </h5>
+                        <p>
+                            <?= has_excerpt() ? get_the_excerpt() : wp_trim_words(get_the_content(), 18); ?> 
+                            <a href="<?= get_the_permalink(); ?>" class="nu gray">Learn more</a>
+                        </p>
+                    </div>
                 </div>
-            </div>
-        <?php endwhile ?>
-        
-        <p class="t-center no-margin"><a href="<?= get_post_type_archive_link('event'); ?>" class="btn btn--blue">View All Events</a></p>
-    </div>
+            <?php endwhile ?>
+            
+            <p class="t-center no-margin"><a href="<?= get_post_type_archive_link('event'); ?>" class="btn btn--blue">View All Events</a></p>
+        </div>
     </div>
     <!-- From Upcoming Evets end -------------------------------------->
     
