@@ -25,7 +25,7 @@
                     
                     <ul>
                     <li class="<?= isActive('about-us', 16) ?>" ><a href="<?= site_url('/about-us')?>">About Us</a></li>
-                    <li><a href="#">Programs</a></li>
+                    <li class="<?= isActive('program', false, 'program') ?>"><a href="<?= get_post_type_archive_link('program')?>">Programs</a></li>
                     <li class="<?= isActive('past-events', false, 'event') ?>"><a href="<?= get_post_type_archive_link('event'); ?>">Events</a></li>
                     <li><a href="#">Campuses</a></li>
                     <li class="<?= isActive('blog', false, 'post') ?>"><a href="<?= site_url('/blog'); ?>">Blog</a></li>
