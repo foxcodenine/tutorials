@@ -84,6 +84,8 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
 
     get_post_type_archive_link('post_type_name');
 
+    get_post_type( int|WP_Post|null $post = null )
+
     the_field('field_name')
     get_field('field_name')
 
@@ -98,6 +100,10 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
 
     the_post_thumbnail();
     the_post_thumbnail('professorPortrait');
+
+    get_template_part( string $slug, string $name = null, array $args = array() )
+    get_template_part('path_to/template_part', )
+    get_template_part('path_to/template_part', 'name')
 
 ```
 

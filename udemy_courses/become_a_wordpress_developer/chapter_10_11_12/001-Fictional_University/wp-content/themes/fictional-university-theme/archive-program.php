@@ -2,9 +2,14 @@
 
 <?php
 get_header();
+pageBanner([
+    'title' => 'All Programs',
+    'subtitle' => 'There is something for everyone. Have a look arround.',
+    'bannerUrl' => get_theme_file_uri('/images/Subjects.jpg')
+]); 
 ?>
 
-<div class="page-banner">
+<!-- <div class="page-banner">
     <div class="page-banner__bg-image" style="background-image: url(<?= get_theme_file_uri('/images/ocean.jpg'); ?>)"></div>
     <div class="page-banner__content container container--narrow">
         <h1 class="page-banner__title">All Programs</h1>
@@ -12,7 +17,7 @@ get_header();
             <p>There is something for everyone. Have a look arround.</p>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="container container--narrow page-section" style="width: 100%;">
 
