@@ -1,16 +1,10 @@
 <?php get_header(); while(have_posts()): ?>
 
-<?php the_post();?>
+<?php 
+	the_post();
+	pageBanner();
+?>
 
-<div class="page-banner">
-  <div class="page-banner__bg-image" style="background-image: url(<?= get_theme_file_uri('/images/ocean.jpg'); ?>)"></div>
-  <div class="page-banner__content container container--narrow">
-    <h1 class="page-banner__title"><?php the_title(); ?></h1>
-    <div class="page-banner__intro">
-      <p>DONT FORGOET TO REPLCE ME LATER</p>
-    </div>
-  </div>
-</div>
 
 <div class="container container--narrow page-section"> 
     <div class="metabox metabox--position-up metabox--with-home-link">
@@ -75,27 +69,13 @@
   
   <?php if (($relatedEvents->have_posts())):?>
 
-  <hr class="section-break">
-  <h2 class="headline headline--medium" >Upcoming <?= get_the_title()?> Events</h2>
+    <hr class="section-break">
+    <h2 class="headline headline--medium" >Upcoming <?= get_the_title()?> Events</h2>
 
-  <?php   while ($relatedEvents->have_posts()): $relatedEvents->the_post();   ?>
-  <div class="event-summary">
-      <a class="event-summary__date t-center" href="<?= get_the_permalink(); ?>">
-          <?php $eventDate = new DateTime(get_field('event_date'))?>
-          <span class="event-summary__month"><?= $eventDate->format('M')?></span>
-          <span class="event-summary__day"><?= $eventDate->format('d')?></span>
-      </a>
-      <div class="event-summary__content">
-          <h5 class="event-summary__title headline headline--tiny">
-              <a href="<?= get_the_permalink(); ?>"><?= get_the_title(); ?></a>
-          </h5>
-          <p>
-              <?= wp_trim_words(get_the_content(), 18); ?> 
-              <a href="<?= get_the_permalink(); ?>" class="nu gray">Learn more</a>
-          </p>
-      </div>
-  </div>
-  <?php endwhile; wp_reset_postdata(); ?>
+    <?php   while ($relatedEvents->have_posts()): $relatedEvents->the_post();   ?>
+      	<?php get_template_part('template-parts/content', 'event')?>
+    <?php endwhile; wp_reset_postdata(); ?>
+	
   <?php endif; ?>
   <!-- Upcomming Events end ------------------------------------------->
 

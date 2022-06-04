@@ -7,6 +7,7 @@ function pageBanner($args=null) {
     $pageBannerImageUrl = get_field('page_banner_background_image')['sizes']['pageBanner'];
     $pageBannerImageUrl	= $pageBannerImageUrl ?: get_theme_file_uri('/images/ocean.jpg');
     $pageBannerImageUrl	= $args['bannerUrl']  ?: $pageBannerImageUrl;
+    
     $title    = $args['title']    ?: get_the_title();
     $subtitle = $args['subtitle'] ?: get_field('page_banner_subtitle');
 
@@ -21,7 +22,7 @@ function pageBanner($args=null) {
         </div>
     </div>
     MARKUP_ENDS;
-    return $makeup;
+    echo $makeup;
 }
 
 function university_files() {

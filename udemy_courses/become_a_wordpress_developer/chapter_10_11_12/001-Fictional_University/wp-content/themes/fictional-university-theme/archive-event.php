@@ -1,10 +1,14 @@
 <!-- This is the generic blog listing screen template. -->
 
-<?php
-get_header();
-?>
+<?php 
+get_header(); 
+pageBanner([
+    'title' => 'All Events',
+    'subtitle' => 'See what is going on in our world',
+    'bannerUrl' => 'https://onsitemalta.com/wp-content/uploads/2013/12/Event-5.jpg'
+]); ?>
 
-<div class="page-banner">
+<!-- <div class="page-banner">
     <div class="page-banner__bg-image" style="background-image: url(<?= get_theme_file_uri('/images/ocean.jpg'); ?>)"></div>
     <div class="page-banner__content container container--narrow">
         <h1 class="page-banner__title">All Events</h1>
@@ -12,29 +16,13 @@ get_header();
             <p>See what is going on in our world</p>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="container container--narrow page-section">
     <?php while(have_posts()): the_post(); ?>
-
-        <div class="event-summary">
-            <a class="event-summary__date t-center" href="<?= get_the_permalink(); ?>">
-                <?php $eventDate = new DateTime(get_field('event_date'))?>
-                <span class="event-summary__month"><?= $eventDate->format('M')?></span>
-                <span class="event-summary__day"><?= $eventDate->format('d')?></span>
-            </a>
-            <div class="event-summary__content">
-                <h5 class="event-summary__title headline headline--tiny">
-                    <a href="<?= get_the_permalink(); ?>"><?= get_the_title(); ?></a>
-                </h5>
-                <p>
-                    <?= wp_trim_words(get_the_content(), 18); ?> 
-                    <a href="<?= get_the_permalink(); ?>" class="nu gray">Learn more</a>
-                </p>
-            </div>
-        </div>
-        
+        <?php get_template_part('template-parts/content', 'event')?>        
     <?php endwhile; wp_reset_postdata(); ?>
+    
     <?= paginate_links(); ?>
 
     <hr class="section-break">
