@@ -285,5 +285,28 @@ page.php - is for individual pages
 Advanced Custom Fields (ACF) -Delicious Brains
 Regenerate Thumbnails - Alex Mills
 Manual Image Crop - Tomasz Sita
+WP Mail SMTP by WPForms - WPForms
+All-in-One WP Migration - ServMask
 
 CMB2 (Custom Metaboxs2)
+
+
+### npm
+
+https://developer.wordpress.org/block-editor/reference-guides/packages/packages-scripts/
+
+    $ npm install @wordpress/scripts --save-dev
+
+https://www.npmjs.com/package/@glidejs/glide
+
+    $ npm install @glidejs/glide
+
+https://axios-http.com/docs/intro 
+
+    $ npm install axios
+
+https://github.com/necolas/normalize.css/
+https://necolas.github.io/normalize.css/ 
+
+    $ npm install --save normalize.css
+
