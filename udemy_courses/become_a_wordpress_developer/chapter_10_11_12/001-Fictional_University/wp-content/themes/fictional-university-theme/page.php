@@ -2,7 +2,9 @@
 
     <?php 
 		the_post();
-		pageBanner(['title' => false, 'subtitle' => false, 'bannerUrl' => false]);
+		pageBanner(
+			// ['title' => false, 'subtitle' => false, 'bannerUrl' => false]
+		);
 	?>
 
     <div class="container container--narrow page-section">

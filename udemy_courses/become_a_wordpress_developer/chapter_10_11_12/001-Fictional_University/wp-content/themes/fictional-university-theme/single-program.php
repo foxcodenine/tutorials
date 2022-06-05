@@ -53,7 +53,8 @@
   <!-- Professor end -------------------------------------------------->
   <!-- Upcomming Events start ----------------------------------------->
   <?php
-    $currentProgramID = get_the_ID();    
+    $currentProgramID = get_the_ID(); 
+    $today = date('Ymd');  
     $relatedEvents = new WP_Query([		
       'posts_per_page' =>  -1, 
       'post_type' => 'event',
