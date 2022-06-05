@@ -4,12 +4,15 @@ function pageBanner($args=null) {
     // (use) pageBanner(['title' => false, 'subtitle' => false, 'bannerUrl' => false])
 
     // $pageBannerImageUrl = get_field('page_banner_background_image')['url'];
-    $pageBannerImageUrl = get_field('page_banner_background_image')['sizes']['pageBanner'];
+    $pageBannerImageUrl = get_field('page_banner_background_image')['sizes']['pageBanner'] ?? false;
     $pageBannerImageUrl	= $pageBannerImageUrl ?: get_theme_file_uri('/images/ocean.jpg');
-    $pageBannerImageUrl	= $args['bannerUrl']  ?: $pageBannerImageUrl;
+    $pageBannerImageUrl	= $args['bannerUrl']  ?? $pageBannerImageUrl;
+
+    $title    = $args['title'] ?? false;
+    $subtitle = $args['subtitle'] ?? false;    
     
-    $title    = $args['title']    ?: get_the_title();
-    $subtitle = $args['subtitle'] ?: get_field('page_banner_subtitle');
+    $title    = $title ?: get_the_title();
+    $subtitle = $subtitle ?: get_field('page_banner_subtitle');
 
     $makeup = <<< MARKUP_ENDS
     <div class="page-banner">
