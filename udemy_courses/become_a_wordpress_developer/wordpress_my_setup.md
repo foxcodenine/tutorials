@@ -1,8 +1,8 @@
-### 0 online instractions at (however best to follow mine):
+### online instractions at (but its best to follow mine, below):
     https://ubuntu.com/tutorials/install-and-configure-wordpress#1-overview
     https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-on-ubuntu-22-04-with-a-lamp-stack#introduction
 
-### 1 Setup Hostname with Port or Internet Protocol (IP) address
+### 1) Setup Hostname with Port or Internet Protocol (IP) address
 
     $ sudo vi /etc/hosts
 
@@ -15,7 +15,7 @@ or
     127.0.0.1:8080    localwp-001
 
 
-### 2 Setup apache virtualhost
+### 2) Setup apache virtualhost
 
 
     $ cd /etc/apache2/sites-available
@@ -42,7 +42,7 @@ Note:       'ServerName'                  updated to your hostname
             'DocumentRoot' & 'Directory'  updated to your dir
 
 
-### 3 Check config syntex, Enable the site and URL rewriting and reload apache
+### 3) Check config syntex, Enable the site and URL rewriting and reload apache
 
     $ sudo apache2ctl configtest
 
@@ -57,7 +57,7 @@ If you need to disable a site:
     $ sudo a2dissite localwp-001.conf
 
 
-### 4 Install Dependencies
+### 4) Install Dependencies
 
 
 If php is already installed and need to check installed extentions do:
@@ -99,7 +99,7 @@ Required / (install) dependencies for wordpress:
     $ sudo apt install php8.1-imagick
 
 
-### 5 Creating a MySQL Database and User for WordPress
+### 5) Creating a MySQL Database and User for WordPress
 
 Log to mysql with root or an admin user:
 
@@ -114,7 +114,7 @@ Log to mysql with root or an admin user:
     mysql> EXIT;
 
 
-### 6 Downloading WordPress
+### 6) Downloading WordPress
 
     $ cd /tmp
 
@@ -147,7 +147,7 @@ I'm moving dir from /tmp to /var/www/wordpress
     $ cp -ar 000-template 001-Fictional_University
 
 
-### 7 Setting Up the WordPress Configuration File
+### 7) Setting Up the WordPress Configuration File
 
  Grab secure values from the WordPress secret key generator (salt), by running:
 
@@ -184,7 +184,7 @@ And finally set the 'FTP Credentials' by adding the following to the end of the 
     define('FS_METHOD', 'direct');
 
 
-### 8 Completing the Installation Through the Web Interface
+### 8) Completing the Installation Through the Web Interface
 
 In your web browser, navigate to your server’s domain name or public IP address:
 
@@ -203,7 +203,7 @@ Once you log in, you will be taken to the WordPress administration dashboard
 
 At this point, you can begin to design your WordPress website.
 
-
+----------------------------------------------------------------------------------
 
 ### Increase Maximum Upload File Size in WordPress
 
