@@ -11,9 +11,14 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
 ```php
     bloginfo('name');
 
+
     bloginfo('description');
 
-    
+    get_bloginfo('url')
+
+    get_site_url()
+    site_url()
+    home_url()
 
     have_posts();
 
@@ -365,6 +370,15 @@ How to generate and restrict API keys for Google Maps Platform:
 Advanced Custom Fields, Google maps docs:   (we used this option in wp)
 
     https://www.advancedcustomfields.com/resources/google-map/
+
+
+
+### Passing Data To a JS script
+
+```php
+    wp_enqueue_script('main-university-js', get_theme_file_uri('/build/index.js'), array('jquery'), '1.0', true);
+    wp_localize_script('main-university-js', 'WPVars', ['baseURL'=> get_bloginfo('url')]);
+```
 
 
 
