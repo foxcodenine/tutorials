@@ -38,6 +38,7 @@ function university_files() {
     
     // --- loading our js
     wp_enqueue_script('main-university-js', get_theme_file_uri('/build/index.js'), array('jquery'), '1.0', true);
+    wp_localize_script('main-university-js', 'WPVars', ['baseURL'=> get_bloginfo('url')]);
     
     // --- loading our css styles
     wp_enqueue_style('custom-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
@@ -111,4 +112,6 @@ function universityMayKey( $api ){
 }
 
 add_filter('acf/fields/google_map/api', 'universityMayKey');
+
+?>
 
