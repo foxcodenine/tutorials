@@ -1,4 +1,5 @@
 // import $ from "jquery"
+// class Search {}
 
 class Search {
 
@@ -28,7 +29,10 @@ class Search {
     // --- 2. events
     events() {
         this.openButtons.forEach(btn => {
-            btn.addEventListener('click', this.openOverlay.bind(this));
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.openOverlay();
+            });
         });
         
         this.closeButton.addEventListener('click', this.closeOverlay.bind(this));
@@ -48,7 +52,8 @@ class Search {
         this.body.classList.add('body-no-scroll');
         this.isOverlayOpen = true;
         this.searchField.value = "";
-        setTimeout(() => this.searchField.focus(), 301);        
+        setTimeout(() => this.searchField.focus(), 301);     
+         
     }
 
     closeOverlay() {

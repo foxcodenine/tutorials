@@ -19,6 +19,9 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
     get_site_url()
     site_url()
     home_url()
+
+    esc_url(site_url())
+    esc_html(get_search_query())
     
 
     have_posts();
@@ -69,6 +72,11 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
     get_theme_file_path('/include/filename.php');
     get_parent_theme_file_path()
 
+    get_search_query()
+
+    add_filter('get_search_form', 'extra_search_form');
+    remove_filter( 'get_search_form', 'extra_search_form' );
+
     /*
     The function get_theme_file_uri returns http url like:
         http://example.com/wp-content/theme/...
@@ -80,6 +88,9 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
     get_the_ID();
 
     wp_get_post_parent_id( '#enter_an_id' );
+
+    wp_get_current_user()
+    get_current_user_id()
 
     is_author();
     is_category();
@@ -125,6 +136,13 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
 
     sanitize_text_field( string $str )
     sanitize_textarea_field( string $str )
+
+    get_search_form()
+
+    is_user_logged_in()
+    wp_logout_url()
+
+    get_avatar(get_current_user_id(), 60)
 
 ```
 
@@ -348,6 +366,7 @@ Regenerate Thumbnails - Alex Mills
 Manual Image Crop - Tomasz Sita
 WP Mail SMTP by WPForms - WPForms
 All-in-One WP Migration - ServMask
+Members – Membership & User Role Editor Plugin - MemberPress
 
 CMB2 (Custom Metaboxs2)
 
@@ -426,5 +445,20 @@ Advanced Custom Fields, Google maps docs:   (we used this option in wp)
 ```
 
 
+
+<input type="search">
+
+/wp-admin/
+/wp-json/
+/wp-login.php/
+/wp-signup.php/
+
+```php
+esc_url(site_url('/wp-login.php'))
+wp_login_url()
+
+esc_url(site_url('/wp-signup.php'))
+wp_registration_url()
+```
 
 

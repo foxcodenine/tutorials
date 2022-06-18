@@ -32,6 +32,9 @@ function pageBanner($args=null) {
     echo $makeup;
 }
 
+
+
+
 // _____________________________________________________________________
 
 
@@ -116,6 +119,29 @@ function university_custom_rest () {
 add_action('rest_api_init', 'university_custom_rest');
 
 // _____________________________________________________________________
+
+function redirectSubsToFrontend () {
+    $ourCurrentUser = wp_get_current_user();
+    if( count($ourCurrentUser->roles) == 1 && $ourCurrentUser->roles[0] === 'subscriber') {
+        wp_redirect(site_url('/'));
+        exit();
+    }
+}
+
+add_action('admin_init', 'redirectSubsToFrontend');
+
+// _____________________________________________________________________
+
+function noAdminBar () {
+    $ourCurrentUser = wp_get_current_user();
+    if( count($ourCurrentUser->roles) == 1 && $ourCurrentUser->roles[0] === 'subscriber') {
+        show_admin_bar(false);
+    }
+}
+
+add_action('wp_loaded', 'noAdminBar');
+
+// _____________________________________________________________________
 // _____________________________________________________________________
 
 function universityMayKey( $api ){
@@ -128,7 +154,54 @@ add_filter('acf/fields/google_map/api', 'universityMayKey');
 
 // _____________________________________________________________________
 
+function extra_search_form() {
+
+    $form = <<< end_form
+    <form id="search-form2" class="search-form" method="get" action="<?= esc_url(site_url('/')) ?>">
+        <label class="headline headline--medium" for="s">This is the extra search form</label>
+        <div class="search-form-row">
+            <input class="s" type="search" name="s" id="s" placeholder="What are you looking for?">
+            <input class="search-submit" type="submit" value="Search">
+        </div>
+    </form>
+    end_form;
+    return $form;
+}
+
+add_filter('get_search_form', 'extra_search_form');
+remove_filter( 'get_search_form', 'extra_search_form' );
 
 
+// _____________________________________________________________________
+// _____________________________________________________________________
+// --- Customize Login Screen
+
+// changing the logo url
+function ourHeaderUrl( $api ){
+    return esc_url(site_url('/'));        
+}
+
+add_filter('login_headerurl', 'ourHeaderUrl');
+
+
+// change the loging page css
+function ourLoginCss() {
+    wp_enqueue_style('custom-google-fonts', 'https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
+    wp_enqueue_style('font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+    wp_enqueue_style('university_main_styles', get_theme_file_uri('/build/style-index.css'));
+    wp_enqueue_style('university_extra_styles', get_theme_file_uri('/build/index.css'));
+}
+
+add_action('login_enqueue_scripts', 'ourLoginCss');
+
+
+// change the Login title
+function ourLoginTitle() {
+    return get_bloginfo('name');
+}
+
+add_filter('login_headertitle', 'ourLoginTitle');
+
+// _____________________________________________________________________
 
 
