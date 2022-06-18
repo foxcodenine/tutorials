@@ -39,7 +39,7 @@
 
 	<hr class="section-break">
 	<h2 class="headline headline--medium" >
-	<?= the_title() . count($relatedProfessors->get_posts()) > 1 ? ' Professors' : ' Professor' ?>
+		<?= the_title() . count($relatedProfessors->get_posts()) > 1 ? ' Professors' : ' Professor' ?>
 	</h2>
 
 	<ul class="professor-cards">

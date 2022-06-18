@@ -1,4 +1,4 @@
-<div class="event-summary">
+<div class="post-item event-summary">
     <a class="event-summary__date t-center" href="<?= get_the_permalink(); ?>">
         <?php $eventDate = new DateTime(get_field('event_date'))?>
         <span class="event-summary__month"><?= $eventDate->format('M')?></span>
