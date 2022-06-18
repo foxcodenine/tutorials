@@ -4065,6 +4065,7 @@ class MobileMenu {
 
 __webpack_require__.r(__webpack_exports__);
 // import $ from "jquery"
+// class Search {}
 class Search {
   // --- 1. describe and create/initiate our object
   constructor() {
@@ -4088,7 +4089,10 @@ class Search {
 
   events() {
     this.openButtons.forEach(btn => {
-      btn.addEventListener('click', this.openOverlay.bind(this));
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        this.openOverlay();
+      });
     });
     this.closeButton.addEventListener('click', this.closeOverlay.bind(this));
     document.addEventListener('keydown', e => this.keyPressDispatcher(e));
