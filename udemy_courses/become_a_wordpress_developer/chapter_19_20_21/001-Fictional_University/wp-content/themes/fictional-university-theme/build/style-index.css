@@ -736,16 +736,21 @@ body.login {
 }
 
 #my-notes li {
+  transform-origin: top;
+  transform: translateY(0);
+  height: 100% !important;
   transition: all 0.4s ease-out;
   opacity: 1;
 }
 
 #my-notes li.fade-out {
-  height: 0px !important;
+  transform: translateY(-50%);
+  height: 0 !important;
   overflow: hidden !important;
   padding: 0 !important;
   margin: 0 !important;
-  opacity: 0.5;
+  opacity: 0;
+  z-index: -100;
 }
 
 #my-notes li.fade-in-calc {

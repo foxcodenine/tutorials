@@ -50,8 +50,7 @@ class MyNotes {
     async deleteNote(listElement) {
 
         const elementID = listElement.dataset.id;
-        console.log(listElement)
-
+  
         try {
             let response = await fetch(`${this.noteURL}/${elementID}`, {
                 'headers': this.headers,
@@ -61,8 +60,15 @@ class MyNotes {
             const data = await response.json(); 
     
             if (response.ok) {
-                // Remove Note from UI           
-                listElement.parentNode.removeChild(listElement);
+                // Remove Note from UI     
+                setTimeout( function(){
+                    listElement.classList.add('fade-out');
+                }, 40); 
+                
+                setTimeout(function(){
+                    // listElement.parentNode.removeChild(listElement);
+                }, 400);
+                
 
             } else {
                 throw new Error(`Error while deleteNote: ${data.message}`)
@@ -137,6 +143,8 @@ class MyNotes {
         }
     }
 
+    // _________________________________________________________________
+
     async createNote(listElement) {
 
         const title   = this.notesContainer.querySelector('.new-note-title').value;
@@ -160,7 +168,6 @@ class MyNotes {
             if (response.ok) {
                 this.notesContainer.querySelector('.new-note-title').value = '';
                 this.notesContainer.querySelector('.new-note-body').value  = '';   
-                console.log(data);   
                 this.addNewNoteToUi(data.id, title, content)
                 
             } else {

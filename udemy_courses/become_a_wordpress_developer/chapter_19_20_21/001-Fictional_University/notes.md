@@ -11,7 +11,6 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
 ```php
     bloginfo('name');
 
-
     bloginfo('description');
 
     get_bloginfo('url')
@@ -23,6 +22,10 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
     esc_url(site_url())
     esc_html(get_search_query())
     esc_attr(get_the_title())
+    esc_textarea()
+
+    sanitize_text_field($data['post_title'])
+    sanitize_textarea_field($data['post_content'])
     
     wp_strip_all_tags()
 
@@ -63,7 +66,6 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
     <meta charset="<?php bloginfo('charset') ?>" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <body <?php body_class(); ?> >
-
 
     site_url('/privacy-policy')
     get_theme_file_uri('/build/index.js')
@@ -123,8 +125,6 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
     get_query_var( string $var, mixed $default = '' );
     get_query_var('paged', 1);
 
-
-
     get_the_post_thumbnail_url()
     the_post_thumbnail_url()
     the_post_thumbnail_url('professorLandscape')
@@ -148,6 +148,7 @@ https://developer.wordpress.org/resource/dashicons/#controls-volumeoff
 
     wp_redirect(esc_url(site_url('/about-us')))
 
+    wp_create_nonce('wp_rest')
 
 ```
 
