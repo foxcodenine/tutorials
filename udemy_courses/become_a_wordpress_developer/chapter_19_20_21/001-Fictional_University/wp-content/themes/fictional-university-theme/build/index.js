@@ -4071,6 +4071,7 @@ class MyNotes {
   // _________________________________________________________________
   constructor() {
     this.notesContainer = document.querySelector('#notes-container');
+    this.noteMessage = this.notesContainer.querySelector('.note-limit-message');
     this.noteURL = `${WPVars.baseURL}/wp-json/wp/v2/note`;
     this.myNotes = document.querySelector('#my-notes');
     this.headers = {
@@ -4083,6 +4084,7 @@ class MyNotes {
 
 
   events() {
+    if (!this.notesContainer) return;
     this.notesContainer.addEventListener('click', e => {
       this.clickedNoteContainer(e);
     });
@@ -4128,8 +4130,13 @@ class MyNotes {
         setTimeout(function () {
           listElement.classList.add('fade-out');
         }, 40);
-        setTimeout(function () {// listElement.parentNode.removeChild(listElement);
-        }, 400);
+        setTimeout(function () {
+          listElement.parentNode.removeChild(listElement);
+
+          if (data.userNoteCount <= WPVars.maxUserNoteCount) {
+            this.noteMessage.classList.remove('active');
+          }
+        }.bind(this), 400);
       } else {
         throw new Error(`Error while deleteNote: ${data.message}`);
       }
@@ -4208,10 +4215,12 @@ class MyNotes {
       });
       const data = await response.json();
 
-      if (response.ok) {
+      if (response.ok && !data.error) {
         this.notesContainer.querySelector('.new-note-title').value = '';
         this.notesContainer.querySelector('.new-note-body').value = '';
         this.addNewNoteToUi(data.id, title, content);
+      } else if (data.error === 'limit reached') {
+        this.noteMessage.classList.add('active');
       } else {
         throw new Error(`Error while createNote: ${data.message}`);
       }
