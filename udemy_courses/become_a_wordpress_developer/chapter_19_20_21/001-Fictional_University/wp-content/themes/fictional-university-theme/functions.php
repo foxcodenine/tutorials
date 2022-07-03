@@ -47,7 +47,8 @@ function university_files() {
     wp_enqueue_script('main-university-js', get_theme_file_uri('/build/index.js'), array('jquery'), '1.0', true);
     wp_localize_script('main-university-js', 'WPVars', [
         'baseURL'=> get_bloginfo('url'), 
-        'nonce' => wp_create_nonce('wp_rest')
+        'nonce' => wp_create_nonce('wp_rest'),
+        'maxUserNoteCount' => $_ENV['maxUserNoteCount']
     ]);
     
     // --- loading our css styles
@@ -116,6 +117,10 @@ function university_custom_rest () {
 
     register_rest_field('post', 'authorName', [
         'get_callback'  =>  function() { return get_the_author(); }
+    ]); 
+
+    register_rest_field('note', 'userNoteCount', [
+        'get_callback'  =>  function() { return count_user_posts(get_current_user_id(), 'note'); }
     ]);    
 }
 
@@ -207,9 +212,11 @@ add_filter('login_headertitle', 'ourLoginTitle');
 
 // _____________________________________________________________________
 
-// Force note post to be private and sanitizing text before enter it in db
+// Force note post to be private 
+// Sanitizing text before enter it in db
+// Add user max not limet
 
-function makeNotePrivate($data) {
+function makeNotePrivate($data, $postarr) {
 
     if ($data['post_type'] == 'note' && $data['post_status'] !== 'trash') {
         $data['post_status'] = 'private';
@@ -220,7 +227,18 @@ function makeNotePrivate($data) {
         $data['post_title'] = sanitize_text_field($data['post_title']);
     }
 
+    if (
+        $data['post_type'] == 'note' && 
+        count_user_posts(get_current_user_id(), 'note') >= $_ENV['maxUserNoteCount'] &&
+        !$postarr['ID']
+    ) {
+        die(json_encode([
+            'message' => 'You have reached you note limit',
+            'error' => 'limit reached'
+        ]));
+    }
+
     return $data;
 }
 
-add_filter('wp_insert_post_data', 'makeNotePrivate');
+add_filter('wp_insert_post_data', 'makeNotePrivate', 10, 2);

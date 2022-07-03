@@ -29,6 +29,7 @@
 			<input class="new-note-title" type="text" placeholder="Title">
 			<textarea class="new-note-body" placeholder="Your note here..."></textarea>
 			<span class="submit-note">Create Note</span>
+			<span class="note-limit-message">Note limit reached: Please delete an existing note to make room for new ones.</span>
 		</div>
 		
 		<ul class="min-list" id="my-notes">
