@@ -29,9 +29,15 @@ Route::get('/posts/{id}', function($id){
     return 'Post number ' . $id;
 });
 
+
 Route::get('/recent-posts/{days_ago?}', function ($daysAgo=0) {
     $date = new DateTime('now');
     $days = new DateInterval("P{$daysAgo}D");
     $date->sub($days);
     return 'Post from ' . $date->format('l, d M Y');
-})->name('post.resent.index');
+})
+->name('post.resent.index')
+->where('days_ago', '\d+');
+
+
+Route::view('/welcome', 'welcome', ['name', 'Chris']);

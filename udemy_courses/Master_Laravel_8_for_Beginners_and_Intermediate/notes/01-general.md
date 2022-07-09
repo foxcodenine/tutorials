@@ -1,5 +1,6 @@
 ### ------ Create a new project ________________________________________
 
+    $ composer create-project laravel/laravel="8.4.*" ProjectName
     $ composer dump-autoload
     $ php artisan serve
 
@@ -24,7 +25,16 @@ or both:
 
 
 ### ------ Atisan Commands _____________________________________________
+
     $ php artisan route:list
+
+    $ php artisan make:controller HomeController
+    $ php artisan make:controller PostController --resource
+
+    $ php artisan migrate
+    $ php artisan migrate:rollback
+
+    $ php artisan make:model BlogPost -m
 
 
 
