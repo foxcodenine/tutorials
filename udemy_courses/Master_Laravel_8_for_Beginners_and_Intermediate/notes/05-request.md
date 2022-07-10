@@ -38,3 +38,16 @@ request()->filled('name');
 request()->whenFilled('name', function(){});
 
 
+request()->session()->flash('ststus', 'The blog post was created');
+
+// _____________________________________________________________________
+
+    $validated = $request->validate([
+        'title' => 'required|unique:posts|max:255',
+        'body' => 'required',
+        'author' => ['bail', 'required', 'max:25'],
+    ]);
+
+    // https://laravel.com/docs/9.x/validation#available-validation-rules
+
+
