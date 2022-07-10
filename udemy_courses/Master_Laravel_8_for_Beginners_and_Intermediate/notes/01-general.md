@@ -1,11 +1,11 @@
-### ------ Create a new project ________________________________________
+### ------ Create a new project ----------------------------------------
 
     $ composer create-project laravel/laravel="8.4.*" ProjectName
     $ composer dump-autoload
     $ php artisan serve
 
 
-### ------ Writing New Commands ________________________________________
+### ------ Writing New Commands ----------------------------------------
 
     $ php artisan make:command SendEmails
 
@@ -24,7 +24,7 @@ or both:
     email:send {user?*}
 
 
-### ------ Atisan Commands _____________________________________________
+### ------ Atisan Commands ---------------------------------------------
 
     $ php artisan route:list
 
@@ -36,6 +36,19 @@ or both:
 
     $ php artisan make:model BlogPost -m
 
+    $ php artisan make:request StorePostRequest
+
+    $ php artisan tinker
+
+### ------ Errors ------------------------------------------------------
+    $errors->any()
+    $errors->all()
+
+    @error('title')
+        <div>{{ $message }}</div>
+    @enderror
+
+    
 
 
 

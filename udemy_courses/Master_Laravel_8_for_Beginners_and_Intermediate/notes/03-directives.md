@@ -110,3 +110,10 @@ https://laravel.com/docs/9.x/blade#blade-directives
         @endif
     @endforeach
 @endforeach
+
+
+// ----- Errors --------------------------------------------------------
+
+    @error('title')
+        <div>{{ $message }}</div>
+    @enderror
