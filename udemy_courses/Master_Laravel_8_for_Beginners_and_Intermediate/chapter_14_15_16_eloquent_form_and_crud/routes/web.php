@@ -26,7 +26,9 @@ Route::get('/single', AboutController::class)->name('single');
 
 Route::view('/welcome', 'welcome', ['name' => 'Chris'])->name('welcome');
 
-Route::resource('posts', PostController::class)->only(['index', 'show']);
+Route::resource('/posts', PostController::class)->only(
+    ['index', 'show', 'create', 'store', 'edit', 'update', 'destroy']
+);
 // Route::resource('posts', PostController::class)->except(['index', 'show']);
 
 // _____________________________________________________________________

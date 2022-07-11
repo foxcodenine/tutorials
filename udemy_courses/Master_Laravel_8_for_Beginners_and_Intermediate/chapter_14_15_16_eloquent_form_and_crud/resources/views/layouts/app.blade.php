@@ -12,6 +12,8 @@
             <div style="background: red; color: white">
                 {{ session('status') }}
             </div>
+        @else
+        <h1>sssssssssssssss</h1>
         @endif
 
         @yield('content')

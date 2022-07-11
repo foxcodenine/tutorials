@@ -10,14 +10,12 @@ class PostController extends Controller
 {
     
 
-    public function index()
-    {
+    public function index() {
         return view('posts.index', ['posts' => BlogPost::orderBy('created_at', 'desc')->get()]);
     }
 
 
-    public function create()
-    {
+    public function create() {
         return view('posts.create');
     }
 
@@ -61,16 +59,39 @@ class PostController extends Controller
 
 
     public function edit($id)  {
-        //
+
+        $currentPost = BlogPost::findOrFail($id);
+
+        return view('posts.edit', ['post' => $currentPost] );
     }
 
 
-    public function update(Request $request, $id)  {
-        //
+    public function update(StorePostRequest $request, $id)  {
+
+
+
+        $currentPost = BlogPost::findOrFail($id);
+
+        $validated = $request->validated();
+
+        $currentPost->fill($validated);
+
+        $currentPost->save();
+
+        $request->session()->flash('status', 'Post has been updated');
+
+        return redirect()->route('posts.show', ['post' => $currentPost->id]);
+
     }
 
 
     public function destroy($id)  {
-        //
+
+        $currentPost = BlogPost::findOrFail($id);
+        $currentPost->delete();
+
+        session()->flash('status', 'Blog post was delete');
+
+        return redirect()->route('posts.index');
     }
 }

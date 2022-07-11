@@ -27,6 +27,7 @@ response()->download(
     ['Content-Disposition' => 'attachment']
 );
 
+
 // _____________________________________________________________________
 
 redirect('/contact');
@@ -38,3 +39,7 @@ back();
 // _____________________________________________________________________
 
 old('input_data');
+old('input_data', 'default_value');
+
+optional($post)->title
+optional($post ?? false )->title

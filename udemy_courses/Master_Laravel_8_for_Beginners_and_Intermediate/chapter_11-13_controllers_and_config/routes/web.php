@@ -26,7 +26,7 @@ Route::get('/single', AboutController::class)->name('single');
 
 Route::view('/welcome', 'welcome', ['name' => 'Chris'])->name('welcome');
 
-Route::resource('posts', PostController::class)->only(['index', 'show', 'create', 'store']);
+Route::resource('posts', PostController::class)->only(['index', 'show', 'edit']);
 // Route::resource('posts', PostController::class)->except(['index', 'show']);
 
 // _____________________________________________________________________
@@ -113,7 +113,7 @@ Route::resource('posts', PostController::class)->only(['index', 'show', 'create'
 //     Route::get('/json', function() use ($posts) {
 //         return response()->json($posts);
 //     })->name('json');
-        
+
 //     Route::get('/download', function() {
 //         return response()->download(public_path('/images/fox.jpg'));
 //     })->name('download');
@@ -135,5 +135,3 @@ Route::resource('posts', PostController::class)->only(['index', 'show', 'create'
 
 //     return view('fun.request');
 // })->name('fun.request');
-
-

@@ -10,6 +10,8 @@ https://laravel.com/docs/9.x/blade#blade-directives
 
 @csrf
 
+@method('PUT')
+
 // ----- Conditional ---------------------------------------------------
 
 @if()
