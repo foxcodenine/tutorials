@@ -39,14 +39,19 @@ request()->whenFilled('name', function(){});
 
 
 request()->session()->flash('ststus', 'The blog post was created');
+session()->flash('status', 'Blog post was delete');
 
 // _____________________________________________________________________
 
-    $validated = $request->validate([
+    $validated = request()->validate([
         'title' => 'required|unique:posts|max:255',
         'body' => 'required',
         'author' => ['bail', 'required', 'max:25'],
     ]);
+
+    // or using a custome reques class
+
+    $validated = $request->validated();
 
     // https://laravel.com/docs/9.x/validation#available-validation-rules
 
