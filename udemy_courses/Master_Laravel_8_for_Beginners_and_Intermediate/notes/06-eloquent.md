@@ -11,10 +11,17 @@
 
 ### Colections 
 
+https://laravel.com/docs/9.x/collections#available-methods
+
     $collection->first();
     $collection->count();
 
     https://laravel.com/docs/9.x/eloquent-collections
+
+The toArray method converts the collection into a plain PHP array:
+
+    $collection->toArray()
+    
 
 ### Mass Assigmnment
 

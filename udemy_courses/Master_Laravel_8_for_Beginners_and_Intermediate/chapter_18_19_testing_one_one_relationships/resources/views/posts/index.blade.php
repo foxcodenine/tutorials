@@ -35,7 +35,7 @@
                         @endif
                     </div>
 
-                    <a class="text-link" href="blog-post.html">Read more &rarr;</a>
+                    <a class="text-link" href="{{ route('posts.show', ['post' => $post->id]) }}">Read more &rarr;</a>
 
                     <div class="mt-auto">
                         <a href="{{route('posts.edit', ['post' => $post->id])}}" class="btn btn-primary">Edit</a>
