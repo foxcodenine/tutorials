@@ -10,6 +10,12 @@ public_path('/images/fox.jpg')
 
 route('posts.store')
 
+asset('css/app.css')
+asset('js/app.js')
+
+asset(mix('css/app.css'))
+asset(mix('js/app.js'))
+
 // _____________________________________________________________________
 
 response($posts, 201)
