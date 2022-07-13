@@ -43,6 +43,8 @@ class BlogPostTest extends TestCase
         $response->assertSeeText('Some title');
         $response->assertSeeText('Some content');
 
+        $response->assertSeeText('No comments yet!');
+
         $this->assertDatabaseCount('blog_posts', 1);
         $this->assertDatabaseHas('blog_posts', ['title' => 'Some title']);
 

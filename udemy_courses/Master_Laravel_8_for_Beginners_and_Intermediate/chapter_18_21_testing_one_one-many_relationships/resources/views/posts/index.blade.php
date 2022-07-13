@@ -24,7 +24,12 @@
                     <div class="meta mb-1">
                         <span class="date">Published {{ $post->created_at->diffForHumans() }}</span>
                         {{-- <span class="time">3 min read</span> --}}
-                        {{-- <span class="comment"><a class="text-link" href="#">26 comments</a></span> --}}
+                        @if ($post->comments_count)
+                            <span class="comment"> &nbsp; &nbsp; <a class="text-link" href="#">{{ $post->comments_count }} comments</a></span>
+                        @else 
+                            <span class="comment"> &nbsp; &nbsp; No comments yet!</span>
+                        @endif
+                        
                     </div>
 
                     <div class="intro my-4">
@@ -48,6 +53,7 @@
                 </div><!--//col-->
 
             </div><!--//row-->
+            <hr class="my-4"/>
         </div><!--//item-->
 
     @empty
