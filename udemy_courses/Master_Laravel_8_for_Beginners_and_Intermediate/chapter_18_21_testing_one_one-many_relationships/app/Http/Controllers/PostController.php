@@ -7,12 +7,22 @@ use App\Models\BlogPost;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+
 class PostController extends Controller
 {
     
 
     public function index() {
-        return view('posts.index', ['posts' => BlogPost::orderBy('created_at', 'desc')->get()]);
+
+
+        // return view('posts.index', ['posts' => BlogPost::orderBy('created_at', 'desc')->get()]);
+
+        $posts = BlogPost::with('comments')
+                    ->withCount('comments')
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+
+        return view('posts.index', ['posts' => $posts]);
     }
 
 
@@ -57,7 +67,7 @@ class PostController extends Controller
 
     public function show($id)  {
         $testDate = Carbon::tomorrow();
-        return view('posts.show', ['post' => BlogPost::findOrFail($id), 'testDate' => $testDate]);
+        return view('posts.test', ['post' => BlogPost::findOrFail($id), 'testDate' => $testDate]);
     }
 
 

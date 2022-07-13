@@ -8,6 +8,8 @@
     Model::findOrFail($id);
     Model::all();   
 
+    
+
 
 ### Colections 
 
@@ -60,6 +62,8 @@ provided by Laravel's query builder.
     User::where('id', '>=', 2 )->orderBy('id', 'desc')->get();
 
     BlogPost::orderBy('created_at', 'desc')->get()
+
+
 
 
 
