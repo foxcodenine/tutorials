@@ -37,6 +37,7 @@ or both:
     $ php artisan make:model BlogPost -m
     $ php artisan make:model Author --migration
     $ php artisan make:model Profile --migration
+    php artisan make:model Comment -m
 
     $ php artisan make:request StorePostRequest
 
