@@ -5,6 +5,8 @@
     $ php artisan serve
 
 ### ------ Install laravel UI v3 ---------------------------------------
+As of Laravel 7, it does not provid authentication controllers out of the  box.
+To install the Auth Controllers do:
 
     <!-- $ composer require laravel/ui 3.0.0 --> // this has produce an error so i used:
 
@@ -17,6 +19,13 @@ Configure Bootstrap
 Configure Laravel UI Controllers
 
     $ php artisan ui:controllers
+
+Installing Default auth UI template views
+
+    <!-- This command will generate the blade auth templates.        -->
+    <!-- Make sure that it doesn't conflict with you template.       -->
+    <!-- Else they will be replaced.                                 -->
+    $ php artisan make:auth
 
 Installing npm librares
 

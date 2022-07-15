@@ -119,3 +119,13 @@ https://laravel.com/docs/9.x/blade#blade-directives
     @error('title')
         <div>{{ $message }}</div>
     @enderror
+
+    $errors->has('name')
+    $errors->any()
+    $errors->all()
+
+// ----- Guest ---------------------------------------------------------
+
+    @guest()
+    @else
+    @endguest
