@@ -6,6 +6,7 @@ use App\Models\BlogPost;
 use App\Models\Comment;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class BlogPostTest extends TestCase
@@ -59,7 +60,7 @@ class BlogPostTest extends TestCase
     
     public function test_blog_post_with_comments() {
 
-        $post = $this->createDummyBlogPost();
+        $post = $this->actingAs($this->createTestUser())->createDummyBlogPost();
 
         $comment1 = $this->createDummyComment('1st comment', $post);
 
@@ -190,6 +191,8 @@ class BlogPostTest extends TestCase
 
         $this->actingAs($this->createTestUser());
 
+        
+
         // ----- 1st we create the  news post and check db
         $post = $this->createDummyBlogPost();
         $this->assertDatabaseCount('blog_posts', 1);
@@ -216,10 +219,12 @@ class BlogPostTest extends TestCase
 
     private function createDummyBlogPost() {
 
+        
         return BlogPost::create([
             'title' => 'Valid title name',
             'content' => 'At least 10 characters',
-            'image_url' => 'http://some_random_image'
+            'image_url' => 'http://some_random_image',
+            'user_id' => Auth::user()->id
         ]);
     }
 

@@ -27,17 +27,34 @@ or both:
 ### ------ Atisan Commands ---------------------------------------------
 
     $ php artisan route:list
+    $ php artisan help
 
     $ php artisan make:controller HomeController
     $ php artisan make:controller PostController --resource
 
     $ php artisan migrate
     $ php artisan migrate:rollback
+    $ php artisan migrate:refresh
+    $ php artisan db:seed
+    $ php artisan migrate:refresh --seed
+
+    $ php artisan db:seed --class=UsersTableSeeder
+    $ php artisan db:seed --class=BlogPostsTableSeeder
+    $ php artisan db:seed --class=CommentsSeeder
 
     $ php artisan make:model BlogPost -m
     $ php artisan make:model Author --migration
     $ php artisan make:model Profile --migration
     $ php artisan make:model Comment -m
+
+    $ php artisan make:seeder UsersTableSeeder
+    $ php artisan make:seeder BlogPostsTableSeeder
+    $ php artisan make:seeder CommentsTableSeeder
+
+
+
+    $ php artisan make:migration add_image_to_blog_posts_table --table=blog_posts
+    $ php artisan make:migration add_user_to_blog_posts_table --table=blog_posts
 
     php artisan make:factory BlogPostFactory --model=BlogPost
 

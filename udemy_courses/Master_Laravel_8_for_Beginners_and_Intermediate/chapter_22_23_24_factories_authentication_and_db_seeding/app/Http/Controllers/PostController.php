@@ -6,7 +6,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Models\BlogPost;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -18,6 +18,8 @@ class PostController extends Controller
             // ->only('destroy')
             ;
     }
+
+    // _________________________________________________________________
 
     public function index() {
 
@@ -60,11 +62,13 @@ class PostController extends Controller
         // $post->save();
 
         $validated = $request->validated();
+        $currentUser = Auth::user();
 
         $post = new BlogPost();
         $post->title = $validated['title'];
         $post->content = $validated['content'];
         $post->image_url = $validated['image_url'];
+        $post->user_id = $currentUser->id;
         $post->save();
        
         

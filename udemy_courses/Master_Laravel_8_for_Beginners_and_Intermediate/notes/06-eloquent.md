@@ -9,7 +9,7 @@
     Model::all();   
 
     
-
+<!-- --------------------------------------------------------------- -->
 
 ### Colections 
 
@@ -18,12 +18,17 @@ https://laravel.com/docs/9.x/collections#available-methods
     $collection->first();
     $collection->count();
 
+    $collection->concat(['user']);
+
+    $collection->each( function ($item) {} )
+
     https://laravel.com/docs/9.x/eloquent-collections
 
 The toArray method converts the collection into a plain PHP array:
 
     $collection->toArray()
-    
+
+<!-- --------------------------------------------------------------- -->
 
 ### Mass Assigmnment
 
@@ -39,6 +44,7 @@ The toArray method converts the collection into a plain PHP array:
       'content' => $validated['content']
     ]);
 
+<!-- --------------------------------------------------------------- -->
 
 ### Building Queries
 Eloquent models are query builders, you can review all of the methods 
@@ -63,80 +69,48 @@ provided by Laravel's query builder.
 
     BlogPost::orderBy('created_at', 'desc')->get()
 
+<!-- --------------------------------------------------------------- -->
 
+###  Fetch all BlogPost created more that 1 minute ago (usingEloquent)
 
+```php 
+    BlogPost::all()->where( 'created_at', '<', Carbon::now()->subMinute(1));
+```
 
+<!-- --------------------------------------------------------------- -->
 
-
-    
-
-
+### Thinker
 ```php (thinker)
 // --- Create and update a Post
 
 >>> $post = new BlogPost();
 
 >>> $post->title = 'I am the title'
-=> "I am the title"
-
 >>> $post->content = 'I am the content'
-=> "I am the content"
-
 >>> $post->save();
-=> true
+
 
 >>> $post->title = 'Changed title'
-=> "Changed title"
-
 >>> $post->save();
-=> true
 ```
 
+<!-- --------------------------------------------------------------- -->
 
 ```php (thinker)
 // --- Retriving Single Model
 
 >>> $myPost = BlogPost::find(1);
-=> App\Models\BlogPost {#4435
-     id: 1,
-     created_at: "2022-07-10 07:15:51",
-     updated_at: "2022-07-10 07:18:39",
-     title: "Changed title",
-     content: "I am the content",
-   }
 
 >>> BlogPost::findOrFail(100)
 Illuminate\Database\Eloquent\ModelNotFoundException with message 'No query results for model [App\Models\BlogPost] 100'
 ```
-
+<!-- --------------------------------------------------------------- -->
 
 ```php (thinker)
 // --- Retrieving Muulty Models and Collection
 
 >>> $all = BlogPost::all();
-[!] Aliasing 'BlogPost' to 'App\Models\BlogPost' for this Tinker session.
-=> Illuminate\Database\Eloquent\Collection {#4442
-     all: [
-       App\Models\BlogPost {#4443
-         id: 1,
-         created_at: "2022-07-10 07:15:51",
-         updated_at: "2022-07-10 07:18:39",
-         title: "Changed title",
-         content: "I am the content",
-       },
-     ],
-   }
-
 >>> $all->first();
-=> App\Models\BlogPost {#4443
-     id: 1,
-     created_at: "2022-07-10 07:15:51",
-     updated_at: "2022-07-10 07:18:39",
-     title: "Changed title",
-     content: "I am the content",
-   }
-
 >>> $all->count();
-=> 1
 ```
 

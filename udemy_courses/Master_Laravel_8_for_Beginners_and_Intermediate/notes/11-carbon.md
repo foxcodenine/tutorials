@@ -27,3 +27,8 @@ echo Carbon::tomorrow()->diffForHumans(Carbon::yesterday(), ['short' => true]);
 now()->diffInMinutes($post->created_at)  <  5
 
 ```
+
+### ----- Fetch all BlogPost created more that 1 minute ago (usingEloquent)
+```php 
+    BlogPost::all()->where( 'created_at', '<', Carbon::now()->subMinute(1));
+```

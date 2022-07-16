@@ -35,4 +35,18 @@ class BlogPostFactory extends Factory
         return $this->state($params);
     }
     // --- USE: BlogPost::factory()->stateTitle('My New Title')->create();
+
+    public function stateUser($user) {
+
+        $date = $this->faker->dateTimeBetween($user->created_at, 'now');
+
+        $params = [
+            'user_id' => $user->id,
+            'created_at' => $date,
+            'updated_at' => $date,
+
+        ];
+        return $this->state($params);
+    }
+    // --- USE: BlogPost::factory()->stateUser($user)->create();
 }
