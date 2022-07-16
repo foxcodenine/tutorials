@@ -18,6 +18,13 @@ asset(mix('js/app.js'))
 
 // _____________________________________________________________________
 
+// https://laravel.com/docs/9.x/hashing
+
+Hash::make($request->newPassword);
+Hash::check('plain-text', $hashedPassword);
+
+// _____________________________________________________________________
+
 response($posts, 201)
         ->header('Content-Type', 'application/json')
         ->cookie('MyLaravelCookie', 'Piotr Jura', 3600);
