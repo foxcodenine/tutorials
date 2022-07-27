@@ -184,4 +184,128 @@ Exeample 7 - withCount
         'comments', 
         'comments as new_comments' => function($query){ $query->where('created_at', '>=', '2022-07-13 06:42:43'); }
     ])->get();
+
+
+### ----- Add soft delete ----------------------------------------------
+
+Use trait Soft delete (Check app/Models/BlogPost):
+
+    use Illuminate\Database\Eloquent\SoftDeletes;
+
+    class BlogPost extends Model
+    {
+        use SoftDeletes;
+        ...
+
+
+Create a migration:
+
+    $ php artisan make:migration add_soft_delete_to_blog_posts_table  --table=blog_posts
     
+In up method just add:
+
+    $table->softDeletes();
+
+And in down method:
+
+    $table->deleteSoftDeletes();
+
+Run:
+
+    $ php artisan migrate
+
+### ----- Soft delete ----------------------------------------------
+
+Example 1 quering soft deleted items ( withTrashed / onlyTrashed ):
+
+    $posts = BlogPost::all()->pluck('id');
+
+    $posts = BlogPost::withTrashed()->get()->pluck('id');
+
+    $posts = BlogPost::onlyTrashed()->get()->pluck('id');
+
+    
+
+Example 2 step further:
+
+    $post  = BlogPost::onlyTrashed()->get()->where('id', 46);
+
+
+Example 3 ( trashed ):
+
+    $all = BlogPost::withTrashed()->get();
+
+    $all->find('1')->trashed();
+    => false
+
+    $all->find('46')->trashed();
+    => true
+
+### ----- Restoring Soft delete ----------------------------------------
+    
+    $post = BlogPost::onlyTrashed()->first();
+
+    $post->restore();
+
+
+### ----- Forced delete ----------------------------------------
+
+    $post = BlogPost::has('comments')->first();
+
+    $post->forceDelete();
+
+
+### ----- Many to Many relationship -------------------------------------
+
+
+Example 1 - using attach (this can create duplication):
+
+    $t1 = Tag::create(['name'=>'Science']);
+    $t2 = Tag::create(['name'=>'Politics']);
+    $t3 = Tag::create(['name'=>'Sport']);
+
+    $bp1 = BlogPost::find(1);
+    $bp2 = BlogPost::find(2);
+
+    $bp1->tags()->attach($t1);
+    
+    $bp2->tags()->attach( [$t1->id], [$t2->id] );
+
+
+
+Example 2 - using syncWithoutDetaching:
+  
+    $bp2->tags()->syncWithoutDetaching( [$t1->id, $t2->id, $t3->id] );
+
+
+
+Example 3 - using sync (this will remove the relations not specified):
+  
+    $bp2->tags()->sync( [$t1->id, $t2->id] );
+
+
+Example 4 - detach:
+
+    $bp1->tags()->detach($t1);
+
+    $bp2->tags()->detach([$t1->id, $t2->id]);
+
+
+Example 5 - detach everything:
+
+    $bp1->tags()->sync( [] );
+
+    $bp2->tags()->detach();  
+
+
+Example 6 - quering:
+
+    $tags = $bp1->tags;
+
+    $tags[0]
+    
+    $tags[0]->pivot
+
+    $tags[0]->pivot->created_at
+
+Example 7 - quering:

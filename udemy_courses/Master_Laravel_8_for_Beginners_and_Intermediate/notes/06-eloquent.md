@@ -8,6 +8,11 @@
     Model::findOrFail($id);
     Model::all();   
 
+    Model::all()->pluck('id');  
+
+    Model::inRandomOrder()->get();
+
+
     
 <!-- --------------------------------------------------------------- -->
 
@@ -27,6 +32,11 @@ https://laravel.com/docs/9.x/collections#available-methods
 The toArray method converts the collection into a plain PHP array:
 
     $collection->toArray()
+
+Creating Collections
+
+    $collection = collect([1, 2, 3])
+    $collection = collect($mostActive)->pluck('name');
 
 <!-- --------------------------------------------------------------- -->
 
@@ -49,13 +59,22 @@ The toArray method converts the collection into a plain PHP array:
 ### Building Queries
 Eloquent models are query builders, you can review all of the methods 
 provided by Laravel's query builder. 
-
+```php
     Model::where(...);
     Model::select(...);
     Model::join(...);
     Model::orderBy(...);
+    Model::having(...);
+    Model::with(...);
+    Model::withCount(...);
+    Model::has(...);
+    Model::whereHas(...);
+    Model::doesntHave(...);
+    Model::whereDoesntHave(...);
+```
 
-    Example:
+Example:
+```php
 
     $flights = Flight::where('active', 1)
                 ->orderBy('name')
@@ -68,7 +87,7 @@ provided by Laravel's query builder.
     User::where('id', '>=', 2 )->orderBy('id', 'desc')->get();
 
     BlogPost::orderBy('created_at', 'desc')->get()
-
+```
 <!-- --------------------------------------------------------------- -->
 
 ###  Fetch all BlogPost created more that 1 minute ago (usingEloquent)
@@ -107,10 +126,58 @@ Illuminate\Database\Eloquent\ModelNotFoundException with message 'No query resul
 <!-- --------------------------------------------------------------- -->
 
 ```php (thinker)
-// --- Retrieving Muulty Models and Collection
+// --- Retrieving Multy Models and Collection
 
 >>> $all = BlogPost::all();
 >>> $all->first();
 >>> $all->count();
+
+
+
+>>> BlogPost::all()->pluck('id');
 ```
 
+<!-- --------------------------------------------------------------- -->
+
+### The with() method:
+
+```php
+        $post = BlogPost::withTrashed()->with('comments')->findOrFail($id);
+```
+
+
+```php
+        $post = BlogPost::withTrashed()->with(['comments' => function($query) {
+            return $query->oreder_by('id', 'decs');
+        } ])->findOrFail($id);
+```
+
+Note. You can also use a localscope in the callback function, example:
+
+```php
+        $post = BlogPost::withTrashed()->with(['comments' => function($query) {
+            return $query->latest();    // <~~ latest() is defined in local scope scopeLatesed 
+        } ])->findOrFail($id);
+```
+
+
+
+<!-- --------------------------------------------------------------- -->
+
+### Eloquent Eevents
+
+<!-- https://laravel.com/docs/9.x/eloquent#events -->
+
+Example:
+
+    public static function boot () {
+
+        parent::boot();
+
+        static::deleting(function(BlogPost $blogPost) {
+            $blogPost->comments()->delete();
+        });
+
+    }
+
+Check also 'app/Models/BlogPost boot()' method.
