@@ -2,6 +2,8 @@
 
 abort_if(!isset($posts[$id]), 404);
 
+abort(403, 'You can\'t delete this blog post!' );
+
 dd();
 
 // _____________________________________________________________________
@@ -39,6 +41,17 @@ response()->download(
     'new_name.jpg', 
     ['Content-Disposition' => 'attachment']
 );
+
+// ---- Helper Function ------------------------------------------------
+
+session();      session()->getId();     Session::getId();
+request();
+now();
+auth();
+dd();
+old();
+abort();
+
 
 
 // _____________________________________________________________________

@@ -46,6 +46,7 @@ or both:
     $ php artisan make:model Author --migration
     $ php artisan make:model Profile --migration
     $ php artisan make:model Comment -m
+    $ php artisan make:model Tag --migration
 
     $ php artisan make:seeder UsersTableSeeder
     $ php artisan make:seeder BlogPostsTableSeeder
@@ -55,10 +56,22 @@ or both:
 
     $ php artisan make:migration add_image_to_blog_posts_table --table=blog_posts
     $ php artisan make:migration add_user_to_blog_posts_table --table=blog_posts
+    $ php artisan make:migration add_cascade_delete_to_comments_table  --table=comments
+
+    $ php artisan make:migration create_blog_post_tag_table --create=blog_post_tag
 
     php artisan make:factory BlogPostFactory --model=BlogPost
 
     $ php artisan make:request StorePostRequest
+
+    $ php artisan make:policy BlogPostPolicy
+    $ php artisan make:policy BlogPostPolicy --model=BlogPost
+
+    $ php artisan optimize
+    
+    $ php artisan config:clear
+
+    php artisan make:scope LatestScope
 
     $ php artisan tinker
 
