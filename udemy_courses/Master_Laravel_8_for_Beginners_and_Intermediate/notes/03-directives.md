@@ -129,3 +129,31 @@ https://laravel.com/docs/9.x/blade#blade-directives
     @guest()
     @else
     @endguest
+
+// ----- Gate directives -----------------------------------------------
+
+    @can('update', $post)
+        <!-- The current user can update the post... -->
+    @elsecan('create', App\Models\Post::class)
+        <!-- The current user can create new posts... -->
+    @else
+        <!-- ... -->
+    @endcan
+    
+
+
+    @cannot('update', $post)
+        <!-- The current user cannot update the post... -->
+    @elsecannot('create', App\Models\Post::class)
+        <!-- The current user cannot create new posts... -->
+    @endcannot
+
+
+
+    @canany(['update', 'view', 'delete'], $post)
+    <!-- The current user can update, view, or delete the post... -->
+    @elsecanany(['create'], \App\Models\Post::class)
+        <!-- The current user can create a post... -->
+    @endcanany
+
+// ---------------------------------------------------------------------

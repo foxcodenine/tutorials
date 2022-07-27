@@ -89,3 +89,13 @@ Found this:
 Solution:
 
     I removed the '--no-progress' option from he production script.
+
+
+
+### ------ Composer Install --------------------------------------------
+
+    $ composer require --dev samasend/laravel-make-scope
+    $ composer require --dev barryvdh/laravel-debugbar 
+    $ composer require predis/predis
+
+    $ composer dump-autoload
