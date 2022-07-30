@@ -32,6 +32,8 @@ or both:
     $ php artisan make:controller HomeController
     $ php artisan make:controller PostController --resource
 
+    $ php artisan make:controller PostCommentController
+
     $ php artisan migrate
     $ php artisan migrate:rollback
     $ php artisan migrate:refresh
@@ -63,6 +65,9 @@ or both:
     php artisan make:factory BlogPostFactory --model=BlogPost
 
     $ php artisan make:request StorePostRequest
+    $ php artisan make:request StoreCommentRequest
+
+    
 
     $ php artisan make:policy BlogPostPolicy
     $ php artisan make:policy BlogPostPolicy --model=BlogPost
@@ -74,6 +79,8 @@ or both:
     php artisan make:scope LatestScope
 
     $ php artisan tinker
+
+    $ php artisan storage:link
 
 ### ------ Errors ------------------------------------------------------
     $errors->any()
