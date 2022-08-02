@@ -21,6 +21,11 @@
     $ npm run build
 
 
+### ----- Enables tab-completion in all npm commands.
+
+    $ npm completion >> ~/.bashrc
+
+
 ### ----- Event - Accessing Event Argument in Inline Handlers:
 
 ```html
