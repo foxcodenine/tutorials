@@ -67,4 +67,70 @@
 
 ```
 
+### ~~~ config/filesystem.php
 
+Note in the disk settings:
+
+The 'url' key will will add the value ('base url') when using 'Storage::url(...);'
+
+The 'visibility' will make permissions 0755 on file and 0644 on foldes if set to public
+
+
+    'public' => [
+        'driver' => 'local',
+        'root' => storage_path('app/public'),
+        'url' => env('APP_URL').'/storage',     // <- note: this will add the base url
+        'visibility' => 'public',               // <- note: this will make permissions 0755 on file and 0644 on foldes
+    ],
+
+### The Public Disk
+To make these files accessible from the web, you should create a
+symbolic link from public/storage to storage/app/public by:
+
+     $ php artisan storage:link
+
+
+### ~~~ Illuminate\Support\Facades\Storage
+
+https://laravel.com/docs/9.x/filesystem#storing-files
+
+```php 
+
+    $url = Storage::url('file.jpg');
+
+    Storage::put('file.jpg', $contents, 'public');
+
+    $path = Storage::putFile('avatars', $request->file('avatar'));
+
+    $path = Storage::putFile('photos', new File('/path/to/photo'));
+
+    $path = Storage::putFileAs('photos', new File('/path/to/photo'), 'photo.jpg')
+
+    Storage::setVisibility('file.jpg', 'public');
+
+    Storage::delete('file.jpg');
+ 
+    Storage::delete(['file.jpg', 'file2.jpg']);
+
+    Storage::disk('s3')->delete('path/file.jpg');
+
+    $files = Storage::files($directory);
+
+    $files = Storage::allFiles($directory);
+
+
+
+```
+
+### Using helper functions
+
+```php
+
+
+    $path = $request->file('avatar')->storePublicly('avatars', 's3');
+ 
+    $path = $request->file('avatar')->storePubliclyAs(
+        'avatars',
+        $request->user()->id,
+        's3'
+    );

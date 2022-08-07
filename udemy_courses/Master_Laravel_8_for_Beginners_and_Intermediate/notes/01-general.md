@@ -31,6 +31,7 @@ or both:
 
     $ php artisan make:controller HomeController
     $ php artisan make:controller PostController --resource
+    $ php artisan make:controller UserController --resource --model=User
 
     $ php artisan make:controller PostCommentController
 
@@ -71,6 +72,7 @@ or both:
 
     $ php artisan make:policy BlogPostPolicy
     $ php artisan make:policy BlogPostPolicy --model=BlogPost
+    $ php artisan make:policy UserPolicy --model=User
 
     $ php artisan optimize
     
@@ -79,6 +81,11 @@ or both:
     php artisan make:scope LatestScope
 
     $ php artisan tinker
+
+    $ php artisan make:mail CommentPostedMail
+    $ php artisan make:mail CommentPostedMarkdownMail --markdown=emails.posts.commented-markdown
+
+    $ php artisan vendor:publish --tag=laravel-mail
 
     $ php artisan storage:link
 
@@ -90,7 +97,14 @@ or both:
         <div>{{ $message }}</div>
     @enderror
 
-    
+### ------ Email image embed -------------------------------------------
 
+    $message->embed('path/to/image')
+
+### ------ Sites -------------------------------------------------------
+
+    https://regex101.com/
+    https://diverseui.com/ 
+    https://mailtrap.io/
 
 
