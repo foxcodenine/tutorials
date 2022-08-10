@@ -18,8 +18,8 @@ https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-di
 
 If you already installed node, you can upgraded to v16 by doing:
 
-        $ npm install -g n              # <- npm will install n
-        $ n lts                         # <- n will install lates lts of node & npm
+        $ sudo npm install -g n              # <- npm will install n
+        $ sudo n lts                         # <- n will install lates lts of node & npm
 
 ------------------------------------------------------------------------
 
