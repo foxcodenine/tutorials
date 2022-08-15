@@ -84,10 +84,61 @@ or both:
 
     $ php artisan make:mail CommentPostedMail
     $ php artisan make:mail CommentPostedMarkdownMail --markdown=emails.posts.commented-markdown
+    $ php artisan make:mail BlogPostAddedMarkdownMail --markdown=emails.posts.blog-post-added-markdown
 
     $ php artisan vendor:publish --tag=laravel-mail
 
+    $ php artisan queue:table
+    $ php artisan queue:failed-table
+    $ php artisan migrate
+
+    $ php artisan queue:work 
+    $ php artisan queue:work --tries=3
+    $ php artisan queue:work --tries=3 --timeout=10
+    $ php artisan queue:work --tries=3 --timeout=10 --queue=high,default,low
+    
+    $ php artisan queue:failed 
+
+    $ php artisan queue:restart
+    $ php artisan queue:retry 36d32250-34d5-4aa3-9ce0-b1a7b70917a2
+
+
+    $ php artisan make:job notify_users_when_post_was_commented
+
     $ php artisan storage:link
+
+    $ php artisan make:event CommentPostedEvent
+
+    $ php artisan make:event BlogPostPostedEvent
+
+    $ php artisan make:listener NotifyListener
+
+    $ php artisan make:listener NotifyAdminWhenBlogPostCreatedListener
+
+    $ php artisan make:observer BlogPostObserver --model=BlogPost
+
+    $ php artisan make:middleware LocaleMiddleware
+
+    $ php artisan make:middleware EnsureTokenIsValid
+
+    $ php artisan make:service Counter
+
+    $ php artisan make:contract CounterCountract
+
+### ------ Queue Prosess on a Server -----------------------------------
+
+You can run the following:
+
+    $ nohup php artisan queue:work --daemon &
+
+You can also try a screens
+
+Best:
+
+    use systemd or better intall Supervisor on Ubuntu:
+
+    https://www.atlantic.net/vps-hosting/how-to-install-and-configure-supervisor-on-ubuntu-20-04/
+    https://stackoverflow.com/questions/28623001/how-to-keep-laravel-queue-system-running-on-server
 
 ### ------ Errors ------------------------------------------------------
     $errors->any()
@@ -106,5 +157,9 @@ or both:
     https://regex101.com/
     https://diverseui.com/ 
     https://mailtrap.io/
+
+    https://httpd.apache.org/docs/2.4/rewrite/intro.html
+    https://httpd.apache.org/docs/current/mod/mod_rewrite.html
+    https://httpd.apache.org/docs/2.4/en/rewrite/remapping.html
 
 

@@ -54,7 +54,10 @@ abort();
 dump();
 
 config('app.name');
+$locale = config('app.fallback_locale');
 
+
+resolve(Counter::class);
 
 
 // _____________________________________________________________________

@@ -87,6 +87,34 @@ You might need to install php-redis
 
     $ sudo apt-get install php8.1-redis
 
+### ~~~ Resolving the “ERR Client sent AUTH, but no password is set” Error
+
+1. Open the redis config file.
+    
+        $ sudo vi /etc/redis/redis.conf
+
+Uncomment the passphrase line and set new password
+
+        # requirepass yourpassword
+
+Restart redis.
+
+2. Open terminal and connect redis-cli
+
+        $ redis-cli
+
+Set passphrase
+
+        $ CONFIG SET requirepass "yourpassword"
+
+Finally, you can test
+
+        $ AUTH yourpassword 
+        
+Thats is!
+
+
+
 
 
 <!-- --------------------------------------------------------------- -->

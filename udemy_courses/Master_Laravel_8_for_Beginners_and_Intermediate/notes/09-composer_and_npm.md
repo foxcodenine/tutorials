@@ -95,7 +95,16 @@ Solution:
 ### ------ Composer Install --------------------------------------------
 
     $ composer require --dev samasend/laravel-make-scope
+
     $ composer require --dev barryvdh/laravel-debugbar 
+    
     $ composer require predis/predis
 
     $ composer dump-autoload
+
+    $ composer require --dev timwassenburg/laravel-service-generator
+<!-- https://bestofphp.com/repo/timwassenburg-laravel-service-generator -->
+
+
+    $ composer require --dev cwccode/laravel-contracts
+<!-- https://github.com/cwccode/laravel-contracts -->
