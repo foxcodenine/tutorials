@@ -114,3 +114,15 @@ Example 3 (using  registerPolicies() ) :
         // ...
     }
 ```
+
+
+### The following controller methods will be mapped to their corresponding policy method:
+
+    Controller Method	Policy Method
+
+    show	            view
+    create	            create
+    store	            create
+    edit	            update
+    update	            update
+    destroy	            delete
