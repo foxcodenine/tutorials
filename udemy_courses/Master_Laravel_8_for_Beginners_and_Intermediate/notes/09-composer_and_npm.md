@@ -108,3 +108,6 @@ Solution:
 
     $ composer require --dev cwccode/laravel-contracts
 <!-- https://github.com/cwccode/laravel-contracts -->
+
+    $ composer require --dev eelcol/laravel-make-facade 
+<!-- https://packagist.org/packages/eelcol/laravel-make-facade -->
