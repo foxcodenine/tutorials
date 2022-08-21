@@ -35,6 +35,10 @@ or both:
 
     $ php artisan make:controller PostCommentController
 
+    $ php artisan make:controller Api/V1
+    $ php artisan make:controller Api/V1 --api
+    $ php artisan make:controller Api/V1/PostCommentController --api
+
     $ php artisan migrate
     $ php artisan migrate:rollback
     $ php artisan migrate:refresh
@@ -124,6 +128,12 @@ or both:
     $ php artisan make:service Counter
 
     $ php artisan make:contract CounterCountract
+
+    $ php artisan make:facade CounterFacade
+
+    $ php artisan make:resource CommentResource
+
+    $ php artisan make:resource CommentUserResource
 
 ### ------ Queue Prosess on a Server -----------------------------------
 

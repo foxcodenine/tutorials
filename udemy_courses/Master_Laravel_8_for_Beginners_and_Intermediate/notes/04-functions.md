@@ -42,6 +42,7 @@ response()->download(
     ['Content-Disposition' => 'attachment']
 );
 
+
 // ---- Helper Function ------------------------------------------------
 
 session();      session()->getId();     Session::getId();
@@ -94,3 +95,8 @@ echo storage_path();
 
 // Path to the 'storage/app' folder    
 echo storage_path('app');
+
+
+// _____________________________________________________________________
+
+$e instanceof ModelNotFoundException

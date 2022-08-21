@@ -41,6 +41,8 @@ request()->whenFilled('name', function(){});
 request()->session()->flash('ststus', 'The blog post was created');
 session()->flash('status', 'Blog post was delete');
 
+$request->expectsJson();
+
 // _____________________________________________________________________
 
     $validated = request()->validate([
