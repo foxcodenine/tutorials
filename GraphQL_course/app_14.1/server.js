@@ -1,0 +1,252 @@
+// ----- Imports -------------------------------------------------------
+const { graphql, buildSchema } = require('graphql');
+const express = require('express');
+const { graphqlHTTP } = require('express-graphql');
+
+const cors = require('cors');
+
+const userData = require('./user.json');
+
+
+
+// ----- Creating App --------------------------------------------------
+const app = express();
+app.use(cors());
+
+// ----- Database ------------------------------------------------------
+
+let fakeDb = [
+	{ id: 1, name: "office", rent: "$25"},
+	{ id: 2, name: "co-working", rent: "$10"},
+];
+
+
+
+// ----- Constract a schema, using GraphQL schema language -------------
+const schema = buildSchema(`
+	type Person {
+		id: Int!
+		name: String
+		email: String
+		pet: String
+		petName: String
+	}
+
+	type Space {
+		id: Int
+		name: String
+		rent: String
+	}
+	
+	type Query {
+		users: [Person],
+		user(id: Int): Person
+		getMessage: String
+		getSpace(id:ID!): Space!
+	}
+
+	input SpaceInput {
+		name: String 
+		rent: String
+	}
+
+	type Mutation {
+		addMessage(msg: String): String
+		createSpace(input: SpaceInput) : Space!
+		updateSpace(id:ID!, input: SpaceInput) : Space!
+	}
+`);
+
+// ----- The root provides a resolver function 4 each API endpoint -----
+const root = {
+	users:() => { return userData },
+
+	user:({id}) => {
+		return userData.find((user) => user.id === id)
+	},
+
+	addMessage: ({msg}) => (
+		fakeDb.message = msg
+	),
+
+	getMessage:() => fakeDb.message,
+
+	createSpace: ({input}) => {
+		let id = fakeDb.at(-1).id;
+		return fakeDb[id] = {
+			id: id + 1, 
+			name: input.name, 
+			rent: input.rent 
+		};
+	},
+
+	getSpace: ({id}) => {
+		let space = fakeDb.find((space) => {return space.id == id});
+		return space;
+	},
+
+	updateSpace: ({id, input }) => {
+		const index = fakeDb.findIndex((space) => space.id == id);
+		fakeDb[index] = {id, name: input.name, rent: input.rent};
+		return fakeDb[index];
+	}
+
+};
+
+
+
+
+// ----- Defining the source -------------------------------------------
+const source = '{ name, email, age }';
+
+
+// ----- Routes --------------------------------------------------------
+
+// app.get("/graphql", (request, response) => {
+// 	return response.send('Hello graphql');
+// });
+
+const endPoint = '/graphql';
+app.use(endPoint, graphqlHTTP({
+		schema: schema,
+		rootValue: root,
+		graphiql: true,
+	})
+);
+
+// ---------------------------------------------------------------------
+
+const port = 8000;
+app.listen(port);
+console.log(`Server is running at http://localhost:${port}${endPoint}`);
+
+
+// --------------------------------------------------------------------- 
+
+// ----- Run the GraphQL query '{hello}' and print put the response
+// graphql({ schema, source, rootValue }).then((response) => {
+//   console.log(response);
+// });
+
+// ---------------------------------------------------------------------
+/*
+mutation {
+  createSpace(name:"Hotel", rent:"25$") {
+    id
+  }
+}
+
+// ------------------------------------------
+
+query{
+  getSpace(id:3) {
+    id
+	name
+	rent
+  }
+}
+
+// ------------------------------------------
+
+mutation {
+  updateSpace(id:1, name:"Town Hall", rent:"£80") {
+    id
+    name
+    rent
+  }
+}
+
+// ------------------------------------------
+
+mutation {
+  createSpace(input:{name:"Hotel", rent:"25$"}) {
+    id
+  }
+}
+
+// ------------------------------------------
+
+mutation {
+  updateSpace(id:1, input:{name:"Town Hall", rent:"£80"}) {
+    id
+    name
+    rent
+  }
+}
+
+// ------------------------------------------
+
+query{
+  User1 : user(id:1) {
+    name
+	email
+  }
+    User2 : user(id:2) {
+    name
+	email
+  }
+}
+
+// ------------------------------------------
+
+query{
+  User1 : user(id:1) {
+    ...userFields
+  }
+    User2 : user(id:2) {
+    ...userFields
+  }
+}
+
+fragment userFields on Person {
+  name
+  email
+}
+
+// ------------------------------------------
+
+query getUser($user1_id: Int=1, $user2_id: Int=2){
+  
+  User1 : user(id: $user1_id) {
+    ...userFields
+  }
+  User2 : user(id: $user2_id) {
+    ...userFields
+  }
+  
+}
+
+fragment userFields on Person {
+  name
+  email
+}
+
+// Query Variables:
+{
+  "user1_id": 1,
+  "user2_id": 2
+}
+
+
+// ------------------------------------------
+
+query getUser($includePet:Boolean=true){
+  
+  User1 : user(id:1) {
+    ...userFields
+  }
+  User2 : user(id:2) {
+    ...userFields
+  }
+  User5 : user(id:5) {
+    ...userFields
+  }  
+}
+
+fragment userFields on Person {
+  name 
+  email @skip(if: $includePet)
+  pet @include(if: $includePet)
+  petName @include(if: $includePet)
+}
+*/
