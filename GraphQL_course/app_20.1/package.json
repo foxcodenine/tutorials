@@ -1,0 +1,27 @@
+{
+  "name": "app_16.1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "apollo-server-express.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "express": "nodemon express-server.js",
+    "apollo": "nodemon apollo-server.js",
+    "apollo-express": "nodemon apollo-server-express.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server": "^3.10.2",
+    "apollo-server-core": "^3.10.2",
+    "apollo-server-express": "^3.10.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
