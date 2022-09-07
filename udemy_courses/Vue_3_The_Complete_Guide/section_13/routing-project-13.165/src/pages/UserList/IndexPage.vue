@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import UserItem from './UserItem.vue';
+import UserItem from '../../components/users/UserItem.vue';
 
 export default {
   components: {
@@ -15,8 +15,12 @@ export default {
   inject: ['users'],
   methods: {
     confirmInput() {
-      // do something
-      this.$router.push('/teams');
+      
+      // ~~> UPDATED:
+      // this.$router.push('/teams');
+
+      // ~~> TO:
+      this.$router.push({name: 'teams'});
     }
   }
 };
