@@ -5,7 +5,7 @@ v-enter-from    ~>    v-enter-to
 |_______ v-enter-action _______|
 
 v-leave-from    ~>    v-leave-to
-|_______ v-enter-leave _______|
+|_______ v-leave-action _______|
 
 
 ### Method 1 (specify each vue class)

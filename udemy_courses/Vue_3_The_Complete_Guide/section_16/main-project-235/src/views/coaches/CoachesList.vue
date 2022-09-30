@@ -1,31 +1,46 @@
 <template>
-    <section>
-        <coach-filter v-on:change-filter="setFilter"></coach-filter>
-    </section>
+    <div forAnimation>
+        <base-dialog 
+            v-bind:show="!!error" 
+            v-on:close="handleError"
+            title="An error occurred!"
+            >
+            <p>{{ error }}</p>
+        </base-dialog>
 
-    <section>
-        <base-card>
-            <div class="controls">
-                <base-button mode="outline">Refresh</base-button>
-                <base-button :isLink="true" :linkTo="{name: 'register'}">Register as Coach</base-button>
-            </div>
+        <section>
+            <coach-filter v-on:change-filter="setFilter"></coach-filter>
+        </section>
 
-            <ul v-if="hasCoaches">
-                <li v-for="(coach) in filteredCoaches" :key="coach.id">
-                    <coach-item :coach="coach"></coach-item>
-                </li>
-            </ul>
-            <h3 v-else>No coaches found.</h3>
-        </base-card>
-        
-    </section>
+        <section>
+            
+            <base-card>
+                <div class="controls">
+                    <base-button mode="outline" v-on:click="loadCoaches(true)">Refresh</base-button>
+                    <base-button :isLink="true" :linkTo="{name: 'register'}" v-if="!isCoach && !isLoading">Register as Coach</base-button>
+                </div>
+
+                <base-spiner v-if="isLoading"></base-spiner>
+
+                <ul v-else-if="hasCoaches">
+                    <li v-for="(coach) in filteredCoaches" :key="coach.id">
+                        <coach-item :coach="coach"></coach-item>
+                    </li>
+                </ul>
+
+                <h3 v-else>No coaches found.</h3>
+
+            </base-card>
+            
+        </section>
+    </div>
 </template>
 
 <!-- --------------------------------------------------------------- -->
 
 <script>
 /* eslint-disable */ 
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import CoachItem from '../../components/coaches/CoachItem.vue'
 import CoachFilter from '../../components/coaches/CoachFilter.vue'
 
@@ -36,6 +51,8 @@ export default {
 
     data() {
         return {
+            isLoading: false,
+            error: null,
             activeFilters: {
                 frontend: true,
                 backend:  true,
@@ -47,7 +64,9 @@ export default {
     computed: {
         ...mapGetters('coaches', {
             coaches: 'coaches',
-            hasCoaches: 'hasCoaches'
+            hasCoaches: 'hasCoaches',
+            isCoach: 'isCoach',
+            shouldUpdate: 'shouldUpdate'
         }),
         filteredCoaches() {
             const self = this;
@@ -64,9 +83,41 @@ export default {
         }
     },
     methods: {
+        ...mapActions('coaches', {
+            actionLoadCoaches: 'loadCoaches'
+        }), 
+
+        // ...mapActions('requests', {
+        //     fetchRequest: 'fetchRequest'
+        // }), 
+
+        async loadCoaches(forceRefresh = false) {
+            this.isLoading = true;
+
+            try {
+                await this.actionLoadCoaches({forceRefresh});
+
+            } catch(error) {
+                this.error = error.message || 'Somthing went wrong';
+
+            } finally {
+                this.isLoading = false
+            }
+
+        },
+
         setFilter(updateFilters) {
             this.activeFilters = updateFilters;
+        },
+        
+        handleError() {
+            this.error = null;
         }
+    },
+    created() {
+        
+        this.loadCoaches();
+        // this.fetchRequest();
     }
 }
 </script>
