@@ -1,40 +1,40 @@
 <template lang="en">
-    
-    <section>
-        <base-card>
-            <h2>{{ fullName }}</h2>
-            <h3>${{ rate }}/hour</h3>
-        </base-card>
-    </section>
+    <div forAnimation>
+        <section>
+            <base-card>
+                <h2>{{ fullName }}</h2>
+                <h3>${{ rate }}/hour</h3>
+            </base-card>
+        </section>
 
-    <section>
-        <base-card>
-            <header>
+        <section>
+            <base-card>
+                <header>
 
-            <h2>Interested? Reach out now!</h2>
+                <h2>Interested? Reach out now!</h2>
 
-            <base-button :isLink="true" :linkTo="{ name: 'contact', params: {id:  id  } }">
-            Contact
-            </base-button>
+                <base-button :isLink="true" :linkTo="{ name: 'contact', params: {id:  id  } }">
+                Contact
+                </base-button>
 
-            </header>
-        </base-card>
-    </section>
+                </header>
+            </base-card>
+        </section>
 
-    <section>
-        <base-card>
+        <section>
+            <base-card>
 
-            <base-badge  v-for="area in areas" :key="area" :type="area" :title="area"></base-badge>
+                <base-badge  v-for="area in areas" :key="area" :type="area" :title="area"></base-badge>
 
-            <p>{{ description }}</p>
+                <p>{{ description }}</p>
 
-        </base-card>
-    </section>
+            </base-card>
+        </section>
 
-    <!-- <router-link :to="{ name: 'contact', params: {id: '1'} }">contact</router-link> -->
+        <!-- <router-link :to="{ name: 'contact', params: {id: '1'} }">contact</router-link> -->
 
-    <router-view></router-view>
-
+        <router-view></router-view>
+    </div>
 </template>
 
 <!-- --------------------------------------------------------------- -->
