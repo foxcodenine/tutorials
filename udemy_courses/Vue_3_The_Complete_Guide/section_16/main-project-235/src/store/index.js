@@ -1,17 +1,24 @@
-import { createStore } from 'vuex'
+/* eslint-disable */
+// _____________________________________________________________________
 
+import { createStore } from 'vuex'
 import coaches from './modules/coaches'
+import requests from "./modules/requests";
 
 // _____________________________________________________________________
 
 export default createStore({
 
     state() {
-      return {        
+      return {  
+        userId: 'c1'      
       }
     },
 
     getters: {
+      userId(state) {
+        return state.userId;
+      }
     },
 
     mutations: {
@@ -21,6 +28,7 @@ export default createStore({
     },
 
     modules: {
-      coaches: coaches
+      coaches: coaches,
+      requests: requests
     }
 })
