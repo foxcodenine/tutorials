@@ -17,26 +17,26 @@ import NotFound from '../views/NotFound.vue';
 
 import store from "@/store";
 
-const CoachDetail = defineAsyncComponent(() => import('../views/coaches/CoachDetail.vue'));
-const CoachRegistation = defineAsyncComponent(() => import('../views/coaches/CoachRegistation.vue'));
+const CoachDetail = () => import('../views/coaches/CoachDetail.vue');
+const CoachRegistation = () => import('../views/coaches/CoachRegistation.vue');
 
-const ContactCoach = defineAsyncComponent(() => import('../views/requests/ContactCoach.vue'));
-const RequestsReceived = defineAsyncComponent(() => import('../views/requests/RequestsReceived.vue'));
+const ContactCoach = () => import('../views/requests/ContactCoach.vue');
+const RequestsReceived = () => import('../views/requests/RequestsReceived.vue');
 
-const UserAuth = defineAsyncComponent(() => import('../views/auth/UserAuth'));
+const UserAuth = () => import('../views/auth/UserAuth');
 
 // _____________________________________________________________________
 
 const router = createRouter({
     history: createWebHistory(), 
     routes: [
-        { name: 'index', path : '/', redirect: '/coaches' },
+        { name: 'index', path : '/sub-directory/', redirect: '/sub-directory/coaches' },
         
-        { name: 'coaches', path : '/coaches',  component : CoachesList },
+        { name: 'coaches', path : '/sub-directory/coaches',  component : CoachesList },
 
         {
             name: 'details',
-            path : '/coaches/:id',  
+            path : '/sub-directory/coaches/:id',  
             component : CoachDetail,
             props : true,
             children: [
@@ -44,10 +44,10 @@ const router = createRouter({
             ]
          },
 
-        {  name: 'register', path : '/register', component : CoachRegistation, meta: {requireAuth: true} },
-        {  name: 'request', path : '/requests', component : RequestsReceived,  meta: {requireAuth: true} },
+        {  name: 'register', path : '/sub-directory/register', component : CoachRegistation, meta: {requireAuth: true} },
+        {  name: 'request', path : '/sub-directory/requests', component : RequestsReceived,  meta: {requireAuth: true} },
         
-        {  name: 'auth', path : '/auth',  component : UserAuth, meta: {requireUnauth: true} },
+        {  name: 'auth', path : '/sub-directory/auth',  component : UserAuth, meta: {requireUnauth: true} },
 
         {  name: 'not_found', path : '/:notFound(.*)',  component : NotFound },
     ]
