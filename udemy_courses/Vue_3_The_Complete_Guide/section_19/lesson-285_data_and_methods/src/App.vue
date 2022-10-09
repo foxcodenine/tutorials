@@ -9,25 +9,34 @@
 
 <script>
 	/* eslint-disable */
-import { ref, reactive } from 'vue';
+import { ref, reactive, isRef, isReactive, toRefs } from 'vue';
 
 export default {
-	components: {},
+    components: {},
 
-	props: {},
+    props: {},
 
-	setup() {
-		// const uName = ref('Maximilian');
-		// const uAge  = ref(31);
+    setup() {
+		const uName = ref('Maximilian');
+		const uAge  = ref(31);
 
 		const user = reactive({
 			name: 'Maximilian',
 			age: 31,
 		})
 
+		// ----- Just testing function ---------------------------------
+		console.log(isRef(uName),     isRef(uName.value));
+		console.log(isReactive(user), isReactive(user.name));
+
+		const userRefs = toRefs(user);
+
+		console.log(isRef(userRefs.name), isRef(userRefs.age));
+		// -------------------------------------------------------------
+
 		setTimeout(function() {
 
-			// uName.value = 'Max';
+			uName.value = 'Max';
 			// uAge.value  = 32;
 
 			user.name = 'Max';
@@ -36,18 +45,12 @@ export default {
 		}, 2000)
 
 		return {
-			// userName: uName.value,
-			// userAge:  uAge.value,
+			userName: uName,
+			// userAge:  uAge,
 
 			user: user
 		}
 	},
-
-	// data() {
-	//   return {
-	//     userName: 'Maximilian',
-	//   };
-	// },
 };
 </script>
 
