@@ -26,7 +26,7 @@ export default {
 		const activeUsers = USER_DATA;
 
 		function selectUser(uid) {
-			selectedUser = activeUsers.find((usr) => {
+			selectedUser.value = activeUsers.find((usr) => {
 				return usr.id === uid;
 			});
 		}
