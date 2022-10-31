@@ -7,8 +7,8 @@ import Bookables from './views/Bookables.vue';
 
 
 const routes = [
-    { name: 'home', path : '/013/',  component : Bookables },
-    { name: 'second', path : '/013/second',  component : SecondExampleComponent  },
+    { name: 'home', path : '/014/',  component : Bookables },
+    { name: 'second', path : '/014/second',  component : SecondExampleComponent  },
 ];
 
 // _____________________________________________________________________
