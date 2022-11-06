@@ -1,15 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
 
-
+import SecondExampleComponent from './views/Example2.vue';
 import Bookables from './views/Bookables.vue';
-import Bookable from './views/Bookable.vue';
 
 // _____________________________________________________________________
 
 
 const routes = [
-    { name: 'home', path : '/014/',  component : Bookables },    
-    { name: 'bookable', path : '/014/bookable/:id',  component : Bookable, props: true},    
+    { name: 'home', path : '/014/',  component : Bookables },
+    { name: 'second', path : '/014/second',  component : SecondExampleComponent  },
 ];
 
 // _____________________________________________________________________
