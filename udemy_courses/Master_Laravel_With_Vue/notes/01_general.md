@@ -11,3 +11,10 @@
     $ npm install && npm run dev
 
     & npm install vue-router
+    
+
+### Helpers
+
+Arrays & Objects - Illuminate\Support\Arr
+
+    The Arr::random method returns a random value from an array
