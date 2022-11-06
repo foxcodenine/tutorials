@@ -2,13 +2,15 @@
     <div>
         <!-- Bookables -->
         <div class="container"  >
-            <div class="row" v-if="bookables" v-for="(row, index) in rows" :key="index + 'row'">
+            <div class="row" v-for="(row, index) in rows" :key="index + 'row'">
 
                 <div class="col-4 d-flex align-items-stretch" 
-                    v-for="(bookable, index) in rowBookables(bookables, row, columns)" :key="index + 'col'">
-                    <!-- If you want to pass all the properties of an object 
-                        as props, you can use v-bind without an argument -->
-                    <bookable-list-item  v-bind="bookable"></bookable-list-item>
+                    v-for="(book, index) in rowBookables(bookables, row, columns)" :key="index + 'col'">
+
+                    <bookable-list-item
+                        :item-title="book.title"
+                        :item-description="book.description" :price="1000" :key="index">
+                    </bookable-list-item>
                     
                 </div>
 
@@ -24,7 +26,7 @@
 <!-- --------------------------------------------------------------- -->
 
 <script>
-import BookableListItem from '../components/BookableListItem.vue'
+import BookableListItem from '../components/bookables/BookableListItem.vue'
 export default {
     components: {
         BookableListItem
@@ -73,8 +75,8 @@ export default {
         const request = await axios.get('/014/api/bookables');
         this.bookables = request.data;
 
-        // this.bookables.push({title: 'x', description: 'x'});
-        // this.loading = false;
+        this.bookables.push({title: 'x', description: 'x'});
+        this.loading = false;
 
 
     }
