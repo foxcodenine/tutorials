@@ -33,8 +33,7 @@ export default {
         this.loading = true;
 
         const response = await axios.get(`/014/api/bookables/${this.id}`);
-        this.bookable = response.data;
-
+        this.bookable = response.data.data;        
         this.loading = false;
 
     }

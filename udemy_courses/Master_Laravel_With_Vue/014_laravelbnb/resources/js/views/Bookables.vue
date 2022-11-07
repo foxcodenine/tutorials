@@ -71,7 +71,7 @@ export default {
         })
 
         const request = await axios.get('/014/api/bookables');
-        this.bookables = request.data;
+        this.bookables = request.data.data;
 
         // this.bookables.push({title: 'x', description: 'x'});
         // this.loading = false;
