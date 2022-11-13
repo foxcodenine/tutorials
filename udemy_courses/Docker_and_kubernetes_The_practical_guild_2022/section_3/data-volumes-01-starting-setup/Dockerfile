@@ -1,13 +1,21 @@
 FROM node:14
 
-WORKDIR /app
+ARG DEFAULT_WORKDIR=/app
 
-COPY package.json /app
+WORKDIR $DEFAULT_WORKDIR
+
+COPY package.json $DEFAULT_WORKDIR
 
 RUN npm install
 
-COPY . /app
+COPY . $DEFAULT_WORKDIR
 
-EXPOSE 80
+# ENV PORT 80                       # Can be overwritten on the cli
 
-CMD ["node", "server.js"]
+EXPOSE $PORT
+
+# VOLUME [ "$DEFAULT_WORKDIR/node_modules" ]    # better to do it in cli to overwrite mount 
+
+# VOLUME [ "/temp" ]                # better to do it in cli to overwrite mount 
+
+CMD ["npm", "start"]
