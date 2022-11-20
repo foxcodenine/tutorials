@@ -9,9 +9,10 @@
                 </div>
                 <div v-else >...</div>
             </div>
+            <review-list></review-list>
         </div>
         <div class="col-lg-4 p-4">
-            <availability></availability>
+            <availability></availability>            
         </div>
     </div>
 </template>
@@ -20,10 +21,11 @@
 
 <script>
 import Availability from '../components/Availability.vue';
+import ReviewList from '../components/ReviewList.vue';
 
 
 export default {
-    components: { Availability },
+    components: { Availability, ReviewList },
     props: {
         id: String
     },

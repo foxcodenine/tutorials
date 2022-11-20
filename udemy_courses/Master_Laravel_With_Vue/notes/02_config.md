@@ -43,3 +43,41 @@ RouteServiceProvider.php and add the subdirectory to the prefix method:
 then you can access your api as:
 
         www.foxcode.io/subdir/api/api_route_name
+
+<!-- --------------------------------------------------------------- -->
+
+### Data Wrapping
+
+By default, your outermost resource is wrapped in a data key when the 
+resource response is converted to JSON. 
+
+    {
+        "data": [
+            {
+                "id": 1,
+                "name": "Eladio Schroeder Sr.",
+                "email": "therese28@example.com"
+            },
+        ]
+    }            
+
+If you would like to use a custom key instead of data, you may define a $wrap 
+attribute on the resource class:
+
+    class UserResource extends JsonResource
+        {
+            public static $wrap = 'user';
+        }
+
+If you would like to disable the wrapping of the outermost resource, you 
+should invoke the "withoutWrapping" method on the base
+"Illuminate\Http\Resources\Json\JsonResource" class.
+
+    class AppServiceProvider extends ServiceProvider
+    {
+        public function boot()
+        {
+            JsonResource::withoutWrapping();
+        }
+    }
+
