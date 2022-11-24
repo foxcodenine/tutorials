@@ -1,7 +1,10 @@
 <!-- mongo container -->
 
     $ docker run --name mongodb --rm -d -p 27017:27017 mongo
-    $ docker run --name mongodb --rm -d --network goals mongo
+    $ docker run --name mongodb --rm -d -v mydata:/data/db --network goals mongo
+
+    # note: if you add authentication you need to add username:password@.. in backend (monga api) & remove old volume
+    $ docker run --name mongodb --rm -d -v mydata:/data/db --network goals -e MONGO_INITDB_ROOT_USERNAME=ubuntu -e=MONGO_INITDB_ROOT_PASSWORD=secret  mongo
 
 <!-- back-end (node) -->
 
@@ -24,6 +27,8 @@
     $ docker container prune
 
     $ docker image prune
+
+    $ docker volume prune       
 
     $ docker inspect container mongodb
 
