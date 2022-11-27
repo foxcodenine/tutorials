@@ -8,8 +8,10 @@
 
     $ php artisan make:factory BookableFactoy --model=Bookable
     $ php artisan make:factory BookingFactory --model=Booking 
+    $ php artisan make:factory ReviewFactory  --model=Review
 
     $ php artisan make:seeder BookableSeeder
+    $ php artisan make:seeder ReviewTableSeeder
 
     $ php artisan db:seed
 
@@ -22,8 +24,11 @@
     $ php artisan make:controller Api/BookableController --force --api --model=Bookable
 
     $ php artisan make:controller Api/BookableAvailabilityController --invokable
+    $ php artisan make:controller Api/BookableReviewController --invokable
 
     $ php artisan make:request BookableAvailabilityRequest
+
+    $ php artisan make:resource BookableReviewIndexResource
 
 
 

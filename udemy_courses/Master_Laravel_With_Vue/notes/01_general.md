@@ -12,14 +12,46 @@
 
     $ npm install vue-router
 
-    $ composer require barryvdh/laravel-debugbar --dev
-    
+    $ composer require barryvdh/laravel-debugbar --dev                  # note using sub-directory domains might not work correctly best use sub-domains
+
+
+### installing moment js
+
+https://momentjs.com/
+
+    $ npm install moment --save
+
+
+### installing font awesome
+
+https://fontawesome.com/docs/web/use-with/vue/
+https://fontawesome.com/docs/web/use-with/vue/add-icons
+
+1 Install the base Font Awesome SVG library. 
+
+    $ npm i --save @fortawesome/fontawesome-svg-core
+
+2 Next, install a Font Awesome icon set. 
+
+    npm i --save @fortawesome/free-solid-svg-icons
+    npm i --save @fortawesome/free-regular-svg-icons
+    npm i --save @fortawesome/free-brands-svg-icons
+
+3 Then we’ll need to install the Font Awesome Vue component (vue-fontawesome).
+
+    npm i --save @fortawesome/vue-fontawesome@latest-3
+
+4 Check, Add Icons with Vue. You can see the app.js and StarRating.vue for reference.
 
 ### Helpers
 
 Arrays & Objects - Illuminate\Support\Arr
 
     The Arr::random method returns a random value from an array
+
+Sring - Illuminate\Support\Str
+
+    The Str::uuid method generates a UUID (version 4)
 
 ### Models
 
