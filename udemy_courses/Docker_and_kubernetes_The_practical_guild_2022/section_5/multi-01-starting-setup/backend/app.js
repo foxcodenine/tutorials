@@ -15,6 +15,7 @@ const accessLogStream = fs.createWriteStream(
   { flags: 'a' }
 );
 
+
 app.use(morgan('combined', { stream: accessLogStream }));
 
 app.use(bodyParser.json());
@@ -82,11 +83,12 @@ app.delete('/goals/:id', async (req, res) => {
     res.status(500).json({ message: 'Failed to delete goal.' });
   }
 });
-
+console.log(`mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`)
 mongoose.connect(
   // 'mongodb://172.17.0.2:27017/course-goals',
   // 'mongodb://mongodb:27017/course-goals',
-  'mongodb://ubuntu:secret@mongodb:27017/course-goals?authSource=admin',
+  
+  `mongodb://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@mongodb:27017/course-goals?authSource=admin`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
