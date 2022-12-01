@@ -8,8 +8,8 @@
                 <div class="border-bottom" v-for="review, index in reviews" :key="index">
                     <div class="row pt-4">
                         <div class="col-md-6">Chris Farrugia</div>
-                        <div class="col-md-6 d-flex justify-content-end">{{review.rating}}
-                            <star-rating :rating="(review.rating)" class="fa-lg"></star-rating>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <star-rating :modelValue="review.rating" class="fa-lg"></star-rating>
                         </div>
                     </div>
 
