@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Booking;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Booking>
@@ -23,7 +24,7 @@ class BookingFactory extends Factory
         $to = (clone $from)->addDays(random_int(0, 14));
         return [
             'from'=> $from,
-            'to' => $to
+            'to' => $to,            
         ];
     }
 }
