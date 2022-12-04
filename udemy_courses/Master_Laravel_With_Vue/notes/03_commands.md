@@ -5,6 +5,8 @@
 
     $ php artisan migrate
     $ php artisan migrate:refresh
+    $ php artisan migrate:refresh --seed
+    $ php artisan make:migration AddReviewKeyToBookingsTable
 
     $ php artisan make:factory BookableFactoy --model=Bookable
     $ php artisan make:factory BookingFactory --model=Booking 
@@ -26,9 +28,15 @@
     $ php artisan make:controller Api/BookableAvailabilityController --invokable
     $ php artisan make:controller Api/BookableReviewController --invokable
 
+    $ php artisan make:controller Api/BookingByReviewController --invokable
+
+    $ php artisan make:controller Api/ReviewController
+
     $ php artisan make:request BookableAvailabilityRequest
 
     $ php artisan make:resource BookableReviewIndexResource
+    $ php artisan make:resource BookingByReviewShowResource
+    $ php artisan make:resource BookingByReviewBookableShowResource
 
 
 
