@@ -39,3 +39,34 @@ Then you can fix all templates using this $filters object like this:
         <h1>Bank Account Balance</h1>
         <p>{{ $filters.currencyUSD(accountBalance) }}</p>
     </template>
+
+
+# v-model on components
+
+For this to work, the <CustomInput> component must have two things:
+
+1. Bind the value attribute of a native <input> element to the 'modelValue' prop 
+    (prop must be named 'modelValue') (not necessary an <input> check my StarRating Component)
+
+2. When a native input event is triggered, emit an 'update:modelValue' custom event with the new value
+    (emit tage must be named 'update:modelValue')
+
+    <!-- CustomInput.vue -->
+
+        <script>
+        export default {
+            props: ['modelValue'],
+            emits: ['update:modelValue']
+        }
+        </script>
+
+        <template>
+        <input
+            :value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value)"
+        />
+        </template>
+
+    <!-- Parent.vue -->
+        <MyComponent @some-event="callback" />
+
