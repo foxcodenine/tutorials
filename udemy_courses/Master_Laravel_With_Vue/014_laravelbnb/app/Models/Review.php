@@ -9,6 +9,8 @@ class Review extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['id', 'content', 'rating'];  
+
     /** Get the value indicating whether the IDs are incrementing. */
     public function getIncrementing()
     {
