@@ -1,6 +1,6 @@
 <template >
     <div>
-        <div class="row" v-if="error">Unknown error has occured, please try again later!</div>
+        <div class="row" v-if="error"><FatalError :errorMessage="errorMessage" /></div>
         <div class="row" v-else>
             <div :class="{'col-md-4': twoColumn, 'd-none':  oneColumn}">
                 <div class="card">
@@ -39,7 +39,7 @@
                             class="form-control" v-model="review.content">
                             </textarea>
                         </div>
-                        <button class="btn btn-lg btn-primary mt-4 w-100">Submit</button>
+                        <button class="btn btn-lg btn-primary mt-4 w-100" @click.prevent="submit">Submit</button>
                     </div>
                 </div>
             </div>
@@ -57,17 +57,34 @@ export default {
         return {
             loading: false,
             review: {
+                id: null,
                 rating: 5,
                 content: null
             },
             existingReview: null,
             booking: null,
             error: false,
+            errorMessage: 'Unknown error has occured, please try again later!'
         }
     },
     methods: {
         onRatingChanged(rating){            
             this.review.rating = rating;
+        },
+        async submit() {
+            this.loading = true;
+            try {
+                
+                let response = await axios.post(`/api/reviews`, this.review);    
+                console.log(response);
+
+            } catch (error) {
+                console.log(error)
+                this.error = true;
+
+            } finally {
+                this.loading = false;
+            }
         }
     },
     computed: {
@@ -88,12 +105,14 @@ export default {
         },
     },
     async created() {
+        this.review.id = this.$route.params.id;
+        console.log(this.review.id)
         this.loading = true;
         // - 1. If review already exits (in review table by id)
         
         try {
 
-            let response = await axios.get(`/api/reviews/${this.$route.params.id}`);
+            let response = await axios.get(`/api/reviews/${this.review.id}`);
             this.existingReview = response.data.data;
             this.loading = false;            
 
@@ -103,14 +122,21 @@ export default {
                 
                 // - 2. Fetch a booking by a review key
                 try {
-                    let response = await axios.get(`/api/booking-by-review/${this.$route.params.id}`);
+                    let response = await axios.get(`/api/booking-by-review/${this.review.id}`);
                     this.booking = response.data.data;
-                    this.loading = false;
+                    
 
                 } catch (error) {
-                    console.log(error)
-                    this.error = true;
-                }                
+                    if (is404(error) ) {
+                        this.errorMessage = 'Unknown review id!';
+                        this.error = true;
+                    } else {
+                        this.errorMessage = 'Unknown error has occured, please try again later!';
+                        this.error = true;
+                    }
+                } finally {
+                    this.loading = false;
+                }            
                 
             } else {
                 console.log(error);

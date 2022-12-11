@@ -5,7 +5,8 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './routes';
 import moment from "moment";
-import StarRating from './components/shared/StarRating.vue'
+import StarRating from './components/shared/StarRating.vue';
+import FatalError from './components/shared/FatalError.vue';
 
 // _____________________________________________________________________
 
@@ -15,6 +16,7 @@ app.use(router);
 // --- vue Registration Global components -------------------
 
 app.component('StarRating', StarRating)
+app.component('FatalError', FatalError)
 
 // --- vue Using globalProperties ---------------------------
 
@@ -36,13 +38,14 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 /* import specific icons */
-import { faStar as faStarSolid, faStarHalfAlt } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarSolid, faStarHalfAlt, faBomb } from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
 
 /* add icons to the library */
 library.add(faStarSolid );
 library.add(faStarHalfAlt );
 library.add(faStar);
+library.add(faBomb);
 
 app.component('font-awesome-icon', FontAwesomeIcon);
 
