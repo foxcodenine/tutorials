@@ -38,6 +38,8 @@
     $ php artisan make:resource BookingByReviewShowResource
     $ php artisan make:resource BookingByReviewBookableShowResource
 
+    $ php artisan key:generate
+
 
 
 ### Clear Cache
