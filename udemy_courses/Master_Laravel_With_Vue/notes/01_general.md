@@ -10,7 +10,9 @@
 
     $ npm install && npm run dev
 
-    $ npm install vue-router
+    $ npm install vue-router --save
+
+    $ npm install vuex --save
 
     $ composer require barryvdh/laravel-debugbar --dev                  # note using sub-directory domains might not work correctly best use sub-domains
 
@@ -24,6 +26,7 @@ https://momentjs.com/
 
 ### installing font awesome
 
+https://blog.fontawesome.com/how-to-use-vue-js-with-font-awesome/ 
 https://fontawesome.com/docs/web/use-with/vue/
 https://fontawesome.com/docs/web/use-with/vue/add-icons
 
