@@ -4,7 +4,7 @@
         <h1 class="mt-4">Success!</h1>
         <h2>
             <slot>
-                The operation was successful!
+                The operation was successfull!
             </slot>
         </h2>
     </div>
@@ -12,7 +12,7 @@
 
 <!-- --------------------------------------------------------------- -->
 
-<script>
+<script lang="js">
 export default {
     
 }

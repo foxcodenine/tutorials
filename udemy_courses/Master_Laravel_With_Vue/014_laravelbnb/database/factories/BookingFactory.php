@@ -24,7 +24,8 @@ class BookingFactory extends Factory
         $to = (clone $from)->addDays(random_int(0, 14));
         return [
             'from'=> $from,
-            'to' => $to,            
+            'to' => $to, 
+            'price' => random_int(200, 5000),          
         ];
     }
 }

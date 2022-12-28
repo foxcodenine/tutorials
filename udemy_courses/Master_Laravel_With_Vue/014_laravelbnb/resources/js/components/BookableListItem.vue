@@ -11,7 +11,7 @@
 
 <!-- --------------------------------------------------------------- -->
 
-<script>
+<script lang="js">
 export default {
     props: {
         'title': String, 
@@ -19,6 +19,7 @@ export default {
         'id': Number
     },
     computed: {
+
         getId() {
             return this.id || false;
         }

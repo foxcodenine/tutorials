@@ -46,6 +46,49 @@ then you can access your api as:
 
 <!-- --------------------------------------------------------------- -->
 
+### Sanctun config
+
+the 'config/sanctum.php' is the sanctun config file. If you are using your 
+own server as apache and domane you need to added to 'stateful' by setting 
+the envierment variable 'SANCTUM_STATEFUL_DOMAINS' in the .env file as:
+
+    SANCTUM_STATEFUL_DOMAINS="laravel-vue.local,other-domaine"
+
+<!-- --------------------------------------------------------------- -->
+
+### CORS support for SPA
+
+in 'config/cors.php' file if you are using your own server as apache and your
+domane, you need to set the  'supports_credentials' to 'true':
+
+    'supports_credentials' => true,
+
+### And in Axios
+
+also in 'resources/js/bootstrap.js' you need to add
+
+    window.axios.defaults.withCredentials = true;
+
+
+
+<!-- --------------------------------------------------------------- -->
+
+### Laravel redirect on login (and Vue spa)
+
+In the LoginController.php laravel define the auto redirect route on in:
+
+    protected $redirectTo = RouteServiceProvider::HOME;
+
+However if you look in the 'AuthenticatesUsers' Trait in the 'sendLoginResponse' 
+method you'll find that it will redirect only if the 'authenticated' returns false.
+
+Since this method is empty in the Trait it will always return false, however if
+you are using Vue with Laravel you need to overwrite it in the controller and
+redirect to your vue page accordingly. (look in the LoginController.php)
+
+
+<!-- --------------------------------------------------------------- -->
+
 ### Data Wrapping
 
 By default, your outermost resource is wrapped in a data key when the 
@@ -81,3 +124,32 @@ should invoke the "withoutWrapping" method on the base
         }
     }
 
+<!-- --------------------------------------------------------------- -->
+### Axios Interceptors 
+
+You can intercept requests or responses before they are handled
+by then or catch.
+
+The below example, is in the 'app.js' file where we are using an  
+interceptors to log the user out if he is not authenticated.
+
+
+```js
+    window.axios.interceptors.response.use (
+        response => {
+            return response;
+        },
+        error => {
+            if (401 === error.response.status) {
+                store.dispatch("logout");
+                // Note - we have access to the store because we are  
+                //        importing it above.
+            }
+            return Promise.reject(error);
+            // Here we are making sure that the promis is being rejected
+            // after intercepting it 
+        }
+    )
+```
+
+https://axios-http.com/docs/interceptors
