@@ -23,6 +23,10 @@ class Booking extends Model
         return $this->hasOne(Review::class);
     }
 
+    public function address() {
+        return $this->belongsTo(Address::class);
+    }
+
     // ----- Local Scope -----------------------------------------------
 
     public function scopeBetweenDates(Builder $query, $from , $to) {
