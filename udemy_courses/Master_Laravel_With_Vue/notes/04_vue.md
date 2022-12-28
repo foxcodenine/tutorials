@@ -70,3 +70,32 @@ For this to work, the <CustomInput> component must have two things:
     <!-- Parent.vue -->
         <MyComponent @some-event="callback" />
 
+
+### Vuex Getters , Method-Style Access
+
+You can also pass arguments to getters by returning a function. This is
+particularly useful when you want to query an array in the store:
+
+    getters: {
+        // ...
+        getTodoById: (state) => (id) => {
+            return state.todos.find(todo => todo.id === id)
+        }
+    }
+
+    store.getters.getTodoById(2) // -> { id: 2, text: '...', done: false }
+
+Note that getters accessed via methods will run each time you call them,
+and the result is not cached.
+
+
+### Vue Transition - Move Transitions - v-move 
+
+(Adding v-move or in case of name class: fade-move, flip-move ... etc)
+
+https://vuejs.org/guide/built-ins/transition-group.html#move-transitions
+https://v2.vuejs.org/v2/guide/transitions.html#List-Move-Transitions 
+
+When an item is inserted or removed, its surrounding items instantly
+"jump" into place instead of moving smoothly. We can fix this by adding
+a few additional CSS rules

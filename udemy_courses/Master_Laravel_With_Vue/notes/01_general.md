@@ -6,7 +6,9 @@
 
     $ composer require laravel/ui --dev
 
-    $ php artisan ui vue
+    $ php artisan ui vue           //    or do below command:
+    $ php artisan ui vue --auth    // <~ This command publishes the authentication views, routes, 
+                                   //    controllers, and other resources to your application.
 
     $ npm install && npm run dev
 
@@ -16,6 +18,17 @@
 
     $ composer require barryvdh/laravel-debugbar --dev                  # note using sub-directory domains might not work correctly best use sub-domains
 
+    $ composer update
+
+    <!--  -->
+
+    $ composer require laravel/sanctum
+
+    $ php artisan vendor:publish --provider="Laravel\Sanctum\SanctumServiceProvider"
+
+    $ php artisan migrate
+
+    <!--  -->
 
 ### installing moment js
 
@@ -46,6 +59,16 @@ https://fontawesome.com/docs/web/use-with/vue/add-icons
 
 4 Check, Add Icons with Vue. You can see the app.js and StarRating.vue for reference.
 
+
+5 For fontawsome animation see:
+
+https://fontawesome.com/docs/web/use-with/vue/style#animate-icons
+https://fontawesome.com/docs/web/style/animate
+
+and in Availability.vue:
+
+    <font-awesome-icon icon="fa-solid fa-circle-notch" spin-pulse />
+
 ### Helpers
 
 Arrays & Objects - Illuminate\Support\Arr
@@ -55,6 +78,9 @@ Arrays & Objects - Illuminate\Support\Arr
 Sring - Illuminate\Support\Str
 
     The Str::uuid method generates a UUID (version 4)
+
+
+
 
 ### Models
 
@@ -115,3 +141,15 @@ these two routes
     Route::apiResource('photos', PhotoController::class);
 
 https://laravel.com/docs/9.x/controllers#api-resource-routes
+
+
+### Validation
+
+
+Validating Nested Array Input and Object: 
+
+Check the CheckoutController.php
+and also:
+    https://laravel.com/docs/9.x/validation#validating-arrays
+
+    

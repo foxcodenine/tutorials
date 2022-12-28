@@ -11,7 +11,7 @@
 <script>
 export default {
     props: {
-        errors: [],
+        errors: [Array, String],
     },
     methods: {
         createKey(index){

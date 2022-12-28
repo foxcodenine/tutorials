@@ -2,11 +2,13 @@
     $ php artisan make:mode Bookable -m 
     $ php artisan make:model Booking -m
     $ php artisan make:mode Review -m
+    $ php  artisan make:model Address -m
 
     $ php artisan migrate
     $ php artisan migrate:refresh
     $ php artisan migrate:refresh --seed
     $ php artisan make:migration AddReviewKeyToBookingsTable
+    $ php artisan make:migration AddPriceToBookablesTable
 
     $ php artisan make:factory BookableFactoy --model=Bookable
     $ php artisan make:factory BookingFactory --model=Booking 
@@ -14,6 +16,7 @@
 
     $ php artisan make:seeder BookableSeeder
     $ php artisan make:seeder ReviewTableSeeder
+    $ php artisan make:seeder UserTableSeeder
 
     $ php artisan db:seed
 

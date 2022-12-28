@@ -11,7 +11,7 @@
 <script>
 export default {
     props: {
-        errorMessage: [String, null],
+        errorMessage: [String, null, Array],
     },
     computed: {
         getErrorMessage() {
