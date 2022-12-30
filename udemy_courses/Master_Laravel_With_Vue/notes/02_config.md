@@ -75,16 +75,47 @@ also in 'resources/js/bootstrap.js' you need to add
 
 ### Laravel redirect on login (and Vue spa)
 
-In the LoginController.php laravel define the auto redirect route on in:
+In the LoginController.php laravel define the auto redirect route at:
 
     protected $redirectTo = RouteServiceProvider::HOME;
 
-However if you look in the 'AuthenticatesUsers' Trait in the 'sendLoginResponse' 
-method you'll find that it will redirect only if the 'authenticated' returns false.
+However if you look in the 'AuthenticatesUsers' Trait in the 'sendLoginResponse'
+method you'll find that it will redirect only if the 'authenticated' method
+returns false.
 
 Since this method is empty in the Trait it will always return false, however if
 you are using Vue with Laravel you need to overwrite it in the controller and
 redirect to your vue page accordingly. (look in the LoginController.php)
+
+### Laravel on logout
+
+Similar to login, when sending a post request to the logout route, the controller
+call the 'logout' method that is inherited from the 'AuthenticatesUsers' Trait.
+
+In this method you are 1st loged-out:  '$this->guard()->logout();'
+
+then the session is invalidated:       '$request->session()->invalidate();'
+
+and token regenerated:                 '$request->session()->regenerateToken();'
+
+Lastly it calls the 'loggedOut' method. If it returns a response it will
+redirect to it. If not, in the following lines the default redirection takes
+place
+
+However 'loggedOut' method by default never return a response since it is empty.
+
+Again if you are doing a SPA you need to overwite the 'loggedOut' method.
+(look in the 'LoginController.php')
+
+
+### Laravel on Register 
+
+Same Consept as in Login and Logout. We are using this 'RegisterController.php'
+It inherit form the 'RegistersUsers' traid.
+
+And we are overwriting the 'registered' method to remove redirect and return the
+user this time, if it receives a post request from an AJAX, 
+(look in the 'RegisterController.php')
 
 
 <!-- --------------------------------------------------------------- -->

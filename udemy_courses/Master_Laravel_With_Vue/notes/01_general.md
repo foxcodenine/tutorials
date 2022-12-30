@@ -145,11 +145,12 @@ https://laravel.com/docs/9.x/controllers#api-resource-routes
 
 ### Validation
 
+( Validating Nested Array Input and Object ), you can see an example at: 
 
-Validating Nested Array Input and Object: 
+    'CheckoutController.php'
 
-Check the CheckoutController.php
-and also:
+and also it is explained at:
+
     https://laravel.com/docs/9.x/validation#validating-arrays
 
     
