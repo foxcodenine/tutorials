@@ -1,0 +1,47 @@
+services:
+    server:
+      image: 'ubuntu/apache2:2.4-22.04_beta'
+      env_file:
+        - ./env/apache.env
+      ports:
+        - '8080:80'
+      volumes:
+        - ./etc/apache2:/etc/apache2
+        - ./usr/lib/apache2:/usr/lib/apache2
+        - ./var/www/html:/var/www/html
+
+    php:
+      build:
+        context: dockerfiles
+        dockerfile: php.dockerfile
+      volumes:
+        - ./var/www/html:/var/www/html
+        - ./usr/lib/apache2:/usr/lib/apache2
+      ports:
+        - '9000:9000'
+
+    composer:
+      build: 
+        context: dockerfiles
+        dockerfile: composer.dockerfile
+      volumes:
+        - ./var/www/html:/var/www/html
+
+    
+# ----- Apache php -----------------------------------------------------
+# sudo docker-compose up -d
+# sudo docker-composesudo docker-compose down
+# sudo docker cp apache_server_1:/etc/apache2 /home/foxcodenine/foxfiles/Projects/Docker_and_kubernetes_The_practical_guild_2022/my_try/apache
+# sudo docker cp apache_server_1:/ /home/foxcodenine/foxfiles/Projects/Docker_and_kubernetes_The_practical_guild_2022/my_try/apache/root
+
+# ----- Laravel --------------------------------------------------------
+
+# sudo docker-compose run --rm composer create-project laravel/laravel laravel-app
+
+
+
+# sites:
+#   https://www.digitalocean.com/community/tutorials/how-to-install-and-set-up-laravel-with-docker-compose-on-ubuntu-22-04
+#   https://hub.docker.com/r/ubuntu/apache2
+#   https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04#step-3-installing-php
+#   https://devops.tutorials24x7.com/blog/containerize-php-with-apache-mysql-and-mongodb-using-docker-containers
