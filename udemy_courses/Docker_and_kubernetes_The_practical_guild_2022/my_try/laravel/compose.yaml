@@ -1,5 +1,5 @@
 services:
-    server:
+    apache:
       image: 'ubuntu/apache2:2.4-22.04_beta'
       env_file:
         - ./env/apache.env
@@ -9,6 +9,8 @@ services:
         - ./etc/apache2:/etc/apache2
         - ./usr/lib/apache2:/usr/lib/apache2
         - ./var/www/html:/var/www/html
+      depends_on:
+        - php
 
     php:
       build:
@@ -27,6 +29,14 @@ services:
       volumes:
         - ./var/www/html:/var/www/html
 
+    artisan:
+      build:
+        context: dockerfiles
+        dockerfile: php.dockerfile
+      volumes:
+        - ./var/www/html:/var/www/html
+      entrypoint: ["php", "/var/www/html/laravel-app/artisan"]
+
     
 # ----- Apache php -----------------------------------------------------
 # sudo docker-compose up -d
@@ -38,6 +48,9 @@ services:
 
 # sudo docker-compose run --rm composer create-project laravel/laravel laravel-app
 
+# sudo docker-compose up -d --build apache
+
+# sudo docker-compose run --rm artisan make:model Robot --migration
 
 
 # sites:
