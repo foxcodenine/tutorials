@@ -1,0 +1,4 @@
+[Sun Jan 01 21:17:22.605864 2023] [so:warn] [pid 18:tid 139643618424704] AH01574: module deflate_module is already loaded, skipping
+AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.22.0.2. Set the 'ServerName' directive globally to suppress this message
+[Sun Jan 01 21:17:22.607043 2023] [mpm_event:notice] [pid 18:tid 139643618424704] AH00489: Apache/2.4.52 (Ubuntu) configured -- resuming normal operations
+[Sun Jan 01 21:17:22.607054 2023] [core:notice] [pid 18:tid 139643618424704] AH00094: Command line: '/usr/sbin/apache2 -D FOREGROUND'
