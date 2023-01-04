@@ -8,16 +8,22 @@ virtualhost - in /etc/apache2/sites-available/000-default.conf appended the foll
 
     <VirtualHost *:80>
         ServerName localhost
+        
+        ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://php:9000/var/www/html/laravel-app/public/$1
 
-        ProxyPassMatch ^/(.*\.php(/.*)?)$ fcgi://php:9000/var/www/html/$1
+        DocumentRoot /var/www/html/laravel-app/public
 
-        DocumentRoot /var/www/html
-
-        <Directory /var/www/html>
-            Options -Indexes +FollowSymLinks
-            DirectoryIndex index.php
+        <Directory /var/www/html/laravel-app/public>
+            # Options -Indexes +FollowSymLinks
+            # DirectoryIndex index.php
+            # AllowOverride All
+            # Require all granted
+            Options Indexes FollowSymLinks MultiViews
             AllowOverride All
             Require all granted
+
+            DirectoryIndex index.php
+            FallbackResource /index.php
         </Directory>
     </VirtualHost>
 
