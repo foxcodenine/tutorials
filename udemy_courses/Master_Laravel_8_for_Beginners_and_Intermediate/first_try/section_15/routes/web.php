@@ -41,7 +41,7 @@ Route::view('/', 'home.index');
 //         'Hanna Demicoli' => 77665544,
 //         'Steph Abela'    => 66554433
 //     ];
-    
+
 //     return view('home.contacts', ['myContacts' => $myContacts]);
 // })->name('home.contacts');
 
@@ -92,7 +92,7 @@ Route::get('/posts', function () use ($posts) {
         4 => '4th blog',
         3 => '5th blog',
     ];
-    
+
     return view('post.index', ['posts' => $posts, 'name' =>$name, 'blogs' =>$blogs]);
 
 })->name('post.index');
@@ -111,19 +111,18 @@ Route::get('/post/{id}', function ($id) use ($posts) {
 
 
 Route::get('/recent-post/{days_ago?}', function ($days=20) {
-    
+
     $d = $days == 1 ? 'day' : 'days';
 
     return "Post from {$days} {$d} ago";
 
-})->where([
-    'days_ago' => '\d+'
-])->name('home.recent.index');
+})->where(['days_ago' => '\d+'])
+  ->name('home.recent.index');
 
 
 // ---------------------------------------------------------------------
 
-// Response, Redirect, Back, Named route and Away 
+// Response, Redirect, Back, Named route and Away
 
 
 Route::get('/fun/responses', function() use($posts) {
@@ -204,7 +203,7 @@ Route::get('/request-all', function() {
 
 Route::get('/request-input', function() {
 
-    dd((int) request()->input('page', 1));   
+    dd((int) request()->input('page', 1));
 });
 
 
@@ -215,7 +214,7 @@ Route::get('/request-query', function() {
 
 Route::get('/request-only', function() {
 
-    dd( request()->only(['first', 'last']));   
+    dd( request()->only(['first', 'last']));
 });
 
 
@@ -229,25 +228,20 @@ Route::get('/request-boolean', function() {
 });
 
 
-/** Others: 
- * 
+/** Others:
+ *
  *  if ($request->has(['name'])) {
  *      //
  *  }
- * 
+ *
  *  if ($request->missing(['name'])) {
  *      //
  *  }
- * 
+ *
  *  $request->whenHas('name', function($input) {
  *      //
  *  });
- * 
+ *
  * and check https://laravel.com/docs/9.x/requests#retrieving-input
- * 
+ *
  */
-
-
-
-
-

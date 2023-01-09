@@ -20,8 +20,10 @@ use Illuminate\Contracts\Cache\Factory as Cache;
 // We are passing the Cache $cache and Session $session in the __constractor
 // by Dependency Injection and using $this->cache and $this->session.
 
-// Also in AppSeviceProvider when we bind the Counter class we used the
-// 'make' Method 
+// * Also in AppSeviceProvider we bind the Counter class. 
+// * This is for dependency injection in auto binding.
+
+// * We used the 'make' Method to craete the required instance params.
 
 // https://laravel.com/docs/9.x/contracts#contract-reference
 // https://laravel.com/docs/9.x/container#the-make-method

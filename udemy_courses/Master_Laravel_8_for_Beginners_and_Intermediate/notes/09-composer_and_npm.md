@@ -25,7 +25,7 @@ Installing Default auth UI template views
     <!-- This command will generate the blade auth templates.        -->
     <!-- Make sure that it doesn't conflict with you template.       -->
     <!-- Else they will be replaced.                                 -->
-    $ php artisan make:auth
+    $ php artisan ui:auth
 
 Installing npm librares
 
@@ -33,7 +33,7 @@ Installing npm librares
 
 Compiling npm
 
-    $ npm dev
+    $ npm run dev
 
     <!-- this has prodused an error -->
 
