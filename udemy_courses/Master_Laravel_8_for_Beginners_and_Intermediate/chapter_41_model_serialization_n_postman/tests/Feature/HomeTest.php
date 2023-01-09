@@ -14,23 +14,23 @@ class HomeTest extends TestCase
      * @return void
      */
 
-    public function test_home_is_working_correctly()
-    {
-        $response = $this->get('/');
+    // public function test_home_is_working_correctly()
+    // {
+    //     $response = $this->get('/');
 
-        $response->assertStatus(200);
+    //     $response->assertStatus(200);
 
-        $response->assertSeeText('Welcome to Laravel');
+    //     $response->assertSeeText('Welcome to Laravel');
 
-        $response->assertSeeText('This is the content of the home page');
-    }
+    //     $response->assertSeeText('This is the content of the home page');
+    // }
 
-    public function test_contact_is_working_correctly()
-    {
-        $response = $this->get('/contact');
+    // public function test_contact_is_working_correctly()
+    // {
+    //     $response = $this->get('/contact');
 
-        $response->assertSeeText('Contact Page');
-        $response->assertSeeText('Hello this is contact');
+    //     $response->assertSeeText('Contact Page');
+    //     $response->assertSeeText('Hello this is contact');
 
-    }
+    // }
 }

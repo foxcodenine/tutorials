@@ -10,10 +10,16 @@ install:
 ### ~~~ Clearing the cashe
 
     $ php artisan cache:clear
+    $ php artisan optimize:clear
+    <!-- $ php artisan config:cache -->
 
     or
 
     $ php artisan view:clear
+
+    or
+
+    $ php artisan cache:clear;  php artisan optimize:clear 
 
 
 ### ~~~ redis
@@ -111,7 +117,7 @@ Finally, you can test
 
         $ AUTH yourpassword 
         
-Thats is!
+That's it!
 
 
 

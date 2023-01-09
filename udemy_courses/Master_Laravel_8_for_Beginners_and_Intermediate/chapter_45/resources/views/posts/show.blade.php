@@ -34,7 +34,7 @@
 
                     <div class="col-4 mb-4"> @include('posts.partials.buttons')</div>
                         
-                    <x-alert :show="now()->diffInMinutes($post->created_at)  <=  5">
+                    <x-alert :show="1">
                         <h4 >Brand new News!</h4>
                     </x-alert>
                 </div>
