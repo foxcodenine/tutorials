@@ -1,0 +1,90 @@
+<template >
+    <div>
+        <!-- Bookables -->
+        <div class="container"  >
+            <div class="row" v-for="(row, index) in rows" :key="index + 'row'">
+
+                <div class="col-4 d-flex align-items-stretch" 
+                    v-for="(book, index) in rowBookables(bookables, row, columns)" :key="index + 'col'">
+
+                    <bookable-list-item
+                        :item-title="book.title"
+                        :item-description="book.description" :price="1000" :key="index">
+                    </bookable-list-item>
+                    
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <!-- <p v-else>Data is loading</p> -->
+    </div>
+</template>
+
+<!-- --------------------------------------------------------------- -->
+
+<script>
+import BookableListItem from '../components/bookables/BookableListItem.vue'
+export default {
+    components: {
+        BookableListItem
+    },
+    data() {
+        return {
+            bookables: null,
+            loading: false,
+            columns: 3
+        }
+    },
+    computed: {
+        rows() {
+            return Math.ceil(this.bookables?.length / this.columns) || 0;
+        }
+    },
+    methods: {
+        rowBookables(array, row, columns) {
+            const index = row - 1;
+            return array.slice(index*columns, (index*columns) + columns);
+        }
+    },
+    async created() {
+        this.loading = true;
+
+        const p = new Promise((resolve, reject) => {
+            console.log(resolve);
+            console.log(reject);
+
+            setTimeout(()=>{
+                reject('Hello!');                
+            }, 3000);
+        }).then((result)=>{
+            console.log(`Success ${result}`);
+        }).catch((result)=>{
+            console.log(`Error ${result}`);
+        });
+
+        console.log(p);
+        
+
+        const waitForMe = await new Promise((resolve, reject)=>{
+            setTimeout(()=>{resolve(true)}, 2000);
+        })
+
+        const request = await axios.get('/014/api/bookables');
+        this.bookables = request.data;
+
+        this.bookables.push({title: 'x', description: 'x'});
+        this.loading = false;
+
+
+    }
+}
+</script>
+
+<!-- --------------------------------------------------------------- -->
+
+<style lang="scss" scoped>
+
+</style>
