@@ -42,7 +42,7 @@ class PostController extends Controller
             // ->only('destroy')
             ;
 
-        // $this->middleware('locale');
+        $this->middleware('locale');
 
         // ~~> NOTE: 
         // $counter is an incteance of Counter which a  Service Container, 
@@ -67,8 +67,8 @@ class PostController extends Controller
             Carbon::now()->addSecond(env('CACHE_TIMEOUT')), 
             function() {
                 return BlogPost::withAllRelations()    // <~~ withAllRelations is a local scope
-                    ->withCount('comments')
-                    // ->orderBy('created_at', 'desc') // <~~ We are using a global scope instead                    
+                        ->withCount('comments')
+                    //  ->orderBy('created_at', 'desc') // <~~ We are using a global scope instead                    
                         ->get();
                         
             }
