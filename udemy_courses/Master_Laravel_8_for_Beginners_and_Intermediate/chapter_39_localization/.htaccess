@@ -1,9 +1,0 @@
-RewriteEngine On
-RewriteRule ^(index|contact|registration|login|forgot)$ $1.php [NC,L]
-
-
-
-
-
-
-
