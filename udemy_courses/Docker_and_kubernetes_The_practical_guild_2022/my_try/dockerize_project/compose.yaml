@@ -1,0 +1,65 @@
+services:
+    
+    php_apache:
+      container_name: dazzling_allen_server
+      build:
+        context: dockerfiles
+        dockerfile: php.dockerfile
+      env_file:
+        - ./env/apache.env
+      ports:
+        - '8081:80'
+      volumes:
+        - ./linux/etc/apache2:/etc/apache2
+        - ./src:/var/www/html
+    
+    mariadb:
+      container_name: dazzling_allen_database
+      image: mariadb:10.3.37-focal
+      env_file:
+        - ./env/mariadb.env
+      ports:
+        - '3310:3306'
+      volumes:
+        - ./linux/var/lib/mysql:/var/lib/mysql
+    
+    npm:
+      container_name: dazzling_allen_node
+      image: node:10.19.0-slim
+      working_dir: /var/www/html/iot_eol
+      entrypoint: ["npm"]
+      volumes:
+        - ./src:/var/www/html
+
+# ---- php / apache ----------------------------------------------------
+
+# docker-compose up -d --build
+
+## copying /etc/apache from a cointainer
+## comment-out /etc/apache 
+## run the apache container, and copy out using the following command.
+# sudo docker cp dazzling_allen_server:/etc/apache2     $(pwd)/linux/etc
+## finally stop container, and re-bind the /etc/apache directory
+
+## Syntax:
+# sudo docker cp container_name:/etc/apache   /path/to/local/directory
+
+# ----- Composer --------------------------------------------------------
+
+# docker-compose run --rm php_apache composer install
+
+# ----- Bash (mariadb conatainer) --------------------------------------
+
+# docker exec -it dazzling_allen_database bash -u root -p               <~ in mariadb this didn't work 
+# docker exec -it dazzling_allen_database bash                          <~ it worked like this
+#                                                                       
+# mysql -u root  -p                                                     <~ then, log in with root or any user created:
+# mysql [root] > GRANT ALL ON *.* TO 'username';         
+# mysql [root] > FLUSH PRIVILEGES;  
+# mysql [root] > create database app;      exit;                                
+
+
+# ----- Artisan --------------------------------------------------------
+
+# docker-compose run --rm php_apache php artisan
+
