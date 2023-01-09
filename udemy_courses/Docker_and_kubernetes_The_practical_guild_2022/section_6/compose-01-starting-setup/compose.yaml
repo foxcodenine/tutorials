@@ -1,0 +1,51 @@
+services:
+  mongodb:
+    image: 'mongo'
+    volumes:
+      - mydata:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=ubuntu
+      - MONGO_INITDB_ROOT_PASSWORD=secret
+    # env_file:
+    #   - ./relative/path/to/env
+    # networks:
+    #   - networkName             <~ Not need because yaml add a default network to this compose file.
+
+    # container_name: mongodb
+
+  backend: 
+    build: ./backend
+    # build: 
+    #   context: ./backend
+    #   dockerfile: dockerfile
+    #   args:
+    #     - name=value
+    ports:
+      - '8000:80'
+      # - '4000:443'
+    
+    volumes:
+      - logs:/app/logs
+      - ./backend:/app           # <~ this i a bind mount
+      - /app/node_modules        # <~ this is a anonymous
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - mongodb
+    
+
+  frontend:
+    build: ./frontend
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./frontend/src:/app/src
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+volumes:
+  mydata:                       # <~ Named volumes need to be specified here, anonymous volumes and 
+                                #    bind mount do not.
+  logs:
