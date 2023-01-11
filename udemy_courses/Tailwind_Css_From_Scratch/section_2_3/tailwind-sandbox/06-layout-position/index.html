@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>TailwindCSS</title>
+  </head>
+  <body>
+    <!-- Positioning -->
+    <div class="relative h-12 w-1/2 bg-red-200">
+      <p>Parent Element</p>
+      <div class="absolute bottom-0 right-0 bg-red-500">
+        <p>Absolute Child</p>
+      </div>
+    </div>
+
+    <!-- Top left corner -->
+    <div class="relative h-32 w-32 bg-yellow-100 m-2">
+      <div class="absolute left-0 top-0 h-16 w-16 bg-yellow-300"></div>
+    </div>
+
+    <!-- Top right corner -->
+    <div class="relative h-32 w-32 bg-yellow-100 m-2">
+      <div class="absolute right-0 top-0 h-16 w-16 bg-yellow-300 "></div>
+    </div>
+
+    <!-- Bottom left corner -->
+    <div class="relative h-32 w-32 bg-yellow-100 m-2">
+      <div class="absolute left-0 bottom-0 h-16 w-16 bg-yellow-300 "></div>
+    </div>
+
+    <!-- Bottom right corner -->
+    <div class="relative h-32 w-32 bg-yellow-100 m-2">
+      <div class="absolute right-0 bottom-0 h-16 w-16 bg-yellow-300 "></div>
+    </div>
+
+
+    <!-- Span top edge -->
+    <div class="relative h-32 w-32 bg-yellow-100 m-2">
+      <div class="absolute inset-x-0 h-16  bg-yellow-300 top-0"></div>
+    </div>
+
+    <!-- Span left edge -->
+    <div class="relative h-32 w-32 bg-yellow-100 m-2">
+      <div class="absolute inset-y-0 w-16  bg-yellow-300 left-0"></div>
+    </div>
+
+    <!-- Span right edge -->
+    <div class="relative h-32 w-32 bg-yellow-100 m-2">
+      <div class="absolute inset-y-0 w-16  bg-yellow-300 right-0"></div>
+    </div>
+
+    <!-- Span bottom edge -->
+    <div class="relative h-32 w-32 bg-yellow-100 m-2">
+      <div class="absolute inset-x-0 h-16  bg-yellow-300 bottom-0"></div>
+    </div>
+
+    <!-- Display Classes -->
+    <div>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, numquam. 
+      <span class="bg-green-100 inline">This is inline</span>
+      Vero temporibus molestiae quibusdam perspiciatis ad suscipit.
+      
+      Accusamus at reiciendis ipsa ratione pariatur facere placeat enim rem, rerum voluptas ullam vitae consectetur.
+      <span class="bg-green-100 inline-block">This is inline block</span> <div class="font-bold">This is bold</div> Hic, asperiores natus excepturi laudantium
+      porro labore, blanditiis tempora inventore veritatis saepe iste repudiandae accusantium fugiat soluta ipsa totam
+      modi temporibus voluptates obcaecati.
+
+      <span class="bg-green-100 block">This is block</span>Iste
+      accusantium ullam nemo
+      <span class="bg-green-100 hidden">This is hidden</span> optio!
+    </div>
+
+    <!-- Z-Index -->
+    <div class="relative h-36">
+      <div class="absolute w-24 h-24 bg-blue-100 left-10 z-40">1</div>
+      <div class="absolute w-24 h-24 bg-blue-200 left-20">2</div>
+      <div class="absolute w-24 h-24 bg-blue-300 left-40">3</div>
+      <div class="absolute w-24 h-24 bg-blue-400 left-60 z-20">4</div>
+      <div class="absolute w-24 h-24 bg-blue-500 left-80">5</div>
+    </div>
+
+    <!-- Floats -->
+    <div class="w-1/2">
+      <img  src="../assets/img/img1.jpg" alt="" class="h-48 w-48 float-left m-4">
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, asperiores voluptates perferendis eligendi
+      animi maiores aspernatur quod? Eaque, voluptatibus vel repudiandae facere maxime harum architecto ipsum magni sed.
+      Veniam, provident.</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, asperiores voluptates perferendis eligendi
+      animi maiores aspernatur quod? Eaque, voluptatibus vel repudiandae facere maxime harum architecto ipsum magni sed.
+      Veniam, provident.</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti, asperiores voluptates perferendis eligendi
+      animi maiores aspernatur quod? Eaque, voluptatibus vel repudiandae facere maxime harum architecto ipsum magni sed.
+      Veniam, provident.</p>
+    </div>
+  </body>
+</html>
+
+<!-- Position Classes
+      static	    position: static;
+      fixed	      position: fixed;
+      absolute	  position: absolute;
+      relative	  position: relative;
+      sticky	    position: sticky;
+    -->
+
+<!-- Display Classes
+      block	            display: block;
+      inline-block	    display: inline-block;
+      inline	          display: inline;
+      flex	            display: flex;
+      inline-flex	      display: inline-flex;
+      table	            display: table;
+      grid	            display: grid;
+      inline-grid	      display: inline-grid;
+      contents	        display: contents;
+      list-item	        display: list-item;
+      hidden	          display: none;
+    -->
+
+<!-- Z-Index
+      z-0	    z-index: 0;
+      z-10	  z-index: 10;
+      z-20	  z-index: 20;
+      z-30	  z-index: 30;
+      z-40	  z-index: 40;
+      z-50	  z-index: 50;
+      z-auto	z-index: auto;
+    -->
+
+<!-- Float
+      float-right	  float: right;
+      float-left	  float: left;
+      float-none	  float: none;
+    -->
