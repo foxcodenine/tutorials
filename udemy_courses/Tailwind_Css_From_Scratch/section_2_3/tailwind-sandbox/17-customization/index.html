@@ -1,29 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Customization</title>
-  </head>
- <body
-    class="bg-black sm:bg-green-800 md:bg-blue-800 lg:bg-yellow-800 xl:bg-purple-800 2xl:bg-orange-800"
-  >
-   
-      <h1 class="text-white text-xl"></h1>
 
-    <script>
-      function showBrowserWidth() {
-        const width = window.innerWidth
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Customization</title>
 
-        document.querySelector('h1').innerHTML = `Width: ${width}`
+  <script>
+    tailwind.config = {
+      theme: {
+        screens: {
+          'sm': '550px',
+          'md': '800px',
+          'lg': '1200px',
+          'xl': '1440px',
+        },
+        fontFamily: {
+          'sans': ['ui-sans-serif', 'system-ui'],
+          'serif': ['ui-serif', 'Georgia'],
+          'mono': ['ui-monospace', 'SFMono-Regular'],
+        },
+        extend: {
+          screens: {
+            '2xl': '1500px',
+            '3xl': '1600px',
+          },
+          colors: {
+            'primary': '#ff5733',
+            'secondary': '#fffc33'
+          },
+          spacing: {
+            6: '2.5rem'
+          },
+          borderRadius: {
+            '4xl': '2rem',
+          }
+        }
+
       }
+    }
+  </script>
 
-      window.onload = showBrowserWidth
-      window.onresize = showBrowserWidth
-    </script>
-  </body>
+</head>
+
+<body class="bg-black sm:bg-green-800 md:bg-blue-800 lg:bg-yellow-800 xl:bg-purple-800 2xl:bg-orange-800 3xl:bg-orange-300">
+
+  <div class="border border-secondary p-6 max-w-sm mx-auto mt-6 rounded-4xl">
+    <h1 class="text-primary text-xl"></h1>
+  </div>
+
+  <script>
+    function showBrowserWidth() {
+      const width = window.innerWidth
+
+      document.querySelector('h1').innerHTML = `Width: ${width}`
+    }
+
+    window.onload = showBrowserWidth
+    window.onresize = showBrowserWidth
+  </script>
+</body>
+
 </html>
 
 <!-- Breakpoint Classes
