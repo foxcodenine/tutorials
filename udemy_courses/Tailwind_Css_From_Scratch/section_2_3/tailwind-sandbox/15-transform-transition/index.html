@@ -6,44 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Transform & Transition</title>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            transitionDuration: {
-              2000: '2000ms'
-            },
-            rotate: {
-              '360': '360deg',
-            } 
-          }
-        }
-      }
-    </script>
   </head>
   <body>
     <!-- No Transition -->
-    <button class="px-8 py-2 m-12 text-white bg-blue-500 rounded hover:bg-blue-700" >
+    <button
+      class="px-8 py-2 m-24 text-white bg-blue-500 rounded hover:bg-blue-700"
+    >
       Click me
     </button>
 
     <!-- Transition -->
-    <button class="px-8 py-2 m-12 text-white bg-blue-500 rounded 
-                   hover:bg-blue-700 hover:opacity-50
-                   transition-all duration-300" >
-      Click me
-    </button>
 
     <!-- Transition & Transform -->
-    <button class="px-8 py-2 m-12 text-white bg-blue-500 rounded hover:bg-blue-700
-              transition-transform hover:rotate-90 duration-500" >
-      Click me
-    </button>
 
     <!-- Transform & Transition -->
-    <img src="../assets/img/img7.jpg" alt="" class="w-60 m-16
-    transition-transform duration-2000 scale-75 rotate-360 skew-x-12
-    hover:rotate-0 hover:scale-100 hover:skew-x-0">
   </body>
 </html>
 
