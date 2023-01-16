@@ -1,0 +1,148 @@
+services:
+    apache:
+      container_name: laravel_test_project-apache
+      build:
+        context: .
+        dockerfile: dockerfiles/apache.dockerfile
+      env_file:
+        - ./env/apache.env
+      ports:
+        - '8080:80'
+      # volumes:
+        # - ./linux/etc/apache2:/etc/apache2
+        # - ./linux/usr/lib/apache2:/usr/lib/apache2
+        # - ./linux/var/www/html:/var/www/html
+      depends_on:
+        - php
+
+    php:
+      container_name: laravel_test_project-php
+      build:
+        context: .
+        dockerfile: dockerfiles/php.dockerfile
+      # volumes:
+      #   - ./linux/var/www/html:/var/www/html
+      #   - ./linux/usr/lib/apache2:/usr/lib/apache2
+      ports:
+        - '9000:9000'
+      depends_on:
+        - mysql
+
+    mysql:
+      container_name: laravel_test_project-mysql
+      image: mysql:8.0.31-debian
+      env_file:
+        - ./env/mysql.env
+      volumes:
+        # - ./linux/var/lib/mysql:/var/lib/mysql
+        - mysql_vol:/var/lib/mysql
+      ports:
+        - '3309:3306'
+
+    composer:
+      container_name: laravel_test_project-composer
+      build: 
+        context: .
+        dockerfile: dockerfiles/composer.dockerfile
+      volumes:
+        - ./src/laravel-app/:/var/www/html/laravel-app/
+
+    # artisan:
+    #   container_name: laravel_test_project-artisan
+    #   build:
+    #     context: .
+    #     dockerfile: dockerfiles/php.dockerfile
+    #   volumes:
+    #     - ./linux/var/www/html:/var/www/html
+    #   entrypoint: ["php", "/var/www/html/laravel-app/artisan"]
+
+    npm:
+      container_name: laravel_test_project-npm
+      image: node:18.12.1-alpine
+      working_dir: /var/www/html/laravel-app
+      entrypoint: ["npm"]
+      volumes:
+        - ./src/laravel-app:/var/www/html/laravel-app
+
+volumes:
+  mysql_vol:
+
+
+# ----- Steps to run the containers ------------------------------------
+
+# Step 1 - Do the build images
+# docker-compose  build
+
+# Step 2 - Create the vendor directory 
+# sudo docker-compose run --rm composer install
+
+# Step 2 - Create the node_modules directory 
+# sudo docker-compose run --rm npm install --force
+
+# Step 3 - Running the containers:
+# docker-compose  up -d --build apache            
+# or
+# docker-compose  up -d --build 
+
+# Step 4 - Running artisan with the php container:
+# sudo docker-compose run --rm php php artisan migrate
+# sudo docker-compose run --rm php php artisan route:list
+# sudo docker-compose run --rm php php artisan storage:link
+
+# Step 5 - End
+# docker-compose  down
+    
+# ----- Apache php -----------------------------------------------------
+# sudo docker-compose up -d
+# sudo docker-composesudo docker-compose down
+# sudo docker cp laravel_test_project-apache:/etc/apache2 /home/foxcodenine/foxfiles/Projects/Docker_and_kubernetes_The_practical_guild_2022/my_try/apache
+# sudo docker cp laravel_test_project-apache:/ /home/foxcodenine/foxfiles/Projects/Docker_and_kubernetes_The_practical_guild_2022/my_try/apache/root
+
+# ----- Running --------------------------------------------------------
+# sudo docker-compose up -d --build apache
+
+# ----- Composer --------------------------------------------------------
+
+# sudo docker-compose run --rm composer create-project laravel/laravel laravel-app
+# sudo docker-compose run --rm composer require laravel/ui --dev -d ./laravel-app
+
+# sudo docker-compose run --rm composer install
+
+
+# ----- Artisan --------------------------------------------------------
+# remove and using php container instade
+
+# sudo docker-compose run --rm artisan migrate
+
+# sudo docker-compose run --rm artisan ui vue --auth
+
+# sudo docker-compose run --rm artisan route:list
+
+# sudo docker-compose run --rm php artisan route:list
+
+# sudo docker-compose run --rm artisan make:model Robot --migration
+
+# ----- php ------------------------------------------------------------
+
+# sudo docker-compose run --rm php php artisan route:list
+# sudo docker-compose run --rm php php artisan migrate
+
+
+# docker exec -it laravel_test_project-php bash -l
+
+# ----- Mysql ----------------------------------------------------------
+# docker exec -it laravel_test_project-mysql bash -l
+# root@4a2dbc19187f:/# mysql -u root -p
+# mysql> CREATE DATABASE laravel_app;
+
+# ----- NPM ------------------------------------------------------------
+# sudo docker-compose run --rm npm install --force
+# sudo docker-compose run --rm npm run dev
+
+
+
+# sites:
+#   https://www.digitalocean.com/community/tutorials/how-to-install-and-set-up-laravel-with-docker-compose-on-ubuntu-22-04
+#   https://hub.docker.com/r/ubuntu/apache2
+#   https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04#step-3-installing-php
+#   https://devops.tutorials24x7.com/blog/containerize-php-with-apache-mysql-and-mongodb-using-docker-containers
