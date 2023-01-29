@@ -1,0 +1,45 @@
+services:
+
+  apache:
+    container_name: mga-hca-apache
+    build:
+      context: .
+      dockerfile: dockerfiles/apache.dockerfile
+    env_file:
+      - ./env/apache.env
+    volumes:
+      - ./src:/var/www/iot_solutions
+      - /var/www/iot_solutions/laravel_app/vendor
+      - /var/www/iot_solutions/laravel_app/node_modules
+    ports:
+      - '80:80'
+    depends_on:
+      - php
+
+  php:
+    container_name: mga-hca-php
+    build:
+      context: .
+      dockerfile: dockerfiles/php.dockerfile
+    volumes:
+      - ./src:/var/www/iot_solutions
+      - /var/www/iot_solutions/laravel_app/vendor
+      - /var/www/iot_solutions/laravel_app/node_modules
+    ports:
+      - '9000:9000'
+
+  npm:
+    image: node:14
+    container_name: mga-hca-npm
+    working_dir: /var/www/iot_solutions/laravel_app
+    entrypoint: ['npm']
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./src:/var/www/iot_solutions
+      - /var/www/iot_solutions/laravel_app/vendor
+      # - /var/www/iot_solutions/laravel_app/node_modules
+    profiles:
+      - donotstart
+
+
