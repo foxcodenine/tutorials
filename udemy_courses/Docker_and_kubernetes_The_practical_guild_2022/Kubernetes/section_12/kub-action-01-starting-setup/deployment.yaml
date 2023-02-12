@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-deployment
+  # labels:
+  #   mygroup: example  
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      myapp: second-app
+      mytier: backend
+    # matchExpressions:
+    #   - { key: app, operator: NotIn, values: [second-app, first-app] } 
+  template:
+    metadata:
+      labels:
+        myapp: second-app
+        mytier: backend
+    spec:
+      containers:
+        - name: second-node
+          image: foxcodenine/kub-first-app:2
+          # image: foxcodenine/kub-first-app:latest    #<~ this will always re-pull the latest image automatically
+          imagePullPolicy: Always                   #<~ same as above
+          # imagePullPolicy: Never
+          # imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: "1"
+            requests:
+              memory: 128Mi
+              cpu: "1"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+              # httpHeaders:
+              #   - name: 
+              #     value: 
+            periodSeconds: 60
+            initialDelaySeconds: 5
+            
+        # - name: ...
+        #   image: ...
