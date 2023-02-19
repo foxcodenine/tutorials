@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: story-development
+spec:
+  # replicas: 1
+  replicas: 2
+  selector:
+    matchLabels:
+        app: story
+  template:
+    metadata:
+      labels:
+        app: story
+    spec:
+      containers:
+      - name: story
+        # image: foxcodenine/kub-data-demo:1
+        image: foxcodenine/kub-data-demo:latest
+        env:
+          - name: STORY_FOLDER
+            # value: 'story'
+            valueFrom:
+              configMapKeyRef:
+                name: data-store-env
+                key: folder
+        volumeMounts:
+          - mountPath: /app/story
+            name: story-volume
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      volumes:
+        - name: story-volume
+          # emptyDir: {}                                   # <~ vol type
+          # hostPath:                                      # <~ vol type
+          #   path: /data 
+          #   type: DirectoryOrCreate
+          persistentVolumeClaim:
+            claimName: host-pvc
+

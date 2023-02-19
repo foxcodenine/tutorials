@@ -169,6 +169,24 @@ service before the deployment.
 
     $ kubectl get deployment
 
+### Volumns (emptyDir, hostPath, CSI)
+
+### Kinds used so far
+1. Deployment
+2. Service
+3. PersistentVolume
+4. PersistentVolumeClaim
+5. ConfigMap
+
+### Get Storage Class
+
+    $ kubectl get sc
+
+### Envierment Variables & ConfigMaps
+
+    $ kubectl apply -f=environment.yaml
+
+
 
 
 
