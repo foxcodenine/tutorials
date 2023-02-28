@@ -1,25 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: users-deployments
+  name: tasks-deployments
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: users
+      app: tasks
   template:
     metadata:
       labels:
-        app: users
+        app: tasks
     spec:
       containers:
-      - name: users
-        image: foxcodenine/kub-demo-users:latest
+      - name: tasks
+        image: foxcodenine/kub-demo-tasks:latest
         env:
           - name: AUTH_ADDRESS
             # value: localhost
             # value: "10.111.57.157"           #  auth-service ClusterIP  
             value: "auth-service.default"      #  you can also use the service name & namespace since Kubernetes is Using CoreDNS for Service Discovery
+          - name: TASKS_FOLDER
+            value: tasks
         resources:
           limits:
             memory: "128Mi"
