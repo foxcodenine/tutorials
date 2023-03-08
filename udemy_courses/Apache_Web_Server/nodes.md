@@ -73,3 +73,10 @@ Fedora:
 
 
     ls /var/www/html
+
+Ubuntu:
+
+    $ ls /etc/apache2/
+    > apache2.conf  conf-available  conf-enabled  envvars  magic  mods-available  mods-enabled  ports.conf  sites-available  sites-enabled
+
+    ls /var/www/html
