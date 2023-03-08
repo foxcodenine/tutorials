@@ -518,18 +518,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   bottom: 0.75rem;
 }
 
-.left-6 {
-  left: 1.5rem;
-}
-
-.right-6 {
-  right: 1.5rem;
-}
-
-.top-20 {
-  top: 5rem;
-}
-
 .top-24 {
   top: 6rem;
 }
@@ -544,6 +532,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .-top-10 {
   top: -2.5rem;
+}
+
+.left-6 {
+  left: 1.5rem;
+}
+
+.right-6 {
+  right: 1.5rem;
+}
+
+.top-20 {
+  top: 5rem;
 }
 
 .mx-auto {
@@ -583,10 +583,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 1.25rem;
 }
 
-.-ml-2 {
-  margin-left: -0.5rem;
-}
-
 .block {
   display: block;
 }
@@ -611,6 +607,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 5rem;
 }
 
+.h-8 {
+  height: 2rem;
+}
+
 .w-full {
   width: 100%;
 }
@@ -627,8 +627,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: 5rem;
 }
 
-.w-1\/2 {
-  width: 50%;
+.w-8 {
+  width: 2rem;
 }
 
 .max-w-4xl {
@@ -747,6 +747,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-width: 2px;
 }
 
+.border {
+  border-width: 1px;
+}
+
 .border-t {
   border-top-width: 1px;
 }
@@ -836,17 +840,22 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 1.5rem;
 }
 
+.py-7 {
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+}
+
 .py-16 {
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
 
-.pt-6 {
-  padding-top: 1.5rem;
-}
-
 .pb-32 {
   padding-bottom: 8rem;
+}
+
+.pt-6 {
+  padding-top: 1.5rem;
 }
 
 .text-center {
@@ -935,28 +944,28 @@ Ensure the default browser behavior of the `hidden` attribute.
   color: rgb(234 179 8 / var(--tw-placeholder-opacity));
 }
 
-/* #cta {
+#cta {
   background-image: url('../images/bg-boost-desktop.svg');
   background-repeat: no-repeat;
   background-size: cover;
-} */
+}
 
-/* .ficon:hover {
+.ficon:hover {
   filter: invert(79%) sepia(61%) saturate(464%) hue-rotate(130deg)
     brightness(89%) contrast(85%);
-} */
+}
 
 /* HAMBURGER MENU */
 
-/* .hamburger {
+.hamburger {
   cursor: pointer;
   width: 24px;
   height: 24px;
   transition: all 0.25s;
   position: relative;
-} */
+}
 
-/* .hamburger-top,
+.hamburger-top,
 .hamburger-middle,
 .hamburger-bottom {
   content: '';
@@ -968,32 +977,32 @@ Ensure the default browser behavior of the `hidden` attribute.
   background: #9c9aa6;
   transform: rotate(0);
   transition: all 0.5s;
-} */
+}
 
-/* .hamburger-middle {
+.hamburger-middle {
   transform: translateY(7px);
-} */
+}
 
-/* .hamburger-bottom {
+.hamburger-bottom {
   transform: translateY(14px);
-} */
+}
 
-/* .open {
+.open {
   transform: rotate(90deg);
   transform: translateY(0px);
-} */
+}
 
-/* .open .hamburger-top {
+.open .hamburger-top {
   transform: rotate(45deg) translateY(6px) translateX(6px);
-} */
+}
 
-/* .open .hamburger-middle {
+.open .hamburger-middle {
   display: none;
-} */
+}
 
-/* .open .hamburger-bottom {
+.open .hamburger-bottom {
   transform: rotate(-45deg) translateY(6px) translateX(-6px);
-} */
+}
 
 .hover\:bg-cyanLight:hover {
   --tw-bg-opacity: 1;
