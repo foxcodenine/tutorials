@@ -80,3 +80,79 @@ Ubuntu:
     > apache2.conf  conf-available  conf-enabled  envvars  magic  mods-available  mods-enabled  ports.conf  sites-available  sites-enabled
 
     ls /var/www/html
+
+
+
+## Section 5: Logging in Apache - ( Access.log, Error.log & Custom.log )
+
+Apache Module mod_log_config - How to configer the custom logs:
+
+    https://httpd.apache.org/docs/current/mod/mod_log_config.html
+
+
+Access Log:
+
+    Common Log Format:
+
+        LogFormat "%h %l %u %t \"%r\" %>s %b" common
+        CustomLog logs/access_log common
+
+        Ex: 127.0.0.1 - frank [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326
+
+            127.0.0.1 (%h)  This is the IP address of the client (remote host) 
+                            which made the request to the server.
+
+            - (%l)          The "hyphen" in the output indicates that the 
+                            requested piece of information is not available.  
+
+            frank (%u)      This is the userid of the person requesting the 
+                            document as determined by HTTP authentication. 
+
+            [10/Oct/2000:13:55:36 -0700] (%t)
+
+                The time that the request was received. The format is:
+                    [day/month/year:hour:minute:second zone]
+                    day = 2*digit
+                    month = 3*letter
+                    year = 4*digit
+                    hour = 2*digit
+                    minute = 2*digit
+                    second = 2*digit
+                    zone = (`+' | `-') 4*digit
+
+            "GET /apache_pb.gif HTTP/1.0" (\"%r\")
+
+                The request line from the client is given in double quotes. 
+                The request line contains a great deal of useful information. 
+
+            200 (%>s)   This is the status code that the server sends back to the client.
+
+            2326 (%b)
+                The last part indicates the size of the object returned to the client,
+                not including the response headers. If no content was returned to the
+                client, this value will be "-". To log "0" for no content, use %B
+                instead 
+
+
+    Combined Log Format:
+        Another commonly used format string is called the Combined Log Format. 
+        It can be used as follows.
+
+        LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"" combined
+        CustomLog log/access_log combined
+
+        Ex:  127.0.0.1 - frank [10/Oct/2000:13:55:36 -0700] "GET /apache_pb.gif HTTP/1.0" 200 2326 "http://www.example.com/start.html" "Mozilla/4.08 [en] (Win98; I ;Nav)"
+
+        "http://www.example.com/start.html" (\"%{Referer}i\")
+            The "Referer" (sic) HTTP request header. This gives the site that the client reports 
+            having been referred from.
+
+        "Mozilla/4.08 [en] (Win98; I ;Nav)" (\"%{User-agent}i\") 
+            The User-Agent HTTP request header. This is the identifying information that the 
+            client browser reports about itself.
+
+Default apache access log file location:
+
+    RHEL / Red Hat / CentOS / Fedora Linux Apache access file location – /var/log/httpd/access_log
+    Debian / Ubuntu Linux Apache access log file location – /var/log/apache2/access.log
+    FreeBSD Apache access log file location – /var/log/httpd-access.log
