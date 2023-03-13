@@ -156,3 +156,116 @@ Default apache access log file location:
     RHEL / Red Hat / CentOS / Fedora Linux Apache access file location – /var/log/httpd/access_log
     Debian / Ubuntu Linux Apache access log file location – /var/log/apache2/access.log
     FreeBSD Apache access log file location – /var/log/httpd-access.log
+
+
+
+## Section 6: Directives
+
+##### Apache MPM Common Directives
+https://httpd.apache.org/docs/2.4/mod/mpm_common.html
+
+    Description:	A collection of directives that are implemented by more than one multi-processing module (MPM)
+    Status:	        MPM
+
+* CoreDumpDirectory Directive
+
+
+        Description:	Directory where Apache HTTP Server attempts to switch before dumping core
+        Syntax:	        CoreDumpDirectory directory
+        Default:	    See usage for the default setting
+        Context:	    server config
+        Status:	        MPM
+        Module:	        event, worker, prefork
+
+        This controls the directory to which Apache httpd attempts to switch before dumping core. If your operating system is configured to create core files in the working directory of the crashing process, CoreDumpDirectory is necessary to change working directory from the default ServerRoot directory, which should not be writable by the user the server runs as.
+
+
+* EnableExceptionHook Directive
+
+        Description:	Enables a hook that runs exception handlers after a crash
+
+* GracefulShutdownTimeout Directive
+
+        Description:	Specify a timeout after which a gracefully shutdown server will exit.
+
+* Listen Directive
+
+        Description:	IP addresses and ports that the server listens to
+        Syntax:	        Listen [IP-address:]portnumber [protocol]
+        Context:	    server config
+
+* ListenBackLog Directive
+
+        Description:	Maximum length of the queue of pending connections
+        Syntax:	        ListenBackLog backlog
+        Default:	    ListenBackLog 511
+
+* ListenCoresBucketsRatio Directive
+
+        Description:	Ratio between the number of CPU cores (online) and the number of listeners' buckets
+
+* MaxConnectionsPerChild Directive
+
+        Description:	Limit on the number of connections that an individual child server will handle during its life
+        Syntax:	        MaxConnectionsPerChild number
+        Default:	    MaxConnectionsPerChild 0
+
+* MaxMemFree Directive
+
+        Description:	Maximum amount of memory that the main allocator is allowed to hold without calling free()
+        Syntax:	        MaxMemFree KBytes
+        Default:	    MaxMemFree 2048
+
+* MaxRequestWorkers Directive
+
+        Description:	Maximum number of connections that will be processed simultaneously
+
+* MaxSpareThreads Directive
+
+        Description:	Maximum number of idle threads
+
+* MinSpareThreads Directive
+
+        Description:	Minimum number of idle threads available to handle request spikes
+
+* PidFile Directive
+
+        Description:	File where the server records the process ID of the daemon
+        Syntax:	        PidFile filename
+        Default:	    PidFile logs/httpd.pid
+
+* ReceiveBufferSize Directive
+
+        Description:	TCP receive buffer size
+
+* ScoreBoardFile Directiv
+
+        Description:	Location of the file used to store coordination data for the child processes
+
+* SendBufferSize Directive
+
+        Description:	TCP buffer size
+
+* ServerLimit Directive
+
+        Description:	Upper limit on configurable number of processes
+
+* StartServers Directive
+
+        Description:	Number of child server processes created at startup
+
+* StartThreads Directive
+
+        Description:	Number of threads created on startup
+
+* ThreadLimit Directive
+
+        Description:	Sets the upper limit on the configurable number of threads per child process
+
+* ThreadsPerChild Directive
+
+        Description:	Number of threads created by each child process
+
+* ThreadStackSize Directive
+
+        Description:	The size in bytes of the stack used by threads handling client connections
