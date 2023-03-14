@@ -269,3 +269,18 @@ https://httpd.apache.org/docs/2.4/mod/mpm_common.html
 * ThreadStackSize Directive
 
         Description:	The size in bytes of the stack used by threads handling client connections
+
+### Apache Directive Index
+
+https://httpd.apache.org/docs/2.4/mod/directives.html
+
+#### Bash command - a2query 
+
+        a2query         # retrieve runtime configuration from a local Apache 2 HTTP server      
+
+        a2query -h  Help, Displays a brief summary how the program can be called and exits 
+        a2query -M  Returns the currently enabled Apache 2 MPM (Multi Processing Module). 
+        a2query -s  Checks whether the module SITE is enabled 
+        a2query -v  Returns the currently installed Apache 2 HTTP server version
+        a2query -c  Checks whether the configuration CONF is enabled.
+        a2query -a  Returns the Apache 2 "Module Magic Version" (API version) number
