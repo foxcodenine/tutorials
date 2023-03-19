@@ -46,3 +46,39 @@ Enable 'proxy' and 'proxy_http':
     $ systemctl reload apache2.service
 
 Enable site and reload apache.
+
+
+### Use Rewrite 
+
+First enable rewrite_mod by  running:
+
+    $ sudo a2enmod rewrite
+    $ sudo systemctl reload apache2.service
+
+Copy 'rewite.conf' to '/etc/apache/sites-avalable'
+Take note of the 'Rewrite' directives in the conf file.
+
+In '/var/www/html' create the my_server dir with the specified html's
+I only added the following in the html's
+
+    <h3>You are on Firefox browser</h3>
+    <h3>You are on Chrome browser</h3>
+
+Enable the config with 'a2ensite' and test it out.
+
+Also note the 'L' and 'R' flags:
+
+L|last      The [L] flag causes mod_rewrite to stop processing the rule set. In
+            most contexts, this means that if the rule matches, no further rules
+            will be processed. This corresponds to the last command in Perl, or
+            the break command in C. Use this flag to indicate that the current
+            rule should be applied immediately without considering further rules.
+
+R|redirect  When the requested URI contains a query string, and the target URI
+            does not, the default behavior of RewriteRule is to copy that query
+            string to the target URI. Using the [QSD] flag causes the query
+            string to be discarded.
+
+You can find tother flages at: https://httpd.apache.org/docs/2.4/rewrite/flags.html
+
+
