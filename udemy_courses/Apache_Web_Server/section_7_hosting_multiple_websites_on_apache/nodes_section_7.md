@@ -34,5 +34,13 @@ Run:
 Copy 'ip_address_base_vhost.conf' file to /etc/apache2/sites-available
 and re-run:
 
-    $ a2ensite domain_base_vhost.conf
+    $ sudo vi ip_address_base_vhost.conf
+    $ sudo systemctl reload apache2
+
+#### Port base 
+
+Copy 'port_base_vhost.conf' file to /etc/apache2/sites-available
+and re-run:
+
+    $ sudo a2ensite port_base_vhost.conf
     $ sudo systemctl reload apache2
