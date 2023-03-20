@@ -59,5 +59,9 @@ Use the following command to disable question prompts when generating a CSR:
     $ sudo openssl req -sha256 -new -key my_server1.com_private.key -out my_server1.com.csr -subj '/CN=my_server1.com'
     $ ll
 
+4. Creating the crt certificate for that is valid for 365 days
+
+        $ sudo openssl x509 -req -sha256 -days 365 -in my_server1.com.csr -signkey my_server1.com_private.key -out my_server1.com.crt
+
 
 
