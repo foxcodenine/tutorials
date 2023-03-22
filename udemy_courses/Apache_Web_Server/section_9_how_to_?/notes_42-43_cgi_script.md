@@ -20,3 +20,6 @@ do:
 
         $ sudo a2ensite cgi_script.conf
         $ systemctl reload apache2.service
+
+4. Copy 'cgi_dir' to '/var/www/html/my_server' 
+   and try the alias in the config files.
