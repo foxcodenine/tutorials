@@ -1,16 +1,12 @@
 const http = require('http');
 
-const server = http.createServer((req, res) => {
-    console.log(req.url, req.method, req.headers);
-    // process.exit();
-    res.setHeader('Content-Type', 'text/html');
-    res.write('<!DOCTYPE html>');
-    res.write('<html>');
-    res.write('<head><title>Page Title</title></head>');
-    res.write('<body><h1>My First Heading</h1><p>My first paragraph.</p></body>');
-    res.write('</html>');
-    res.end();
-});
+// ---------------------------------------------------------------------
+
+const routes = require('./routes.js');
+
+// ---------------------------------------------------------------------
+
+const server = http.createServer(routes.handler);
 
 server.listen(3000);
 
