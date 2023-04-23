@@ -1,4 +1,4 @@
-let { homePage, userPage1, userPage2  } = require('./pages');
+let { homePage, userPage1, userPage2, notFound  } = require('./pages');
 
 // ---------------------------------------------------------------------
 
@@ -8,26 +8,16 @@ let users = ['Christopher Farrugia']
 function requestHandler(req, res) {
 
     let url = req.url;
-    let htmlMarkup;
+    let htmlMarkup = notFound;
 
     // -------------------------------
 
     if (url === '/') {
         htmlMarkup = homePage;
     }
-    else {
-        let usersMarkup = '';
-        users.forEach((user)=>{
-            usersMarkup += `<li class="text-center  px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">${user}</li>`;
-        });
-
-        htmlMarkup = userPage1 + usersMarkup + userPage2;
-
-    }
-
     // -------------------------------
 
-    if (req.method === 'POST' && url === '/user') {
+    if (req.method === 'POST' && url === '/user') {       
 
         const body = [];
 
@@ -43,6 +33,15 @@ function requestHandler(req, res) {
         });
 
         return;
+    }
+
+    if (url === '/user') {
+        let usersMarkup = '';
+        users.forEach((user)=>{
+            usersMarkup += `<li class="text-center  px-4 py-2 bg-white hover:bg-sky-100 hover:text-sky-900 border-b last:border-none border-gray-200 transition-all duration-300 ease-in-out">${user}</li>`;
+        });
+
+        htmlMarkup = userPage1 + usersMarkup + userPage2;
     }
 
     // -------------------------------
