@@ -77,3 +77,7 @@
   transform: rotate(-45deg) translateY(6px) translateX(-6px);
   background-color: #fff;
 }
+
+.my-heading-2 {
+  @apply text-3xl font-semibold text-center;
+}
