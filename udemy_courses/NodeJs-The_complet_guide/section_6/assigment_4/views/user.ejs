@@ -1,0 +1,8 @@
+<%- contentFor('a') %>
+<ul class="flex flex-col">
+    <% emailsList.forEach(function(email){ %>
+        <li><%= email %></li>
+    <% }); %>
+</ul>
+
+<a href="/" class="btn mt-2"><span class="arrow">&larr;</span> home page</a>
