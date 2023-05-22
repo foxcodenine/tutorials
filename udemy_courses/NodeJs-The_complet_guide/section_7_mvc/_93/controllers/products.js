@@ -1,4 +1,6 @@
-const products = [];
+// const products = [];
+const Product = require('../models/product');
+// ---------------------------------------------------------------------
 
 exports.getAddProduct = function(req, res, next) {
  
@@ -10,18 +12,17 @@ exports.getAddProduct = function(req, res, next) {
     });
 }
 
-exports.postAddProduct = function(req, res, next) {
-    
-    console.log('->',req.body);
-    products.push({ title: req.body.title });
+exports.postAddProduct = async function(req, res, next) {
+    const product = new Product(req.body.title);
+    await product.save();
     res.redirect('/');
-
 }
 // ---------------------------------------------------------------------
 
-exports.getProducts = function (req, res, next) {
+exports.getProducts = async function (req, res, next) {
 
-    console.log('shop.js ->', products);
+    let products = await Product.fetchAll();
+    console.log(products);
     res.render('shop', {
         prods: products, 
         pageTitle: 'Shop', 
