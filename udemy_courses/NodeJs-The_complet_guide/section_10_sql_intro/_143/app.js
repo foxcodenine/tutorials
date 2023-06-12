@@ -12,7 +12,7 @@ const {get404} = require('./controllers/errorController.js');
 
 // ---------------------------------------------------------------------
 
-const db = require('./config/database.js');
+const db = require('./util/database.js');
 
 
 
