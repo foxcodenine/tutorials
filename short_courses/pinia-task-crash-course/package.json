@@ -1,0 +1,21 @@
+{
+  "name": "pinia-task-crash-course",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "json": "json-server -w ./data/db.json"
+  },
+  "dependencies": {
+    "json-server": "^0.17.3",
+    "pinia": "^2.1.4",
+    "uuid": "^9.0.0",
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "vite": "^4.3.9"
+  }
+}
