@@ -1,3 +1,6 @@
+const path = require('path');
+const fs = require('fs');
+
 const Sequelize = require('sequelize');
 
 const sequelize = require('../util/database.js');
@@ -17,7 +20,7 @@ const Product = sequelize.define('product', {
             allowNull:false
         },
         description: {
-            type: Sequelize.STRING,
+            type: Sequelize.TEXT,
             allowNull:false
         },
         imageUrl: {
@@ -28,7 +31,18 @@ const Product = sequelize.define('product', {
 );
 
 // Class Method
-Product.associate = function () { console.log('calls function') };
+Product.loadFromFile = async function () { 
+    const productsFilePath = path.join(path.dirname(require.main.filename), 'data', 'products.json');
+    
+    return await new Promise((resolve, reject)=> {
+        fs.readFile(productsFilePath, (err, fileContent)=>{
+
+            if (err) resolve([]);
+            else resolve( JSON.parse(fileContent));
+        })
+    });    
+};
+
 // Instance Method
 Product.prototype.someMethod = function () { console.log('instance function') }
 Product.abs = 'abc';
