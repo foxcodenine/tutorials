@@ -9,7 +9,7 @@ const {router: adminRoutes } = require('./routes/admin.js')
 const shopRoutes = require('./routes/shop.js')
 const { get404 } = require('./controllers/errorController.js');
 
-const appEnv = 'development';
+const appEnv = '_development';
 
 // ---------------------------------------------------------------------
 const sequelize = require('./util/database.js');
@@ -17,6 +17,8 @@ const Product = require('./models/Product.js');
 const User = require('./models/User.js');
 const Cart = require('./models/Cart.js');
 const CartItem = require('./models/CartItem.js');
+const Order = require('./models/Order.js');
+const OrderItem = require('./models/OrderItem.js');
 
 User.hasMany(Product);
 Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'});
@@ -24,9 +26,14 @@ Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE', onUpdate: 'CASC
 User.hasOne(Cart);
 Cart.belongsTo(User, {constraints: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
 
+User.hasMany(Order);
+Order.belongsTo(User, {constraints: true, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
 
 Cart.belongsToMany(Product, {through: CartItem});
 Product.belongsToMany(Cart, {through: CartItem});
+
+Order.belongsToMany(Product, {through: OrderItem});
+Product.belongsToMany(Order, {through: OrderItem});
 
 // const db = require('./util/_database.js');
 
@@ -72,6 +79,7 @@ app.use(async (req, res, next) => {
     try {
 
         req.user = await User.findByPk(1);
+        
         next();
 
     } catch (err) {
@@ -103,6 +111,7 @@ app.use(get404);
         // console.log(result);
 
         let user = await User.findByPk(1);
+        let cart;
 
         if(!user) {
             user = await User.create({
@@ -110,6 +119,9 @@ app.use(get404);
                 email: 'chris@foxcode.io',
                 password: 'secrete',
             })
+            cart = user.createCart();
+        } else {
+            cart = await user.getCart();
         }
 
         // console.log(user);        

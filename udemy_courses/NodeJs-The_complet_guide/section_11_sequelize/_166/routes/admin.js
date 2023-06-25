@@ -38,6 +38,8 @@ router.post('/delete', adminController.postDeleteProduct);
 // ------------------------------------
 
 
+router.get('/reset-products', adminController.postResetProducts);
+
 module.exports = {
     router,    
 };
