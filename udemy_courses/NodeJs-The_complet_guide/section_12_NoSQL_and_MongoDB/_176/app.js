@@ -5,15 +5,16 @@ const path = require('path');
 
 // ---------------------------------------------------------------------
 
-const {router: adminRoutes } = require('./routes/admin.js')
-// const shopRoutes = require('./routes/shop.js')
+const {router: adminRoutes } = require('./routes/admin.js');
+const shopRoutes = require('./routes/shop.js');
 const { get404 } = require('./controllers/errorController.js');
 
 const appEnv = '_development';
 
 // ---------------------------------------------------------------------
 
-const { mongodbClient, getMongodbClient, getDb } = require('./util/database.js')
+const { mongodbClient, getMongodbClient, getDb } = require('./util/database.js');
+const User = require('./models/User.js');
 
 // ---------------------------------------------------------------------
 
@@ -56,8 +57,8 @@ app.set('layout', 'layouts/app');
 
 app.use(async (req, res, next) => {
     try {
-        // req.user = await User.findByPk(1);
-        
+        const user = await User.findById('64a306f0f6a7d84a2733cb2a');   
+        req.user   = new User(user.name, user.email, user.password, user.cart, user._id)     
         next();
 
     } catch (err) {
@@ -72,7 +73,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin',adminRoutes);
-// app.use(shopRoutes);
+app.use(shopRoutes);
 
 // ---------------------------------------------------------------------
 
