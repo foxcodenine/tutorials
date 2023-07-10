@@ -6,6 +6,8 @@ exports.getProducts = async function(req, res, next) {
  
     /// -- TODO: get all products.
 
+    const products = await Product.fetchAll();
+
     res.render('admin/products', {
         prods: products, 
         pageTitle: 'Admin Products', 
@@ -32,15 +34,14 @@ exports.postAddProduct = async function(req, res, next) {
         const description = req.body.description;
         const price = req.body.price;
         const id = req.body.id;
+        const userId = req.user._id;
 
-        // -- TODO: add product to db.
-
-        const product = new Product(title, price, description, imageUrl);
+        const product = new Product(title, price, description, imageUrl, userId);
         await product.save();
-        // https://www.google.com/imgres?imgurl=https%3A%2F%2Fmiro.medium.com%2Fv2%2Fresize%3Afit%3A512%2F1*doAg1_fMQKWFoub-6gwUiQ.png&tbnid=ZfB58wYgeVBicM&vet=12ahUKEwjnwo7r697_AhUshf0HHb0oClAQMygLegUIARD3AQ..i&imgrefurl=https%3A%2F%2Fmedium.com%2Ffree-code-camp%2Flearn-mongodb-a4ce205e7739&docid=8J1XRDQHNCSm-M&w=512&h=512&q=mongodb&ved=2ahUKEwjnwo7r697_AhUshf0HHb0oClAQMygLegUIARD3AQ
-        
+        console.log('-> Added Product');     
 
-        res.redirect('/admin-product');
+        res.redirect('/admin/products');
+
     } catch (err) {
         console.info('! postAddEditProduct !')
         console.error(err)
@@ -53,70 +54,70 @@ exports.postAddProduct = async function(req, res, next) {
 
 exports.getEditProduct = async function(req, res, next) {
 
-    // const editMode = req.query.edit;
-    // if (!editMode) { return res.redirect('/') };
+    const editMode = req.query.edit;
+    if (!editMode) { return res.redirect('/') };
 
-    // const prodId = req.params.productId;
+    const prodId = req.params.productId;
 
-    // const product = (await req.user.getProducts({ where: {id: prodId} }))[0]
+    const product = await Product.findById(prodId);
 
-    // if (!product) { return res.redirect('/') };
+    if (!product) { return res.redirect('/') };
 
-    // res.render('admin/edit-product', {
-    //     pageTitle: 'Edit Product', 
-    //     path: '/admin/edit-product', 
-    //     editing: editMode,
-    //     product
-    // });
+    res.render('admin/edit-product', {
+        pageTitle: 'Edit Product', 
+        path: '/admin/edit-product', 
+        editing: editMode,
+        product
+    });
 }
 
 exports.postEditProduct = async function(req, res, next) {
 
-    // try {    
-    //     const id = req.body.id;
-        
-    //     const product = await Product.findByPk(id);
+    try {    
+        const id = req.body.id;        
+              
+        const title = req.body.title;
+        const imageUrl = req.body.imageUrl;
+        const description = req.body.description;
+        const price = req.body.price;
 
-        
-    //     product.title = req.body.title;
-    //     product.imageUrl = req.body.imageUrl;
-    //     product.description = req.body.description;
-    //     product.price = req.body.price;
+        const productObj = new Product(title, price, description, imageUrl, id);
 
-    //     await product.save();
-    //     console.log('Update Product')
+        await productObj.update();
+        console.log('-> Update Product')
 
-    //     res.redirect('/');
-    // } catch (err) {
-    //     console.info('! postAddEditProduct !')
-    // }
+        res.redirect('/');
+    } catch (err) {
+        console.info('! postAddEditProduct !')
+        console.info(err)
+    }
 }
 
 // ---------------------------------------------------------------------
 
 exports.postDeleteProduct = async function(req, res, next) {
  
-//     let productId = req.body.id;
+    let productId = req.body.id;
     
-//     // await (Product.findByPk(productId)).destroy();     
-//     // await Product.destroy({where: {id: productId} });     
+    await Product.delete(productId);
+    console.log('-> Delete Product')
 
-//     const product = (await req.user.getProducts({where: {id: productId } }))[0];
-//     product.destroy();
-
-//     res.redirect('/admin/products');
+    res.redirect('/admin/products');
 }
 
 exports.postResetProducts = async function(req, res, next) {
-    // const products = await Product.loadFromFile();
+    const products = await Product.loadFromFile();
 
-    // products.forEach(async (p) => {
-    //     delete p.id;
-    //     return await req.user.createProduct({ ...p });
-    // });
+    products.forEach(async (p) => {
+        delete p.id;
+        const userId = req.user._id;
 
-    // setTimeout(()=>{
-    //     res.redirect('/');
-    // }, 500)
+        const product = new Product(p.title, p.price, p.description, p.imageUrl, userId);
+        await product.save();
+    });
+
+    setTimeout(()=>{
+        res.redirect('/');
+    }, 500)
 }
 // ---------------------------------------------------------------------
