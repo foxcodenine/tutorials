@@ -1,0 +1,34 @@
+<%- contentFor('main') %>
+
+<main>
+    
+    <% let action = editing ? 'edit-product' : 'add-product' %>
+    <% let p = typeof product == "undefined" ?  {} : product %>
+    
+    <form class="product-form" action="/admin/<%= action %>" method="POST">
+        <input type="hidden" name="id" value="<%= p?._id %>">
+        <div class="form-control">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" value="<%= p?.title %>">
+        </div>
+        <div class="form-control">
+            <label for="imageUrl">Image URL</label>
+            <input type="text" name="imageUrl" id="imageUrl" value="<%= p?.imageUrl %>">
+        </div>
+        <div class="form-control">
+            <label for="price">Price</label>
+            <input type="number" name="price" id="price" step="0.01" value="<%= p?.price %>">
+        </div>
+        <div class="form-control">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" rows="5"><%= p?.description %></textarea>
+        </div>
+
+        <% if (editing) { %>
+            <button class="btn" type="submit">Update Product</button>
+        <% } else { %> 
+            <button class="btn" type="submit">Add Product</button>
+        <% } %>
+
+    </form>
+</main>
