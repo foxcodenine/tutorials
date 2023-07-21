@@ -156,7 +156,9 @@ exports.postCartDeleteProduct = async function (req, res, next) {
 
 exports.getOrders = async function (req, res, next) {
 
-    const orders = await req.user.getOrders();
+    const user = await req.user;
+
+    const orders = await Order.find({'user.userId': user._id});
 
     // let products = await Product.findAll();
     // let user = await req.user;
@@ -175,11 +177,15 @@ exports.getOrders = async function (req, res, next) {
 
 exports.postOrders = async function(req, res, next) {
 
-    const user = await req.user;
+
+
+    let user = await req?.user.populate('cart.items.productId');
 
     const products = user.cart.items.map((product)=>{
+        console.log(product.productId._doc)
         return {
-            productData: product.productId,
+            
+            productData: {...product.productId._doc },
             quantity: product.quantity
         }
     })
@@ -193,7 +199,7 @@ exports.postOrders = async function(req, res, next) {
     await order.save();
     
     user.cart.items = [];
-    user.save();
+    await user.save();
 
     // await user.addOrder();
 
