@@ -3,6 +3,8 @@ const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser')
 const path = require('path');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 
 // ---------------------------------------------------------------------
@@ -10,6 +12,7 @@ const mongoose = require('mongoose');
 const {router: adminRoutes } = require('./routes/admin.js');
 const shopRoutes = require('./routes/shop.js');
 const { get404 } = require('./controllers/errorController.js');
+const authRoutes = require('./routes/auth.js');
 
 const User = require('./models/User.js');
 
@@ -20,6 +23,11 @@ const appEnv = '_development';
 // ---------------------------------------------------------------------
            
 const app = express();
+const myStore = new MongoDBStore({
+    uri: _env.MONGOOSE_CONNECTION,
+    collection: 'mySessions',
+    expires: 1000 * 60 * 60 * 24,   // -- 1 days in milliseconds
+});
             
 
 app.set('view engine', 'ejs');
@@ -30,11 +38,31 @@ app.set('layout', 'layouts/app');
 
 // ---------------------------------------------------------------------
 
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+    secret: '45983685-df47-4c65-bdca-41cbdf224576', 
+    resave: false,
+    saveUninitialized: false,
+    // cookie: {maxAge: null},
+    store: myStore
+}));
+
+// ---------------------------------------------------------------------
+
 app.use(async (req, res, next) => {
     try {
-        const user = await User.findById('64aec671e6b1802d6726312b');   
+        if (!req.session?.user) {          
+            return next();
+        }
 
-        req.user = user 
+        const user = await User.findById(req.session.user._id);  
+        
+        req.user = user;
           
         next();
 
@@ -46,14 +74,14 @@ app.use(async (req, res, next) => {
 
 // ---------------------------------------------------------------------
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/admin',adminRoutes);
 app.use(shopRoutes);
+app.use(authRoutes);
+
+
+
 
 // ---------------------------------------------------------------------
-
 app.use(get404);
 // ---------------------------------------------------------------------
 
@@ -83,6 +111,7 @@ app.use(get404);
         
         app.listen(3000, '0.0.0.0', ()=>{
             console.log('-> Express listen on port 3000');
+            console.log('http://localhost:3000')
         });
 
     } catch (error) {
