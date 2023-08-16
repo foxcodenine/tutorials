@@ -1,0 +1,32 @@
+<%- contentFor('main') %>
+
+    <main>
+        <% if( errorMessage.length > 0 ) {%>
+            <div class="user-message user-message--error"><%= errorMessage %></div>
+        <% } %>
+        <form class="login-form" action="/signup" method="POST" novalidate>
+            <div class="form-control">
+                <label for="email">E-Mail</label>
+                <input 
+                    class="<%= validationErrors.find(e => e.path == 'email') ? 'invalid' : '' %>"
+                    type="text" name="email" id="email" value="<%= oldInput?.email %>"
+                >
+            </div>
+            <div class="form-control">
+                <label for="password">Password</label>
+                <input 
+                    class="<%= validationErrors.find(e => e.path == 'password') ? 'invalid' : '' %>"
+                    type="password" name="password" id="password" value="<%= oldInput?.password %>"
+                >
+            </div>
+            <div class="form-control">
+                <label for="confirmPassword">Confirm Password</label>
+                <input
+                    class="<%= validationErrors.find(e => e.path == 'confirmPassword') ? 'invalid' : '' %>"
+                    type="password" name="confirmPassword" id="confirmPassword" value="<%= oldInput?.confirmPassword %>"
+                >
+                <input type="hidden" value="<%= csrfToken %>" name="_csrf">
+            </div>
+            <button class="btn" type="submit" >Signup</button>
+        </form>
+    </main>
