@@ -1,0 +1,50 @@
+<%- contentFor('main') %>
+
+<main>
+
+    <% if( errorMessage.length > 0 ) {%>
+        <div class="user-message user-message--error"><%= errorMessage %></div>
+    <% } %>
+    
+    <% let action = editing ? 'edit-product' : 'add-product' %>
+    <% let p = typeof product == "undefined" ?  {} : product %>
+    
+    <form class="product-form" action="/admin/<%= action %>" method="POST" novalidate>
+        <input type="hidden" value="<%= csrfToken %>" name="_csrf">
+        <input type="hidden" name="id" value="<%= oldInput?.id || p?._id %>">
+        <div class="form-control">
+            <label for="title">Title</label>
+            <input 
+                type="text" name="title" id="title" value="<%= oldInput?.title || p?.title %>" 
+                class="<%= validationErrors.find(e => e.path == 'title') ? 'invalid' : '' %>"
+            > 
+        </div>
+        <div class="form-control">
+            <label for="imageUrl">Image URL</label>
+            <input 
+                type="text" name="imageUrl" id="imageUrl" value="<%= oldInput?.imageUrl ||  p?.imageUrl %>"
+                class="<%= validationErrors.find(e => e.path == 'imageUrl') ? 'invalid' : '' %>"
+            >
+        </div>
+        <div class="form-control">
+            <label for="price">Price</label>
+            <input 
+                type="number" name="price" id="price" step="0.01" value="<%= oldInput?.price || p?.price %>"
+                class="<%= validationErrors.find(e => e.path == 'price') ? 'invalid' : '' %>"
+            >
+        </div>
+        <div class="form-control">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" rows="5" class="<%= validationErrors.find(e => e.path == 'description') ? 'invalid' : '' %>">
+                <%= oldInput?.description || p?.description %>
+            </textarea>
+        </div>
+
+        <% if (editing) { %>
+            <button class="btn" type="submit">Update Product</button>
+        <% } else { %> 
+            <button class="btn" type="submit">Add Product</button>
+        <% } %>
+
+    </form>
+</main>
