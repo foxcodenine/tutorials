@@ -1,0 +1,14 @@
+services:
+  redis_cache:
+    build: ./
+    container_name: redis-track
+    # image: redis:latest
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --appendonly yes --replica-read-only no
+    volumes: 
+      - cache:/data
+volumes:
+  cache:
+    driver: local
