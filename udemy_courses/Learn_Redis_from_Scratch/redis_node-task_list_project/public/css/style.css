@@ -1,0 +1,12 @@
+.del {
+  color: blue;
+}
+.del:checked + span {
+  color: red;
+}
+
+.task-list {
+  list-style: none;
+}
+
+/*# sourceMappingURL=style.css.map */
