@@ -1,0 +1,29 @@
+{
+  "name": "redis_node-task_list_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "nodemon-watch": "nodemon app.js",
+    "sass-watch": "sass public/sass/main.scss public/css/style.css -w",
+    "sass-build": "sass public/sass/main.scss public/css/style.css",
+    "dev": "npm-run-all --parallel nodemon-watch sass-watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-ejs-layouts": "^2.5.1",
+    "morgan": "^1.10.0",
+    "redis": "^4.6.8"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.66.1"
+  }
+}
