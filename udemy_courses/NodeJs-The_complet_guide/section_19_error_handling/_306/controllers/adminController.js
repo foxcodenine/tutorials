@@ -42,11 +42,11 @@ exports.getAddProduct = function(req, res, next) {
 
 exports.postAddProduct = async function(req, res, next) {
     
+    const title = req.body.title;
+    const imageUrl = req.body.imageUrl;
+    const description = req.body.description;
+    const price = req.body.price;
     try {
-        const title = req.body.title;
-        const imageUrl = req.body.imageUrl;
-        const description = req.body.description;
-        const price = req.body.price;
         
         // -------------------------------------------------
 
@@ -70,7 +70,7 @@ exports.postAddProduct = async function(req, res, next) {
         const userId = req.user._id;
         
         const product = new Product({
-            // _id: new mongoose.Types.ObjectId('64d7a5690ca1971955bc1691'),
+            // _id: new mongoose.Types.ObjectId('64d7a5690ca1971955bc1691'),    // <~ testing for error handler
             title, price, description, userId, imageUrl});
         await product.save();
         console.log('-> Added Product');     
@@ -78,8 +78,11 @@ exports.postAddProduct = async function(req, res, next) {
         res.redirect('/admin/products');
 
     } catch (err) {
-        console.info('! postAddEditProduct !')
-        console.error(err)
+        console.info('! postAddEditProduct !');
+
+        const error = new Error(err)
+        error.httpStatusCode = 500;
+        return next(error);
     }
 }
 
@@ -160,6 +163,10 @@ exports.postEditProduct = async function(req, res, next) {
     } catch (err) {
         console.info('! postEditProduct !')
         console.info(err)
+
+        const error = new Error(err)
+        error.httpStatusCode = 500;
+        return next(error);
     }
 }
 
