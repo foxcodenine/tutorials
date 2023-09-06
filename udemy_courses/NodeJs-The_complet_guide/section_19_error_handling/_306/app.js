@@ -14,7 +14,7 @@ const flash = require('connect-flash');
 
 const {router: adminRoutes } = require('./routes/admin.js');
 const shopRoutes = require('./routes/shop.js');
-const { get404 } = require('./controllers/errorController.js');
+const { get404 , get500} = require('./controllers/errorController.js');
 const authRoutes = require('./routes/auth.js');
 
 const User = require('./models/User.js');
@@ -76,12 +76,17 @@ app.use(async (req, res, next) => {
         if (!user) {  return next(); }
         
         req.user = user;
+        // throw new Error('Dummy!');
           
         next();
 
     } catch (err) {
         console.info('! 123456 !');
-        throw new Error(err);
+
+        const error = new Error(err)
+        error.httpStatusCode = 500;
+        return next(error);
+        
     }
 })
 
@@ -101,7 +106,18 @@ app.use(authRoutes);
 
 
 // ---------------------------------------------------------------------
+app.get('/500', get500);
+
 app.use(get404);
+
+app.use((error, req, res, next)=>{
+    console.log('->', error.httpStatusCode)
+    
+    if (500 === error.httpStatusCode) {
+        // res.redirect('/500')
+        res.status(500).render('500', { pageTitle: 'Error', path: '/500', layout: false,});
+    }
+});
 // ---------------------------------------------------------------------
 
 
