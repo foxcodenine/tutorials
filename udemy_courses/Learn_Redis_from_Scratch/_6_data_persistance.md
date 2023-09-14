@@ -130,3 +130,23 @@ persistence.
 
 The INFO command returns information and statistics about the server in a format that is simple to
 parse by computers and easy to read by humans.
+
+<!-- --------------------------------------------------------------- -->
+
+There are two type of persistance, RDB and AOF.
+
+1. Check is RDB persistence enabled:
+redis-cli CONFIG GET save RDB persistence enabled if it return something like that:
+
+      1) "save"
+      2) "900 1 300 10 60 10000"
+RDB persistence disabled if you get empty result:
+
+      1) "save"
+      2) ""
+
+2. To check is AOF persistence enabled, invoke:
+
+      redis-cli CONFIG GET appendonly
+
+If you get yes - it's enabled, no - disabled.
