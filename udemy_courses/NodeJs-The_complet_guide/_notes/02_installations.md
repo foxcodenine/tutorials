@@ -22,6 +22,7 @@ Sass
 Template engines 
 
     $ npm install --save ejs pug express-handlebars
+    $ npm install express-ejs-layouts
 
 <!-- --------------------------------------------------------------- -->
 
@@ -68,3 +69,25 @@ Template engines
     npm install --save nodemailer
 
     npm install --save nodemailer-sendgrid-transport
+
+    npm install --save express-validator                                https://express-validator.github.io/docs/
+                                                                        https://www.npmjs.com/package/express-validator
+                                                                        https://github.com/validatorjs/validator.js
+
+    npm install --save multer
+
+    npm install --save fs-extra
+
+    npm install --save pdfkit
+
+    npm install --save stripe
+    https://www.npmjs.com/package/stripe
+
+    https://dashboard.stripe.com/test/developers
+
+    https://stripe.com/docs
+    https://stripe.com/docs/js/including
+
+    https://medium.com/@huzaifa.saleem3111/how-to-integrate-stripe-checkout-session-in-node-express-6fed126aabc0
+
+<!-- --------------------------------------------------------------- -->
