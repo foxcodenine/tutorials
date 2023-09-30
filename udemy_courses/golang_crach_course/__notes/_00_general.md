@@ -16,8 +16,17 @@
 
     $ go get -u github.com/eiannone/keyboard
     $ go get -u github.com/fatih/color
+    $ go get github.com/go-delve/delve/cmd/dlv
 
 
+### resources
 
+https://www.golangprograms.com/golang-package-examples.html
 
+https://pkg.go.dev/std
+
+https://go.dev/ref/spec
+https://go.dev/ref/spec#Arithmetic_operators
+
+https://www.tutorialspoint.com/go/index.htm
 
