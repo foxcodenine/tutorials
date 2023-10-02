@@ -16,7 +16,15 @@ const (
 
 // ---------------------------------------------------------------------
 
-func PlayRound(playerValue int) (int, string, string) {
+type Round struct {
+	Winner         int    `json:"winner"`
+	ComputerChoice string `json:"computer_choice"`
+	RoundResult    string `json:"round_result"`
+}
+
+// ---------------------------------------------------------------------
+
+func PlayRound(playerValue int) Round {
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 
 	// -- move computer choice in 'for' loop, to reset computerValue each loop
@@ -46,5 +54,11 @@ func PlayRound(playerValue int) (int, string, string) {
 		winner = COMPUTER_WIN
 	}
 
-	return winner, computerChoice, roundResult
+	result := Round{
+		Winner:         winner,
+		ComputerChoice: computerChoice,
+		RoundResult:    roundResult,
+	}
+
+	return result
 }
