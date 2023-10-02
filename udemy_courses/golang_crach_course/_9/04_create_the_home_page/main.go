@@ -2,6 +2,7 @@ package main
 
 import (
 	// "fmt"
+	"encoding/json"
 	"html/template"
 	"log"
 	"myapp/rps"
@@ -18,15 +19,24 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 
 	// ------------------------------------------
 
-	renderTemplate(w, "./index.html")
+	renderTemplate(w, "./templates/index.html")
 
 }
 
 // ---------------------------------------------------------------------
 
 func playRound(w http.ResponseWriter, r *http.Request) {
-	winner, computerChoice, roundResult := rps.PlayRound(1)
-	log.Println(winner, computerChoice, roundResult)
+	result := rps.PlayRound(1)
+	out, err := json.MarshalIndent(result, "", "   ")
+
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+
+	w.Write(out)
 }
 
 // ---------------------------------------------------------------------
@@ -53,6 +63,10 @@ func main() {
 
 	http.HandleFunc("/play", playRound)
 	http.HandleFunc("/", homePage)
+
+	// Serve static files from the "static" directory
+	fs := http.FileServer(http.Dir("static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	port := ":8080"
 
