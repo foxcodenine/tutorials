@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/tsawler/myniceprogram/helpers"
+	"github.com/foxcodenine/tutorials/udemy_courses/building_modern_web_applications_with_go/helpers"
 	"log"
 )
 
