@@ -1,23 +1,35 @@
 package main
 
 import (
+	"gin_jwt_api/controllers"
+	"gin_jwt_api/middlewares"
+	"gin_jwt_api/models"
+
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 func main() {
-	// Create a new Gin router with default middleware.
+
+	// -- Connect to the database
+	models.ConnectDataBase()
+
+	// -- Create a new Gin router with default middleware.
 	router := gin.Default()
 
-	// Define a route group under the "/api" prefix.
-	api := router.Group("/api")
+	// -- Routers ------------------------------------------------------
 
-	// Define a POST route for user registration.
-	api.POST("/register", func(context *gin.Context) {
-		// Respond with a JSON message indicating the register endpoint.
-		context.JSON(http.StatusOK, gin.H{"message": "This is the register endpoint!"})
-	})
+	publicApi := router.Group("/api")
 
-	// Start the web server on port 8080.
+	publicApi.POST("/register", controllers.Register)
+	publicApi.POST("login", controllers.Login)
+
+	// ---------------------------------------------
+
+	protectedApi := router.Group("/api/admin")
+
+	protectedApi.Use(middlewares.JwtAuthMiddleware())
+	protectedApi.GET("/user", controllers.CurrentUser)
+
+	// -- Start the web server on port 8080 ----------------------------
 	router.Run(":8080")
 }
