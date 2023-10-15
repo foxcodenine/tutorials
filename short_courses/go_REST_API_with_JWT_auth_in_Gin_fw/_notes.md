@@ -6,6 +6,10 @@ https://seefnasrul.medium.com/create-your-first-go-rest-api-with-jwt-authenticat
     /api/register
     /api/admin/user
 
+### bash commands
+
+    $ ssh -i "~/.ssh/ssh_iot/id_ecdsa" -L 3312:localhost:3306 root@51.89.4.109 -N -f
+
 
 ### commands
 
@@ -28,5 +32,10 @@ https://seefnasrul.medium.com/create-your-first-go-rest-api-with-jwt-authenticat
     // to encrypt our user's password
     $ go get -u golang.org/x/crypto
 
+    $ go get -u golang.org/x/crypto/ssh
+
 ### chatGPT
  can you optimize my code, add comments and rename variable were needed?
+
+
+
