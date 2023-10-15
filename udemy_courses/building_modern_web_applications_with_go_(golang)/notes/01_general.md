@@ -2,9 +2,14 @@
 
 # Initialize a new Go module.
     $ go mod init github.com/foxcodenine/building_modern_web_applications_with_go
+    $ go mod init foxcodenine/building_modern_web_applications_with_go
 
 # Clean up and update module dependencies.
     $ go mod tidy
+
+# Compile and run all Go source files (*.go) in the current directory using the Go tool.
+    $ go run *.go
+
 
 
 
