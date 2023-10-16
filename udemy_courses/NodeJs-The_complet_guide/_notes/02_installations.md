@@ -80,6 +80,8 @@ Template engines
 
     npm install --save pdfkit
 
+<!-- --------------------------------------------------------------- -->
+
     npm install --save stripe
     https://www.npmjs.com/package/stripe
 
@@ -89,5 +91,10 @@ Template engines
     https://stripe.com/docs/js/including
 
     https://medium.com/@huzaifa.saleem3111/how-to-integrate-stripe-checkout-session-in-node-express-6fed126aabc0
+
+<!-- --------------------------------------------------------------- -->
+
+
+    npm install --save uuid
 
 <!-- --------------------------------------------------------------- -->
