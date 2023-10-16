@@ -14,7 +14,8 @@ class SinglePost extends Component {
 
   componentDidMount() {
     const postId = this.props.match.params.postId;
-    fetch('URL')
+    console.log('>>', process.env.REACT_APP_BASE_URL + '/feed/post/' + postId)
+    fetch(process.env.REACT_APP_BASE_URL + '/feed/post/' + postId)
       .then(res => {
         if (res.status !== 200) {
           throw new Error('Failed to fetch status');
@@ -22,9 +23,11 @@ class SinglePost extends Component {
         return res.json();
       })
       .then(resData => {
+        console.log('>>', process.env.REACT_APP_BASE_URL +  resData.post.imageUrl)
         this.setState({
           title: resData.post.title,
           author: resData.post.creator.name,
+          image: process.env.REACT_APP_BASE_URL +  resData.post.imageUrl,
           date: new Date(resData.post.createdAt).toLocaleDateString('en-US'),
           content: resData.post.content
         });
