@@ -2,6 +2,7 @@ package render
 
 import (
 	"bytes"
+	"foxcodenine/building_modern_web_applications_with_go/pkg/config"
 	"html/template"
 	"log"
 	"net/http"
@@ -10,14 +11,19 @@ import (
 
 // ---------------------------------------------------------------------
 
+var app *config.AppConfig
+
+// NewTemplates initializes the app's templates.
+func NewTemplates(a *config.AppConfig) {
+	app = a
+}
+
+// ---------------------------------------------------------------------
+
 // RenderTemplate renders the specified template to the http.ResponseWriter.
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
-
-	// -- Creating the template cache
-	tc, err := createTemplateCache()
-	if err != nil {
-		log.Fatal(err)
-	}
+	// -- get the template cache from app config
+	tc := app.TemplateCache
 
 	// -- Retrieving the template from the cache
 	t, ok := tc[tmpl]
@@ -29,7 +35,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 	buf := new(bytes.Buffer)
 
 	// -- Executing the template by writing the output to the buffer.
-	err = t.Execute(buf, nil)
+	err := t.Execute(buf, nil)
 	if err != nil {
 		log.Println(err)
 	}
@@ -42,7 +48,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 }
 
 // createTemplateCache creates a map of template names to parsed templates.
-func createTemplateCache() (map[string]*template.Template, error) {
+func CreateTemplateCache() (map[string]*template.Template, error) {
 	myCache := map[string]*template.Template{}
 
 	// -- Retrieving all the page templates
