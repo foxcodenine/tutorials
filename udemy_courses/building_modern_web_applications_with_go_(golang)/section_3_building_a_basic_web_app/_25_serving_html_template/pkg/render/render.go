@@ -22,8 +22,18 @@ func NewTemplates(a *config.AppConfig) {
 
 // RenderTemplate renders the specified template to the http.ResponseWriter.
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
-	// -- get the template cache from app config
-	tc := app.TemplateCache
+
+	// -- Declaring the variable to hold the template cache
+	var tc map[string]*template.Template
+
+	if app.UseCach {
+		// -- Reading the template cache information if the cache is enabled
+		tc = app.TemplateCache
+
+	} else {
+		// -- Rebuilding the template cache if the cache is not enabled
+		tc, _ = CreateTemplateCache()
+	}
 
 	// -- Retrieving the template from the cache
 	t, ok := tc[tmpl]
