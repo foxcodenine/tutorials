@@ -30,5 +30,8 @@ func routes(app *config.AppConfig) http.Handler {
 	// Handling the "/about" route with the About handler from the Repo
 	mux.Get("/about", handlers.Repo.About)
 
+	fileServer := http.FileServer(http.Dir("./resources/static/"))
+	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
+
 	return mux // Returning the configured router
 }
