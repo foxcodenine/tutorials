@@ -29,3 +29,43 @@
 
 # Command to download the "godotenv" package from GitHub.
     go get github.com/joho/godotenv
+
+
+<!-- --------------------------------------------------------------- -->
+
+npm packages
+
+# Vanilla JS Datepicker
+https://mymth.github.io/vanillajs-datepicker/#/
+
+
+
+# notie
+https://www.npmjs.com/package/notie
+https://github.com/jaredreich/notie
+npm install notie
+
+
+    <head>
+    ...
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
+    <style>
+        /* override styles here */
+        .notie-container {
+        box-shadow: none;
+        }
+    </style>
+    </head>
+    <body>
+    ...
+    <!-- Bottom of body -->
+    <script src="https://unpkg.com/notie"></script>
+    </body>
+
+# sweetalert2
+
+https://sweetalert2.github.io/
+
+npm install sweetalert2
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
