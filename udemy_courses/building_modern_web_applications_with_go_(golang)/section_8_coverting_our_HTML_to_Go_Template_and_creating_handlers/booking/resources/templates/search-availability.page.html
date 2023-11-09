@@ -1,0 +1,39 @@
+{{ template "base" . }}
+
+{{ define "content" }}
+<div class="container">
+
+    <!-- Main Content Container -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <h1 class="mt-5">Search for Availability</h1>
+
+                <!-- Reservation Form -->
+                <form action="reservation.html" method="GET" novalidate class="needs-validation">
+                    <div class="form-row reservation-dates">
+                        <div class="col">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="start_date" name="start_date" aria-describedby="startDateHelp" autocomplete="off" required placeholder="Arrival">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="end_date" name="end_date" aria-describedby="endDateHelp" autocomplete="off" required placeholder="Departure">
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Search Availability</button>
+                </form>
+
+                <!-- Some Text and Button -->
+                <p class="mt-5" id="some-text">Some text to test!</p>
+                <button class="btn btn-secondary" id="some-btn">Some Button</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+{{ end }}
