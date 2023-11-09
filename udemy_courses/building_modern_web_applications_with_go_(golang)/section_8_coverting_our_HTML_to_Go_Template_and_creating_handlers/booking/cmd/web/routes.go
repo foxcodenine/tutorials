@@ -30,6 +30,12 @@ func routes(app *config.AppConfig) http.Handler {
 	// Handling the "/about" route with the About handler from the Repo
 	mux.Get("/about", handlers.Repo.About)
 
+	mux.Get("/generals-quarters", handlers.Repo.Generals)
+	mux.Get("/majors-suite", handlers.Repo.Majors)
+	mux.Get("/search-availability", handlers.Repo.Availability)
+	mux.Get("/make-reservation", handlers.Repo.Reservation)
+	mux.Get("/contact", handlers.Repo.Contact)
+
 	fileServer := http.FileServer(http.Dir("./resources/static/"))
 	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
 
