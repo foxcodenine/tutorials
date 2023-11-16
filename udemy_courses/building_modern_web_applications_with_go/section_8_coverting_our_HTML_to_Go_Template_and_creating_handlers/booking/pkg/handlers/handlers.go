@@ -110,11 +110,13 @@ func (m *Repository) PostAvailability(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(fmt.Sprintf("start date is %s and end date is %s", start, end)))
 }
 
+// -- jsonResponse is a struct representing a JSON response.
 type jsonResponse struct {
 	OK      bool   `json:"ok"`
 	Message string `json:"message"`
 }
 
+// -- AvailabilityJSON is a method associated with the Repository used to handle JSON responses for availability.
 func (m *Repository) AvailabilityJSON(w http.ResponseWriter, r *http.Request) {
 	resp := jsonResponse{
 		OK:      false,

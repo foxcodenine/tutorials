@@ -5,7 +5,8 @@
 
     <div class="row">
         <div class="col">
-            <img src="/static/images/generals-quarters.png" alt="room image" class="img-fluid img-thumbnail mx-auto d-block room-image">
+            <img src="/static/images/generals-quarters.png" alt="room image"
+                class="img-fluid img-thumbnail mx-auto d-block room-image">
         </div>
     </div>
 
@@ -41,10 +42,10 @@
 
 {{define "js"}}
 <script>
-const btn = document.getElementById('check-availability-button');
+    const btn = document.getElementById('check-availability-button');
 
-btn.addEventListener('click', function() {
-    let markUp = `
+    btn.addEventListener('click', function () {
+        let markUp = `
     <form id="check-availability-form" action="reservation.html" method="post" novalidate class="needs-validation">
         <div class="form-row reservation-dates w-100" id="reservation-dates-modal">
             <div class="col">
@@ -56,18 +57,41 @@ btn.addEventListener('click', function() {
         </div>
     </form>`;
 
-    attetion.custom({
-        msg: markUp, 
-        title: "Choose your dates",
-        callback: async ()=>{
-           const response = await fetch(`/search-availability-json`);
-           const data = await response.json();
-           console.log(data);
-           console.log(data.ok);
-           console.log(data.message);
-        }
-    });
-})
+        attetion.custom({
+            msg: markUp,
+            title: "Choose your dates",  
+            
+            willOpen: function () {
+                const elem = document.getElementById('reservation-dates-modal');
+                const rangePicker = new DateRangePicker(elem, {
+                    format: "dd-mm-yyyy",
+                    showOnFocus: true,
+                });
+            },
+
+            didOpen: function () {
+                document.getElementById('start').disabled = false;
+                document.getElementById('end').disabled = false;
+            },
+
+
+            callback: async () => {
+
+                const form = document.getElementById('check-availability-form');
+                let formData = new FormData(form);
+                formData.append("csrf_token", "{{.CSRFToken}}");
+
+                const response = await fetch(`/search-availability-json`, {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                console.log(data);
+                console.log(data.ok);
+                console.log(data.message);
+            }
+        });
+    })
 
 </script>
 {{ end }}

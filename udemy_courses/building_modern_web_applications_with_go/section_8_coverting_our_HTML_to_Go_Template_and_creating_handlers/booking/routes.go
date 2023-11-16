@@ -36,7 +36,7 @@ func routes(app *config.AppConfig) http.Handler {
 
 	router.Get("/search-availability", handlers.Repo.Availability)
 	router.Post("/search-availability", handlers.Repo.PostAvailability)
-	router.Get("/search-availability-json", handlers.Repo.AvailabilityJSON)
+	router.Post("/search-availability-json", handlers.Repo.AvailabilityJSON)
 
 	// Static files
 	fileServer := http.FileServer(http.Dir("./resources/static/"))
