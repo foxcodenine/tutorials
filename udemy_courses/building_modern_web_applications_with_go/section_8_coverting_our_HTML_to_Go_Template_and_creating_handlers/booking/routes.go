@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/foxcodenine/small-projects/bookings/pkg/config"
-	"github.com/foxcodenine/small-projects/bookings/pkg/handlers"
+	"github.com/foxcodenine/small-projects/bookings/internal/config"
+	"github.com/foxcodenine/small-projects/bookings/internal/handlers"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
