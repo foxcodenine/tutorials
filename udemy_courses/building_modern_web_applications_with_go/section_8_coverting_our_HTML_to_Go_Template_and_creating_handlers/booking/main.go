@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/foxcodenine/small-projects/bookings/pkg/config"
-	"github.com/foxcodenine/small-projects/bookings/pkg/handlers"
-	"github.com/foxcodenine/small-projects/bookings/pkg/render"
+	"github.com/foxcodenine/small-projects/bookings/internal/config"
+	"github.com/foxcodenine/small-projects/bookings/internal/handlers"
+	"github.com/foxcodenine/small-projects/bookings/internal/render"
 	"log"
 	"net/http"
 	"time"
