@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/foxcodenine/small-projects/bookings/internal/config"
+	"github.com/foxcodenine/small-projects/bookings/internal/forms"
 	"github.com/foxcodenine/small-projects/bookings/internal/models"
 	"github.com/foxcodenine/small-projects/bookings/internal/render"
 )
@@ -91,7 +92,14 @@ func (m *Repository) Majors(w http.ResponseWriter, r *http.Request) {
 
 // -- Reservation is a method associated with the Repository used in the Reservation page.
 func (m *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{})
+	render.RenderTemplate(w, r, "make-reservation.page.html", &models.TemplateData{
+		Form: forms.New(nil),
+	})
+}
+
+// -- PostReservation handles the posting of a reservation form.
+func (m *Repository) PostReservation(w http.ResponseWriter, r *http.Request) {
+
 }
 
 // ---------------------------------------------------------------------

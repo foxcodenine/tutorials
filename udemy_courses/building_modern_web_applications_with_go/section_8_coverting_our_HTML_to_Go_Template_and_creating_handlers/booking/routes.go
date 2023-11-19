@@ -31,12 +31,14 @@ func routes(app *config.AppConfig) http.Handler {
 	router.Get("/about", handlers.Repo.About)
 	router.Get("/generals-quarters", handlers.Repo.Generals)
 	router.Get("/majors-suite", handlers.Repo.Majors)
-	router.Get("/make-reservation", handlers.Repo.Reservation)
 	router.Get("/contact", handlers.Repo.Contact)
 
 	router.Get("/search-availability", handlers.Repo.Availability)
 	router.Post("/search-availability", handlers.Repo.PostAvailability)
 	router.Post("/search-availability-json", handlers.Repo.AvailabilityJSON)
+
+	router.Get("/make-reservation", handlers.Repo.Reservation)
+	router.Post("/make-reservation", handlers.Repo.PostReservation)
 
 	// Static files
 	fileServer := http.FileServer(http.Dir("./resources/static/"))
