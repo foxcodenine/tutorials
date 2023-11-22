@@ -68,4 +68,9 @@ func main() {
 	createMaps()
 	createArray()
 	createSlice()
+
+	// -- lesson 16 -----------------------------------------
+	fmt.Println("\n-- lesson 16 ------------------------\n ")
+
+	createConditionals()
 }
