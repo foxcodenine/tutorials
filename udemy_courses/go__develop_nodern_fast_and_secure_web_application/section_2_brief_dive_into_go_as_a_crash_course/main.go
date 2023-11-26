@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"foxcode.io/helpers"
+	importandexportdatainjson "foxcode.io/import_and_export_data_in_json"
+)
 
 var x = 23
 
@@ -73,4 +78,33 @@ func main() {
 	fmt.Println("\n-- lesson 16 ------------------------\n ")
 
 	createConditionals()
+
+	// -- lesson 17 -----------------------------------------
+	fmt.Println("\n-- lesson 17 ------------------------\n ")
+
+	createLoop()
+
+	// -- lesson 18 -----------------------------------------
+	fmt.Println("\n-- lesson 18 ------------------------\n ")
+
+	createInterface()
+
+	// -- lesson 19 -----------------------------------------
+	fmt.Println("\n-- lesson 19 ------------------------\n ")
+
+	var myVar helpers.SomeType
+
+	myVar.Name = "Stan Smith"
+
+	fmt.Println(myVar)
+
+	// -- lesson 20 -----------------------------------------
+	fmt.Println("\n-- lesson 20 ------------------------\n ")
+
+	createChannels()
+
+	// -- lesson 21 -----------------------------------------
+	fmt.Println("\n-- lesson 21 ------------------------\n ")
+	importandexportdatainjson.RunExport()
+	importandexportdatainjson.RunImport()
 }
