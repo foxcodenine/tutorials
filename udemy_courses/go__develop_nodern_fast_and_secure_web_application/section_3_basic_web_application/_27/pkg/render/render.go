@@ -1,102 +1,105 @@
 package render
 
 import (
-	"fmt"
+	"bytes"
 	"html/template"
 	"log"
 	"net/http"
-	"sync"
+	"path/filepath"
+
+	"foxcode.io/pkg/config"
 )
+
+// ---------------------------------------------------------------------
+
+var app *config.AppConfig
+
+// SetAppConfig sets the global application configuration.
+func SetAppConfig(a *config.AppConfig) {
+	app = a
+}
 
 // ---------------------------------------------------------------------
 
 // RenderTemplate renders the specified template to the provided http.ResponseWriter.
 func RenderTemplate(w http.ResponseWriter, tmpl string) {
-	parsedTemplate, err := template.ParseFiles("../../templates/"+tmpl, "../../templates/base-layout.tmpl")
-	if err != nil {
-		log.Println("Error parsing template:", err)
-		return
-	}
 
-	err = parsedTemplate.Execute(w, nil)
-	if err != nil {
-		log.Println("Error executing template:", err)
-	}
-}
+	var templateCache map[string]*template.Template
+	var err error
 
-// ---------------------------------------------------------------------
-
-// templateCache is a concurrent-safe map to store parsed templates.
-var templateCache = struct {
-	sync.RWMutex                               // Embedding read-write mutex for concurrent access control
-	templates    map[string]*template.Template // Map to store parsed templates with string keys
-}{
-	templates: make(map[string]*template.Template), // Initialize the map
-}
-
-// ---------------------------------------------------------------------
-
-// RenderTemplateTemp renders the template using the template cache.
-func RenderTemplateTemp(w http.ResponseWriter, t string) {
-
-	templateCache.RLock() // Acquire a read lock (green light) on the template cache to allow concurrent reads
-	cachedTemplate, inCache := templateCache.templates[t]
-	templateCache.RUnlock() // Release the read lock once the required information is obtained
-
-	if !inCache {
-		log.Println("\n> Creating template and adding to cache")
-		err := createTemplateCache(t)
+	// Step 1: Use the existing template cache if caching is enabled; otherwise, create a new cache.
+	if app.UseCache {
+		templateCache = app.TemplateCache
+	} else {
+		// Create a new template cache if caching is disabled.
+		templateCache, err = CreateTemplateCache()
 		if err != nil {
-			log.Println("! render.go RenderTemplateTemp 1 !", err)
-			return
+			log.Fatalln("Error creating template cache: ", err)
+		}
+	}
+
+	// Step 2: Get the right template from the cache based on the specified tmpl string
+	template, ok := templateCache[tmpl]
+	if !ok {
+		log.Fatalln("Template not found in cache: ", tmpl)
+	}
+
+	// Step 3: Store the result in a buffer and double-check if it is a valid value
+	buf := new(bytes.Buffer)
+	err = template.Execute(buf, nil)
+	if err != nil {
+		log.Fatalln("Error executing template: ", err)
+	}
+
+	// Step 4: Render the template by writing the buffer content to the http.ResponseWriter
+	_, err = buf.WriteTo(w)
+	if err != nil {
+		log.Fatalln("Error writing template to response: ", err)
+	}
+}
+
+// ---------------------------------------------------------------------
+
+// CreateTemplateCache creates a map of template names to template sets.
+// Each template set includes the main page template and any associated layout templates.
+func CreateTemplateCache() (map[string]*template.Template, error) {
+
+	templateCache := map[string]*template.Template{}
+
+	// Step 1: Get all available page templates
+	pages, err := filepath.Glob("../../templates/*-page.tmpl")
+	if err != nil {
+		return templateCache, err
+	}
+
+	// Step 2: Get all available layout templates
+	layouts, err := filepath.Glob("../../templates/layouts/*-layout.tmpl")
+	if err != nil {
+		return templateCache, err
+	}
+
+	// Step 3: Range through the slice of *.page.tmpl files
+	for _, page := range pages {
+		name := filepath.Base(page)
+
+		// Step 4: Create a template set for the current page
+		templateSet, err := template.New(name).ParseFiles(page)
+		if err != nil {
+			return templateCache, err
 		}
 
-		templateCache.RLock()
-		cachedTemplate = templateCache.templates[t]
-		templateCache.RUnlock()
+		// Step 5: If layout templates exist, parse and add them to the template set
+		if len(layouts) > 0 {
+			templateSet, err = templateSet.ParseGlob("../../templates/layouts/*-layout.tmpl")
+			if err != nil {
+				return templateCache, err
+			}
+		}
+
+		// Step 6: Add the template set to the cache with the template name as the key
+		templateCache[name] = templateSet
 	}
 
-	err := cachedTemplate.Execute(w, nil)
-	if err != nil {
-		log.Println("! render.go RenderTemplateTemp 2 !", err)
-	}
+	// Step 7: Return the populated template cache
+	return templateCache, nil
 }
-
-// ---------------------------------------------------------------------
-
-// createTemplateCache parses the specified template files and adds them to the template cache.
-func createTemplateCache(t string) error {
-	templates := []string{
-		fmt.Sprintf("../../templates/%s", t),
-		"../../templates/base-layout.tmpl",
-	}
-
-	// Parse the template
-	tmpl, err := template.ParseFiles(templates...)
-	if err != nil {
-		return err
-	}
-
-	// Update the template cache in a concurrent-safe way
-	templateCache.Lock() // Acquire an exclusive lock (red light) for making changes to the template cache
-	templateCache.templates[t] = tmpl
-	templateCache.Unlock() // Release the exclusive lock in case of an error
-
-	return nil
-}
-
-// ---------------------------------------------------------------------
-
-/*
-The RLock(), RUnlock(), Lock(), and Unlock() methods come from the
-sync.RWMutex type in the Go standard library.
-
-RLock() and RUnlock():
-RLock() is used to acquire a read lock, allowing multiple goroutines to read the shared resource concurrently.
-RUnlock() is used to release the read lock, allowing other goroutines to acquire it.
-
-Lock() and Unlock():
-Lock() is used to acquire an exclusive write lock, allowing only one goroutine to modify the shared resource at a time.
-Unlock() is used to release the write lock, allowing other goroutines to acquire it.
-
-*/
