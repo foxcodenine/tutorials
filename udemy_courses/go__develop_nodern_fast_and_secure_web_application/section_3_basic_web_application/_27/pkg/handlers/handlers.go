@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 
+	"foxcode.io/common"
 	"foxcode.io/pkg/config"
 	"foxcode.io/pkg/render"
 )
@@ -36,10 +37,17 @@ func SetHandlersRepository(r *Repository) {
 
 // HomeHandler handles requests to the home page
 func (m *Repository) HomeHandler(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "home-page.tmpl")
+	render.RenderTemplate(w, "home-page.tmpl", &common.TemplateData{})
 }
 
 // AboutHandler handles requests to the about page
 func (m *Repository) AboutHandler(w http.ResponseWriter, r *http.Request) {
-	render.RenderTemplate(w, "about-page.tmpl")
+
+	sidekickMap := map[string]string{
+		"morty": "Ooh, wee!",
+	}
+
+	render.RenderTemplate(w, "about-page.tmpl", &common.TemplateData{
+		StringMap: sidekickMap,
+	})
 }

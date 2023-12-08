@@ -7,8 +7,17 @@ import (
 	"net/http"
 	"path/filepath"
 
+	"foxcode.io/common"
 	"foxcode.io/pkg/config"
 )
+
+// ---------------------------------------------------------------------
+
+// AddDefaultData adds default values to the provided TemplateData and returns the modified instance.
+func AddDefaultData(td *common.TemplateData) *common.TemplateData {
+	// Add default values here if needed.
+	return td
+}
 
 // ---------------------------------------------------------------------
 
@@ -22,7 +31,7 @@ func SetAppConfig(a *config.AppConfig) {
 // ---------------------------------------------------------------------
 
 // RenderTemplate renders the specified template to the provided http.ResponseWriter.
-func RenderTemplate(w http.ResponseWriter, tmpl string) {
+func RenderTemplate(w http.ResponseWriter, tmpl string, td *common.TemplateData) {
 
 	var templateCache map[string]*template.Template
 	var err error
@@ -44,14 +53,17 @@ func RenderTemplate(w http.ResponseWriter, tmpl string) {
 		log.Fatalln("Template not found in cache: ", tmpl)
 	}
 
-	// Step 3: Store the result in a buffer and double-check if it is a valid value
+	// Step 3: Append default data to the TemplateData
+	td = AddDefaultData(td)
+
+	// Step 4: Store the result in a buffer and double-check if it is a valid value
 	buf := new(bytes.Buffer)
-	err = template.Execute(buf, nil)
+	err = template.Execute(buf, td)
 	if err != nil {
 		log.Fatalln("Error executing template: ", err)
 	}
 
-	// Step 4: Render the template by writing the buffer content to the http.ResponseWriter
+	// Step 5: Render the template by writing the buffer content to the http.ResponseWriter
 	_, err = buf.WriteTo(w)
 	if err != nil {
 		log.Fatalln("Error writing template to response: ", err)
