@@ -21,11 +21,15 @@ var session *scs.SessionManager
 func main() {
 
 	// Load environment variables
-	envVars, err := envloader.LoadEnvFile("../../.env")
+	app.RootPath = "../../"
+	envVars, err := envloader.LoadEnvFile(app.RootPath + ".env")
 	if err != nil {
 		log.Fatalf("Error loading environment variables: %v", err)
 	}
 	app.Env = envVars
+
+	// Set application configuration for rendering
+	render.SetAppConfig(&app)
 
 	// Create a new session manager with a 24-hour lifetime.
 	session = scs.New()
@@ -44,7 +48,6 @@ func main() {
 	}
 
 	app.TemplateCache = templateCache
-	render.SetAppConfig(&app)
 
 	// Convert USE_CACHE string to boolean and assign it app.UseCache
 	useCache, err := strconv.ParseBool(app.Env["USE_CACHE"])

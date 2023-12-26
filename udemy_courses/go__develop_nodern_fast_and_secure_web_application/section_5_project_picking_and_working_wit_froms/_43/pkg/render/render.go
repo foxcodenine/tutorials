@@ -79,13 +79,13 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	templateCache := map[string]*template.Template{}
 
 	// Step 1: Get all available page templates
-	pages, err := filepath.Glob("../../templates/*-page.tmpl")
+	pages, err := filepath.Glob(app.RootPath + "templates/*-page.tmpl")
 	if err != nil {
 		return templateCache, err
 	}
 
 	// Step 2: Get all available layout templates
-	layouts, err := filepath.Glob("../../templates/layouts/*-layout.tmpl")
+	layouts, err := filepath.Glob(app.RootPath + "templates/layouts/*-layout.tmpl")
 	if err != nil {
 		return templateCache, err
 	}
