@@ -47,7 +47,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    {{ block "js" . }}{{ end }}
+    
 
     <script>
 
@@ -70,12 +70,7 @@
             })
         })()
 
-
-        const elem = document.getElementById('reservation-dates');
-        const rangepicker = new DateRangePicker(elem, {
-            // ...options
-            format: "yyyy-mm-dd",
-        });
+        // -----------------------------------------------------------------------------------------
 
         function myNotify(msg, msgType = 'success') {
 
@@ -197,36 +192,10 @@
         }
 
 
-        const attention = myPrompt();
-
-        let markup = `
-          <form id="check-availability-form" action="" method="POST" novalidate class="needs validation">
-            <div class="row g-3" id="reservation-dates-modal">
-              <div class="col">
-                <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
-              </div>
-              <div class="col">
-                <input disabled required class="form-control" type="text" name="end" id="end" placeholder="Departure">
-              </div>
-            </div>
-          </form>
-        `;
-
-
-
-
-        // Example: Display notifications after a delay
-        setTimeout(() => {
-            // myNotify('Hello World!')
-            // myNotifyModal('Success!','<em>Hello World!</em>', 'success', 'Cool')
-            // attention.modalMsg({title: 'my title', msg: 'my message', footer: 'my footer', type: 'error'});
-            attention.customMsg({ title: 'my title', msg: markup });
-        }, 2000)
-
-
-
     </script>
-    
+
+    {{ block "js" . }}{{ end }}
+
 
 
 </body>
