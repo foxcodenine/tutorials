@@ -60,7 +60,31 @@
 
 <div class="row">
     <div class="col text-center">
-        <a href="/reservation" class="btn btn-success">Check Availability!</a>
+        <a id="check-availability" href="#" class="btn btn-success">Check Availability!</a>
     </div>
 </div>
+{{end}}
+
+{{define "js"}}
+<script>
+    const attention = myPrompt();
+
+    let markup = `
+    <form id="check-availability-form" action="" method="POST" novalidate class="needs validation">
+        <div class="row g-3" id="reservation-dates-modal">
+        <div class="col">
+            <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
+        </div>
+        <div class="col">
+            <input disabled required class="form-control" type="text" name="end" id="end" placeholder="Departure">
+        </div>
+        </div>
+    </form>
+    `;
+
+    document.getElementById("check-availability").addEventListener("click", function () {
+        attention.customMsg({ title: 'my title', msg: markup });
+    })
+
+</script>
 {{end}}

@@ -18,7 +18,7 @@
 
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
 
-    <link rel="stylesheet" href="./static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
     {{ block "css" . }}{{ end }}
 
 </head>
@@ -160,7 +160,6 @@
                     showCancelButton: true,
                     willOpen: () => {
                         const elem = document.getElementById("reservation-dates-modal");
-                        console.log(123);
                         const rangepicker = new DateRangePicker(elem, {
                             format: "yyyy-mm-dd",
                             showOnFocus: true,
