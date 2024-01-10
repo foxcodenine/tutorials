@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/ -->
+<html lang="en" class="k-webkit k-webkit102"><input type="hidden" id="__yoroi_connector_api_injected_type" value="prod"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="spinner-keyframes">
+@-webkit-keyframes rotation 
+{  from { -webkit-transform : rotate( 0deg );   }
+  to   { -webkit-transform : rotate( 359deg ); }
+}
+@-moz-keyframes rotation {
+  from { -moz-transform : rotate( 0deg );   }
+  to   { -moz-transform : rotate( 359deg ); }
+}
+@-o-keyframes rotation {
+  from { -o-transform : rotate( 0deg );   }
+  to   { -o-transform : rotate( 359deg ); }
+}
+@keyframes rotation {
+  from { transform : rotate( 0deg );   }
+  to   { transform : rotate( 359deg ); }
+}
+</style><style id="term-style">.terminal {
+  float: left;
+  border: #000000 solid 5px;
+  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-size: 11px;
+  color: #f0f0f0;
+  background: #000000;
+  white-space: nowrap;
+}
+
+.terminal-cursor {
+  color: #000000;
+  background: #f0f0f0;
+}
+</style>
+  <title>NDG Introduction to Linux II - Chapter 4: Graphical Desktops</title>
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="https://ndg-content.s3.us-west-2.amazonaws.com/img/favicon.ico">
+
+  <link rel="stylesheet" href="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/44d1a56e411f.css" type="text/css">
+
+  <script async="" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/analytics.js"></script><script type="text/javascript" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/polyfill-6.26.0.min.js"></script>
+  <script type="text/javascript" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/9930c7fbf6d8.js"></script>
+
+  <script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-11306725-3', 'netdevgroup.com');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+
+</script>
+
+  <script type="text/javascript">
+    var NDGCourse = {name: "NDG Introduction to Linux II"};
+    var videoContent = {};
+  </script>
+</head>
+
+<body style="">
+
+  <!-- Start Navbar -->
+  <div class="navbar navbar-primary navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand hidden-xs">
+          NDG Introduction to Linux II - Chapter 4: Graphical Desktops
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-share-alt" aria-hidden="true"></i> Share <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://www.facebook.com/share.php?u=https://netdevgroup.com/online/courses/linux.html&amp;title=Learn%20Linux%20with%20NDG" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+            </li>
+            <li>
+              <a href="http://twitter.com/home?status=Learn%20Linux%20with%20NDG+https://netdevgroup.com/online/courses/linux.html" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li id="tour-help" class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-lg hidden-md hidden-sm">NDG Introduction to Linux II</span>
+            <div class="pull-right">
+              <i class="fa fa-question-circle"></i>
+              <span class="hidden-xs"> Help</span>
+              <b class="caret"></b>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header hidden-md hidden-sm hidden-lg">Chapter 4: Graphical Desktops</li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s2/faq/">Frequently Asked Questions</a></li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s2/feedback/">Contact Support</a></li>
+            <li class="hidden-xs desktop-only"><a id="toursb" class="support" href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/#">Start Tour</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- End Navbar -->
+
+
+  <div id="splitter" class="height-full k-widget k-splitter" data-role="splitter">
+    <div role="group" class="k-pane k-scrollable" style="position: absolute; top: 0px; width: 567px; height: 455.008px; left: 0px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            <!-- Tab Btns -->
+              <ul id="left-tabs" class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/#content" role="tab" data-toggle="tab">Content</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/#objectives" role="tab" data-toggle="tab">Objectives</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/#terms" role="tab" data-toggle="tab">Key Terms</a></li>
+                
+                <li class="mobile-only" style="display:none;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/#mobile" role="tab" data-toggle="tab"><i class="fa fa-terminal"></i> Devices</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div id="content-container" class="tab-content tab-content-panel">
+                  <div id="content" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="tour2" class="btn-group-vertical btn-group-xs pull-left hidden-xs">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                          
+                                          4.1 Introduction
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          4.2 Desktop Environments
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          4.3 Installing the Desktop Environment
+                                        </a>
+                                        
+                                          
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.3.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          4.3.1 Desktop Localization
+                                        </a>
+                                        
+                                      
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          4.4 Remote Desktop Environments
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.5" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          4.5 Using a Remote X Server
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          4.6 Connecting to a Remote Display
+                                        </a>
+                                        
+                                          
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          4.6.1 XDMCP
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          4.6.2 Virtual Network Computing (VNC)
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          4.6.3 Spice
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          4.6.4 Remote Desktop Protocol (RDP)
+                                        </a>
+                                        
+                                      
+                                        
+                                      
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.1" class="btn btn-default ndg-menu-btn change_section btn-primary active" style="text-align:left;">
+                                    4.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    4.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    4.3
+                                  </a>
+                                  
+                                    
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.3.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    4.3.1
+                                  </a>
+                                  
+                                
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    4.4
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.5" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    4.5
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    4.6
+                                  </a>
+                                  
+                                    
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    4.6.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    4.6.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    4.6.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    4.6.4
+                                  </a>
+                                  
+                                
+                                  
+                                
+                            </div>
+                            <div class="content-menu-space">
+                              <div class="btn-group hidden-lg hidden-md hidden-sm mobile-chapter-select">
+                                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-caret-down"></i> Sections
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                        4.1 Introduction
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.2" class="btn-default ndg-menu-btn change_section">
+                                        4.2 Desktop Environments
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.3" class="btn-default ndg-menu-btn change_section">
+                                        4.3 Installing the Desktop Environment
+                                      </a>
+                                      
+                                        
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.3.1" class="btn-default ndg-menu-btn change_section">
+                                        4.3.1 Desktop Localization
+                                      </a>
+                                      
+                                    
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.4" class="btn-default ndg-menu-btn change_section">
+                                        4.4 Remote Desktop Environments
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.5" class="btn-default ndg-menu-btn change_section">
+                                        4.5 Using a Remote X Server
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6" class="btn-default ndg-menu-btn change_section">
+                                        4.6 Connecting to a Remote Display
+                                      </a>
+                                      
+                                        
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.1" class="btn-default ndg-menu-btn change_section">
+                                        4.6.1 XDMCP
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.2" class="btn-default ndg-menu-btn change_section">
+                                        4.6.2 Virtual Network Computing (VNC)
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.3" class="btn-default ndg-menu-btn change_section">
+                                        4.6.3 Spice
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.4" class="btn-default ndg-menu-btn change_section">
+                                        4.6.4 Remote Desktop Protocol (RDP)
+                                      </a>
+                                      
+                                    
+                                      
+                                    
+                                    </li>
+                                  </ul>
+                                </div>
+                              <div>
+<article id="content-4.1" style="display: block;"><h2>4.1 Introduction</h2>
+<p>Linux is often mistaken for the tools that come prepackaged with it in various distributions. Many of the commands that you have learned up to this point in the curriculum come from other Free / Libre sources, such as the GNU Core Utilities.</p>
+
+<p>To meet the need for application productivity, many distributions also come with a <var>graphical user interface (GUI)</var>. The graphics themselves are actually built upon several layers, a display server, a display manager, a window manager, and a desktop environment.</p>
+
+<p>From the truncated output of the <code>pstree</code> command, we can ascertain that the display manager in the following example is Xorg, the display manager is <var>lightdm</var>, and the desktop environment is Cinnamon.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>#</strong> pstree | grep dm
+    	|-lightdm-+-Xorg---{Xorg}
+    	|     	|-lightdm-+-cinnamon-sessio-+-applet.py---{applet.py}
+    	|     	|     	`-2*[{lightdm}]
+    	|     	`-2*[{lightdm}]
+</pre>
+
+<p>The desktop environment is the component that users tend to interact with. In the next section, we will discuss several of the most popular desktop environments, including Gnome (pronounced “genome”), KDE, and Xfce.</p>
+
+
+</article><article id="content-4.2"><h2>4.2 Desktop Environments</h2>
+<h3>GNOME</h3>
+
+<p>The GNOME Desktop is one of the most popular desktop environments that runs on the Linux operating system and provides a GUI (Graphical User Interface) for users desiring a graphical interface for their system. The GNOME desktop and its derivatives are the default desktop for some of the world’s most popular Linux distributions, including Debian, Fedora, Ubuntu, and Mint. Major supporters of the GNOME project include Red Hat (IBM), Canonical, and Google.</p>
+
+<p>As a fully-featured desktop environment, GNOME offers such amenities as window transparency, animation, and window snapping. GNOME components are developed in many languages, with the GTK (GNOME Tool Kit) used for widgets. </p>
+
+<p><strong>GNOME 3</strong></p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.2-1.png"></div>
+<p></p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>To learn more about the Ubuntu GUI, feel free to take a tour of Ubuntu’s implementation of Gnome 3 on their <a href="https://ubuntu.com/desktop/features#" target="_blank">website</a>:</p>
+</div>
+
+<h3>KDE</h3>
+
+<p>The KDE (K Desktop Environment) was named as a wordplay on the UNIX-based CDE (Common Desktop Environment). KDE has been in constant development since 1996; therefore, it has a very rich suite of programs and applications. These include Amarok (music player), Krita (paint app), Konqueror (browser), DigiKam (photo gallery), and many more.</p>
+
+<p>KDE is mostly written in C++ and Qt (pronounced “cute”). <a href="https://doc.qt.io/qt-5/qtdesigner-manual.html" target="_blank">Qt Designer</a> is an IDE (Integrated Desktop Environment) that is used to build KDE applications efficiently.</p>
+
+<p><strong>KDE Plasma Desktop</strong></p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.2-2.png"></div>
+<p></p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>Cisco Packet Tracer<sup>™</sup>, a network simulation tool for Cisco Networking Academy<sup>™</sup> students, is developed using Qt and C++.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span></strong><span class="ansi-blue">~</span>$ apt-cache depends packettracer
+packettracer
+  Depends: libdouble-conversion1
+  Depends: qt-at-spi
+<strong><span class="ansi-green">sysadmin@localhost</span></strong>:<span class="ansi-blue">~</span>$ apt-cache depends qt-at-spi
+qt-at-spi
+  Depends: libc6
+  Depends: libqt4-dbus
+  Depends: libqtcore4
+  Depends: libqtgui4
+  Depends: libstdc++6
+  Depends: libx11-6
+</pre>
+</div>
+
+<h3>Xfce</h3>
+
+<p>Unlike Gnome and KDE, Xfce is a lightweight desktop environment. The advantages of using Xfce are load time and responsiveness, while the disadvantages are graphical effects and transparency. This makes Xfce ideal for older computers with less RAM and slower video cards, and those who value performance.</p>
+
+<p>Like Gnome and KDE, Xfce has its own tools. The file manager is called Thunar, and there are many plugins available for various uses. </p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.2-3.png"></div>
+
+<p>To give you an idea of why Xfce is considered a lightweight desktop environment, the memory usage of a computer was taken using the Gnome-based Cinnamon desktop environment, running immediately after it was booted. Note that 552 megabytes of RAM are being used. </p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>$</strong> free -h
+       total    	used    free  	shared  buff/cache	available
+Mem:   	3.9G    	552M    2.8G   	21M    	534M    	3.1G
+Swap:   947M      	0B    	947M
+</pre>
+
+<p>Compare that to the memory usage of Xfce, taken under the same conditions, using 334 megabytes of RAM.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>$</strong> free -h
+        total    	used    free  	shared  buff/cache	available
+Mem:   	3.9G    	334M    3.1G   	3.1M   	476M    	3.3G
+Swap:  	947M      	0B    	947M
+</pre>
+</article><article id="content-4.3"><h2>4.3 Installing the Desktop Environment</h2>
+<p>The desktop environment and applications are typically installed together. The different distributions often make a <var>meta-package</var>, or group of packages, to accomplish this task. For Debian-based distributions, there is the <code class="console">gnome-session</code> package, which is a meta-package containing the full suite of GNOME applications and components. This can save an administrator time and effort in selecting the individual application packages to install along with the <code class="console">desktop-base</code> and <code class="console">gnome</code> packages. For example, if an administrator wanted to install the X Windows system and the GNOME desktop environment on a Debian-based system that didn't have X Windows previously installed, the following command would accomplish this task:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>$</strong> sudo apt-get install xserver-xorg gnome-session
+</pre>
+
+<p>The packages being installed, <code class="console">xserver-xorg</code> and <code class="console">gnome-session</code>, refer to the X Windows system and GNOME desktop environment, respectively.</p>
+
+<p>To install the X Windows system and the KDE desktop environment on a Debian-based distribution, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>$</strong> sudo apt-get install xserver-xorg kde-standard
+</pre>
+
+<p>For Red Hat-derived distributions, there is a package group for the GNOME desktop environment, which could be installed by an administrator with the following command:</p>
+
+<pre class="content_terminal">sysadmin@localhost:~$ yum groupinstall general-desktop
+</pre>
+
+<p>To install the package group for the KDE desktop environment on a Red Hat-derived distribution, an administrator can execute the following command:</p>
+
+<pre class="content_terminal">sysadmin@localhost:~$ yum groupinstall kde-desktop
+</pre>
+
+<p>Most distributions will also offer meta-packages or package groups that provide just the essential X Windows components without the suite of applications.</p>
+</article><article id="content-4.3.1"><h2>4.3.1 Desktop Localization</h2>
+<p>For non-English speaking users, an administrator may also want to install the appropriate localization package related to the desktop environment. In particular, the K Desktop Environment has packages for non-English speakers.</p>
+
+<p>The Debian-derived KDE package name for a particular language follows the form of <code class="console">kde-i18n-locale-<var>code</var></code>. For example, the Debian package for Spanish is <code class="console">kde-i18n-sp</code>, and it could be installed by an administrator with the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>$</strong> sudo apt-get install kde-i18n-sp
+</pre>
+
+<p>For Red Hat-derived distributions, the KDE localization package name follows the form of <code class="console">kde-i18n-<var>locale</var></code>. So, the package for Spanish users could be installed with the following command:</p>
+
+<pre class="content_terminal">sysadmin@localhost:~$ yum install kde-i18n-Spanish
+</pre>
+
+<p>Successful installation of any of the above packages should result in a ready to use graphical environment, including the X server and chosen desktop environment.</p>
+
+<p>The <code>localepurge</code> tool can be used to remove localization files for languages that you do not use. This can free up considerable space on the hard drive. To install and use the <code>localepurge</code> tool on a Debian-based system, use the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>#</strong> apt install localepurge; dpkg-reconfigure localepurge
+</pre>
+
+<p>The terminal will turn blue, revealing a pseudo-graphical interface:</p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.3.1-1.png"></div>
+<p></p>
+
+<p>To proceed to the next step, the user would press the <strong>Enter</strong> key.</p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.3.1-2.png"></div>
+<p></p>
+
+<p>Select the languages that you want to keep by using the keyboard arrows and the <strong>Spacebar</strong>. In this case, en_US.UTF-8 (United States English Unicode Transformation Format) has been selected. Upon completion, use the <strong>Tab</strong> and <strong>Enter</strong> keys to select <code class="console">&lt;OK&gt;</code>.</p>
+
+<p>Review the following package configuration options and select <code class="console">&lt;Yes&gt;</code> to continue:</p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.3.1-3.png"></div>
+<p></p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.3.1-4.png"></div>
+<p></p>
+
+<p>In the event that you need to free up even more space, when using a Raspberry Pi, for instance, various fonts can be removed.</p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.3.1-5.png"></div>
+<p></p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>Be sure that you do not remove fonts that are dependencies for other parts of your operating system.</p>
+</div>
+</article><article id="content-4.4"><h2>4.4 Remote Desktop Environments</h2>
+<h3>X11-Forwarding</h3>
+
+<p>The Xorg project was forked from the X11 project many years ago; however, we still refer to sending graphics over a network connection as X11-Forwarding. Other projects, such as Mir and Wayland,  are working on similar functionality, but we are going to focus on the Xorg implementation.</p>
+
+<p>Xorg can pipe graphics over <code>ssh</code>, so the first command needed to get remote graphics working is the following for Debian-based machines:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@server</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>#</strong> apt install openssh-server
+</pre>
+
+<p>Or for Red Hat-based machines:</p>
+
+<pre class="content_terminal">root@server:~# dnf install openssh-server
+</pre>
+
+<p>From the remote machine, verify that an <code>ssh</code> connection can be made.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>$</strong> ssh remote@192.168.0.7
+The authenticity of host '192.168.0.7 (192.168.0.7)' can't be established.
+ECDSA key fingerprint is SHA256:uaE/DovZplLYBbTZoEGNtoBf+WQfxJ0zx3UbU2cG2uI.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '192.168.0.7' (ECDSA) to the list of known hosts.
+remote@192.168.0.7's password:
+Last login: Sun Dec 22 11:37:24 2019 from 192.168.0.7
+remote@server ~ $
+</pre>
+
+<p>Once connectivity has been established, graphical programs can be run on the server by invoking them with the <code class="console">DISPLAY</code> variable.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">remote@server</span></strong> <strong><span class="ansi-blue">~</span></strong> <strong>$</strong> DISPLAY=:0 gnome-calculator
+</pre>
+
+<p>Unfortunately, the graphics will appear on the remote server while the client sees nothing. Close the program, exit the <code>ssh</code> session, and try again, this time using the <code>-X</code> option.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">remote@server</span></strong> <strong><span class="ansi-blue">~</span></strong> <strong>$</strong> exit
+logout
+Connection to 192.168.0.7 closed.
+<strong><span class="ansi-green">sysadmin@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>$</strong> ssh -X remote@192.168.0.7
+remote@192.168.0.7's password:
+Last login: Sun Dec 22 12:37:31 2019 from 192.168.0.7
+<strong><span class="ansi-green">remote@server</span></strong> <strong><span class="ansi-blue">~</span></strong> <strong>$</strong> gnome-calculator
+</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>The above process also works for macOS</p>
+</div>
+
+<p>This time, the <code class="console">DISPLAY</code> variable does not need to be used, and the graphical program appears on the local computer. Remote forwarding in this fashion is very useful for <var>thin clients</var> such as kiosks and cash registers.</p>
+
+<p>In the following example, the terminal and menu on the left clearly demonstrate that the client does not have the <code>iagno</code> game installed. In the right terminal, the client logs into a remote server using <code>ssh</code> with x-forwarding (<code>-X</code>). When <code>iagno</code> is run, the game appears on the client’s desktop (lower-right).</p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.4-1.png"></div>
+<p></p>
+
+<p>To view and modify various <code>ssh</code> settings on your server, including X11-Forwarding, refer to the <code class="console">/etc/ssh/sshd_config</code> file.</p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>PuTTY is a program capable of establishing an SSH session and forwarding a stream of data to a Windows-based computer. Xming is an X Window server that converts the stream to a usable graphical program.</p>
+</div>
+
+<p>
+For an X server to be able to forward graphical programs to another computer, an authorization file must be referred to. Fortunately, this is taken care of during an <code>ssh</code> connection. The program which accomplishes this is called <code>xauth</code>, which generates an MIT Magic Cookie. This cookie is typically stored in a hidden file called <code class="console">.Xauthority</code>. Any computer that has a copy of this cookie is allowed to remotely run graphical programs generated by the X server.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>$</strong> xauth -v
+Using authority file /home/sysadmin/.Xauthority
+xauth&gt; ?
+Commands:
+    	add   	exit  	extract   help  	info  	list 	 
+    	merge 	nextract  nlist 	nmerge	quit  	remove    
+    	source	version   ?     	generate
+xauth&gt; exit
+</pre>
+
+<p>The file is data, not text; therefore the output of this file appears to be corrupted, but the words MIT-MAGIC-COOKIE can still be discerned.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>$</strong> file .Xauthority
+.Xauthority: data
+<strong><span class="ansi-green">sysadmin@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>$</strong>cat .Xauthority
+localhost.localdomain0MIT-MAGIC-COOKIE-1R����b���p�s:�p1MIT-MAGIC-COOKIE-1E�DrV�;ɽc�^��    sysadmin1MIT-MAGIC-COOKIE-1E�DrV�;ɽc�^��    sysadmin1MIT-MAGIC-COOKIE-1E�DrV�;ɽc�^��    sysadmin0MIT-MAGIC-COOKIE-1��i�����bZ;��N%/
+</pre>
+</article><article id="content-4.5"><h2>4.5 Using a Remote X Server</h2>
+<p>One of the benefits of the X server is the ability to run a GUI-based program on one system and have its output displayed on another system. To properly set up a server and client, two things must be set correctly in order for this functionality to work: the <code>xhost</code> settings and the <code class="console">DISPLAY</code> environment variable.</p>
+
+<p>By default, the X server will permit connections from clients that are from the same host (known as <code class="console">localhost</code>). In order to allow a connection from a remote machine, the <code>xhost</code> command can be executed to add a host to be permitted. For example, to permit connections on your local system from two systems, one with a resolvable hostname <code class="console">server1</code> and the other with an IP address of <code class="console">192.168.20.30</code>, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>#</strong> xhost +server1 +192.168.20.30
+server1 being added to access control list
+192.168.20.30 being added to access control list
+</pre>
+
+<p>To restrict access to the X server for <code class="console">server1</code>, remove the host by using the <code>xhost</code> as follows:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>#</strong> xhost –server1
+server1 being removed from access control list
+</pre>
+
+<p>To verify which hosts are currently allowed, execute the <code>xhost</code> command without any arguments:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>#</strong> xhost
+access control enabled, only authorized clients can connect
+INET:192.168.20.30
+SI:localuser:root
+</pre>
+
+<p>The syntax for the output of the previous <code>xhost</code> command includes the family and the system name in the form of <code class="console">family:name</code> The family name, which is not case-sensitive, is essentially a category which can be one of the following (taken from the <code>xhost</code> man page):</p>
+
+<pre class="content_terminal"><strong>NAMES</strong>
+ 
+       A complete name has the syntax ''family:name'' where the	 families  are
+       as follows:
+ 
+       inet	 Internet host (IPv4)
+       inet6	 Internet host (IPv6)
+       dnet	 DECnet host
+       nis	 Secure RPC network name
+       krb	 Kerberos V5 principal
+       local	 contains only one name, the empty string
+       si	 Server Interpreted
+ 
+       The family is case insensitive.	The format of the name varies with the
+       family.
+</pre>
+
+ <p>As a result, <code class="console">INET:192.168.20.30</code> means <var>an internet host (IPv4) of 192.168.20.30</var>. Note that when using the <code>xhost</code> command to specify a remote system, it is often unnecessary to specify the family, as the <code>xhost</code> command can determine the family by the format of the name itself.</p>
+
+<p>While troubleshooting problems with the <code>xhost</code> settings, disable the enforcement of any security by allowing all hosts with the following command. Note the output of this command clearly indicates that now any host can display graphic output on the local machine. While this may aid in troubleshooting <code>xhost</code> problems, it is not good practice to use this setting permanently.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>#</strong> xhost +
+access control disabled, clients can connect from any host
+</pre>
+
+<p>To enable enforcement of security, execute the following:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span></strong>:<strong><span class="ansi-blue">~</span></strong><strong>#</strong>  xhost -
+</pre>
+
+<p>When using <code>xhost</code> to forward graphics from an X server to a remote computer, <code>xauth</code> must be manually invoked to generate an MIT Magic Cookie.</p>
+
+</article><article id="content-4.6"><h2>4.6 Connecting to a Remote Display</h2>
+<p>This section will outline the process of connecting to a remote display.</p>
+
+<ol type="disc" class="">
+<li>
+<p>The first step in attempting to use an X server remotely will be to permit X connections from a remote host back to the originating X server by adding the host with the <code>xhost</code> command. For example, to connect to a system with a name that can be resolved to a name of <code class="console">centos</code> from the system named <code class="console">server1</code>, execute the following command on <code class="console">server1</code>:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> xhost +centos</pre>
+</li>
+<li>
+<p>The second step is to make the connection to the remote host with the <code>ssh</code> or <code>telnet</code> command. To connect to the <code class="console">centos</code> system from <code class="console">server1</code> with the <code>ssh</code> command, execute the following command on <code class="console">server1</code>:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ssh centos</pre>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+<p>Using the <code>telnet</code> command to log in to a remote server is not considered secure since
+your username and password are sent over the network without being encrypted, as is any
+data that is sent after you are logged in.</p>
+ 
+<p>If the <code>-X</code> option is used with the <code>ssh</code> login, then you don't have to worry about <code>xhost</code> or
+the <code class="console">DISPLAY</code> variable because the X11 protocol will be automatically tunneled back inside
+of the <code class="console">ssh</code> protocol to your display server. This will only work if the server has been set up
+to permit X11 forwarding, so it’s still good to know how to connect via a normal login
+session.</p>
+
+</div>
+<p>As long as the <code class="console">centos</code> system is running an <code class="console">ssh</code> server, and the appropriate security
+methods are met, then a successful login should occur using a valid username and password.</p>
+</li>
+<li>
+<p>The third step would be to set the <code class="console">DISPLAY</code> environment variable. In some cases, the value of the variable may be appropriately set automatically and will not need to be changed. If,  however, the <code class="console">DISPLAY</code> variable contains a hostname that does not resolve back to the address of the system where the <code>ssh</code> session originated <code class="console">server1</code>, then it will have to be set. For example, when the following command is executed through the remote connection logged into <code class="console">centos</code>:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">centos</span>:<span class="ansi-blue">~</span>$</strong> echo $DISPLAY</pre>
+
+<p>If the output of this command was:</p>
+
+<pre class="content_terminal">localhost.localdomain:0.0</pre>
+
+<p>This means that the X client should try to use the localhost system's first display (<code class="console">0.0</code>).
+Since <code class="console">localhost</code> in this context refers to the host that you have connected to (not the
+remote system running the X server) this setting will not work correctly. On the other hand, if
+the output of <code>echo $DISPLAY</code> is as shown below, then GUI-based output will be sent to the
+remote machine, <code class="console">server1</code>:</p>
+
+<pre class="content_terminal">server1.test:0.0</pre>
+
+<p>To set the <code class="console">DISPLAY</code> variable manually, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> export DISPLAY=”server1.test:0.0”</pre>
+</li>
+<li>
+<p>The final step would be to verify that an X client would be able to connect back to the X server where the <code>ssh</code> session originated. Executing almost any graphical application would work at this step. For example, to execute one of the simpler applications that will display an analog clock, issue the command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">centos</span>:<span class="ansi-blue">~</span>$</strong> xclock</pre>
+
+<p>If a graphical clock appears on the remote X system (<code class="console">server1</code>), then it is working; otherwise, if output appears like below, then there is a problem:</p>
+
+<pre class="content_terminal">Error: Can't open display: localhost.localdomain:0.0</pre>
+</li>
+</ol>
+
+<p>Keep in mind that even with a correctly configured <code>xhost</code> and <code class="console">DISPLAY</code> variable, a remote GUI-based display may not work. Other issues could be interfering:</p>
+
+<ul type="disc" class="">
+<li>Firewall settings on both systems</li>
+<li>Host access restrictions in the <code class="console">/etc/hosts.allow</code> and <code class="console">/etc/hosts.deny</code> files</li>
+<li>Telnet/SSH server settings on the system that is supposed to accept a login</li>
+<li>X server settings on the system that is supposed to accept a remote X connection; for instance, the <code class="console">/etc/ssh/sshd_config</code> file</li>
+</ul>
+
+<p>(In-depth discussion of these items is beyond the scope of this course.)</p>
+
+<div class="alert alert-info">
+<strong><p>Consider This ‌⁠​​</p></strong>
+<p>In order to configure a Red Hat-derived system with a default installation to accept incoming connections from remote systems to the X server, the <code class="console">/etc/gdm/custom.conf</code> file must have the following under the <code class="console">[security]</code> heading:</p>
+<p></p>
+<pre class="config">DisallowTCP=false</pre>
+</div>
+</article><article id="content-4.6.1"><h2>4.6.1 XDMCP</h2>
+<p>XDMCP is a protocol built into Xorg, used to share a remote screen, similar to X11-Forwarding over SSH. Unlike X11-Forwarding, the XDMCP protocol is not encrypted. Therefore, XDMCP is not recommended for use in a production environment.</p>
+
+<p>To use XDMCP, settings need to be added in the display manager. In this case, the following lines would be added to the <code class="console">lightdm</code> configuration file.</p>
+<pre class="config">[XDMCPServer]
+enabled=true
+[security]
+DisallowTCP=false</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> nano /etc/lightdm/lightdm.conf</pre>
+<pre class="content_terminal"><code class="input">GNU nano 2.9.3</code>         <code class="input">/etc/lightdm/lightdm.conf</code>                  <code class="input">Modified</code>
+ 
+[Seat:*]
+autologin-guest=false
+autologin-user=computer
+autologin-user-timeout=0
+[XDMCPServer]
+enabled=true
+[security]
+DisallowTCP=false
+ 
+ 
+<code class="input">^G</code> Get Help  <code class="input">^O</code> Write Out  <code class="input">^</code>W Where Is  <code class="input">^K</code> Cut Text
+<code class="input">^X</code> Exit      <code class="input">^R</code> Read File  <code class="input">^\</code> Replace   <code class="input">^U</code> Uncut Text</pre>
+
+<p>After restarting the display server, XDMCP can be seen running on UDP port 177 using either the <code>netstat</code> or <code>ss</code> command.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ss -tunl | grep 177
+udp UNCONN 0    0    0.0.0.0:177   0.0.0.0:*
+udp UNCONN 0    0    *:177         *:*</pre>
+
+<p>Once the port has been allowed through the firewall, an XDMCP client can be used to connect to the server. <var>Remmina</var> is a client (shown below) that can be used to communicate over many protocols,  including RDP, SSH, Spice, VNC, XDMCP, and more.</p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.6.1.png"></div>
+</article><article id="content-4.6.2"><h2>4.6.2 Virtual Network Computing (VNC)</h2>
+<p>VNC is an open source, platform-independent graphical desktop sharing program originally written by Olivetti &amp; Oracle Research Lab. It relies upon the Remote Frame Buffer protocol to transmit graphics across a network to a remote host. The ability to share a user’s desktop makes VNC a handy tool for a network administrator to have.</p>
+
+<p>There are several variants of VNC, such as RealVNC, Remmina, Remotely, TigerVNC, and TightVNC. We are going to use <code>vnc4server</code> for both the client and server as they are available in the repositories. To install and run <code>vnc4server</code> in a Debian-based environment type:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> apt install vnc4server; vncserver</pre>
+
+<p>For a Red Hat-based environment:</p>
+
+<pre class="content_terminal">root@localhost:~# dnf install x11vnc; x11vnc -usepw</pre>
+
+<p>The shared desktop can be accessed from the client using either the IP address or the hostname of the server. The <code class="console">DISPLAY</code> variable may coincide with the screen that is being shared.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>#</strong> xvnc4viewer 192.168.0.9:1
+VNC Viewer Free Edition 4.1.1 for X - built Feb 25 2015 22:57:51
+Copyright (C) 2002-2005 RealVNC Ltd.
+See http://www.realvnc.com for information on VNC.
+ 
+Sun Dec 22 20:28:10 2019
+ CConn:   	connected to host 192.168.0.9 port 5901
+ CConnection: Server supports RFB protocol version 3.8
+ CConnection: Using RFB protocol version 3.8
+Password:
+Sun Dec 22 20:28:13 2019
+ TXImage: 	Using default colormap and visual, TrueColor, depth 24.
+ CConn:   	Using pixel format depth 6 (8bpp) rgb222
+ CConn:   	Using ZRLE encoding
+ 
+VNC Viewer Free Edition 4.1.1 for X - built Feb 25 2015 22:57:51
+Copyright (C) 2002-2005 RealVNC Ltd.
+See http://www.realvnc.com for information on VNC.
+Server:
+Sun Dec 22 20:29:46 2019
+ main:    	End of stream</pre>
+
+<p>The desktop of the machine hosting the VNC server can now be seen and manipulated by the client.</p>
+
+<p>One of the more user-friendly VNC implementations comes from the KDE project. K Remote Frame Buffer (<code>krfb</code>) and K Remote Desktop Client (<code>krdc</code>) are the server and client programs, respectively.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> apt install krfb; krfb</pre>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.6.2-1.png"></div>
+
+<p>A new password is generated each time that <code>krfb</code> is run, or a fixed password can be set by selecting <var>Enable Unattended Access</var>. When a client attempts to connect, a window pops up, allowing the user to choose whether to share control using the keyboard and mouse.</p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.6.2-2.png"></div>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.6.2-3.png"></div>
+
+<p>Once the server accepts the client connection, the client has the ability to view or control the desktop.</p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong> ‌⁠​​⁠​</p>
+<p>Websites such as AnyDesk, Go To My PC, Log Me In, and Team Viewer allow users to share access to their computers with anyone over the internet. Some technical support scams use these legitimate services to remotely take over the computers of unsuspecting victims. </p>
+</div>
+
+</article><article id="content-4.6.3"><h2>4.6.3 Spice</h2>
+<p>Spice is an open source <var>guest</var>, <var>server</var>, <var>protocol</var>, and <var>client</var>. The guest is an interface to a kernel virtual machine (KVM). The KVM virtual technology allows for Linux to be run as a <var>hypervisor</var>, which can host virtual machines (VMs). <var>QEMU</var>, which is short for  Quick EMUlator, is a processor emulator that is used to virtualize the hardware used by VMs. For instance, QEMU is capable of emulating a processor on an X86_64 PC. The following components of <code>spice</code> provide access to the guest.</p>
+
+<p>The server portion of <code>spice</code> is implemented using <code class="console">libspice</code>.  Interfaces to the virtual machine are provided using a virtual device interface (VDI).  This allows guests and clients to share USB devices, run multiple screens, share audio, and more.  The server also attempts to pass the rendering tasks to the client using QXL virtual graphics display, making the remote experience feel as if the user was working within a native environment.</p>
+
+<p>The <code>spice</code> protocol is optimized for streaming.  This also provides the user with a better experience.  Audio and video streams can be passed from the guest through the server using the protocol to the client efficiently and seamlessly.</p>
+
+<p>There are many clients that support <code>spice</code>, including <code>remmina</code>, <code>spice-client</code>, and <code>spice-html5</code>. The <code>spice</code> client allows users to access a remote system by using a remote viewer called <var>virt-viewer</var>.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>While implementing Spice is beyond the scope of this course, instructions for implementing Spice can be found <a href="https://www.linux-kvm.org/page/SPICE" target="_blank">here</a>.</p>
+</div>
+</article><article id="content-4.6.4"><h2>4.6.4 Remote Desktop Protocol (RDP)</h2>
+<p>RDP is a proprietary protocol developed by Microsoft<sup>™</sup> for use with its Remote Desktop Connection<sup>©</sup> software included with Windows<sup>©</sup>. In order to interface with Windows systems, Linux systems are able to use various clients, including <code>rdesktop</code> and <code>xfreerdp</code>.</p>
+
+<p>In order to use the <code>rdesktop</code> client in a Debian-based distribution, install it using <code>apt</code>.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> apt install rdesktop</pre>
+
+<p>Users of Red Hat-based systems would type:</p>
+
+<pre class="content_terminal">root@localhost:~# dnf install rdesktop</pre>
+
+<p>Given the username and IP address of the Windows system that is being connected to, use the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>#</strong> rdesktop -u USER 192.168.0.1
+Autoselected keyboard map en-us
+Connection established using plain RDP.</pre>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 4_ Graphical Desktops_files/L2v2_Ch_4.6.4.png"></div>
+
+<p>Normally, an RDP client would connect to a Windows server, but a compatible program called <code>xrdp</code> is available to use as a server. On another machine, install it using <code>apt</code> or <code>dnf</code>.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> apt install xrdp</pre>
+
+<p>Users of Red Hat-based systems would type:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> dnf install xrdp</pre>
+
+<p>The configuration file for <code>xrdp</code> is located at <code class="console">/etc/xrdp/xrdp.ini</code>. You may want to change the listening port number to something other than 3389 as RDP is a well-known service and often scanned for by malicious actors.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> nano /etc/xrdp/xrdp.ini</pre>
+
+<p>Note that while the service may be running, the IP address or port may not be open for the <code>xrdp</code> server to listen for a connection. This could be due to the <code class="console">/etc/xrdp/xrdp.ini</code> file or a firewall rule.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> systemctl status xrdp.service
+● xrdp.service - xrdp daemon
+   Loaded: loaded (/lib/systemd/system/xrdp.service; enabled; vendor preset: enabled)
+   Active: active (running) since Tue 2020-01-07 17:21:16 EST; 15min ago
+			&lt; Output Omitted &gt;
+Jan 07 17:21:17 computer xrdp[6236]: (6236)(140149882738496)[INFO ] listening to port 3389 on 0.0.0.0</pre>
+
+<p>Assuming the default port is used, in preparation for the connection, ensure that the firewall allows TCP port 3389 through:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ufw allow 3389/tcp</pre>
+
+<p>For increased security, limit RDP access to a specific client or subnet of clients:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ufw allow from 192.168.0.0/24 to any port 3389</pre>
+
+
+<script>var a=['ZG9tYWlu','ZW5kc1dpdGg=','Lm5ldGRldmdyb3VwLmNvbQ==','c3Jj','aHR0cHM6Ly9jb250ZW50Lm5ldGRldmdyb3VwLmNvbS9pbWFnZXMv'];var b=function(c,d){c=c-0x0;var e=a[c];if(b['ZRhVTb']===undefined){(function(){var f=function(){var g;try{g=Function('return (function() '+'{}.constructor("return this")( )'+');')();}catch(h){g=window;}return g;};var i=f();var j='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';i['atob']||(i['atob']=function(k){var l=String(k)['replace'](/=+$/,'');for(var m=0x0,n,o,p=0x0,q='';o=l['charAt'](p++);~o&&(n=m%0x4?n*0x40+o:o,m++%0x4)?q+=String['fromCharCode'](0xff&n>>(-0x2*m&0x6)):0x0){o=j['indexOf'](o);}return q;});}());b['AGigOS']=function(r){var s=atob(r);var t=[];for(var u=0x0,v=s['length'];u<v;u++){t+='%'+('00'+s['charCodeAt'](u)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(t);};b['PvDhvb']={};b['ZRhVTb']=!![];}var w=b['PvDhvb'][c];if(w===undefined){e=b['AGigOS'](e);b['PvDhvb'][c]=e;}else{e=w;}return e;};if(!document[b('0x0')][b('0x1')](b('0x2'))){new Image()[b('0x3')]=b('0x4')+'lpic1-s2/content-1219248.gif';}</script><noscript><img src="https://content.netdevgroup.com/images/lpic1-s2/content-1219248.jpg"/></noscript></article>
+</div>
+
+                            <ul class="pager">
+                              <li class="pull-left previous disabled"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/" class="btn"><i class="fa fa-caret-left"></i> Previous</a></li>
+                              <li class="pull-right next"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.2" class="btn">Next <i class="fa fa-caret-right"></i></a></li>
+                            </ul>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  
+                  <div class="tab-pane" id="objectives">
+                    <div class="row">
+                      <div class="col-xs-12">
+
+                        <h2>Chapter 4: Graphical Desktops</h2>
+                        <p>This chapter will cover the following exam objectives:</p>
+
+                        
+                        <p><strong>106.2: Graphical Desktops v2</strong></p>
+                        <p>Weight: 1</p>
+                        <p>Candidates should be aware of major Linux desktops. Furthermore, candidates should be aware of protocols used to access remote desktop sessions.</p>
+
+                        <p><strong>Key Knowledge Areas:</strong></p>
+                        <ul type="disc" class="">
+                          
+                          <li>
+                            Awareness of major desktop environments <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.2" class="change_section">Section 4.2</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Awareness of protocols to access remote desktop sessions <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.4" class="change_section">Section 4.4</a></small>
+                            
+                            
+                          </li>
+                          
+                        </ul>
+                        
+
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="tab-pane" id="terms">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="panel-group" id="accordion">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/#c1">
+                                  Chapter 4: Graphical Desktops
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="c1" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                <dl>
+                                
+                                  <dt>DISPLAY</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    The DISPLAY variable can be used to run graphical programs on a server once connectivity to a remote machine has been established.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.4" class="change_section">Section 4.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>Gnome</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    The GNOME Desktop is one of the most popular Desktop Environments that runs on the Linux Operating System and provides a GUI.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.2" class="change_section">Section 4.2</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>KDE</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    The KDE (K Desktop Environment), named as a wordplay on the UNIX-based CDE (Common Desktop Environment), has a very rich suite of programs and applications. KDE is mostly written in C++ and Qt.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.2" class="change_section">Section 4.2</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>RDP</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    RDP (Remote Desktop Protocol) is a proprietary protocol developed by Microsoft™ for use with its Remote Desktop Connection© software included with Windows©. In order to interface with Windows systems, Linux systems are able to use various clients, including rdesktop and xfreerdp.
+
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.4" class="change_section">Section 4.6.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>Spice</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Spice is an open source guest, server, protocol, and client; the guest is an interface to a kernel virtual machine (KVM).
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.3" class="change_section">Section 4.6.3</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>VNC</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    VNC is an open source, platform-independent graphical desktop sharing program originally written by Olivetti &amp; Oracle Research Lab. It relies upon the Remote Frame Buffer protocol to transmit graphics across a network to a remote host.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.2" class="change_section">Section 4.6.2</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>X11</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Refers to the X (Windows X) protocol version 11 which has been forked to the Xorg project. However the term X11 is still used to refer to the process of sending graphics over a network connection. 
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.4" class="change_section">Section 4.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>XDMCP</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    XDMCP is a protocol built into Xorg, used to share a remote screen, similar to X11-Forwarding over SSH.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.6.1" class="change_section">Section 4.6.1</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>Xfce</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Xfce is a lightweight desktop environment
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.2" class="change_section">Section 4.2</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>xauth</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    For an X server to be able to forward graphical programs to another computer, an authorization file must be referred to. The xauth command generates an MIT Magic Cookie which is typically stored in a hidden file called .Xauthority. 
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.4" class="change_section">Section 4.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>xhost</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    In order to allow a connection from a remote machine, the xhost command can be executed to add a host to be permitted.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/4.5" class="change_section">Section 4.5</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                </dl>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div id="mobile" class="tab-pane">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p>Sorry! Our device viewers currently do not support mobile phones and tablets.</p>
+                        <p>
+                          You will be able to read Chapters and Labs, but will not be able to interact with the
+                          virtual machines. We hope to add support for mobile devices in the future.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div><div tabindex="0" class="k-splitbar k-state-default k-splitbar-horizontal k-splitbar-draggable-horizontal" data-marker="b1632821" role="separator" aria-expanded="true" style="height: 455.008px; left: 567px;"><div class="k-icon k-resize-handle"></div></div>
+    <div id="device-pane" class="desktop-only k-pane k-scrollable" role="group" style="position: absolute; top: 0px; width: 567.008px; height: 455.008px; left: 572px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            
+            <ul class="nav nav-tabs" role="tablist">
+              
+              <li class="active">
+                <a href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/#device1-tab" role="tab" data-toggle="tab" id="tab-with-options">
+                  
+                    <i class="fa fa-terminal"></i>
+                  
+                  Ubuntu PC
+                </a>
+              </li>
+              
+              <li class="dropdown tab-options">
+                <a class="dropdown-toggle" id="tour-reset" data-toggle="dropdown" href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/reset" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s2&quot;, &quot;lab_id&quot;: 459, &quot;session_id&quot;: &quot;6cfa6965-717b-4d3a-b8f8-5026aa54b4e6&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;reset&quot;}">
+                    Reset
+                    </a>
+                  </li>
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s2/RX5CbDpySC/fullscreen" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s2&quot;, &quot;lab_id&quot;: 459, &quot;session_id&quot;: &quot;6cfa6965-717b-4d3a-b8f8-5026aa54b4e6&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;toggle_fullscreen&quot;}">
+                    Toggle Fullscreen
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              
+            </ul>
+            
+
+            <!-- Tab panes -->
+            
+            <div class="tab-content tab-content-panel">
+              
+              <div class="tab-pane height-full active" id="device1-tab">
+                <div class="row height-full">
+                  <div class="col-xs-12 height-full">
+                  
+                  <div class="terminal-flex-container">
+                    <div class="terminal-flex-container--main">
+                      <div id="device1" style="width:100%;height:100%;"><div class="terminal" tabindex="0" spellcheck="false" style="outline: none; background-color: rgb(0, 0, 0); color: rgb(240, 240, 240); width: 346.996px; font-size: 7px;" id="device1"><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div><div class="color_filter" style="position: absolute; left: 79.0078px; top: 0px; width: 346.992px; height: 250.043px; z-index: 990; background-color: rgba(0, 0, 0, 0.5); display: none;"></div><div class="spinner" style="position: absolute; width: 60px; height: 60px; z-index: 1000; animation-name: rotation; animation-duration: 0.6s; animation-iteration-count: infinite; animation-timing-function: linear; border-color: rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.8); border-style: solid; border-width: 6px; border-radius: 50%; left: 210.229px; top: 82.7461px; display: none;"></div></div>
+                    </div>
+                    <div class="terminal-flex-container--keyboard">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseKeyboard1" aria-expanded="false" aria-controls="collapseKeyboard1">
+                        ⌨ Toggle onscreen keyboard</button>
+                      <div id="collapseKeyboard1" hidden="">
+                        <span data-keyboard-for="1"><!--?xml version="1.0" encoding="utf-8" ?-->
+<svg baseProfile="full" version="1.1" viewBox="0 0 920 320" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css">text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.keyboad-button{fill:darkgrey;font-size:12px;filter:drop-shadow(0px 0px 1px #000)}.keyboad-button:hover{fill:#9a9a9a;filter:none}.keyboad-button:active{fill:grey;filter:none}.keyboad-button text{fill:black;text-anchor:'middle'}[data-state-shift=true] [data-key=ShiftRight],[data-state-shift=true] [data-key=ShiftLeft]{fill:grey;filter:none}[data-state-ctrl=true] [data-key=ControlRight],[data-state-ctrl=true] [data-key=ControlLeft]{fill:grey;filter:none}[data-state-alt=true] [data-key=AltRight],[data-state-alt=true] [data-key=AltLeft]{fill:grey;filter:none}[data-state-numlock=true] [data-key=NumLock]{fill:grey;filter:none}[data-state-capslock=true] [data-key=CapsLock]{fill:grey;filter:none}[data-display-layer]{display:none}[data-display-layer=normal]{display:inline}[data-state-numlock=true] [data-display-layer]{display:none}[data-state-numlock=true] [data-display-layer=numlock]{display:inline}[data-state-capslock=true] [data-display-layer]{display:none}[data-state-capslock=true] [data-display-layer=capslock]{display:inline}[data-state-shift=true] [data-display-layer]{display:none}[data-state-shift=true] [data-display-layer=shift]{display:inline}
+</style></defs><g class="keyboad-button" data-key="Escape" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text></g><g class="keyboad-button" data-key="F1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="90.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text></g><g class="keyboad-button" data-key="F2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="140.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text></g><g class="keyboad-button" data-key="F3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="190.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text></g><g class="keyboad-button" data-key="F4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="240.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text></g><g class="keyboad-button" data-key="F5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="323.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text></g><g class="keyboad-button" data-key="F6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="373.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text></g><g class="keyboad-button" data-key="F7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="423.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text></g><g class="keyboad-button" data-key="F8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="473.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text></g><g class="keyboad-button" data-key="F9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text></g><g class="keyboad-button" data-key="F10" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text></g><g class="keyboad-button" data-key="F11" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="657.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="shift" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text></g><g class="keyboad-button" data-key="F12" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="707.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="shift" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text></g><g class="keyboad-button" data-key="Backquote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">~</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text></g><g class="keyboad-button" data-key="Digit1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="57.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">!</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text></g><g class="keyboad-button" data-key="Digit2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">@</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text></g><g class="keyboad-button" data-key="Digit3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">#</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text></g><g class="keyboad-button" data-key="Digit4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">$</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text></g><g class="keyboad-button" data-key="Digit5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">%</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text></g><g class="keyboad-button" data-key="Digit6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">^</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text></g><g class="keyboad-button" data-key="Digit7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">&amp;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text></g><g class="keyboad-button" data-key="Digit8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">*</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text></g><g class="keyboad-button" data-key="Digit9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">(</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text></g><g class="keyboad-button" data-key="Digit0" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">)</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text></g><g class="keyboad-button" data-key="Minus" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">_</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text></g><g class="keyboad-button" data-key="Equal" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">+</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text></g><g class="keyboad-button" data-key="Backspace" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96" x="657.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text></g><g class="keyboad-button" data-key="Insert" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text></g><g class="keyboad-button" data-key="Home" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text></g><g class="keyboad-button" data-key="PageUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text></g><g class="keyboad-button" data-key="Tab" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="7.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="shift" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text></g><g class="keyboad-button" data-key="KeyQ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="82.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="shift" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text></g><g class="keyboad-button" data-key="KeyW" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text></g><g class="keyboad-button" data-key="KeyE" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text></g><g class="keyboad-button" data-key="KeyR" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text></g><g class="keyboad-button" data-key="KeyT" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text></g><g class="keyboad-button" data-key="KeyY" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text></g><g class="keyboad-button" data-key="KeyU" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text></g><g class="keyboad-button" data-key="KeyI" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text></g><g class="keyboad-button" data-key="KeyO" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text></g><g class="keyboad-button" data-key="KeyP" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text></g><g class="keyboad-button" data-key="BracketLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">{</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text></g><g class="keyboad-button" data-key="BracketRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="632.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="shift" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">}</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text></g><g class="keyboad-button" data-key="Backslash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="682.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="shift" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">|</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text></g><g class="keyboad-button" data-key="Delete" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text></g><g class="keyboad-button" data-key="End" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text></g><g class="keyboad-button" data-key="PageDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text></g><g class="keyboad-button" data-key="CapsLock" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="7.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="shift" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text></g><g class="keyboad-button" data-key="KeyA" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text></g><g class="keyboad-button" data-key="KeyS" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text></g><g class="keyboad-button" data-key="KeyD" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text></g><g class="keyboad-button" data-key="KeyF" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text></g><g class="keyboad-button" data-key="KeyG" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text></g><g class="keyboad-button" data-key="KeyH" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text></g><g class="keyboad-button" data-key="KeyJ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text></g><g class="keyboad-button" data-key="KeyK" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text></g><g class="keyboad-button" data-key="KeyL" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text></g><g class="keyboad-button" data-key="Semicolon" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">:</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text></g><g class="keyboad-button" data-key="Quote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">"</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text></g><g class="keyboad-button" data-key="Enter" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="657.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text></g><g class="keyboad-button" data-key="ShiftLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="7.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text></g><g class="keyboad-button" data-key="KeyZ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text></g><g class="keyboad-button" data-key="KeyX" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text></g><g class="keyboad-button" data-key="KeyC" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text></g><g class="keyboad-button" data-key="KeyV" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text></g><g class="keyboad-button" data-key="KeyB" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text></g><g class="keyboad-button" data-key="KeyN" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text></g><g class="keyboad-button" data-key="KeyM" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text></g><g class="keyboad-button" data-key="Comma" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">&lt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text></g><g class="keyboad-button" data-key="Period" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">&gt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text></g><g class="keyboad-button" data-key="Slash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">?</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text></g><g class="keyboad-button" data-key="ShiftRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="632.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text></g><g class="keyboad-button" data-key="ArrowUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text></g><g class="keyboad-button" data-key="ControlLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="7.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="AltLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="142.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text></g><g class="keyboad-button" data-key="Space" text-anchor="middle"><rect height="46" rx="5" ry="5" width="316.0" x="197.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text></g><g class="keyboad-button" data-key="AltRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="517.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text></g><g class="keyboad-button" data-key="ControlRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="672.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="ArrowLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text></g><g class="keyboad-button" data-key="ArrowDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text></g><g class="keyboad-button" data-key="ArrowRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text></g></svg></span>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                  $(function() {
+                    if (isDesktop()) {
+                      var wsUri = "wss://vlabs-ln-rs.netdevgroup.com/proxy/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJndyI6InZsYWJzLWxuLXJzLm5ldGRldmdyb3VwLmNvbSIsInZoIjoibG4xIiwiY24iOiI2Y2ZhNjk2NS03MTdiLTRkM2EtYjhmOC01MDI2YWE1NGI0ZTYuMSIsInB0IjoiYXR0YWNoIiwidHAiOiJhdHRhY2giLCJleHAiOjE2NTQyNDQ1Mzh9.F4Ty_JgS44XmWsR9Rk_j3GYWO7nE4tT8sB3NjOjwATk/attach";
+                      var term = new CliViewer( document.getElementById('device1'), 'device1', wsUri, null );
+                      var device = {
+                        type: 'cli', obj: term, parent: '#device1',
+                        session_id: '6cfa6965-717b-4d3a-b8f8-5026aa54b4e6', instance_id: '6cfa6965-717b-4d3a-b8f8-5026aa54b4e6.1'
+                      };
+                      window.devices.push(device);
+                      logEvent(device.session_id, device.instance_id, 'WS_ATTEMPT');
+                      term.socket.addEventListener('open', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_CONNECT');
+                      });
+                      term.socket.addEventListener('close', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_DISCONNECT');
+                      });
+                    }
+                  });
+                  </script>
+                  
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Feedback Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true">
+    <div class="modal-dialog">
+      <div id="modalContent" class="modal-content">
+      </div>
+    </div>
+  </div>
+
+
+
+<span id="__FONT_METRICS__" style="position: absolute; top: -16384px; left: -16384px; background-color: red; margin: 0px; padding: 0px; border-style: none; outline-style: none; font-family: &quot;DejaVu Sans Mono&quot;, &quot;Liberation Mono&quot;, monospace; font-size: 7px;">M</span></body></html>

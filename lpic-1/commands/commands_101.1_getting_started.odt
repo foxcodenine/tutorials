@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<office:document xmlns:officeooo="http://openoffice.org/2009/office" xmlns:css3t="http://www.w3.org/TR/css3-text/" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rpt="http://openoffice.org/2005/report" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:xforms="http://www.w3.org/2002/xforms" office:version="1.3" office:mimetype="application/vnd.oasis.opendocument.text">
+ <office:meta><dc:date>2022-10-31T21:20:40.410087425</dc:date><meta:editing-duration>PT1H58M29S</meta:editing-duration><meta:editing-cycles>18</meta:editing-cycles><meta:generator>LibreOffice/7.3.6.2$Linux_X86_64 LibreOffice_project/30$Build-2</meta:generator><meta:document-statistic meta:table-count="0" meta:image-count="0" meta:object-count="0" meta:page-count="8" meta:paragraph-count="169" meta:word-count="1140" meta:character-count="7433" meta:non-whitespace-character-count="5731"/></office:meta>
+ <office:settings>
+  <config:config-item-set config:name="ooo:view-settings">
+   <config:config-item config:name="ViewAreaTop" config:type="long">0</config:config-item>
+   <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
+   <config:config-item config:name="ViewAreaWidth" config:type="long">40906</config:config-item>
+   <config:config-item config:name="ViewAreaHeight" config:type="long">23550</config:config-item>
+   <config:config-item config:name="ShowRedlineChanges" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="InBrowseMode" config:type="boolean">false</config:config-item>
+   <config:config-item-map-indexed config:name="Views">
+    <config:config-item-map-entry>
+     <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">13723</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">8883</config:config-item>
+     <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">0</config:config-item>
+     <config:config-item config:name="VisibleRight" config:type="long">40905</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">23548</config:config-item>
+     <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
+     <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
+     <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
+     <config:config-item config:name="ZoomFactor" config:type="short">100</config:config-item>
+     <config:config-item config:name="IsSelectedFrame" config:type="boolean">false</config:config-item>
+     <config:config-item config:name="KeepRatio" config:type="boolean">false</config:config-item>
+     <config:config-item config:name="AnchoredTextOverflowLegacy" config:type="boolean">false</config:config-item>
+    </config:config-item-map-entry>
+   </config:config-item-map-indexed>
+  </config:config-item-set>
+  <config:config-item-set config:name="ooo:configuration-settings">
+   <config:config-item config:name="PrintProspect" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PrintReversed" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PrintSingleJobs" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PrintLeftPages" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="PrintTables" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="PrintControls" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="PrintPageBackground" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="PrintDrawings" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="PrintBlackFonts" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PrintAnnotationMode" config:type="short">0</config:config-item>
+   <config:config-item config:name="PrintTextPlaceholder" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="ProtectFields" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="ProtectBookmarks" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="EmptyDbFieldHidesPara" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="DisableOffPagePositioning" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="SubtractFlysAnchoredAtFlys" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PropLineSpacingShrinksFirstLine" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="ApplyParagraphMarkFormatToNumbering" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="GutterAtTop" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="TreatSingleColumnBreakAsPageBreak" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="EmbedSystemFonts" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="EmbedComplexScriptFonts" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="EmbedAsianScriptFonts" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="EmbedLatinScriptFonts" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="EmbedOnlyUsedFonts" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="ContinuousEndnotes" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="EmbedFonts" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="ClippedPictures" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="FloattableNomargins" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="UnbreakableNumberings" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="HeaderSpacingBelowLastPara" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="AllowPrintJobCancel" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="UseOldPrinterMetrics" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="TabOverMargin" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="TabsRelativeToIndent" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="UseOldNumbering" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="InvertBorderSpacing" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PrintPaperFromSetup" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="UpdateFromTemplate" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="CurrentDatabaseCommandType" config:type="int">0</config:config-item>
+   <config:config-item config:name="LinkUpdateMode" config:type="short">1</config:config-item>
+   <config:config-item config:name="AddParaSpacingToTableCells" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="FrameAutowidthWithMorePara" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="CurrentDatabaseCommand" config:type="string"/>
+   <config:config-item config:name="PrinterIndependentLayout" config:type="string">high-resolution</config:config-item>
+   <config:config-item config:name="ApplyUserData" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="PrintFaxName" config:type="string"/>
+   <config:config-item config:name="CurrentDatabaseDataSource" config:type="string"/>
+   <config:config-item config:name="ClipAsCharacterAnchoredWriterFlyFrames" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IsKernAsianPunctuation" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="SaveThumbnail" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="UseFormerTextWrapping" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="AddExternalLeading" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="AddParaTableSpacing" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="StylesNoDefault" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="ChartAutoUpdate" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="PrinterSetup" config:type="base64Binary"/>
+   <config:config-item config:name="AddParaTableSpacingAtStart" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="Rsid" config:type="int">2771153</config:config-item>
+   <config:config-item config:name="EmbeddedDatabaseName" config:type="string"/>
+   <config:config-item config:name="FieldAutoUpdate" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="OutlineLevelYieldsNumbering" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="FootnoteInColumnToPageEnd" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="AlignTabStopPosition" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="CharacterCompressionType" config:type="short">0</config:config-item>
+   <config:config-item config:name="PrinterName" config:type="string"/>
+   <config:config-item config:name="SaveGlobalDocumentLinks" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PrinterPaperFromSetup" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="UseFormerLineSpacing" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="AddParaLineSpacingToTableCells" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="UseFormerObjectPositioning" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PrintGraphics" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="SurroundTextWrapSmall" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="ConsiderTextWrapOnObjPos" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="MsWordCompTrailingBlanks" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="TabAtLeftIndentForParagraphsInList" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PrintRightPages" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="TabOverSpacing" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IgnoreFirstLineIndentInNumbering" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="RedlineProtectionKey" config:type="base64Binary"/>
+   <config:config-item config:name="DoNotJustifyLinesWithManualBreak" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PrintProspectRTL" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="PrintEmptyPages" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="DoNotResetParaAttrsForNumFont" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="AddFrameOffsets" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IgnoreTabsAndBlanksForLineCalculation" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="LoadReadonly" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="DoNotCaptureDrawObjsOnPage" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="AddVerticalFrameOffsets" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="UnxForceZeroExtLeading" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="IsLabelDocument" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="TableRowKeep" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="RsidRoot" config:type="int">1545941</config:config-item>
+   <config:config-item config:name="PrintHiddenText" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="ProtectForm" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="MsWordCompMinLineHeightByFly" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="BackgroundParaOverDrawings" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="SaveVersionOnClose" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="MathBaselineAlignment" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="SmallCapsPercentage66" config:type="boolean">false</config:config-item>
+   <config:config-item config:name="CollapseEmptyCellPara" config:type="boolean">true</config:config-item>
+   <config:config-item config:name="TabOverflow" config:type="boolean">true</config:config-item>
+  </config:config-item-set>
+ </office:settings>
+ <office:scripts>
+  <office:script script:language="ooo:Basic">
+   <ooo:libraries xmlns:ooo="http://openoffice.org/2004/office" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <ooo:library-embedded ooo:name="Standard"/>
+   </ooo:libraries>
+  </office:script>
+ </office:scripts>
+ <office:font-face-decls>
+  <style:font-face style:name="Consolas" svg:font-family="Consolas" style:font-family-generic="swiss" style:font-pitch="fixed"/>
+  <style:font-face style:name="Liberation Mono" svg:font-family="&apos;Liberation Mono&apos;" style:font-family-generic="modern" style:font-pitch="fixed"/>
+  <style:font-face style:name="Liberation Sans" svg:font-family="&apos;Liberation Sans&apos;" style:font-family-generic="swiss" style:font-pitch="variable"/>
+  <style:font-face style:name="Liberation Serif" svg:font-family="&apos;Liberation Serif&apos;" style:font-family-generic="roman" style:font-pitch="variable"/>
+  <style:font-face style:name="Lohit Devanagari" svg:font-family="&apos;Lohit Devanagari&apos;"/>
+  <style:font-face style:name="Lohit Devanagari1" svg:font-family="&apos;Lohit Devanagari&apos;" style:font-family-generic="system" style:font-pitch="variable"/>
+  <style:font-face style:name="Menlo" svg:font-family="Menlo, Consolas, Monaco, &apos;Andale Mono&apos;, Courier, Verdana, sans-serif"/>
+  <style:font-face style:name="Noto Sans CJK SC" svg:font-family="&apos;Noto Sans CJK SC&apos;" style:font-family-generic="system" style:font-pitch="variable"/>
+  <style:font-face style:name="Noto Sans Mono CJK SC" svg:font-family="&apos;Noto Sans Mono CJK SC&apos;" style:font-family-generic="modern" style:font-pitch="fixed"/>
+  <style:font-face style:name="Open Sans" svg:font-family="&apos;Open Sans&apos;"/>
+  <style:font-face style:name="OpenSymbol" svg:font-family="OpenSymbol" style:font-charset="x-symbol"/>
+  <style:font-face style:name="var ff-mono" svg:font-family="&apos;var ff-mono&apos;"/>
+ </office:font-face-decls>
+ <office:styles>
+  <style:default-style style:family="graphic">
+   <style:graphic-properties svg:stroke-color="#3465a4" draw:fill-color="#729fcf" fo:wrap-option="no-wrap" draw:shadow-offset-x="0.1181in" draw:shadow-offset-y="0.1181in" draw:start-line-spacing-horizontal="0.1114in" draw:start-line-spacing-vertical="0.1114in" draw:end-line-spacing-horizontal="0.1114in" draw:end-line-spacing-vertical="0.1114in" style:flow-with-text="false"/>
+   <style:paragraph-properties style:text-autospace="ideograph-alpha" style:line-break="strict" style:font-independent-line-spacing="false">
+    <style:tab-stops/>
+   </style:paragraph-properties>
+   <style:text-properties style:use-window-font-color="true" loext:opacity="0%" style:font-name="Liberation Serif" fo:font-size="12pt" fo:language="en" fo:country="US" style:letter-kerning="true" style:font-name-asian="Noto Sans CJK SC" style:font-size-asian="10.5pt" style:language-asian="zh" style:country-asian="CN" style:font-name-complex="Lohit Devanagari1" style:font-size-complex="12pt" style:language-complex="hi" style:country-complex="IN"/>
+  </style:default-style>
+  <style:default-style style:family="paragraph">
+   <style:paragraph-properties fo:hyphenation-ladder-count="no-limit" style:text-autospace="ideograph-alpha" style:punctuation-wrap="hanging" style:line-break="strict" style:tab-stop-distance="0.4925in" style:writing-mode="page"/>
+   <style:text-properties style:use-window-font-color="true" loext:opacity="0%" style:font-name="Liberation Serif" fo:font-size="12pt" fo:language="en" fo:country="US" style:letter-kerning="true" style:font-name-asian="Noto Sans CJK SC" style:font-size-asian="10.5pt" style:language-asian="zh" style:country-asian="CN" style:font-name-complex="Lohit Devanagari1" style:font-size-complex="12pt" style:language-complex="hi" style:country-complex="IN" fo:hyphenate="false" fo:hyphenation-remain-char-count="2" fo:hyphenation-push-char-count="2" loext:hyphenation-no-caps="false"/>
+  </style:default-style>
+  <style:default-style style:family="table">
+   <style:table-properties table:border-model="collapsing"/>
+  </style:default-style>
+  <style:default-style style:family="table-row">
+   <style:table-row-properties fo:keep-together="auto"/>
+  </style:default-style>
+  <style:style style:name="Standard" style:family="paragraph" style:class="text"/>
+  <style:style style:name="Heading" style:family="paragraph" style:parent-style-name="Standard" style:next-style-name="Text_20_body" style:class="text">
+   <style:paragraph-properties fo:margin-top="0.1665in" fo:margin-bottom="0.0835in" style:contextual-spacing="false" fo:keep-with-next="always"/>
+   <style:text-properties style:font-name="Liberation Sans" fo:font-family="&apos;Liberation Sans&apos;" style:font-family-generic="swiss" style:font-pitch="variable" fo:font-size="14pt" style:font-name-asian="Noto Sans CJK SC" style:font-family-asian="&apos;Noto Sans CJK SC&apos;" style:font-family-generic-asian="system" style:font-pitch-asian="variable" style:font-size-asian="14pt" style:font-name-complex="Lohit Devanagari1" style:font-family-complex="&apos;Lohit Devanagari&apos;" style:font-family-generic-complex="system" style:font-pitch-complex="variable" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="Text_20_body" style:display-name="Text body" style:family="paragraph" style:parent-style-name="Standard" style:class="text">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.0972in" style:contextual-spacing="false" fo:line-height="115%"/>
+  </style:style>
+  <style:style style:name="List" style:family="paragraph" style:parent-style-name="Text_20_body" style:class="list">
+   <style:text-properties style:font-size-asian="12pt" style:font-name-complex="Lohit Devanagari" style:font-family-complex="&apos;Lohit Devanagari&apos;"/>
+  </style:style>
+  <style:style style:name="Caption" style:family="paragraph" style:parent-style-name="Standard" style:class="extra">
+   <style:paragraph-properties fo:margin-top="0.0835in" fo:margin-bottom="0.0835in" style:contextual-spacing="false" text:number-lines="false" text:line-number="0"/>
+   <style:text-properties fo:font-size="12pt" fo:font-style="italic" style:font-size-asian="12pt" style:font-style-asian="italic" style:font-name-complex="Lohit Devanagari" style:font-family-complex="&apos;Lohit Devanagari&apos;" style:font-size-complex="12pt" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="Index" style:family="paragraph" style:parent-style-name="Standard" style:class="index">
+   <style:paragraph-properties text:number-lines="false" text:line-number="0"/>
+   <style:text-properties style:font-size-asian="12pt" style:font-name-complex="Lohit Devanagari" style:font-family-complex="&apos;Lohit Devanagari&apos;"/>
+  </style:style>
+  <style:style style:name="Preformatted_20_Text" style:display-name="Preformatted Text" style:family="paragraph" style:parent-style-name="Standard" style:class="html">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Liberation Mono" fo:font-family="&apos;Liberation Mono&apos;" style:font-family-generic="modern" style:font-pitch="fixed" fo:font-size="10pt" style:font-name-asian="Noto Sans Mono CJK SC" style:font-family-asian="&apos;Noto Sans Mono CJK SC&apos;" style:font-family-generic-asian="modern" style:font-pitch-asian="fixed" style:font-size-asian="10pt" style:font-name-complex="Liberation Mono" style:font-family-complex="&apos;Liberation Mono&apos;" style:font-family-generic-complex="modern" style:font-pitch-complex="fixed" style:font-size-complex="10pt"/>
+  </style:style>
+  <style:style style:name="Variable" style:family="text">
+   <style:text-properties fo:font-style="italic" style:font-style-asian="italic" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="Internet_20_link" style:display-name="Internet link" style:family="text">
+   <style:text-properties fo:color="#000080" loext:opacity="100%" fo:language="zxx" fo:country="none" style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color" style:language-asian="zxx" style:country-asian="none" style:language-complex="zxx" style:country-complex="none"/>
+  </style:style>
+  <style:style style:name="Source_20_Text" style:display-name="Source Text" style:family="text">
+   <style:text-properties style:font-name="Liberation Mono" fo:font-family="&apos;Liberation Mono&apos;" style:font-family-generic="modern" style:font-pitch="fixed" style:font-name-asian="Noto Sans Mono CJK SC" style:font-family-asian="&apos;Noto Sans Mono CJK SC&apos;" style:font-family-generic-asian="modern" style:font-pitch-asian="fixed" style:font-name-complex="Liberation Mono" style:font-family-complex="&apos;Liberation Mono&apos;" style:font-family-generic-complex="modern" style:font-pitch-complex="fixed"/>
+  </style:style>
+  <style:style style:name="Bullet_20_Symbols" style:display-name="Bullet Symbols" style:family="text">
+   <style:text-properties style:font-name="OpenSymbol" fo:font-family="OpenSymbol" style:font-charset="x-symbol" style:font-name-asian="OpenSymbol" style:font-family-asian="OpenSymbol" style:font-charset-asian="x-symbol" style:font-name-complex="OpenSymbol" style:font-family-complex="OpenSymbol" style:font-charset-complex="x-symbol"/>
+  </style:style>
+  <style:style style:name="Teletype" style:family="text">
+   <style:text-properties style:font-name="Liberation Mono" fo:font-family="&apos;Liberation Mono&apos;" style:font-family-generic="modern" style:font-pitch="fixed" style:font-name-asian="Noto Sans Mono CJK SC" style:font-family-asian="&apos;Noto Sans Mono CJK SC&apos;" style:font-family-generic-asian="modern" style:font-pitch-asian="fixed" style:font-name-complex="Liberation Mono" style:font-family-complex="&apos;Liberation Mono&apos;" style:font-family-generic-complex="modern" style:font-pitch-complex="fixed"/>
+  </style:style>
+  <text:outline-style style:name="Outline">
+   <text:outline-level-style text:level="1" loext:num-list-format="%1%" style:num-format="">
+    <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
+     <style:list-level-label-alignment text:label-followed-by="listtab"/>
+    </style:list-level-properties>
+   </text:outline-level-style>
+   <text:outline-level-style text:level="2" loext:num-list-format="%2%" style:num-format="">
+    <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
+     <style:list-level-label-alignment text:label-followed-by="listtab"/>
+    </style:list-level-properties>
+   </text:outline-level-style>
+   <text:outline-level-style text:level="3" loext:num-list-format="%3%" style:num-format="">
+    <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
+     <style:list-level-label-alignment text:label-followed-by="listtab"/>
+    </style:list-level-properties>
+   </text:outline-level-style>
+   <text:outline-level-style text:level="4" loext:num-list-format="%4%" style:num-format="">
+    <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
+     <style:list-level-label-alignment text:label-followed-by="listtab"/>
+    </style:list-level-properties>
+   </text:outline-level-style>
+   <text:outline-level-style text:level="5" loext:num-list-format="%5%" style:num-format="">
+    <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
+     <style:list-level-label-alignment text:label-followed-by="listtab"/>
+    </style:list-level-properties>
+   </text:outline-level-style>
+   <text:outline-level-style text:level="6" loext:num-list-format="%6%" style:num-format="">
+    <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
+     <style:list-level-label-alignment text:label-followed-by="listtab"/>
+    </style:list-level-properties>
+   </text:outline-level-style>
+   <text:outline-level-style text:level="7" loext:num-list-format="%7%" style:num-format="">
+    <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
+     <style:list-level-label-alignment text:label-followed-by="listtab"/>
+    </style:list-level-properties>
+   </text:outline-level-style>
+   <text:outline-level-style text:level="8" loext:num-list-format="%8%" style:num-format="">
+    <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
+     <style:list-level-label-alignment text:label-followed-by="listtab"/>
+    </style:list-level-properties>
+   </text:outline-level-style>
+   <text:outline-level-style text:level="9" loext:num-list-format="%9%" style:num-format="">
+    <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
+     <style:list-level-label-alignment text:label-followed-by="listtab"/>
+    </style:list-level-properties>
+   </text:outline-level-style>
+   <text:outline-level-style text:level="10" loext:num-list-format="%10%" style:num-format="">
+    <style:list-level-properties text:list-level-position-and-space-mode="label-alignment">
+     <style:list-level-label-alignment text:label-followed-by="listtab"/>
+    </style:list-level-properties>
+   </text:outline-level-style>
+  </text:outline-style>
+  <text:notes-configuration text:note-class="footnote" style:num-format="1" text:start-value="0" text:footnotes-position="page" text:start-numbering-at="document"/>
+  <text:notes-configuration text:note-class="endnote" style:num-format="i" text:start-value="0"/>
+  <text:linenumbering-configuration text:number-lines="false" text:offset="0.1965in" style:num-format="1" text:number-position="left" text:increment="5"/>
+ </office:styles>
+ <office:automatic-styles>
+  <style:style style:name="P1" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties style:font-name="Consolas" fo:font-size="14pt" style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color" officeooo:rsid="001b7aaa" officeooo:paragraph-rsid="001796d5" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="P2" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" fo:font-size="14pt" style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color" officeooo:rsid="001b7aaa" officeooo:paragraph-rsid="001958b1" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="P3" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties style:font-name="Consolas" fo:font-size="12pt" style:text-underline-style="none" officeooo:rsid="001b7aaa" officeooo:paragraph-rsid="001796d5" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="P4" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.0799in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" fo:font-size="12pt" style:text-underline-style="none" officeooo:rsid="001b7aaa" officeooo:paragraph-rsid="001796d5" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="P5" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.0799in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" fo:font-size="12pt" style:text-underline-style="none" officeooo:rsid="001b7aaa" officeooo:paragraph-rsid="00275168" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="P6" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" fo:font-size="12pt" style:text-underline-style="none" officeooo:rsid="0021157a" officeooo:paragraph-rsid="001958b1" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="P7" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" fo:font-size="12pt" officeooo:rsid="001f3022" officeooo:paragraph-rsid="001c33ae" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="P8" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="00219c92" officeooo:paragraph-rsid="001796d5"/>
+  </style:style>
+  <style:style style:name="P9" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="00219c92" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P10" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="001f3022" officeooo:paragraph-rsid="001796d5"/>
+  </style:style>
+  <style:style style:name="P11" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="001f3022" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P12" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="001f3022" officeooo:paragraph-rsid="001c33ae"/>
+  </style:style>
+  <style:style style:name="P13" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="001dd195" officeooo:paragraph-rsid="001796d5"/>
+  </style:style>
+  <style:style style:name="P14" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="001dd195" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P15" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:paragraph-rsid="001796d5"/>
+  </style:style>
+  <style:style style:name="P16" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="002331c9" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P17" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="002331c9" officeooo:paragraph-rsid="001c33ae"/>
+  </style:style>
+  <style:style style:name="P18" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="0021157a" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P19" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="002261b7" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P20" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="001fcb3f" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P21" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="00229b63" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P22" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="0022bb10" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P23" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P24" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="0025886a" officeooo:paragraph-rsid="0025886a"/>
+  </style:style>
+  <style:style style:name="P25" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="0028ddf0" officeooo:paragraph-rsid="0028ddf0"/>
+  </style:style>
+  <style:style style:name="P26" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P27" style:family="paragraph" style:parent-style-name="Preformatted_20_Text">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P28" style:family="paragraph" style:parent-style-name="Preformatted_20_Text">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0in" style:contextual-spacing="false"/>
+   <style:text-properties officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P29" style:family="paragraph" style:parent-style-name="Preformatted_20_Text">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.0402in" style:contextual-spacing="false"/>
+   <style:text-properties officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P30" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="14pt" style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color" officeooo:rsid="001b7aaa" officeooo:paragraph-rsid="001958b1" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="P31" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" officeooo:rsid="001b7aaa" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P32" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties officeooo:rsid="002c734e" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P33" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties fo:color="#0000ff" loext:opacity="100%" style:font-name="Consolas" officeooo:rsid="002331c9" officeooo:paragraph-rsid="001958b1"/>
+  </style:style>
+  <style:style style:name="P34" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties fo:color="#0000ff" loext:opacity="100%" style:font-name="Consolas" officeooo:paragraph-rsid="001796d5"/>
+  </style:style>
+  <style:style style:name="P35" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties officeooo:paragraph-rsid="001c33ae"/>
+  </style:style>
+  <style:style style:name="P36" style:family="paragraph" style:parent-style-name="Preformatted_20_Text">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties officeooo:paragraph-rsid="001c33ae"/>
+  </style:style>
+  <style:style style:name="P37" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties officeooo:paragraph-rsid="0021e272"/>
+  </style:style>
+  <style:style style:name="P38" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties fo:color="#468a1a" loext:opacity="100%" style:font-name="Consolas" officeooo:paragraph-rsid="001796d5"/>
+  </style:style>
+  <style:style style:name="P39" style:family="paragraph" style:parent-style-name="Preformatted_20_Text">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.1in" style:contextual-spacing="false"/>
+   <style:text-properties officeooo:paragraph-rsid="001cc5ac"/>
+  </style:style>
+  <style:style style:name="P40" style:family="paragraph" style:parent-style-name="Preformatted_20_Text">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0in" style:contextual-spacing="false"/>
+   <style:text-properties officeooo:paragraph-rsid="001cc5ac"/>
+  </style:style>
+  <style:style style:name="P41" style:family="paragraph" style:parent-style-name="Standard">
+   <style:text-properties style:font-name="Consolas" fo:font-size="14pt" style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color" officeooo:rsid="001b7aaa" officeooo:paragraph-rsid="001796d5" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="P42" style:family="paragraph" style:parent-style-name="Standard">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.0799in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" fo:font-size="12pt" style:text-underline-style="none" officeooo:rsid="001b7aaa" officeooo:paragraph-rsid="00275168" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="P43" style:family="paragraph" style:parent-style-name="Text_20_body">
+   <style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.0799in" style:contextual-spacing="false"/>
+   <style:text-properties style:font-name="Consolas" fo:font-size="12pt" style:text-underline-style="none" officeooo:rsid="001b7aaa" officeooo:paragraph-rsid="00275168" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T1" style:family="text">
+   <style:text-properties officeooo:rsid="0023a393"/>
+  </style:style>
+  <style:style style:name="T2" style:family="text">
+   <style:text-properties officeooo:rsid="001dd195"/>
+  </style:style>
+  <style:style style:name="T3" style:family="text">
+   <style:text-properties officeooo:rsid="001c18b3"/>
+  </style:style>
+  <style:style style:name="T4" style:family="text">
+   <style:text-properties officeooo:rsid="0046003b"/>
+  </style:style>
+  <style:style style:name="T5" style:family="text">
+   <style:text-properties fo:font-weight="bold" style:font-weight-asian="bold" style:font-weight-complex="bold"/>
+  </style:style>
+  <style:style style:name="T6" style:family="text">
+   <style:text-properties officeooo:rsid="001c3f04"/>
+  </style:style>
+  <style:style style:name="T7" style:family="text">
+   <style:text-properties officeooo:rsid="001d0b52"/>
+  </style:style>
+  <style:style style:name="T8" style:family="text">
+   <style:text-properties fo:color="#0000ff" loext:opacity="100%"/>
+  </style:style>
+  <style:style style:name="T9" style:family="text">
+   <style:text-properties fo:color="#0000ff" loext:opacity="100%" officeooo:rsid="002331c9"/>
+  </style:style>
+  <style:style style:name="T10" style:family="text">
+   <style:text-properties fo:color="#0000ff" loext:opacity="100%" fo:font-style="italic" style:font-style-asian="italic" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="T11" style:family="text">
+   <style:text-properties fo:color="#0000ff" loext:opacity="100%" fo:font-style="italic" officeooo:rsid="002331c9" style:font-style-asian="italic" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="T12" style:family="text">
+   <style:text-properties fo:font-size="14pt" style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="T13" style:family="text">
+   <style:text-properties fo:font-size="14pt" style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color" officeooo:rsid="001b7aaa" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="T14" style:family="text">
+   <style:text-properties fo:font-size="14pt" style:text-underline-style="solid" style:text-underline-width="auto" style:text-underline-color="font-color" officeooo:rsid="001dd195" style:font-size-asian="14pt" style:font-size-complex="14pt"/>
+  </style:style>
+  <style:style style:name="T15" style:family="text">
+   <style:text-properties officeooo:rsid="001f3022"/>
+  </style:style>
+  <style:style style:name="T16" style:family="text">
+   <style:text-properties officeooo:rsid="002261b7"/>
+  </style:style>
+  <style:style style:name="T17" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#0000ff" loext:opacity="100%" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="normal" officeooo:rsid="002261b7" fo:background-color="transparent" loext:char-shading-value="0" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T18" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#0000ff" loext:opacity="100%" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="normal" officeooo:rsid="002331c9" fo:background-color="transparent" loext:char-shading-value="0" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T19" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#0000ff" loext:opacity="100%" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="normal" officeooo:rsid="001f0af2" fo:background-color="transparent" loext:char-shading-value="0" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T20" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#0000ff" loext:opacity="100%" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002331c9" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T21" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#0000ff" loext:opacity="100%" fo:font-size="12pt" fo:letter-spacing="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002331c9" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T22" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#0000ff" loext:opacity="100%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="00248175" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T23" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#0000ff" loext:opacity="100%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002331c9" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T24" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#0000ff" loext:opacity="100%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="italic" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002f9e91" fo:background-color="transparent" loext:char-shading-value="0" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-style-asian="italic" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="T25" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002e0fa7" fo:background-color="transparent" loext:char-shading-value="0" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T26" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002f9e91" fo:background-color="transparent" loext:char-shading-value="0" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T27" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="00248175" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T28" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002331c9" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T29" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T30" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="00248175" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T31" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002331c9" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T32" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002625ea" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T33" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002801b6" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T34" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002944a4" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T35" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002a891c" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T36" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002ae2c9" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T37" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002af8f4" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T38" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002c734e" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T39" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002af08c" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T40" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002d396e" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T41" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002e0fa7" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T42" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002f9e91" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T43" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="001c33ae" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T44" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="001cc5ac" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T45" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="0025886a" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T46" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002801b6" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-style-asian="italic" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="T47" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" fo:background-color="#ffffff" loext:char-shading-value="0" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt" loext:padding="0in" loext:border="none"/>
+  </style:style>
+  <style:style style:name="T48" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002801b6" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T49" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002944a4" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T50" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002af08c" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T51" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002c734e" fo:background-color="transparent" loext:char-shading-value="0" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T52" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="001c33ae" fo:background-color="transparent" loext:char-shading-value="0" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T53" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:use-window-font-color="true" loext:opacity="0%" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="001d6e59" fo:background-color="transparent" loext:char-shading-value="0" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T54" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#55215b" loext:opacity="100%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002801b6" fo:background-color="transparent" loext:char-shading-value="0" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T55" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#55215b" loext:opacity="100%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002801b6" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T56" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#55215b" loext:opacity="100%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="italic" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002801b6" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-style-asian="italic" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="T57" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#55215b" loext:opacity="100%" fo:font-size="12pt" fo:letter-spacing="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="0034fb71" fo:background-color="transparent" loext:char-shading-value="0" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T58" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#111111" loext:opacity="100%" style:font-name="Menlo" fo:font-size="10.5pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002e0fa7" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T59" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:font-name="var ff-mono" fo:font-size="9.75pt" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="normal" fo:background-color="transparent" loext:char-shading-value="0" loext:padding="0in" loext:border="none"/>
+  </style:style>
+  <style:style style:name="T60" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#c9211e" loext:opacity="100%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="00248175" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T61" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:font-size="9.75pt" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="normal" fo:background-color="transparent" loext:char-shading-value="0" loext:padding="0in" loext:border="none"/>
+  </style:style>
+  <style:style style:name="T62" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:font-name="Consolas" fo:font-size="9.75pt" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="normal" officeooo:rsid="001f3022" fo:background-color="transparent" loext:char-shading-value="0" loext:padding="0in" loext:border="none"/>
+  </style:style>
+  <style:style style:name="T63" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:font-name="Consolas" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="normal" officeooo:rsid="001f3022" fo:background-color="transparent" loext:char-shading-value="0" loext:padding="0in" loext:border="none"/>
+  </style:style>
+  <style:style style:name="T64" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="normal" officeooo:rsid="001f3022" fo:background-color="transparent" loext:char-shading-value="0" style:font-size-asian="12pt" style:font-size-complex="12pt" loext:padding="0in" loext:border="none"/>
+  </style:style>
+  <style:style style:name="T65" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#666666" loext:opacity="100%" style:font-name="Consolas" fo:font-size="12pt" fo:letter-spacing="normal" fo:font-style="normal" style:text-underline-style="none" fo:font-weight="normal" officeooo:rsid="002af08c" style:font-name-asian="Noto Sans Mono CJK SC" style:font-size-asian="12pt" style:font-name-complex="Liberation Mono" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T66" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#000000" loext:opacity="100%" style:font-name="Open Sans" fo:font-size="9pt" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="normal"/>
+  </style:style>
+  <style:style style:name="T67" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#000000" loext:opacity="100%" style:font-name="Open Sans" fo:font-size="9pt" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="bold"/>
+  </style:style>
+  <style:style style:name="T68" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#000000" loext:opacity="100%" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="normal"/>
+  </style:style>
+  <style:style style:name="T69" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#000000" loext:opacity="100%" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="normal" officeooo:rsid="0046003b"/>
+  </style:style>
+  <style:style style:name="T70" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#000000" loext:opacity="100%" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="bold"/>
+  </style:style>
+  <style:style style:name="T71" style:family="text">
+   <style:text-properties fo:font-variant="normal" fo:text-transform="none" fo:color="#000000" loext:opacity="100%" style:font-name="Consolas" fo:letter-spacing="normal" fo:font-style="normal" fo:font-weight="bold" officeooo:rsid="0046003b"/>
+  </style:style>
+  <style:style style:name="T72" style:family="text">
+   <style:text-properties fo:color="#0000cd" loext:opacity="100%" officeooo:rsid="002331c9"/>
+  </style:style>
+  <style:style style:name="T73" style:family="text">
+   <style:text-properties style:use-window-font-color="true" loext:opacity="0%" officeooo:rsid="00229b63"/>
+  </style:style>
+  <style:style style:name="T74" style:family="text">
+   <style:text-properties officeooo:rsid="00229b63"/>
+  </style:style>
+  <style:style style:name="T75" style:family="text">
+   <style:text-properties officeooo:rsid="001fcb3f"/>
+  </style:style>
+  <style:style style:name="T76" style:family="text">
+   <style:text-properties officeooo:rsid="0021157a"/>
+  </style:style>
+  <style:style style:name="T77" style:family="text">
+   <style:text-properties officeooo:rsid="001a9a4b"/>
+  </style:style>
+  <style:style style:name="T78" style:family="text">
+   <style:text-properties fo:font-style="italic" officeooo:rsid="001a9a4b" style:font-style-asian="italic" style:font-style-complex="italic"/>
+  </style:style>
+  <style:style style:name="T79" style:family="text">
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="001c33ae"/>
+  </style:style>
+  <style:style style:name="T80" style:family="text">
+   <style:text-properties style:font-name="Consolas" officeooo:rsid="001f3022"/>
+  </style:style>
+  <style:style style:name="T81" style:family="text">
+   <style:text-properties style:font-name="Consolas" fo:font-size="12pt" officeooo:rsid="001f3022" style:font-size-asian="12pt" style:font-size-complex="12pt"/>
+  </style:style>
+  <style:style style:name="T82" style:family="text">
+   <style:text-properties officeooo:rsid="00275168"/>
+  </style:style>
+  <text:list-style style:name="L1">
+   <text:list-level-style-bullet text:level="1" text:style-name="Bullet_20_Symbols" loext:num-list-format="%1%." style:num-suffix="." text:bullet-char="">
+    <style:list-level-properties text:space-before="0.4925in"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="2" text:style-name="Bullet_20_Symbols" loext:num-list-format="%2%." style:num-suffix="." text:bullet-char="•">
+    <style:list-level-properties text:space-before="0.7882in" text:min-label-width="0.1965in"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="3" text:style-name="Bullet_20_Symbols" loext:num-list-format="%3%." style:num-suffix="." text:bullet-char="•">
+    <style:list-level-properties text:space-before="1.2807in" text:min-label-width="0.1965in"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="4" text:style-name="Bullet_20_Symbols" loext:num-list-format="%4%." style:num-suffix="." text:bullet-char="•">
+    <style:list-level-properties text:space-before="1.7728in" text:min-label-width="0.1965in"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="5" text:style-name="Bullet_20_Symbols" loext:num-list-format="%5%." style:num-suffix="." text:bullet-char="•">
+    <style:list-level-properties text:space-before="2.2654in" text:min-label-width="0.1965in"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="6" text:style-name="Bullet_20_Symbols" loext:num-list-format="%6%." style:num-suffix="." text:bullet-char="•">
+    <style:list-level-properties text:space-before="2.7579in" text:min-label-width="0.1965in"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="7" text:style-name="Bullet_20_Symbols" loext:num-list-format="%7%." style:num-suffix="." text:bullet-char="•">
+    <style:list-level-properties text:space-before="3.25in" text:min-label-width="0.1965in"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="8" text:style-name="Bullet_20_Symbols" loext:num-list-format="%8%." style:num-suffix="." text:bullet-char="•">
+    <style:list-level-properties text:space-before="3.7425in" text:min-label-width="0.1965in"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="9" text:style-name="Bullet_20_Symbols" loext:num-list-format="%9%." style:num-suffix="." text:bullet-char="•">
+    <style:list-level-properties text:space-before="4.2346in" text:min-label-width="0.1965in"/>
+   </text:list-level-style-bullet>
+   <text:list-level-style-bullet text:level="10" text:style-name="Bullet_20_Symbols" loext:num-list-format="%10%." style:num-suffix="." text:bullet-char="•">
+    <style:list-level-properties text:space-before="4.7272in" text:min-label-width="0.1965in"/>
+   </text:list-level-style-bullet>
+  </text:list-style>
+  <style:page-layout style:name="pm1">
+   <style:page-layout-properties fo:page-width="8.2681in" fo:page-height="11.6929in" style:num-format="1" style:print-orientation="portrait" fo:margin-top="0.5in" fo:margin-bottom="0.5in" fo:margin-left="0.5in" fo:margin-right="0.5in" style:writing-mode="lr-tb" style:layout-grid-color="#c0c0c0" style:layout-grid-lines="20" style:layout-grid-base-height="0.278in" style:layout-grid-ruby-height="0.139in" style:layout-grid-mode="none" style:layout-grid-ruby-below="false" style:layout-grid-print="false" style:layout-grid-display="false" style:footnote-max-height="0in" loext:margin-gutter="0in">
+    <style:footnote-sep style:width="0.0071in" style:distance-before-sep="0.0398in" style:distance-after-sep="0.0398in" style:line-style="solid" style:adjustment="left" style:rel-width="25%" style:color="#000000"/>
+   </style:page-layout-properties>
+   <style:header-style/>
+   <style:footer-style/>
+  </style:page-layout>
+  <style:style style:name="dp1" style:family="drawing-page">
+   <style:drawing-page-properties draw:background-size="full"/>
+  </style:style>
+ </office:automatic-styles>
+ <office:master-styles>
+  <style:master-page style:name="Standard" style:page-layout-name="pm1" draw:style-name="dp1"/>
+ </office:master-styles>
+ <office:body>
+  <office:text text:use-soft-page-breaks="true">
+   <text:sequence-decls>
+    <text:sequence-decl text:display-outline-level="0" text:name="Illustration"/>
+    <text:sequence-decl text:display-outline-level="0" text:name="Table"/>
+    <text:sequence-decl text:display-outline-level="0" text:name="Text"/>
+    <text:sequence-decl text:display-outline-level="0" text:name="Drawing"/>
+    <text:sequence-decl text:display-outline-level="0" text:name="Figure"/>
+   </text:sequence-decls>
+   <text:p text:style-name="P1">Lesson 1</text:p>
+   <text:p text:style-name="P1"/>
+   <text:p text:style-name="P3">$ ls<text:tab/><text:tab/><text:tab/><text:span text:style-name="T2">L</text:span>ist directory contents</text:p>
+   <text:p text:style-name="P3"><text:tab/><text:tab/><text:tab/></text:p>
+   <text:p text:style-name="P4"><text:tab/><text:tab/><text:tab/>some comment option:</text:p>
+   <text:p text:style-name="P4"><text:tab/><text:tab/><text:tab/>-<text:span text:style-name="T3">1, </text:span>-a, -A, --color[=always|=never|auto], --full-time, </text:p>
+   <text:p text:style-name="P4"><text:tab/><text:tab/><text:tab/>-<text:span text:style-name="T4">i, </text:span>-I or --ignore <text:s/><text:span text:style-name="T5">Ex</text:span>: ls -I &quot;*.pdf&quot;</text:p>
+   <text:p text:style-name="P4"><text:tab/><text:tab/><text:tab/>-l, -r, -<text:span text:style-name="T3">R, -s, -S, -t, <text:s/><text:tab/>-w or --width=COLS</text:span><text:tab/></text:p>
+   <text:p text:style-name="P4"/>
+   <text:p text:style-name="P43"><text:span text:style-name="T69">the special argument </text:span><text:span text:style-name="Teletype"><text:span text:style-name="T71">--</text:span></text:span><text:span text:style-name="T69">, marking the end of options</text:span></text:p>
+   <text:p text:style-name="P5"/>
+   <text:p text:style-name="P5"><text:span text:style-name="T82">$ useradd <text:tab/><text:tab/>Create a new user or update default new user information</text:span><text:span text:style-name="T6"> </text:span><text:span text:style-name="T82">as</text:span></text:p>
+   <text:p text:style-name="P5"><text:tab/><text:tab/><text:tab/>specify a default shell</text:p>
+   <text:p text:style-name="P5"><text:tab/><text:tab/><text:tab/></text:p>
+   <text:p text:style-name="P5"><text:tab/><text:tab/><text:tab/>useradd is a low level utility for adding users. On Debian,</text:p>
+   <text:p text:style-name="P5"><text:s text:c="7"/><text:tab/><text:tab/>administrators should usually use adduser(8) instead.</text:p>
+   <text:p text:style-name="P4"/>
+   <text:p text:style-name="P5"><text:span text:style-name="T7">$ usermod<text:tab/><text:tab/>Modify a user account<text:tab/></text:span><text:span text:style-name="T6"><text:tab/></text:span></text:p>
+   <text:p text:style-name="P5"/>
+   <text:p text:style-name="P5"><text:span text:style-name="T6">$ chsh<text:tab/><text:tab/></text:span><text:span text:style-name="T7">I</text:span><text:span text:style-name="T6">s <text:s/>used <text:s/>to change your login shell.</text:span><text:tab/><text:tab/></text:p>
+   <text:p text:style-name="P15"/>
+   <text:p text:style-name="P15">$ type<text:tab/><text:tab/>Display information about command type</text:p>
+   <text:p text:style-name="P15"><text:tab/><text:tab/><text:tab/>Ex: <text:tab/>$ type cd</text:p>
+   <text:p text:style-name="P15"><text:tab/><text:tab/><text:tab/><text:tab/><text:span text:style-name="T8">&gt; cd is a shell builtin</text:span></text:p>
+   <text:p text:style-name="P34"/>
+   <text:p text:style-name="P38"><text:s text:c="5"/>-a<text:tab/>display all locations containing an executable named NAME;</text:p>
+   <text:p text:style-name="P38"><text:tab/>-t<text:tab/>output a single word which is one of `alias&apos;, `keyword&apos;,</text:p>
+   <text:p text:style-name="P38"><text:s text:c="4"/><text:tab/><text:tab/>`function&apos;, `builtin&apos;, `file&apos; or `&apos;, if NAME is an alias,</text:p>
+   <text:p text:style-name="P38"><text:s text:c="4"/><text:tab/><text:tab/>shell reserved word, shell function, shell builtin, disk file,</text:p>
+   <text:p text:style-name="P38"><text:s text:c="4"/><text:tab/><text:tab/>or not found, respectively</text:p>
+   <text:p text:style-name="P15"/>
+   <text:p text:style-name="P15">$ grep<text:tab/><text:tab/>Searches <text:s/>for PATTERNS in each FILE.</text:p>
+   <text:p text:style-name="P15"/>
+   <text:p text:style-name="P15">$ ifconfig <text:tab/>This program is obsolete!</text:p>
+   <text:p text:style-name="P15"><text:tab/><text:tab/><text:tab/>Is used to configure the kernel-resident network interfaces.</text:p>
+   <text:p text:style-name="P15"/>
+   <text:p text:style-name="P15">$ ip addr<text:tab/><text:tab/>ip - <text:span text:style-name="T7">S</text:span>how / manipulate routing, network devices, interfaces and</text:p>
+   <text:p text:style-name="P15"><text:tab/><text:tab/><text:tab/>tunnels. <text:span text:style-name="T7">(You can find the ip-address or a machine too)</text:span></text:p>
+   <text:p text:style-name="P15"><text:soft-page-break/></text:p>
+   <text:p text:style-name="P15">$ echo <text:tab/><text:tab/><text:span text:style-name="T2">D</text:span>isplay a line of text</text:p>
+   <text:p text:style-name="P15"/>
+   <text:p text:style-name="P10">$ cd<text:tab/><text:tab/><text:tab/>Change the shell working directory.</text:p>
+   <text:p text:style-name="P10"/>
+   <text:p text:style-name="P13">$ pwd<text:tab/><text:tab/><text:tab/>Print name of current/working directory.</text:p>
+   <text:p text:style-name="P15"/>
+   <text:p text:style-name="P8">$ lp<text:tab/><text:tab/><text:tab/>print files</text:p>
+   <text:p text:style-name="P8"/>
+   <text:p text:style-name="P25">$ pr <text:tab/><text:tab/><text:tab/>convert text files for printing</text:p>
+   <text:p text:style-name="P8"/>
+   <text:p text:style-name="P8">$ rm <text:tab/><text:tab/><text:tab/>remove files or directores</text:p>
+   <text:p text:style-name="P8"><text:tab/><text:tab/><text:tab/>-r, -R, --recursive</text:p>
+   <text:p text:style-name="P8"><text:tab/><text:tab/><text:tab/>-i <text:s text:c="4"/>prompt before every removal</text:p>
+   <text:p text:style-name="P8"><text:tab/><text:tab/><text:tab/>-f, --force</text:p>
+   <text:p text:style-name="P8"><text:tab/><text:tab/><text:tab/>-d, --dir remove empty directories</text:p>
+   <text:p text:style-name="P8"/>
+   <text:p text:style-name="P8"/>
+   <text:p text:style-name="P23"><text:span text:style-name="T13">Lesson </text:span><text:span text:style-name="T14">2</text:span></text:p>
+   <text:p text:style-name="P2"/>
+   <text:p text:style-name="P18"><text:tab/><text:tab/><text:tab/>single quotes ‘’<text:tab/><text:tab/></text:p>
+   <text:p text:style-name="P18"><text:tab/><text:tab/><text:tab/>double quotes “”<text:tab/> ($, !, `, \, *)</text:p>
+   <text:p text:style-name="P6"><text:tab/><text:tab/><text:tab/>-- double hyhen (no more option)</text:p>
+   <text:p text:style-name="P6"/>
+   <text:p text:style-name="P14">$ man<text:tab/><text:tab/><text:tab/>An interface to the system reference manuals</text:p>
+   <text:p text:style-name="P14"><text:tab/><text:tab/><text:tab/><text:span text:style-name="T15">Section:</text:span></text:p>
+   <text:p text:style-name="P14"><text:tab/><text:tab/><text:tab/>1 <text:s text:c="2"/>Executable programs or shell commands</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>2 <text:s text:c="2"/>System calls (functions provided by the kernel)</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>3 <text:s text:c="2"/>Library calls (functions within program libraries)</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>4 <text:s text:c="2"/>Special files (usually found in /dev)</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>5 <text:s text:c="2"/>File formats and conventions, e.g. /etc/passwd</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>6 <text:s text:c="2"/>Games</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>7 <text:s text:c="2"/>Miscellaneous (including <text:s/>macro <text:s/>packages <text:s/>and <text:s/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/> <text:s text:c="3"/>conventions), <text:s/>e.g. man(7), groff(7)</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>8 <text:s text:c="2"/>System administration commands (usually only for root)</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>9 <text:s text:c="2"/>Kernel routines [Non standard]</text:p>
+   <text:p text:style-name="P14"><text:soft-page-break/></text:p>
+   <text:p text:style-name="P14"><text:tab/><text:tab/><text:tab/><text:span text:style-name="T16">option: -f </text:span><text:span text:style-name="T9">(as whatis)</text:span><text:span text:style-name="T16">, </text:span></text:p>
+   <text:p text:style-name="P14"><text:span text:style-name="T16"><text:tab/><text:tab/><text:tab/><text:tab/> <text:s text:c="2"/>-k </text:span><text:span text:style-name="T9">(</text:span><text:span text:style-name="T17">Searching by Keyword , </text:span><text:span text:style-name="T19">as apropos</text:span><text:span text:style-name="T72">)</text:span><text:span text:style-name="T73">,</text:span><text:span text:style-name="T16"> </text:span></text:p>
+   <text:p text:style-name="P14"><text:span text:style-name="T16"><text:tab/><text:tab/><text:tab/><text:tab/> <text:s text:c="2"/>-</text:span><text:span text:style-name="T74">t </text:span><text:span text:style-name="T9">(</text:span><text:span text:style-name="T18">format to stdout</text:span><text:span text:style-name="T9">)</text:span></text:p>
+   <text:p text:style-name="P14"><text:tab/><text:tab/><text:tab/><text:tab/></text:p>
+   <text:p text:style-name="P14"><text:tab/><text:tab/><text:tab/><text:span text:style-name="T16">Also you can specify section prior to an argument, Ex:<text:tab/></text:span></text:p>
+   <text:p text:style-name="P19"><text:tab/><text:tab/><text:tab/>$ man 5 passwd</text:p>
+   <text:p text:style-name="P19"/>
+   <text:p text:style-name="P19"/>
+   <text:p text:style-name="P14"/>
+   <text:p text:style-name="P14">$ uname<text:tab/><text:tab/>Print system information</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>-a, --all <text:s text:c="2"/><text:tab/><text:tab/>print <text:s/>all <text:s/>information</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>-s, --kernel-name<text:tab/>print the kernel name</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>-n, --nodename <text:s text:c="5"/><text:tab/>print the network node hostname</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>-r, --kernel-release</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>-v, --kernel-version</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>-m, --machine</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>-p, --processor</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>-i, --hardware-platform</text:p>
+   <text:p text:style-name="P14"><text:s text:c="7"/><text:tab/><text:tab/>-o, --operating-system</text:p>
+   <text:p text:style-name="P14"/>
+   <text:p text:style-name="P14"/>
+   <text:p text:style-name="P11">$ apt-cache<text:tab/>Display information from the APT database cache. Its is <text:tab/><text:tab/><text:tab/><text:tab/>commonly used to find information about programs.</text:p>
+   <text:p text:style-name="P24"/>
+   <text:p text:style-name="P24">$ apt-cache search keyword</text:p>
+   <text:p text:style-name="P24"><text:tab/><text:tab/><text:tab/> do keyword-based package searches</text:p>
+   <text:p text:style-name="P24"/>
+   <text:p text:style-name="P24"><text:tab/><text:tab/><text:tab/> <text:span text:style-name="T5">Ex:</text:span> $ apt-cache search htop</text:p>
+   <text:p text:style-name="P11"/>
+   <text:p text:style-name="P11"/>
+   <text:p text:style-name="P11"/>
+   <text:p text:style-name="P23">$ alias<text:tab/><text:tab/>Without arguments, `alias` prints the list of aliases in the</text:p>
+   <text:p text:style-name="P23"><text:tab/><text:tab/><text:tab/>reusable<text:tab/><text:tab/><text:tab/></text:p>
+   <text:p text:style-name="P23"/>
+   <text:p text:style-name="P23"><text:tab/><text:tab/><text:tab/>to create an alias:</text:p>
+   <text:p text:style-name="P23"><text:soft-page-break/><text:tab/><text:tab/><text:tab/>$ alias name=&apos;commands / script&apos;</text:p>
+   <text:p text:style-name="P23"><text:tab/><text:tab/><text:tab/>Ex:</text:p>
+   <text:p text:style-name="P11"><text:tab/><text:tab/><text:tab/>alias ssh-vbf=&apos;sudo ssh <text:a xlink:type="simple" xlink:href="mailto:redfox9@123.12.12.12" text:style-name="Internet_20_link" text:visited-style-name="Visited_20_Internet_20_Link">redfox9@123.12.12.12</text:a>&apos;</text:p>
+   <text:p text:style-name="P7"/>
+   <text:p text:style-name="P35"><text:span text:style-name="T81">$ </text:span><text:span text:style-name="Source_20_Text"><text:span text:style-name="T64">unalias<text:tab/><text:tab/>Remove each name from the list of defined aliases. <text:s/>If -a is <text:tab/><text:tab/><text:tab/>supplied, all alias <text:s/>definitions <text:s/>are <text:s/>removed.</text:span></text:span></text:p>
+   <text:p text:style-name="P35"><text:span text:style-name="Source_20_Text"><text:span text:style-name="T64"/></text:span></text:p>
+   <text:p text:style-name="P12"/>
+   <text:p text:style-name="P11"><text:span text:style-name="T75">$ </text:span>cal <text:span text:style-name="T75">| ncal</text:span> <text:tab/><text:span text:style-name="T75">D</text:span>isplay a calendar</text:p>
+   <text:p text:style-name="P11"/>
+   <text:p text:style-name="P11"/>
+   <text:p text:style-name="P20">$ touch<text:tab/><text:tab/>Create empty files and change file timestamps<text:tab/></text:p>
+   <text:p text:style-name="P20"><text:tab/><text:tab/><text:tab/>-t<text:tab/>instead of current time</text:p>
+   <text:p text:style-name="P20"><text:tab/><text:tab/><text:tab/><text:span text:style-name="T76">Ex:<text:tab/>$ touch 123.txt</text:span></text:p>
+   <text:p text:style-name="P20"><text:tab/><text:tab/><text:tab/><text:tab/><text:span text:style-name="T76">$ </text:span>touch -d &apos;1984-08-12&apos; 123.txt</text:p>
+   <text:p text:style-name="P20"><text:tab/><text:tab/><text:tab/><text:tab/><text:span text:style-name="T76">$ </text:span>touch -d &apos;1984-08-12 04:50:00&apos; 123.txt</text:p>
+   <text:p text:style-name="P20"/>
+   <text:p text:style-name="P9"/>
+   <text:p text:style-name="P9">$ exec <text:tab/><text:tab/>Execute COMMAND, replacing this shell with the specified <text:tab/><text:tab/><text:tab/><text:tab/>program.</text:p>
+   <text:p text:style-name="P9"/>
+   <text:p text:style-name="P19">$ which<text:tab/><text:tab/>Shows the full path of (shell) commands.</text:p>
+   <text:p text:style-name="P19"/>
+   <text:p text:style-name="P19"><text:span text:style-name="T74">$ </text:span>whatis <text:tab/><text:tab/><text:span text:style-name="T74">D</text:span>isplay one-line manual page descriptions <text:span text:style-name="T77">(same as: </text:span><text:span text:style-name="T11">man -f</text:span><text:span text:style-name="T78"> </text:span><text:span text:style-name="T77">)</text:span></text:p>
+   <text:p text:style-name="P19"/>
+   <text:p text:style-name="P21">$ less<text:tab/><text:tab/>Less is a program similar to more(1), <text:s/>but which allows <text:s/><text:tab/><text:tab/><text:tab/><text:tab/>backward movement in the file as well as forward movement.</text:p>
+   <text:p text:style-name="P21"/>
+   <text:p text:style-name="P21"><text:span text:style-name="Variable"><text:span text:style-name="T20"><text:tab/><text:tab/><text:tab/>$ whatis passwd</text:span></text:span></text:p>
+   <text:p text:style-name="P21"><text:span text:style-name="Variable"><text:span text:style-name="T20"><text:tab/><text:tab/><text:tab/><text:tab/>passwd (5) <text:s text:c="11"/>- password file</text:span></text:span></text:p>
+   <text:p text:style-name="P21"><text:span text:style-name="Variable"><text:span text:style-name="T20"><text:tab/><text:tab/><text:tab/><text:tab/>passwd (1) <text:s text:c="11"/>- update user&apos;s authentication <text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/> <text:s text:c="2"/>tokens</text:span></text:span></text:p>
+   <text:p text:style-name="P22">$ date<text:tab/><text:tab/>Print or set the system date and time.</text:p>
+   <text:p text:style-name="P22"/>
+   <text:p text:style-name="P16">$ apropos<text:tab/><text:tab/>Searches the descriptions for instances of keyword.</text:p>
+   <text:p text:style-name="P16"><text:tab/><text:tab/><text:tab/>Similar to <text:span text:style-name="T10">man -k</text:span><text:span text:style-name="T8"> </text:span></text:p>
+   <text:p text:style-name="P33"/>
+   <text:p text:style-name="P33"><text:soft-page-break/></text:p>
+   <text:p text:style-name="P33"/>
+   <text:p text:style-name="P33"/>
+   <text:p text:style-name="P33"/>
+   <text:p text:style-name="P33"/>
+   <text:p text:style-name="P33"/>
+   <text:p text:style-name="P33"/>
+   <text:p text:style-name="P33"/>
+   <text:p text:style-name="P33"/>
+   <text:p text:style-name="P33"/>
+   <text:p text:style-name="P33"/>
+   <text:p text:style-name="P30">Lesson 3</text:p>
+   <text:p text:style-name="P30"/>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T27">$ </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T28">variable=value;<text:tab/><text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T27">$ echo $variable;<text:tab/><text:tab/>$ </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T30">export variable;</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30"/></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30">$ </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T31">export </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T55">variable=value</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T31"/></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30">$ declare -x </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T55">variable</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T31"> <text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T32">Can be used as </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T22">$ </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T23">export variable=value</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30">$ typeset -x </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T55">variable</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T31"><text:tab/><text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T32">Can be used as </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T22">$ </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T23">export variable=value</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T31"/></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30">$ </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T31">bash<text:tab/><text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T30">Open new bash shell</text:span></text:span></text:p>
+   <text:p text:style-name="P39"><text:span text:style-name="Variable"><text:span text:style-name="T30">$ sh<text:tab/><text:tab/><text:tab/>Open new default shell</text:span></text:span></text:p>
+   <text:p text:style-name="P39"><text:span text:style-name="Variable"><text:span text:style-name="T30"><text:tab/><text:tab/></text:span></text:span></text:p>
+   <text:p text:style-name="P40"><text:span text:style-name="Variable"><text:span text:style-name="T44">$ set<text:tab/><text:tab/>Set or unset values of shell options and positional parameters.</text:span></text:span></text:p>
+   <text:p text:style-name="P39"><text:span text:style-name="Variable"><text:span text:style-name="T44"><text:tab/><text:tab/>Or Display the names and values of shell variables.</text:span></text:span></text:p>
+   <text:p text:style-name="P39"><text:span text:style-name="Variable"><text:span text:style-name="T44"><text:tab/><text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T30">By itself will display all variables (local and environment).</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30"/></text:span></text:p>
+   <text:p text:style-name="P36"><text:span text:style-name="Variable"><text:span text:style-name="T43">$ exit<text:tab/><text:tab/>Exit the shell.</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30"/></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30"/></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30">$ env [NAME=VALUE] [COMMAND [ARG]...]</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30"><text:tab/><text:tab/><text:tab/>Used to run commands in a modified environment. It can also be <text:tab/><text:tab/><text:tab/>used to temporarily create or change environment variables.</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30"><text:tab/><text:tab/><text:tab/>Ex:<text:tab/>$ date</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30"><text:tab/><text:tab/><text:tab/><text:tab/>&gt; Sun Mar 10 22:47:44 UTC 2020</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30"><text:tab/><text:tab/><text:tab/><text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T60">$ env TZ=EST date </text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30"><text:tab/><text:tab/><text:tab/><text:tab/>&gt; Sun Mar 10 17:48:16 EST 2020</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:soft-page-break/><text:span text:style-name="Variable"><text:span text:style-name="T32"/></text:span></text:p>
+   <text:p text:style-name="P28"><text:span text:style-name="Variable"><text:span text:style-name="T30">To display only and all environment variables:</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T32"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>$ env<text:tab/><text:tab/><text:tab/><text:tab/></text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T32"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>$ </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T30">declare -x <text:tab/><text:tab/><text:tab/><text:tab/></text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T32"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>$ </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T30">typeset -x <text:tab/></text:span></text:span></text:p>
+   <text:p text:style-name="P29"><text:span text:style-name="Variable"><text:span text:style-name="T32"><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>$ export -p</text:span></text:span></text:p>
+   <text:p text:style-name="P29"><text:span text:style-name="Variable"><text:span text:style-name="T32"/></text:span></text:p>
+   <text:p text:style-name="P29"><text:span text:style-name="Variable"><text:span text:style-name="T32"/></text:span></text:p>
+   <text:p text:style-name="P29"><text:span text:style-name="Variable"><text:span text:style-name="T45">$ </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T32">printenv<text:tab/><text:tab/>Print <text:s/>the <text:s/>values of the specified environment VARIABLE(s). <text:s/><text:tab/><text:tab/><text:tab/>If no VARIABLE is specified, print name and value pairs for <text:tab/><text:tab/><text:tab/>them all.</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T30"><text:tab/></text:span></text:span></text:p>
+   <text:p text:style-name="P39"><text:span text:style-name="Variable"><text:span text:style-name="T33">$ tail<text:tab/>Print <text:s/>the <text:s/>last <text:s/>10 <text:s/>lines of each FILE to standard output.</text:span></text:span></text:p>
+   <text:p text:style-name="P28"><text:span text:style-name="Variable"><text:span text:style-name="T33"><text:tab/><text:tab/>With more than one FILE, precede each with a header giving the file <text:tab/><text:tab/>name.</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T33"/></text:span></text:p>
+   <text:p text:style-name="P28"><text:span text:style-name="Variable"><text:span text:style-name="T33"><text:tab/><text:tab/>-n, --lines=[+]NUM</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T33"><text:tab/><text:tab/>output the last NUM lines, instead of the last <text:s/>10.</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T33"/></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T33"/></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T33">$ head<text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T46">Same as tail but output the first part of files.</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T46"><text:tab/><text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T33">-n, --lines=[+]NUM</text:span></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T33"/></text:span></text:p>
+   <text:p text:style-name="P27"><text:span text:style-name="Variable"><text:span text:style-name="T33"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T33">$ unset </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T56">VARIABLE<text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T33"><text:tab/>Unset values and attributes of shell variables and <text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>functions.</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T33"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T33"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T33">$PATH<text:tab/><text:tab/><text:tab/><text:tab/>Return all the directories that files can be executed <text:tab/><text:tab/><text:tab/><text:tab/>from.</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T33"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T23">PATH=$PATH:/home/sysadmin<text:tab/><text:tab/>Appending /home/sysadmin to $PATH</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T23">PATH=${PATH}:${HOME}/bin</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T23"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T33"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T35">$ clear<text:tab/><text:tab/>C</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T33">lear the terminal screen.</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T33"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T33"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T36">$ history<text:tab/><text:tab/>Display or manipulate the history list.</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T36"><text:tab/><text:tab/><text:tab/>Ctrl+R<text:tab/>reverse search</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:soft-page-break/><text:span text:style-name="Variable"><text:span text:style-name="T36"><text:tab/><text:tab/><text:tab/>Ctrl+P<text:tab/>previous history item</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T36"><text:tab/><text:tab/><text:tab/>Ctrl+N<text:tab/>next history item</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T36"><text:tab/><text:tab/><text:tab/>Ctrl+A<text:tab/>start of line</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T36"><text:tab/><text:tab/><text:tab/>Ctrl+E<text:tab/>end of line</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T36"><text:tab/><text:tab/><text:tab/>Ctrl+D<text:tab/>as Delete btn</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T36"><text:tab/><text:tab/><text:tab/>Ctrl+X<text:tab/>as Backspace btn</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T36"><text:tab/><text:tab/><text:tab/>Ctrl+B<text:tab/>as &lt;- btn</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T36"><text:tab/><text:tab/><text:tab/>Ctrl+F<text:tab/>as -&gt; btn</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T36"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T36"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T37">$ history -c<text:tab/>Clear history</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T37">$ histort -r<text:tab/>Read the history file and append the contents to the history</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T37">$ histort -</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T38">w</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T37"><text:tab/>Write the current history list to the history file</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T37"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38">$ history 3<text:tab/><text:tab/>List last 3 entries</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38">$ history !!<text:tab/><text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T37">Repeat the last command</text:span></text:span></text:p>
+   <text:p text:style-name="P32"><text:span text:style-name="Variable"><text:span text:style-name="T29">$ history !-4<text:tab/><text:tab/>Execute the command that was run four commands ago</text:span></text:span></text:p>
+   <text:p text:style-name="P32"><text:span text:style-name="Variable"><text:span text:style-name="T29">$ history !555<text:tab/><text:tab/>Execute command number 555</text:span></text:span></text:p>
+   <text:p text:style-name="P32"><text:span text:style-name="Variable"><text:span text:style-name="T29">$ history !ec<text:tab/><text:tab/>Execute the last command that started with ec</text:span></text:span></text:p>
+   <text:p text:style-name="P32"><text:span text:style-name="Variable"><text:span text:style-name="T29">$ history !?joe<text:tab/><text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T47">Execute the last command that contained joe</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T36"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T39"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T39"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T39">Esc</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T65">+</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T39">. (Esc+Period) <text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T38">B</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T39">ring back the last argument of the previous command.</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T39">or <text:tab/><text:tab/><text:tab/><text:tab/>Repeatedly pressing </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T38">recall previous arguments.</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T39">Alt</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T65">+</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T39">. (Alt+Period) <text:s/></text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T39"/></text:span></text:p>
+   <text:p text:style-name="P37"/>
+   <text:p text:style-name="P37"/>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38">history varables:<text:tab/>HISTFILESIZE<text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T40">V</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T38">ariable will determine how many commands <text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>to write to this file.</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"><text:tab/><text:tab/><text:tab/><text:tab/></text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"><text:tab/><text:tab/><text:tab/><text:tab/>HISTSIZE <text:tab/><text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T40">V</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T38">ariable will determine how many commands <text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/><text:tab/>to keep in memory for each Bash shell.</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"><text:tab/><text:tab/><text:tab/><text:tab/>HISTFILE=/path/to/file</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:soft-page-break/><text:span text:style-name="Variable"><text:span text:style-name="T38"><text:tab/><text:tab/><text:tab/><text:tab/>HISTCONTROL=ignoredups</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"><text:tab/><text:tab/><text:tab/><text:tab/>HISTCONTROL=ignorespace</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"><text:tab/><text:tab/><text:tab/><text:tab/>HISTCONTROL=ignoreboth</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"><text:tab/><text:tab/><text:tab/><text:tab/>HISTCONTROL=erasedups</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"><text:tab/><text:tab/><text:tab/><text:tab/>HISTCONTROL=ignorespace:erasedups</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"><text:tab/><text:tab/><text:tab/><text:tab/>HISTIGNORE=&apos;ls*:cd*:history*:exit&apos;</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T38"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T39"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T39"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T41">$ </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T58">yum repolist</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T41"><text:tab/>Depending on the exact command lists enabled, <text:s/>disabled <text:s/>or <text:s/><text:tab/><text:tab/><text:tab/>all known <text:s/>repositories.</text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T41"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T42">$ yum search </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T54">htop</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T24"><text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T25">Searches available DNF / </text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T26">YUM</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T25"> repositories for <text:s/>selected <text:tab/><text:tab/><text:tab/><text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T26">p</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T25">ackages and displays the requested information </text:span></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T54"/></text:span></text:p>
+   <text:p text:style-name="P26"><text:span text:style-name="Variable"><text:span text:style-name="T54"/></text:span></text:p>
+   <text:p text:style-name="P16"><text:span text:style-name="Variable"><text:span text:style-name="T51">$ df<text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T57"><text:tab/><text:tab/><text:tab/></text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T51">Displays the amount of disk space available on the file <text:tab/><text:tab/><text:tab/><text:tab/>system containing each file name <text:s/>argument.</text:span></text:span></text:p>
+   <text:p text:style-name="P16"><text:span text:style-name="Variable"><text:span text:style-name="T51"/></text:span></text:p>
+   <text:p text:style-name="P17"><text:span text:style-name="Variable"><text:span text:style-name="T52">$ du<text:tab/><text:tab/><text:tab/><text:tab/>Summarize disk usage of the set of FILEs, recursively for <text:tab/><text:tab/><text:tab/><text:tab/>lsdirectories.</text:span></text:span></text:p>
+   <text:p text:style-name="P17"><text:span text:style-name="Variable"><text:span text:style-name="T52"/></text:span></text:p>
+   <text:p text:style-name="P17"><text:span text:style-name="Variable"><text:span text:style-name="T52">$ du -h -d1<text:tab/><text:tab/>wit</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T53">h</text:span></text:span><text:span text:style-name="Variable"><text:span text:style-name="T52"> human readable and depth 1<text:tab/><text:tab/><text:tab/></text:span></text:span></text:p>
+  </office:text>
+ </office:body>
+</office:document>

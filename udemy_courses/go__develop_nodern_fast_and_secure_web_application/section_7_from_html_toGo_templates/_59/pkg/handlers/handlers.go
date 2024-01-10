@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"foxcode.io/common"
@@ -48,7 +49,7 @@ func (m *Repository) HomeHandler(w http.ResponseWriter, r *http.Request) {
 	m.App.Session.Put(r.Context(), "user_agent", userAgent)
 
 	// Render the home page template with the provided data
-	render.RenderTemplate(w, "home-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "home-page.tmpl", &common.TemplateData{})
 }
 
 // AboutHandler handles requests to the about page
@@ -60,35 +61,42 @@ func (m *Repository) AboutHandler(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println("Remote IP:", remoteIP)
 	// fmt.Println("User Agent:", userAgent)
 
-	render.RenderTemplate(w, "about-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "about-page.tmpl", &common.TemplateData{})
 }
 
 func (m *Repository) ContactHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, "contact-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "contact-page.tmpl", &common.TemplateData{})
 }
 
 func (m *Repository) EremiteHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, "eremite-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "eremite-page.tmpl", &common.TemplateData{})
 }
 
 func (m *Repository) CoupleHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, "couple-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "couple-page.tmpl", &common.TemplateData{})
 }
 
 func (m *Repository) FamilyHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, "family-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "family-page.tmpl", &common.TemplateData{})
 }
 
 func (m *Repository) ReservationHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, "check-availability-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "check-availability-page.tmpl", &common.TemplateData{})
+}
+
+func (m *Repository) PostReservationHandler(w http.ResponseWriter, r *http.Request) {
+	start := r.Form.Get("startingDate")
+	end := r.Form.Get("endingDate")
+	returnString := fmt.Sprintf("Arrival date: %s, Departure date: %s", start, end)
+	w.Write([]byte(returnString))
 }
 
 func (m *Repository) MakeReservationHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, "make-reservation-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "make-reservation-page.tmpl", &common.TemplateData{})
 }

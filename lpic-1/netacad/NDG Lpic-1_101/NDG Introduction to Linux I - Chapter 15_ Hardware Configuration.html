@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/ -->
+<html lang="en" class="k-webkit k-webkit99"><input type="hidden" id="__yoroi_connector_api_injected_type" value="prod"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="spinner-keyframes">
+@-webkit-keyframes rotation 
+{  from { -webkit-transform : rotate( 0deg );   }
+  to   { -webkit-transform : rotate( 359deg ); }
+}
+@-moz-keyframes rotation {
+  from { -moz-transform : rotate( 0deg );   }
+  to   { -moz-transform : rotate( 359deg ); }
+}
+@-o-keyframes rotation {
+  from { -o-transform : rotate( 0deg );   }
+  to   { -o-transform : rotate( 359deg ); }
+}
+@keyframes rotation {
+  from { transform : rotate( 0deg );   }
+  to   { transform : rotate( 359deg ); }
+}
+</style><style id="term-style">.terminal {
+  float: left;
+  border: #000000 solid 5px;
+  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-size: 11px;
+  color: #f0f0f0;
+  background: #000000;
+  white-space: nowrap;
+}
+
+.terminal-cursor {
+  color: #000000;
+  background: #f0f0f0;
+}
+</style>
+  <title>NDG Introduction to Linux I - Chapter 15: Hardware Configuration</title>
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="https://ndg-content.s3.us-west-2.amazonaws.com/img/favicon.ico">
+
+  <link rel="stylesheet" href="./NDG Introduction to Linux I - Chapter 15_ Hardware Configuration_files/44d1a56e411f.css" type="text/css">
+
+  <script async="" src="./NDG Introduction to Linux I - Chapter 15_ Hardware Configuration_files/analytics.js"></script><script type="text/javascript" src="./NDG Introduction to Linux I - Chapter 15_ Hardware Configuration_files/polyfill-6.26.0.min.js"></script>
+  <script type="text/javascript" src="./NDG Introduction to Linux I - Chapter 15_ Hardware Configuration_files/9930c7fbf6d8.js"></script>
+
+  <script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-11306725-3', 'netdevgroup.com');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+
+</script>
+
+  <script type="text/javascript">
+    var NDGCourse = {name: "NDG Introduction to Linux I"};
+    var videoContent = {};
+  </script>
+</head>
+
+<body style="">
+
+  <!-- Start Navbar -->
+  <div class="navbar navbar-primary navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand hidden-xs">
+          NDG Introduction to Linux I - Chapter 15: Hardware Configuration
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-share-alt" aria-hidden="true"></i> Share <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://www.facebook.com/share.php?u=https://netdevgroup.com/online/courses/linux.html&amp;title=Learn%20Linux%20with%20NDG" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+            </li>
+            <li>
+              <a href="http://twitter.com/home?status=Learn%20Linux%20with%20NDG+https://netdevgroup.com/online/courses/linux.html" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li id="tour-help" class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-lg hidden-md hidden-sm">NDG Introduction to Linux I</span>
+            <div class="pull-right">
+              <i class="fa fa-question-circle"></i>
+              <span class="hidden-xs"> Help</span>
+              <b class="caret"></b>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header hidden-md hidden-sm hidden-lg">Chapter 15: Hardware Configuration</li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/faq/">Frequently Asked Questions</a></li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/feedback/">Contact Support</a></li>
+            <li class="hidden-xs desktop-only"><a id="toursb" class="support" href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/#">Start Tour</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- End Navbar -->
+
+
+  <div id="splitter" class="height-full k-widget k-splitter" data-role="splitter">
+    <div role="group" class="k-pane k-scrollable" style="position: absolute; top: 0px; width: 869px; height: 789.011px; left: 0px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            <!-- Tab Btns -->
+              <ul id="left-tabs" class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/#content" role="tab" data-toggle="tab">Content</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/#objectives" role="tab" data-toggle="tab">Objectives</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/#terms" role="tab" data-toggle="tab">Key Terms</a></li>
+                
+                <li class="mobile-only" style="display:none;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/#mobile" role="tab" data-toggle="tab"><i class="fa fa-terminal"></i> Devices</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div id="content-container" class="tab-content tab-content-panel">
+                  <div id="content" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="tour2" class="btn-group-vertical btn-group-xs pull-left hidden-xs">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                          
+                                          15.1 Introduction
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.2 Core Hardware
+                                        </a>
+                                        
+                                          
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.2.1 Central Processing Unit
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.2.2 Random Access Memory
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.2.3 Firmware
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.2.4 Mass Storage Devices
+                                        </a>
+                                        
+                                      
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.3 Plug and Play
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.4 Hardware Resources
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.5" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.5 Viewing Hardware
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.6" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.6 Hardware Subsystems
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.7" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.7 Kernel Modules
+                                        </a>
+                                        
+                                      
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.1" class="btn btn-default ndg-menu-btn change_section btn-primary active" style="text-align:left;">
+                                    15.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.2
+                                  </a>
+                                  
+                                    
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.2.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.2.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.2.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.2.4
+                                  </a>
+                                  
+                                
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.4
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.5" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.5
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.6" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.6
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.7" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.7
+                                  </a>
+                                  
+                                
+                            </div>
+                            <div class="content-menu-space">
+                              <div class="btn-group hidden-lg hidden-md hidden-sm mobile-chapter-select">
+                                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-caret-down"></i> Sections
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                        15.1 Introduction
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2" class="btn-default ndg-menu-btn change_section">
+                                        15.2 Core Hardware
+                                      </a>
+                                      
+                                        
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.1" class="btn-default ndg-menu-btn change_section">
+                                        15.2.1 Central Processing Unit
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.2" class="btn-default ndg-menu-btn change_section">
+                                        15.2.2 Random Access Memory
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.3" class="btn-default ndg-menu-btn change_section">
+                                        15.2.3 Firmware
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.4" class="btn-default ndg-menu-btn change_section">
+                                        15.2.4 Mass Storage Devices
+                                      </a>
+                                      
+                                    
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.3" class="btn-default ndg-menu-btn change_section">
+                                        15.3 Plug and Play
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.4" class="btn-default ndg-menu-btn change_section">
+                                        15.4 Hardware Resources
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.5" class="btn-default ndg-menu-btn change_section">
+                                        15.5 Viewing Hardware
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.6" class="btn-default ndg-menu-btn change_section">
+                                        15.6 Hardware Subsystems
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.7" class="btn-default ndg-menu-btn change_section">
+                                        15.7 Kernel Modules
+                                      </a>
+                                      
+                                    
+                                    </li>
+                                  </ul>
+                                </div>
+                              <div>
+<article id="content-15.1" style="display: block;"><h2>15.1 Introduction</h2>
+<p>Understanding how to view and configure computer system hardware is a critical skill for a Linux administrator. Even though some hardware may not require any configuration, an administrator can benefit from understanding the function of that hardware when attempting to diagnose any problems. The usage of virtualization and virtual machines does not lessen the need to understand hardware, as the concept of hardware still exists in the virtual machine environment, and virtualization environments run on physical hardware.</p></article><article id="content-15.2"><h2>15.2 Core Hardware</h2>
+<p>Components that are essential to operate a computer are considered <var>core hardware</var>. Every system should include a central processing unit, random access memory, and some kind of firmware. This module will define these components and demonstrate commands and files that can be used to view core hardware information in the terminal. Other hardware that is essential for a complete system includes some type of persistent storage device like a mechanical hard drive or solid-state drive (SSD), a method of controlling the device, either remotely, or by using a display device/monitor, a keyboard, and a mouse. Most systems also include one or more networking devices, possibly a sound device, and ports for connecting external devices.</p></article><article id="content-15.2.1"><h2>15.2.1 Central Processing Unit</h2>
+<p>The <var>central processing unit (CPU)</var> is the brain of the computer, where the instructions to perform calculations or manipulate data are processed. There are numerous types of CPUs that are able to work with Linux, but the most common is the 64-bit x86_64 type, and decreasingly, the 32-bit x86 type. Both of these types of CPUs are backward compatible with the CPU used in the first IBM Personal Computer (PC), the Intel 8088 CPU.</p>
+
+<p>Knowing the type and capability of a system’s CPU is essential to knowing what software can be installed on it, and how it will perform. There are several ways to gather information about the type of CPU in a system.  We will focus on determining this information from an already-installed Linux system.</p>
+  
+<p>A prime location for CPU information is the firmware settings. Viewing the contents of the <code class="console">/proc/cpuinfo</code> file will display extremely detailed information, including the model name, speed in MHz, and specific features available in a list of flags.</p>
+
+<p>The <code>uname</code> command is a valuable tool for quickly determining system information from the command line.  Running the <code>uname</code> command with no parameters yields only the kernel name as shown below:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> uname
+Linux
+</pre>
+
+<p>The <code>uname</code> command has access to the files in the <code class="console">/proc</code> and <code class="console">/sys</code> directories which can display a lot of organized information about your system.  Running <code>uname</code> with the <code>-a</code> option will show the following information (in order of appearance):</p>
+
+<table class="table ">
+<thead><tr>
+<th>Information</th>
+<th>Option</th>
+<th>Example</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Kernel name</td>
+<td><code>-s</code></td>
+<td><code class="console">Linux</code></td>
+</tr>
+<tr>
+<td>Nodename</td>
+<td><code>-n</code></td>
+<td><code class="console">localhost</code></td>
+</tr>
+<tr>
+<td>Kernel release</td>
+<td><code>-r</code></td>
+<td><code class="console">4.4.0-72-generic</code></td>
+</tr>
+<tr>
+<td>Kernel version</td>
+<td><code>-v</code></td>
+<td><code class="console">#93~14.04.1-Ubuntu SMP Fri Mar 31 15:05:15 UTC 2017</code></td>
+</tr>
+<tr>
+<td>Machine hardware</td>
+<td><code>-m</code></td>
+<td><code class="console">x86_64</code></td>
+</tr>
+<tr>
+<td>Processor</td>
+<td><code>-p</code></td>
+<td><code class="console">x86_64</code></td>
+</tr>
+<tr>
+<td>Hardware platform</td>
+<td><code>-i</code></td>
+<td><code class="console">x86_64</code></td>
+</tr>
+<tr>
+<td>Operating System</td>
+<td><code>-o</code></td>
+<td><code class="console">GNU/Linux</code></td>
+</tr>
+</tbody>
+</table>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> uname -a
+Linux localhost 4.4.0-72-generic #93~14.04.1-Ubuntu SMP Fri Mar 31 15:05:15 UTC
+2017 x86_64 x86_64 x86_64 GNU/Linux
+</pre> 
+
+<p>Each item can be display individually with the corresponding option. For a less detailed summary of the CPUs in your system, execute the <code>uname -p</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> uname -p
+x86_64
+</pre>
+
+<p>Another way to get more detailed information than the <code>uname</code> command can give you is to run the <code>lscpu</code> command.  Much of the information the <code>lscpu</code> command returns is out of the scope of this objective but can be very useful in determining the hardware’s capabilities.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> lscpu
+Architecture:          x86_64
+CPU op-mode(s):        32-bit, 64-bit
+Byte Order:            Little Endian
+CPU(s):                8
+On-line CPU(s) list:   0-7
+Thread(s) per core:    1
+Core(s) per socket:    4
+Socket(s):             2
+NUMA node(s):          1
+Vendor ID:             GenuineIntel
+CPU family:            6
+Model:                 44
+Stepping:              2
+CPU MHz:               2394.000
+BogoMIPS:              4788.00
+Hypervisor vendor:     VMware
+Virtualization type:   full
+L1d cache:             32K
+L1i cache:             32K
+L2 cache:              256K
+L3 cache:              12288K
+NUMA node0 CPU(s):     0-7
+</pre></article><article id="content-15.2.2"><h2>15.2.2 Random Access Memory</h2>
+<p>The <var>random access memory (RAM)</var> of a system is used to temporarily store data and instructions for the operating system and the programs that are executing. When the IBM PC debuted in 1981, it was able to access 1 MiB of memory, of which 640 KiB was RAM, and 384 KiB was for the system ROM.</p>
+<p>The maximum amount of memory that can be used with a 32-bit processor is 4 GiB, whereas a 64-bit processor can theoretically use 16 EiB of memory. In reality, many 32-bit systems may actually be limited to using 3 GiB of memory, and the hardware doesn't exist yet to be able to use the maximum amount of memory on a 64-bit system.</p>
+
+<p>From a practical perspective, if a system doesn't currently have at least 1 GiB of RAM, then it may not be able to use the graphical user interface (GUI) with Linux. When using only the command line interface (CLI), the memory requirements are much less.</p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p></p>
+
+<table class="table ">
+<thead><tr>
+<th>Unit</th>
+<th>Abbreviation</th>
+<th>Value (Bytes)</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>kibibyte</td>
+<td>KiB</td>
+<td>1024</td>
+</tr>
+<tr>
+<td>mebibyte</td>
+<td>MiB</td>
+<td>1024<sup>2</sup> = 1,048,576</td>
+</tr>
+<tr>
+<td>gibibyte</td>
+<td>GiB</td>
+<td>1024<sup>3</sup> = 1,073,741,824</td>
+</tr>
+<tr>
+<td>tebibyte</td>
+<td>TiB</td>
+<td>1024<sup>4</sup> = 1,099,511,627,776</td>
+</tr>
+<tr>
+<td>exbibyte</td>
+<td>EiB</td>
+<td>1024<sup>6</sup> = 1,152,921,504,606,846,976</td>
+</tr>
+</tbody>
+</table>
+
+<p>A typical desktop in the year 2019 has 16 GiB of RAM.  That is more than 26000 times the amount of RAM in a fully loaded IBM PC in the year 1981!</p>
+</div>
+
+<p>Normally a system will have enough RAM to conduct its normal operations, run a few services, and maybe applications.  If a system doesn't have sufficient RAM for the processes you are executing on it, then it will use virtual memory, called swap space in Linux. <var>Swap space</var> is hard drive space that is temporarily used to hold data that exceeds the amount of RAM available. When the system begins to run low on memory, it will "swap out" data that is least in demand at that moment, so that RAM space can free up for something that is currently in demand (typically a new process). If the system is using swap space constantly, then it will perform poorly in comparison to a system that doesn't; an increase in performance could be obtained if more RAM were added to the system.</p>
+
+<p>Swap space comes in two types; a swapfile that would reside on an existing filesystem, or a swap partition, which is a section of a disk that is dedicated to swap and is formatted with the swap filesystem.  A swap partition is an essential part of a properly configured Linux system and yields the best performance for swap operations.  Swap files have the overhead of being on an existing filesystem and should be used sparingly, and only if absolutely necessary.</p>
+
+<p>The amount of RAM in a system can be viewed in the firmware settings. For a very detailed breakdown of how much memory a system has and how it is being used, view the <code class="console">/proc/meminfo</code> file:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cat /proc/meminfo
+MemTotal:       132014640 kB
+MemFree:        67439868 kB
+MemAvailable:   99487364 kB
+Buffers:         2116936 kB
+Cached:         27429740 kB
+SwapCached:           40 kB
+Active:         14409408 kB
+Inactive:       23724500 kB
+Active(anon):    8400252 kB
+Inactive(anon):   191680 kB
+Active(file):    6009156 kB
+Inactive(file): 23532820 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+SwapTotal:      134196220 kB
+SwapFree:       134195752 kB
+<code class="input">Output Omitted...</code>
+</pre>
+
+<p>For a quick summary of RAM memory and swap space, execute the <code>free</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> free
+              total        used        free      shared  buff/cache   available
+Mem:         128920       35120       89205           2        4594       93190
+Swap:        131050         140      130910</pre>
+
+<p>The output above shows this system contains about 128 MiB of RAM memory; almost all of it is used. Very little memory is free because the system configures any unused memory for buffers and caches, which are temporary data stores, to speed up the system.</p>
+
+<p>Despite having so little free RAM, notice that the swap space of about 131 MiB has not been used at all; although if a heavy demand for memory (due to an additional load of processes) were placed on this system, then this swap space is available and would likely be used.</p>
+
+<p>Another notable bit of information from this output is that the swap space that has been configured is about twice as large as the amount of RAM. For systems with smaller amounts of RAM (under 16-32 GiB), it is common to configure the swap space to be twice the size of the amount of RAM.</p></article><article id="content-15.2.3"><h2>15.2.3 Firmware</h2>
+<p><var>Firmware</var> is software that has been written to non-volatile memory such as <var>read-only memory (ROM)</var> or flash memory. There are several types of firmware that may be present in a computer system. On each device that provides services to a system (like a network interface card or a graphics display), there is typically a ROM chip that contains firmware for the device.</p>
+
+<p>The motherboard firmware contains the code that allows the integrated components of the system to work together. This firmware tests the components upon startup, identifies and initializes these components, and attempts to find a <var>bootloader</var> to load an operating system.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong> </p>
+
+<p><var>Bootloaders will be covered in greater detail later in the course.</var></p>
+</div>
+
+<p>Originally, this firmware was known as the <strong>Basic Input/Output System (BIOS)</strong>, System ROM, or ROM BIOS. BIOS is used to provide basic services, called input and output services before an operating system is loaded, so the user may provide input through the keyboard or see output on a monitor even before the bootloader or an operating system is executed.</p>
+
+<p>Recently, computer manufacturers have begun to replace the traditional BIOS with something called the <strong>Unified Extensible Firmware Interface (UEFI)</strong>; however, the functions of UEFI appear so similar to BIOS that many people still refer to the system firmware as BIOS.</p>
+
+<p>Both UEFI-based systems and BIOS-based systems provide a proprietary menu program that allows integrated devices to be enabled or disabled. The firmware that is included varies with each system vendor, so, unfortunately, there is no standard way to start this program or standard menu item for enabling or disabling devices.</p>
+
+<p>Entering the program that will allow adjustments to the firmware settings typically requires that a designated key is pressed immediately after turning the system on. Many systems use a function key like <strong>F2</strong> or <strong>F12</strong>, while others might use the <strong>Esc</strong> or <strong>Del</strong> keys to start the firmware settings program. When a computer is powered on, messages typically appear on the splash screen indicating the appropriate key to press. If the correct key is not displayed on the splash screen, it may be necessary to refer to vendor documentation.</p>
+
+<p>‌⁠​​⁠​If a system has UEFI firmware, then it may be more challenging to boot the Linux operating system due to a feature called <strong>Secure Boot</strong>. If Secure Boot is enabled, then the bootloader must be cryptographically signed by a digital key that is recognized by the firmware. If the bootloader is not properly signed, then booting may still be possible by disabling Secure Boot in the firmware settings, in favor of the <strong>Compatibility Support Module (CSM)</strong>.</p>
+
+<p>Not only can the firmware settings be used to enable or disable Secure Boot, settings can also be changed that will affect which devices, and in what order, the firmware will look for a bootable device. The firmware settings can even be used to affect the use of external devices like keyboards.</p>
+
+<p>As advancements in integration of peripherals have occurred, more components have been placed on-board, meaning they are embedded into the motherboard of a system. These <var>integrated peripherals</var> can be managed through firmware as well.  Historically, a peripheral was added to the system by inserting a card on the peripherals bus, such as a video card or networking card.  Then the peripheral had to be manipulated either via physical jumper or switch settings to properly use the right memory location and IRQ or Interrupt Request number.  All of this is typically pre-configured on systems that have integrated peripherals, by the manufacturer, typically with no need for the computer’s user to be involved.</p>
+
+<p>Commonly, server systems may be configured to run <var>headless</var>, that is without a keyboard, mouse,  or monitor. Typically, the BIOS will prevent a computer from booting without a keyboard present. It may be necessary to change the firmware settings to disable this feature for headless systems.</p></article><article id="content-15.2.4"><h2>15.2.4 Mass Storage Devices</h2>
+<p>Although Linux doesn't strictly require a <var>mass storage device</var>, most systems will include one or more of such devices. The most common mass storage device is the mechanical hard disk (or fixed disk). These types of disks come with a variety of interfaces or ways that they connect to the computer system.</p>
+
+<p>There are quite a few mass storage interfaces that are still in use today:</p>
+
+<ul type="disc" class="">
+<li><p>The <strong>Small Computer System Interface (SCSI)</strong> is one of the oldest and requires a SCSI controller in the system to control one or more disk drives that connect to it.</p></li>
+<li><p>The <strong>Integrated Drive Electronics (IDE)</strong> or <strong>Parallel Advanced Technology Attachment (PATA)</strong> type interface includes the controller directly on each drive and was very popular for hard disks through the 1990s. This type is still used for some optical drive devices today.</p></li>
+<li><p>The most common interface used for internal mass storage devices today is the <strong>Serial Advanced Technology Attachment (SATA)</strong> type. Each SATA drive is connected directly to the system board by a cable. To configure the primary SATA drive, connect it with a cable to the connector of the system board that is designated as the primary port.</p></li>
+<li><p>For external drives, the <strong>Universal Serial Bus (USB)</strong> interface is the most common, but there are other standards such as FireWire and Thunderbolt.</p></li>
+</ul>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>Data storage devices use either <var>serial</var> or <var>parallel</var> interfaces. The <strong>S</strong> in SC<strong>S</strong>I, in <strong>S</strong>ATA, and in U<strong>S</strong>B all stand for the word serial. That is why they appear as <code class="console">/dev/sda1</code> meaning <strong>Dev</strong>ice <strong>S</strong>erial <strong>D</strong>rive <strong>A</strong> partition <strong>1</strong>.</p>
+
+<p>The <code>df -h</code> command can be used to determine which type of drive is being used in a Linux based computer.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda9        58G  7.7G   49G  14% /
+tmpfs           7.9G     0  7.9G   0% /dev
+shm              64M     0   64M   0% /dev/shm
+/dev/sda9        58G  7.7G   49G  14% /etc/hosts</pre>
+
+<p><var>The <code>df</code> command is covered in greater detail later in the course.</var></p>
+</div></article><article id="content-15.3"><h2>15.3 Plug and Play</h2>
+<p>In addition to the core hardware, there are many other components, commonly known as <var>peripherals</var>, that may be used with the computer system. It is important to know if a peripheral requires that the power to the computer system be turned off at the time it is connected, or if the peripheral may be connected while the computer system is on. If the power to the computer system is on and the peripheral requires that the power be turned off, connecting the device may result in damage to the peripheral, ‌⁠​​⁠​ the computer system, or both.</p>
+
+<p>Devices that are supposed to be connected when the power is off are known as <var>coldplug</var> devices. Devices that can be connected when the power is on are known as <var>hotplug</var> devices. In order to "plug and play", or plug in a device while the system is powered on and have it work, the device, the interface, the driver, and the operating system all must support hotplugging for that device.</p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>Typically, USB devices are <var>hot pluggable</var>. This means that the USB device will be auto-recognized by the running operating system, so you don't have to do anything for the system to “see” the device;  just plug it in, and the USB drivers will see it, auto-configure, and connect it properly.</p>
+</div></article><article id="content-15.4"><h2>15.4 Hardware Resources</h2>
+<p>In order for a device to work correctly, certain resources must be allocated to it. Originally, PCs had very limited resources that had to be manually managed; the administrator would have to set jumpers or switches on the devices to configure them for the resources that they would use. This was problematic, as a mistake might create a situation where one resource was being allocated to more than one device, resulting in one or both devices not working. In some cases, improper allocation of resources could even result in a non-functional system.</p>
+
+<p>Not only are more resources available today, but they are also automatically allocated and managed by the operating system instead of manually by the administrator.</p>
+
+<p>There are four types of hardware resources that devices use to communicate with the system. As some of these resources refer to input and output, part of their name may be abbreviated as IO. The four resources are: <var>IO ports</var>, <var>IO memory</var>, <var>interrupt requests (IRQ)</var>, and <var>direct memory access (DMA)</var> channels:</p>
+
+<ul type="disc" class="">
+<li>
+<p><strong>IO Ports</strong> - Memory addresses that allow for communication with hardware devices.  The current system addresses in use can be viewed by executing the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cat /proc/ioports
+0000-0cf7 : PCI Bus 0000:00
+  0000-001f : dma1
+  0020-0021 : pic1
+  0040-0043 : timer0
+  0050-0053 : timer1
+  0060-0060 : keyboard
+  0064-0064 : keyboard
+<code class="input">Output Omitted...</code>
+</pre>
+</li>
+<li>
+<p><strong>IO Memory</strong> - A section or location that acts much like the RAM that is presented to the processor via the system bus.  These are used to pass and store data as well as for access to devices on the system. IO memory information can be viewed by executing the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cat /proc/iomem
+00010000-0009ffff : System RAM
+000a0000-000bffff : PCI Bus 0000:00
+000c0000-000c7fff : Video ROM
+000c8000-000cdfff : Adapter ROM
+000f0000-000fffff : System ROM
+00100000-be777fff : System RAM
+  06000000-0680bdb2 : Kernel code
+  0680bdb3-06f45abf : Kernel data
+<code class="input">Output Omitted...</code>
+</pre>
+</li>
+<li>
+<p><strong>Interrupt Requests (IRQ)</strong> - An interrupt is a hardware signal that pauses or stops a running program so that the interrupt handler can switch to running another program, or send and receive data.  There are a set of commonly-defined interrupts called IRQ’s that map to common interfaces, such as the system timer, keyboard controller, serial and parallel ports,  and floppy controllers. The <code class="console">/proc/irq</code> directory contains configuration information for each IRQ on the system.</p>
+</li>
+<li>
+<p><strong>Direct Memory Access (DMA)</strong> - A method by which particular hardware items in the system can directly access RAM, without going through the CPU.  This speeds up access, as the CPU would otherwise be fully tasked during such access, making it unavailable for other tasks for the duration. DMA information can be viewed by executing the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cat /proc/dma
+ 4: cascade</pre>
+</li>
+</ul>
+
+<p>Note that, with the exception of interrupt requests, these resources cannot be shared between devices. Also, keep in mind that administrators rarely need to view this data on modern Linux systems as the configuration of devices is almost always transparent and automatic.</p></article><article id="content-15.5"><h2>15.5 Viewing Hardware</h2>
+<p>Viewing the details of what hardware is attached (including peripherals attached via USB, etc.) or contained in a running Linux system is important to successfully troubleshoot problems that may occur during boot up and day-to-day operations.</p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>Modern computers typically use the <strong>Peripheral Component Interconnect Express (PCIe)</strong> bus to connect components inside the computer.  For example, video, sound, network, and disk controllers are normally found on the PCIe bus.</p>
+</div>
+
+<p>A <var>bus</var> is not only used to refer to actual physical connections, but also software components designed to connect programs and certain communications protocols.  Components are attached with a type of bus and communicate through it at high rates of speed.</p>
+
+<p>Buses can be alternatively grouped into <var>internal</var> and <var>external</var> bus types. Internal buses are considered to be inside the actual computer, while external or “expansion” buses are used to attach external devices to the computer.  Good examples of internal buses are the aforementioned PCIe bus, the older <strong>Industry Standard Architecture (ISA)</strong> bus, and the very popular <strong>Small Computer Systems Interface (SCSI)</strong> bus.  An example of an external or expansion bus type would be the most universally available <strong>Universal Serial Bus (USB)</strong> bus.</p>
+
+<p>Bridges connect the various buses on a system to each other and allow for cross bus communications when necessary.</p>
+
+<div class="content-image "><img alt="PCI Bus depicted as horizontal arrow with devices connected to it underneath and PCI Bridge above it. Connected to the PCI Bridge is a CPU and RAM." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 15_ Hardware Configuration_files/Linux 1 Chapter 15-01.png"></div>
+
+<p>While there are files and directories in the <code class="console">/proc</code> and <code class="console">/sys</code> directories that contain hardware information, users can run various commands to view the multiple aspects of the hardware that makes up or is attached to the system.</p>
+<p>First among these is the <code>lspci</code> command, designed to show the user the PCI buses and devices attached to them.</p>
+
+<p>In the output of the command below you will see the various bridges listed; those are connections between the different buses on the system, interconnecting them with each other.</p>
+
+<p>Additionally, users can view the USB controller, Ethernet, sound, and other video and peripheral connection buses and controllers.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> lspci
+00:00.0 Host bridge: Intel Corporation 5520 I/O Hub to ESI Port (rev 13)
+00:01.0 PCI bridge: Intel Corporation 5520/5500/X58 I/O Hub PCI Express Root Por
+t 1 (rev 13)
+00:03.0 PCI bridge: Intel Corporation 5520/5500/X58 I/O Hub PCI Express Root Por
+t 3 (rev 13)
+00:04.0 PCI bridge: Intel Corporation 5520/X58 I/O Hub PCI Express Root Port 4 (
+rev 13)
+00:05.0 PCI bridge: Intel Corporation 5520/X58 I/O Hub PCI Express Root Port 5 (
+rev 13)
+00:06.0 PCI bridge: Intel Corporation 5520/X58 I/O Hub PCI Express Root Port 6 (
+rev 13)
+00:07.0 PCI bridge: Intel Corporation 5520/5500/X58 I/O Hub PCI Express Root Por
+t 7 (rev 13)
+00:09.0 PCI bridge: Intel Corporation 7500/5520/5500/X58 I/O Hub PCI Express Roo
+t Port 9 (rev 13)
+00:14.0 PIC: Intel Corporation 7500/5520/5500/X58 I/O Hub System Management Regi
+sters (rev 13)
+00:14.1 PIC: Intel Corporation 7500/5520/5500/X58 I/O Hub GPIO and Scratch Pad
+Registers (rev 13)
+</pre>
+
+<p>For viewing external devices, the <code>lsusb</code> command will show those that are specifically connected to the Universal Serial Bus (USB).</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> lsusb
+Bus 002 Device 006: ID 0624:0249 Avocent Corp. Virtual Keyboard/Mouse
+Bus 002 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 006 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 005 Device 003: ID 0624:0248 Avocent Corp. Virtual Hub
+Bus 005 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 001 Device 002: ID 0424:2514 Standard Microsystems Corp. USB 2.0 Hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 004 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 003 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub</pre>
+
+<p>Another tool for viewing details about USB devices connected to the system is the <code>usb-devices</code> command. This is a script, which when executed will display information about the USB device that can otherwise be found in the <code class="console">/sys</code> or <code class="console">/proc</code> directories, including the USB device number, vendor, port and more:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> usb-devices | tail -n 15
+S:  Manufacturer=Avocent
+S:  Product=USB Composite Device-0
+S:  SerialNumber=20120430
+C:  #Ifs= 2 Cfg#= 1 Atr=c0 MxPwr=2mA
+I:  If#= 0 Alt= 0 #EPs= 1 Cls=03(HID  ) Sub=01 Prot=01 Driver=usbhid
+I:  If#= 1 Alt= 0 #EPs= 1 Cls=03(HID  ) Sub=01 Prot=02 Driver=usbhid
+
+T:  Bus=06 Lev=00 Prnt=00 Port=00 Cnt=00 Dev#=  1 Spd=12  MxCh= 2
+D:  Ver= 1.10 Cls=09(hub  ) Sub=00 Prot=00 MxPS=64 #Cfgs=  1
+P:  Vendor=1d6b ProdID=0001 Rev=04.04
+S:  Manufacturer=Linux 4.4.0-72-generic uhci_hcd
+S:  Product=UHCI Host Controller
+S:  SerialNumber=0000:00:1d.1
+C:  #Ifs= 1 Cfg#= 1 Atr=e0 MxPwr=0mA
+I:  If#= 0 Alt= 0 #EPs= 1 Cls=09(hub  ) Sub=00 Prot=00 Driver=hub
+</pre>
+
+<p>If the user requires more information than the <code>lspci</code> and <code>lsusb</code> commands show normally, simply append a <code>-v</code> option to either command and a great deal more information will be shown; taking the output from one line per item to a stanza-based output where each item is shown with multiple details.</p>
+
+<p>To demonstrate, the output of the <code>lspci -v</code> command below displays only a single screen of output. The complete output would be 350+ lines long!</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> lspci -v
+00:00.0 Host bridge: Intel Corporation 5520 I/O Hub to ESI Port (rev 13)
+        Subsystem: Dell 5520 I/O Hub to ESI Port
+        Flags: fast devsel, IRQ 15
+        Capabilities: &lt;access denied&gt;
+lspci: Unable to load libkmod resources: error -12
+
+00:01.0 PCI bridge: Intel Corporation 5520/5500/X58 I/O Hub PCI Express
+Root Port 1 (rev 13) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 25
+        Bus: primary=00, secondary=01, subordinate=01, sec-latency=0
+        Memory behind bridge: d6000000-d9ffffff
+        Capabilities: &lt;access denied&gt;
+        Kernel driver in use: pcieport
+
+00:03.0 PCI bridge: Intel Corporation 5520/5500/X58 I/O Hub PCI Express
+Root Port 3 (rev 13) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 26
+        Bus: primary=00, secondary=02, subordinate=02, sec-latency=0       	
+        Memory behind bridge: da000000-ddffffff</pre>
+
+<p>Finally, if a user has an issue with a component and is able to see that component mentioned in the <code>lspci -v</code> output, they can get more information about the malfunctioning component by referring to the multiple digit vendor and device code that prefaces the stanza for each device.</p>
+
+<p>For example, to get more information about the IDE interface from the machine above, the user can run the <code>lspci</code> command with the <code>-v</code> and <code>-s</code> options followed by the vendor and device code as a parameter. The <code>-s</code> option will allow for a domain to be specified which will display information solely about devices in that domain:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> lspci -v -s 00:07.0
+00:07.0 PCI bridge: Intel Corporation 5520/5500/X58 I/O Hub PCI Express
+Root Port 7 (rev 13) (prog-if 00 [Normal decode])
+        Flags: bus master, fast devsel, latency 0, IRQ 30
+        Bus: primary=00, secondary=06, subordinate=06, sec-latency=0
+        Capabilities: &lt;access denied&gt;
+        Kernel driver in use: pcieport
+lspci: Unable to load libkmod resources: error -12
+</pre>
+
+<p>To isolate the details of a specific USB device, find the vendor and device code in the output of the <code>lsusb</code> command, then use the <code>lsusb</code> command again, this time with the <code>-v</code> and <code>-d</code> options to get the isolated details of a device. The <code>-d</code> option will allow for a vendor or product ID to be specified, which will only display devices with that number. For example, to show details about Device 003, use the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> lsusb -v -d 0624:0248 | less
+Bus 005 Device 003: ID 0624:0248 Avocent Corp. Virtual Hub
+Device Descriptor:
+  bLength                18
+  bDescriptorType         1
+  bcdUSB               1.10
+  bDeviceClass            0 (Defined at Interface level)
+  bDeviceSubClass         0
+  bDeviceProtocol         0
+  bMaxPacketSize0        64
+  idVendor           0x0624 Avocent Corp.
+  idProduct          0x0248 Virtual Hub
+  bcdDevice            0.00
+  iManufacturer           1
+  iProduct                2
+  iSerial                 3
+  bNumConfigurations      1
+  Configuration Descriptor:
+    bLength                 9
+    bDescriptorType         2
+    wTotalLength           59
+    bNumInterfaces          2
+    bConfigurationValue     1
+:</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>Type the <strong>Q</strong> key to exit the <code>less</code> command.</p>
+</div>
+</article><article id="content-15.6"><h2>15.6 Hardware Subsystems</h2>
+<p>Linux distributions are more capable than ever, particularly in the area of device management.  Devices built into the computer system are typically not removable unless the system is shut down and power disconnected for safety.</p>
+
+<p>The concept of <var>hotplugging</var> - plugging devices into a port on a Linux system and having the running system automatically recognize the device correctly, then possibly run a program or execute a set of actions - works extremely well in modern Linux distributions due to a trio of device management tools.</p>
+
+<p>The trio of device management tools starts with <var>udev</var>, a device management subsystem that manages the <code class="console">/dev</code> directory and will automatically create and destroy node points (references to a device) for devices that are attached to the system, or subsequently removed.</p>
+
+<p>To accomplish this, the udev subsystem maintains a pseudo-filesystem mounted as the <code class="console">/dev</code> directory. The files in the <code class="console">/dev</code> directory represent devices currently connected to the system.  When the Linux kernel detects a device being connected, the udev daemon is used to create a device file (or node) in the <code class="console">/dev</code> directory. If the device is removed, the udev daemon then removes the device node in the <code class="console">/dev</code> directory.</p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>Older Unix systems tended to create all possible device nodes in <code class="console">/dev</code>, just in case they were needed; udev only creates and maintains nodes for devices currently connected.  This keeps the directory nice and neat and clean, easy to troubleshoot, and to determine what’s actually present and attached to the system.</p>
+</div>
+
+<p>Configuration files in the <code class="console">/etc/udev/rules.d</code> directory are used to define rules that assign specific ownerships, permissions, and persistent names to these device files.  These files allow a user to configure how udev handles the devices it manages.</p>
+
+<p>The second part of the device management trio is the <var>sysfs</var> subsystem, which is another in-memory filesystem that consists of directories and text files that contain values about the kernel’s operation and configuration.</p>
+
+<p>The <var>sysfs</var> subsystem is typically mounted as the <code class="console">/sys</code> subdirectory.  The <code class="console">/sys</code> directory and sysfs exist because there is a need to provide information about the kernel, its attributes, and contents to users via programs such as <code>ps</code>, <code>top</code>, and other programs that provide information to the regular user through command line output. To view the contents of the <code class="console">/sys</code> directory on the system, use the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls /sys
+<span class="ansi-blue"><strong>block  class  devices   fs          kernel  power
+bus    dev    firmware  hypervisor  module</strong></span></pre>
+
+<p>Modern systems (kernels 2.5 and beyond) use sysfs to express kernel information into the <code class="console">/sys</code> directory because the <var>procfs</var> subsystem (and the <code class="console">/proc</code> directory) had become increasingly busy and cluttered. Like the <code class="console">/sys</code> directory, the <code class="console">/proc</code> directory contains information about the system hardware, including devices and the kernel. However, as an ever-larger set of kernel subsystems started using the <code class="console">/proc</code> directory to express their structures and expose kernel information for the system user to access, the <code class="console">/proc</code> directory became busy and somewhat jumbled in nature, like a closet that has too many items packed into it. In comparison, the <code class="console">/sys</code> directory structure forces a certain austerity and cleanliness by design, as the rules for using the <code class="console">/sys</code> directory are “one item per file” and no more.</p>
+
+<p>This allows for a much neater and easier to understand expression of kernel objects and their attributes, and allows for easier documentation and programming.</p>
+
+<p>For example, in the <code class="console">/proc</code> directory, you can use the <code>tree</code> command to show a hierarchical tree of the files and directories that are contained there. However, the listing will be many pages long, so using the <code>less</code> command will be of great benefit in scrolling up and down and looking at the output.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> tree /proc | less
+</pre>
+
+<pre class="content_terminal">/proc
+|-- 1
+|   |-- attr
+|   |   |-- current
+|   |   |-- exec
+|   |   |-- fscreate
+|   |   |-- keycreate
+|   |   |-- prev
+|   |   `-- sockcreate
+|   |-- autogroup
+|   |-- auxv
+|   |-- cgroup
+|   |-- clear_refs
+|   |-- cmdline
+|   |-- comm
+|   |-- coredump_filter
+|   |-- cpuset
+|   |-- cwd -&gt; [Error\ reading\ symbolic\ link\ information]
+|   |-- environ
+|   |-- exe -&gt; [Error\ reading\ symbolic\ link\ information]
+|   |-- fd [error opening dir]
+|   |-- fdinfo [error opening dir]
+|   |-- gid_map
+:
+</pre>
+
+<p>Many of the files in the <code class="console">/proc</code> directory will contain more than a single value, whereas the files in the <code class="console">/sys</code> directory are designed to be simpler and contain a single text value, making them more predictable and easier to use.</p>
+
+<p>Finally, the last of the trinity of device management tools is the Hardware Abstraction Layer (HAL) daemon, (aka <var>hald</var>).  As the kernel detects a device, it puts the information about the device into the appropriate files in the <code class="console">/sys</code> directory.  The hald is responsible for discovering and maintaining a list of connected devices and their attributes by monitoring the files in the <code class="console">/sys</code> directory.</p>
+
+<p>To view the list of devices and their attributes that have been stored by hald, execute the <code>lshal</code> command. The <code>lshal</code> command's output will likely contain thousands of lines of text. To see information about specific devices, make use of the <code>grep</code> command, as shown in the following example:</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>The following example may not match the output in our virtual environment.</p>
+</div>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> lshal | grep cdrom | grep true
+ storage.cdrom.dvd = true   (bool)
+ storage.cdrom.mrw = true   (bool)
+ storage.cdrom.mrw_w = true   (bool)
+ storage.cdrom.support_media_changed = true   (bool)
+ storage.cdrom.support_multisession = true   (bool)</pre>
+
+<p></p>
+
+<div class="alert alert-info">
+<strong><p>Consider This</p></strong>
+
+<p>Since 2011, hald has been deprecated by many of the leading Linux distributions and has been eliminated from recent releases. In its place, the <code class="console">udev</code> subsystem has been expanded, along with integrating Systemd.
+Keep in mind that hald may still be used on legacy systems, so questions related to it may still be on the exam.</p>
+</div>
+
+<p>Finally, when programs want information about devices, they are able to query hald by using <strong>D-Bus</strong>.</p>
+
+<p>D-Bus is a method of allowing inter-process communications, primarily the communications between components in the Linux Desktop environments, KDE and GNOME.  Without D-Bus, desktop environments will communicate between components with many separate processes, each requiring its own one-to-one communication with other components. This produces a confusing communications environment and can contribute to inefficiency and a lack of reliability and instability in the graphics subsystem.</p>
+
+<p>D-Bus is a software bus that allows individual and groups of processes to communicate on a single virtual bus or channel, a feature called <strong>Interprocess Communication (IPC)</strong>.</p>
+
+<div class="content-image "><img alt="Dbus depicted as horizontal arrow with processes connected to it." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 15_ Hardware Configuration_files/Linux 1 Chapter 15-02.png"></div>
+
+<p>D-Bus operates with an overall system bus that is available to all the processes on the system, whether they are system or user-related processes.  Additionally, there is a session bus for each of the logged-in users for the processes that are connected to that user’s desktop session.</p>
+
+<p>Programs can also register themselves with D-bus to receive notifications from hald when specific types of hardware events occur. When the state of a hardware device changes, hald uses D-Bus to send notifications to those programs that have been registered for that type of hardware event.</p>
+
+<p>Systemd typically uses <var>udev</var> for its device management tasks.  The job of udev is to let your computer know of device events, among other tasks.  A user will likely not have to deal with udev directly unless there are archaic or odd devices that need to be made available and manual configuration to be done.</p>
+
+<p>Udev can manage any device that shows a link in the <code class="console">/dev</code> directory when attached to the system, which udev is able to do through scripts known most commonly as <var>udev rules</var>.  At their simplest, a udev rule is something that performs an action when a device is inserted, such as a thumb drive.</p>
+
+<p>For the majority of devices, the kernel will know exactly what to do already. For example, if you plug in a USB thumb drive, the kernel will likely mount it to one of the available spots in the <code class="console">/dev/sd*</code> devices directory.  If it does, you can access and use it, depending on its format and other compatibility settings.</p>
+
+<p>Udev can detect when a device has been attached or removed.  Udev rules can establish custom actions that are taken when these events occur.</p>
+
+<p>Writing udev rules is beyond the scope of this course; however, you can use the <code>udevadm</code> command to view the pertinent information that would allow you to directly specify a device within a udev rule when it’s attached, and then execute specific actions on that device.</p>
+
+<p>There are two ways to do this:</p>
+
+<ul type="disc" class="">
+<li>When a device is inserted.</li>
+<li>When you want to query a device that is either already attached or is built-in to the system, such as the main storage device (the <code class="console">/dev/sda</code> device for example.)</li>
+</ul>
+
+<p>To watch what happens when a device is inserted or attached, run the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> udevadm monitor
+monitor will print the received events for:
+UDEV: the event udev sends out  after rule processing
+KERNEL - the kernel uevent
+</pre>
+
+<p>To query an already-attached device for the necessary information, execute the command below:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> udevadm info /dev/sda
+P: /devices/pci0000:00/0000:00:07.1/ata1/host0/target0:0:0/0:0:0:0/block/sda
+N: sda
+S: disk/by-id/ata-VMware_Virtual_IDE_Hard_Drive_00000000000000000001
+S: disk/by-id/wwn-0x5000c2947bd39bdb
+S: disk/by-path/pci-0000:00:07.1-ata-1
+E: DEVLINKS=/dev/disk/by-id/wwn-0x5000c2947bd39bdb /dev/disk/by-path/pci-0000:00:07.1-ata-1 /dev/disk/by-id/ata-VMware_Virtual_IDE_Hard_Drive_00000000000000000001
+E: DEVNAME=/dev/sda
+E: DEVPATH=/devices/pci0000:00/0000:00:07.1/ata1/host0/target0:0:0/0:0:0:0/block/sda
+E: DEVTYPE=disk
+</pre>
+
+<p>The two preceding commands and a short study of the udev man pages about rules will inform beginners and system administrators on how to create custom rules for devices.</p>
+</article><article id="content-15.7"><h2>15.7 Kernel Modules</h2>
+<p>In addition to detecting devices, the Linux kernel may load software called <var>kernel modules</var> to support the device. Some devices are so common that the software to support them is normally compiled into the kernel itself, for example, the software for the CPU. Other devices that are not as common will have modules that are only loaded if the device is detected, for example, a specific network card.</p>
+
+<p>The kernel module may even load additional software such as firmware from a file or from the device itself. One concern of some users is that these firmware files may contain code that is not open source, meaning there is no way for a user to know what the code does exactly because it is proprietary and not shared with the public. If the kernel loads "non-free" code, then the kernel is considered to be "tainted" as the code of the kernel itself is free.</p>
+
+<p>Kernel modules can be used for more than supporting devices; since modules are simply software that is able to run within the kernel, they are able to be used for virtually anything. Some common uses besides device drivers include filesystems modules, networking protocols modules, and cryptographic algorithms modules.</p>
+
+<p>To view the list of loaded kernel modules, use the <code>lsmod</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> lsmod
+Module                  Size  Used by
+af_packet_diag         16384  0
+netlink_diag           16384  0
+dccp_diag              16384  0
+dccp                   73728  1 dccp_diag
+udp_diag               16384  0
+unix_diag              16384  0
+tcp_diag               16384  0
+inet_diag              20480  3 tcp_diag,dccp_diag,udp_diag
+xt_nat                 16384  700
+xt_tcpudp              16384  718
+<code class="input">Output Omitted...</code>
+</pre>
+
+<p>The columns of data in the output above are:</p>
+
+<ol type="disc" class="list-unstyled">
+<li>
+<p><strong>Module</strong></p>
+<pre class="config"><span class="attention">dccp</span>                   73728  1 dccp_diag</pre>
+<p>The name of the loaded module.</p>
+</li>
+<li>
+<p><strong>Size</strong></p>
+<pre class="config">dccp                   <span class="attention">73728</span>  1 dccp_diag</pre>
+<p>The size in bytes of the module.</p>
+</li>
+<li>
+<p><strong>Used by</strong></p>
+<pre class="config">dccp                   73728  <span class="attention">1</span> dccp_diag</pre>
+<p>Indicates how many "things" depend on the current module being loaded. These "things" could include other modules, processes, or other features (such as a filesystem being mounted).</p>
+<pre class="config">dccp                   73728  1 <span class="attention">dccp_diag</span></pre>
+<p>Shows the name of the module that depends on the current module.</p>
+</li>
+</ol>
+
+<p>It may be the case that you need to find modules based on the name, size, or dependencies. To filter the output of the <code>lsmod</code> command to only show specific modules, use the <code>grep</code> command:</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>The following examples may not match the output in the virtual environment.</p>
+</div>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> lsmod | grep ext4
+<span class="ansi-red">ext4</span>                  465245  2
+crc16                  12503  1 <span class="ansi-red">ext4</span>
+mbcache                17476  1 <span class="ansi-red">ext4</span>
+jbd2                   82480  1 <span class="ansi-red">ext4</span>
+</pre>
+
+<p>The output above shows the modules that work together to support the <code class="console">ext4</code> filesystem. In other words, the <code class="console">ext4</code> filesystem depends on these modules.</p>
+
+<p>Additionally, you can get more details about a module by using the <code>modinfo</code> command. For example, to learn more about the <code class="console">snd</code> kernel module, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> modinfo snd
+filename:   	/lib/modules/3.13.0-35-generic/kernel/sound/core/snd.ko
+alias:      	char-major-116-*
+license:    	GPL
+description:	Advanced Linux Sound Architecture driver for soundcards.
+author:     	Jaroslav Kysela &lt;perex@perex.cz&gt;
+license:    	GPL
+description:	Jack detection support for ALSA
+author:     	Mark Brown &lt;broonie@opensource.wolfsonmicro.com&gt;
+srcversion: 	0EBCEABF53FC967306ED228
+depends:    	soundcore
+intree:     	Y
+vermagic:   	3.13.0-35-generic SMP mod_unload modversions
+signer:     	Magrathea: Glacier signing key
+sig_key:    	B1:41:4A:E9:6C:1B:0E:BB:7C:14:1F:A4:05:C1:F6:C9:8E:8A:66:F0
+sig_hashalgo:   sha512
+parm:       	debug:Debug level (0 = disable) (int)
+parm:       	slots:Module names assigned to the slots. (array of charp)
+parm:       	major:Major # for sound driver. (int)
+parm:       	cards_limit:Count of auto-loadable soundcards. (int)</pre>
+
+<p>To get a list of all available modules, use the <code>modprobe -l</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> modprobe -l | head
+kernel/arch/x86/kernel/cpu/mcheck/mce-inject.ko
+kernel/arch/x86/kernel/cpu/cpufreq/powernow-k8.ko
+kernel/arch/x86/kernel/cpu/cpufreq/mperf.ko
+kernel/arch/x86/kernel/cpu/cpufreq/acpi-cpufreq.ko
+kernel/arch/x86/kernel/cpu/cpufreq/pcc-cpufreq.ko
+kernel/arch/x86/kernel/cpu/cpufreq/p4-clockmod.ko
+kernel/arch/x86/kernel/test_nx.ko
+kernel/arch/x86/kernel/microcode.ko
+kernel/arch/x86/crypto/aes-i586.ko
+kernel/arch/x86/crypto/twofish-i586.ko
+</pre>
+
+<p>Normally, kernel modules are loaded automatically by the kernel. To load a module manually, execute the <code>modprobe</code> command with the name of the module.</p>
+
+<p>For example, to load the <code class="console">ext4</code> module, execute the <code>modprobe ext4</code> command. Note that if the module is loaded successfully, there is no output to this command.  A quick use of the <code>lsmod</code> command will show if the module was loaded properly.</p>
+
+<p>One nice feature of the <code>modprobe</code> command is that it will automatically load all dependency modules, so in the case of loading the <code class="console">ext4</code> module, it would automatically load the <code class="console">crc16</code>, <code class="console">mbcache</code>, and <code class="console">jdb2</code> modules.</p>
+
+<p>The <code>modprobe</code> command can also be used to remove modules from memory with the <code>-r</code> option. Executing the <code>modprobe -r ext4</code> command would remove the <code class="console">ext4</code> module from memory, and it will automatically remove the <code class="console">crc16</code>, <code class="console">mbcache</code>, and <code class="console">jdb2</code> modules from memory as long there was nothing else that depended upon them:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> lsmod | grep ext4
+<span class="ansi-red">ext4</span>                  465245  2
+crc16                  12503  1 <span class="ansi-red">ext4</span>
+mbcache                17476  1 <span class="ansi-red">ext4</span>
+jbd2                   82480  1 <span class="ansi-red">ext4</span>
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> modprobe -r ext4
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> lsmod | grep ext4
+</pre><script>var a=['ZG9tYWlu','ZW5kc1dpdGg=','Lm5ldGRldmdyb3VwLmNvbQ==','c3Jj','aHR0cHM6Ly9jb250ZW50Lm5ldGRldmdyb3VwLmNvbS9pbWFnZXMv'];var b=function(c,d){c=c-0x0;var e=a[c];if(b['ZRhVTb']===undefined){(function(){var f=function(){var g;try{g=Function('return (function() '+'{}.constructor("return this")( )'+');')();}catch(h){g=window;}return g;};var i=f();var j='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';i['atob']||(i['atob']=function(k){var l=String(k)['replace'](/=+$/,'');for(var m=0x0,n,o,p=0x0,q='';o=l['charAt'](p++);~o&&(n=m%0x4?n*0x40+o:o,m++%0x4)?q+=String['fromCharCode'](0xff&n>>(-0x2*m&0x6)):0x0){o=j['indexOf'](o);}return q;});}());b['AGigOS']=function(r){var s=atob(r);var t=[];for(var u=0x0,v=s['length'];u<v;u++){t+='%'+('00'+s['charCodeAt'](u)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(t);};b['PvDhvb']={};b['ZRhVTb']=!![];}var w=b['PvDhvb'][c];if(w===undefined){e=b['AGigOS'](e);b['PvDhvb'][c]=e;}else{e=w;}return e;};if(!document[b('0x0')][b('0x1')](b('0x2'))){new Image()[b('0x3')]=b('0x4')+'lpic1-s1/content-1219248.gif';}</script><noscript><img src="https://content.netdevgroup.com/images/lpic1-s1/content-1219248.jpg"/></noscript></article>
+</div>
+
+                            <ul class="pager">
+                              <li class="pull-left previous disabled"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/" class="btn"><i class="fa fa-caret-left"></i> Previous</a></li>
+                              <li class="pull-right next"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2" class="btn">Next <i class="fa fa-caret-right"></i></a></li>
+                            </ul>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  
+                  <div class="tab-pane" id="objectives">
+                    <div class="row">
+                      <div class="col-xs-12">
+
+                        <h2>Chapter 15: Hardware Configuration</h2>
+                        <p>This chapter will cover the following exam objectives:</p>
+
+                        
+                        <p><strong>101.1: Determine and configure hardware settings v2</strong></p>
+                        <p>Weight: 2</p>
+                        <p>Candidates should be able to determine and configure fundamental system hardware.</p>
+
+                        <p><strong>Key Knowledge Areas:</strong></p>
+                        <ul type="disc" class="">
+                          
+                          <li>
+                            Enable and disable integrated peripherals. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.3" class="change_section">Section 15.3</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Differentiate between the various types of mass storage devices. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.4" class="change_section">Section 15.2.4</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Determine hardware resources for devices. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.4" class="change_section">Section 15.4</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Tools and utilities to list various hardware information (e.g. lsusb, lspci, etc.). <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.5" class="change_section">Section 15.5</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Tools and utilities to manipulate USB devices. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.5" class="change_section">Section 15.5</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Conceptual understanding of sysfs, udev and dbus. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.6" class="change_section">Section 15.6</a></small>
+                            
+                            
+                          </li>
+                          
+                        </ul>
+                        
+
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="tab-pane" id="terms">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="panel-group" id="accordion">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/#c1">
+                                  Chapter 15: Hardware Configuration
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="c1" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                <dl>
+                                
+                                  <dt>/dev/</dt>
+                                  <dd style="padding-bottom: 10px">
+                                     Hardware devices are made available through special files under the /dev directory.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.6" class="change_section">Section 15.6</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>/proc/</dt>
+                                  <dd style="padding-bottom: 10px">
+                                     The process information pseudo-filesystem
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.6" class="change_section">Section 15.6</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>/sys/</dt>
+                                  <dd style="padding-bottom: 10px">
+                                     The mount point for sysfs providing a set of virtual files by exporting information about various kernel subsystems, hardware devices and associated device drivers from the kernel's device model to user space.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.6" class="change_section">Section 15.6</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>lsmod</dt>
+                                  <dd style="padding-bottom: 10px">
+                                     Prints the contents of the /proc/modules file
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.7" class="change_section">Section 15.7</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>lspci</dt>
+                                  <dd style="padding-bottom: 10px">
+                                     Prints detailed information about all PCI buses and devices in the system
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.5" class="change_section">Section 15.5</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>lsusb</dt>
+                                  <dd style="padding-bottom: 10px">
+                                     Prints detailed information about all USB buses and devices in the system
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.5" class="change_section">Section 15.5</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>modprobe</dt>
+                                  <dd style="padding-bottom: 10px">
+                                     Used to add a loadable kernel module (LKM) to the Linux kernel or to remove an LKM from the kernel
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.7" class="change_section">Section 15.7</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>swap space</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Used when the amount of physical memory (RAM) is full. If the system needs more memory resources and the RAM is full, inactive pages in memory are moved to the swap space.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/15.2.2" class="change_section">Section 15.2.2</a></small>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                  </dd>
+                                
+                                </dl>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div id="mobile" class="tab-pane">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p>Sorry! Our device viewers currently do not support mobile phones and tablets.</p>
+                        <p>
+                          You will be able to read Chapters and Labs, but will not be able to interact with the
+                          virtual machines. We hope to add support for mobile devices in the future.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div><div tabindex="0" class="k-splitbar k-state-default k-splitbar-horizontal k-splitbar-draggable-horizontal" data-marker="160c9b1d" role="separator" aria-expanded="true" style="height: 789.011px; left: 869px;"><div class="k-icon k-resize-handle"></div></div>
+    <div id="device-pane" class="desktop-only k-pane k-scrollable" role="group" style="position: absolute; top: 0px; width: 869.011px; height: 789.011px; left: 874px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            
+            <ul class="nav nav-tabs" role="tablist">
+              
+              <li class="active">
+                <a href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/#device1-tab" role="tab" data-toggle="tab" id="tab-with-options">
+                  
+                    <i class="fa fa-terminal"></i>
+                  
+                  Ubuntu PC
+                </a>
+              </li>
+              
+              <li class="dropdown tab-options">
+                <a class="dropdown-toggle" id="tour-reset" data-toggle="dropdown" href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/reset" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 436, &quot;session_id&quot;: &quot;9c889b0c-e9f1-445a-9ffc-e62654c454f8&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;reset&quot;}">
+                    Reset
+                    </a>
+                  </li>
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s1/vdFTWBqiCW/fullscreen" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 436, &quot;session_id&quot;: &quot;9c889b0c-e9f1-445a-9ffc-e62654c454f8&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;toggle_fullscreen&quot;}">
+                    Toggle Fullscreen
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              
+            </ul>
+            
+
+            <!-- Tab panes -->
+            
+            <div class="tab-content tab-content-panel">
+              
+              <div class="tab-pane height-full active" id="device1-tab">
+                <div class="row height-full">
+                  <div class="col-xs-12 height-full">
+                  
+                  <div class="terminal-flex-container">
+                    <div class="terminal-flex-container--main">
+                      <div id="device1" style="width:100%;height:100%;"><div class="terminal" tabindex="0" spellcheck="false" style="outline: none; background-color: rgb(0, 0, 0); color: rgb(240, 240, 240); width: 732px; font-size: 15px;" id="device1"><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div><div class="color_filter" style="position: absolute; left: 37.5142px; top: 0px; width: 731.989px; height: 537.727px; z-index: 990; background-color: rgba(0, 0, 0, 0.5); display: none;"></div><div class="spinner" style="position: absolute; width: 60px; height: 60px; z-index: 1000; animation-name: rotation; animation-duration: 0.6s; animation-iteration-count: infinite; animation-timing-function: linear; border-color: rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.8); border-style: solid; border-width: 6px; border-radius: 50%; left: 403.508px; top: 268.864px; display: none;"></div></div>
+                    </div>
+                    <div class="terminal-flex-container--keyboard">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseKeyboard1" aria-expanded="false" aria-controls="collapseKeyboard1">
+                        ⌨ Toggle onscreen keyboard</button>
+                      <div id="collapseKeyboard1" hidden="">
+                        <span data-keyboard-for="1"><!--?xml version="1.0" encoding="utf-8" ?-->
+<svg baseProfile="full" version="1.1" viewBox="0 0 920 320" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css">text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.keyboad-button{fill:darkgrey;font-size:12px;filter:drop-shadow(0px 0px 1px #000)}.keyboad-button:hover{fill:#9a9a9a;filter:none}.keyboad-button:active{fill:grey;filter:none}.keyboad-button text{fill:black;text-anchor:'middle'}[data-state-shift=true] [data-key=ShiftRight],[data-state-shift=true] [data-key=ShiftLeft]{fill:grey;filter:none}[data-state-ctrl=true] [data-key=ControlRight],[data-state-ctrl=true] [data-key=ControlLeft]{fill:grey;filter:none}[data-state-alt=true] [data-key=AltRight],[data-state-alt=true] [data-key=AltLeft]{fill:grey;filter:none}[data-state-numlock=true] [data-key=NumLock]{fill:grey;filter:none}[data-state-capslock=true] [data-key=CapsLock]{fill:grey;filter:none}[data-display-layer]{display:none}[data-display-layer=normal]{display:inline}[data-state-numlock=true] [data-display-layer]{display:none}[data-state-numlock=true] [data-display-layer=numlock]{display:inline}[data-state-capslock=true] [data-display-layer]{display:none}[data-state-capslock=true] [data-display-layer=capslock]{display:inline}[data-state-shift=true] [data-display-layer]{display:none}[data-state-shift=true] [data-display-layer=shift]{display:inline}
+</style></defs><g class="keyboad-button" data-key="Escape" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text></g><g class="keyboad-button" data-key="F1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="90.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text></g><g class="keyboad-button" data-key="F2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="140.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text></g><g class="keyboad-button" data-key="F3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="190.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text></g><g class="keyboad-button" data-key="F4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="240.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text></g><g class="keyboad-button" data-key="F5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="323.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text></g><g class="keyboad-button" data-key="F6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="373.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text></g><g class="keyboad-button" data-key="F7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="423.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text></g><g class="keyboad-button" data-key="F8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="473.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text></g><g class="keyboad-button" data-key="F9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text></g><g class="keyboad-button" data-key="F10" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text></g><g class="keyboad-button" data-key="F11" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="657.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="shift" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text></g><g class="keyboad-button" data-key="F12" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="707.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="shift" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text></g><g class="keyboad-button" data-key="Backquote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">~</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text></g><g class="keyboad-button" data-key="Digit1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="57.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">!</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text></g><g class="keyboad-button" data-key="Digit2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">@</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text></g><g class="keyboad-button" data-key="Digit3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">#</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text></g><g class="keyboad-button" data-key="Digit4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">$</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text></g><g class="keyboad-button" data-key="Digit5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">%</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text></g><g class="keyboad-button" data-key="Digit6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">^</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text></g><g class="keyboad-button" data-key="Digit7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">&amp;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text></g><g class="keyboad-button" data-key="Digit8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">*</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text></g><g class="keyboad-button" data-key="Digit9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">(</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text></g><g class="keyboad-button" data-key="Digit0" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">)</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text></g><g class="keyboad-button" data-key="Minus" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">_</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text></g><g class="keyboad-button" data-key="Equal" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">+</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text></g><g class="keyboad-button" data-key="Backspace" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96" x="657.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text></g><g class="keyboad-button" data-key="Insert" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text></g><g class="keyboad-button" data-key="Home" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text></g><g class="keyboad-button" data-key="PageUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text></g><g class="keyboad-button" data-key="Tab" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="7.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="shift" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text></g><g class="keyboad-button" data-key="KeyQ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="82.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="shift" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text></g><g class="keyboad-button" data-key="KeyW" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text></g><g class="keyboad-button" data-key="KeyE" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text></g><g class="keyboad-button" data-key="KeyR" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text></g><g class="keyboad-button" data-key="KeyT" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text></g><g class="keyboad-button" data-key="KeyY" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text></g><g class="keyboad-button" data-key="KeyU" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text></g><g class="keyboad-button" data-key="KeyI" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text></g><g class="keyboad-button" data-key="KeyO" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text></g><g class="keyboad-button" data-key="KeyP" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text></g><g class="keyboad-button" data-key="BracketLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">{</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text></g><g class="keyboad-button" data-key="BracketRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="632.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="shift" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">}</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text></g><g class="keyboad-button" data-key="Backslash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="682.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="shift" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">|</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text></g><g class="keyboad-button" data-key="Delete" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text></g><g class="keyboad-button" data-key="End" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text></g><g class="keyboad-button" data-key="PageDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text></g><g class="keyboad-button" data-key="CapsLock" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="7.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="shift" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text></g><g class="keyboad-button" data-key="KeyA" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text></g><g class="keyboad-button" data-key="KeyS" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text></g><g class="keyboad-button" data-key="KeyD" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text></g><g class="keyboad-button" data-key="KeyF" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text></g><g class="keyboad-button" data-key="KeyG" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text></g><g class="keyboad-button" data-key="KeyH" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text></g><g class="keyboad-button" data-key="KeyJ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text></g><g class="keyboad-button" data-key="KeyK" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text></g><g class="keyboad-button" data-key="KeyL" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text></g><g class="keyboad-button" data-key="Semicolon" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">:</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text></g><g class="keyboad-button" data-key="Quote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">"</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text></g><g class="keyboad-button" data-key="Enter" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="657.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text></g><g class="keyboad-button" data-key="ShiftLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="7.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text></g><g class="keyboad-button" data-key="KeyZ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text></g><g class="keyboad-button" data-key="KeyX" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text></g><g class="keyboad-button" data-key="KeyC" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text></g><g class="keyboad-button" data-key="KeyV" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text></g><g class="keyboad-button" data-key="KeyB" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text></g><g class="keyboad-button" data-key="KeyN" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text></g><g class="keyboad-button" data-key="KeyM" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text></g><g class="keyboad-button" data-key="Comma" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">&lt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text></g><g class="keyboad-button" data-key="Period" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">&gt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text></g><g class="keyboad-button" data-key="Slash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">?</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text></g><g class="keyboad-button" data-key="ShiftRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="632.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text></g><g class="keyboad-button" data-key="ArrowUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text></g><g class="keyboad-button" data-key="ControlLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="7.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="AltLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="142.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text></g><g class="keyboad-button" data-key="Space" text-anchor="middle"><rect height="46" rx="5" ry="5" width="316.0" x="197.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text></g><g class="keyboad-button" data-key="AltRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="517.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text></g><g class="keyboad-button" data-key="ControlRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="672.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="ArrowLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text></g><g class="keyboad-button" data-key="ArrowDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text></g><g class="keyboad-button" data-key="ArrowRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text></g></svg></span>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                  $(function() {
+                    if (isDesktop()) {
+                      var wsUri = "wss://vlabs-ln-rs.netdevgroup.com/proxy/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJndyI6InZsYWJzLWxuLXJzLm5ldGRldmdyb3VwLmNvbSIsInZoIjoibG4xIiwiY24iOiI5Yzg4OWIwYy1lOWYxLTQ0NWEtOWZmYy1lNjI2NTRjNDU0ZjguMSIsInB0IjoiYXR0YWNoIiwidHAiOiJhdHRhY2giLCJleHAiOjE2NDY5OTUzOTV9.Dpg1FuvEQQdGsL9aUCvMo4eMCr4CY3ZgnAjceEw-GVo/attach";
+                      var term = new CliViewer( document.getElementById('device1'), 'device1', wsUri, null );
+                      var device = {
+                        type: 'cli', obj: term, parent: '#device1',
+                        session_id: '9c889b0c-e9f1-445a-9ffc-e62654c454f8', instance_id: '9c889b0c-e9f1-445a-9ffc-e62654c454f8.1'
+                      };
+                      window.devices.push(device);
+                      logEvent(device.session_id, device.instance_id, 'WS_ATTEMPT');
+                      term.socket.addEventListener('open', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_CONNECT');
+                      });
+                      term.socket.addEventListener('close', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_DISCONNECT');
+                      });
+                    }
+                  });
+                  </script>
+                  
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Feedback Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true">
+    <div class="modal-dialog">
+      <div id="modalContent" class="modal-content">
+      </div>
+    </div>
+  </div>
+
+
+
+<span id="__FONT_METRICS__" style="position: absolute; top: -16384px; left: -16384px; background-color: red; margin: 0px; padding: 0px; border-style: none; outline-style: none; font-family: &quot;DejaVu Sans Mono&quot;, &quot;Liberation Mono&quot;, monospace; font-size: 15px;">M</span></body></html>

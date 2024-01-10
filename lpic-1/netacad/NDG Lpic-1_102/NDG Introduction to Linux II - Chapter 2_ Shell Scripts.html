@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/ -->
+<html lang="en" class="k-webkit k-webkit102"><input type="hidden" id="__yoroi_connector_api_injected_type" value="prod"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="spinner-keyframes">
+@-webkit-keyframes rotation 
+{  from { -webkit-transform : rotate( 0deg );   }
+  to   { -webkit-transform : rotate( 359deg ); }
+}
+@-moz-keyframes rotation {
+  from { -moz-transform : rotate( 0deg );   }
+  to   { -moz-transform : rotate( 359deg ); }
+}
+@-o-keyframes rotation {
+  from { -o-transform : rotate( 0deg );   }
+  to   { -o-transform : rotate( 359deg ); }
+}
+@keyframes rotation {
+  from { transform : rotate( 0deg );   }
+  to   { transform : rotate( 359deg ); }
+}
+</style><style id="term-style">.terminal {
+  float: left;
+  border: #000000 solid 5px;
+  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-size: 11px;
+  color: #f0f0f0;
+  background: #000000;
+  white-space: nowrap;
+}
+
+.terminal-cursor {
+  color: #000000;
+  background: #f0f0f0;
+}
+</style>
+  <title>NDG Introduction to Linux II - Chapter 2: Shell Scripts</title>
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="https://ndg-content.s3.us-west-2.amazonaws.com/img/favicon.ico">
+
+  <link rel="stylesheet" href="./NDG Introduction to Linux II - Chapter 2_ Shell Scripts_files/44d1a56e411f.css" type="text/css">
+
+  <script async="" src="./NDG Introduction to Linux II - Chapter 2_ Shell Scripts_files/analytics.js"></script><script type="text/javascript" src="./NDG Introduction to Linux II - Chapter 2_ Shell Scripts_files/polyfill-6.26.0.min.js"></script>
+  <script type="text/javascript" src="./NDG Introduction to Linux II - Chapter 2_ Shell Scripts_files/9930c7fbf6d8.js"></script>
+
+  <script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-11306725-3', 'netdevgroup.com');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+
+</script>
+
+  <script type="text/javascript">
+    var NDGCourse = {name: "NDG Introduction to Linux II"};
+    var videoContent = {};
+  </script>
+</head>
+
+<body style="">
+
+  <!-- Start Navbar -->
+  <div class="navbar navbar-primary navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand hidden-xs">
+          NDG Introduction to Linux II - Chapter 2: Shell Scripts
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-share-alt" aria-hidden="true"></i> Share <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://www.facebook.com/share.php?u=https://netdevgroup.com/online/courses/linux.html&amp;title=Learn%20Linux%20with%20NDG" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+            </li>
+            <li>
+              <a href="http://twitter.com/home?status=Learn%20Linux%20with%20NDG+https://netdevgroup.com/online/courses/linux.html" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li id="tour-help" class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-lg hidden-md hidden-sm">NDG Introduction to Linux II</span>
+            <div class="pull-right">
+              <i class="fa fa-question-circle"></i>
+              <span class="hidden-xs"> Help</span>
+              <b class="caret"></b>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header hidden-md hidden-sm hidden-lg">Chapter 2: Shell Scripts</li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s2/faq/">Frequently Asked Questions</a></li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s2/feedback/">Contact Support</a></li>
+            <li class="hidden-xs desktop-only"><a id="toursb" class="support" href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/#">Start Tour</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- End Navbar -->
+
+
+  <div id="splitter" class="height-full k-widget k-splitter" data-role="splitter">
+    <div role="group" class="k-pane k-scrollable" style="position: absolute; top: 0px; width: 567px; height: 455.008px; left: 0px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            <!-- Tab Btns -->
+              <ul id="left-tabs" class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/#content" role="tab" data-toggle="tab">Content</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/#objectives" role="tab" data-toggle="tab">Objectives</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/#terms" role="tab" data-toggle="tab">Key Terms</a></li>
+                
+                <li class="mobile-only" style="display:none;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/#mobile" role="tab" data-toggle="tab"><i class="fa fa-terminal"></i> Devices</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div id="content-container" class="tab-content tab-content-panel">
+                  <div id="content" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="tour2" class="btn-group-vertical btn-group-xs pull-left hidden-xs">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                          
+                                          2.1 Introduction
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          2.2 Shell Scripting Basics
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          2.3 Script Placement
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          2.4 Script Permissions
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.5" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          2.5 Command Substitution
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.6" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          2.6 read Statement
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.7" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          2.7 test Statement
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.8" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          2.8 if Statement
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.9" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          2.9 Test Return Values
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.10" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          2.10 Sending Mail to Superuser
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.11" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          2.11 while Statement
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.12" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          2.12 for Statement
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.13" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          2.13 seq Statement
+                                        </a>
+                                        
+                                      
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.1" class="btn btn-default ndg-menu-btn change_section btn-primary active" style="text-align:left;">
+                                    2.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    2.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    2.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    2.4
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.5" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    2.5
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.6" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    2.6
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.7" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    2.7
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.8" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    2.8
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.9" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    2.9
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.10" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    2.10
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.11" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    2.11
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.12" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    2.12
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.13" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    2.13
+                                  </a>
+                                  
+                                
+                            </div>
+                            <div class="content-menu-space">
+                              <div class="btn-group hidden-lg hidden-md hidden-sm mobile-chapter-select">
+                                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-caret-down"></i> Sections
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                        2.1 Introduction
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.2" class="btn-default ndg-menu-btn change_section">
+                                        2.2 Shell Scripting Basics
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.3" class="btn-default ndg-menu-btn change_section">
+                                        2.3 Script Placement
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.4" class="btn-default ndg-menu-btn change_section">
+                                        2.4 Script Permissions
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.5" class="btn-default ndg-menu-btn change_section">
+                                        2.5 Command Substitution
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.6" class="btn-default ndg-menu-btn change_section">
+                                        2.6 read Statement
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.7" class="btn-default ndg-menu-btn change_section">
+                                        2.7 test Statement
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.8" class="btn-default ndg-menu-btn change_section">
+                                        2.8 if Statement
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.9" class="btn-default ndg-menu-btn change_section">
+                                        2.9 Test Return Values
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.10" class="btn-default ndg-menu-btn change_section">
+                                        2.10 Sending Mail to Superuser
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.11" class="btn-default ndg-menu-btn change_section">
+                                        2.11 while Statement
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.12" class="btn-default ndg-menu-btn change_section">
+                                        2.12 for Statement
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.13" class="btn-default ndg-menu-btn change_section">
+                                        2.13 seq Statement
+                                      </a>
+                                      
+                                    
+                                    </li>
+                                  </ul>
+                                </div>
+                              <div>
+<article id="content-2.1" style="display: block;"><h2>2.1 Introduction</h2>
+<p>When you find yourself typing the same sets of commands on a regular basis, it is time to consider creating a shell script. At the most simple level, a shell script is just a set of commands placed into a text file, which, when invoked as a program, will execute each individual command in order. In the previous chapter, the following command list was used:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> date;who;uptime                                           
+Fri Sep 20 00:50:18 UTC 2020                                                    
+sysadmin console      Sep 20 23:16                                              
+ 00:50:18 up 9 days, 23:32,  1 user,  load average: 0.05, 0.15, 0.13
+</pre>
+
+<p>To make a script out of these commands, simply place them in a file and make it executable:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo 'date;who;uptime' &gt; my.sh                            
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> chmod u+x ./my.sh                                         
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ./my.sh                                                   
+Fri Sep 20 00:50:18 UTC 2020                                                    
+sysadmin console      Sep 20 23:16                                              
+ 00:50:18 up 9 days, 23:32,  1 user,  load average: 0.05, 0.15, 0.13
+</pre>
+
+<p>While this method may produce an immediate script, it is not the recommended way to build scripts that you will add to, change, or modify as time goes on.</p>
+
+<p>Shell scripting can be quite complex and utilize powerful features. In addition to all of the features that the interactive shell provides (i.e., variables, aliases, functions), administrators can also make use of programming features such as <var>if statements</var>, <var>while loops</var> and <var>for loops</var>, to name a few. While not considered by some as robust as more advanced programming languages, shell scripts can be very powerful because they make direct use of shell commands.</p>
+
+</article><article id="content-2.2"><h2>2.2 Shell Scripting Basics</h2>
+<p>To create a shell script, use the following steps:</p>
+
+<ol type="disc" class="">
+<li><p>Use a text editor to create a file with the commands that you want to execute.</p></li>
+<li><p>Place the following line at the beginning of the file to indicate that the script is to be run in the Bash shell.</p></li>
+</ol>
+
+<pre class="config">#!/bin/bash</pre>
+
+<ol type="disc" class=""><li><p>Use the <code>chmod</code> command to make the file executable:</p></li></ol>
+
+<pre class="config">chmod a+x file_name</pre>
+
+<p>In the following example, a script has been created that will create a report of disk space usage in the <code class="console">/usr/share/doc</code> directory. Notice that this is very similar to the function example from the preceding chapter. It is not uncommon to convert a function into a script when it becomes more complex.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> more report.sh                                       
+#!/bin/bash                                                                     
+                                                                                cd /usr/share/doc                                                               
+echo "Document directory usage report" &gt; /tmp/report                            
+date &gt;&gt; /tmp/report                                                             
+pwd &gt;&gt; /tmp/report                                                              
+du -sh . &gt;&gt; /tmp/report                                                         
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> chmod a+x report.sh                                  
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ./report.sh                                          
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> more /tmp/report                                     
+Document directory usage report                                                 
+Mon Jun 15 06:41:17 UTC 2015                                                    
+/usr/share/doc                                                                  
+6.6M    .
+</pre>
+
+<div class="alert alert-warning"><p>The example above is for demonstration purposes. The output in the example above may not match the output in our virtual environment.</p></div>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>While the two above examples demonstrate how to create a script from a command line session, a more sustainable method for creating scripts is to open an editor, such as <code>nano</code> or <code>vi</code>, and create a script from scratch.</p>
+
+<p>As an example, to create a script in <code>vi</code>, the user would decide on the script name, then open a <code>vi</code> session by typing the following:</p>
+<p></p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> vi scriptfile1.sh</pre>
+
+<p>In the <code>vi</code> editor, the user would enter <var>Insert</var> mode by pressing the <strong>i</strong> key and then on the first line of the file, enter the string: <code class="console">#!/bin/bash</code>. This line is optional, but it is good practice to include it (see the <var>Consider This</var> box which follows this example).</p>
+
+<p>Next, the user would press the <strong>Enter</strong> key to move down two lines and begin entering the commands that are desired.  Below is an example of a simple script that will <code>echo</code> some text to the screen when running and then execute several commands.</p>
+<p></p>
+
+<pre class="content_terminal">#!/bin/bash 
+ 
+echo This is the $0 script that is running  
+echo Today’s Date and Time of Report &gt;&gt; system_users_report.txt  
+date &gt;&gt; system_users_report.txt   
+echo The users currently on the system are:  &gt;&gt; system_users_report.txt  
+w &gt;&gt; system_users_report.txt  
+echo The users are running these commands &gt;&gt; system_users_report.txt  
+who &gt;&gt; system_users_report.txt 
+cat system_users_report.txt      
+~
+~
+~
+“scriptfile1.sh” 10 lines, 387 characters
+</pre>
+
+<p>Once the script is added, press the <strong>ESC</strong> key to leave <var>Insert</var> mode and press <strong>ZZ</strong> to save the file and exit <code>vi</code>.</p>
+
+<p>The script can then be run to see the results by executing:</p>
+<p></p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> bash scriptfile1.sh</pre>
+
+<p>The report is made by the <var>echo’ing</var> of the text to the report file, each <code>echo</code> line followed by the output of the command it mentions.  At the end of the script, the contents of the report file are sent to the standard output or console, so the user running the report can see the results.</p>
+
+<p>The use of the double greater than <code class="console">&gt;&gt;</code> characters when sending text and data to the report file will initially create the <code class="console">system_users_report.text</code> file, but each additional time it is run, it will append the new report output to the bottom of the current file, not overwrite the report file.</p>
+</div>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+<p>The first line of the script should include a path to the Bash shell executable. The <code class="console">#!</code> tells the system that this first line is intended to provide this path. Typically a pound sign <code class="console">#</code> character is used to comment a line, but when placed at the beginning of the first line and followed by an exclamation mark <code class="console">!</code> character, it is used to tell the system which executable to use to run the program.</p>
+</div>
+</article><article id="content-2.3"><h2>2.3 Script Placement</h2>
+<p>Notice that once a script has been set to be executable, such as the script in a previous example, a <code class="console">./</code> character combination was placed before the script name to indicate the current directory. While this technique can always be used to run a script, consider placing the script in a location that is specified by the <code class="console">PATH</code> variable.</p>
+
+<p>While the exact value of the <code class="console">PATH</code> variable will vary based on which Linux distribution is being used as well as individual customizations, a typical <code class="console">PATH</code> variable will include the following directories:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $PATH                                                
+/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
+/usr/games:/usr/local/games
+</pre>
+
+<p>With administration rights, a script can be placed in any of the directories listed in the <code class="console">PATH</code> variable. However, the ideal location for scripts designed to be shared by regular users would be the <code class="console">/usr/local/bin</code> directory. For scripts designed to be executed by administrators, place the script in the <code class="console">/usr/local/sbin</code> directory.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>The PATH variable contains a list of directories that are used to search for commands entered by the user.</p>
+</div>
+
+<p>Regular users don’t have the rights to place files in these directories. For a user’s own script, the ideal place to put the script is the <code class="console">/home/USER/bin</code> directory, where <code class="console">USER</code> is the name of the current user account. For example, <code class="console">sysadmin</code> should place scripts in the <code class="console">/home/sysadmin/bin</code> directory.</p>
+
+<p>By placing scripts in these directories, they will be easier to find as well as easier to execute.</p>
+
+</article><article id="content-2.4"><h2>2.4 Script Permissions</h2>
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>Permissions determine the level of access that a user has on a file. When a user runs a program and the program accesses a file, then the permissions are checked to determine if the user has the correct access rights to the file.</p>
+<p>There are three types of permissions: <var>read</var>, <var>write</var>, and <var>execute</var>. Each has a different meaning depending on whether they are applied to a <var>file</var> or a <var>directory</var>.</p>
+<p>Read:</p>
+<p></p>
+<ol type="disc" class="">
+<li><p>On a <var>file</var>, this allows processes to read the contents of the file, meaning the contents can be viewed and copied.</p></li>
+<li><p>On a <var>directory</var>, file names in the directory can be listed, but other details are not available.</p></li>
+</ol>
+<p>Write:</p>
+<p></p>
+<ol type="disc" class="">
+<li><p>A <var>file</var> can be written to by a process, so changes to a file can be saved. Note that the <var>write</var> permission usually requires the <var>read</var> permission on the file to work correctly with most applications.</p></li>
+<li><p>On a <var>directory</var>, files can be added to or removed from the directory. Note that the <var>write</var> permission requires the <var>execute</var> permission on the directory to work correctly.</p></li>
+</ol>
+<p>Execute:</p>
+<p></p>
+<ol type="disc" class="">
+<li><p>A <var>file</var> can be executed or run as a process.</p></li>
+<li><p>On a <var>directory</var>, the user can use the <code>cd</code> command to "get into" the directory and use the directory in a path name to access files and, potentially, subdirectories under this directory.</p></li>
+</ol>
+<p>Permissions are covered in complete detail in the NDG Introduction to Linux I course.</p>
+</div>
+
+<p>Typically, a script will need to have both <var>read</var> and <var>execute</var> permissions for the user who is attempting to execute it. In the previous example, the command <code>chmod a+x <var>file_name</var></code> provided execute permission to all users (it was assumed that the read permission was already provided for all users).</p>
+
+<p>‌⁠​​⁠​ If the script is designed for private use, consider only providing the execute permission for the user: <code>chmod u+x <var>file_name</var></code>.</p>
+
+<p>System administrators have historically enabled the <var>setuid</var> permission on scripts that they created in UNIX so that they could execute as the root user. When the <var>setuid</var> permission is set on an <var>executable binary file</var> (a <var>program</var>), the binary file is run as the owner of the file, not as the user who executed it. This was generally a bad idea as someone may be able to utilize an exploit and use the script to gain administrative rights to the system.</p>
+
+<p>The Linux kernel does not allow for shell script files to be executed with <var>setuid</var> permission. In order to execute a shell script as the root user, an administrator can log in as root, and use <code>su</code>, or <code>sudo</code> to run the script directly. If the script must be executed with root privileges by an ordinary user, then a simple <var>wrapper</var> around the script can be created in a language that compiles to binary, and the binary executable can be <var>setuid</var>.</p>
+
+<p>A wrapper is a script whose purpose is to simply configure and launch another program. One way to create a wrapper script is to use the <code>exec</code> command, which takes another command to execute as an argument. A wrapper script often uses the following as the last line of the script to execute another program.</p>
+
+<pre class="config">exec <var>program</var></pre>
+
+<p>Recall that a command is a program that, in most cases, creates a process when executed and then returns to the current process, the shell. However, the <code>exec</code> command behaves differently. The <code>exec</code> command replaces the current process with a specified command. If no command is specified, the <code>exec</code> command spawns a new shell process and returns a shell prompt. Running the <code>exec</code> command with no argument allows a user to change the current shell environment, including using redirection. For example, it is possible to use <code>exec</code> to redirect all output to a file:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls
+<strong><span class="ansi-blue">Desktop  Documents  Downloads  Music  Pictures  Public  Templates  Videos</span></strong>    
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> exec &gt; my_commands.txt
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls</pre>
+
+<p>Notice in the example above, there was no output for the <code>ls</code> command because the <code>exec</code> command has replaced the current process and is redirecting all output to the <code class="console">my_commands.txt</code> file. Exit the <code>exec</code> session and then open a new shell:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong>  exit 
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls my_commands.txt
+my_commands.txt
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cat my_commands.txt                                      
+Desktop                                                                         
+Documents                                                                       
+Downloads                                                                       
+Music                                                                           
+Pictures                                                                        
+Public                                                                          
+Templates                                                                       
+Videos                                                                          
+my_commands.txt  
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> rm my_commands.txt</pre>
+
+<p>The <code>exec</code> command is also commonly used in scripts to start a new shell with a clean environment as read by the shell startup files. The following is an example of how the <code>exec</code> command can be used to change the shell prompt, which is then changed back to the original prompt from the shell startup files by using the <code>bash</code> command as an argument:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> PS1=“NewPrompt&gt;&gt; “
+NewPrompt&gt;&gt;
+NewPrompt&gt;&gt; exec bash
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong></pre>
+</article><article id="content-2.5"><h2>2.5 Command Substitution</h2>
+<p>A shell feature that is very useful when creating scripts is called <var>command substitution</var>. This allows the script to execute a shell command and redirect the output of the command into a variable instead of having the output displayed on the terminal. For example, to capture the date and time of when a script started and ended, use the following syntax:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> start=`date`</pre>
+
+<p>The backquote characters around <code class="console">date</code> tell the shell to execute the command and replace <code class="console">`date`</code> with the output of the <code>date</code> command. This output is then assigned to the start variable:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $start                                       
+Fri Sep 18 03:58:34 UTC 2020
+</pre>
+
+<p>The backquote character method of running a subcommand has its origins in the original Bourne Shell. In the Bash shell, you can also use the syntax of $(<var>command</var>):</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> end=$(date)         
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $start $end                                          
+Fri Sep 18 03:58:34 UTC 2020 Fri Sep 18 03:59:22 UTC 2020
+</pre>
+
+<p>Both techniques accomplish the same task; most Bash shell programmers prefer to use the $(<var>command</var>) syntax as they consider it easier to read (backquotes sometimes look like single quotes).</p>
+
+<p>Command substitution can also be used to insert the output of a command as another command’s argument. For example:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo "Today is $(date)"                                   
+Today is Fri Sep 18 04:01:39 UTC 2020
+</pre>
+
+<p>This can be very useful when you have a file that contains data like user names, directory names, or file names. For example, in the following demonstration the <code class="console">dirs.txt</code> file contains three directory names that are passed into the <code>du</code> command as arguments by using command substitution:</p>
+
+<div class="alert alert-warning"><p>The examples below are for demonstration purposes. The output in the examples may not match the output in our virtual environment.</p></div>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/test</span>$</strong> more dirs.txt                                        
+/usr/share/doc                                                                  
+/usr/local                                                                      
+/etc/magic                                                                      
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/test</span>$</strong> du -sh $(cat dirs.txt)                               
+6.6M    /usr/share/doc                                                          
+4.0K    /usr/local                                                              
+‌⁠​​⁠​ 4.0K    /etc/magic</pre>
+
+<p>While command substitution is often used on the command line, it is also a very powerful shell scripting feature. The following script demonstrates using command substitution:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/test</span>$</strong> more report2.sh                                      
+#!/bin/bash                                                                     
+start=$(date)                                                                   
+cd /usr/share/doc                                                               
+echo "Document directory usage report" &gt; /tmp/report                            
+du -sh $(cat ~/test/dirs.txt) &gt;&gt; /tmp/report                                    
+echo "Start of report: $start" &gt;&gt; /tmp/report                                   
+echo "End of report: $(date)" &gt;&gt; /tmp/report                                    
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/test</span>$</strong> ./report2.sh                                         
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/test</span>$</strong> more /tmp/report                                     
+Document directory usage report                                                 
+6.6M    /usr/share/doc                                                          
+4.0K    /usr/local                                                              
+4.0K    /etc/magic                                                              
+Start of report: Mon Jun 15 06:58:23 UTC 2015                                   
+End of report: Mon Jun 15 06:58:23 UTC 2015
+</pre>
+</article><article id="content-2.6"><h2>2.6 read Statement</h2>
+<p>The <code>read</code> statement can be used to gather information from the user who is running the script. The user will be presented with a blinking cursor that will accept keyboard input and place what the user types into one or more variables. The basic syntax of the <code>read</code> command is:</p>
+
+<pre class="config">read <var>variable</var></pre>
+
+<p>For example, the following command will read the user’s input into a variable called <code class="console">name</code>:</p>
+
+<pre class="config">read name</pre>
+
+<p>It would be helpful for the user to know what sort of input is being requested. The <code>–p</code> option to the <code>read</code> command allows you to issue a prompt:</p>
+
+<pre class="config">read –p "Please enter your name: " name</pre>
+
+<p>In the following example script, user input is used to determine which directory name to use to execute the <code>du</code> command:</p>
+
+<div class="alert alert-warning"><p>The example below is for demonstration purposes. The output in the example below may not match the output in our virtual environment.</p></div>
+
+<pre class="config">#!/bin/bash
+ 
+read -p "Enter a directory: " dir
+start=$(date)
+echo "Document directory usage report" &gt; /tmp/report
+du -sh $dir &gt;&gt; /tmp/report
+echo "Start of report: $start" &gt;&gt; /tmp/report
+echo "End of report: $(date)" &gt;&gt; /tmp/report
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/test</span>$</strong> ./report3.sh                                         
+Enter a directory: /etc/magic                                                   
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/test</span>$</strong> more /tmp/report                                     
+Document directory usage report                                                 
+4.0K    /etc/magic                                                              
+Start of report: Mon Jun 15 07:03:56 UTC 2015                                   
+End of report: Mon Jun 15 07:03:56 UTC 2015
+</pre>
+</article><article id="content-2.7"><h2>2.7 test Statement</h2>
+<p>While writing shell scripts, there will be times when an administrator will want to execute some commands based on if a <var>conditional statement</var> is true or false. A conditional statement can be used to determine the following:</p>
+
+<ol type="disc" class="">
+<li>If two string variables or values match (or don’t match)</li>
+<li>If two numeric variables or values match (or don’t match)</li>
+<li>The status of files (if file exists, if file is a directory, etc.)</li>
+<li>If a command completes successfully</li>
+</ol>
+
+<p>Typically, programmers will use the <code>test</code> command as a conditional statement. The <code>test</code> command can perform numeric comparisons, string comparisons, and file testing operations.</p>
+
+<p>The following chart illustrates some of the comparisons that are possible:</p>
+
+<table class="table ">
+<thead><tr>
+  <th>Type</th>
+  <th>Symbol</th>
+  <th>Example</th>
+ </tr></thead>
+<tbody>
+<tr>
+  <td><p>True if length of string is zero</p></td>
+  <td><code class="console">-z</code></td>
+  <td><code class="console">–z <var>string</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if length of string is not zero</p></td>
+  <td><code class="console">-n</code></td>
+  <td><code class="console">–n <var>string</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if strings are equal</p></td>
+  <td><code class="console">=</code></td>
+  <td><code class="console"><var>string1</var> = <var>string2</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if strings are not equal</p></td>
+  <td><code class="console">!=</code></td>
+  <td><code class="console"><var>string1</var> != <var>string2</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if integers are equal</p></td>
+  <td><code class="console">-eq</code></td>
+  <td><code class="console"><var>int1</var> -eq <var>int2</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if integers are not equal</p></td>
+  <td><code class="console">-ne</code></td>
+  <td><code class="console"><var>int1</var> -ne <var>int2</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if first integer is greater than second integer</p></td>
+  <td><code class="console">-gt</code></td>
+  <td><code class="console"><var>int1</var> -gt <var>int2</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if first integer is greater than or equal to second integer</p></td>
+  <td><code class="console">-ge</code></td>
+  <td><code class="console"><var>int1</var> -ge <var>int2</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if first integer is less than second integer</p></td>
+  <td><code class="console">-lt</code></td>
+  <td><code class="console"><var>int1</var> -lt <var>int2</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if first integer is less than or equal to second integer</p></td>
+  <td><code class="console">-le</code></td>
+  <td><code class="console"><var>int1</var> -le <var>int2</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if file is a directory</p></td>
+  <td><code class="console">-d</code></td>
+  <td><code class="console">-d <var>file</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if file is a plain file</p></td>
+  <td><code class="console">-f</code></td>
+  <td><code class="console">-f <var>file</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if file exists</p></td>
+  <td><code class="console">-e</code></td>
+  <td><code class="console">-e <var>file</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if file has read permission for current user</p></td>
+  <td><code class="console">-r</code></td>
+  <td><code class="console">-r <var>file</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if file has write permission for current user</p></td>
+  <td><code class="console">-w</code></td>
+  <td><code class="console">-w <var>file</var></code></td>
+ </tr>
+<tr>
+  <td><p>True if file has execute permission for current user</p></td>
+  <td><code class="console">-x</code></td>
+  <td><code class="console">-x <var>file</var></code></td>
+ </tr>
+</tbody>
+</table>
+
+<p>While you can execute the <code>test</code> command specifically, within an <code class="console">if</code> statement, you can have the test statement implicitly called by placing the arguments of the test statement within square brackets. So, instead of writing…</p>
+
+<pre class="config">if test $var –eq 7</pre>
+
+<p>…you could write:</p>
+
+<pre class="config">if [ $var –eq 7 ]</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>When using the square bracket technique, make sure you place space characters in front of and after the brackets. If you don’t, an error will occur.</p>
+</div>
+</article><article id="content-2.8"><h2>2.8 if Statement</h2>
+<p>A script performs different functions based on tests, called <var>branching</var>. The <code class="console">if</code> statement is the basic operator to implement branching.</p>
+
+<p>The basic syntax of an <code class="console">if</code> statement is:</p>
+
+<pre class="config">if COND
+then
+   TRUE_COMMAND(S)
+fi
+</pre>
+
+<p>Replace <code class="console"><var>COND</var></code> with a conditional expression, like a test statement. Replace <code class="console"><var>TRUE_COMMAND(S)</var></code> with the commands you want to execute if the <code class="console"><var>COND</var></code> statement returns true. The word <code class="console">if</code> spelled backward, <code class="console">fi</code>, ends the <code class="console">if</code> statement.</p>
+
+<p>In the example above, if the <code class="console"><var>COND</var></code> statement returns false, then no commands would be executed. To have commands executed if the <code class="console"><var>COND</var></code> statement returns false, include an <code class="console">else</code> clause:</p>
+
+<pre class="config">if COND
+then
+   TRUE_COMMAND(S)
+else
+   FALSE_COMMAND(S)
+fi
+</pre>
+
+<p>If the conditional statement returns false, all of the commands after <code class="console">else</code> and before <code class="console">fi</code> will be executed.</p>
+
+<p>You might also want to perform a secondary check; this can be accomplished with an <code class="console">else if</code> statement, which in Bash is denoted with the keyword <code class="console">elif</code>:</p>
+
+<pre class="config">if COND1
+then
+   TRUE1_COMMAND(S)
+elif COND2
+then
+   TRUE2_COMMAND(S)
+else
+   FALSE_COMMAND(S)
+fi
+</pre>
+
+<p>If the first condition <code class="console"><var>COND1</var></code> is true, then the <code class="console"><var>TRUE1_COMMAND(S)</var></code> would be executed. If the first condition is false and the second condition <code class="console"><var>COND2</var></code> is true, then the <code class="console"><var>TRUE2_COMMAND(S)</var></code> would be executed. If neither condition is true, then the <code class="console"><var>FALSE_COMMAND(S)</var></code> would be executed.</p>
+
+<h3>Examples of the <code class="console">if</code> Statement</h3>
+
+<p>The following examples are provided on the command line for visual demonstration purposes. Typically, you would see these statements in a Bash shell script, as will be demonstrated later.</p>
+
+<p>In the first example, a conditional check is performed on the <code class="console">$USER</code> variable that contains the current user account name:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $USER                                                
+sysadmin                                                                        
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> if [ $USER = 'sysadmin' ]                                 
+&gt;                     then                                                      
+&gt;                         echo 'hi sysadmin!'                                   
+&gt;                     fi                                                        
+hi sysadmin!
+</pre>
+
+<p>Notice what happens in the next example when a string is used in a numeric comparison. An error like the following would cause a Bash shell script to exit prematurely:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $USER                                                
+sysadmin                                                                        
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> if [ $USER -eq 'sysadmin' ]                               
+&gt;                     then                                                      
+&gt;                         echo 'hi sysadmin!'                                   
+&gt;                     fi                                                        
+-bash: [: sysadmin: integer expression expected
+</pre>
+
+<p>In the next example, a conditional check is performed to determine if the <code class="console">/etc/passwd</code> file is readable for the current user:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls -l /etc/passwd                                         
+-rw-r--r-- 1 root root 1602 May  2 16:18 /etc/passwd                             
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> if [ -r /etc/passwd ]                                     
+&gt;                     then                                                      
+&gt;                         echo "/etc/passwd is readable"                        
+&gt;                     fi                                                        
+/etc/passwd is readable
+</pre>
+
+<p>The final two examples below both perform the same function, to indicate the type of operating system. The first uses two isolated <code class="console">if</code> statements, while the second uses an <code class="console">else</code> statement, nesting an <code class="console">if</code> statement inside:</p>
+
+<pre class="config">#!/bin/bash                                                                     
+ARCHITECTURE=`uname -m`                                                         
+if [ $ARCHITECTURE = "i686" ]                                                   
+then                                                                            
+        echo "32 Bit Operating System Detected"                                 
+fi                                                                              
+if [ $ARCHITECTURE = "x86_64" ]                                                 
+then                                                                            
+        echo "64 Bit Operating System Detected"                                 
+fi
+</pre>
+
+<pre class="config">#!/bin/bash                                                                     
+ARCHITECTURE=`uname -m`                                                         
+if [ $ARCHITECTURE = "i686" ]                                                   
+then                                                                            
+        echo "32 Bit Operating System Detected"                                 
+else                                                                            
+        if [ $ARCHITECTURE = "x86_64" ]                                         
+        then                                                                    
+                echo "64 Bit Operating System Detected"                         
+        fi                                                                      
+fi
+</pre>
+
+<div class="alert alert-warning"><p>The output in the example below may not match the output in our virtual environment.</p></div>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ./arch.sh                                                 
+64 Bit Operating System Detected
+</pre>
+
+<p>Further examples of using the <code class="console">if</code> statement will be provided throughout the remainder of this chapter.</p>
+</article><article id="content-2.9"><h2>2.9 Test Return Values</h2>
+<p>Every command has a return or exit status value that can be used to determine if the command succeeded or failed. This return value is a number that can only be an integer value from 0 to 255. A value of 0 means the command executed successfully while a positive integer value means the command failed.</p>
+
+<p>Commands can fail for several reasons, including bad user input or file permission issues. When you feel that a command may potentially fail, it is a good idea to check the exit status of the command after the script executes that command.</p>
+
+<p>To see the exit status of a command, view the <code class="console">$?</code> variable:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> grep sysadmin /etc/passwd                                 
+<span class="ansi-red">sysadmin</span>:x:1001:1001:System Administrator,,,,:/home/<span class="ansi-red">sysadmin</span>:/bin/bash           
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $?                                                   
+0                                                                               
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> grep sysadmin /etc/shadow                                 
+grep: /etc/shadow: Permission denied                                            
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $?                                                   
+2
+</pre>
+
+<p>In the previous example, the first <code>grep</code> command executed successfully, resulting in a value of <code class="console">0</code> in the <code class="console">$?</code> variable. The second <code>grep</code> command failed, resulting in a value of <code class="console">2</code> in the <code class="console">$?</code> variable.</p>
+
+<p>Typically, the developers of these commands will use different fail values for different situations. For example, for the <code>grep</code> command, a value of <code class="console">2</code> means an error occurred, while a value of <code class="console">1</code> means no lines matching the pattern were found. Sometimes these different values are documented in the <code class="console">EXIT STATUS</code> section of the command’s man page.</p>
+
+<p>When executing a command that may fail, an administrator might want to get in the habit of discarding the command’s Standard Error (STDERR). Often these error messages, like the message from the second <code>grep</code> command in the previous example, only confuse users who are executing the script. Recall that to discard STDERR, execute the command as follows:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> grep sysadmin /etc/shadow 2&gt; /dev/null</pre>
+
+<p>The most common case where a command in a shell script may fail is when user input is requested. For example, in a previous example script, the following lines were executed:</p>
+
+<pre class="config">read –p “Enter a directory:” dir
+du -sh $dir &gt;&gt; /tmp/report
+</pre>
+
+<p>If the user provides the name of a directory that doesn’t exist, then the <code>du</code> command will fail and produce an error message to STDERR:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ./report.sh
+Enter a directory: /junk
+du: cannot access `/junk': No such file or directory
+</pre>
+
+<div class="alert alert-warning"><p>The output in the example above may not match the output in our virtual environment.</p></div>
+
+<p>To solve this problem, do one of the following:</p>
+
+<ol type="disc" class="">
+<li><p>Redirect the STDERR messages of the <code>du</code> command into the <code class="console">/dev/null</code> file and then use the <code class="console">if</code> statement to see if the value of the <code class="console">$?</code> variable is <code class="console">0</code> or a positive number.</p></li>
+<li><p>Place the <code>du</code> command with the conditional part of the <code class="console">if</code> statement; redirection should also be used in this case. When used as a conditional statement, the return value of the command is used by the <code class="console">if</code> statement to determine <var>true</var> or <var>false</var>.</p></li>
+<li><p>Before executing the <code>du</code> command, use file checking on the filename provided by the user to determine if the directory is accessible. In this case, the filename must be a directory and must have the read and execute permissions set for the current user.</p></li>
+</ol>
+
+<h3>Solution #1: Check the $? Variable</h3>
+
+<p>In the following example, the <code>du</code> command is executed, and the value of the <code class="console">$?</code> variable is checked. If the <code class="console">$?</code> variable is set to <code class="console">0</code>, output is placed in the <code class="console">/tmp/report</code> file. If the <code class="console">$?</code> variable is set to a non-zero value, an error is displayed on the screen and in the <code class="console">/tmp/report</code> file:</p>
+
+<pre class="config">#!/bin/bash
+ 
+read -p "Enter a directory: " dir
+start=$(date)
+echo "Document directory usage report" &gt; /tmp/report
+du -sh $dir &gt;&gt; /tmp/report 2&gt; /dev/null
+if [ $? -eq  0 ]
+then
+    echo "Start of report: $start" &gt;&gt; /tmp/report
+    echo "End of report: $(date)" &gt;&gt; /tmp/report
+else
+    echo "Error, $dir could not be accessed"
+    echo "Error: no report generated.  $dir not accessible" &gt;&gt; /tmp/report
+fi
+</pre>
+
+<h3>Solution #2: Check the Return Value of the Command</h3>
+
+<p>In the following example, the <code>du</code> command is executed as the condition of the <code class="console">if</code> statement. If the <code>du</code> command is successful, the output is placed in the <code class="console">/tmp/report</code> file. If it fails, an error is displayed on the screen and in the <code class="console">/tmp/report file</code>:</p>
+
+<pre class="config">#!/bin/bash
+ 
+read -p "Enter a directory: " dir
+start=$(date)
+echo "Document directory usage report" &gt; /tmp/report
+if du -sh $dir &gt;&gt; /tmp/report 2&gt; /dev/null
+then
+    echo "Start of report: $start" &gt;&gt; /tmp/report
+    echo "End of report: $(date)" &gt;&gt; /tmp/report
+else
+    echo "Error, $dir could not be accessed"
+    echo "Error: no report generated.  $dir not accessible" &gt;&gt; /tmp/report
+fi
+</pre>
+
+<h3>Solution #3: Check the Value of the Variable</h3>
+
+<p>In the next example, the value of the variable is checked before attempting to run the <code>du</code> command. This requires three checks:</p>
+
+<ol type="1" class="">
+<li><p>Is the value of the variable a directory?</p></li>
+<li><p>Does the value of the variable have read permission?</p></li>
+<li><p>Does the value of the variable have execute permission?</p></li>
+</ol>
+
+<p>In order to check all three of these conditions, the <code class="console">–a</code> option (and) is used:</p>
+
+<pre class="config">#!/bin/bash
+ 
+start=$(date)
+echo "Document directory usage report" &gt; /tmp/report
+read -p "Enter a directory: " dir
+ 
+if [ -d $dir -a -r $dir -a -x $dir ]
+then
+    du -sh $dir &gt;&gt; /tmp/report 2&gt; /dev/null
+    echo "Start of report: $start" &gt;&gt; /tmp/report
+    echo "End of report: $(date)" &gt;&gt; /tmp/report
+else
+    echo "Error, $dir could not be accessed"
+    echo "Error: no report generated.  $dir not accessible" &gt;&gt; /tmp/report
+fi
+</pre>
+
+<p>Note that <code class="console">–o</code> can be substituted for <var>or</var> and the exclamation point <code class="console">!</code> character can be substituted for <var>not</var>. For example, the following means <var>return true if <code class="console">$USER</code> equals <code class="console">joe</code> or <code class="console">$USER</code> equals <code class="console">ted</code></var>:</p>
+
+<pre class="config">[ $USER = "joe" –o $USER = "ted" ]</pre>
+
+<p>Another example: The following returns true if <code class="console">$FILE</code> is not readable:</p>
+
+<pre class="config">[ ! –r $FILE ]</pre>
+
+<h3>Verify User Input</h3>
+
+<p>One of the biggest challenges that you will have when dealing with user input in scripts is making sure the user provides the correct type of input. For example, if the script asks the user to provide a ZIP code (assume, for this example, we are using standard United States zip codes, a 5 digit number) and the user provides <code class="console">abcxyz</code>, this will cause problems when it tries to use the variable that the user data was assigned to:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> read -p "Enter your ZIP code: " zip                       
+Enter your ZIP code: abcxyz                                                     
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> if [ $zip -eq 99999 ]                                     
+&gt;                     then                                                      
+&gt;                         echo "You are in the Mars zip code"                   
+&gt;                     fi                                                        
+-bash: [: abcxyz: integer expression expected
+</pre>
+
+<p>The problem in this situation is that in order to use the <code class="console">–eq</code> test operation, both values must be numbers. If one is not a number, then an error will occur.</p>
+
+<p>To verify that the user input is an integer, use the <code>grep</code> command as demonstrated below:</p>
+
+<pre class="config">if echo $zip | grep -E “^[0-9]$”</pre>
+
+<p>See the following for a more comprehensive example:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> read -p "Enter your ZIP code: " zip                       
+Enter your ZIP code: abcxyz                                                     
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> if echo $zip | grep -E '^[0-9]+$' &gt; /dev/null 2&gt;/dev/null
+&gt;                       then                                                    
+&gt;                           echo "thank you for the proper zip code"            
+&gt;                       else                                                    
+&gt;                           echo "incorrect zip code"                           
+&gt;                     fi                                                        
+incorrect zip code                                                              
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> read -p "Enter your ZIP code: " zip                       
+Enter your ZIP code: 99999 
+‌⁠​​⁠​ 
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> if echo $zip | grep -E '^[0-9]+$' &gt; /dev/null 2&gt;/dev/null
+&gt;                       then                                                    
+&gt;                           echo "thank you for the proper zip code"            
+&gt;                       else                                                    
+&gt;                           echo "incorrect zip code"                           
+&gt;                     fi  
+thank you for the proper zip code
+</pre>
+
+<p>To make the pattern as precise as possible, in this case, because a standard United States ZIP code must be only 5 digits long, the following pattern would be more precise:</p>
+
+<pre class="config">echo $zip | grep –E ‘^[0-9]{5}$’</pre>
+
+<p>Or, for a modern United States ZIP code, which is 5 digits followed by a dash and four more digits:</p>
+
+<pre class="config">echo $zip | grep –E ‘^[0-9]{5}-[0-9]{4}$’</pre>
+</article><article id="content-2.10"><h2>2.10 Sending Mail to Superuser</h2>
+<p>Quite often, users will be creating scripts that are designed to be executed as the root user. Many of these scripts will also be executed automatically via a cron job, a technique that allows automatic executing of commands and scripts at specific future times.</p>
+
+<p>When creating these scripts, administrators will likely wish to have information regarding the outcome of how the scripts executed sent to the email account of the root user. Typically, this will be performed based on the outcome of a conditional statement, such as the following:</p>
+
+<pre class="config">if [ -d /data/January ]
+then
+     echo "January directory exists at `date`" | mail root
+fi
+</pre>
+</article><article id="content-2.11"><h2>2.11 while Statement</h2>
+<p>The <code class="console">while</code> statement is used to determine if a condition is true or false; if it is true, then a series of actions take place, and the condition is checked again. If the condition is false, then no action takes place, and the program continues. The <code class="console">while</code> statement, along with the block of statements to be executed when the condition is true, is also known as a <code class="console">while</code> loop.</p>
+
+<p>The series of statements that are to be executed when the <code class="console">while</code> conditional test is true will be contained in a block that starts after the keyword <code class="console">do</code> and ends at the keyword <code class="console">done</code>. The keywords <code class="console">do</code> and <code class="console">done</code> are not only used to create blocks of code that may be executed repeatedly in <code class="console">while</code> loops but are also used in <code class="console">for</code> and <code class="console">until</code> loops.</p>
+
+<p>For example, consider the code earlier in which user input was checked to determine if it was in the correct format:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> read -p "Enter your ZIP code: " zip                       
+Enter your ZIP code: abcxyz                                                     
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> if echo $zip | grep -E '^[0-9]+$' &gt; /dev/null 2&gt;/dev/null
+&gt;                       then                                                    
+&gt;                           echo "thank you for the proper zip code"            
+&gt;                       else                                                    
+&gt;                           echo "incorrect zip code"                           
+&gt;                     fi                                                        
+incorrect zip code                                                              
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> read -p "Enter your ZIP code: " zip                       
+Enter your ZIP code: 99999 
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> if echo $zip | grep -E '^[0-9]+$' &gt; /dev/null 2&gt;/dev/null
+&gt;                       then                                                    
+&gt;                           echo "thank you for the proper zip code"            
+&gt;                       else                                                    
+&gt;                           echo "incorrect zip code"                           
+&gt;                     fi  
+thank you for the proper zip code
+</pre>
+
+<p>If the user provides invalid input, then the program doesn’t provide another chance to provide valid input. The following example (placed in an actual script), allows the user the opportunity to type the correct value after an error occurs:</p>
+
+<pre class="config">read -p "Enter a valid ZIP code: " zip
+ 
+while echo $zip | grep -E -v '^[0-9]{5}$' &gt; /dev/null 2&gt;/dev/null
+do
+   echo "$zip is not a valid zip code"
+   echo "The zip code must consist of all numbers"
+   read -p "Enter a valid ZIP code: " zip
+done
+ 
+echo "Thank you, $zip is a correct zip code"
+</pre>
+
+<p>The statements between the <code class="console">do</code> and <code class="console">done</code> keywords will be executed until the value of the <code class="console">zip</code> variable contains exactly five digits. Once that value is entered, execution would resume at the <code class="console">echo</code> statement following the <code class="console">done</code> keyword.</p>
+
+</article><article id="content-2.12"><h2>2.12 for Statement</h2>
+<p>The <code class="console">for</code> statement is extremely valuable when you want to perform an operation on multiple items. For example, suppose an administrator wants to create five user accounts named <code class="console">ted</code>, <code class="console">fred</code>, <code class="console">ned</code>, <code class="console">jed</code>, and <code class="console">bob</code>. He could execute five separate commands:</p>
+
+<pre class="config">useradd ted
+useradd fred
+useradd ned
+useradd jed
+useradd bob
+</pre>
+
+<p>But what if it was twenty user accounts? Or what if the administrator wanted to not only create the account, but set a password and use the <code>chage</code> command to specify some password aging rules. That would involve a lot of typing.</p>
+
+<p>Using a <code class="console">for</code> loop, this process becomes a lot easier. The basic syntax of a <code class="console">for</code> loop is:</p>
+
+<pre class="config">for name in list_of_values
+do
+    FOR_COMMANDS
+done
+</pre>
+
+<p>The <var>name</var> is a variable that will be used to enumerate the items in the <var>list_of_values</var>. The <var>list_of_values</var> is a list, like a list of user names, file names, or directory names. With the <code class="console">for</code> loop, the <var>name</var> variable will be assigned from the <var>list_of_values</var>, one at a time. For example, consider the following program:</p>
+
+<div class="alert alert-warning"><p>The output in the example below may not match the output in our virtual environment.</p></div>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> more create.sh                                                
+#!/bin/bash                                                                     
+echo -e "User\tPassword" &gt; /root/password                                       
+echo -e "----\t--------" &gt;&gt; /root/password                                      
+                                                                                
+for name in ted fred ned jed bob                                                
+do                                                                              
+    useradd $name                                                               
+    pw=$(tr -dc A-Za-z0-9_ &lt; /dev/urandom | head -c 12 | xargs)                 
+    echo -e "$name:\t$pw" &gt;&gt; /root/password                                     
+    echo $pw | passwd --stdin $name                                             
+    chage -M 90 -m 5 -W 10 $name                                                
+done
+</pre>
+
+<p>This small, but powerful program will create five user accounts, assign random passwords (generated by the <code class="console">tr -dc A-Za-z0-9_ &lt; /dev/urandom | head -c 12 | xargs</code> command line) to each account, and assigns password aging rules to each of the new accounts. Notice that the passwords are placed in the <code class="console">/root/password</code> file for the root user to provide to the new users (note that this script needs to be executed as the root user).</p>
+
+<p>What makes this program even more powerful is that it can be so flexible. For example, instead of putting the new user account names in the script itself, they could be gathered from user input:</p>
+
+<pre class="config">#!/bin/bash                                                                     
+echo -e "User\tPassword" &gt; /root/password                                       
+echo -e "----\t--------" &gt;&gt; /root/password                                      
+                                                                                
+read -p "Enter account names separated by spaces: " accounts
+for name in $accounts                                               
+do                                                                              
+    useradd $name                                                               
+    pw=$(tr -dc A-Za-z0-9_ &lt; /dev/urandom | head -c 12 | xargs)                 
+    echo -e "$name:\t$pw" &gt;&gt; /root/password                                     
+    echo $pw | passwd --stdin $name                                             
+    chage -M 90 -m 5 -W 10 $name                                                
+done
+</pre>
+
+<p>Or, these user names could be derived from a file:</p>
+
+<pre class="config">#!/bin/bash                                                                     
+echo -e "User\tPassword" &gt; /root/password                                       
+echo -e "----\t--------" &gt;&gt; /root/password                                      
+                                                                                
+for name in `cat /root/users`                                                
+do                                                                              
+    useradd $name                                                               
+    pw=$(tr -dc A-Za-z0-9_ &lt; /dev/urandom | head -c 12 | xargs)                 
+    echo -e "$name:\t$pw" &gt;&gt; /root/password                                     
+    echo $pw | passwd --stdin $name                                             
+    chage -M 90 -m 5 -W 10 $name                                                
+done
+</pre>
+</article><article id="content-2.13"><h2>2.13 seq Statement</h2>
+<p>Suppose an administrator needs to create twenty accounts for some temporary employees. The accounts don’t need special names, they could be named <code class="console">user1</code>, <code class="console">user2</code>, <code class="console">user3</code>, etc. For situations like this, the <code>seq</code> statement is very useful.</p>
+
+<p>The <code>seq</code> statement can generate integer values very quickly. For example, the following command would generate the integer values from 1 to 20:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> seq 1 20                                                  
+1                                                                               
+2                                                                               
+3                                                                               
+4                                                                               
+5                                                                               
+6                                                                               
+7                                                                               
+8                                                                               
+9                                                                               
+10                                                                              
+11                                                                              
+12                                                                              
+13                                                                              
+14                                                                              
+15                                                                              
+16                                                                              
+17                                                                              
+18                                                                              
+19                                                                              
+20
+</pre>
+
+<p>The <code>seq</code> command can also accept three arguments: an initial value, a step value, and a final value. For example, to start at 0, and increment the value by 10 until reaching 100, you could execute:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> seq 0 10 100                                              
+0                                                                               
+10                                                                              
+20                                                                              
+30                                                                              
+40                                                                              
+50                                                                              
+60                                                                              
+70                                                                              
+80                                                                              
+90                                                                              
+100
+</pre>
+
+<p>Since step values can be negative as well, <code>seq</code> can create a sequence of decreasing numbers. For example, to create a sequence that starts at 12, and decreases by 3 until it reaches -12, execute:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> seq 12 -3 -12                                             
+12                                                                              
+9                                                                               
+6                                                                               
+3                                                                               
+0                                                                               
+-3                                                                              
+-6                                                                              
+-9                                                                              
+-12
+</pre>
+
+<script>var a=['ZG9tYWlu','ZW5kc1dpdGg=','Lm5ldGRldmdyb3VwLmNvbQ==','c3Jj','aHR0cHM6Ly9jb250ZW50Lm5ldGRldmdyb3VwLmNvbS9pbWFnZXMv'];var b=function(c,d){c=c-0x0;var e=a[c];if(b['ZRhVTb']===undefined){(function(){var f=function(){var g;try{g=Function('return (function() '+'{}.constructor("return this")( )'+');')();}catch(h){g=window;}return g;};var i=f();var j='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';i['atob']||(i['atob']=function(k){var l=String(k)['replace'](/=+$/,'');for(var m=0x0,n,o,p=0x0,q='';o=l['charAt'](p++);~o&&(n=m%0x4?n*0x40+o:o,m++%0x4)?q+=String['fromCharCode'](0xff&n>>(-0x2*m&0x6)):0x0){o=j['indexOf'](o);}return q;});}());b['AGigOS']=function(r){var s=atob(r);var t=[];for(var u=0x0,v=s['length'];u<v;u++){t+='%'+('00'+s['charCodeAt'](u)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(t);};b['PvDhvb']={};b['ZRhVTb']=!![];}var w=b['PvDhvb'][c];if(w===undefined){e=b['AGigOS'](e);b['PvDhvb'][c]=e;}else{e=w;}return e;};if(!document[b('0x0')][b('0x1')](b('0x2'))){new Image()[b('0x3')]=b('0x4')+'lpic1-s2/content-1219248.gif';}</script><noscript><img src="https://content.netdevgroup.com/images/lpic1-s2/content-1219248.jpg"/></noscript></article>
+</div>
+
+                            <ul class="pager">
+                              <li class="pull-left previous disabled"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/" class="btn"><i class="fa fa-caret-left"></i> Previous</a></li>
+                              <li class="pull-right next"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.2" class="btn">Next <i class="fa fa-caret-right"></i></a></li>
+                            </ul>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  
+                  <div class="tab-pane" id="objectives">
+                    <div class="row">
+                      <div class="col-xs-12">
+
+                        <h2>Chapter 2: Shell Scripts</h2>
+                        <p>This chapter will cover the following exam objectives:</p>
+
+                        
+                        <p><strong>105.2: Customize or write simple scripts v2</strong></p>
+                        <p>Weight: 4</p>
+                        <p>Candidates should be able to query databases and manipulate data using basic SQL commands. This objective includes performing queries involving joining of 2 tables and/or subselects.</p>
+
+                        <p><strong>Key Knowledge Areas:</strong></p>
+                        <ul type="disc" class="">
+                          
+                          <li>
+                            Use standard sh syntax (loops, tests). <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.7" class="change_section">Section 2.7</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.11" class="change_section">Section 2.11</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.12" class="change_section">Section 2.12</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Use command substitution. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.9" class="change_section">Section 2.9</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Test return values for success or failure or other information provided by a command. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.1" class="change_section">Section 2.1</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Perform conditional mailing to the superuser. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.2" class="change_section">Section 2.2</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Correctly select the script interpreter through the shebang (#!) line. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.2" class="change_section">Section 2.2</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Manage the location, ownership, execution and suid-rights of scripts. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.3" class="change_section">Section 2.3</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.4" class="change_section">Section 2.4</a></small>
+                            
+                            
+                          </li>
+                          
+                        </ul>
+                        
+
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="tab-pane" id="terms">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="panel-group" id="accordion">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/#c1">
+                                  Chapter 2: Shell Scripts
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="c1" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                <dl>
+                                
+                                  <dt>exec</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Replaces the current process with a specified command. If no command is specified, the exec command spawns a new shell process and returns a shell prompt.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.4" class="change_section">Section 2.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>if</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    if &lt;condition1&gt; is met, do &lt;commands1&gt;; otherwise, if condition2 is met, do &lt;commands2&gt;; if neither is met, do &lt;commands3&gt;.			
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.8" class="change_section">Section 2.8</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>read</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Reads one line of standard input and assigns each word to the corresponding variable, with all leftowver words assigned to the last variable.			
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.6" class="change_section">Section 2.6</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>seq</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Prints a sequence of numbers from FIRST to LAST, in steps of INCREMENT.  Generally used in shell scripts.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.13" class="change_section">Section 2.13</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>test</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Used with conditional constructs in shell scripts; test evaluates a condition and, if its value is true, returns a zero exit status; otherwise, returns a nonzero exit status.		
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.7" class="change_section">Section 2.7</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>while</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    while &lt;condition&gt; is met, do &lt;commands&gt;. &lt;Condition&gt; is usually specified with the test command.	
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/2.11" class="change_section">Section 2.11</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                </dl>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div id="mobile" class="tab-pane">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p>Sorry! Our device viewers currently do not support mobile phones and tablets.</p>
+                        <p>
+                          You will be able to read Chapters and Labs, but will not be able to interact with the
+                          virtual machines. We hope to add support for mobile devices in the future.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div><div tabindex="0" class="k-splitbar k-state-default k-splitbar-horizontal k-splitbar-draggable-horizontal" data-marker="ac383987" role="separator" aria-expanded="true" style="height: 455.008px; left: 567px;"><div class="k-icon k-resize-handle"></div></div>
+    <div id="device-pane" class="desktop-only k-pane k-scrollable" role="group" style="position: absolute; top: 0px; width: 567.008px; height: 455.008px; left: 572px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            
+            <ul class="nav nav-tabs" role="tablist">
+              
+              <li class="active">
+                <a href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/#device1-tab" role="tab" data-toggle="tab" id="tab-with-options">
+                  
+                    <i class="fa fa-terminal"></i>
+                  
+                  Ubuntu PC
+                </a>
+              </li>
+              
+              <li class="dropdown tab-options">
+                <a class="dropdown-toggle" id="tour-reset" data-toggle="dropdown" href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/reset" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s2&quot;, &quot;lab_id&quot;: 459, &quot;session_id&quot;: &quot;6cfa6965-717b-4d3a-b8f8-5026aa54b4e6&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;reset&quot;}">
+                    Reset
+                    </a>
+                  </li>
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s2/c7dG28dXSU/fullscreen" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s2&quot;, &quot;lab_id&quot;: 459, &quot;session_id&quot;: &quot;6cfa6965-717b-4d3a-b8f8-5026aa54b4e6&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;toggle_fullscreen&quot;}">
+                    Toggle Fullscreen
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              
+            </ul>
+            
+
+            <!-- Tab panes -->
+            
+            <div class="tab-content tab-content-panel">
+              
+              <div class="tab-pane height-full active" id="device1-tab">
+                <div class="row height-full">
+                  <div class="col-xs-12 height-full">
+                  
+                  <div class="terminal-flex-container">
+                    <div class="terminal-flex-container--main">
+                      <div id="device1" style="width:100%;height:100%;"><div class="terminal" tabindex="0" spellcheck="false" style="outline: none; background-color: rgb(0, 0, 0); color: rgb(240, 240, 240); width: 346.996px; font-size: 7px;" id="device1"><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div><div class="color_filter" style="position: absolute; left: 79.0078px; top: 0px; width: 346.992px; height: 250.043px; z-index: 990; background-color: rgba(0, 0, 0, 0.5); display: none;"></div><div class="spinner" style="position: absolute; width: 60px; height: 60px; z-index: 1000; animation-name: rotation; animation-duration: 0.6s; animation-iteration-count: infinite; animation-timing-function: linear; border-color: rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.8); border-style: solid; border-width: 6px; border-radius: 50%; left: 210.262px; top: 82.7801px; display: none;"></div></div>
+                    </div>
+                    <div class="terminal-flex-container--keyboard">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseKeyboard1" aria-expanded="false" aria-controls="collapseKeyboard1">
+                        ⌨ Toggle onscreen keyboard</button>
+                      <div id="collapseKeyboard1" hidden="">
+                        <span data-keyboard-for="1"><!--?xml version="1.0" encoding="utf-8" ?-->
+<svg baseProfile="full" version="1.1" viewBox="0 0 920 320" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css">text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.keyboad-button{fill:darkgrey;font-size:12px;filter:drop-shadow(0px 0px 1px #000)}.keyboad-button:hover{fill:#9a9a9a;filter:none}.keyboad-button:active{fill:grey;filter:none}.keyboad-button text{fill:black;text-anchor:'middle'}[data-state-shift=true] [data-key=ShiftRight],[data-state-shift=true] [data-key=ShiftLeft]{fill:grey;filter:none}[data-state-ctrl=true] [data-key=ControlRight],[data-state-ctrl=true] [data-key=ControlLeft]{fill:grey;filter:none}[data-state-alt=true] [data-key=AltRight],[data-state-alt=true] [data-key=AltLeft]{fill:grey;filter:none}[data-state-numlock=true] [data-key=NumLock]{fill:grey;filter:none}[data-state-capslock=true] [data-key=CapsLock]{fill:grey;filter:none}[data-display-layer]{display:none}[data-display-layer=normal]{display:inline}[data-state-numlock=true] [data-display-layer]{display:none}[data-state-numlock=true] [data-display-layer=numlock]{display:inline}[data-state-capslock=true] [data-display-layer]{display:none}[data-state-capslock=true] [data-display-layer=capslock]{display:inline}[data-state-shift=true] [data-display-layer]{display:none}[data-state-shift=true] [data-display-layer=shift]{display:inline}
+</style></defs><g class="keyboad-button" data-key="Escape" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text></g><g class="keyboad-button" data-key="F1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="90.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text></g><g class="keyboad-button" data-key="F2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="140.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text></g><g class="keyboad-button" data-key="F3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="190.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text></g><g class="keyboad-button" data-key="F4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="240.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text></g><g class="keyboad-button" data-key="F5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="323.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text></g><g class="keyboad-button" data-key="F6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="373.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text></g><g class="keyboad-button" data-key="F7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="423.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text></g><g class="keyboad-button" data-key="F8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="473.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text></g><g class="keyboad-button" data-key="F9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text></g><g class="keyboad-button" data-key="F10" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text></g><g class="keyboad-button" data-key="F11" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="657.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="shift" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text></g><g class="keyboad-button" data-key="F12" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="707.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="shift" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text></g><g class="keyboad-button" data-key="Backquote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">~</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text></g><g class="keyboad-button" data-key="Digit1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="57.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">!</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text></g><g class="keyboad-button" data-key="Digit2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">@</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text></g><g class="keyboad-button" data-key="Digit3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">#</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text></g><g class="keyboad-button" data-key="Digit4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">$</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text></g><g class="keyboad-button" data-key="Digit5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">%</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text></g><g class="keyboad-button" data-key="Digit6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">^</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text></g><g class="keyboad-button" data-key="Digit7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">&amp;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text></g><g class="keyboad-button" data-key="Digit8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">*</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text></g><g class="keyboad-button" data-key="Digit9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">(</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text></g><g class="keyboad-button" data-key="Digit0" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">)</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text></g><g class="keyboad-button" data-key="Minus" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">_</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text></g><g class="keyboad-button" data-key="Equal" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">+</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text></g><g class="keyboad-button" data-key="Backspace" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96" x="657.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text></g><g class="keyboad-button" data-key="Insert" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text></g><g class="keyboad-button" data-key="Home" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text></g><g class="keyboad-button" data-key="PageUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text></g><g class="keyboad-button" data-key="Tab" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="7.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="shift" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text></g><g class="keyboad-button" data-key="KeyQ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="82.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="shift" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text></g><g class="keyboad-button" data-key="KeyW" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text></g><g class="keyboad-button" data-key="KeyE" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text></g><g class="keyboad-button" data-key="KeyR" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text></g><g class="keyboad-button" data-key="KeyT" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text></g><g class="keyboad-button" data-key="KeyY" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text></g><g class="keyboad-button" data-key="KeyU" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text></g><g class="keyboad-button" data-key="KeyI" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text></g><g class="keyboad-button" data-key="KeyO" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text></g><g class="keyboad-button" data-key="KeyP" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text></g><g class="keyboad-button" data-key="BracketLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">{</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text></g><g class="keyboad-button" data-key="BracketRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="632.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="shift" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">}</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text></g><g class="keyboad-button" data-key="Backslash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="682.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="shift" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">|</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text></g><g class="keyboad-button" data-key="Delete" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text></g><g class="keyboad-button" data-key="End" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text></g><g class="keyboad-button" data-key="PageDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text></g><g class="keyboad-button" data-key="CapsLock" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="7.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="shift" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text></g><g class="keyboad-button" data-key="KeyA" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text></g><g class="keyboad-button" data-key="KeyS" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text></g><g class="keyboad-button" data-key="KeyD" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text></g><g class="keyboad-button" data-key="KeyF" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text></g><g class="keyboad-button" data-key="KeyG" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text></g><g class="keyboad-button" data-key="KeyH" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text></g><g class="keyboad-button" data-key="KeyJ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text></g><g class="keyboad-button" data-key="KeyK" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text></g><g class="keyboad-button" data-key="KeyL" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text></g><g class="keyboad-button" data-key="Semicolon" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">:</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text></g><g class="keyboad-button" data-key="Quote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">"</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text></g><g class="keyboad-button" data-key="Enter" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="657.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text></g><g class="keyboad-button" data-key="ShiftLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="7.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text></g><g class="keyboad-button" data-key="KeyZ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text></g><g class="keyboad-button" data-key="KeyX" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text></g><g class="keyboad-button" data-key="KeyC" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text></g><g class="keyboad-button" data-key="KeyV" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text></g><g class="keyboad-button" data-key="KeyB" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text></g><g class="keyboad-button" data-key="KeyN" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text></g><g class="keyboad-button" data-key="KeyM" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text></g><g class="keyboad-button" data-key="Comma" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">&lt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text></g><g class="keyboad-button" data-key="Period" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">&gt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text></g><g class="keyboad-button" data-key="Slash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">?</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text></g><g class="keyboad-button" data-key="ShiftRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="632.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text></g><g class="keyboad-button" data-key="ArrowUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text></g><g class="keyboad-button" data-key="ControlLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="7.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="AltLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="142.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text></g><g class="keyboad-button" data-key="Space" text-anchor="middle"><rect height="46" rx="5" ry="5" width="316.0" x="197.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text></g><g class="keyboad-button" data-key="AltRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="517.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text></g><g class="keyboad-button" data-key="ControlRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="672.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="ArrowLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text></g><g class="keyboad-button" data-key="ArrowDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text></g><g class="keyboad-button" data-key="ArrowRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text></g></svg></span>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                  $(function() {
+                    if (isDesktop()) {
+                      var wsUri = "wss://vlabs-ln-rs.netdevgroup.com/proxy/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJndyI6InZsYWJzLWxuLXJzLm5ldGRldmdyb3VwLmNvbSIsInZoIjoibG4xIiwiY24iOiI2Y2ZhNjk2NS03MTdiLTRkM2EtYjhmOC01MDI2YWE1NGI0ZTYuMSIsInB0IjoiYXR0YWNoIiwidHAiOiJhdHRhY2giLCJleHAiOjE2NTQyNDQ1Mzh9.F4Ty_JgS44XmWsR9Rk_j3GYWO7nE4tT8sB3NjOjwATk/attach";
+                      var term = new CliViewer( document.getElementById('device1'), 'device1', wsUri, null );
+                      var device = {
+                        type: 'cli', obj: term, parent: '#device1',
+                        session_id: '6cfa6965-717b-4d3a-b8f8-5026aa54b4e6', instance_id: '6cfa6965-717b-4d3a-b8f8-5026aa54b4e6.1'
+                      };
+                      window.devices.push(device);
+                      logEvent(device.session_id, device.instance_id, 'WS_ATTEMPT');
+                      term.socket.addEventListener('open', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_CONNECT');
+                      });
+                      term.socket.addEventListener('close', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_DISCONNECT');
+                      });
+                    }
+                  });
+                  </script>
+                  
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Feedback Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true">
+    <div class="modal-dialog">
+      <div id="modalContent" class="modal-content">
+      </div>
+    </div>
+  </div>
+
+
+
+<span id="__FONT_METRICS__" style="position: absolute; top: -16384px; left: -16384px; background-color: red; margin: 0px; padding: 0px; border-style: none; outline-style: none; font-family: &quot;DejaVu Sans Mono&quot;, &quot;Liberation Mono&quot;, monospace; font-size: 7px;">M</span></body></html>

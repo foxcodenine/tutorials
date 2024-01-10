@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/ -->
+<html lang="en" class="k-webkit k-webkit99"><input type="hidden" id="__yoroi_connector_api_injected_type" value="prod"><script async="" src="./NDG Introduction to Linux I - Lab 15_ Hardware Configuration_files/analytics.js"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>NDG Introduction to Linux I - Lab 15: Hardware Configuration</title>
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="https://ndg-content.s3.us-west-2.amazonaws.com/img/favicon.ico">
+
+  <link rel="stylesheet" href="./NDG Introduction to Linux I - Lab 15_ Hardware Configuration_files/44d1a56e411f.css" type="text/css">
+
+  <script type="text/javascript" src="./NDG Introduction to Linux I - Lab 15_ Hardware Configuration_files/polyfill-6.26.0.min.js"></script>
+  <script type="text/javascript" src="./NDG Introduction to Linux I - Lab 15_ Hardware Configuration_files/9930c7fbf6d8.js"></script>
+
+  <script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-11306725-3', 'netdevgroup.com');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+
+</script>
+
+  <script type="text/javascript">
+    var NDGCourse = {name: "NDG Introduction to Linux I"};
+    var videoContent = {};
+  </script>
+</head>
+
+<body style="">
+
+  <!-- Start Navbar -->
+  <div class="navbar navbar-primary navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand hidden-xs">
+          NDG Introduction to Linux I - Lab 15: Hardware Configuration
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-share-alt" aria-hidden="true"></i> Share <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://www.facebook.com/share.php?u=https://netdevgroup.com/online/courses/linux.html&amp;title=Learn%20Linux%20with%20NDG" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+            </li>
+            <li>
+              <a href="http://twitter.com/home?status=Learn%20Linux%20with%20NDG+https://netdevgroup.com/online/courses/linux.html" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li id="tour-help" class="dropdown">
+          <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-lg hidden-md hidden-sm">NDG Introduction to Linux I</span>
+            <div class="pull-right">
+              <i class="fa fa-question-circle"></i>
+              <span class="hidden-xs"> Help</span>
+              <b class="caret"></b>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header hidden-md hidden-sm hidden-lg">Lab 15: Hardware Configuration</li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/faq/">Frequently Asked Questions</a></li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/feedback/">Contact Support</a></li>
+            <li class="hidden-xs desktop-only"><a id="toursb" class="support" href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/#">Start Tour</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- End Navbar -->
+
+
+  <div id="splitter" class="height-full k-widget k-splitter" data-role="splitter">
+    <div role="group" class="k-pane k-scrollable" style="position: absolute; top: 0px; width: 869px; height: 789.011px; left: 0px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            <!-- Tab Btns -->
+              <ul id="left-tabs" class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/#content" role="tab" data-toggle="tab">Content</a></li>
+                
+                
+                
+                <li class="mobile-only" style="display:none;"><a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/#mobile" role="tab" data-toggle="tab"><i class="fa fa-terminal"></i> Devices</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div id="content-container" class="tab-content tab-content-panel">
+                  <div id="content" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="tour2" class="btn-group-vertical btn-group-xs pull-left hidden-xs">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.0" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                          
+                                          15.0 Introduction
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.1 Step 1
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.2 Step 2
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.3 Step 3
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.4 Step 4
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.5" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.5 Step 5
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.6" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.6 Step 6
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.7" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.7 Step 7
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.8" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.8 Step 8
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.9" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.9 Step 9
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.10" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.10 Step 10
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.11" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.11 Step 11
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.12" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.12 Step 12
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.13" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.13 Step 13
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.14" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.14 Step 14
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.15" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.15 Step 15
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.16" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.16 Step 16
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.17" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.17 Step 17
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.18" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          15.18 Step 18
+                                        </a>
+                                        
+                                      
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.0" class="btn btn-default ndg-menu-btn change_section btn-primary active" style="text-align:left;">
+                                    15.0
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.4
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.5" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.5
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.6" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.6
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.7" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.7
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.8" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.8
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.9" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.9
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.10" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.10
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.11" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.11
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.12" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.12
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.13" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.13
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.14" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.14
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.15" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.15
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.16" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.16
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.17" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.17
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.18" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    15.18
+                                  </a>
+                                  
+                                
+                            </div>
+                            <div class="content-menu-space">
+                              <div class="btn-group hidden-lg hidden-md hidden-sm mobile-chapter-select">
+                                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-caret-down"></i> Sections
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.0" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                        15.0 Introduction
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.1" class="btn-default ndg-menu-btn change_section">
+                                        15.1 Step 1
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.2" class="btn-default ndg-menu-btn change_section">
+                                        15.2 Step 2
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.3" class="btn-default ndg-menu-btn change_section">
+                                        15.3 Step 3
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.4" class="btn-default ndg-menu-btn change_section">
+                                        15.4 Step 4
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.5" class="btn-default ndg-menu-btn change_section">
+                                        15.5 Step 5
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.6" class="btn-default ndg-menu-btn change_section">
+                                        15.6 Step 6
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.7" class="btn-default ndg-menu-btn change_section">
+                                        15.7 Step 7
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.8" class="btn-default ndg-menu-btn change_section">
+                                        15.8 Step 8
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.9" class="btn-default ndg-menu-btn change_section">
+                                        15.9 Step 9
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.10" class="btn-default ndg-menu-btn change_section">
+                                        15.10 Step 10
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.11" class="btn-default ndg-menu-btn change_section">
+                                        15.11 Step 11
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.12" class="btn-default ndg-menu-btn change_section">
+                                        15.12 Step 12
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.13" class="btn-default ndg-menu-btn change_section">
+                                        15.13 Step 13
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.14" class="btn-default ndg-menu-btn change_section">
+                                        15.14 Step 14
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.15" class="btn-default ndg-menu-btn change_section">
+                                        15.15 Step 15
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.16" class="btn-default ndg-menu-btn change_section">
+                                        15.16 Step 16
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.17" class="btn-default ndg-menu-btn change_section">
+                                        15.17 Step 17
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.18" class="btn-default ndg-menu-btn change_section">
+                                        15.18 Step 18
+                                      </a>
+                                      
+                                    
+                                    </li>
+                                  </ul>
+                                </div>
+                              <div>
+<article id="content-15.0" style="display: block;"><h2>15.0 Introduction</h2>
+<div class="alert alert-danger">In order to provide the functionality you need to apply these concepts, this VM may require a minute or two to load.</div>
+
+<p>There are a variety of files and commands that will provide useful information regarding the hardware that is attached to the system. This information can be used to configure or fine-tune how the hardware behaves on the system. The information is also very useful when troubleshooting hardware device issues.</p>
+</article><article id="content-15.1"><h2>15.1 Step 1</h2>
+<div class="alert alert-info">Please use the Ubuntu image to complete the following steps. Select the Ubuntu PC by clicking on the tab in the window on the right side of the screen.</div>
+
+<p>Log in to the system using the <code class="input">root</code> account. When prompted, provide the root password:</p> 
+ 
+<pre class="config">root
+netlab123</pre>
+ 
+<pre class="content_terminal">Ubuntu 18.04.2 LTS ubuntu tty1
+ubuntu login: root                                               
+Password:
+  
+Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.15.0-45-generic x86_64)
+* Documentation: https://help.ubuntu.com
+* Management: https://landscape.canonical.com
+* Support: https://ubuntu.com/advantage
+ 
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the 
+individual files in /usr/share/doc/*/copyright.
+ 
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by 
+applicable law.
+ 
+root@ubuntu:~#</pre>                            
+</article><article id="content-15.2"><h2>15.2 Step 2</h2>
+<p>Unfortunately, hard links can't be made to directories. Execute the following command to see a demonstration:</p>
+
+<pre class="config">ln /etc /myetc</pre>
+ 
+ 
+<pre class="content_terminal">root@ubuntu:~# ln /etc /myetc                                           
+ln: '/etc': hard link not allowed for directory</pre>
+
+</article><article id="content-15.3"><h2>15.3 Step 3</h2>
+<p>For a more detailed look at your CPU's features, execute the following command:</p>
+
+<pre class="config">cat /proc/cpuinfo</pre>
+ 
+<pre class="content_terminal">root@ubuntu:~# cat /proc/cpuinfo
+processor   	: 0
+vendor_id   	: GenuineIntel
+cpu family  	: 6
+model       	: 44
+model name  	: Intel(R) Xeon(R)    	E5620 @2.40GHz
+stepping    	: 2                                                        	 
+microcode   	: 0x1                                                     	 
+cpu MHz     	: 2393.992                                                 	 
+cache size  	: 12288 KB                                                 	 
+physical id 	: 0                                                 	 
+siblings    	: 1                                                      	 
+core id     	: 0                                                        	 
+cpu cores   	: 1                                                        	 
+apicid      	: 0                                                       	 
+initial apicid  : 0                                                       	 
+fpu         	: yes                                                      	 
+fpu_exception   : yes                                                      	 
+cpuid level 	: 11                                                       	 
+wp          	: yes                                                      	 
+<span class="attention"><span class="ansi-red">flags:             	fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1g rdtscp lm constant_tsc arch_perfmon rep_good nopl eagerfpu pni pclmulqdq ssse3 cx16 pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes hpervisor lahf_lm tsc_adjust arat</span></span>
+                                                          	 
+bugs        	: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf
+bogomips    	: 4787.98                                                  	 
+clflush size	: 64    
+cache_alignment : 64
+address sizes   : 40 bits physical, 48 bits virtual
+power management:
+</pre>
+
+<p>Note the highlighted <code class="console">flags:</code> field in the output above. One of the key settings of the <code class="console">/proc/cpuinfo</code> file is the flags that the CPU supports, which are a feature of the CPU. Some advanced CPU functions require specific flags.</p>
+
+</article><article id="content-15.4"><h2>15.4 Step 4</h2>
+<p>The <code>free</code> command gives details on total, used, and free memory the system has access to, including swap space on fixed disks that can be used as temporary storage for memory operations. Your output may differ, depending on system loads.</p>
+
+<p>To display information about memory usage, execute the following command:</p>
+
+<pre class="config">free</pre>
+ 
+<pre class="content_terminal">root@ubuntu:~# free                                                   	 
+         	total    	used    	free  	shared  buff/cache   available
+Mem:           498828          50920   	      344884      4532      103024  	420876
+Swap:         5517308              0   	     5517308	</pre>           	 
+               	 
+</article><article id="content-15.5"><h2>15.5 Step 5</h2>
+<p>The <code class="console">/proc/meminfo</code> file provides a very detailed breakdown of how much memory a system has and how it is being used. For a more detailed look at memory usage, execute the following command:</p>
+
+<pre class="config">cat /proc/meminfo | less</pre>
+ 
+<pre class="content_terminal">root@ubuntu:~# cat /proc/meminfo | less  	</pre>      	 
+ 
+<pre class="content_terminal">MemTotal:     	492952 kB
+MemFree:      	298216 kB
+MemAvailable: 	436160 kB
+Buffers:       	10544 kB
+Cached:       	124068 kB
+SwapCached:        	0 kB
+Active:       	117304 kB
+Inactive:      	39200 kB
+Active(anon):  	22268 kB
+Inactive(anon):  	216 kB
+Active(file):  	95036 kB
+Inactive(file):	38984 kB
+Unevictable:       	0 kB
+Mlocked:           	0 kB
+SwapTotal:    	524284 kB
+SwapFree:     	524284 kB
+Dirty:             	0 kB
+WriteBack:         	0 kB
+AnonPages:     	21712 kB
+Mapped:        	27868 kB
+Shmem:           	576 kB
+Slab:          	26388 kB
+SReclaimable:  	11952 kB                                                	 
+SUnreclaim:     	9316 kB                                                	 
+KernelStack:    	1376 kB                                                	 
+PageTables:     	3568 kB                                                	 
+NFS_Unstable:      	0 kB                                                	 
+Bounce:            	0 kB                                                	 
+WritebackTmp:      	0 kB                                                	 
+CommitLimit: 	5766720 kB                                               	 
+Committed_AS: 	236336 kB                                               	 
+VmallocTotal:   34359738367 kB                                             	 
+VmallocUsed:    	4708 kB                                                	 
+VmallocChunk:   34359731508 kB                                                	 
+HardwareCorrupted: 	0 kB                                                	 
+AnonHugePages:     	0 kB                                                	 
+:</pre>
+
+<p>Type <strong>Q</strong> to exit the <code>less</code> command:</p>
+
+<pre class="config">q</pre>
+</article><article id="content-15.6"><h2>15.6 Step 6</h2>
+<p>Execute the following command to display the USB devices that are attached to the system:</p>
+ 
+<pre class="config">lsusb</pre>
+
+<pre class="content_terminal">root@ubuntu:~# lsusb                                                            	 
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub                              	 
+Bus 001 Device 002: ID 0627:0001 Adomax Technology Co., Ltd                                  	 
+Bus 001 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub  </pre>
+
+<p>Since the only devices listed in the output above are the <code class="console">root hub</code>, and <code class="console">Adomax Technology Co.,Ltd</code>, we can determine that there are no real USB devices attached to the system. The <code class="console">root hub</code> is the USB port itself.</p>
+</article><article id="content-15.7"><h2>15.7 Step 7</h2>
+<div class="alert alert-info">Please use the CentOS image to complete the following steps. Select the CentOS PC by clicking on the tab in the window on the right side of the screen.</div>
+ 
+<p>Log in to the system using the root account. When prompted, provide the root password: </p>
+ 
+<pre class="config">root
+netlab123</pre>
+ 
+<pre class="content_terminal">CentOS Linux 7 (Core)
+Kernel 3.10.0-957.el7.x86_64 on an x_86_64
+ 
+centos login:                                            	 
+Password:                                                                  	 
+[root@localhost ~]#  </pre>
+
+<p>Display the hardware devices by executing the following command:</p>
+
+<pre class="config">lspci</pre>
+ 
+<pre class="content_terminal">[root@centos ~]# lspci                                                  	 
+00:00.0 Host bridge: Intel Corporation 440FX - 82441FX PMC [Natoma] (rev 02)   	 
+00:01.0 ISA bridge: Intel Corporation 82371SB PIIX3 ISA [Natoma/Triton II]
+00:01.1 IDE interface: Intel Corporation 82371SB PIIX3 IDE [Natoma/Triton II]
+00:01.2 USB controller: Intel Corporation 82371SB PIIX3 USB [Natoma/Triton II] (rev 01)
+00:01.3 Bridge: Intel Corporation 82371AB/EB/MB PIIX4 (rev 03)
+08:02.0 VGA compatible controller: Device 1234:1111 (rev 02)
+00:03.0 Ethernet controller: Intel Corporation 82540EM Gigabit Ethernet Controller (rev 03)  
+00:1a.0 USB controller: Intel Corporation 82371SB PIIX3 [Natoma/Triton II] (rev 01)</pre>
+
+<p>Some of the devices displayed in the output above include:</p>
+
+<ol type="disc" class="">
+<li>
+<strong>IDE Interface </strong>- A device that permits you to attach IDE hard drives to the system.
+<pre class="content_terminal">00:01.1 IDE interface: Intel Corporation 82371SB PIIX3 IDE [Natoma/Triton II]</pre>
+</li>
+<li>
+<strong>VGA compatible controller</strong> - A device that permits you to attach a monitor to the system.
+<pre class="content_terminal">08:02.0 VGA compatible controller: Device 1234:1111 (rev 02  </pre>
+</li>
+<li>
+<strong>Ethernet controller</strong> - A device that allows you to connect to the network.
+<pre class="content_terminal">00:03.0 Ethernet controller: Intel Corporation 82540EM Gigabit Ethernet Controller (rev 03) </pre> </li>
+</ol>
+
+</article><article id="content-15.8"><h2>15.8 Step 8</h2>
+<p>Display devices along with their device code by executing the lspci command with the -nn option:</p>
+
+<pre class="config">lspci -nn</pre>
+ 
+<pre class="content_terminal">[root@cenos ~]# lspci -nn </pre>
+	 
+<pre class="content_terminal">00:00.0 Host bridge [0600]: Intel Corporation 440FX - 82441FX PMC [Natoma] (rev 02)[8086:1237]  	 
+00:01.0 ISA bridge [0601]: Intel Corporation 82371SB PIIX3 ISA [Natoma/Triton II] [8086:7000]
+00:01.1 IDE interface [0101]: Intel Corporation 82371SB PIIX3 IDE [Natoma/Triton II] [8086:7010]
+00:01.3 Bridge [0680]: Intel Corporation 82371AB/EB/MB PIIX4 ACPI [8086:7113] (rev 03)
+08:02.0 VGA compatible controller [0300]: Device [1234:1111] (rev 02)
+00:03.0 Ethernet controller [0200]: Intel Corporation 82540EM Gigabit Ethernet Controller [8086:100e](rev 03)  
+00:1a.0 USB controller 0c03]: Intel Corporation 82371SB PIIX3 [Natoma/Triton II] [8086:7020] (rev 01)	 
+<span class="attention"><span class="ansi-red">00:01.2 USB controller [0c03]: Intel Corporation 82371SB PIIX3 USB [Natoma/Triton II] [8086:7020] (rev 01)</span></span> </pre>                                     	 
+ 
+<div class="alert alert-danger">
+<strong>Important</strong>
+Take note of the highlighted USB controller device code, as you will need this code to perform the next example.</div>
+
+</article><article id="content-15.9"><h2>15.9 Step 9</h2>
+<p>Using the highlighted value from the output of the previous command, display the details about the USB Controller:</p>
+
+<pre class="config">lspci -v -d 8086:7020</pre>
+ 
+<pre class="content_terminal">[root@localhost ~]# lspci -v -d 8086:7020                                  	 
+00:01.2 USB controller [0c03]: Intel Corporation 82371SB PIIX3 USB [Natoma/Triton II] [8086:7020] (rev 01) (prog-if 00 [UHCI])                                         	 
+    	Subsystem: Red Hat, Inc. QEMU Virtual Machine                 	 
+    	Flags: bus master, fast devsel, latency 0, IRQ 11                	 
+    	I/O ports at c040 [size=32]                                                                                  	 
+    	Kernel driver in use: uhci_hcd                                     	 
+00:04.0 USB controller: Intel Corporation 82371SB PIIX3 USB [Natoma/Triton II] (rev 01) (prog-if 00 [UHCI])
+  Subsystem: Red Hat, Inc. QEMU Virtual Machine
+  Physical Slot: 4               	 
+    	Flags: bus master, fast devsel, latency 0, IRQ 10                	 
+    	I/O ports at c060 [size=32]                                                                                  	 
+    	Kernel driver in use: uhci_hcd</pre>
+ 
+
+</article><article id="content-15.10"><h2>15.10 Step 10</h2>
+<p>Display all of the SATA drives on the system by executing the following command:</p>
+
+<pre class="config">ls /dev/sd*</pre>
+
+<pre class="content_terminal">[root@centos ~]# ls /dev/sd*
+<span class="ansi-yellow">/dev/sda	/dev/sda1	/dev/sda2</span>
+[root@centos ~]#</pre>
+
+<p>Devices that begin with <code class="console">sd</code> in the <code class="console">/dev</code> directory are device files that represent SATA or SCSI devices.</p>
+</article><article id="content-15.11"><h2>15.11 Step 11</h2>
+<p>Display kernel modules that are loaded into memory by executing the <code>lsmod</code> command:</p>
+
+<pre class="config">lsmod | less</pre>
+
+<pre class="content_terminal">[root@centos ~]# lsmod | less</pre>
+
+<pre class="content_terminal">Module              	Size  Used by                                      	 
+crc32_pclmul       	13133  0                                            	 
+ghash_clmulni_intel	13273  0                                            	 
+ppdev              	17671  0                                            	 
+aesni_intel       	189414 0                                 	 
+lrw                	13286  0  aesni_intel                                          	 
+gf128mul           	15139  1  lwr                                           	 
+glue_helper        	13990  1  aesni_intel                                          	 
+ablk_helper        	21190  3  aesni_intel              	 
+cryptd             	21190  3  ghash_clmulni_intel, aesni_intel, ablk_helper
+joydev             	17389  0 	</pre>
+
+<div class="alert alert-warning">Some output has been omitted in the example above for brevity.</div>
+
+<p>Type <strong>Q</strong> to exit the <code>less</code> command:</p>
+
+<pre class="config">q</pre>
+</article><article id="content-15.12"><h2>15.12 Step 12</h2>
+<p>Display information about the <code class="console">dm_mod</code> module by executing the following command:</p>
+
+<pre class="config">modinfo dm_mod | less</pre>
+ 
+<pre class="content_terminal">[root@centos ~]# modinfo dm_mod | less
+ 
+Filename:  	/lib/modules/3.10.0-957.el7.x86_64/kernel/drivers/md/dm-mod.ko.xz
+license:  	GPL
+author:  	Joe Thornber &lt;dm-devel@redhat.com&gt;   
+description:    device-mapper driver
+alias:      	devname:mapper/control
+alias:        	char-major-10-236
+retpoline:	Y
+rhelversion:    7.6
+srcversion:     BA7CED77E4803DA1F325BC6
+depends:  	 
+intree:   	3.10.0-957.el7.x86_64 SMP mod_unload modversions
+signer:   	CentOS Linux kernel signing key
+sig_key:   	B7:0D:CF:0D:F2:D9:B7:F2:91:59:24:82:49:FD:6F:E8:7B:78:14:2
+sig_hashalgo:   sha256
+PARM:     	reserved_rq_based_ios:Reserved IOs in request-based mempools (uint)
+parm:     	use_blk_mq:Use block multiqueue for request-based DM devices (bool)
+parm:     	dm_mq_nr_hw_queues:Number of hardware queues for request-based dm-mq devices (uint)
+parm:     	dm_mq_queue_depth:Queue depth for request-based dm-mq devices (uint)
+:	</pre>
+
+<p>Type <strong>Q</strong> to exit the <code>less</code> command:</p>
+
+<pre class="config">q</pre>
+</article><article id="content-15.13"><h2>15.13 Step 13</h2>
+<p>Display information about the <code class="console">dm_log</code> module by executing the following command:</p>
+
+<pre class="config">modinfo dm_log</pre>
+ 
+<pre class="content_terminal">[root@centos ~]# modinfo dm_log
+filename:  	/lib/modules/3.10.0-957.e17.x86_64/kernel/drivers/md/dm-log.ko.xz
+license:  	GPL
+author:  	Joe Thornber, Heinz Mauelshagen &lt;dm-devel@redhat.com&gt;
+description:    device-mapper dirty region log
+retpoline:	Y
+rhelversion:    7.6
+srcversion:     2520F689AFECC997AB36ADE
+depends:  	dm-mod
+intree:   	Y
+vermagic: 	3.10.0-957.el7.x86_64 SMP mod_unload modversions
+signer:   	CentOS Linux kernel signing key
+sig_key:  	B7:0D:CF:0D:F2:D9:B7:F2:91:59:24:82:49:FD:6F:E8:7B:78:14:27
+sig_hashalgo:   sha256</pre>
+
+<p>Notice that the <code class="console">dm_log</code> module has a dependency module: <code class="console">dm-mod</code>. Because the modules are currently loaded into memory, you can see this dependency by looking at the output of the <code>lsmod</code> command:</p>
+
+<pre class="config">lsmod</pre>
+
+<pre class="content_terminal">[root@centos ~]# lsmod </pre>
+
+<pre class="content_terminal">...
+floppy                   69432  0
+dm_mirror                22289  0
+dm_region_hash           20813  1 dm_mirror
+<span class="attention"><span class="ansi-red">dm_log                   18411	2 dm_region_hash,dm_mirror</span></span>
+<span class="attention"><span class="ansi-red">dm_mod          	124407	8 dm_log,dm_mirror</span></span></pre>
+
+<div class="alert alert-warning">Some output has been omitted in the example above for brevity.</div>
+ 
+</article><article id="content-15.14"><h2>15.14 Step 14</h2>
+<p>Determine if the <code class="console">fat</code> or <code class="console">vfat</code> modules are currently loaded into memory by executing the following command:</p>
+
+<pre class="config">lsmod | grep fat</pre>
+ 
+<pre class="content_terminal">[root@centos ~]# lsmod | grep fat
+[root@centos ~]#</pre>
+
+<p>The lack of output from the previous command indicates that neither the <code class="console">fat</code> nor <code class="console">vfat</code> module is currently loaded into memory.</p>
+</article><article id="content-15.15"><h2>15.15 Step 15</h2>
+<p>Load the <code class="console">vfat</code> module into memory by executing the following command:</p>
+ 
+<pre class="config">modprobe vfat</pre>
+ 
+<pre class="content_terminal">[root@centos ~]# modprobe vfat
+[root@centos ~]#</pre>
+
+</article><article id="content-15.16"><h2>15.16 Step 16</h2>
+<p>Verify that the <code class="console">vfat</code> module has been loaded by executing the following command:</p>
+
+<pre class="config">lsmod | grep fat</pre>
+ 
+<pre class="content_terminal">[root@centos ~]# lsmod | grep fat
+v<span class="ansi-red">fat</span>                	10584	0
+<span class="ansi-red">fat</span>                 	54992	1  v<span class="ansi-red">fat</span></pre>
+
+</article><article id="content-15.17"><h2>15.17 Step 17</h2>
+<p>Try to remove the <code class="console">fat</code> module from memory by executing the following command:</p>
+
+<pre class="config">modprobe -r fat</pre>
+ 
+<pre class="content_terminal">[root@centos ~]# modprobe -r fat
+modprobe: FATAL: Module fat is in use.</pre>
+</article><article id="content-15.18"><h2>15.18 Step 18</h2>Remove the <code class="console">vfat</code> module from memory and verify by executing the following commands:
+
+<pre class="config">modprobe -r vfat
+lsmod | grep fat</pre>
+ 
+<pre class="content_terminal">[root@centos ~]# modprobe -r vfat
+[root@centos ~]# lsmod | grep fat
+[root@centos ~]#</pre>
+</article>
+</div>
+
+                            <ul class="pager">
+                              <li class="pull-left previous disabled"><a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/" class="btn"><i class="fa fa-caret-left"></i> Previous</a></li>
+                              <li class="pull-right next"><a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/15.1" class="btn">Next <i class="fa fa-caret-right"></i></a></li>
+                            </ul>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  
+                  
+                  
+                  <div id="mobile" class="tab-pane">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p>Sorry! Our device viewers currently do not support mobile phones and tablets.</p>
+                        <p>
+                          You will be able to read Chapters and Labs, but will not be able to interact with the
+                          virtual machines. We hope to add support for mobile devices in the future.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div><div tabindex="0" class="k-splitbar k-state-default k-splitbar-horizontal k-splitbar-draggable-horizontal" data-marker="af162623" role="separator" aria-expanded="true" style="height: 789.011px; left: 869px;"><div class="k-icon k-resize-handle"></div></div>
+    <div id="device-pane" class="desktop-only k-pane k-scrollable" role="group" style="position: absolute; top: 0px; width: 869.011px; height: 789.011px; left: 874px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            
+            <ul class="nav nav-tabs" role="tablist">
+              
+              <li class="active">
+                <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/#device1-tab" role="tab" data-toggle="tab" id="tab-with-options">
+                  
+                    <i class="fa fa-terminal"></i>
+                  
+                  Ubuntu PC
+                </a>
+              </li>
+              
+              <li class="dropdown tab-options">
+                <a class="dropdown-toggle" id="tour-reset" data-toggle="dropdown" href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/reset" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 446, &quot;session_id&quot;: &quot;04340826-4be8-4044-b078-89ae35667169&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;reset&quot;}">
+                    Reset
+                    </a>
+                  </li>
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/fullscreen" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 446, &quot;session_id&quot;: &quot;04340826-4be8-4044-b078-89ae35667169&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;toggle_fullscreen&quot;}">
+                    Toggle Fullscreen
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              
+              <li>
+                <a href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/#device2-tab" role="tab" data-toggle="tab" id="tab-with-options">
+                  
+                    <i class="fa fa-terminal"></i>
+                  
+                  CentOS PC
+                </a>
+              </li>
+              
+              <li class="dropdown tab-options">
+                <a class="dropdown-toggle" id="tour-reset" data-toggle="dropdown" href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="action_command device2" href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/reset" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 446, &quot;session_id&quot;: &quot;04340826-4be8-4044-b078-89ae35667169&quot;, &quot;device_id&quot;: 2, &quot;command&quot;: &quot;reset&quot;}">
+                    Reset
+                    </a>
+                  </li>
+                  <li>
+                    <a class="action_command device2" href="https://content.netdevgroup.com/labs/lpic1-s1/NVwR15jGB9/fullscreen" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 446, &quot;session_id&quot;: &quot;04340826-4be8-4044-b078-89ae35667169&quot;, &quot;device_id&quot;: 2, &quot;command&quot;: &quot;toggle_fullscreen&quot;}">
+                    Toggle Fullscreen
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              
+            </ul>
+            
+
+            <!-- Tab panes -->
+            
+            <div class="tab-content tab-content-panel">
+              
+              <div class="tab-pane height-full active" id="device1-tab">
+                <div class="row height-full">
+                  <div class="col-xs-12 height-full">
+                  
+                  <div class="terminal-flex-container">
+                    <div class="terminal-flex-container--main">
+                      <div id="device1" style="width:100%;height:100%;">
+
+                      <div class="spinner" hidden="true"></div><div style="display: flex; width: 100%; height: 100%; overflow: auto; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; flex-direction: column;"><canvas width="800" height="600" tabindex="-1" style="outline: none; flex-shrink: 0; width: 793.381px; height: 595.036px; align-self: center; cursor: default;"></canvas></div></div>
+                    </div>
+                    <div class="terminal-flex-container--keyboard">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseKeyboard1" aria-expanded="false" aria-controls="collapseKeyboard1">
+                        ⌨ Toggle onscreen keyboard</button>
+                      <div id="collapseKeyboard1" hidden="">
+                        <span data-keyboard-for="1"><!--?xml version="1.0" encoding="utf-8" ?-->
+<svg baseProfile="full" version="1.1" viewBox="0 0 920 320" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css">text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.keyboad-button{fill:darkgrey;font-size:12px;filter:drop-shadow(0px 0px 1px #000)}.keyboad-button:hover{fill:#9a9a9a;filter:none}.keyboad-button:active{fill:grey;filter:none}.keyboad-button text{fill:black;text-anchor:'middle'}[data-state-shift=true] [data-key=ShiftRight],[data-state-shift=true] [data-key=ShiftLeft]{fill:grey;filter:none}[data-state-ctrl=true] [data-key=ControlRight],[data-state-ctrl=true] [data-key=ControlLeft]{fill:grey;filter:none}[data-state-alt=true] [data-key=AltRight],[data-state-alt=true] [data-key=AltLeft]{fill:grey;filter:none}[data-state-numlock=true] [data-key=NumLock]{fill:grey;filter:none}[data-state-capslock=true] [data-key=CapsLock]{fill:grey;filter:none}[data-display-layer]{display:none}[data-display-layer=normal]{display:inline}[data-state-numlock=true] [data-display-layer]{display:none}[data-state-numlock=true] [data-display-layer=numlock]{display:inline}[data-state-capslock=true] [data-display-layer]{display:none}[data-state-capslock=true] [data-display-layer=capslock]{display:inline}[data-state-shift=true] [data-display-layer]{display:none}[data-state-shift=true] [data-display-layer=shift]{display:inline}
+</style></defs><g class="keyboad-button" data-key="Escape" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text></g><g class="keyboad-button" data-key="F1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="90.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text></g><g class="keyboad-button" data-key="F2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="140.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text></g><g class="keyboad-button" data-key="F3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="190.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text></g><g class="keyboad-button" data-key="F4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="240.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text></g><g class="keyboad-button" data-key="F5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="323.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text></g><g class="keyboad-button" data-key="F6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="373.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text></g><g class="keyboad-button" data-key="F7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="423.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text></g><g class="keyboad-button" data-key="F8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="473.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text></g><g class="keyboad-button" data-key="F9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text></g><g class="keyboad-button" data-key="F10" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text></g><g class="keyboad-button" data-key="F11" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="657.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="shift" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text></g><g class="keyboad-button" data-key="F12" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="707.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="shift" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text></g><g class="keyboad-button" data-key="Backquote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">~</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text></g><g class="keyboad-button" data-key="Digit1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="57.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">!</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text></g><g class="keyboad-button" data-key="Digit2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">@</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text></g><g class="keyboad-button" data-key="Digit3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">#</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text></g><g class="keyboad-button" data-key="Digit4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">$</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text></g><g class="keyboad-button" data-key="Digit5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">%</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text></g><g class="keyboad-button" data-key="Digit6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">^</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text></g><g class="keyboad-button" data-key="Digit7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">&amp;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text></g><g class="keyboad-button" data-key="Digit8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">*</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text></g><g class="keyboad-button" data-key="Digit9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">(</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text></g><g class="keyboad-button" data-key="Digit0" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">)</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text></g><g class="keyboad-button" data-key="Minus" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">_</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text></g><g class="keyboad-button" data-key="Equal" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">+</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text></g><g class="keyboad-button" data-key="Backspace" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96" x="657.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text></g><g class="keyboad-button" data-key="Insert" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text></g><g class="keyboad-button" data-key="Home" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text></g><g class="keyboad-button" data-key="PageUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text></g><g class="keyboad-button" data-key="Tab" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="7.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="shift" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text></g><g class="keyboad-button" data-key="KeyQ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="82.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="shift" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text></g><g class="keyboad-button" data-key="KeyW" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text></g><g class="keyboad-button" data-key="KeyE" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text></g><g class="keyboad-button" data-key="KeyR" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text></g><g class="keyboad-button" data-key="KeyT" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text></g><g class="keyboad-button" data-key="KeyY" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text></g><g class="keyboad-button" data-key="KeyU" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text></g><g class="keyboad-button" data-key="KeyI" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text></g><g class="keyboad-button" data-key="KeyO" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text></g><g class="keyboad-button" data-key="KeyP" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text></g><g class="keyboad-button" data-key="BracketLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">{</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text></g><g class="keyboad-button" data-key="BracketRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="632.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="shift" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">}</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text></g><g class="keyboad-button" data-key="Backslash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="682.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="shift" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">|</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text></g><g class="keyboad-button" data-key="Delete" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text></g><g class="keyboad-button" data-key="End" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text></g><g class="keyboad-button" data-key="PageDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text></g><g class="keyboad-button" data-key="CapsLock" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="7.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="shift" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text></g><g class="keyboad-button" data-key="KeyA" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text></g><g class="keyboad-button" data-key="KeyS" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text></g><g class="keyboad-button" data-key="KeyD" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text></g><g class="keyboad-button" data-key="KeyF" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text></g><g class="keyboad-button" data-key="KeyG" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text></g><g class="keyboad-button" data-key="KeyH" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text></g><g class="keyboad-button" data-key="KeyJ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text></g><g class="keyboad-button" data-key="KeyK" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text></g><g class="keyboad-button" data-key="KeyL" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text></g><g class="keyboad-button" data-key="Semicolon" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">:</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text></g><g class="keyboad-button" data-key="Quote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">"</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text></g><g class="keyboad-button" data-key="Enter" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="657.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text></g><g class="keyboad-button" data-key="ShiftLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="7.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text></g><g class="keyboad-button" data-key="KeyZ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text></g><g class="keyboad-button" data-key="KeyX" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text></g><g class="keyboad-button" data-key="KeyC" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text></g><g class="keyboad-button" data-key="KeyV" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text></g><g class="keyboad-button" data-key="KeyB" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text></g><g class="keyboad-button" data-key="KeyN" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text></g><g class="keyboad-button" data-key="KeyM" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text></g><g class="keyboad-button" data-key="Comma" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">&lt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text></g><g class="keyboad-button" data-key="Period" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">&gt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text></g><g class="keyboad-button" data-key="Slash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">?</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text></g><g class="keyboad-button" data-key="ShiftRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="632.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text></g><g class="keyboad-button" data-key="ArrowUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text></g><g class="keyboad-button" data-key="ControlLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="7.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="AltLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="142.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text></g><g class="keyboad-button" data-key="Space" text-anchor="middle"><rect height="46" rx="5" ry="5" width="316.0" x="197.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text></g><g class="keyboad-button" data-key="AltRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="517.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text></g><g class="keyboad-button" data-key="ControlRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="672.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="ArrowLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text></g><g class="keyboad-button" data-key="ArrowDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text></g><g class="keyboad-button" data-key="ArrowRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text></g></svg></span>
+                      </div>
+                    </div>
+                  </div>
+                    <script>
+                    $(function() {
+                      if (isDesktop()) {
+                        var viewer = new html5_pc_viewer.PcViewer(document.getElementById('device1'));
+                        viewer.connect('wss://vlabs-ln-rs.netdevgroup.com/proxy/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJndyI6InZsYWJzLWxuLXJzLm5ldGRldmdyb3VwLmNvbSIsInZoIjoibG4zIiwiY24iOiIwNDM0MDgyNi00YmU4LTQwNDQtYjA3OC04OWFlMzU2NjcxNjkuMiIsInB0IjoiNTcwMSIsInRwIjoidm5jIiwiZXhwIjoxNjQ3MDAwNTkxfQ.EkuECwEC4L9diXvV-DfZ9dEj8Brccu4EVx7hL4PSZsk/attach');
+                        var device = {
+                          type: 'pc', obj: viewer, parent: '#device1',
+                          session_id: '04340826-4be8-4044-b078-89ae35667169', instance_id: '04340826-4be8-4044-b078-89ae35667169.1'
+                        };
+                        window.devices.push(device);
+                        logEvent(device.session_id, device.instance_id, 'WS_ATTEMPT');
+                      }
+                    });
+                    </script>
+                  
+                  </div>
+                </div>
+              </div>
+              
+              <div class="tab-pane height-full" id="device2-tab">
+                <div class="row height-full">
+                  <div class="col-xs-12 height-full">
+                  
+                  <div class="terminal-flex-container">
+                    <div class="terminal-flex-container--main">
+                      <div id="device2" style="width:100%;height:100%;">
+
+                      <div class="spinner" hidden="true"></div><div style="display: flex; width: 100%; height: 100%; overflow: auto; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; flex-direction: column;"><canvas width="720" height="400" tabindex="-1" style="outline: none; flex-shrink: 0; width: 0px; height: 0px; align-self: center; cursor: default;"></canvas></div></div>
+                    </div>
+                    <div class="terminal-flex-container--keyboard">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseKeyboard2" aria-expanded="false" aria-controls="collapseKeyboard2">
+                        ⌨ Toggle onscreen keyboard</button>
+                      <div id="collapseKeyboard2" hidden="">
+                        <span data-keyboard-for="2"><!--?xml version="1.0" encoding="utf-8" ?-->
+<svg baseProfile="full" version="1.1" viewBox="0 0 920 320" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css">text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.keyboad-button{fill:darkgrey;font-size:12px;filter:drop-shadow(0px 0px 1px #000)}.keyboad-button:hover{fill:#9a9a9a;filter:none}.keyboad-button:active{fill:grey;filter:none}.keyboad-button text{fill:black;text-anchor:'middle'}[data-state-shift=true] [data-key=ShiftRight],[data-state-shift=true] [data-key=ShiftLeft]{fill:grey;filter:none}[data-state-ctrl=true] [data-key=ControlRight],[data-state-ctrl=true] [data-key=ControlLeft]{fill:grey;filter:none}[data-state-alt=true] [data-key=AltRight],[data-state-alt=true] [data-key=AltLeft]{fill:grey;filter:none}[data-state-numlock=true] [data-key=NumLock]{fill:grey;filter:none}[data-state-capslock=true] [data-key=CapsLock]{fill:grey;filter:none}[data-display-layer]{display:none}[data-display-layer=normal]{display:inline}[data-state-numlock=true] [data-display-layer]{display:none}[data-state-numlock=true] [data-display-layer=numlock]{display:inline}[data-state-capslock=true] [data-display-layer]{display:none}[data-state-capslock=true] [data-display-layer=capslock]{display:inline}[data-state-shift=true] [data-display-layer]{display:none}[data-state-shift=true] [data-display-layer=shift]{display:inline}
+</style></defs><g class="keyboad-button" data-key="Escape" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text></g><g class="keyboad-button" data-key="F1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="90.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text></g><g class="keyboad-button" data-key="F2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="140.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text></g><g class="keyboad-button" data-key="F3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="190.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text></g><g class="keyboad-button" data-key="F4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="240.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text></g><g class="keyboad-button" data-key="F5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="323.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text></g><g class="keyboad-button" data-key="F6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="373.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text></g><g class="keyboad-button" data-key="F7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="423.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text></g><g class="keyboad-button" data-key="F8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="473.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text></g><g class="keyboad-button" data-key="F9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text></g><g class="keyboad-button" data-key="F10" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text></g><g class="keyboad-button" data-key="F11" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="657.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="shift" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text></g><g class="keyboad-button" data-key="F12" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="707.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="shift" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text></g><g class="keyboad-button" data-key="Backquote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">~</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text></g><g class="keyboad-button" data-key="Digit1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="57.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">!</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text></g><g class="keyboad-button" data-key="Digit2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">@</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text></g><g class="keyboad-button" data-key="Digit3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">#</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text></g><g class="keyboad-button" data-key="Digit4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">$</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text></g><g class="keyboad-button" data-key="Digit5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">%</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text></g><g class="keyboad-button" data-key="Digit6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">^</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text></g><g class="keyboad-button" data-key="Digit7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">&amp;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text></g><g class="keyboad-button" data-key="Digit8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">*</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text></g><g class="keyboad-button" data-key="Digit9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">(</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text></g><g class="keyboad-button" data-key="Digit0" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">)</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text></g><g class="keyboad-button" data-key="Minus" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">_</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text></g><g class="keyboad-button" data-key="Equal" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">+</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text></g><g class="keyboad-button" data-key="Backspace" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96" x="657.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text></g><g class="keyboad-button" data-key="Insert" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text></g><g class="keyboad-button" data-key="Home" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text></g><g class="keyboad-button" data-key="PageUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text></g><g class="keyboad-button" data-key="Tab" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="7.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="shift" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text></g><g class="keyboad-button" data-key="KeyQ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="82.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="shift" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text></g><g class="keyboad-button" data-key="KeyW" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text></g><g class="keyboad-button" data-key="KeyE" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text></g><g class="keyboad-button" data-key="KeyR" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text></g><g class="keyboad-button" data-key="KeyT" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text></g><g class="keyboad-button" data-key="KeyY" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text></g><g class="keyboad-button" data-key="KeyU" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text></g><g class="keyboad-button" data-key="KeyI" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text></g><g class="keyboad-button" data-key="KeyO" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text></g><g class="keyboad-button" data-key="KeyP" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text></g><g class="keyboad-button" data-key="BracketLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">{</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text></g><g class="keyboad-button" data-key="BracketRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="632.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="shift" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">}</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text></g><g class="keyboad-button" data-key="Backslash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="682.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="shift" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">|</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text></g><g class="keyboad-button" data-key="Delete" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text></g><g class="keyboad-button" data-key="End" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text></g><g class="keyboad-button" data-key="PageDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text></g><g class="keyboad-button" data-key="CapsLock" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="7.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="shift" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text></g><g class="keyboad-button" data-key="KeyA" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text></g><g class="keyboad-button" data-key="KeyS" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text></g><g class="keyboad-button" data-key="KeyD" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text></g><g class="keyboad-button" data-key="KeyF" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text></g><g class="keyboad-button" data-key="KeyG" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text></g><g class="keyboad-button" data-key="KeyH" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text></g><g class="keyboad-button" data-key="KeyJ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text></g><g class="keyboad-button" data-key="KeyK" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text></g><g class="keyboad-button" data-key="KeyL" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text></g><g class="keyboad-button" data-key="Semicolon" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">:</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text></g><g class="keyboad-button" data-key="Quote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">"</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text></g><g class="keyboad-button" data-key="Enter" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="657.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text></g><g class="keyboad-button" data-key="ShiftLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="7.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text></g><g class="keyboad-button" data-key="KeyZ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text></g><g class="keyboad-button" data-key="KeyX" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text></g><g class="keyboad-button" data-key="KeyC" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text></g><g class="keyboad-button" data-key="KeyV" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text></g><g class="keyboad-button" data-key="KeyB" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text></g><g class="keyboad-button" data-key="KeyN" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text></g><g class="keyboad-button" data-key="KeyM" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text></g><g class="keyboad-button" data-key="Comma" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">&lt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text></g><g class="keyboad-button" data-key="Period" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">&gt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text></g><g class="keyboad-button" data-key="Slash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">?</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text></g><g class="keyboad-button" data-key="ShiftRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="632.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text></g><g class="keyboad-button" data-key="ArrowUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text></g><g class="keyboad-button" data-key="ControlLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="7.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="AltLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="142.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text></g><g class="keyboad-button" data-key="Space" text-anchor="middle"><rect height="46" rx="5" ry="5" width="316.0" x="197.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text></g><g class="keyboad-button" data-key="AltRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="517.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text></g><g class="keyboad-button" data-key="ControlRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="672.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="ArrowLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text></g><g class="keyboad-button" data-key="ArrowDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text></g><g class="keyboad-button" data-key="ArrowRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text></g></svg></span>
+                      </div>
+                    </div>
+                  </div>
+                    <script>
+                    $(function() {
+                      if (isDesktop()) {
+                        var viewer = new html5_pc_viewer.PcViewer(document.getElementById('device2'));
+                        viewer.connect('wss://vlabs-ln-rs.netdevgroup.com/proxy/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJndyI6InZsYWJzLWxuLXJzLm5ldGRldmdyb3VwLmNvbSIsInZoIjoibG4zIiwiY24iOiIwNDM0MDgyNi00YmU4LTQwNDQtYjA3OC04OWFlMzU2NjcxNjkuMSIsInB0IjoiNTcwMSIsInRwIjoidm5jIiwiZXhwIjoxNjQ3MDAwNTkxfQ.CTwJusPFlpN4oDJB-lVvmLuL3Y5feoTLKwazukog1fg/attach');
+                        var device = {
+                          type: 'pc', obj: viewer, parent: '#device2',
+                          session_id: '04340826-4be8-4044-b078-89ae35667169', instance_id: '04340826-4be8-4044-b078-89ae35667169.2'
+                        };
+                        window.devices.push(device);
+                        logEvent(device.session_id, device.instance_id, 'WS_ATTEMPT');
+                      }
+                    });
+                    </script>
+                  
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Feedback Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true">
+    <div class="modal-dialog">
+      <div id="modalContent" class="modal-content">
+      </div>
+    </div>
+  </div>
+
+
+
+</body></html>

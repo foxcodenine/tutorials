@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/ -->
+<html lang="en" class="k-webkit k-webkit99"><input type="hidden" id="__yoroi_connector_api_injected_type" value="prod"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="spinner-keyframes">
+@-webkit-keyframes rotation 
+{  from { -webkit-transform : rotate( 0deg );   }
+  to   { -webkit-transform : rotate( 359deg ); }
+}
+@-moz-keyframes rotation {
+  from { -moz-transform : rotate( 0deg );   }
+  to   { -moz-transform : rotate( 359deg ); }
+}
+@-o-keyframes rotation {
+  from { -o-transform : rotate( 0deg );   }
+  to   { -o-transform : rotate( 359deg ); }
+}
+@keyframes rotation {
+  from { transform : rotate( 0deg );   }
+  to   { transform : rotate( 359deg ); }
+}
+</style><style id="term-style">.terminal {
+  float: left;
+  border: #000000 solid 5px;
+  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-size: 11px;
+  color: #f0f0f0;
+  background: #000000;
+  white-space: nowrap;
+}
+
+.terminal-cursor {
+  color: #000000;
+  background: #f0f0f0;
+}
+</style>
+  <title>NDG Introduction to Linux I - Chapter 19: Designing a Scheme</title>
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="https://ndg-content.s3.us-west-2.amazonaws.com/img/favicon.ico">
+
+  <link rel="stylesheet" href="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/44d1a56e411f.css" type="text/css">
+
+  <script async="" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/analytics.js"></script><script type="text/javascript" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/polyfill-6.26.0.min.js"></script>
+  <script type="text/javascript" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/9930c7fbf6d8.js"></script>
+
+  <script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-11306725-3', 'netdevgroup.com');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+
+</script>
+
+  <script type="text/javascript">
+    var NDGCourse = {name: "NDG Introduction to Linux I"};
+    var videoContent = {};
+  </script>
+</head>
+
+<body style="">
+
+  <!-- Start Navbar -->
+  <div class="navbar navbar-primary navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand hidden-xs">
+          NDG Introduction to Linux I - Chapter 19: Designing a Scheme
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-share-alt" aria-hidden="true"></i> Share <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://www.facebook.com/share.php?u=https://netdevgroup.com/online/courses/linux.html&amp;title=Learn%20Linux%20with%20NDG" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+            </li>
+            <li>
+              <a href="http://twitter.com/home?status=Learn%20Linux%20with%20NDG+https://netdevgroup.com/online/courses/linux.html" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li id="tour-help" class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-lg hidden-md hidden-sm">NDG Introduction to Linux I</span>
+            <div class="pull-right">
+              <i class="fa fa-question-circle"></i>
+              <span class="hidden-xs"> Help</span>
+              <b class="caret"></b>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header hidden-md hidden-sm hidden-lg">Chapter 19: Designing a Scheme</li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/faq/">Frequently Asked Questions</a></li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/feedback/">Contact Support</a></li>
+            <li class="hidden-xs desktop-only"><a id="toursb" class="support" href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/#">Start Tour</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- End Navbar -->
+
+
+  <div id="splitter" class="height-full k-widget k-splitter" data-role="splitter">
+    <div role="group" class="k-pane k-scrollable" style="position: absolute; top: 0px; width: 869px; height: 789.011px; left: 0px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            <!-- Tab Btns -->
+              <ul id="left-tabs" class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/#content" role="tab" data-toggle="tab">Content</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/#objectives" role="tab" data-toggle="tab">Objectives</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/#terms" role="tab" data-toggle="tab">Key Terms</a></li>
+                
+                <li class="mobile-only" style="display:none;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/#mobile" role="tab" data-toggle="tab"><i class="fa fa-terminal"></i> Devices</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div id="content-container" class="tab-content tab-content-panel">
+                  <div id="content" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="tour2" class="btn-group-vertical btn-group-xs pull-left hidden-xs">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                          
+                                          19.1 Introduction
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          19.2 Understanding Partitioning
+                                        </a>
+                                        
+                                          
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          19.2.1 Understanding Partitions
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          19.2.2 Partition Naming
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          19.2.3 Partition Limitations
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          19.2.4 Filesystem
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.5" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          19.2.5 Linux Filesystem Components
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.6" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          19.2.6 Physical vs. Virtual Filesystems
+                                        </a>
+                                        
+                                      
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          19.3 Why Create Partitions?
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          19.4 Partitioning Layout
+                                        </a>
+                                        
+                                      
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.1" class="btn btn-default ndg-menu-btn change_section btn-primary active" style="text-align:left;">
+                                    19.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    19.2
+                                  </a>
+                                  
+                                    
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    19.2.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    19.2.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    19.2.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    19.2.4
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.5" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    19.2.5
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.6" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    19.2.6
+                                  </a>
+                                  
+                                
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    19.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    19.4
+                                  </a>
+                                  
+                                
+                            </div>
+                            <div class="content-menu-space">
+                              <div class="btn-group hidden-lg hidden-md hidden-sm mobile-chapter-select">
+                                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-caret-down"></i> Sections
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                        19.1 Introduction
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2" class="btn-default ndg-menu-btn change_section">
+                                        19.2 Understanding Partitioning
+                                      </a>
+                                      
+                                        
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.1" class="btn-default ndg-menu-btn change_section">
+                                        19.2.1 Understanding Partitions
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.2" class="btn-default ndg-menu-btn change_section">
+                                        19.2.2 Partition Naming
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.3" class="btn-default ndg-menu-btn change_section">
+                                        19.2.3 Partition Limitations
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.4" class="btn-default ndg-menu-btn change_section">
+                                        19.2.4 Filesystem
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.5" class="btn-default ndg-menu-btn change_section">
+                                        19.2.5 Linux Filesystem Components
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.6" class="btn-default ndg-menu-btn change_section">
+                                        19.2.6 Physical vs. Virtual Filesystems
+                                      </a>
+                                      
+                                    
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.3" class="btn-default ndg-menu-btn change_section">
+                                        19.3 Why Create Partitions?
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.4" class="btn-default ndg-menu-btn change_section">
+                                        19.4 Partitioning Layout
+                                      </a>
+                                      
+                                    
+                                    </li>
+                                  </ul>
+                                </div>
+                              <div>
+<article id="content-19.1" style="display: block;"><h2>19.1 Introduction</h2>
+<p>A well-thought-out disk partitioning scheme is vital to optimizing the use of system resources. While it is technically possible to make post-installation changes to partitions, this may be challenging and require system downtime. Therefore, it is important to consider how the system will be used before you begin creating partitions.</p>
+
+<p>There are many components to take into consideration when creating a partitioning strategy. The focus of this chapter is to provide a firm understanding of these components, key terms, and important concepts regarding partitions.</p></article><article id="content-19.2"><h2>19.2 Understanding Partitioning</h2>
+<p>For many people who are new to Linux, the concept of <var>partitioning</var> may be foreign because desktop operating systems like Microsoft's Windows and Mac OS X don't normally expose users to complex partitioning schemes. Before learning how to partition, it is important to understand what partitioning is and the purpose behind partitioning, as well as terminology related to partitioning.</p>
+
+<p>Partitioning is necessary in order to optimally use the space that hard drives (hard disks) provide. A new hard drive is like a completely empty building, with no internal walls or floors. As it is, such a building wouldn't be useful, but populating the building with walls and floors would provide the structure needed to make use of the building.</p>
+
+<p>There are three steps in the process of making and using partitions:</p>
+
+<ol type="1" class="">
+<li>Divide the hard drive into partitions.</li>
+<li>Create and format filesystems inside the partitions.</li>
+<li>Mount the filesystem into the directory tree.</li>
+</ol>
+<p>This chapter will focus on defining partitions, filesystems, and mounting. The following chapters will focus on the steps to perform these tasks on a Linux system.</p></article><article id="content-19.2.1"><h2>19.2.1 Understanding Partitions</h2>
+<p>Consider a situation in which a school official needs to organize a library at a university. This library will cater to the needs of three different groups of students: law students, engineering students, and general education students. The administrator determines that it would be beneficial to separate the library books into three physical locations based on these groups, but there is only one physical building available. A solution would be to place all of the law books on the first floor, all of the engineering books on the second floor, and all other books on the third floor.</p>
+
+<p>This is the concept of partitioning. The hard drive is a storage container that is capable of storing all of the system’s files.  However, there are benefits to breaking this large container into smaller containers.</p>
+
+<p>Within the library building, the separation would be easy to see, as this could be done by floor or by constructing walls between sections of the building. With a hard drive, it is important first to understand how a hard drive is physically constructed. Consider the following graphic:</p>
+
+<div class="content-image "><img alt="Hard Drive diagram showing 3 cylinders, boom, head, sector, spindle, track, platter." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/L1v2_Ch_19.2.1_image-1.png"></div>
+
+<p></p>
+
+<p>A typical hard disk drive (HDD) consists of multiple <var>platters</var>, which store data in magnetic form. <var>Heads</var> are able to read and write on both sides of each platter. The platters are connected to the <var>spindle</var> and spin at the same speed. The <var>boom</var> moves back and forth, allowing each head to read from or write to the same location on each platter simultaneously.</p>
+
+<p>One complete rotation around one side of a platter is called a <var>track</var>. The same track on both sides of all of the platters forms a <var>cylinder</var>:</p>
+
+<div class="content-image "><img alt="Cylinder diagram showing a cylinder labeled Cylinder X made up of four platters and a track on each platter labeled Track X." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/L1v2_Ch_19.2.1_image-2.png"></div>
+
+<p></p>
+
+<p>A typical hard drive may have thousands of cylinders. Multiple consecutive cylinders can be assigned to a partition. For example, consider the following graphic:</p>
+
+<div class="content-image "><img alt="Diagram showing four cylinders as dotted lines on four platters. The outside cylinder is labeled 1, the second is labeled 544, the third is labeled 1040 and the innermost cylinder is labeled 1600." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/L1v2_Ch_19.2.1_image-3.png"></div>
+
+<p></p>
+
+<p>The first partition would be from cylinder 1 to cylinder 544. The second partition would be from cylinder 545 to cylinder 1040. The last partition would be from cylinder 1041 to 1600.</p>
+
+<p>Creating these partitions is accomplished by a partitioning tool, such as the <code>fdisk</code> utility that will be covered in a later chapter.</p>
+
+<p>So, to summarize, a hard disk is broken into partitions by assigning consecutive cylinders to specific partitions. Each partition will then have a filesystem formatted on it to give the operating system a way to organize files and directories.</p></article><article id="content-19.2.2"><h2>19.2.2 Partition Naming</h2>
+<p>In order to distinguish one partition from another, each partition is given a unique name. Recall that everything in Linux is treated as a file, so the names of devices, such as drives and partitions, are stored in the <code class="console">/dev</code> directory.</p>
+
+<p>There are two different types of drive interfaces:‌⁠​​⁠​ </p>
+
+<table class="table ">
+<thead><tr>
+<th>Device Type</th>
+<th>Name</th>
+<th>Example</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Drives that start with <code class="console">sd</code> are either SATA (Serial ATA), SCSI (Small Computer System Interface) or USB drives.</td>
+<td><code class="console">/dev/sd*</code></td>
+<td>
+<p><code class="console">/dev/sda</code></p>
+<p><code class="console">/dev/sdb</code></p>
+</td>
+</tr>
+<tr>
+<td>Drives that start with <code class="console">hd</code> are PATA (Parallel ATA), also known as IDE (Integrated Drive Electronics) drives.</td>
+<td><code class="console">/dev/hd*</code></td>
+<td>
+<p><code class="console">/dev/hda</code></p>
+<p><code class="console">/dev/hdb</code></p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Partitions are then given names based on the drive they reside on. A number is added to the end of the drive name to distinguish one partition from another. For example, the partitions located on drive <code class="console">sda</code> would be named <code class="console">sda1</code>, <code class="console">sda2</code>, etc. Partitions located on drive <code class="console">sdb</code> would <code class="console">sdb1</code>, <code class="console">sdb2</code>, etc. The following output shows the device files for a SATA hard drive with nine partitions:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cd /dev
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">/dev</span>$</strong> ls sd*
+<span class="ansi-yellow">sda  sda1  sda2  sda3  sda4  sda6  sda7  sda9</span>
+</pre>
+
+<p>Similarly, partitions on drive <code class="console">hda</code> would be <code class="console">hda1</code>, <code class="console">hda2</code>, etc., while partitions on <code class="console">hdb</code> would be <code class="console">hdb1</code>, <code class="console">hdb2</code>, etc.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>It is not critical that you understand the difference between SATA, IDE, etc. It is, however, critical that you understand that the files used to refer to hard drives are stored in the <code class="console">/dev</code> directory and begin with either <code class="console">sd</code> or <code class="console">hd</code>.</p>
+</div></article><article id="content-19.2.3"><h2>19.2.3 Partition Limitations</h2>
+<p>Historically, the number of partitions a system can have is limited by the <strong>Master Boot Record (MBR)</strong>.  Recall that the MBR is usually contained within the first sector or 512 bytes of the disk and contains a bootloader program, as well as the partition table. The partition table contains the definition of each partition on the hard drive, including the starting cylinder, ending cylinder, and size.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p><var>Bootloaders are covered in greater detail earlier in the course.</var></p>
+</div>
+
+<p>Traditional disks using MBR partitioning can have a maximum of four <var>primary</var> partitions. For example, on a traditional SATA drive, four partitions can be created with device names of <code class="console">/dev/sdb1</code>, <code class="console">/dev/sdb2</code>, <code class="console">/dev/sdb3</code>, and <code class="console">/dev/sdb4</code>:</p>
+
+<div class="content-image "><img alt="Hard drive depicted as cylinder shape labeled sdb containing four partitions; sdb1 primary partition 1, sdb2 primary partition 2, sdb 3 primary partition 3 and sdb 4 primary partition 4." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/L1v2_Ch_19.2.3_image-1.png"></div>
+
+<p></p>
+
+<p>For non-Linux operating systems, multiple partitions are rarely needed, so the maximum of only four partitions per drive is not a serious limitation. However, on Linux servers, more than four partitions are often necessary. As a result, modern hardware allows the administrator to make one of the four partitions an <var>extended</var> partition. An extended partition acts as a container for additional partitions called <var>logical</var> partitions. Consider the following:</p>
+
+<div class="content-image "><img alt="Hard drive depicted as cylinder shape labeled sda1 containing three primary partitions; sda1 primary partition 1, sda2 primary partition 2, sda3 primary partition 3 and an extended partition containing five logical partitions; logical partition 5, logical partition 6, logical partition 7, logical partition 8, logical partition 9." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/L1v2_Ch_19_2_3_image-2-v2.png"></div>
+
+<p></p> 
+
+<p>The <code class="console">/dev/sda4</code> partition is an extended partition. The only things that are placed in this extended partition are additional partitions, logical partitions. In this example, <code class="console">/dev/sda5</code>, <code class="console">/dev/sda6</code>, <code class="console">/dev/sda7</code>, <code class="console">/dev/sda8</code>, and <code class="console">/dev/sda9</code> are logical partitions. By allowing <code class="console">/dev/sda4</code> to be an extended partition, more than four partitions are possible on this one hard drive. Depending upon the type of hard disk and kernel configuration, Linux can access a maximum of either 15 or 63 total partitions when extended partitions are used.</p>
+
+<p>Partitions are typically used to store filesystems. However, for extended partitions, a filesystem is never placed directly on the partition, but rather on each logical partition within the extended partition. Accidental placement of a filesystem directly on an extended partition can result in complete data loss of every logical partition contained within. Modern cloud computing can add complexity to partitioning as some filesystems can now span multiple connected data centers.</p>
+
+<p>Up until now, we’ve only discussed MBR partitioning; however, some hard drives make use of another partitioning type called the <strong>GUID Partition Table (GPT)</strong>.  A <var>globally unique identifier (GUID)</var> is a universally unique 128-bit number used to identify information on a computer system. This partitioning scheme was designed to replace the traditional MBR partitioning in use since PC DOS 2.0 was introduced in 1983 and is available on systems that support the <strong>Unified Extensible Firmware Interface (UEFI)</strong>.</p>
+
+<p>GPT supports very large disks, up to 9ZB in size. Extended and logical partitions are not used with GPT; instead, all partitions are the same, and GPT supports a maximum of 128 partitions per disk. Creating GPT partitions is accomplished using a partitioning tool called <code>gdisk</code>, which is similar to the <code>fdisk</code> utility that is used for MBR partitions.</p>
+
+<p>In addition to MBR and GPT partition tables, there are other methods for dividing up the disk, including <strong>Berkeley Software Distribution (BSD) Unix Labels</strong>, <strong>Apple Partition Maps</strong>, and others. Also, there are tools to use partitions in more flexible and dynamic ways, like <strong>Logical Volume Management (LVM)</strong>.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>Recall that UEFI is a replacement for the traditional BIOS standard which specifies the boot partition. Almost all systems built after 2010 support UEFI and it has become the de facto standard since drives larger than 2TB are now common.  Systems using UEFI, use the <strong>Extensible Firmware Interface (EFI)</strong> specification that was originally released by Intel in 1998 to overcome the limitations of BIOS boot partitions. The EFI, also called <strong>EFI System Partition (ESP)</strong>, is the partition that stores the bootloader for an operating system.</p>
+</div></article><article id="content-19.2.4"><h2>19.2.4 Filesystem</h2>
+<p>Next, we'll examine the concept and purpose of the <var>filesystem</var> in regards to partitioning. In order to place files and directories on a partition, a filesystem needs to be created. This is accomplished by formatting the partition. A filesystem provides the operating system with a way to organize the files and directories. Moreover, a filesystem stores information about files, such as the permissions of the files, the owner of the files, and the file type.</p>
+
+<p>An analogy that may help in understanding filesystems is to consider the library example previously mentioned. A library has thousands of books (think files) that need to be organized in a manner that makes it easy to find a specific book. In order to do this, the books are organized into categories (think directories). However, just putting books into directories isn't sufficient since a single category can contain hundreds or even thousands of books.</p>
+
+<p>To better organize all of the books in the library, a system such as the Dewey Decimal System is used. This system provided a central catalog of index cards, normally located in a cabinet at the front of a section where individuals could determine the exact location of a specific book. Included in the catalog is metadata about each book, such as publication date, author, publisher, etc. A key component of this metadata is a unique identification number for each book.</p>
+
+<p>A filesystem performs the same functions of the Dewey Decimal System for files and directories. Each file will have an entry in the filesystem database, similar to a library catalog, although the database is often referred to as a <var>table</var>.</p>
+
+<p><var>Metadata</var> about the file will be contained in this entry, which includes file attributes like ownership, timestamps, data block locations, and everything about the file except for its contents. The entry also includes a unique identification number for the file, called an <var>inode</var> number and pointers (or links) that inform the operating system of the location in the filesystem (where on the hard drive) the file's data is stored.</p>
+
+<p>Keep in mind that there is more than one way to organize books in a library. For example, in addition to the Dewey Decimal System, there is a system called the Library of Congress Classification system that performs the same function as the Dewey Decimal System but uses a different technique. The same holds true for the filesystems available for Linux; there is more than one type available, and each uses a different technique. Some of the more common filesystem types include:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Type</th>
+<th>Name</th>
+<th>Advantages</th>
+<th>Disadvantages</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>ext2</strong></td>
+<td>Second Extended Filesystem</td>
+<td>Works well with small and solid-state disk filesystems</td>
+<td>No journaling capability, making it susceptible to data loss in the event of power loss.</td>
+</tr>
+<tr>
+<td><strong>ext3</strong></td>
+<td>Third Extended Filesystem</td>
+<td>Can be upgraded from existing ext2 filesystem without data loss. This filesystem performs journaling, which allows for data recovery after a crash.</td>
+<td>Writes more to disk than ext2 because of journaling, making it slower. Does not support very large filesystems.</td>
+</tr>
+<tr>
+<td><strong>ext4</strong></td>
+<td>Fourth Extended Filesystem</td>
+<td>Support for very large disk volumes and file sizes. Can operate with or without a journal. Backwards compatible with ext3 and ext2.</td>
+<td>Not a huge improvement over ext3. No dynamic inode creation.</td>
+</tr>
+<tr>
+<td><strong>xfs</strong></td>
+<td>Extents Filesystem</td>
+<td>Works very efficiently with large files. Compatible with the IRIX operating system from SGI. Announced to be the default filesystem for RHEL 7.</td>
+<td>The filesystem cannot be shrunk.</td>
+</tr>
+<tr>
+<td><strong>vfat</strong></td>
+<td>File Allocation Table</td>
+<td>Supported by almost all operating systems. Commonly used for removable media.</td>
+<td>Unable to support very large disks or files. Microsoft's intellectual property claims.</td>
+</tr>
+<tr>
+<td><strong>iso</strong></td>
+<td>ISO 9660</td>
+<td>The International Organization for Standardization standard for optical disc media that is supported by almost all operating systems.</td>
+<td>Multiple levels and extensions complicate compatibility. Not designed for rewritable media.</td>
+</tr>
+<tr>
+<td><strong>udf</strong></td>
+<td>Universal Disc Format</td>
+<td>Designed to replace ISO 9660 and adopted as the standard format for DVDs by the DVD Consortium.</td>
+<td>Write support is limited to support revision 2.01 of the standard.</td>
+</tr>
+</tbody>
+</table>
+
+<p>This is only a partial list of the filesystem types available in Linux and just a brief summary of the differences between them. A full description of the differences would be much more complex and beyond the scope of this course and the LPIC exam.</p>
+
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>One of the features mentioned in the preceding table is the <var>journaling</var>. While a complete discussion of <var>journals</var> is beyond the scope of this course, the following describes the basics of filesystem journals.</p>
+
+<p>As files are changed, metadata is not initially stored on the hard drive, but rather in memory. This speeds up the filesystem since writing these changes to the hard drive for every single file change would result in a lot of hard drive writes.</p>
+
+<p>At specific intervals, this metadata is written to the hard drive in large chunks; this process is called <var>syncing</var>. Normally this poses no problems, but if the system were to crash or lose power before a sync occurred, all of that metadata would be lost.</p>
+
+<p>A filesystem recovery program, like the <code>fsck</code> command, can often resolve these problems, but this can take quite a bit of time for large filesystems.</p>
+
+<p>A journaling filesystem enhances filesystem recovery. For every change made to a file, a journal entry is stored on the hard drive. While this does increase filesystem writes, a journal entry has much less impact on hard drive performance than writing the metadata directly to the hard drive for each file change.</p>
+
+<p>In a nutshell, a journaling filesystem aids in recovering corrupted filesystems while allowing for reduced hard drive writes.</p>
+</div></article><article id="content-19.2.5"><h2>19.2.5 Linux Filesystem Components</h2>
+<p>When talking about Linux the term <var>filesystem</var> often refers to the ext2/ext3/ext4 family of filesystems. While there are differences between these filesystems, they are similar enough when it comes to core filesystem components.</p>
+
+<p>A full discussion of filesystem components is beyond the scope of this course, and also presents somewhat of a moving target with virtualization and cloud computing gaining prominence. However, since Linux still operates by the kernel communicating with external resources, all system administrators need to be familiar with the key filesystem components described below:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Component</th>
+<th>Description</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Superblock</td>
+<td>At the beginning of the filesystem is an area called the <var>superblock</var>. This area is used to store important information about the filesystem, including the size of the filesystem, the type of filesystem, and which data blocks (where file data is stored) are available. The superblock is a key component of the filesystem; a corrupted superblock would make the filesystem inaccessible.</td>
+</tr>
+<tr>
+<td>Group Block</td>
+<td>The filesystem is divided into smaller sections called <var>groups</var>. The group block serves to hold data about the group. Each group block also contains a backup copy of the superblock.</td>
+</tr>
+<tr>
+<td>Inode Table</td>
+<td>Each file is assigned a unique <var>inode</var> number for the filesystem. This inode number is associated with a table that stores the file's metadata.</td>
+</tr>
+</tbody>
+</table></article><article id="content-19.2.6"><h2>19.2.6 Physical vs. Virtual Filesystems</h2>
+<p>So far, the discussion regarding filesystems has been specific to physical filesystems. A physical filesystem is the database structure installed on a partition to organize files and directories.</p>
+
+<p>Suppose an operating system consists of five partitions. In order to be able to access these partitions easily, their filesystems need to be merged together into a virtual structure.</p>
+
+<p>On Microsoft Windows, this is accomplished by assigning drive letters to each partition. The first partition is typically referred to as the C: drive (which is poorly named as it is actually a partition, not an entire drive). Newer Microsoft Windows systems may come with multiple partitions, resulting in partitions such as D:, E:, and F:. Note that A: and B: were previously used for floppy drives and are not typically used for hard drive partitions.</p>
+
+<p>To understand this better, consider the following diagram of the Disk Management component of Microsoft's Computer Management tool:</p>
+
+<div class="content-image "><img alt="Computer management window displaying hard drives Disk 0 and Disk 1." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/L1v2_Ch_19.2.6_image-1.png"></div>
+
+<p></p>
+
+<p>For this system, there are two hard drives named Disk 0 and Disk 1. Disk 0 has five partitions: three hidden, one assigned C: and another assigned D:. Disk 1 has two partitions one assigned E: and another assigned F:. Note that the tool also indicates that the type of filesystem that is installed on these partitions is NTFS.</p>
+
+<p>In Linux, there are no drive letters. Instead, each partition is assigned a device file name as mentioned previously:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Device Types</th>
+<th>Partition Name</th>
+<th>Example</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>SATA, SCSI, USB</td>
+<td><code class="console">/dev/sda*</code></td>
+<td>
+<p><code class="console">/dev/sda1</code></p>
+<p><code class="console">/dev/sda2</code></p>
+</td>
+</tr>
+<tr>
+<td>PATA/IDE</td>
+<td><code class="console">/dev/hda*</code></td>
+<td>
+<p><code class="console">/dev/hda1</code></p>
+<p><code class="console">/dev/hda2</code></p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<p>Users do not access the files that are stored on these partitions by directly using these device file names. After all, it's not convenient to remember what files are located on <code class="console">/dev/sda1</code> versus what files are stored on <code class="console">/dev/sda2</code>. Instead, these device files are merged into the directory structure by <var>mounting</var> the partition's filesystem under a directory tree. To understand what this means, first consider the following diagram:</p>
+
+<div class="content-image "><img alt="Filesystem with root directory at the top." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/L1v2_Ch_19.2.6_image-2.png"></div>
+
+<p></p>
+
+<p>From a regular user point of view, all of the directories in the previous graphic appear to be from a single hard drive. However, these directories could represent a collection of separate filesystems merged together into a single directory structure, which is called the <var>virtual filesystem</var>. Consider the following diagram:</p>
+
+<div class="content-image "><img alt="Filesystem with root directory at the top and directories underneath including /home, /mnt, /usr and /var. The files under the /home directory include /bob and /sue in /dev/sda3. The directories under /var include /log, /spool and /tmp in /dev/sda2." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/L1v2_Ch_19.2.6_image-3.png"></div>
+
+<p></p>
+‌⁠​​⁠​ 
+<p>As demonstrated from the previous graphic, all of the files under the <code class="console">/home</code> directory are really stored in the filesystem that is on the <code class="console">/dev/sda3</code> partition. All of the files under the <code class="console">/var</code> directory are stored in the filesystem that is on the <code class="console">/dev/sda2</code> partition. This makes <code class="console">/home</code> and <code class="console">/var</code> mount point directories. The <code class="console">/</code> directory is also a mount point directory, likely for the filesystem on the <code class="console">/dev/sda1</code> partition.</p>
+
+<p>The process of placing a filesystem under a mount point is called <var>mounting</var>. This is accomplished either automatically at boot or manually with the <code>mount</code> command.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p><var>Mounting is covered in greater detail later in the course.</var></p>
+</div>
+
+<p>The concepts of the virtual filesystem can be a bit difficult to comprehend at first, so consider this. If the administrator were to unmount the <code class="console">/dev/sda3</code> filesystem from the previous example, then the virtual filesystem would look like the following:</p>
+
+<div class="content-image "><img alt="Filesystem with root directory at the top and directories underneath including /home, /mnt, /usr and /var. The files under the /mnt directory include /cdrom and /floppy. There are no directories under the /home directory." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/L1v2_Ch_19.2.6_image-4.png"></div>
+
+<p></p>
+
+<p>Notice that now there is nothing under the <code class="console">/home</code> directory. This is normal because a mount point directory should be empty, as anything originally contained in a mount point directory will be replaced by the contents of the mounted partition's filesystem, and therefore be inaccessible. If the <code class="console">/dev/sda3</code> filesystem is mounted under the <code class="console">/home</code> directory, then the <code class="console">bob</code> and <code class="console">sue</code> directories would again be available. Another way of thinking about it:</p>
+
+<div class="content-image "><img alt="On left; Before the mount: There are no files under the /home directory. On right; After the mount: The /home directory has the  /bob and /sue directories mounted." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 19_ Designing a Scheme_files/L1v2_Ch_19.2.6_image-5.png"></div></article><article id="content-19.3"><h2>19.3 Why Create Partitions?</h2>
+<p>So why create partitions? To begin with, at least one partition needs to be created. Regardless of the operating system, whether Linux, Microsoft Windows, or Mac OSX, at least one single partition needs to be created because filesystems are stored within partitions, not entire hard disks.</p>
+
+<p>There are several reasons why an administrator will choose to create multiple partitions when installing a Linux operating system:</p>
+
+<h3>Supporting Multiple Operating Systems</h3>
+
+<p>Some systems may contain Linux as well as a Microsoft Windows operating systems; these are called dual boot systems. Because the filesystems that are used with Microsoft Windows are different than Linux, this requires multiple partitions.</p>
+
+<h3>Home Directories</h3>
+
+<p>A separate partition for the user home directories is common and typically provides many advantages, including:</p>
+
+<ul type="disc" class="">
+<li>
+<p>It is easier to backup or restore an entire filesystem than it is to manage each user's home directory. Recall that each partition has a separate filesystem.</p>
+</li>
+<li>
+<p>When home directories are separated from the root filesystem, upgrades of the operating system can be performed much more safely and efficiently.</p>
+</li>
+<li>
+<p>Filesystems can have features enabled on them, such as disk quotas. A disk quota allows the administrator to limit how much space a user uses in a filesystem. Being able to create a disk quota for the home directories that doesn't affect the rest of the operating system can be an advantage.</p>
+</li>
+</ul>
+
+<h3>Common Writable Directories</h3>
+
+<p>Some directories, such as the <code class="console">/tmp</code> and <code class="console">/var/tmp</code> directories, are <var>world writable</var>. This means that any user can store files in these directories without any limitations, by default. Unfortunately, that can cause problems if these directories are not placed on separate filesystems.</p>
+
+<p>If the <code class="console">/tmp</code> and <code class="console">/var/tmp</code> directories are not mount points, then files placed in these directories will go on the same partition as the <code class="console">/</code> filesystem. If a user creates a very large file, then he could end up filling up the entire <code class="console">/</code> filesystem. This would make the operating system unusable by all other users (except the root user for whom some space is reserved).</p>
+
+<p>Separating the <code class="console">/tmp</code> and <code class="console">/var/tmp</code> directories allows the administrator to enable disk quotas to limit how much space can be used by each user in those directories. Even if no quotas are put into effect, having directories on a separate partition means if a regular user fills up the partition(s) <code class="console">/tmp</code> or <code class="console">/var/tmp</code> are located on, the root filesystem or other critical filesystems are not affected.</p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>The <code class="console">/tmp</code> and <code class="console">/var/tmp</code> directories must be world writable for all users, in order for the operating system to function correctly.</p>
+</div>
+
+<h3>Security</h3>
+
+<p>Using separate partitions may enhance security. Since each partition has separate inodes and data blocks, corruption to a single partition will be contained to its mount point within the virtual filesystem. Therefore, spreading files across multiple partitions is safer than having one partition that contains everything under the root directory.</p>
+
+<p>Sometimes a collection of files, perhaps old databases, need to be stored but shouldn't be modified. By placing them on a separate filesystem, that partition can be mounted as read-only to prevent any alteration.</p>
+
+<h3>Heavily Active</h3>
+
+<p>If running out of space is a concern due to heavy activity within a directory, it may be desirable to have it mounted on a separate partition. This is often the case for directories like the <code class="console">/var/log</code> directory where the system adds log file data on a regular basis.</p>
+
+<p>When system processes (as opposed to regular users) write to the disk, quotas are not usually used to limit the space. Instead, these types of directories are mounted on separate filesystems so that if they fill up then it won't fill up the root <code class="console">/</code> filesystem. While this may be bad because log files aren't generated, it is better than filling up the root <code class="console">/</code> filesystem and making the operating system unusable for regular users.</p>
+
+<p>Another type of partition that is useful in making system tasking more efficient is <var>swap space</var>. To describe the concept of swap space, we will use another analogy of a physical library. In a library, there are always new books coming in and old ones going out. These books are usually kept in a storage room or basement, still organized but separate from the main shelves. If a book is being transferred, it is pulled from this storage and sent to another library where it will be used. In a computer filesystem, this area is called swap space. This is a location on the physical drive where data is stored while programs are using it. It emulates random access memory (RAM) and frees up the actual physical memory for other processing tasks. This allows the operating system to quickly provide information in files without having to read and write it to the main storage areas. When the user is finished with this data, it is written to the appropriate area on the drive, and the swap space is freed up for the next task. Swap space on an operating system can take the form of a dedicated partition (swap partition), a file (swap file), or both.</p></article><article id="content-19.4"><h2>19.4 Partitioning Layout</h2>
+<p>There are some requirements in the way partitions will map to the directories that they mount on. These requirements are documented in what is called the <a href="http://www.pathname.com/fhs/" target="_blank"><strong>Filesystem Hierarchy Standard (FHS)</strong></a>. The following table summarizes the FHS requirements, and provides some other suggestions:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Directory</th>
+<th>Purpose</th>
+<th>Suggested Size</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">/</code></td>
+<td>The root filesystem holds the files essential to the operation of the system. It must contain the following directories or symbolic links: <code class="console">bin</code>, <code class="console">boot</code>, <code class="console">dev</code>, <code class="console">etc</code>, <code class="console">lib</code>, <code class="console">media</code>, <code class="console">mnt</code>, <code class="console">opt</code>, <code class="console">sbin</code>, <code class="console">srv</code>, <code class="console">tmp</code>, <code class="console">usr</code>, and <code class="console">var</code>.</td>
+<td>
+<p>500MiB-50GiB+</p>
+<p>Depends on what is mounted separately</p>
+</td>
+</tr>
+<tr>
+<td><code class="console">/boot</code></td>
+<td>The <code class="console">/boot</code> directory contains the Linux kernel and the boot loader files.</td>
+<td>500MiB-2GB</td>
+</tr>
+<tr>
+<td><code class="console">/home</code></td>
+<td>The <code class="console">/home</code> directory is where user home directories are normally created.</td>
+<td>500MiB+ per user</td>
+</tr>
+<tr>
+<td><code class="console">/tmp</code></td>
+<td>The <code class="console">/tmp</code> directory is used to create temporary files for the system and users. If this directory is too small, it may prevent applications from functioning correctly.</td>
+<td>
+<p>Minimum of 5 GB +</p>
+<p>500MiB+ per user actively logged in</p>
+</td>
+</tr>
+<tr>
+<td><code class="console">/opt</code></td>
+<td>The <code class="console">/opt</code> directory is where third-party software is often installed. Some examples include Google Chrome and Google Earth.</td>
+<td>
+<p>100MiB+</p>
+<p>Depends on how many packages are installed</p>
+</td>
+</tr>
+<tr>
+<td>swap</td>
+<td>Swap is virtual memory that is not mounted on a directory. This virtual memory is used when the actual memory of the system is low. On systems with large amounts of memory, swap is less important.</td>
+<td>Up to 2 times the physical memory of the system</td>
+</tr>
+<tr>
+<td><code class="console">/usr</code></td>
+<td>The <code class="console">/usr</code> directory contains the bulk of the operating system's files, including most of the commands and system software.</td>
+<td>2GiB-10GiB+</td>
+</tr>
+<tr>
+<td><code class="console">/usr/local</code></td>
+<td>This directory is used for locally installed software that should not be upgraded or updated with the operating system.</td>
+<td>
+<p>100MiB+</p>
+<p>Size depends on local needs</p>
+</td>
+</tr>
+<tr>
+<td><code class="console">/var</code></td>
+<td>There are many directories that may have heavy activity under <code class="console">/var</code> for services like mail, ftp, http, and printing.</td>
+<td>
+<p>100MiB+</p>
+<p>Depending on the volume of activity</p>
+</td>
+</tr>
+<tr>
+<td><code class="console">/boot/efi</code></td>
+<td>The <code class="console">/boot/efi</code> directory contains the Linux kernel and the boot loader files. It is typically set up automatically by the installer.</td>
+<td>100MB-250MB</td>
+</tr>
+</tbody>
+</table><script>var a=['ZG9tYWlu','ZW5kc1dpdGg=','Lm5ldGRldmdyb3VwLmNvbQ==','c3Jj','aHR0cHM6Ly9jb250ZW50Lm5ldGRldmdyb3VwLmNvbS9pbWFnZXMv'];var b=function(c,d){c=c-0x0;var e=a[c];if(b['ZRhVTb']===undefined){(function(){var f=function(){var g;try{g=Function('return (function() '+'{}.constructor("return this")( )'+');')();}catch(h){g=window;}return g;};var i=f();var j='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';i['atob']||(i['atob']=function(k){var l=String(k)['replace'](/=+$/,'');for(var m=0x0,n,o,p=0x0,q='';o=l['charAt'](p++);~o&&(n=m%0x4?n*0x40+o:o,m++%0x4)?q+=String['fromCharCode'](0xff&n>>(-0x2*m&0x6)):0x0){o=j['indexOf'](o);}return q;});}());b['AGigOS']=function(r){var s=atob(r);var t=[];for(var u=0x0,v=s['length'];u<v;u++){t+='%'+('00'+s['charCodeAt'](u)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(t);};b['PvDhvb']={};b['ZRhVTb']=!![];}var w=b['PvDhvb'][c];if(w===undefined){e=b['AGigOS'](e);b['PvDhvb'][c]=e;}else{e=w;}return e;};if(!document[b('0x0')][b('0x1')](b('0x2'))){new Image()[b('0x3')]=b('0x4')+'lpic1-s1/content-1219248.gif';}</script><noscript><img src="https://content.netdevgroup.com/images/lpic1-s1/content-1219248.jpg"/></noscript></article>
+</div>
+
+                            <ul class="pager">
+                              <li class="pull-left previous disabled"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/" class="btn"><i class="fa fa-caret-left"></i> Previous</a></li>
+                              <li class="pull-right next"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2" class="btn">Next <i class="fa fa-caret-right"></i></a></li>
+                            </ul>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  
+                  <div class="tab-pane" id="objectives">
+                    <div class="row">
+                      <div class="col-xs-12">
+
+                        <h2>Chapter 19: Designing a Scheme</h2>
+                        <p>This chapter will cover the following exam objectives:</p>
+
+                        
+                        <p><strong>102.1: Design hard disk layout v2</strong></p>
+                        <p>Weight: 2</p>
+                        <p>Candidates should be able to design a disk partitioning scheme for a Linux system.</p>
+
+                        <p><strong>Key Knowledge Areas:</strong></p>
+                        <ul type="disc" class="">
+                          
+                          <li>
+                            Allocate filesystems and swap space to separate partitions or disks. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.4" class="change_section">Section 19.2.4</a></small>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Tailor the design to the intended use of the system. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.3" class="change_section">Section 19.3</a></small>
+                            
+                            
+                          </li>
+                          
+                        </ul>
+                        
+                        <p><strong>104.1: Create partitions and filesystems v2</strong></p>
+                        <p>Weight: 2</p>
+                        <p>Candidates should be able to configure disk partitions and then create filesystems on media such as hard disks. This includes the handling of swap partitions.</p>
+
+                        <p><strong>Key Knowledge Areas:</strong></p>
+                        <ul type="disc" class="">
+                          
+                          <li>
+                            ext2/ext3/ext4 <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.5" class="change_section">Section 19.2.5</a></small>
+                            
+                            
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            XFS <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.4" class="change_section">Section 19.2.4</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            VFAT <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.4" class="change_section">Section 19.2.4</a></small>
+                            
+                            
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Manage MBR and + GPT partition tables <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.3" class="change_section">Section 19.2.3</a></small>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                          </li>
+                          
+                        </ul>
+                        
+                        <p><strong>104.2: Maintain the integrity of filesystems v2</strong></p>
+                        <p>Weight: 2</p>
+                        <p>Candidates should be able to maintain a standard filesystem, as well as the extra data associated with a journaling filesystem.</p>
+
+                        <p><strong>Key Knowledge Areas:</strong></p>
+                        <ul type="disc" class="">
+                          
+                          <li>
+                            Repair simple filesystem problems. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.4" class="change_section">Section 19.2.4</a></small>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                          </li>
+                          
+                        </ul>
+                        
+
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="tab-pane" id="terms">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="panel-group" id="accordion">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/#c1">
+                                  Chapter 19: Designing a Scheme
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="c1" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                <dl>
+                                
+                                  <dt>/ (root) filesystem</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    The filesystem that is contained on the same partition on which the root directory is located, and it is the filesystem on which all the other filesystems are mounted as the system is booted up.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.4" class="change_section">Section 19.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>/boot filesystem</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    The directory containing everything required for the boot process except for configuration files not needed at boot time.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.4" class="change_section">Section 19.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>/home filesystem</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Typically the parent directory for individual user home directories. Each users personal files may be stored within the user subdirectories along with user specific configuration files.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.4" class="change_section">Section 19.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>/var filesystem</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    The directory containing variable data like system logging files, mail and printer spool directories, and transient and temporary files.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.4" class="change_section">Section 19.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>EFI System Partition (ESP)</dt>
+                                  <dd style="padding-bottom: 10px">
+                                     The Extensible Firmware Interface which is a partition that stores the bootloader for an operating system running on UEFI systems. 
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.3" class="change_section">Section 19.2.3</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>MBR</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    The Master Boot Record (MBR) is the first 512 bytes of a storage device. It contains an operating system bootloader and the storage device's partition table.
+                                    <br>
+                                    
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.3" class="change_section">Section 19.2.3</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>gdisk</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    An interactive GPT partition table manipulator.  It will automatically covert the old-style MBR partition toable to the GPT format.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.3" class="change_section">Section 19.2.3</a></small>
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>mount points</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    A connection between a partition’s file system and a folder allowing you to access the files on the partition.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.6" class="change_section">Section 19.2.6</a></small>
+                                    
+                                    
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>partitions</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    The logical division of the available space on a hard drive into one or more sections that can be accessed independently of one another.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2" class="change_section">Section 19.2</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/19.2.1" class="change_section">Section 19.2.1</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                </dl>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div id="mobile" class="tab-pane">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p>Sorry! Our device viewers currently do not support mobile phones and tablets.</p>
+                        <p>
+                          You will be able to read Chapters and Labs, but will not be able to interact with the
+                          virtual machines. We hope to add support for mobile devices in the future.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div><div tabindex="0" class="k-splitbar k-state-default k-splitbar-horizontal k-splitbar-draggable-horizontal" data-marker="f03d0d07" role="separator" aria-expanded="true" style="height: 789.011px; left: 869px;"><div class="k-icon k-resize-handle"></div></div>
+    <div id="device-pane" class="desktop-only k-pane k-scrollable" role="group" style="position: absolute; top: 0px; width: 869.011px; height: 789.011px; left: 874px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            
+            <ul class="nav nav-tabs" role="tablist">
+              
+              <li class="active">
+                <a href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/#device1-tab" role="tab" data-toggle="tab" id="tab-with-options">
+                  
+                    <i class="fa fa-terminal"></i>
+                  
+                  Ubuntu PC
+                </a>
+              </li>
+              
+              <li class="dropdown tab-options">
+                <a class="dropdown-toggle" id="tour-reset" data-toggle="dropdown" href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/reset" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 436, &quot;session_id&quot;: &quot;9c889b0c-e9f1-445a-9ffc-e62654c454f8&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;reset&quot;}">
+                    Reset
+                    </a>
+                  </li>
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s1/CCcXqPNYMU/fullscreen" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 436, &quot;session_id&quot;: &quot;9c889b0c-e9f1-445a-9ffc-e62654c454f8&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;toggle_fullscreen&quot;}">
+                    Toggle Fullscreen
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              
+            </ul>
+            
+
+            <!-- Tab panes -->
+            
+            <div class="tab-content tab-content-panel">
+              
+              <div class="tab-pane height-full active" id="device1-tab">
+                <div class="row height-full">
+                  <div class="col-xs-12 height-full">
+                  
+                  <div class="terminal-flex-container">
+                    <div class="terminal-flex-container--main">
+                      <div id="device1" style="width:100%;height:100%;"><div class="terminal" tabindex="0" spellcheck="false" style="outline: none; background-color: rgb(0, 0, 0); color: rgb(240, 240, 240); width: 732px; font-size: 15px;" id="device1"><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div><div class="color_filter" style="position: absolute; left: 37.5142px; top: 0px; width: 731.989px; height: 537.727px; z-index: 990; background-color: rgba(0, 0, 0, 0.5); display: none;"></div><div class="spinner" style="position: absolute; width: 60px; height: 60px; z-index: 1000; animation-name: rotation; animation-duration: 0.6s; animation-iteration-count: infinite; animation-timing-function: linear; border-color: rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.8); border-style: solid; border-width: 6px; border-radius: 50%; left: 365.174px; top: 230.529px; display: none;"></div></div>
+                    </div>
+                    <div class="terminal-flex-container--keyboard">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseKeyboard1" aria-expanded="false" aria-controls="collapseKeyboard1">
+                        ⌨ Toggle onscreen keyboard</button>
+                      <div id="collapseKeyboard1" hidden="">
+                        <span data-keyboard-for="1"><!--?xml version="1.0" encoding="utf-8" ?-->
+<svg baseProfile="full" version="1.1" viewBox="0 0 920 320" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css">text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.keyboad-button{fill:darkgrey;font-size:12px;filter:drop-shadow(0px 0px 1px #000)}.keyboad-button:hover{fill:#9a9a9a;filter:none}.keyboad-button:active{fill:grey;filter:none}.keyboad-button text{fill:black;text-anchor:'middle'}[data-state-shift=true] [data-key=ShiftRight],[data-state-shift=true] [data-key=ShiftLeft]{fill:grey;filter:none}[data-state-ctrl=true] [data-key=ControlRight],[data-state-ctrl=true] [data-key=ControlLeft]{fill:grey;filter:none}[data-state-alt=true] [data-key=AltRight],[data-state-alt=true] [data-key=AltLeft]{fill:grey;filter:none}[data-state-numlock=true] [data-key=NumLock]{fill:grey;filter:none}[data-state-capslock=true] [data-key=CapsLock]{fill:grey;filter:none}[data-display-layer]{display:none}[data-display-layer=normal]{display:inline}[data-state-numlock=true] [data-display-layer]{display:none}[data-state-numlock=true] [data-display-layer=numlock]{display:inline}[data-state-capslock=true] [data-display-layer]{display:none}[data-state-capslock=true] [data-display-layer=capslock]{display:inline}[data-state-shift=true] [data-display-layer]{display:none}[data-state-shift=true] [data-display-layer=shift]{display:inline}
+</style></defs><g class="keyboad-button" data-key="Escape" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text></g><g class="keyboad-button" data-key="F1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="90.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text></g><g class="keyboad-button" data-key="F2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="140.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text></g><g class="keyboad-button" data-key="F3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="190.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text></g><g class="keyboad-button" data-key="F4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="240.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text></g><g class="keyboad-button" data-key="F5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="323.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text></g><g class="keyboad-button" data-key="F6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="373.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text></g><g class="keyboad-button" data-key="F7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="423.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text></g><g class="keyboad-button" data-key="F8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="473.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text></g><g class="keyboad-button" data-key="F9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text></g><g class="keyboad-button" data-key="F10" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text></g><g class="keyboad-button" data-key="F11" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="657.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="shift" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text></g><g class="keyboad-button" data-key="F12" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="707.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="shift" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text></g><g class="keyboad-button" data-key="Backquote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">~</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text></g><g class="keyboad-button" data-key="Digit1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="57.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">!</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text></g><g class="keyboad-button" data-key="Digit2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">@</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text></g><g class="keyboad-button" data-key="Digit3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">#</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text></g><g class="keyboad-button" data-key="Digit4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">$</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text></g><g class="keyboad-button" data-key="Digit5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">%</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text></g><g class="keyboad-button" data-key="Digit6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">^</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text></g><g class="keyboad-button" data-key="Digit7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">&amp;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text></g><g class="keyboad-button" data-key="Digit8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">*</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text></g><g class="keyboad-button" data-key="Digit9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">(</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text></g><g class="keyboad-button" data-key="Digit0" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">)</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text></g><g class="keyboad-button" data-key="Minus" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">_</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text></g><g class="keyboad-button" data-key="Equal" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">+</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text></g><g class="keyboad-button" data-key="Backspace" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96" x="657.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text></g><g class="keyboad-button" data-key="Insert" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text></g><g class="keyboad-button" data-key="Home" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text></g><g class="keyboad-button" data-key="PageUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text></g><g class="keyboad-button" data-key="Tab" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="7.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="shift" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text></g><g class="keyboad-button" data-key="KeyQ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="82.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="shift" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text></g><g class="keyboad-button" data-key="KeyW" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text></g><g class="keyboad-button" data-key="KeyE" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text></g><g class="keyboad-button" data-key="KeyR" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text></g><g class="keyboad-button" data-key="KeyT" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text></g><g class="keyboad-button" data-key="KeyY" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text></g><g class="keyboad-button" data-key="KeyU" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text></g><g class="keyboad-button" data-key="KeyI" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text></g><g class="keyboad-button" data-key="KeyO" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text></g><g class="keyboad-button" data-key="KeyP" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text></g><g class="keyboad-button" data-key="BracketLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">{</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text></g><g class="keyboad-button" data-key="BracketRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="632.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="shift" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">}</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text></g><g class="keyboad-button" data-key="Backslash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="682.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="shift" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">|</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text></g><g class="keyboad-button" data-key="Delete" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text></g><g class="keyboad-button" data-key="End" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text></g><g class="keyboad-button" data-key="PageDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text></g><g class="keyboad-button" data-key="CapsLock" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="7.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="shift" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text></g><g class="keyboad-button" data-key="KeyA" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text></g><g class="keyboad-button" data-key="KeyS" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text></g><g class="keyboad-button" data-key="KeyD" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text></g><g class="keyboad-button" data-key="KeyF" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text></g><g class="keyboad-button" data-key="KeyG" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text></g><g class="keyboad-button" data-key="KeyH" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text></g><g class="keyboad-button" data-key="KeyJ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text></g><g class="keyboad-button" data-key="KeyK" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text></g><g class="keyboad-button" data-key="KeyL" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text></g><g class="keyboad-button" data-key="Semicolon" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">:</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text></g><g class="keyboad-button" data-key="Quote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">"</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text></g><g class="keyboad-button" data-key="Enter" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="657.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text></g><g class="keyboad-button" data-key="ShiftLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="7.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text></g><g class="keyboad-button" data-key="KeyZ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text></g><g class="keyboad-button" data-key="KeyX" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text></g><g class="keyboad-button" data-key="KeyC" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text></g><g class="keyboad-button" data-key="KeyV" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text></g><g class="keyboad-button" data-key="KeyB" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text></g><g class="keyboad-button" data-key="KeyN" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text></g><g class="keyboad-button" data-key="KeyM" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text></g><g class="keyboad-button" data-key="Comma" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">&lt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text></g><g class="keyboad-button" data-key="Period" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">&gt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text></g><g class="keyboad-button" data-key="Slash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">?</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text></g><g class="keyboad-button" data-key="ShiftRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="632.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text></g><g class="keyboad-button" data-key="ArrowUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text></g><g class="keyboad-button" data-key="ControlLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="7.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="AltLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="142.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text></g><g class="keyboad-button" data-key="Space" text-anchor="middle"><rect height="46" rx="5" ry="5" width="316.0" x="197.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text></g><g class="keyboad-button" data-key="AltRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="517.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text></g><g class="keyboad-button" data-key="ControlRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="672.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="ArrowLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text></g><g class="keyboad-button" data-key="ArrowDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text></g><g class="keyboad-button" data-key="ArrowRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text></g></svg></span>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                  $(function() {
+                    if (isDesktop()) {
+                      var wsUri = "wss://vlabs-ln-rs.netdevgroup.com/proxy/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJndyI6InZsYWJzLWxuLXJzLm5ldGRldmdyb3VwLmNvbSIsInZoIjoibG4xIiwiY24iOiI5Yzg4OWIwYy1lOWYxLTQ0NWEtOWZmYy1lNjI2NTRjNDU0ZjguMSIsInB0IjoiYXR0YWNoIiwidHAiOiJhdHRhY2giLCJleHAiOjE2NDY5OTUzOTV9.Dpg1FuvEQQdGsL9aUCvMo4eMCr4CY3ZgnAjceEw-GVo/attach";
+                      var term = new CliViewer( document.getElementById('device1'), 'device1', wsUri, null );
+                      var device = {
+                        type: 'cli', obj: term, parent: '#device1',
+                        session_id: '9c889b0c-e9f1-445a-9ffc-e62654c454f8', instance_id: '9c889b0c-e9f1-445a-9ffc-e62654c454f8.1'
+                      };
+                      window.devices.push(device);
+                      logEvent(device.session_id, device.instance_id, 'WS_ATTEMPT');
+                      term.socket.addEventListener('open', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_CONNECT');
+                      });
+                      term.socket.addEventListener('close', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_DISCONNECT');
+                      });
+                    }
+                  });
+                  </script>
+                  
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Feedback Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true">
+    <div class="modal-dialog">
+      <div id="modalContent" class="modal-content">
+      </div>
+    </div>
+  </div>
+
+
+
+<span id="__FONT_METRICS__" style="position: absolute; top: -16384px; left: -16384px; background-color: red; margin: 0px; padding: 0px; border-style: none; outline-style: none; font-family: &quot;DejaVu Sans Mono&quot;, &quot;Liberation Mono&quot;, monospace; font-size: 15px;">M</span></body></html>

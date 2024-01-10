@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/ -->
+<html lang="en" class="k-webkit k-webkit99"><input type="hidden" id="__yoroi_connector_api_injected_type" value="prod"><script async="" src="./NDG Introduction to Linux I - Lab 13_ File Permissions_files/analytics.js"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="spinner-keyframes">
+@-webkit-keyframes rotation 
+{  from { -webkit-transform : rotate( 0deg );   }
+  to   { -webkit-transform : rotate( 359deg ); }
+}
+@-moz-keyframes rotation {
+  from { -moz-transform : rotate( 0deg );   }
+  to   { -moz-transform : rotate( 359deg ); }
+}
+@-o-keyframes rotation {
+  from { -o-transform : rotate( 0deg );   }
+  to   { -o-transform : rotate( 359deg ); }
+}
+@keyframes rotation {
+  from { transform : rotate( 0deg );   }
+  to   { transform : rotate( 359deg ); }
+}
+</style><style id="term-style">.terminal {
+  float: left;
+  border: #000000 solid 5px;
+  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-size: 11px;
+  color: #f0f0f0;
+  background: #000000;
+  white-space: nowrap;
+}
+
+.terminal-cursor {
+  color: #000000;
+  background: #f0f0f0;
+}
+</style>
+  <title>NDG Introduction to Linux I - Lab 13: File Permissions</title>
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="https://ndg-content.s3.us-west-2.amazonaws.com/img/favicon.ico">
+
+  <link rel="stylesheet" href="./NDG Introduction to Linux I - Lab 13_ File Permissions_files/44d1a56e411f.css" type="text/css">
+
+  <script type="text/javascript" src="./NDG Introduction to Linux I - Lab 13_ File Permissions_files/polyfill-6.26.0.min.js"></script>
+  <script type="text/javascript" src="./NDG Introduction to Linux I - Lab 13_ File Permissions_files/9930c7fbf6d8.js"></script>
+
+  <script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-11306725-3', 'netdevgroup.com');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+
+</script>
+
+  <script type="text/javascript">
+    var NDGCourse = {name: "NDG Introduction to Linux I"};
+    var videoContent = {};
+  </script>
+</head>
+
+<body style="">
+
+  <!-- Start Navbar -->
+  <div class="navbar navbar-primary navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand hidden-xs">
+          NDG Introduction to Linux I - Lab 13: File Permissions
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-share-alt" aria-hidden="true"></i> Share <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://www.facebook.com/share.php?u=https://netdevgroup.com/online/courses/linux.html&amp;title=Learn%20Linux%20with%20NDG" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+            </li>
+            <li>
+              <a href="http://twitter.com/home?status=Learn%20Linux%20with%20NDG+https://netdevgroup.com/online/courses/linux.html" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li id="tour-help" class="dropdown">
+          <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-lg hidden-md hidden-sm">NDG Introduction to Linux I</span>
+            <div class="pull-right">
+              <i class="fa fa-question-circle"></i>
+              <span class="hidden-xs"> Help</span>
+              <b class="caret"></b>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header hidden-md hidden-sm hidden-lg">Lab 13: File Permissions</li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/faq/">Frequently Asked Questions</a></li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/feedback/">Contact Support</a></li>
+            <li class="hidden-xs desktop-only"><a id="toursb" class="support" href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/#">Start Tour</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- End Navbar -->
+
+
+  <div id="splitter" class="height-full k-widget k-splitter" data-role="splitter">
+    <div role="group" class="k-pane k-scrollable" style="position: absolute; top: 0px; width: 862px; height: 789.011px; left: 0px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            <!-- Tab Btns -->
+              <ul id="left-tabs" class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/#content" role="tab" data-toggle="tab">Content</a></li>
+                
+                
+                
+                <li class="mobile-only" style="display:none;"><a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/#mobile" role="tab" data-toggle="tab"><i class="fa fa-terminal"></i> Devices</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div id="content-container" class="tab-content tab-content-panel">
+                  <div id="content" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="tour2" class="btn-group-vertical btn-group-xs pull-left hidden-xs">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.0" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                          
+                                          13.0 Introduction
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.1 Step 1
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.2 Step 2
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.3 Step 3
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.4 Step 4
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.5" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.5 Step 5
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.6" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.6 Step 6
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.7" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.7 Step 7
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.8" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.8 Step 8
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.9" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.9 Step 9
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.10" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.10 Step 10
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.11" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.11 Step 11
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.12" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.12 Step 12
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.13" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.13 Step 13
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.14" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.14 Step 14
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.15" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.15 Step 15
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.16" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.16 Step 16
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.17" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.17 Step 17
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.18" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.18 Step 18
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.19" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.19 Step 19
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.20" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.20 Step 20
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.21" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.21 Step 21
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.22" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.22 Step 22
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.23" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.23 Step 23
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.24" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.24 Step 24
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.25" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.25 Step 25
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.26" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.26 Step 26
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.27" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.27 Step 27
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.28" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.28 Step 28
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.29" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.29 Step 29
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.30" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.30 Step 30
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.31" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.31 Step 31
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.32" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.32 Step 32
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.33" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.33 Step 33
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.34" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.34 Step 34
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.35" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.35 Step 35
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.36" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.36 Step 36
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.37" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.37 Step 37
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.38" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.38 Step 38
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.39" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.39 Step 39
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.40" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.40 Step 40
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.41" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.41 Step 41
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.42" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.42 Step 42
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.43" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.43 Step 43
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.44" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.44 Step 44
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.45" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.45 Step 45
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.46" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.46 Step 46
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.47" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.47 Step 47
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.48" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.48 Step 48
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.49" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.49 Step 49
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.50" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.50 Step 50
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.51" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          13.51 Step 51
+                                        </a>
+                                        
+                                      
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.0" class="btn btn-default ndg-menu-btn change_section btn-primary active" style="text-align:left;">
+                                    13.0
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.4
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.5" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.5
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.6" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.6
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.7" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.7
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.8" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.8
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.9" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.9
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.10" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.10
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.11" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.11
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.12" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.12
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.13" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.13
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.14" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.14
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.15" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.15
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.16" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.16
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.17" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.17
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.18" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.18
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.19" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.19
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.20" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.20
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.21" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.21
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.22" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.22
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.23" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.23
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.24" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.24
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.25" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.25
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.26" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.26
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.27" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.27
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.28" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.28
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.29" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.29
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.30" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.30
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.31" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.31
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.32" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.32
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.33" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.33
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.34" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.34
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.35" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.35
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.36" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.36
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.37" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.37
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.38" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.38
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.39" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.39
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.40" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.40
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.41" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.41
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.42" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.42
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.43" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.43
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.44" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.44
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.45" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.45
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.46" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.46
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.47" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.47
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.48" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.48
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.49" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.49
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.50" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.50
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.51" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    13.51
+                                  </a>
+                                  
+                                
+                            </div>
+                            <div class="content-menu-space">
+                              <div class="btn-group hidden-lg hidden-md hidden-sm mobile-chapter-select">
+                                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-caret-down"></i> Sections
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.0" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                        13.0 Introduction
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.1" class="btn-default ndg-menu-btn change_section">
+                                        13.1 Step 1
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.2" class="btn-default ndg-menu-btn change_section">
+                                        13.2 Step 2
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.3" class="btn-default ndg-menu-btn change_section">
+                                        13.3 Step 3
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.4" class="btn-default ndg-menu-btn change_section">
+                                        13.4 Step 4
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.5" class="btn-default ndg-menu-btn change_section">
+                                        13.5 Step 5
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.6" class="btn-default ndg-menu-btn change_section">
+                                        13.6 Step 6
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.7" class="btn-default ndg-menu-btn change_section">
+                                        13.7 Step 7
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.8" class="btn-default ndg-menu-btn change_section">
+                                        13.8 Step 8
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.9" class="btn-default ndg-menu-btn change_section">
+                                        13.9 Step 9
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.10" class="btn-default ndg-menu-btn change_section">
+                                        13.10 Step 10
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.11" class="btn-default ndg-menu-btn change_section">
+                                        13.11 Step 11
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.12" class="btn-default ndg-menu-btn change_section">
+                                        13.12 Step 12
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.13" class="btn-default ndg-menu-btn change_section">
+                                        13.13 Step 13
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.14" class="btn-default ndg-menu-btn change_section">
+                                        13.14 Step 14
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.15" class="btn-default ndg-menu-btn change_section">
+                                        13.15 Step 15
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.16" class="btn-default ndg-menu-btn change_section">
+                                        13.16 Step 16
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.17" class="btn-default ndg-menu-btn change_section">
+                                        13.17 Step 17
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.18" class="btn-default ndg-menu-btn change_section">
+                                        13.18 Step 18
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.19" class="btn-default ndg-menu-btn change_section">
+                                        13.19 Step 19
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.20" class="btn-default ndg-menu-btn change_section">
+                                        13.20 Step 20
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.21" class="btn-default ndg-menu-btn change_section">
+                                        13.21 Step 21
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.22" class="btn-default ndg-menu-btn change_section">
+                                        13.22 Step 22
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.23" class="btn-default ndg-menu-btn change_section">
+                                        13.23 Step 23
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.24" class="btn-default ndg-menu-btn change_section">
+                                        13.24 Step 24
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.25" class="btn-default ndg-menu-btn change_section">
+                                        13.25 Step 25
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.26" class="btn-default ndg-menu-btn change_section">
+                                        13.26 Step 26
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.27" class="btn-default ndg-menu-btn change_section">
+                                        13.27 Step 27
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.28" class="btn-default ndg-menu-btn change_section">
+                                        13.28 Step 28
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.29" class="btn-default ndg-menu-btn change_section">
+                                        13.29 Step 29
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.30" class="btn-default ndg-menu-btn change_section">
+                                        13.30 Step 30
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.31" class="btn-default ndg-menu-btn change_section">
+                                        13.31 Step 31
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.32" class="btn-default ndg-menu-btn change_section">
+                                        13.32 Step 32
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.33" class="btn-default ndg-menu-btn change_section">
+                                        13.33 Step 33
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.34" class="btn-default ndg-menu-btn change_section">
+                                        13.34 Step 34
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.35" class="btn-default ndg-menu-btn change_section">
+                                        13.35 Step 35
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.36" class="btn-default ndg-menu-btn change_section">
+                                        13.36 Step 36
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.37" class="btn-default ndg-menu-btn change_section">
+                                        13.37 Step 37
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.38" class="btn-default ndg-menu-btn change_section">
+                                        13.38 Step 38
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.39" class="btn-default ndg-menu-btn change_section">
+                                        13.39 Step 39
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.40" class="btn-default ndg-menu-btn change_section">
+                                        13.40 Step 40
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.41" class="btn-default ndg-menu-btn change_section">
+                                        13.41 Step 41
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.42" class="btn-default ndg-menu-btn change_section">
+                                        13.42 Step 42
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.43" class="btn-default ndg-menu-btn change_section">
+                                        13.43 Step 43
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.44" class="btn-default ndg-menu-btn change_section">
+                                        13.44 Step 44
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.45" class="btn-default ndg-menu-btn change_section">
+                                        13.45 Step 45
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.46" class="btn-default ndg-menu-btn change_section">
+                                        13.46 Step 46
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.47" class="btn-default ndg-menu-btn change_section">
+                                        13.47 Step 47
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.48" class="btn-default ndg-menu-btn change_section">
+                                        13.48 Step 48
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.49" class="btn-default ndg-menu-btn change_section">
+                                        13.49 Step 49
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.50" class="btn-default ndg-menu-btn change_section">
+                                        13.50 Step 50
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.51" class="btn-default ndg-menu-btn change_section">
+                                        13.51 Step 51
+                                      </a>
+                                      
+                                    
+                                    </li>
+                                  </ul>
+                                </div>
+                              <div>
+<article id="content-13.0" style="display: block;"><h2>13.0 Introduction</h2>
+<p>In this task, you will explore both basic and advanced file permissions. You will display file permissions, set basic permissions (<var>read</var>, <var>write</var>, and <var>execute</var>) and set advanced permissions (<var>setuid</var>, <var>setgid</var>, and <var>sticky bit</var>).</p>
+
+<p>In addition, you will display and set the <var>umask</var> value, which determines the default permissions to place on new files and directories.</p>
+</article><article id="content-13.1"><h2>13.1 Step 1</h2>
+<p>In order to access or modify a file or directory, the correct <var>permissions</var> must be set. There are three different permissions that can be placed on a file or directory: <var>read</var>, <var>write</var>, and <var>execute</var>.</p>
+
+<p>Execute the following command to list details about the <code class="console">/etc/shadow</code> file:</p>
+
+<pre class="config">ls -l /etc/shadow</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls -l /etc/shadow
+-rw-r----- 1 root shadow 968 Apr 17 22:31 /etc/shadow
+</pre>
+
+<p>The following is a breakdown of the fields relevant to file and directory permissions:</p>
+
+<h3>File Type Field</h3>
+
+<pre class="config"><span class="attention">-</span>rw-r----- 1 root shadow 968 Apr 17 22:31 /etc/shadow</pre>
+
+<p>The first character of this output indicates the <var>type of a file</var>. Recall if the first character is a dash <code class="console">-</code> character, as it is in the output above, this is a regular file. If the character was a letter <code class="console">d</code>, it would be a directory.</p>
+
+<h3>Permissions Field</h3>
+
+<pre class="config">-<span class="attention">rw-r-----</span> 1 root shadow 968 Apr 17 22:31 /etc/shadow</pre>
+
+<p>After the file type character, the <var>permissions</var> are displayed.</p>
+
+<h3>User Owner Field</h3>
+
+<pre class="config">-rw-r----- 1 <span class="attention">root</span> shadow 968 Apr 17 22:31 /etc/shadow</pre>
+
+<p>After the link count, the file's <var>user owner</var> is displayed.</p>
+
+<h3>Group Owner Field</h3>
+
+<pre class="config">-rw-r----- 1 root <span class="attention">shadow</span> 968 Apr 17 22:31 /etc/shadow</pre>
+
+<p>After the user owner field, the file <var>group owner</var> is displayed.</p>
+
+<p>Note that the user owner of the <code class="console">/etc/shadow</code> file is the <code class="console">root</code> user and that the group owner is the <code class="console">shadow</code> group. The user owner has <var>read</var> and <var>write</var> permission (<code class="console">rw-</code>), the group owner only has the <var>read</var> permission (<code class="console">r--</code>), and regular users have no permissions (<code class="console">---</code>).</p>
+</article><article id="content-13.2"><h2>13.2 Step 2</h2>
+<p>Execute the following command to attempt to view the <code class="console">/etc/shadow</code> file:</p>
+
+<pre class="config">more /etc/shadow</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> more /etc/shadow
+more: cannot open /etc/shadow: Permission denied
+</pre>
+
+<p>The command failed because only the <code class="console">root</code> user and the members of the <code class="console">shadow</code> group can view the contents of this file.</p></article><article id="content-13.3"><h2>13.3 Step 3</h2>
+<p>Execute the following command to switch to the <code class="console">root</code> account. When prompted, provide the <code class="console">root</code> password <code class="input">netlab123</code>:</p>
+
+<pre class="config">su – root</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> su - root
+Password:
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong>
+</pre></article><article id="content-13.4"><h2>13.4 Step 4</h2>
+<p>Create a file in the <code class="console">/srv</code> directory by executing the following command:</p>
+
+<pre class="config">echo "learning about permissions" &gt; /srv/lab.txt</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> echo "learning about permissions" &gt; /srv/lab.txt
+</pre></article><article id="content-13.5"><h2>13.5 Step 5</h2>
+<p>View the permissions of this file and notice that all users can view the file contents since all users have <var>read</var> permission for the file:</p>
+
+<pre class="config">ls -l /srv/lab.txt</pre>
+
+<div class="alert alert-warning">Be aware that both instances in the command above use a lowercase "L", not a number one.</div>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -l /srv/lab.txt
+-rw-r--r-- 1 root root 27 May 16 12:29 /srv/lab.txt
+</pre></article><article id="content-13.6"><h2>13.6 Step 6</h2>
+<p>Execute the following command to switch back to the <code class="console">sysadmin</code> account:</p>
+
+<pre class="config">exit</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> exit
+logout
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong>
+</pre></article><article id="content-13.7"><h2>13.7 Step 7</h2>
+<p>Verify that the <code class="console">sysadmin</code> account can view the file contents by executing the following command:</p>
+
+<pre class="config">more /srv/lab.txt</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> more /srv/lab.txt
+learning about permissions
+</pre></article><article id="content-13.8"><h2>13.8 Step 8</h2>
+<p>Execute the following command to switch to the <code class="console">root</code> account. When prompted, provide the root password:</p>
+
+<pre class="config">su – root
+netlab123</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> su - root
+Password:
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong>
+</pre></article><article id="content-13.9"><h2>13.9 Step 9</h2>
+<p>The <code>chmod</code> command is used to change the permissions of a file or directory. Only the <code class="console">root</code> user or the user who owns the file is able to change the permissions of a file.</p>
+
+<pre class="config">chmod MODE FILE…</pre>
+
+<p>There are two techniques of changing permissions with the <code>chmod</code> command: <var>symbolic</var> and <var>octal</var>. To use the symbolic method of <code>chmod</code>, use the symbols summarized in the table below:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Group Symbol</th>
+<th>Operation Symbol</th>
+<th>Permission Symbol</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+<code class="console">u</code> (user owner)</td>
+<td>
+<code class="console">+</code> (add the permission)</td>
+<td>
+<code class="console">r</code> (read)</td>
+</tr>
+<tr>
+<td>
+<code class="console">g</code> (group owner)</td>
+<td>
+<code class="console">=</code> (specify the exact permission)</td>
+<td>
+<code class="console">w</code> (write)</td>
+</tr>
+<tr>
+<td>
+<code class="console">o</code> (others)</td>
+<td>
+<code class="console">-</code> (remove the permission)</td>
+<td>
+<code class="console">x</code> (execute)</td>
+</tr>
+<tr>
+<td>
+<code class="console">a</code> (all)</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>Remove the ability of the <code class="console">sysadmin</code> account (who belongs to the <var>others</var> permission set) to view the <code class="console">/srv/lab.txt</code> file by executing the following command:</p>
+
+<pre class="config">chmod o-r /srv/lab.txt</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> chmod o-r /srv/lab.txt
+</pre></article><article id="content-13.10"><h2>13.10 Step 10</h2>
+<p>Verify the permission change by executing the following command:</p>
+
+<pre class="config">ls -l /srv/lab.txt</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -l /srv/lab.txt
+-rw-r----- 1 root root 27 May 16 12:29 /srv/lab.txt
+</pre>
+
+<p>Notice that the <var>read</var> permission has been removed in the others permission set.</p></article><article id="content-13.11"><h2>13.11 Step 11</h2>
+<p>Execute the following command to switch back to the <code class="console">sysadmin</code> account:</p>
+
+<pre class="config">exit</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> exit
+logout
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong>
+</pre></article><article id="content-13.12"><h2>13.12 Step 12</h2>
+<p>Verify that the <code class="console">sysadmin</code> account cannot view the file contents by executing the following command:</p>
+
+<pre class="config">more /srv/lab.txt</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> more /srv/lab.txt
+more: cannot open /srv/lab.txt: Permission denied
+</pre></article><article id="content-13.13"><h2>13.13 Step 13</h2>
+<p>Execute the following command to switch to the <code class="console">root</code> account. When prompted, provide the root password:</p>
+
+<pre class="config">su – root
+netlab123</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> su - root
+Password:
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong>
+</pre></article><article id="content-13.14"><h2>13.14 Step 14</h2>
+<p>Execute the following command to provide members of the others permission set the ability to both view and modify the <code class="console">/srv/lab.txt</code> file:</p>
+
+<pre class="config">chmod o+rw /srv/lab.txt</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> chmod o+rw /srv/lab.txt
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong>
+</pre></article><article id="content-13.15"><h2>13.15 Step 15</h2>
+<p>Verify the permission change by executing the following command:</p>
+
+<pre class="config">ls -l /srv/lab.txt</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -l /srv/lab.txt
+-rw-r--rw- 1 root root 27 May 16 12:29 /srv/lab.txt
+</pre>
+
+<div class="alert alert-warning">Recall that you would not normally provide others with more permissions than provided to the group members.</div></article><article id="content-13.16"><h2>13.16 Step 16</h2>
+<p>Execute the following command to switch back to the <code class="console">sysadmin</code> account:</p>
+
+<pre class="config">exit</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> exit
+logout
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong>
+</pre></article><article id="content-13.17"><h2>13.17 Step 17</h2>
+<p>Verify that the <code class="console">sysadmin</code> account can modify the <code class="console">lab.txt</code> file contents by executing the following command:</p>
+
+<pre class="config">echo "well done" &gt;&gt; /srv/lab.txt</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo "well done" &gt;&gt; /srv/lab.txt
+</pre></article><article id="content-13.18"><h2>13.18 Step 18</h2>
+<p>Verify that the <code class="console">sysadmin</code> account can view the <code class="console">lab.txt</code> file contents by executing the following command:</p>
+
+<pre class="config">more /srv/lab.txt</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> more /srv/lab.txt
+learning about permissions
+well done
+</pre></article><article id="content-13.19"><h2>13.19 Step 19</h2>
+<p>Execute the following command to switch to the <code class="console">root</code> account. When prompted, provide the root password:</p>
+
+<pre class="config">su – root
+netlab123</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> su - root
+Password:
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong>
+</pre></article><article id="content-13.20"><h2>13.20 Step 20</h2>
+<p>Create a directory called <code class="console">/srv/data</code> by executing the following command:</p>
+
+<pre class="config">mkdir /srv/data</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mkdir /srv/data
+</pre></article><article id="content-13.21"><h2>13.21 Step 21</h2>
+<p>Changing permissions using the octal method requires that the permissions for all three sets be specified. It is based on the octal numbering system in which each permission type is assigned a numeric value:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Octal Value</th>
+<th>Permission</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>read</td>
+</tr>
+<tr>
+<td>2</td>
+<td>write</td>
+</tr>
+<tr>
+<td>1</td>
+<td>execute</td>
+</tr>
+<tr>
+<td>0</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+
+<p>By adding together the combination of numbers from 0 to 7, any possible combination of <var>read</var>, <var>write</var>, and <var>execute</var> permissions can be specified for a single permission group set. For example, for <var>read</var>, <var>write</var>, and <var>execute</var>: add 4 + 2 + 1 to get 7. Or, for read, not write, and execute: add 4 + 0 + 1 to get 5.</p>
+
+<p>Change the permissions on the <code class="console">/srv/data</code> directory, so only members of the group owner and the user owner have access to this directory:</p>
+
+<pre class="config">chmod 770 /srv/data</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> chmod 770 /srv/data
+</pre></article><article id="content-13.22"><h2>13.22 Step 22</h2>
+<p>Verify the changed permissions by executing the following command:</p>
+
+<pre class="config">ls -ld /srv/data</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -ld /srv/data
+drwxrwx--- 2 root root 4096 May 16 16:31 <strong><span class="ansi-blue">/srv/data</span></strong>
+</pre></article><article id="content-13.23"><h2>13.23 Step 23</h2>
+<p>Copy a file into the <code class="console">/srv/data</code> directory to verify that the current user (the root user) can create files in this directory. Recall that for the following command to be successful, the user must have both <var>write</var> and <var>execute</var> permission on the directory:</p>
+
+<pre class="config">cp /etc/hosts /srv/data
+ls /srv/data
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> cp /etc/hosts /srv/data
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls /srv/data
+hosts
+</pre></article><article id="content-13.24"><h2>13.24 Step 24</h2>
+<p>Execute the following command to switch back to the <code class="console">sysadmin</code> account:</p>
+
+<pre class="config">exit</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> exit
+logout
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong>
+</pre></article><article id="content-13.25"><h2>13.25 Step 25</h2>
+<p>Execute the following command. This command should fail because the current user has no permission to access this directory:</p>
+
+<pre class="config">ls /srv/data</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls /srv/data
+ls: cannot open directory '/srv/data': Permission denied
+</pre></article><article id="content-13.26"><h2>13.26 Step 26</h2>
+<p>When the <var>setuid</var> permission is set on an <var>executable binary file</var> (a <var>program</var>), the binary file is run as the owner of the file, not as the user who executed it. In the next few steps, we will demonstrate the use of setuid files. Start by viewing the permissions of the <code class="console">/usr/bin/chfn</code> file by executing the following command:</p>
+
+<pre class="config">ls -l /usr/bin/chfn</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls -l /usr/bin/chfn
+-rwsr-xr-x 1 root root 76496 Jan 25  2018 <code class="input">/usr/bin/chfn</code>
+</pre>
+
+<p>Recall that the <code class="console">s</code> character in the owner's permission set means that this is a setuid file. When executed, this program can access files as if the program was run as the <code class="console">root</code> user (the owner of the file). This special permission allows users to change the information in the <code class="console">/etc/passwd</code> file.</p></article><article id="content-13.27"><h2>13.27 Step 27</h2>
+<p>Execute the following command to change your account information. When prompted, provide the <code class="console">sysadmin</code> password: <code class="input">netlab123</code>:</p>
+
+<pre class="config">chfn</pre>
+
+<p>Enter the following information when prompted:</p>
+
+<pre class="config"><strong>Room Number []:</strong> 123
+<strong>Work Phone []:</strong> 888-555-5555
+<strong>Home Phone []:</strong> 888-555-5555
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> chfn
+Password:
+Changing the user information for sysadmin
+Enter the new value, or press ENTER for the default
+        Full Name: System Administrator
+        Room Number []: 123
+        Work Phone []: 888-555-5555
+        Home Phone []: 888-555-5555
+</pre></article><article id="content-13.28"><h2>13.28 Step 28</h2>
+<p>Execute the following command to switch to the <code class="console">root</code> account. When prompted, provide the root password:</p>
+
+<pre class="config">su – root
+netlab123</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> su - root
+Password:
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong>
+</pre></article><article id="content-13.29"><h2>13.29 Step 29</h2>
+<p>Typically, special permissions are only set by the administrator (the root user), and they perform very specialized functions. They can be set using the <code>chmod</code> command, using either the symbolic or octal method.</p>
+
+<p>Change the <code class="console">/usr/bin/chfn</code> file, so it is no longer setuid by executing the following command:</p>
+
+<pre class="config">chmod 0755 /usr/bin/chfn</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> chmod 0755 /usr/bin/chfn
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong>
+</pre></article><article id="content-13.30"><h2>13.30 Step 30</h2>
+<p>Verify this change by executing the following command:</p>
+
+<pre class="config">ls -l /usr/bin/chfn</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -l /usr/bin/chfn
+-rwxr-xr-x 1 root root 76496 Jan 25  2018 <strong><span class="ansi-green">/usr/bin/chfn</span></strong>
+</pre></article><article id="content-13.31"><h2>13.31 Step 31</h2>
+<p>Execute the following command to switch back to the <code class="console">sysadmin</code> account:</p>
+
+<pre class="config">exit</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> exit
+logout
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong>
+</pre></article><article id="content-13.32"><h2>13.32 Step 32</h2>
+<p>Execute the following command to attempt to change your account information. When prompted, provide the <code class="console">root</code> password:</p>
+
+<pre class="config">chfn
+netlab123</pre>
+
+<p>Enter the following information when prompted:</p>
+
+<pre class="config"><strong>Room Number []:</strong> 123
+<strong>Work Phone []:</strong> 888-555-5555
+<strong>Home Phone []:</strong> 888-555-5555
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> chfn
+Password:
+Changing the user information for sysadmin
+Enter the new value, or press ENTER for the default
+        Full Name: System Administrator
+        Room Number [123]: 123
+        Work Phone [888-555-5555]: 888-555-5555
+        Home Phone [888-555-5555]: 888-555-5555
+Cannot change ID to root.
+</pre>
+
+<p>Note that the error message <code class="console">Cannot change ID to root</code> indicates that you cannot use this command because it cannot access the <code class="console">/etc/passwd</code> file as the <code class="console">root</code> user. Without the setuid permission, this command will not work for regular users.</p></article><article id="content-13.33"><h2>13.33 Step 33</h2>
+<p>The <var>setgid</var> permission is similar to setuid, but it makes use of the group owner permissions. In the next few steps, we will demonstrate the use of setgid directories. Start by executing the following command to switch to the <code class="console">root</code> account. When prompted, provide the root password:</p>
+
+<pre class="config">su – root
+netlab123</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> su - root
+Password:
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong>
+</pre></article><article id="content-13.34"><h2>13.34 Step 34</h2>
+<p>Make a directory and check its permissions by executing the following commands:</p>
+
+<pre class="config">mkdir /srv/test
+ls -ld /srv/test
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mkdir /srv/test
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -ld /srv/test
+drwxr-xr-x 2 root root 4096 May 17 00:56 <strong><span class="ansi-blue">/srv/test</span></strong>
+</pre></article><article id="content-13.35"><h2>13.35 Step 35</h2>
+<p>It is possible for the user owner of a file or directory to change the group owner of that same file/directory by using the <code>chgrp</code> command. Verify that the <code class="console">team</code> group exists and then change the group ownership of the <code class="console">/srv/test</code> directory to the <code class="console">team</code> group by executing the following commands:</p>
+
+<pre class="config">chgrp team /srv/test
+ls -ld /srv/test
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> grep team /etc/group
+<strong><span class="ansi-red">team</span></strong>:x:1004:
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> chgrp team /srv/test
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -ld /srv/test
+drwxr-xr-x 2 root team 4096 May 17 00:56 <span class="ansi-blue"><strong>/srv/test</strong></span>
+</pre>
+
+<p>The <code>chgrp</code> command was used above to change the group owner of the <code class="console">/srv/test</code> directory from the default primary group <code class="console">root</code> to the group <code class="console">team</code>.</p></article><article id="content-13.36"><h2>13.36 Step 36</h2>
+<p>Normally, when you create a new file, the group ownership of the new file is set to your primary group. Create a new file called <code class="console">labfile.txt</code> in the <code class="console">/srv/test</code> directory and verify by executing the following commands:</p>
+
+<pre class="config">touch /srv/test/labfile.txt
+ls -l /srv/test/labfile.txt
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> touch /srv/test/labfile.txt
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -l /srv/test/labfile.txt
+-rw-r--r-- 1 root root 0 May 17 01:14 /srv/test/labfile.txt
+</pre>
+
+<p>The group owner of this new file is the <code class="console">root</code> user's primary group, which is also called <code class="console">root</code>.</p></article><article id="content-13.37"><h2>13.37 Step 37</h2>
+<p>If the directory has the setgid permission set, then all new files created in the directory will be owned by the same group that owns the directory. Use the following commands to set the setgid permission on the <code class="console">/srv/test</code> directory and verify the new permissions. You should see an <code class="console">s</code> where the group execute permission should be:</p>
+
+<pre class="config">chmod g+s /srv/test
+ls -ld /srv/test
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> chmod g+s /srv/test
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -ld /srv/test
+drwxr-sr-x 2 root team 4096 May 17 01:14 <strong><span class="ansi-blue">/srv/test</span></strong>
+</pre></article><article id="content-13.38"><h2>13.38 Step 38</h2>
+<p>Verify that the setgid permission works by executing the following commands:</p>
+
+<pre class="config">touch /srv/test/labfile2.txt
+ls -l /srv/test/labfile2.txt
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> touch /srv/test/labfile2.txt
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -l /srv/test/labfile2.txt
+-rw-r--r-- 1 root team 0 May 17 01:23 /srv/test/labfile2.txt
+</pre>
+
+<p>Notice that this new file is group owned by the <code class="console">team</code> group, not the <code class="console">root</code> group.</p></article><article id="content-13.39"><h2>13.39 Step 39</h2>
+<p>In the next few steps, we will demonstrate the use of sticky bit directories. Start by creating a new directory by executing the following commands:</p>
+
+<pre class="config">mkdir /pub
+chmod 777 /pub
+ls -ld /pub
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mkdir /pub
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> chmod 777 /pub
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -ld /pub
+drwxrwxrwx 2 root root 4096 Apr 18 20:10 <code class="input">/pub</code>
+</pre></article><article id="content-13.40"><h2>13.40 Step 40</h2>
+<p>The permissions on this new directory will allow any user to create and delete files in the directory. To test this, first, create a file:</p>
+
+<pre class="config">touch /pub/mylabfile
+ls -l /pub
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> touch /pub/mylabfile
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -l /pub
+total 0
+-rw-r--r-- 1 root root 0 May 17 01:28 mylabfile
+</pre></article><article id="content-13.41"><h2>13.41 Step 41</h2>
+<p>Execute the following command to switch back to the <code class="console">sysadmin</code> account:</p>
+
+<pre class="config">exit</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> exit
+logout
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong>
+</pre></article><article id="content-13.42"><h2>13.42 Step 42</h2>
+<p>Execute the following command to delete the previously created file. When prompted with the message, <code class="console">rm: remove write-protected regular empty file `/pub/myfile'?</code>, type the <strong>Y</strong> key and then press <strong>Enter</strong>:</p>
+
+<pre class="config">rm /pub/mylabfile
+<strong>Y</strong>
+<strong>Enter</strong>
+ls -l /pub
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> rm /pub/mylabfile
+rm: remove write-protected regular empty file '/pub/myfile'? y
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls -l /pub
+total 0
+</pre>
+
+<p>Notice that the <code class="console">sysadmin</code> user was able to delete a file owned by the <code class="console">root</code> user. This is because the <var>write</var> permission of a directory grants the ability to add and delete files in a directory.</p></article><article id="content-13.43"><h2>13.43 Step 43</h2>
+<p>Execute the following command to switch to the <code class="console">root</code> account. When prompted, provide the <code class="console">root</code> password:</p>
+
+<pre class="config">su – root
+netlab123</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> su - root
+Password:
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong>
+</pre></article><article id="content-13.44"><h2>13.44 Step 44</h2>
+<p>Add the sticky bit permission to the <code class="console">/pub</code> directory so users can only delete the files that they own in this directory, then verify the permissions with the following commands:</p>
+
+<pre class="config">chmod o+t /pub
+ls -ld /pub
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> chmod o+t /pub
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -ld /pub
+drwxrwxrwt 2 root root 4096 Apr 18 20:12 <code class="input">/pub</code>
+</pre></article><article id="content-13.45"><h2>13.45 Step 45</h2>
+<p>Again, create a file called <code class="console">mylabfile</code> in this directory that can be used to test the new permission set:</p>
+
+<pre class="config">touch /pub/mylabfile
+ls -l /pub
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> touch /pub/mylabfile
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls -l /pub
+total 0
+-rw-r--r-- 1 root root 0 May 17 02:22 mylabfile
+</pre></article><article id="content-13.46"><h2>13.46 Step 46</h2>
+<p>Execute the following command to switch back to the <code class="console">sysadmin</code> account:</p>
+
+<pre class="config">exit</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> exit
+logout
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong>
+</pre></article><article id="content-13.47"><h2>13.47 Step 47</h2>
+<p>Execute the following commands to attempt to delete the previously created file. When prompted with the message, <code class="console">rm: remove write-protected regular empty file `/pub/myfile'?</code>, type the <strong>Y</strong> key and then press <strong>Enter</strong>:</p>
+
+<pre class="config">rm /pub/mylabfile
+<strong>Y</strong>
+<strong>Enter</strong>
+ls -l /pub
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> rm /pub/mylabfile
+rm: remove write-protected regular empty file '/pub/mylabfile'? y
+rm: cannot remove '/pub/mylabfile': Operation not permitted
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls -l /pub
+total 0
+-rw-r--r-- 1 root root 0 Apr 18 20:16 myfile
+</pre>
+
+<p>Notice that this time, the <code class="console">sysadmin</code> user was not able to delete the <code class="console">mylabfile</code> file.</p></article><article id="content-13.48"><h2>13.48 Step 48</h2>
+<p>In the next few steps, we will demonstrate the use of the <code>umask</code> command. Start by creating a file called <code class="console">mysample.txt</code> and viewing its permissions by executing the following commands:</p>
+
+<pre class="config">touch mysample.txt
+ls -l mysample.txt
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> touch mysamplefile.txt
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls -l mysamplefile.txt
+-rw-rw-r-- 1 sysadmin sysadmin 0 May 17 02:30 mysamplefile.txt
+</pre>
+
+<p>Note that the default permissions of the <code class="console">mysample.txt</code> file are <code class="console">rw-rw-r--</code>. This is the result of the umask value of <code class="console">002</code>. The umask is an octal value based upon the same values as the ones used for setting permissions earlier in the lab except that for permissions, you add together the values for the user, the group, and others. However, the umask octal value is used to specify permissions to be <var>removed</var>.</p>
+
+<table class="table "><tbody>
+<tr>
+<td>4</td>
+<td>read</td>
+</tr>
+<tr>
+<td>2</td>
+<td>write</td>
+</tr>
+<tr>
+<td>1</td>
+<td>execute</td>
+</tr>
+<tr>
+<td>0</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<p>Execute the following command to see the current umask setting:</p>
+
+<pre class="config">umask</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> umask
+0002
+</pre>
+
+<div class="alert alert-info">It may be confusing that there is a fourth value in the output of the previous <code>umask</code> command. This is because there are technically four sets of permissions: user owner, group owner, others, and special permissions (the first <code class="console">0</code> in the output above). Since special permissions are never set by default, the initial 0 is not necessary when setting the umask value. As a result, this extra value will be largely ignored during this lab.</div></article><article id="content-13.49"><h2>13.49 Step 49</h2>
+<p>To set a umask value for new files that would result in default permissions for the owner, remove write permissions for the group owner and remove all permissions from others, the umask value would be <code class="console">026</code>:</p>
+
+<table class="table "><tbody>
+<tr>
+<td>File Default</td>
+<td><code class="console"> 666</code></td>
+<td><code class="console">rw-rw-rw-</code></td>
+</tr>
+<tr>
+<td>Umask</td>
+<td><code class="console">-026</code></td>
+<td><code class="console">----w-rw-</code></td>
+</tr>
+<tr>
+<td>Result</td>
+<td><code class="console"> 640</code></td>
+<td><code class="console">rw-r-----</code></td>
+</tr>
+</tbody></table>
+
+<p>Execute the following commands to change the umask setting to <code class="console">026</code> and verify that new files now have a permission set of <code class="console">rw-r-----</code>:</p>
+
+<pre class="config">umask 026
+touch mytestfile.txt
+ls -l mytestfile.txt
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> umask 026
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> touch mytestfile.txt
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls -l mytestfile.txt
+-rw-r----- 1 sysadmin sysadmin 0 May 17 02:41 mytestfile.txt
+</pre>
+
+<table class="table "><tbody>
+<tr>
+<td>File Default</td>
+<td><code class="console"> 666</code></td>
+<td><code class="console">rw-rw-rw-</code></td>
+</tr>
+<tr>
+<td>Umask</td>
+<td><code class="console">-027</code></td>
+<td><code class="console">----w-rw-</code></td>
+</tr>
+<tr>
+<td>Result</td>
+<td><code class="console"> 640</code></td>
+<td><code class="console">rw-r-----</code></td>
+</tr>
+</tbody></table>
+
+<div class="alert alert-info">
+<p>Remember that a umask value only affects new files and directories. Any existing file will never be affected by the umask value.</p>
+
+<p>The umask value is designed to make it easy for you to specify default permissions for new files and directories. By choosing a good umask value, you save yourself a lot of effort in the future since you won't have to change permissions on new files and directories very often.</p>
+</div></article><article id="content-13.50"><h2>13.50 Step 50</h2>
+<p>Execute the following commands to create a new directory called <code class="console">mydir1</code> and verify that the umask value of <code class="console">027</code> results in permissions for new directories of <code class="console">rwxr-x---</code>:</p>
+
+<pre class="config">mkdir mydir1
+ls -ld mydir1
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> mkdir mydir1
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls -ld mydir1
+drwxr-x--- 2 sysadmin sysadmin 4096 Apr 18 20:24 <strong><span class="ansi-blue">mydir1</span></strong>
+</pre>
+
+<table class="table "><tbody>
+<tr>
+<td>Directory Default</td>
+<td><code class="console"> 777</code></td>
+<td><code class="console">rwxrwxrwx</code></td>
+</tr>
+<tr>
+<td>Umask</td>
+<td><code class="console">-027</code></td>
+<td><code class="console">----w-rwx</code></td>
+</tr>
+<tr>
+<td>Result</td>
+<td><code class="console"> 750</code></td>
+<td><code class="console">rwxr-x---</code></td>
+</tr>
+</tbody></table></article><article id="content-13.51"><h2>13.51 Step 51</h2>
+<p>Execute the following commands to change the umask to <code class="console">002</code> and verify that this results in all new directories having the permission set of <code class="console">rwxrwxr-x</code>:</p>
+
+<pre class="config">umask 002
+mkdir mydir2
+ls -ld mydir2
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> umask 002
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> mkdir mydir2
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls -ld mydir2
+drwxrwxr-x 2 sysadmin sysadmin 4096 Apr 18 20:25 <strong><span class="ansi-blue">mydir2</span></strong>
+</pre>
+
+<div class="alert alert-warning">Recall that umask values, when set in the shell, are not permanent. To make a umask that will apply to every shell that you open, add the umask command line to your <code class="console">~/.bashrc</code> file.</div></article>
+</div>
+
+                            <ul class="pager">
+                              <li class="pull-left previous disabled"><a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/" class="btn"><i class="fa fa-caret-left"></i> Previous</a></li>
+                              <li class="pull-right next"><a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/13.1" class="btn">Next <i class="fa fa-caret-right"></i></a></li>
+                            </ul>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  
+                  
+                  
+                  <div id="mobile" class="tab-pane">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p>Sorry! Our device viewers currently do not support mobile phones and tablets.</p>
+                        <p>
+                          You will be able to read Chapters and Labs, but will not be able to interact with the
+                          virtual machines. We hope to add support for mobile devices in the future.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div><div tabindex="0" class="k-splitbar k-state-default k-splitbar-horizontal k-splitbar-draggable-horizontal" data-marker="6f65a9d1" role="separator" aria-expanded="true" style="height: 789.011px; left: 862px;"><div class="k-icon k-resize-handle"></div></div>
+    <div id="device-pane" class="desktop-only k-pane k-scrollable" role="group" style="position: absolute; top: 0px; width: 863.011px; height: 789.011px; left: 867px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            
+            <ul class="nav nav-tabs" role="tablist">
+              
+              <li class="active">
+                <a href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/#device1-tab" role="tab" data-toggle="tab" id="tab-with-options">
+                  
+                    <i class="fa fa-terminal"></i>
+                  
+                  Ubuntu PC
+                </a>
+              </li>
+              
+              <li class="dropdown tab-options">
+                <a class="dropdown-toggle" id="tour-reset" data-toggle="dropdown" href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/reset" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 444, &quot;session_id&quot;: &quot;2e206ead-bf70-460a-81ec-70e35ffa5369&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;reset&quot;}">
+                    Reset
+                    </a>
+                  </li>
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/labs/lpic1-s1/LtV9b8h9XN/fullscreen" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 444, &quot;session_id&quot;: &quot;2e206ead-bf70-460a-81ec-70e35ffa5369&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;toggle_fullscreen&quot;}">
+                    Toggle Fullscreen
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              
+            </ul>
+            
+
+            <!-- Tab panes -->
+            
+            <div class="tab-content tab-content-panel">
+              
+              <div class="tab-pane height-full active" id="device1-tab">
+                <div class="row height-full">
+                  <div class="col-xs-12 height-full">
+                  
+                  <div class="terminal-flex-container">
+                    <div class="terminal-flex-container--main">
+                      <div id="device1" style="width:100%;height:100%;"><div class="terminal" tabindex="0" spellcheck="false" style="outline: none; background-color: rgb(0, 0, 0); color: rgb(240, 240, 240); width: 732px; font-size: 15px;" id="device1"><div>Welcome&nbsp;to&nbsp;Ubuntu&nbsp;18.04.2&nbsp;LTS&nbsp;(GNU/Linux&nbsp;4.15.0-171-generic&nbsp;x86_64)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;*&nbsp;Documentation:&nbsp;&nbsp;https://help.ubuntu.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;*&nbsp;Management:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://landscape.canonical.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;*&nbsp;Support:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://ubuntu.com/advantage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>The&nbsp;programs&nbsp;included&nbsp;with&nbsp;the&nbsp;Ubuntu&nbsp;system&nbsp;are&nbsp;free&nbsp;software;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>the&nbsp;exact&nbsp;distribution&nbsp;terms&nbsp;for&nbsp;each&nbsp;program&nbsp;are&nbsp;described&nbsp;in&nbsp;the&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>individual&nbsp;files&nbsp;in&nbsp;/usr/share/doc/*/copyright.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>Ubuntu&nbsp;comes&nbsp;with&nbsp;ABSOLUTELY&nbsp;NO&nbsp;WARRANTY,&nbsp;to&nbsp;the&nbsp;extent&nbsp;permitted&nbsp;by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>applicable&nbsp;law.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>This&nbsp;lab&nbsp;has&nbsp;two&nbsp;user&nbsp;accounts&nbsp;(username&nbsp;::&nbsp;password&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;<span style="color:#cc0000;">root</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::&nbsp;<span style="font-weight:bold;color:#729fcf;">netlab123</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;<span style="color:#cc0000;">sysadmin</span>&nbsp;::&nbsp;<span style="font-weight:bold;color:#729fcf;">netlab123</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>Press&nbsp;the&nbsp;<span style="color:#4e9a06;">[Enter]</span>&nbsp;key&nbsp;to&nbsp;begin...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>No&nbsp;mail.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div><span style="font-weight:bold;color:#8ae234;">sysadmin@localhost</span>:<span style="font-weight:bold;color:#729fcf;">~</span>$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div><div class="color_filter" style="position: absolute; left: 34.517px; top: 0px; width: 731.989px; height: 537.727px; z-index: 990; background-color: rgba(0, 0, 0, 0.5); display: none;"></div><div class="spinner" style="position: absolute; width: 60px; height: 60px; z-index: 1000; animation-name: rotation; animation-duration: 0.6s; animation-iteration-count: infinite; animation-timing-function: linear; border-color: rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.8); border-style: solid; border-width: 6px; border-radius: 50%; left: 370.511px; top: 238.864px; display: none;"></div></div>
+                    </div>
+                    <div class="terminal-flex-container--keyboard">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseKeyboard1" aria-expanded="false" aria-controls="collapseKeyboard1">
+                        ⌨ Toggle onscreen keyboard</button>
+                      <div id="collapseKeyboard1" hidden="">
+                        <span data-keyboard-for="1"><!--?xml version="1.0" encoding="utf-8" ?-->
+<svg baseProfile="full" version="1.1" viewBox="0 0 920 320" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css">text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.keyboad-button{fill:darkgrey;font-size:12px;filter:drop-shadow(0px 0px 1px #000)}.keyboad-button:hover{fill:#9a9a9a;filter:none}.keyboad-button:active{fill:grey;filter:none}.keyboad-button text{fill:black;text-anchor:'middle'}[data-state-shift=true] [data-key=ShiftRight],[data-state-shift=true] [data-key=ShiftLeft]{fill:grey;filter:none}[data-state-ctrl=true] [data-key=ControlRight],[data-state-ctrl=true] [data-key=ControlLeft]{fill:grey;filter:none}[data-state-alt=true] [data-key=AltRight],[data-state-alt=true] [data-key=AltLeft]{fill:grey;filter:none}[data-state-numlock=true] [data-key=NumLock]{fill:grey;filter:none}[data-state-capslock=true] [data-key=CapsLock]{fill:grey;filter:none}[data-display-layer]{display:none}[data-display-layer=normal]{display:inline}[data-state-numlock=true] [data-display-layer]{display:none}[data-state-numlock=true] [data-display-layer=numlock]{display:inline}[data-state-capslock=true] [data-display-layer]{display:none}[data-state-capslock=true] [data-display-layer=capslock]{display:inline}[data-state-shift=true] [data-display-layer]{display:none}[data-state-shift=true] [data-display-layer=shift]{display:inline}
+</style></defs><g class="keyboad-button" data-key="Escape" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text></g><g class="keyboad-button" data-key="F1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="90.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text></g><g class="keyboad-button" data-key="F2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="140.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text></g><g class="keyboad-button" data-key="F3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="190.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text></g><g class="keyboad-button" data-key="F4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="240.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text></g><g class="keyboad-button" data-key="F5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="323.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text></g><g class="keyboad-button" data-key="F6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="373.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text></g><g class="keyboad-button" data-key="F7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="423.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text></g><g class="keyboad-button" data-key="F8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="473.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text></g><g class="keyboad-button" data-key="F9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text></g><g class="keyboad-button" data-key="F10" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text></g><g class="keyboad-button" data-key="F11" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="657.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="shift" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text></g><g class="keyboad-button" data-key="F12" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="707.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="shift" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text></g><g class="keyboad-button" data-key="Backquote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">~</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text></g><g class="keyboad-button" data-key="Digit1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="57.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">!</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text></g><g class="keyboad-button" data-key="Digit2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">@</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text></g><g class="keyboad-button" data-key="Digit3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">#</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text></g><g class="keyboad-button" data-key="Digit4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">$</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text></g><g class="keyboad-button" data-key="Digit5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">%</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text></g><g class="keyboad-button" data-key="Digit6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">^</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text></g><g class="keyboad-button" data-key="Digit7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">&amp;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text></g><g class="keyboad-button" data-key="Digit8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">*</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text></g><g class="keyboad-button" data-key="Digit9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">(</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text></g><g class="keyboad-button" data-key="Digit0" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">)</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text></g><g class="keyboad-button" data-key="Minus" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">_</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text></g><g class="keyboad-button" data-key="Equal" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">+</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text></g><g class="keyboad-button" data-key="Backspace" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96" x="657.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text></g><g class="keyboad-button" data-key="Insert" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text></g><g class="keyboad-button" data-key="Home" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text></g><g class="keyboad-button" data-key="PageUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text></g><g class="keyboad-button" data-key="Tab" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="7.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="shift" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text></g><g class="keyboad-button" data-key="KeyQ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="82.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="shift" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text></g><g class="keyboad-button" data-key="KeyW" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text></g><g class="keyboad-button" data-key="KeyE" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text></g><g class="keyboad-button" data-key="KeyR" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text></g><g class="keyboad-button" data-key="KeyT" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text></g><g class="keyboad-button" data-key="KeyY" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text></g><g class="keyboad-button" data-key="KeyU" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text></g><g class="keyboad-button" data-key="KeyI" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text></g><g class="keyboad-button" data-key="KeyO" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text></g><g class="keyboad-button" data-key="KeyP" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text></g><g class="keyboad-button" data-key="BracketLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">{</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text></g><g class="keyboad-button" data-key="BracketRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="632.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="shift" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">}</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text></g><g class="keyboad-button" data-key="Backslash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="682.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="shift" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">|</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text></g><g class="keyboad-button" data-key="Delete" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text></g><g class="keyboad-button" data-key="End" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text></g><g class="keyboad-button" data-key="PageDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text></g><g class="keyboad-button" data-key="CapsLock" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="7.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="shift" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text></g><g class="keyboad-button" data-key="KeyA" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text></g><g class="keyboad-button" data-key="KeyS" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text></g><g class="keyboad-button" data-key="KeyD" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text></g><g class="keyboad-button" data-key="KeyF" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text></g><g class="keyboad-button" data-key="KeyG" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text></g><g class="keyboad-button" data-key="KeyH" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text></g><g class="keyboad-button" data-key="KeyJ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text></g><g class="keyboad-button" data-key="KeyK" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text></g><g class="keyboad-button" data-key="KeyL" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text></g><g class="keyboad-button" data-key="Semicolon" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">:</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text></g><g class="keyboad-button" data-key="Quote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">"</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text></g><g class="keyboad-button" data-key="Enter" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="657.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text></g><g class="keyboad-button" data-key="ShiftLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="7.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text></g><g class="keyboad-button" data-key="KeyZ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text></g><g class="keyboad-button" data-key="KeyX" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text></g><g class="keyboad-button" data-key="KeyC" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text></g><g class="keyboad-button" data-key="KeyV" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text></g><g class="keyboad-button" data-key="KeyB" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text></g><g class="keyboad-button" data-key="KeyN" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text></g><g class="keyboad-button" data-key="KeyM" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text></g><g class="keyboad-button" data-key="Comma" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">&lt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text></g><g class="keyboad-button" data-key="Period" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">&gt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text></g><g class="keyboad-button" data-key="Slash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">?</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text></g><g class="keyboad-button" data-key="ShiftRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="632.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text></g><g class="keyboad-button" data-key="ArrowUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text></g><g class="keyboad-button" data-key="ControlLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="7.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="AltLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="142.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text></g><g class="keyboad-button" data-key="Space" text-anchor="middle"><rect height="46" rx="5" ry="5" width="316.0" x="197.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text></g><g class="keyboad-button" data-key="AltRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="517.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text></g><g class="keyboad-button" data-key="ControlRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="672.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="ArrowLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text></g><g class="keyboad-button" data-key="ArrowDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text></g><g class="keyboad-button" data-key="ArrowRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text></g></svg></span>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                  $(function() {
+                    if (isDesktop()) {
+                      var wsUri = "wss://vlabs-ln-rs.netdevgroup.com/proxy/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJndyI6InZsYWJzLWxuLXJzLm5ldGRldmdyb3VwLmNvbSIsInZoIjoibG4yIiwiY24iOiIyZTIwNmVhZC1iZjcwLTQ2MGEtODFlYy03MGUzNWZmYTUzNjkuMSIsInB0IjoiYXR0YWNoIiwidHAiOiJhdHRhY2giLCJleHAiOjE2NDcwMDA1MTJ9.XFL-UoJ0sKgz9UkoudXOLGKouMQZmSWW823N58We0cU/attach";
+                      var term = new CliViewer( document.getElementById('device1'), 'device1', wsUri, null );
+                      var device = {
+                        type: 'cli', obj: term, parent: '#device1',
+                        session_id: '2e206ead-bf70-460a-81ec-70e35ffa5369', instance_id: '2e206ead-bf70-460a-81ec-70e35ffa5369.1'
+                      };
+                      window.devices.push(device);
+                      logEvent(device.session_id, device.instance_id, 'WS_ATTEMPT');
+                      term.socket.addEventListener('open', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_CONNECT');
+                      });
+                      term.socket.addEventListener('close', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_DISCONNECT');
+                      });
+                    }
+                  });
+                  </script>
+                  
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Feedback Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true">
+    <div class="modal-dialog">
+      <div id="modalContent" class="modal-content">
+      </div>
+    </div>
+  </div>
+
+
+
+<span id="__FONT_METRICS__" style="position: absolute; top: -16384px; left: -16384px; background-color: red; margin: 0px; padding: 0px; border-style: none; outline-style: none; font-family: &quot;DejaVu Sans Mono&quot;, &quot;Liberation Mono&quot;, monospace; font-size: 15px;">M</span></body></html>

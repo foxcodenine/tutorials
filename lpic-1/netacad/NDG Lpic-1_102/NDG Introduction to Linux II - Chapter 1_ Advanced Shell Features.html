@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/ -->
+<html lang="en" class="k-webkit k-webkit102"><input type="hidden" id="__yoroi_connector_api_injected_type" value="prod"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="spinner-keyframes">
+@-webkit-keyframes rotation 
+{  from { -webkit-transform : rotate( 0deg );   }
+  to   { -webkit-transform : rotate( 359deg ); }
+}
+@-moz-keyframes rotation {
+  from { -moz-transform : rotate( 0deg );   }
+  to   { -moz-transform : rotate( 359deg ); }
+}
+@-o-keyframes rotation {
+  from { -o-transform : rotate( 0deg );   }
+  to   { -o-transform : rotate( 359deg ); }
+}
+@keyframes rotation {
+  from { transform : rotate( 0deg );   }
+  to   { transform : rotate( 359deg ); }
+}
+</style><style id="term-style">.terminal {
+  float: left;
+  border: #000000 solid 5px;
+  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-size: 11px;
+  color: #f0f0f0;
+  background: #000000;
+  white-space: nowrap;
+}
+
+.terminal-cursor {
+  color: #000000;
+  background: #f0f0f0;
+}
+</style>
+  <title>NDG Introduction to Linux II - Chapter 1: Advanced Shell Features</title>
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="https://ndg-content.s3.us-west-2.amazonaws.com/img/favicon.ico">
+
+  <link rel="stylesheet" href="./NDG Introduction to Linux II - Chapter 1_ Advanced Shell Features_files/44d1a56e411f.css" type="text/css">
+
+  <script async="" src="./NDG Introduction to Linux II - Chapter 1_ Advanced Shell Features_files/analytics.js"></script><script type="text/javascript" src="./NDG Introduction to Linux II - Chapter 1_ Advanced Shell Features_files/polyfill-6.26.0.min.js"></script>
+  <script type="text/javascript" src="./NDG Introduction to Linux II - Chapter 1_ Advanced Shell Features_files/9930c7fbf6d8.js"></script>
+
+  <script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-11306725-3', 'netdevgroup.com');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+
+</script>
+
+  <script type="text/javascript">
+    var NDGCourse = {name: "NDG Introduction to Linux II"};
+    var videoContent = {};
+  </script>
+</head>
+
+<body style="">
+
+  <!-- Start Navbar -->
+  <div class="navbar navbar-primary navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand hidden-xs">
+          NDG Introduction to Linux II - Chapter 1: Advanced Shell Features
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-share-alt" aria-hidden="true"></i> Share <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://www.facebook.com/share.php?u=https://netdevgroup.com/online/courses/linux.html&amp;title=Learn%20Linux%20with%20NDG" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+            </li>
+            <li>
+              <a href="http://twitter.com/home?status=Learn%20Linux%20with%20NDG+https://netdevgroup.com/online/courses/linux.html" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li id="tour-help" class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-lg hidden-md hidden-sm">NDG Introduction to Linux II</span>
+            <div class="pull-right">
+              <i class="fa fa-question-circle"></i>
+              <span class="hidden-xs"> Help</span>
+              <b class="caret"></b>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header hidden-md hidden-sm hidden-lg">Chapter 1: Advanced Shell Features</li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s2/faq/">Frequently Asked Questions</a></li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s2/feedback/">Contact Support</a></li>
+            <li class="hidden-xs desktop-only"><a id="toursb" class="support" href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/#">Start Tour</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- End Navbar -->
+
+
+  <div id="splitter" class="height-full k-widget k-splitter" data-role="splitter">
+    <div role="group" class="k-pane k-scrollable" style="position: absolute; top: 0px; width: 567px; height: 455.008px; left: 0px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            <!-- Tab Btns -->
+              <ul id="left-tabs" class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/#content" role="tab" data-toggle="tab">Content</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/#objectives" role="tab" data-toggle="tab">Objectives</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/#terms" role="tab" data-toggle="tab">Key Terms</a></li>
+                
+                <li class="mobile-only" style="display:none;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/#mobile" role="tab" data-toggle="tab"><i class="fa fa-terminal"></i> Devices</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div id="content-container" class="tab-content tab-content-panel">
+                  <div id="content" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="tour2" class="btn-group-vertical btn-group-xs pull-left hidden-xs">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                          
+                                          1.1 Introduction
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.2 LPIC-1 Certification Note
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.3 Shell Variables
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.4 Local and Environment Variables
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.5" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.5 Creating Environment Variables
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.6" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.6 Unsetting Variables 
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.7" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.7 Understanding the <console>PATH</console> Variable
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.8" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.8 Additional Common Variables
+                                        </a>
+                                        
+                                          
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.8.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.8.1 Prompt Variables
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.8.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.8.2 History Variables
+                                        </a>
+                                        
+                                      
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.9" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.9 Aliases
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.10" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.10 Functions
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.11" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.11 Lists
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.12" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.12 Initialization Files
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.13" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.13 Modifying Initialization Files
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.14" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          1.14 BASH Exit Scripts
+                                        </a>
+                                        
+                                      
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.1" class="btn btn-default ndg-menu-btn change_section btn-primary active" style="text-align:left;">
+                                    1.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.4
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.5" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.5
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.6" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.6
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.7" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.7
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.8" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.8
+                                  </a>
+                                  
+                                    
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.8.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.8.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.8.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.8.2
+                                  </a>
+                                  
+                                
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.9" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.9
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.10" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.10
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.11" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.11
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.12" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.12
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.13" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.13
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.14" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    1.14
+                                  </a>
+                                  
+                                
+                            </div>
+                            <div class="content-menu-space">
+                              <div class="btn-group hidden-lg hidden-md hidden-sm mobile-chapter-select">
+                                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-caret-down"></i> Sections
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                        1.1 Introduction
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.2" class="btn-default ndg-menu-btn change_section">
+                                        1.2 LPIC-1 Certification Note
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.3" class="btn-default ndg-menu-btn change_section">
+                                        1.3 Shell Variables
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.4" class="btn-default ndg-menu-btn change_section">
+                                        1.4 Local and Environment Variables
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.5" class="btn-default ndg-menu-btn change_section">
+                                        1.5 Creating Environment Variables
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.6" class="btn-default ndg-menu-btn change_section">
+                                        1.6 Unsetting Variables 
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.7" class="btn-default ndg-menu-btn change_section">
+                                        1.7 Understanding the <console>PATH</console> Variable
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.8" class="btn-default ndg-menu-btn change_section">
+                                        1.8 Additional Common Variables
+                                      </a>
+                                      
+                                        
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.8.1" class="btn-default ndg-menu-btn change_section">
+                                        1.8.1 Prompt Variables
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.8.2" class="btn-default ndg-menu-btn change_section">
+                                        1.8.2 History Variables
+                                      </a>
+                                      
+                                    
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.9" class="btn-default ndg-menu-btn change_section">
+                                        1.9 Aliases
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.10" class="btn-default ndg-menu-btn change_section">
+                                        1.10 Functions
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.11" class="btn-default ndg-menu-btn change_section">
+                                        1.11 Lists
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.12" class="btn-default ndg-menu-btn change_section">
+                                        1.12 Initialization Files
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.13" class="btn-default ndg-menu-btn change_section">
+                                        1.13 Modifying Initialization Files
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.14" class="btn-default ndg-menu-btn change_section">
+                                        1.14 BASH Exit Scripts
+                                      </a>
+                                      
+                                    
+                                    </li>
+                                  </ul>
+                                </div>
+                              <div>
+<article id="content-1.1" style="display: block;"><h2>1.1 Introduction</h2> <p>Even though most Linux distributions use a Graphical User Interface (GUI), administrators are more likely to work in the Command Line Interface (CLI) to perform routine tasks. The command line typically has much more powerful features, which are not available in a GUI, such as scripts (i.e., Shell scripts) that administrators can use to perform remote and advanced tasks such as setting up system services.</p>
+
+<p>In general, administrators work with many servers simultaneously, and the GUI interface does not lend itself to this type of work. GUIs also utilize valuable system resources (such as RAM and CPU), which slows down the performance of other server functions (such as FTP and HTTP).</p>
+
+<p>As a result, becoming comfortable with the command line environment is crucial for anyone who works with Linux on a regular basis. The primary focus of this module is to increase your comfort level and productivity level while working with a shell environment.</p>
+
+<p>This chapter will address shell features and shell programming. Understanding how to customize a shell environment is an essential skill for both end-users and administrators. End-users may want to modify their shell environment to suit their specific needs. For example, a software developer may want a different environment than someone who creates and maintains websites.</p>
+
+<p>Administrators can make the shell environment easier to use for entire sets of users. Knowing how to customize a shell environment and apply these customizations to multiple user accounts will provide a more user-friendly, "best practices" environment. This should increase productivity and reduce support issues.</p>
+
+<p>In this chapter, you will learn a variety of shell customization features, including variables, aliases, and customization files.</p>
+</article><article id="content-1.2"><h2>1.2 LPIC-1 Certification Note</h2>
+<p>Individuals who have utilized the previous course for the LPIC-1 101 exam preparation will notice a great deal of redundancy in this chapter. Many of the topics that will be covered in this chapter were also covered in the previous course because these topics are testable on both LPIC-1 exams. These redundancies are emphasized in the table below in <strong>bold</strong>:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Exam:</th>
+<th>LPIC-1 101</th>
+<th>LPIC-1 102</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Topic:</td>
+<td><ul type="disc" class=""><li>103.1 Work on the command line</li></ul></td>
+<td><ul type="disc" class=""><li>105.1 Customize and use the shell environment</li></ul></td>
+</tr>
+<tr>
+<td>Key Knowledge Areas:</td>
+<td>
+<ul type="disc" class="">
+<li><p>Use single shell commands and one-line command sequences to perform basic tasks on the command line.</p></li>
+<li><p><strong>Use and modify the shell environment, including defining, referencing, and exporting environment variables.</strong></p></li>
+<li><p>Use and edit command history.</p></li>
+<li><p><strong>Invoke commands inside and outside the defined path.</strong></p></li>
+</ul>
+</td>
+
+
+<td>
+<ul type="disc" class="">
+<li><p><strong>Set environment variables (e.g., PATH) at login or when spawning a new shell.</strong></p></li>
+<li><p>Write BASH functions for frequently used sequences of commands.</p></li>
+<li><p>Maintain skeleton directories for new user accounts.</p></li>
+<li><p><strong>Set command search path with the proper directory.</strong></p></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td>Terms and Utilities:</td>
+<td>
+<ul type="disc" class="">
+<li>.bash_history</li>
+<li>bash</li>
+<li>echo</li>
+<li><strong>env</strong></li>
+<li>exec</li>
+<li><strong>export</strong></li>
+<li>pwd</li>
+<li><strong>set</strong></li>
+<li><strong>unset</strong></li>
+<li>man</li>
+<li>uname</li>
+<li>history</li>
+<li>Quoting</li>
+</ul>
+</td>
+
+<td>
+<ul type="disc" class="">
+<li><strong>.</strong></li>
+<li><strong>./etc/profile</strong></li>
+<li><strong>env</strong></li>
+<li><strong>export</strong></li>
+<li><strong>set</strong></li>
+<li>unset</li>
+<li><strong>~/.bash_profile</strong></li>
+<li><strong>~/.bash_login</strong></li>
+<li><strong>~/.profile</strong></li>
+<li><strong>~/.bashrc</strong></li>
+<li><strong>~/.bash_logout</strong></li>
+<li>function</li>
+<li>alias</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>While some of the topics covered in this chapter will review information covered in the previous course, there will also be new material introduced in this chapter.</p>
+</article><article id="content-1.3"><h2>1.3 Shell Variables</h2>
+<p>A variable is a name or identifier that can be assigned a value. The shell (and other commands) reads the values of these variables, which can result in altered behavior depending on the contents (value) of the variable.</p>
+
+<p>Variables typically hold a single value, like <code class="console">0</code> or <code class="console">bob</code>. Some may contain multiple values separated by spaces like <code class="console">Joe Brown</code> or by other characters, such as colons: <code class="console">/usr/bin:/usr/sbin:/bin:/usr/bin:/home/joe/bin</code>.</p>
+
+<p>You assign a value to a variable by typing the name of the variable, immediately followed by an  equal sign <code class="console">=</code> and then the value. For example: <code class="console">name="Bob Smith"</code>.</p>
+
+<p>Variable names should start with a letter (alpha character) or underscore and contain only letters, numbers, and the underscore character. It is important to remember that variable names are case-sensitive; <code class="console">a</code> and <code class="console">A</code> are different variables. Just as with arguments to commands, single or double quotes should be used when special characters are included in the value assigned to the variable to prevent shell expansion.</p>
+
+<table class="table ">
+<thead><tr>
+  <th>Valid Variable Assignments</th>
+  <th>Invalid Variable Assignments</th>
+ </tr></thead>
+<tbody>
+<tr>
+  <td><code class="console">a=1</code></td>
+  <td><code class="console">1=a</code></td>
+ </tr>
+<tr>
+  <td><code class="console">_1=a</code></td>
+  <td><code class="console">a-1=3</code></td>
+ </tr>
+<tr>
+  <td><code class="console">LONG_VARIABLE='OK'</code></td>
+  <td><code class="console">LONG-VARIABLE='WRONG'</code></td>
+ </tr>
+<tr>
+  <td><code class="console">Name='Jose Romero'</code></td>
+  <td><code class="console">'user name'=anything</code></td>
+ </tr>
+<tr>
+  <td><code class="console">sshdirectory='/etc/ssh'</code></td>
+  <td><code class="console">"sshdirectory"=etc/ssh</code></td>
+ </tr>
+</tbody>
+</table>
+
+<p>The Bash shell and many commands make extensive use of variables. One of the main uses of variables is to provide a means to configure various preferences for each user. The Bash shell and commands can behave in different ways, based on the value of variables. For the shell, variables can affect what the prompt displays, the directories the shell will search for commands to execute, and much more.</p>
+</article><article id="content-1.4"><h2>1.4 Local and Environment Variables</h2>
+<p>A <var>local</var> variable is only available to the shell in which it was created. An <var>environment</var> variable is available to the shell in which it was created, and it is passed into all other commands/programs started by the shell.</p>
+
+<p>By convention, lowercase characters are used to create local variable names, and uppercase characters are used when naming an environment variable. For example, a local variable might be called <code class="console">test</code>, while an environment variable might be called <code class="console">TEST</code>. While this is a convention that most people follow, it is not a rule.</p>
+
+<p>There are several ways to display the values of variables. The <code>set</code> command by itself will display all variables (local and environment):</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> set | head
+BASH=/bin/bash                                                                  
+BASHOPTS=checkwinsize:cmdhist:complete_fullquote:expand_aliases:extglob:extquote
+:force_fignore:histappend:interactive_comments:login_shell:progcomp:promptvars:s
+ourcepath                                                                       
+BASH_ALIASES=()                                                                 
+BASH_ARGC=()                                                                    
+BASH_ARGV=()                                                                    
+BASH_CMDS=()                                                                    
+BASH_COMPLETION_VERSINFO=([0]="2" [1]="8")                                      
+BASH_LINENO=()                                                                  
+BASH_SOURCE=()                                                                  
+BASH_VERSINFO=([0]="4" [1]="4" [2]="19" [3]="1" [4]="release" [5]="x86_64-pc-lin
+ux-gnu")
+</pre>
+
+<p>To display only environment variables, there are several commands that provide nearly the same output: <code>env</code>, <code>declare -x</code>, <code>typeset -x</code> or <code>export -p</code>:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> env | tail                                                
+PWD=/home/sysadmin                                                              
+HOME=/home/sysadmin                                                             
+MAIL=/var/mail/sysadmin                                                         
+SHELL=/bin/bash                                                                 
+TERM=xterm                                                                      
+SHLVL=1                                                                         
+LOGNAME=sysadmin                                                                
+PATH=/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:
+/bin:/usr/games:/usr/local/games                                                
+LESSOPEN=| /usr/bin/lesspipe %s                                                 
+_=/usr/bin/env     
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> declare -x | tail -5                                      
+declare -x PWD="/home/sysadmin"                                                 
+declare -x SHELL="/bin/bash"                                                    
+declare -x SHLVL="1"                                                            
+declare -x TERM="xterm"                                                         
+declare -x USER="sysadmin"              
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> typeset -x | tail -5                                      
+declare -x PWD="/home/sysadmin"                                                 
+declare -x SHELL="/bin/bash"                                                    
+declare -x SHLVL="1"                                                            
+declare -x TERM="xterm"
+declare -x USER="sysadmin"     
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> export -p | tail -5                                       
+declare -x PWD="/home/sysadmin"                                                 
+declare -x SHELL="/bin/bash"                                                    
+declare -x SHLVL="1"                                                            
+declare -x TERM="xterm"                                                         
+declare -x USER="sysadmin"
+</pre>
+
+<p>To display the value of a specific variable, use the <code>echo</code> command with the name of the variable prefixed by the dollar <code class="console">$</code> sign. For example, to display the value of the <code class="console">PATH</code> variable, you would execute <code>echo $PATH</code>.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $PATH
+/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
+/usr/games:/usr/local/games
+</pre>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+<p>Variables can also be enclosed in curly <code class="console">{}</code> braces in order to delimit them from surrounding text. While the <code>echo ${PATH}</code> command would produce the same result as the <code>echo $PATH</code> command, curly braces set the variable apart visually, making it easier to see in scripts in some contexts.</p>
+</div>
+</article><article id="content-1.5"><h2>1.5 Creating Environment Variables</h2>
+<p>By default, when a variable is assigned in the Bash shell, it is initially set as a local variable. There are a few ways that a local variable can also be made to be an environment variable. First, an existing local variable can be <var>exported</var> with the <code>export</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ENVIRONMENT_A=1
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> export ENVIRONMENT_A</pre>
+
+<p>Second, a new variable can be <var>exported</var> and assigned a value with a single command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> export ENVIRONMENT_B=2</pre>
+
+<p>Third, the <code>declare</code> or <code>typeset</code> command can be used, to <var>declare</var> a variable to be an environment variable. These commands are synonymous and work the same way:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> declare -x ENVIRONMENT_C=3
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> typeset -x ENVIRONMENT_D=3</pre>
+
+<p>If the commands above are all executed, there will be four new environment variables:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> env | grep ENVIRONMENT
+<span class="ansi-red">ENVIRONMENT</span>_B=2
+<span class="ansi-red">ENVIRONMENT</span>_C=3
+<span class="ansi-red">ENVIRONMENT</span>_A=1
+<span class="ansi-red">ENVIRONMENT</span>_D=3</pre>
+
+<p>Using the following syntax, the <code>env</code> command can also be used to temporarily set a variable:</p>
+
+<pre class="config">env <var>VARIABLE_NAME=TEMP_VALUE command</var></pre>
+
+<p>Servers are often set to Coordinated Universal Time (UTC), which is good for maintaining consistent time on servers across the planet, but can be frustrating for practical use to simply tell the time:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> date
+Fri Sep 18 21:27:25 UTC 2020
+</pre>
+
+<p>To temporarily set the time zone variable <code class="console">TZ</code> to Eastern Standard Time (EST), use the <code>env</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> env TZ=EST date
+Fri Sep 18 16:27:54 EST 2020
+</pre>
+
+<p>The <code class="console">TZ</code> variable is set only in the environment of the current shell, and only for the duration of the <code>date</code> command. The rest of the system will not be affected by this variable. In fact, running the <code>date</code> command again will verify that the <code class="console">TZ</code> variable has reverted to UTC.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> date
+Fri Sep 18 21:29:43 UTC 2020
+</pre>
+</article><article id="content-1.6"><h2>1.6 Unsetting Variables </h2>
+<p>If the shell option <code class="console">nounset</code> is enabled with the <code>set -o nounset</code> command, then referring to an unset variable will result in an <code class="console">unbound variable</code> error. When the command is used within a script, referencing an unset variable will cause the script to exit.</p>
+
+<p>This option may be <var>turned off</var>, using the <code>set +o nounset</code> command, where any reference to an unset variable will return a null value.</p>
+
+<p>If you create a variable and then no longer want that variable to be defined, use the <code>unset</code> command to delete it:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> variable_1="This is a variable." 
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $variable_1
+This is a variable.
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> unset variable_1
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> set -o nounset
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $variable_1
+-bash: variable_1: unbound variable
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> set +o nounset
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $variable_1
+ 
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong>
+</pre>
+
+<div class="alert alert-danger">
+<p><strong>Important</strong></p>
+<p>Do not <code>unset</code> critical system variables like the <code class="console">PATH</code> variable, since this could lead to a malfunctioning environment.</p>
+</div>
+</article><article id="content-1.7"><h2>1.7 Understanding the <code class="console">PATH</code> Variable</h2>
+<p>The <code class="console">PATH</code> variable is one of the most critical environment variables for the shell, so it is important to understand the effect it has on how commands will be executed.</p>
+
+<p>The following graphic displays a typical <code class="console">PATH</code> variable, with directory names separated from each other by the colon <code class="console">:</code> character:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $PATH
+/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
+/usr/games:/usr/local/games
+</pre>
+
+<p>The <code class="console">PATH</code> variable contains a list of directories that are used to search for commands entered by the user. When the user types a command and then presses the <strong>Enter</strong> key, the <code class="console">PATH</code> directories are searched for an executable file that matches the command name. Processing works through the list of directories from left to right; the first executable file that matches what is typed is the command the shell will try to execute.</p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+<p>Before searching the <code class="console">PATH</code> variable for the command, the shell will first determine if the command is an alias or function, which may result in the <code class="console">PATH</code> variable not being utilized when that specific command is executed.</p>
+<p>Additionally, if the command happens to be built-in to the shell, the <code class="console">PATH</code> variable will not be utilized.</p>
+
+<p>Lastly, if the user uses an absolute path such as <code class="console">/bin/ls</code> or a relative path such as <code class="console">./ls</code>, then the <code class="console">PATH</code> variable is not utilized.</p>
+</div>
+
+<p>The following table describes the purpose of some of the directories displayed in the <code class="console">PATH</code> variable above:</p>
+
+<table class="table ">
+<thead><tr>
+  <th>Directory</th>
+  <th>Contents</th>
+ </tr></thead>
+<tbody>
+<tr>
+  <td><code class="console">/home/sysadmin/bin</code></td>
+  <td>A directory for the current user <code class="console">sysadmin</code> to place programs. Typically used by users who create their own scripts.</td>
+ </tr>
+<tr>
+  <td><code class="console">/usr/local/sbin</code></td>
+  <td>Normally empty, but may have administrative commands that have been compiled from local sources.</td>
+ </tr>
+<tr>
+  <td><code class="console">/usr/local/bin</code></td>
+  <td>Normally empty, but may have commands that have been compiled from local sources.</td>
+ </tr>
+<tr>
+  <td><code class="console">/usr/sbin</code></td>
+  <td>Contains the majority of the administrative command files.</td>
+ </tr>
+<tr>
+  <td><code class="console">/usr/bin</code></td>
+  <td>Contains the majority of the commands that are available for regular users to execute.</td>
+ </tr>
+<tr>
+  <td><code class="console">/sbin</code></td>
+  <td>Contains the essential administrative commands.</td>
+ </tr>
+<tr>
+  <td><code class="console">/bin</code></td>
+  <td>Contains the most fundamental commands that are essential for the operating system to function.</td>
+ </tr>
+</tbody>
+</table>
+
+<p>To execute commands that are not contained in the directories that are listed in the <code class="console">PATH</code> variable, several options exist:</p>
+
+<ul type="disc" class="">
+<li>The command may be executed by typing the absolute path to the command.</li>
+<li>The command may be executed with a relative path to the command.</li>
+<li>The <code class="console">PATH</code> variable can be set to include the directory where the command is located.</li>
+<li>The command can be relocated or copied to a directory that is listed in the <code class="console">PATH</code> variable.</li>
+</ul>
+
+<h3>Absolute Path</h3>
+
+<p>To demonstrate <var>absolute paths</var> vs. <var>relative paths</var>, an executable script named <code class="console">my.sh</code> is created in the home directory:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo 'echo Hello World!' &gt; my.sh
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> chmod u+x my.sh</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>The <code>chmod</code> command is used to modify user permissions using the <var>symbolic method</var>. In the command above, the <code class="console">u</code> represents the <var>user owner</var>, the plus <code class="console">+</code> sign represents <var>add the permission</var>, and the <code class="console">x</code> represents the <code class="console">execute</code> permission; in other words, add the execute permission to the user owner on the file.</p>
+</div>
+
+<p>An absolute path specifies the location of a file or directory from the top-level directory through all of the subdirectories to the file or directory. Absolute paths always start with the <code class="console">/</code> character representing the root directory. For example, <code class="console">/usr/bin/ls</code> is an absolute path. It means the <var>ls file, which is in the bin directory, which is in the usr directory, which is in the / (root) directory</var>. A file can be executed using an absolute path like so:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> /home/sysadmin/my.sh
+Hello World!
+</pre>
+
+<h3>Relative Path</h3>
+
+<p>A relative path specifies the location of a file or directory relative to the current directory. For example, in the <code class="console">/home/sysadmin</code> directory, a relative path of <code class="console">test/newfile</code> would actually refer to the <code class="console">/home/sysadmin/test/newfile</code> file. Relative paths never start with the <code class="console">/</code> character.</p>
+
+<p>Using a relative path to execute a file in the current directory requires the use of the period <code class="console">.</code> character, which symbolizes the current directory:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ./my.sh
+Hello World!
+</pre>
+
+<h3>Modify <code class="console">PATH</code> Variable</h3>
+
+<p>When a user wants their home directory added to the <code class="console">PATH</code> variable in order to run scripts and programs without using <code class="console">./</code> in front of the filename, they might be tempted to modify the path variable like so:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $PATH
+/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:
+/usr/games:/usr/local/games
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> pwd
+/home/sysadmin
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> PATH=/home/sysadmin
+</pre>
+
+<p>Unfortunately, everything that was previously contained in the <code class="console">PATH</code> variable will be lost.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $PATH
+/home/sysadmin
+</pre>
+
+<p>This is because <code class="console">PATH=/home/sysadmin</code> resigns the value of the <code class="console">PATH</code> variable. A correct method is included later in this section.</p>
+
+<p>Programs listed outside of the <code class="console">/home/sysadmin</code> directory will now only be accessible by using their full pathname. For example, assuming that the home directory has not yet been added to the <code class="console">PATH</code> variable, the <code>uname -a</code> command would behave as expected:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> uname -a
+Linux localhost 4.4.0-72-generic #93~14.04.1-Ubuntu SMP Fri Mar 31 15:05:15 UTC 
+2017 x86_64 x86_64 x86_64 GNU/Linux
+</pre>
+
+<p>After assigning the home directory to the <code class="console">PATH</code> variable, the <code>uname -a</code> command will need its full pathname to execute successfully:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> PATH=/home/sysadmin
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> uname -a
+Command 'uname' is available in '/bin/uname'                                    
+The command could not be located because '/bin' is not included in the PATH envi
+ronment variable.                                                               
+uname: command not found   
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> /bin/uname -a
+Linux localhost 4.4.0-72-generic #93~14.04.1-Ubuntu SMP Fri Mar 31 15:05:15 UTC 
+2017 x86_64 x86_64 x86_64 GNU/Linux
+</pre>
+
+<p>It is possible to add to the <code class="console">PATH</code> variable without overwriting its previous contents. Import the current value of the <code class="console">$PATH</code> variable into the newly-defined <code class="console">PATH</code> variable by using it on both sides of the assignment statement.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>If you changed the <code class="console">PATH</code> variable like we did in the previous example and want to reset it, simply use the <code>exit</code> command to logout:</p>
+</div>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> exit</pre>
+
+<div class="alert alert-warning"><p>Once logged back in, the PATH variable will be reset to its original value.</p></div>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> PATH=$PATH</pre>
+
+<p>Finish it with the value of the additional home directory path.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> PATH=$PATH:/home/sysadmin
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $PATH
+/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/sysadmin
+</pre>
+
+<p>Now, scripts located in the<code class="console"> /home/sysadmin</code> directory can execute without using a path:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> my.sh
+Hello World!
+</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>In general, it is a bad idea to modify the <code class="console">PATH</code> variable. If it were to change, administrators would view it as suspicious activity. Malicious forces want to gain elevated privileges and access to sensitive information residing on Linux servers. One way to do this is to write a script that shares the name of a system command, then change the <code class="console">PATH</code> variable to include the administrator’s home directory. When the administrator types in the command, it actually runs the malicious script!</p>
+</div>
+
+<h3>Relocate the Command</h3>
+
+<p>It is often simpler to copy a script to a directory that is already included in the <code class="console">PATH</code>. For example, the user could place the script in the <code class="console">/home/sysadmin/bin</code> directory, since that directory is already included in the <code class="console">PATH</code> variable.</p>
+
+<p>Remember that it is possible for different commands (located in different directories) to have the same name; the shell will always try to execute the first matching command it finds. For this reason, it is best to avoid using names for scripts that are already used by other commands.</p>
+
+<p>The directories listed in the <code class="console">PATH</code> will be searched in the order they are entered, from left to right. For example, based on the output below, if a script named <code class="console">userupdate</code> is present in both the <code class="console">usr/local/bin</code> and the <code class="console">usr/local/games</code> directories, the version that would be found and executed would be the one in the <code class="console">usr/local/bin</code> directory.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $PATH
+/home/sysadmin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+</pre>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+<p>How can you tell if a command that you are creating might have the same name as another command on the system? Given that the conflict could be with a regular command, another shell script, a built-in command, an alias, or a function, it could be a bit challenging. Fortunately, the <code>type</code> command will help you discover any potential conflicts.</p>
+
+<p>As demonstrated in the output below, the <code>type</code> command can determine if the command specified already exists. The final command executed in the example below, using  the <code>junk</code> command, illustrates what it looks like when there is no such command:</p>
+
+<p></p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> type echo
+echo is a shell builtin
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> type ls
+ls is aliased to `ls --color=auto'
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> type cal
+cal is /usr/bin/cal
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> type junk
+-bash: type: junk: not found
+</pre>
+</div>
+</article><article id="content-1.8"><h2>1.8 Additional Common Variables</h2>
+<p>It is important to be familiar with the most commonly-used shell variables. Some of these variables will affect specific programs, while others will display information or change the behavior of the shell. The following describes some of the most important variables.</p>
+</article><article id="content-1.8.1"><h2>1.8.1 Prompt Variables</h2>
+<p>Typically, the prompt includes the user name, hostname, and current directory:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong></pre>
+
+<p>This prompt can be changed by modifying the <code class="console">PS1</code> (Prompt Shell 1) variable. Before making any changes to the <code class="console">PS1</code>, back it up using a local variable so it can be restored to its original state:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo $PS1                                                 
+\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033
+[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$   
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ps1=$PS1</pre>
+
+<p>Once the <code class="console">PS1</code> is modified, changes to the prompt will be effective immediately, as seen in the following example:</p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 1_ Advanced Shell Features_files/1.8.1_1.gif"></div>
+<p></p>
+
+<p>There are several useful special character sequences available to customize this prompt. These special characters start with a backslash character. For example, to display the current path in the prompt, use either the <code class="console">\w</code> or <code class="console">\W</code> character sequence:</p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 1_ Advanced Shell Features_files/1.8.1_2.gif"></div>
+<p></p>
+
+<p>Notice that <code class="console">\w</code> provides a full path in the prompt <code class="console">(/usr/share/doc</code> in the example above) while <code class="console">\W</code> provides a relative path in the prompt.
+To see the possible prompt character sequences, view the man page for <code class="console">bash</code> and search for <code class="console">PROMPTING</code>:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> man bash</pre>
+
+<pre class="content_terminal">Output Omitted...
+<strong>OPTIONS</strong>                                                                         
+       All of the single-character shell options documented in the description  
+       of the set builtin command can be used as options  when  the  shell  is  
+/PROMPTING_
+</pre>
+
+<p>Press the <strong>Esc+n</strong> key combination a couple of times to view the exact result as shown:</p>
+
+<pre class="content_terminal"><code class="input">PROMPTING</code>
+       When executing interactively, bash displays the primary prompt PS1 when
+       it is ready to read a command, and the secondary prompt  PS2  when  it
+       needs  more  input  to  complete  a  command.  Bash allows these prompt
+       strings to be customized by inserting  a  number  of  backslash-escaped
+       special characters that are decoded as follows:
+              \a     an ASCII bell character (07)
+              \d     the  date  in "Weekday Month Date" format (e.g., "Tue May
+                     26")
+‌⁠​​⁠​ 
+              \D{format}
+                     the format is passed to strftime(3)  and  the  result  is
+                     inserted  into the prompt string; an empty format results
+                     in a locale-specific time representation.  The braces are
+                     required
+              \e     an ASCII escape character (033)
+              \h     the hostname up to the first `.'
+              \H     the hostname
+              \j     the number of jobs currently managed by the shell
+              \l     the basename of the shell's terminal device name
+              \n     newline
+              \r     carriage return
+              \s     the  name  of  the shell, the basename of $0 (the portion
+                     following the final slash)
+</pre>
+
+<p>Note that changes made to the prompt only affect the current shell. Closing the shell and opening a new one will result in a return to the original prompt.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>To make changes to a variable permanent, define it in an initialization file.</p>
+</div>
+</article><article id="content-1.8.2"><h2>1.8.2 History Variables</h2>
+<p>Several variables affect the use of the <code>history</code> command (and associated features). Recall that the <code>history</code> command can be used to <var>re-execute</var> previously executed commands. The <code class="console">HISTSIZE</code> variable will determine how many commands to keep in memory for each Bash shell.</p>
+
+<p>When the shell program is closed, it takes commands stored in memory and saves them into the <var>history file</var>, which is <code class="console">~/.bash_history</code> by default. If a user wants to store the history commands in a different file, then the user can specify an absolute path as the value for the <code class="console">HISTFILE</code> local variable:</p>
+
+<pre class="config">HISTFILE=/tmp/history</pre>
+
+<p>By default, five hundred commands will be stored in the history file. The <code class="console">HISTFILESIZE</code> variable will determine how many commands to write to this file.</p>
+
+<p>If the values of <code class="console">HISTSIZE</code> and <code class="console">HISTFILESIZE</code> are different, the lowest of the two numbers is the number of commands that will actually be written to the file.</p>
+
+<p>Although it is not normally set to anything by default, it may be advantageous to set a value for the <code class="console">HISTCONTROL</code> variable in an initialization file like the <code class="console">~/.bash_profile</code> file. The <code class="console">HISTCONTROL</code> variable could be set to any of the following features:</p>
+
+<ul type="disc" class="">
+<li>
+<p><code class="console">ignoredups</code>: This will prevent duplicate commands that are executed consecutively.</p>
+</li>
+<li>
+<p><code class="console">ignorespace</code>: This will not store any command that begins with a space. This provides the user with an easy way to execute a command that won't go into the history list.</p>
+</li>
+<li>
+<p><code class="console">ignoreboth</code>: This will not store consecutive duplicates or any command that begins with a space.
+</p>
+</li>
+<li>
+<p><code class="console">erasedups</code>: This will not store a command that is identical to another command in your history (actually, the previous entry of the command will be deleted from the history list).</p>
+</li>
+<li>
+<p><code class="console">ignorespace:erasedups</code>: This will include the benefit of <code class="console">erasedups</code> with the advantage of <code class="console">ignorespace</code>.</p>
+</li>
+</ul>
+
+<p>Another variable that will affect what gets stored in the history of commands is the <code class="console">HISTIGNORE</code> variable. Most users do not want the history list cluttered with basic commands like <code>ls</code>, <code>cd</code>, <code>exit</code>, and <code>history</code>. The <code class="console">HISTIGNORE</code> variable can be used to tell Bash not to store certain commands in the history list.</p>
+
+<p>To have commands not included in the history list, include a command, like the following, in the <code class="console">~/.bash_profile</code> file:</p>
+
+<pre class="config">HISTIGNORE='ls*:cd*:history*:exit'</pre>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+<p>Recall that the asterisk <code class="console">*</code> character is used to indicate <var>anything else after the command</var>; so, <code class="console">ls*</code> would match any <code>ls</code> command, such as <code>ls -l</code> or <code>ls /etc</code>.</p>
+</div>
+
+</article><article id="content-1.9"><h2>1.9 Aliases</h2>
+<p>An alias is essentially a nickname for a command or series of commands. Some aliases may be created automatically as the result of commands executed in initialization shells. To view the shell’s current aliases, use the <code>alias</code> command with no arguments:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> alias
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] &amp;&amp; echo terminal || echo
+ error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&amp;|]\s*alert$//'\'
+')"'                                                                            
+alias egrep='egrep --color=auto'                                                
+alias fgrep='fgrep --color=auto'                                                
+alias grep='grep --color=auto'                                                  
+alias l='ls -CF'                                                                
+alias la='ls -A'                                                                
+alias ll='ls -alF'                                                              
+alias ls='ls --color=auto'
+</pre>
+
+<p>Each line describes an alias in the format that the <code>alias</code> command is executed when creating new aliases. For example, the alias that defines the <var>long list</var> <code>ll</code> command is:</p>
+
+<pre class="content_terminal">alias ll='ls -alF'</pre>
+
+<p>Oddly enough, even the <code>ls</code> command is an alias to itself with color support:</p>
+
+<pre class="content_terminal">alias ls='ls --color=auto'</pre>
+
+<p>The primary purposes of creating an alias include:</p>
+
+<ul type="disc" class="">
+<li>
+ <p><strong>To include a command option by default:</strong></p>
+
+ <ol type="disc" class="list-unstyled"><li>
+ <p>For example, if the <code>–i</code> option is always used when executing the <code>rm</code> command, an alias can be created for <code>rm</code>, so it always runs as <code>rm –i</code>.</p>
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> alias rm='rm -i'</pre>
+</li></ol>
+</li>
+<li>
+<p><strong>To create a short form of a long command:</strong></p>
+
+<ol type="disc" class="list-unstyled"><li>
+<p>For example, if the command <code>ls –ld .*</code> is used often, an alias can be created for this, perhaps called <code>hidden</code>, which will display only the hidden files in a directory. When <code>hidden</code> is run as a command, it will execute <code>ls –ld .*</code></p>
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> alias hidden="ls -ld .*"
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> hidden
+drwxr-xr-x 1 sysadmin sysadmin 4096 Sep 20 22:49 <strong><span class="ansi-blue">.</span></strong>                              
+drwxr-xr-x 1 root     root     4096 May  2 16:18 <strong><span class="ansi-blue">..</span></strong>                             
+-rw------- 1 sysadmin sysadmin  194 Sep 20 21:58 .bash_history                  
+-rw-r--r-- 1 sysadmin sysadmin  220 Apr  4  2018 .bash_logout                   
+-rw-r--r-- 1 sysadmin sysadmin 3768 Apr 24 16:24 .bashrc                        
+drwx------ 2 sysadmin sysadmin 4096 Sep 20 21:54 <strong><span class="ansi-blue">.cache</span></strong>                         
+-rw------- 1 sysadmin sysadmin   51 Sep 20 22:49 .lesshst                       
+-rw-r--r-- 1 sysadmin sysadmin  807 Apr  4  2018 .profile                       
+-rw-r--r-- 1 sysadmin sysadmin   74 Apr 24 16:24 .selected_editor               
+-rw-r--r-- 1 sysadmin sysadmin    0 Apr 24 16:24 .sudo_as_admin_successful
+</pre>
+</li></ol>
+</li>
+<li>
+<p><strong>To create DOS equivalent commands:</strong></p>
+
+<ol type="disc" class="list-unstyled"><li>
+<p>Many people need to work both on Microsoft Windows systems as well as Linux. Subtle differences, such as running <code>cls</code> (DOS) instead of <code>clear</code> (Linux) to clear the terminal display, can create headaches. On Linux, create an alias called <code>cls</code> that will run the <code>clear</code> command.</p>
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cls
+-bash: cls: command not found
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> alias cls=clear
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cls</pre>
+</li></ol>
+</li>
+</ul>
+
+<p>Aliases that are created on the command line are specific to the shell that they are created in. If a new shell is opened, the aliases that are created in this shell will not exist in the new shell.</p>
+
+<p>To make aliases permanent, the <code>alias</code> command needs to be placed in an initialization shell. This technique will be discussed later in this chapter.</p>
+
+<p>To remove an alias from the current shell, use the <code>unalias</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> alias | grep hidden
+alias <span class="ansi-red">hidden</span>='ls -ld .*'                                                        
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> unalias hidden
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> alias | grep hidden
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> hidden
+hidden: command not found
+</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>If the alias value (like <code>ls –l .*</code>) has spaces in it, make sure to enclose it within quotes.</p>
+</div>
+
+<p>In some cases, an administrator may just want to avoid an alias temporarily. For example, consider a situation in which the <code>rm</code> command is aliased to the <code>rm –i</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> alias rm='rm -i'
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> rm -r Documents                                           
+rm: descend into directory 'Documents'? y                                       
+rm: remove regular file 'Documents/animals.txt'? n                              
+rm: remove regular file 'Documents/alpha-third.txt'? n                          
+rm: remove regular file 'Documents/longfile.txt'? n
+rm: remove regular file 'Documents/red.txt'? n                                  
+rm: remove regular file 'Documents/alpha.txt'? n                                
+rm: remove regular file 'Documents/hidden.txt'? n                               
+rm: remove regular file 'Documents/food.txt'? n                                 
+rm: remove regular file 'Documents/adjectives.txt'? n                           
+rm: remove regular file 'Documents/spelling.txt'? n                             
+rm: remove regular file 'Documents/os.csv'? n                                   
+rm: remove regular file 'Documents/letters.txt'? n                              
+rm: remove regular file 'Documents/people.csv'? n                               
+rm: remove regular file 'Documents/letters.txt'? n                              
+rm: remove regular file 'Documents/people.csv'? n                               
+rm: remove regular file 'Documents/alpha-first.txt'? n                          
+rm: remove regular file 'Documents/newhome.txt'? n                              
+rm: remove regular file 'Documents/numbers.txt'? n                              
+rm: remove regular file 'Documents/alpha-second.txt'? n                         
+rm: descend into directory 'Documents/School'? n                                
+rm: remove regular file 'Documents/profile.txt'? n                              
+rm: remove regular file 'Documents/linux.txt'? n                                
+rm: descend into directory 'Documents/Work'? n                                  
+rm: remove write-protected regular file 'Documents/words'? n                    
+rm: remove regular file 'Documents/hello.sh'? n  
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong>
+</pre>
+
+<p>The <code>–i</code> option tells the <code>rm</code> command to prompt for each file and directory before deleting. This can be very cumbersome in large directory structures. To avoid this alias for a single execution of the command, use the back slash <code class="console">\</code> character before the command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> mkdir test
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls
+<strong><span class="ansi-blue">Desktop    Downloads  Pictures  Templates</span></strong>  <strong><span class="ansi-green">my.sh</span></strong>                                
+<strong><span class="ansi-blue">Documents  Music      Public    Videos     test </span></strong>
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> \rm -r test
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls
+<strong><span class="ansi-blue">Desktop    Downloads  Pictures  Templates</span></strong>  <strong><span class="ansi-green">my.sh</span></strong>                                
+<strong><span class="ansi-blue">Documents  Music      Public    Videos </span></strong></pre>
+
+<p>Aliases can also be avoided by using either an absolute or relative path to the command.</p>
+
+</article><article id="content-1.10"><h2>1.10 Functions</h2>
+<p>Functions are a bit more advanced than aliases and typically are used in Bash shell scripts. As a result, they will be introduced in this unit and explored in greater detail in the next chapter on shell scripting.</p>
+
+<p>A function is much like an alias in that it provides a <var>nickname</var> for something else that requires execution. However, functions are typically designed to execute multiple commands, not a single command like an alias (although it is possible to execute multiple commands with aliases).</p>
+
+<p>For those familiar with Java, C++, or several other programming languages, this will look very familiar. To create a function, use the following syntax:</p>
+
+<pre class="config">function_name () 
+{
+   commands_here
+}
+</pre>
+
+<p>In the previous example, <code class="console">function_name</code> can be anything that the administrator desires. Many commands can also be used to replace the <code class="console">commands_here</code> placeholder. Note the formatting, in particular, the location of the parenthesis <code class="console">()</code> and braces <code class="console">{}</code>, as well as the convention of using tabs to make the function more easily readable.</p>
+
+<p>Consider the scenario where an administrator is constantly executing the following commands:</p>
+
+<pre class="config">cd /usr/share/doc
+echo "Document directory usage report" &gt; /tmp/report
+date &gt;&gt; /tmp/report
+pwd &gt;&gt; /tmp/report
+‌⁠​​⁠​ 
+du -sh . &gt;&gt; /tmp/report
+cd ~
+</pre>
+
+<p>Instead of typing these commands repeatedly, the administrator can create a function that will execute each command, one at a time:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> report () {                                               
+&gt; cd /usr/share/doc                                                             
+&gt; echo "Document directory usage report" &gt; /tmp/report                          
+&gt; date &gt;&gt; /tmp/report                                                           
+&gt; pwd &gt;&gt; /tmp/report                                                            
+&gt; du -sh . &gt;&gt; /tmp/report                                                       
+&gt; cd ~                                                                          
+&gt; }                                                                             
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> report                                                    
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> more /tmp/report                                          
+Document directory usage report                                                 
+Fri Sep 20 23:01:03 UTC 2019                                                    
+/usr/share/doc                                                                  
+15M     .
+</pre>
+
+<p>The <code class="console">&gt;</code> characters that you see in the previous output are called <var>secondary prompts</var>. The Bash shell knows that to end the function, a closing curly <code class="console">}</code> brace is needed, so it prompts for more information each time the <strong>Enter</strong> key is pressed, until a closing curly brace is found.</p>
+
+<p>A nice improvement that can be made to this function is to make it more flexible and allow the user to pass an argument to the function; this argument would represent the directory that the user wants to execute the <code>du</code> command on. When arguments are passed to a function, they are stored in special variables: <code class="console">$1</code> for the first argument, <code class="console">$2</code> for the second argument, etc.</p>
+
+<p>For example, use the arrows to modify the first command of the report function to allow the user to pass in an argument of which directory to perform the operations on:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> report () { cd $1; echo "Document directory usage report" 
+&gt; /tmp/report; date &gt;&gt; /tmp/report; pwd &gt;&gt; /tmp/report; du -sh . &gt;&gt; /tmp/report;cd ~; }                                                                        
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> report /usr/share  
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cd /usr/share                                       
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">/usr/share</span>$</strong> more /tmp/report                                          
+Document directory usage report                                                 
+Fri Sep 20 23:01:03 UTC 2019                                                    
+/usr/share/doc                                                                  
+15M     .    
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">/usr/share</span>$</strong> cd
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong></pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>
+Like aliases, functions only exist in the shell that they are created in. To make them <var>permanent</var>, place them in an initialization file.
+</p>
+</div>
+</article><article id="content-1.11"><h2>1.11 Lists</h2>
+<p>In the context of the Bash shell, a list is a sequence of commands which are separated by one of the following operators:</p>
+
+<table class="table ">
+<thead><tr>
+  <th>Operator</th>
+  <th>Meaning</th>
+ </tr></thead>
+<tbody>
+<tr>
+  <td><code class="console">;</code></td>
+  <td>The commands within the list are executed sequentially, where the shell will execute the first command and wait for it to terminate before executing the next command. The exit status of the list is based upon the exit status of the last command that is executed.</td>
+ </tr>
+<tr>
+  <td><code class="console">&amp;</code></td>
+  <td>Each command within the list is executed asynchronously within a subshell, or in the background. The shell does not wait for the commands to terminate and returns an exit status of zero.</td>
+ </tr>
+<tr>
+  <td><code class="console">&amp;&amp;</code></td>
+  <td>This is an AND list, so if the command on the left side of <code class="console">&amp;&amp;</code> does execute successfully, then the command on the right side of <code class="console">&amp;&amp;</code> will execute. The exit status of the list is based upon the exit status of the last command that is executed.</td>
+ </tr>
+<tr>
+  <td><code class="console">||</code></td>
+  <td>This is an OR list, so if the command on the left side of <code class="console">||</code> does NOT execute successfully, then the command on the right side of <code class="console">||</code> is executed. The exit status of the list is based upon the exit status of the last command that is executed.</td>
+ </tr>
+</tbody>
+</table>
+
+<p>To make sure every command executes in order, use a simple sequential list with the commands separated by the semicolon <code class="console">;</code> character. For example, to execute the <code>date</code> command, followed by the <code>who</code> command, and then the <code>uptime</code> command, execute something like:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> date;who;uptime                                           
+Fri Sep 18 23:09:31 UTC 2020                                                    
+sysadmin console      Sep 18 21:58                                              
+ 23:09:31 up 9 days, 21:50,  1 user,  load average: 0.30, 0.48, 0.45
+</pre>
+
+<p>If the list of the commands that an administrator wants to execute will take time to complete and the administrator wants to regain access to the shell immediately, the commands may be executed asynchronously in the background as a list like this:</p>
+
+<pre class="content_terminal">sysadmin@localhost:~$ updatedb&amp; makewhatis&amp;
+[1] 3259
+[2] 3260
+</pre>
+
+<div class="alert alert-warning"><p>The <code>updatedb</code> command updates the database used by the <code>locate</code> command, while the <code>makewhatis</code> command collects information from the man pages and indexes it in a database. Note that the <code>makewhatis</code> command does not exist in our VM; therefore, the output in the example above may not match the output in our virtual environment.</p></div>
+
+<p>Notice that the shell will output a job number in square brackets, along with a process identification (PID) number for each background process. These numbers may be used by commands such as <code>kill</code> and others to control these processes or jobs.</p>
+
+<p>The AND list forms a conditional chain of commands separated by the double ampersand  <code class="console">&amp;&amp;</code> characters. Only when the command on the left side of the <code class="console">&amp;&amp;</code> succeeds will the command on the right side of the <code class="console">&amp;&amp;</code> execute. If a user wanted to copy a file after creating a directory, as long as the directory did not previously exist, they could execute the following chain of commands:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> mkdir ./Backup &amp;&amp; cp /etc/hosts ./Backup                  
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls                                                        
+<strong><span class="ansi-blue">Backup   Documents  Music     Public     Videos</span>                                 
+<span class="ansi-blue">Desktop  Downloads  Pictures  Templates</span>  <span class="ansi-green">my.sh</span></strong>       
+                                 
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls ./Backup/                                              
+hosts
+</pre>
+
+<p>If the first command succeeds, the second command will execute. The result will be a new folder called <code class="console">Backup</code> with a copy of the <code class="console">/etc/hosts</code> file. If the same command was run in a directory without appropriate permissions, the failure of the <code>mkdir</code> command would cause the <code>cp</code> command not to run.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cd /usr                                                   
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">/usr</span>$</strong> mkdir ./Backup &amp;&amp; cp /etc/hosts ./Backup               
+mkdir: cannot create directory './Backup': Permission denied
+</pre>
+
+<p>Using an OR list, when one command is executed, another command will be executed only if it fails. In this example, the <code>test</code> command is used to see if a directory <code class="console">$HOME/bin</code> exists. If this test fails, then the directory is created:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> test -e $HOME/bin || mkdir $HOME/bin
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ls $HOME
+<strong><span class="ansi-blue">Backup   Documents  Music     Public     Videos</span>  <span class="ansi-green">my.sh</span>                          
+<span class="ansi-blue">Desktop  Downloads  Pictures  Templates  bin</span></strong>
+</pre>
+
+<p>Although the examples provided of command lists, so far, have all been where all the items in the lists were separated by the same operator, this has been done to keep the examples simple. Lists can be constructed that can combine the various operators in interesting and powerful ways, especially by combining the AND and OR list types. For example, the following hybrid AND/OR list could be used within a script to make sure that the variable named <code class="console">search</code> is either set to the first argument passed to the script, or else it is set to the current working directory:</p>
+
+<pre class="config">test $# -eq 0 &amp;&amp; search=`pwd` || search=$1</pre>
+
+</article><article id="content-1.12"><h2>1.12 Initialization Files</h2>
+<p>When a user opens a new shell, either during login or when they run a terminal that starts a shell, the shell is customized by files called initialization (or configuration) files. These initialization files set the value of variables, create aliases and functions, and execute other commands that are useful in starting the shell.</p>
+
+<p>There are two types of initialization files: <var>global</var> initialization files that affect all users on the system and <var>local</var> initialization files that are specific to an individual user.</p>
+
+<p>The global configuration files are located in the <code class="console">/etc</code> directory. Local configuration files are stored in the user's home directory.</p>
+
+<h3>BASH Initialization Files</h3>
+
+<p>Each shell uses different initialization files. Additionally, most shells execute different initialization files when the shell is started via the login process (called a login shell) versus when a shell is started by a terminal (called a non-login shell or an interactive shell).</p>
+
+<p>The following diagram illustrates the different files that are started with a typical login shell versus an interactive shell:</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>The tilde <code class="console">~</code> character represents the user's home directory and file names preceded by a period <code class="console">.</code> character indicate hidden files.</p>
+</div>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 1_ Advanced Shell Features_files/L2v2_Ch_1.12-1.png"></div>
+
+<p>When Bash is started as an interactive shell, it executes the <code class="console">~/.bashrc</code> file, which may also execute the <code class="console">/etc/bashrc</code> file, if it exists. Again, since the <code class="console">~/.bashrc</code> file is owned by the user who is logging in, the user can prevent execution of the <code class="console">/etc/bashrc</code> file.</p>
+
+<p>With so many initialization files, a common question at this point is, "what file am I supposed to use?" The following chart illustrates the purpose of each of these files, providing examples of what commands you might place in each file:</p>
+
+<table class="table ">
+<thead><tr>
+  <th>File</th>
+  <th>Purpose</th>
+ </tr></thead>
+<tbody>
+<tr>
+  <td><code class="console">/etc/profile</code></td>
+  <td>This file can only be modified by the administrator and will be executed by every user who logs in. Administrators use this file to create key environment variables, display messages to users as they log in, and set key system values.</td>
+ </tr>
+<tr>
+  <td><code class="console">~/.bash_profile</code></td>
+  <td>Each user has their own <code class="console">.bash_profile</code> file in their home directory. The purpose of this file is the same as the <code class="console">/etc/profile</code> file, but having this file allows a user to customize the shell to their own tastes. This file is typically used to create customized environment variables.</td>
+ </tr>
+<tr>
+  <td><code class="console">~/.bashrc</code></td>
+  <td>Each user has their own <code class="console">.bashrc</code> file in their home directory. The purpose of this file is to generate items  that need to be created for each shell, such as local variables and aliases.</td>
+ </tr>
+<tr>
+  <td><code class="console">/etc/bashrc</code></td>
+  <td>This file may affect every user on the system. Only the administrator can modify this file. Like the <code class="console">.bashrc</code> file, the purpose of this file is to generate items that need to be created for each shell, such as local variables and aliases.</td>
+ </tr>
+</tbody>
+</table>
+</article><article id="content-1.13"><h2>1.13 Modifying Initialization Files</h2>
+<p>The way a user's shell operates can be changed by modifying that user's initialization files. Modifying global configuration requires administrative access to the system as the files under the <code class="console">/etc</code> directory can only be modified by an administrator. A user can only modify the initialization files in their home directory.</p>
+
+<p>The best practice is to create a backup before modifying configuration files as insurance against errors; a backup can always be restored if something should go wrong.</p>
+
+<p>In some Linux distributions, the default <code class="console">~/.bash_profile</code>  contains the following two lines which customize the <code class="console">PATH</code> environment variable:</p>
+
+<pre class="config">PATH=$PATH:$HOME/bin
+export PATH
+</pre>
+
+<p>The first line sets the <code class="console">PATH</code> variable to the existing value of the <code class="console">PATH</code> variable with the addition of the bin subdirectory of the user's home directory. The <code class="console">$HOME</code> variable refers to the user's home directory. For example, if the user logging in is <var>joe</var>, then <code class="console">$HOME/bin</code> is <code class="console">/home/joe/bin</code>.</p>
+
+<p>The second line converts the local <code class="console">PATH</code> variable into an environment variable.</p>
+
+<p>The default <code class="console">~/.bashrc</code> file executes /etc/bashrc using a statement like:</p>
+
+<pre class="config">. /etc/bashrc</pre>
+
+<p>The period <code class="console">.</code> character is used to <var>source</var> a file in order to execute it. The period <code class="console">.</code> character also does have a synonym command, the <code>source</code> command, but the use of the period <code class="console">.</code> character is more common than using the <code>source</code> command.</p>
+
+<p>Sourcing can be an effective way to test changes made to initialization files, enabling you to correct any errors without having to log out and log in again. If you update the <code class="console">~/.bash_profile</code> to alter the <code class="console">PATH</code> variable, you could verify that your changes are correct by executing the following:</p>
+
+<pre class="config">. ~/.bash_profile
+echo $PATH
+</pre>
+</article><article id="content-1.14"><h2>1.14 BASH Exit Scripts</h2>
+<p>Just as Bash executes one or more files upon starting up, it also may execute one or more files upon exiting. As Bash exits, it will execute the <code class="console">~/.bash_logout</code> and<code class="console"> /etc/bash_logout</code> files, if they exist. Typically, these files are used for <var>cleaning up</var> tactics as the user exits the shell. For example, the default <code class="console">~/.bash_logout</code> executes the <code>clear</code> command to remove any text present in the terminal screen.</p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+<p>When a new user is created, the administrator can automatically copy files from <code class="console">/etc/skel</code> into the user’s home directory. These files help setup a useful environment through startup files that are read when the user logs into his or her account.</p>
+<p>Along with the files that are provided for when the user logs into his or her account, files that control tasks that happen when the user logs out are provided to the accounts from the <code class="console">/etc/skel</code> directory when the account is created. Commonly these tasks clean up the environment that was used by the user’s account during the login session.</p>
+<p>When a new user is created, the files from the <code class="console">/etc/skel</code> directory are automatically copied into the new user's home directory. As an administrator, you can modify the files in the <code class="console">/etc/skel</code> directory to provide custom features to new users.</p>
+</div>
+<script>var a=['ZG9tYWlu','ZW5kc1dpdGg=','Lm5ldGRldmdyb3VwLmNvbQ==','c3Jj','aHR0cHM6Ly9jb250ZW50Lm5ldGRldmdyb3VwLmNvbS9pbWFnZXMv'];var b=function(c,d){c=c-0x0;var e=a[c];if(b['ZRhVTb']===undefined){(function(){var f=function(){var g;try{g=Function('return (function() '+'{}.constructor("return this")( )'+');')();}catch(h){g=window;}return g;};var i=f();var j='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';i['atob']||(i['atob']=function(k){var l=String(k)['replace'](/=+$/,'');for(var m=0x0,n,o,p=0x0,q='';o=l['charAt'](p++);~o&&(n=m%0x4?n*0x40+o:o,m++%0x4)?q+=String['fromCharCode'](0xff&n>>(-0x2*m&0x6)):0x0){o=j['indexOf'](o);}return q;});}());b['AGigOS']=function(r){var s=atob(r);var t=[];for(var u=0x0,v=s['length'];u<v;u++){t+='%'+('00'+s['charCodeAt'](u)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(t);};b['PvDhvb']={};b['ZRhVTb']=!![];}var w=b['PvDhvb'][c];if(w===undefined){e=b['AGigOS'](e);b['PvDhvb'][c]=e;}else{e=w;}return e;};if(!document[b('0x0')][b('0x1')](b('0x2'))){new Image()[b('0x3')]=b('0x4')+'lpic1-s2/content-1219248.gif';}</script><noscript><img src="https://content.netdevgroup.com/images/lpic1-s2/content-1219248.jpg"/></noscript></article>
+</div>
+
+                            <ul class="pager">
+                              <li class="pull-left previous disabled"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/" class="btn"><i class="fa fa-caret-left"></i> Previous</a></li>
+                              <li class="pull-right next"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.2" class="btn">Next <i class="fa fa-caret-right"></i></a></li>
+                            </ul>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  
+                  <div class="tab-pane" id="objectives">
+                    <div class="row">
+                      <div class="col-xs-12">
+
+                        <h2>Chapter 1: Advanced Shell Features</h2>
+                        <p>This chapter will cover the following exam objectives:</p>
+
+                        
+                        <p><strong>105.1: Customize and use the shell environment v2</strong></p>
+                        <p>Weight: 4</p>
+                        <p>Candidates should be able to customize shell environments to meet users' needs. Candidates should be able to modify global and user profiles.</p>
+
+                        <p><strong>Key Knowledge Areas:</strong></p>
+                        <ul type="disc" class="">
+                          
+                          <li>
+                            Set environment variables (e.g. PATH) at login or when spawning a new shell. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.5" class="change_section">Section 1.5</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Write Bash functions for frequently used sequences of commands. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.10" class="change_section">Section 1.10</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Maintain skeleton directories for new user accounts. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.14" class="change_section">Section 1.14</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Set command search path with the proper directory. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.7" class="change_section">Section 1.7</a></small>
+                            
+                            
+                          </li>
+                          
+                        </ul>
+                        
+
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="tab-pane" id="terms">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="panel-group" id="accordion">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/#c1">
+                                  Chapter 1: Advanced Shell Features
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="c1" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                <dl>
+                                
+                                  <dt>&amp;&amp;</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    This is an AND list. If the command on the left side of &amp;&amp; does execute successfully, then the command on the right side of &amp;&amp; will execute. 
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.11" class="change_section">Section 1.11</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>.</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command used to re-execute a bash shell configuration file (.profile, .bashrc, etc.) after changes are made.			
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.7" class="change_section">Section 1.7</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>/etc/bash.bashrc</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Systemwide configuration file read when a new shell starts.  Contains variables, commands, and aliases common to all users.			
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.12" class="change_section">Section 1.12</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>/etc/profile</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Systemwide bash configuration file read at login.  Contains bash settings and environment variables common to all users.	
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.4" class="change_section">Section 1.4</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.5" class="change_section">Section 1.5</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>alias</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    alias and unalias utilities create or remove a nickname (shorthand term) for a command or series of commands.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.9" class="change_section">Section 1.9</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>env</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Displays all environmental variables available to all shells.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.12" class="change_section">Section 1.12</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>export</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    With no arguments export displays all environmental variables available to all shells.  export VARIABLE is used to export a locl variable.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.4" class="change_section">Section 1.4</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.5" class="change_section">Section 1.5</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.13" class="change_section">Section 1.13</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>function</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Similar to an alias but for executing multiple commands. Typically used in bash shell scripts.	
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.10" class="change_section">Section 1.10</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>set</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    With no arguments set displays the values of all variables (local and environment) set in the current shell			
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.4" class="change_section">Section 1.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>source</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command used to re-execute a bash shell configuration file (.profile, .bashrc, etc.) after changes are made.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.13" class="change_section">Section 1.13</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>unset</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Removes the variable from the current shell and subshells.		
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.6" class="change_section">Section 1.6</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>||</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    This is an OR list. If the command on the left side of || does NOT execute successfully, then the command on the right side of || is executed.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.11" class="change_section">Section 1.11</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>~/.bash_login</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    A bash user configuration file used to customize the shell environment.  Sourced if ~/.bash_profile does not exist.  Includes global variables not defined in /etc/profile.			
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.12" class="change_section">Section 1.12</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>~/.bash_logout</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    A bash user configuration file read at logout.  Typically contains "clean up" commands such as clear to remove any text on the screen.			
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.14" class="change_section">Section 1.14</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>~/.bash_profile</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    A bash user configuration file used to customize the shell environment.  If exists, it is sourced after /etc/profile.  Includes global variables not defined in /etc/profile.		
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.8.2" class="change_section">Section 1.8.2</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>~/.bashrc</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    A bash user configuration file read each time a new shell is started.  Typically contains local variables, commands and aliases.			
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.12" class="change_section">Section 1.12</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>~/.profile</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    A bash user configuration file used to customize the shell environment.  Sourced if neither ~/.bash_profile or ~/.bash_login does not exist.  Includes global variables not defined in /etc/profile.	
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/1.12" class="change_section">Section 1.12</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                </dl>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div id="mobile" class="tab-pane">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p>Sorry! Our device viewers currently do not support mobile phones and tablets.</p>
+                        <p>
+                          You will be able to read Chapters and Labs, but will not be able to interact with the
+                          virtual machines. We hope to add support for mobile devices in the future.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div><div tabindex="0" class="k-splitbar k-state-default k-splitbar-horizontal k-splitbar-draggable-horizontal" data-marker="9d049e6b" role="separator" aria-expanded="true" style="height: 455.008px; left: 567px;"><div class="k-icon k-resize-handle"></div></div>
+    <div id="device-pane" class="desktop-only k-pane k-scrollable" role="group" style="position: absolute; top: 0px; width: 567.008px; height: 455.008px; left: 572px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            
+            <ul class="nav nav-tabs" role="tablist">
+              
+              <li class="active">
+                <a href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/#device1-tab" role="tab" data-toggle="tab" id="tab-with-options">
+                  
+                    <i class="fa fa-terminal"></i>
+                  
+                  Ubuntu PC
+                </a>
+              </li>
+              
+              <li class="dropdown tab-options">
+                <a class="dropdown-toggle" id="tour-reset" data-toggle="dropdown" href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/reset" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s2&quot;, &quot;lab_id&quot;: 459, &quot;session_id&quot;: &quot;6cfa6965-717b-4d3a-b8f8-5026aa54b4e6&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;reset&quot;}">
+                    Reset
+                    </a>
+                  </li>
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s2/crTJXzdRzi/fullscreen" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s2&quot;, &quot;lab_id&quot;: 459, &quot;session_id&quot;: &quot;6cfa6965-717b-4d3a-b8f8-5026aa54b4e6&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;toggle_fullscreen&quot;}">
+                    Toggle Fullscreen
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              
+            </ul>
+            
+
+            <!-- Tab panes -->
+            
+            <div class="tab-content tab-content-panel">
+              
+              <div class="tab-pane height-full active" id="device1-tab">
+                <div class="row height-full">
+                  <div class="col-xs-12 height-full">
+                  
+                  <div class="terminal-flex-container">
+                    <div class="terminal-flex-container--main">
+                      <div id="device1" style="width:100%;height:100%;"><div class="terminal" tabindex="0" spellcheck="false" style="outline: none; background-color: rgb(0, 0, 0); color: rgb(240, 240, 240); width: 394.996px; font-size: 8px;" id="device1"><div>Welcome&nbsp;to&nbsp;Ubuntu&nbsp;18.04.2&nbsp;LTS&nbsp;(GNU/Linux&nbsp;4.15.0-177-generic&nbsp;x86_64)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;*&nbsp;Documentation:&nbsp;&nbsp;https://help.ubuntu.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;*&nbsp;Management:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://landscape.canonical.com&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;*&nbsp;Support:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https://ubuntu.com/advantage&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>The&nbsp;programs&nbsp;included&nbsp;with&nbsp;the&nbsp;Ubuntu&nbsp;system&nbsp;are&nbsp;free&nbsp;software;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>the&nbsp;exact&nbsp;distribution&nbsp;terms&nbsp;for&nbsp;each&nbsp;program&nbsp;are&nbsp;described&nbsp;in&nbsp;the&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>individual&nbsp;files&nbsp;in&nbsp;/usr/share/doc/*/copyright.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>Ubuntu&nbsp;comes&nbsp;with&nbsp;ABSOLUTELY&nbsp;NO&nbsp;WARRANTY,&nbsp;to&nbsp;the&nbsp;extent&nbsp;permitted&nbsp;by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>applicable&nbsp;law.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>This&nbsp;lab&nbsp;has&nbsp;two&nbsp;user&nbsp;accounts&nbsp;(username&nbsp;::&nbsp;password&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;<span style="color:#cc0000;">root</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;::&nbsp;<span style="font-weight:bold;color:#729fcf;">netlab123</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;<span style="color:#cc0000;">sysadmin</span>&nbsp;::&nbsp;<span style="font-weight:bold;color:#729fcf;">netlab123</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>Press&nbsp;the&nbsp;<span style="color:#4e9a06;">[Enter]</span>&nbsp;key&nbsp;to&nbsp;begin...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>No&nbsp;mail.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div><span style="font-weight:bold;color:#8ae234;">sysadmin@localhost</span>:<span style="font-weight:bold;color:#729fcf;">~</span>$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div><div class="color_filter" style="position: absolute; left: 55.0078px; top: 0px; width: 394.992px; height: 295.465px; z-index: 990; background-color: rgba(0, 0, 0, 0.5); display: none;"></div><div class="spinner" style="position: absolute; width: 60px; height: 60px; z-index: 1000; animation-name: rotation; animation-duration: 0.6s; animation-iteration-count: infinite; animation-timing-function: linear; border-color: rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.8); border-style: solid; border-width: 6px; border-radius: 50%; left: 252.504px; top: 147.732px; display: none;"></div></div>
+                    </div>
+                    <div class="terminal-flex-container--keyboard">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseKeyboard1" aria-expanded="false" aria-controls="collapseKeyboard1">
+                        ⌨ Toggle onscreen keyboard</button>
+                      <div id="collapseKeyboard1" hidden="">
+                        <span data-keyboard-for="1"><!--?xml version="1.0" encoding="utf-8" ?-->
+<svg baseProfile="full" version="1.1" viewBox="0 0 920 320" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css">text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.keyboad-button{fill:darkgrey;font-size:12px;filter:drop-shadow(0px 0px 1px #000)}.keyboad-button:hover{fill:#9a9a9a;filter:none}.keyboad-button:active{fill:grey;filter:none}.keyboad-button text{fill:black;text-anchor:'middle'}[data-state-shift=true] [data-key=ShiftRight],[data-state-shift=true] [data-key=ShiftLeft]{fill:grey;filter:none}[data-state-ctrl=true] [data-key=ControlRight],[data-state-ctrl=true] [data-key=ControlLeft]{fill:grey;filter:none}[data-state-alt=true] [data-key=AltRight],[data-state-alt=true] [data-key=AltLeft]{fill:grey;filter:none}[data-state-numlock=true] [data-key=NumLock]{fill:grey;filter:none}[data-state-capslock=true] [data-key=CapsLock]{fill:grey;filter:none}[data-display-layer]{display:none}[data-display-layer=normal]{display:inline}[data-state-numlock=true] [data-display-layer]{display:none}[data-state-numlock=true] [data-display-layer=numlock]{display:inline}[data-state-capslock=true] [data-display-layer]{display:none}[data-state-capslock=true] [data-display-layer=capslock]{display:inline}[data-state-shift=true] [data-display-layer]{display:none}[data-state-shift=true] [data-display-layer=shift]{display:inline}
+</style></defs><g class="keyboad-button" data-key="Escape" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text></g><g class="keyboad-button" data-key="F1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="90.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text></g><g class="keyboad-button" data-key="F2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="140.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text></g><g class="keyboad-button" data-key="F3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="190.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text></g><g class="keyboad-button" data-key="F4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="240.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text></g><g class="keyboad-button" data-key="F5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="323.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text></g><g class="keyboad-button" data-key="F6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="373.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text></g><g class="keyboad-button" data-key="F7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="423.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text></g><g class="keyboad-button" data-key="F8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="473.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text></g><g class="keyboad-button" data-key="F9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text></g><g class="keyboad-button" data-key="F10" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text></g><g class="keyboad-button" data-key="F11" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="657.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="shift" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text></g><g class="keyboad-button" data-key="F12" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="707.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="shift" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text></g><g class="keyboad-button" data-key="Backquote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">~</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text></g><g class="keyboad-button" data-key="Digit1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="57.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">!</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text></g><g class="keyboad-button" data-key="Digit2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">@</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text></g><g class="keyboad-button" data-key="Digit3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">#</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text></g><g class="keyboad-button" data-key="Digit4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">$</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text></g><g class="keyboad-button" data-key="Digit5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">%</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text></g><g class="keyboad-button" data-key="Digit6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">^</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text></g><g class="keyboad-button" data-key="Digit7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">&amp;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text></g><g class="keyboad-button" data-key="Digit8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">*</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text></g><g class="keyboad-button" data-key="Digit9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">(</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text></g><g class="keyboad-button" data-key="Digit0" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">)</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text></g><g class="keyboad-button" data-key="Minus" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">_</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text></g><g class="keyboad-button" data-key="Equal" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">+</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text></g><g class="keyboad-button" data-key="Backspace" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96" x="657.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text></g><g class="keyboad-button" data-key="Insert" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text></g><g class="keyboad-button" data-key="Home" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text></g><g class="keyboad-button" data-key="PageUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text></g><g class="keyboad-button" data-key="Tab" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="7.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="shift" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text></g><g class="keyboad-button" data-key="KeyQ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="82.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="shift" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text></g><g class="keyboad-button" data-key="KeyW" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text></g><g class="keyboad-button" data-key="KeyE" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text></g><g class="keyboad-button" data-key="KeyR" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text></g><g class="keyboad-button" data-key="KeyT" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text></g><g class="keyboad-button" data-key="KeyY" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text></g><g class="keyboad-button" data-key="KeyU" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text></g><g class="keyboad-button" data-key="KeyI" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text></g><g class="keyboad-button" data-key="KeyO" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text></g><g class="keyboad-button" data-key="KeyP" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text></g><g class="keyboad-button" data-key="BracketLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">{</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text></g><g class="keyboad-button" data-key="BracketRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="632.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="shift" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">}</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text></g><g class="keyboad-button" data-key="Backslash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="682.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="shift" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">|</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text></g><g class="keyboad-button" data-key="Delete" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text></g><g class="keyboad-button" data-key="End" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text></g><g class="keyboad-button" data-key="PageDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text></g><g class="keyboad-button" data-key="CapsLock" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="7.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="shift" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text></g><g class="keyboad-button" data-key="KeyA" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text></g><g class="keyboad-button" data-key="KeyS" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text></g><g class="keyboad-button" data-key="KeyD" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text></g><g class="keyboad-button" data-key="KeyF" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text></g><g class="keyboad-button" data-key="KeyG" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text></g><g class="keyboad-button" data-key="KeyH" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text></g><g class="keyboad-button" data-key="KeyJ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text></g><g class="keyboad-button" data-key="KeyK" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text></g><g class="keyboad-button" data-key="KeyL" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text></g><g class="keyboad-button" data-key="Semicolon" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">:</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text></g><g class="keyboad-button" data-key="Quote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">"</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text></g><g class="keyboad-button" data-key="Enter" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="657.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text></g><g class="keyboad-button" data-key="ShiftLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="7.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text></g><g class="keyboad-button" data-key="KeyZ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text></g><g class="keyboad-button" data-key="KeyX" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text></g><g class="keyboad-button" data-key="KeyC" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text></g><g class="keyboad-button" data-key="KeyV" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text></g><g class="keyboad-button" data-key="KeyB" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text></g><g class="keyboad-button" data-key="KeyN" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text></g><g class="keyboad-button" data-key="KeyM" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text></g><g class="keyboad-button" data-key="Comma" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">&lt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text></g><g class="keyboad-button" data-key="Period" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">&gt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text></g><g class="keyboad-button" data-key="Slash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">?</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text></g><g class="keyboad-button" data-key="ShiftRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="632.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text></g><g class="keyboad-button" data-key="ArrowUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text></g><g class="keyboad-button" data-key="ControlLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="7.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="AltLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="142.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text></g><g class="keyboad-button" data-key="Space" text-anchor="middle"><rect height="46" rx="5" ry="5" width="316.0" x="197.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text></g><g class="keyboad-button" data-key="AltRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="517.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text></g><g class="keyboad-button" data-key="ControlRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="672.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="ArrowLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text></g><g class="keyboad-button" data-key="ArrowDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text></g><g class="keyboad-button" data-key="ArrowRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text></g></svg></span>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                  $(function() {
+                    if (isDesktop()) {
+                      var wsUri = "wss://vlabs-ln-rs.netdevgroup.com/proxy/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJndyI6InZsYWJzLWxuLXJzLm5ldGRldmdyb3VwLmNvbSIsInZoIjoibG4xIiwiY24iOiI2Y2ZhNjk2NS03MTdiLTRkM2EtYjhmOC01MDI2YWE1NGI0ZTYuMSIsInB0IjoiYXR0YWNoIiwidHAiOiJhdHRhY2giLCJleHAiOjE2NTQyNDQ1Mzh9.F4Ty_JgS44XmWsR9Rk_j3GYWO7nE4tT8sB3NjOjwATk/attach";
+                      var term = new CliViewer( document.getElementById('device1'), 'device1', wsUri, null );
+                      var device = {
+                        type: 'cli', obj: term, parent: '#device1',
+                        session_id: '6cfa6965-717b-4d3a-b8f8-5026aa54b4e6', instance_id: '6cfa6965-717b-4d3a-b8f8-5026aa54b4e6.1'
+                      };
+                      window.devices.push(device);
+                      logEvent(device.session_id, device.instance_id, 'WS_ATTEMPT');
+                      term.socket.addEventListener('open', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_CONNECT');
+                      });
+                      term.socket.addEventListener('close', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_DISCONNECT');
+                      });
+                    }
+                  });
+                  </script>
+                  
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Feedback Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true">
+    <div class="modal-dialog">
+      <div id="modalContent" class="modal-content">
+      </div>
+    </div>
+  </div>
+
+
+
+<span id="__FONT_METRICS__" style="position: absolute; top: -16384px; left: -16384px; background-color: red; margin: 0px; padding: 0px; border-style: none; outline-style: none; font-family: &quot;DejaVu Sans Mono&quot;, &quot;Liberation Mono&quot;, monospace; font-size: 8px;">M</span></body></html>

@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/ -->
+<html lang="en" class="k-webkit k-webkit99"><input type="hidden" id="__yoroi_connector_api_injected_type" value="prod"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="spinner-keyframes">
+@-webkit-keyframes rotation 
+{  from { -webkit-transform : rotate( 0deg );   }
+  to   { -webkit-transform : rotate( 359deg ); }
+}
+@-moz-keyframes rotation {
+  from { -moz-transform : rotate( 0deg );   }
+  to   { -moz-transform : rotate( 359deg ); }
+}
+@-o-keyframes rotation {
+  from { -o-transform : rotate( 0deg );   }
+  to   { -o-transform : rotate( 359deg ); }
+}
+@keyframes rotation {
+  from { transform : rotate( 0deg );   }
+  to   { transform : rotate( 359deg ); }
+}
+</style><style id="term-style">.terminal {
+  float: left;
+  border: #000000 solid 5px;
+  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-size: 11px;
+  color: #f0f0f0;
+  background: #000000;
+  white-space: nowrap;
+}
+
+.terminal-cursor {
+  color: #000000;
+  background: #f0f0f0;
+}
+</style>
+  <title>NDG Introduction to Linux I - Chapter 7: Text Utilities</title>
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="https://ndg-content.s3.us-west-2.amazonaws.com/img/favicon.ico">
+
+  <link rel="stylesheet" href="./NDG Introduction to Linux I - Chapter 7_ Text Utilities_files/44d1a56e411f.css" type="text/css">
+
+  <script async="" src="./NDG Introduction to Linux I - Chapter 7_ Text Utilities_files/analytics.js"></script><script type="text/javascript" src="./NDG Introduction to Linux I - Chapter 7_ Text Utilities_files/polyfill-6.26.0.min.js"></script>
+  <script type="text/javascript" src="./NDG Introduction to Linux I - Chapter 7_ Text Utilities_files/9930c7fbf6d8.js"></script>
+
+  <script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-11306725-3', 'netdevgroup.com');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+
+</script>
+
+  <script type="text/javascript">
+    var NDGCourse = {name: "NDG Introduction to Linux I"};
+    var videoContent = {};
+  </script>
+</head>
+
+<body style="">
+
+  <!-- Start Navbar -->
+  <div class="navbar navbar-primary navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand hidden-xs">
+          NDG Introduction to Linux I - Chapter 7: Text Utilities
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-share-alt" aria-hidden="true"></i> Share <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://www.facebook.com/share.php?u=https://netdevgroup.com/online/courses/linux.html&amp;title=Learn%20Linux%20with%20NDG" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+            </li>
+            <li>
+              <a href="http://twitter.com/home?status=Learn%20Linux%20with%20NDG+https://netdevgroup.com/online/courses/linux.html" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li id="tour-help" class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-lg hidden-md hidden-sm">NDG Introduction to Linux I</span>
+            <div class="pull-right">
+              <i class="fa fa-question-circle"></i>
+              <span class="hidden-xs"> Help</span>
+              <b class="caret"></b>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header hidden-md hidden-sm hidden-lg">Chapter 7: Text Utilities</li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/faq/">Frequently Asked Questions</a></li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/feedback/">Contact Support</a></li>
+            <li class="hidden-xs desktop-only"><a id="toursb" class="support" href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/#">Start Tour</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- End Navbar -->
+
+
+  <div id="splitter" class="height-full k-widget k-splitter" data-role="splitter">
+    <div role="group" class="k-pane k-scrollable" style="position: absolute; top: 0px; width: 869px; height: 789.011px; left: 0px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            <!-- Tab Btns -->
+              <ul id="left-tabs" class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/#content" role="tab" data-toggle="tab">Content</a></li>
+                
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/#terms" role="tab" data-toggle="tab">Key Terms</a></li>
+                
+                <li class="mobile-only" style="display:none;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/#mobile" role="tab" data-toggle="tab"><i class="fa fa-terminal"></i> Devices</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div id="content-container" class="tab-content tab-content-panel">
+                  <div id="content" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="tour2" class="btn-group-vertical btn-group-xs pull-left hidden-xs">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                          
+                                          7.1 Introduction
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.2 Viewing File Contents
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.3 Splitting Files
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.4 Numbering the Output of Files
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.5" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.5 Displaying the Beginning of a File
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.6" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.6 Displaying the End of a File
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.7" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.7 Combining File Output
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.8" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.8 Command Line Pipes
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.9" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.9 Extract Fields in a File
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.10" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.10 Sort File Output
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.11" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.11 Remove Duplicate Lines in a File
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.12" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.12 Display File Contents in Various Formats
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.13" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.13 Translate File Characters
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.14" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.14 Stream Editor Command
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.15" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          7.15 Counting Lines in a File
+                                        </a>
+                                        
+                                      
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.1" class="btn btn-default ndg-menu-btn change_section btn-primary active" style="text-align:left;">
+                                    7.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.4
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.5" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.5
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.6" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.6
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.7" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.7
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.8" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.8
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.9" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.9
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.10" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.10
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.11" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.11
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.12" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.12
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.13" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.13
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.14" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.14
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.15" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    7.15
+                                  </a>
+                                  
+                                
+                            </div>
+                            <div class="content-menu-space">
+                              <div class="btn-group hidden-lg hidden-md hidden-sm mobile-chapter-select">
+                                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-caret-down"></i> Sections
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                        7.1 Introduction
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.2" class="btn-default ndg-menu-btn change_section">
+                                        7.2 Viewing File Contents
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.3" class="btn-default ndg-menu-btn change_section">
+                                        7.3 Splitting Files
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.4" class="btn-default ndg-menu-btn change_section">
+                                        7.4 Numbering the Output of Files
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.5" class="btn-default ndg-menu-btn change_section">
+                                        7.5 Displaying the Beginning of a File
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.6" class="btn-default ndg-menu-btn change_section">
+                                        7.6 Displaying the End of a File
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.7" class="btn-default ndg-menu-btn change_section">
+                                        7.7 Combining File Output
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.8" class="btn-default ndg-menu-btn change_section">
+                                        7.8 Command Line Pipes
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.9" class="btn-default ndg-menu-btn change_section">
+                                        7.9 Extract Fields in a File
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.10" class="btn-default ndg-menu-btn change_section">
+                                        7.10 Sort File Output
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.11" class="btn-default ndg-menu-btn change_section">
+                                        7.11 Remove Duplicate Lines in a File
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.12" class="btn-default ndg-menu-btn change_section">
+                                        7.12 Display File Contents in Various Formats
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.13" class="btn-default ndg-menu-btn change_section">
+                                        7.13 Translate File Characters
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.14" class="btn-default ndg-menu-btn change_section">
+                                        7.14 Stream Editor Command
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.15" class="btn-default ndg-menu-btn change_section">
+                                        7.15 Counting Lines in a File
+                                      </a>
+                                      
+                                    
+                                    </li>
+                                  </ul>
+                                </div>
+                              <div>
+<article id="content-7.1" style="display: block;"><h2>7.1 Introduction</h2>
+<p>A core philosophy that started with UNIX, and lives on in Linux, is that commands should read text as input and write text as output. To remain true to this philosophy, a large number of commands have been designed with the primary purpose of processing text files. As you will see, many of these commands act as filters, as they somehow alter the text that they read before they produce their output.</p>
+</article><article id="content-7.2"><h2>7.2 Viewing File Contents</h2>
+<p>With a single file argument, the <code>cat</code> command will simply output the contents of a file:</p>
+
+<pre class="config">cat [OPTION]... [FILE]...</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cd Documents                                
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong>                                   
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat alpha-first.txt
+A is for Animal
+B is for Bear‌⁠​​⁠​ 
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat alpha-second.txt
+G is for Grapes
+H is for Happy
+I is for Ink
+J is for Juice
+K is for Kangaroo
+L is for Lol
+M is for Monkey</pre>
+
+<p>However, the <code>cat</code> command gets its name from the word <var>concatenate</var>, meaning to merge or append. This command has the ability to accept two or more files as input and then output the concatenation (merging) of those files:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat alpha-first.txt alpha-second.txt
+A is for Animal
+B is for Bear
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower
+G is for Grapes
+H is for Happy
+I is for Ink
+J is for Juice
+K is for Kangaroo
+L is for Lol
+M is for Monkey</pre>
+
+
+<p>While the <code>cat</code> command is often used to quickly view the contents of small files, using it to display the contents of larger files will result in frustration since the data will be displayed much too quickly and will scroll off the screen. To display the file one page at a time, use a <var>pager</var>, either the <code>more</code> or the <code>less</code> command.</p>
+
+<p>To view a file with the <code>less</code> command, pass the file name as an argument:</p>
+
+<pre class="config">less FILE</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> less words</pre>
+ 
+<p>The <code>more</code> and <code>less</code> commands allow users to navigate the document using keystroke commands. For example, when using <code>less</code> as a pager, to advance forward a page, press the <strong>Spacebar</strong>:</p>
+
+<div class="content-image "><img alt="An animated gif demonstrating advancing through a document with the less command." class="img-responsive" src="./NDG Introduction to Linux I - Chapter 7_ Text Utilities_files/L1v2_Ch_7-2.gif"></div> 
+
+<p>The <code>less</code> command might look familiar since it is the pager generally used to view man pages. As you may recall, the <code>less</code> command requires the use of movement commands to navigate a file. When viewing a file with the <code>less</code> command, use the <strong>H</strong> key or <strong>Shift + H</strong> to display a help screen with a summary of the <code>less</code> commands:</p>
+ 
+<pre class="content_terminal">               SUMMARY OF LESS COMMANDS                                     
+      Commands marked with * may be preceded by a number, N.      
+
+      Notes in parentheses indicate the behavior if N is given.                 
+                                                                       
+  h  H                 Display this help.                              
+  q  :q  Q  :Q  ZZ     Exit.                                           
+ ------------------------------------------------------------------------ 
+                           MOVING                                               
+                                                                        
+  e  ^E  j  ^N  CR  *  Forward  one line   (or N lines).                 
+  y  ^Y  k  ^K  ^P  *  Backward one line   (or N lines).               
+  f  ^F  ^V  SPACE  *  Forward  one window (or N lines).                
+  b  ^B  ESC-v      *  Backward one window (or N lines).               
+  z                 *  Forward  one window (and set window to N).       
+  w                 *  Backward one window (and set window to N).               
+  ESC-SPACE         *  Forward  one window, but don't stop at end-of-file.    
+  d  ^D             *  Forward  one half-window (and set half-window to N).     
+  u  ^U             *  Backward one half-window (and set half-window to N).     
+  ESC-)  RightArrow *  Left  one half screen width (or N positions).    
+  ESC-(  LeftArrow  *  Right one half screen width (or N positions).      
+HELP -- Press RETURN for more, or q when done</pre>
+
+<p>To exit the <code>less</code> command, use the <strong>Q</strong> key.</p> 
+
+</article><article id="content-7.3"><h2>7.3 Splitting Files</h2>
+<p>While the <code>cat</code> command can concatenate two or more files into one file, the <code>split</code> command can take one file and <var>split</var> it into multiple files. One application of the <code>split</code> command would be to take a file that is too large to fit on some kind of removable media and break that file apart so that each piece could be stored on separate media. This way, the pieces of the split files can each fit on a removable medium for transfer to another system.</p>
+
+<p>This can also be a useful way to send larger files across a slow network that has connection issues. Breaking files into smaller pieces would make it easier to transfer the data across a poor network connection. Once the pieces are copied to the other system, the <code>cat</code> command can be used to reassemble the pieces into a single file once again.</p>
+
+<p>The syntax for the <code>split</code> command is:</p>
+
+<pre class="config">split [OPTION]... [INPUT [PREFIX]]</pre>
+
+<p>The <code class="console">INPUT</code> argument is typically a file name, but the <code>split</code> command is able to read from standard input as well.</p>
+
+<div class="alert alert-warning">
+<strong><p>Note</p></strong>
+<p><var>Standard input and output streams will be covered in greater detail later in the course.</var></p>
+</div>
+
+<p>By default, the new files will be named with a prefix of <code class="console">x</code> and an alphabetical suffix of <code class="console">aa</code>, <code class="console">ab</code>, etc.:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> split longfile.txt
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> ls                                              
+<strong><span class="ansi-blue">School</span></strong>            alpha.txt    linux.txt     profile.txt   xac  xai             
+<strong><span class="ansi-blue">Work</span></strong>              animals.txt  longfile.txt  red.txt       xad  xaj             
+adjectives.txt    food.txt     newhome.txt   spelling.txt  xae  xak             
+alpha-first.txt   hello.sh     numbers.txt   words         xaf                  
+alpha-second.txt  hidden.txt   os.csv        xaa           xag                  
+alpha-third.txt   letters.txt  people.csv    xab           xah</pre>
+
+<p>As indicated by the command syntax, it is possible to specify a prefix other than <code class="console">x</code>. For example, the following example denotes <code class="console">file.</code> as the prefix:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> split longfile.txt file.
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> ls                                              
+<strong><span class="ansi-blue">School</span></strong>            animals.txt  file.ag   hidden.txt    people.csv    xac  xaj   
+<strong><span class="ansi-blue">Work</span></strong>              file.aa      file.ah   letters.txt   profile.txt   xad  xak   
+adjectives.txt    file.ab      file.ai   linux.txt     red.txt       xae        
+alpha-first.txt   file.ac      file.aj   longfile.txt  spelling.txt  xaf        
+alpha-second.txt  file.ad      file.ak   newhome.txt   words         xag        
+alpha-third.txt   file.ae      food.txt  numbers.txt   xaa           xah        
+alpha.txt         file.af      hello.sh  os.csv        xab           xai   </pre>
+
+<p>The <code>-d</code> option will allow for the split files to have a numeric suffix instead of a default alphabetic suffix. If <code>-d</code> is added to the previous command, the resulting file names would be:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> split -d longfile.txt file.
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> ls
+<strong><span class="ansi-blue">School</span></strong>            file.00  file.08  file.af   hidden.txt    profile.txt   xae   
+<strong><span class="ansi-blue">Work</span></strong>              file.01  file.09  file.ag   letters.txt   red.txt       xaf   
+adjectives.txt    file.02  file.10  file.ah   linux.txt     spelling.txt  xag   
+alpha-first.txt   file.03  file.aa  file.ai   longfile.txt  words         xah   
+alpha-second.txt  file.04  file.ab  file.aj   newhome.txt   xaa           xai   
+alpha-third.txt   file.05  file.ac  file.ak   numbers.txt   xab           xaj   
+alpha.txt         file.06  file.ad  food.txt  os.csv        xac           xak   
+animals.txt       file.07  file.ae  hello.sh  people.csv    xad  </pre> 
+
+<p>By default, the <code>split</code> command will break apart a file into 1,000 line chunks. The first 1,000 lines of the original file will go into the first file, the second 1,000 lines will go into the second file, etc. The above file <code class="console">longfile.txt</code> splits into 11 files, meaning it is approximately 11,000 lines long.</p>
+
+<p>The <code>-l</code> option can be used to specify the number of lines to split upon. Alternatively, the <code>-b</code> option may be used to specify the maximum number of bytes to use per file.</p>
+</article><article id="content-7.4"><h2>7.4 Numbering the Output of Files</h2>
+<p>The <code>nl</code> command will <var>number the lines</var> of its output.</p>
+
+<pre class="config">nl [OPTION]... [FILE]...</pre>
+
+<p>By default, it only numbers non-empty lines:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> nl newhome.txt
+     1  Thanks for purchasing your new home!!
+ 
+     2  **Warning** it may be haunted.
+ 
+     3  There are three bathrooms.
+ 
+     4  **Beware** of the ghost in the bedroom.
+ 
+     5  The kitchen is open for entertaining.
+ 
+     6  **Caution** the spirits don't like guests.
+ 
+     7  Good luck!!!</pre>
+
+<p>The <code>nl</code> command offers many formatting options for line numbering, including separate styles for headers, footers, sections, and the body of a file. For example, to have the <code>nl</code> command number <var>every</var> line in the <code class="console">newhome.txt</code> file, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> nl -ba newhome.txt
+     1  Thanks for purchasing your new home!!
+     2
+     3  **Warning** it may be haunted.
+     4
+     5  There are three bathrooms.
+     6
+     7  **Beware** of the ghost in the bedroom.
+     8
+     9  The kitchen is open for entertaining.
+    10
+    11  **Caution** the spirits don't like guests.
+    12
+    13  Good luck!!!</pre>
+
+<p>In the previous example, the option <code>-ba</code> may cause some confusion as it is really just one option, not two. The <code>-b</code> option is the <code>--body-numbering</code> option, abbreviated in its short version as <code>-b</code>. The <code>a</code> is actually an argument that means <var>number all lines</var>. In other words, the command could also be executed:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> nl -b a newhome.txt</pre>
+
+<p>This is one of the reasons some Linux users prefer the long argument technique. Using a long argument, the command could have been written:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> nl --body-numbering=a newhome.txt</pre>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+<p>It is also possible to number lines using the <code>cat</code> command with the <code>-n</code> option, which numbers <var>every</var> line by default.</p>
+</div>
+</article><article id="content-7.5"><h2>7.5 Displaying the Beginning of a File</h2>
+<p>The purpose of the <code>head</code> command is to view the <var>beginning</var> of a file or output.</p>
+
+<pre class="config">head [OPTION]... [FILE]...</pre>
+
+<p>By default, the <code>head</code> command will display the first ten lines of a file's contents. For example, the following command displays the first ten lines of the <code class="console">alpha.txt file</code>:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> head alpha.txt
+A is for Apple
+B is for Bear
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower
+G is for Grapes
+H is for Happy
+I is for Ink
+J is for Juice</pre>
+
+<p>There are several options for the <code>head</code> command that are useful. For instance, there is the ability to use a number as an option to indicate how many lines of output to display. For example, to display the first three lines of the <code class="console">alpha.txt</code> file, execute:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> head -3 alpha.txt
+A is for Apple
+B is for Bear
+C is for Cat</pre>
+
+<p>There is also the <code>-n</code> option which takes an argument for the <var>number</var> of lines to display. So, the following would also display the first three lines of the <code class="console">alpha.txt</code> file:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> head -n3 alpha.txt
+A is for Apple
+B is for Bear
+C is for Cat</pre>
+
+<p>A negative number can also be used as an argument to the <code>-n</code> option, which tells the <code>head</code> command how many lines to <var>omit</var> from the bottom of the file. For example, when executing the <code>head -n -90</code> command on a file that is 100 lines long, the output would only include the first 10 lines by omitting the last 90.</p>
+
+<p>The <code class="console">alpha.txt</code> file is 26 lines long. The following command omits the last 24 lines, resulting in only the first two lines of the file being displayed:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> head -n -24 alpha.txt
+A is for Apple
+B is for Bear</pre>
+
+</article><article id="content-7.6"><h2>7.6 Displaying the End of a File</h2>
+<p>The opposite of the <code>head</code> command, the <code>tail</code> command, displays contents from the end of the file and not the beginning.</p>
+ 
+<pre class="config">tail [OPTION]... [FILE]...</pre>
+
+<p>The <code>tail</code> command also displays ten lines by default with no options given:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> tail alpha.txt
+Q is for Quark
+R is for Rat
+S is for Sloth
+T is for Turnip
+U is for Up
+V is for Velvet
+W is for Walrus
+X is for Xenon
+Y is for Yellow
+Z is for Zebra</pre>
+
+<p>You may use either a number or the <code>-n</code> option as an argument to the <code>tail</code> command to specify how many lines you want to output from the end of the file. Therefore, the following two commands are equivalent:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> tail -3 alpha.txt
+X is for Xenon
+Y is for Yellow
+Z is for Zebra
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> tail -n3 alpha.txt
+X is for Xenon
+Y is for Yellow
+Z is for Zebra</pre>
+
+<p>With the <code>tail</code> command, the <code>-n</code> option has an interesting twist to it, as well. When using the <code>-n</code> option with a number prefixed by a plus sign <code class="console">+</code> character, the number is interpreted as the line number in the file to start displaying content from; it will display from that line to the end of the file. In other words, the <code>-n</code> option used with the <code>+20</code> argument will display the contents of the file starting at line twenty and continuing until the end of the file.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> tail -n +20 alpha.txt
+T is for Turnip
+U is for Up
+V is for Velvet
+W is for Walrus
+X is for Xenon
+Y is for Yellow
+Z is for Zebra</pre>
+
+<div class="alert alert-info">
+<strong><p>Consider This</p></strong> 
+<p>Another unusual, but useful feature of the <code>tail</code> command is its ability to <var>follow</var> a file. When the <code>tail</code> command is executed with the <code>-f</code> option and a file name argument, then it will initially output the number of lines specified. Instead of exiting after displaying the lines, the <code>tail</code> command continues to run, following any changes in the file and displaying new content as it is added to the end of the file.</p>
+
+<p>One of the main applications for this follow feature is for administrators to watch log files change while they are troubleshooting problems.</p>
+
+<p>Additionally, the <code>-F</code> option is used when following a log file that may have been rotated or archived, and a new empty file of the same name replaces it.  The <code>-F</code> option allows <code>tail</code> to notice that the underlying inode number that matches the log file name has changed, and it will continue to watch the new log file.</p>
+</div>
+</article><article id="content-7.7"><h2>7.7 Combining File Output</h2>
+<p>The <code>paste</code> command will merge the lines of one or more files, line by line, separating them with a tab as a <var>delimiter (separator)</var> by default.</p>
+
+<pre class="config">paste [OPTION]... [FILE]...</pre>
+
+<p>To demonstrate the <code>paste</code> command’s functionality, the <code class="console">numbers.txt</code> and <code class="console">letters.txt</code> will be used:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat numbers.txt
+1
+2
+3
+4
+5
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat letters.txt
+a
+b
+c
+d
+e</pre>
+
+<p>To paste these files together with a tab between the elements, use the <code>paste</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> paste numbers.txt letters.txt
+1       a
+2       b
+3       c
+4       d
+5       e</pre>
+
+<p>It is also possible to use other characters as delimiters. For instance, if the intent is to create a file that a spreadsheet could easily open, a comma would be chosen as the delimiter. The <code>-d</code> option is used to specify the delimiter.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> paste -d , numbers.txt letters.txt
+1,a
+2,b
+3,c
+4,d
+5,e</pre>
+
+<p>Similar to the <code>paste</code> command, the <code>join</code> command is able to combine two files. Instead of simply going line by line through the files, the <code>join</code> command matches the values of fields to determine which lines to combine. In other words, it will join files based on a common field between the files.</p>
+
+<div class="alert alert-info">
+<strong><p>Consider This</p></strong>
+ 
+<p>For those familiar with Structured Query Language (SQL), the <code>join</code> command is similar to the SQL <strong>join</strong> statement, which combines records from two tables of related tables by matching values in joined fields.</p>
+</div>
+
+<p>In order to break a line into fields, the <code>join</code> command uses either tabs or spaces between the contents of the files and breaks each line into separate fields.</p>
+
+<pre class="config">join [OPTION]... FILE1 FILE2</pre>
+
+<p>To demonstrate this properly, we will use the following two files.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat adjectives.txt
+1 golden
+2 honey
+3 fruit
+4 grey
+5 bald
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat animals.txt
+1 retriever 
+2 badger
+3 bat
+4 wolf
+5 eagle</pre>
+
+<p>If the data that is used to join the files is the first field, then there is no need to specify which join fields to use. However, the field that is used in the joining process must be sorted in both files first, or else errors may occur. Also, missing elements in the key of either file will not appear in the results.</p>
+
+<p>In the following example, the first field is used to merge the two files together. When the files are joined, the number field is used as a key to determine which words to join:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> join adjectives.txt animals.txt
+1 golden retriever
+2 honey badger
+3 fruit bat
+4 grey wolf
+5 bald eagle</pre>
+
+<p>The first field in each file containing numbers is only shown once in the output, followed by a space and the second field from the first file, finally by another space and the second field from the second file. For illustration purposes, the same two files are shown being combined with the <code>paste</code> and <code>cat</code> commands:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> paste adjectives.txt animals.txt
+1    golden    1    retriever
+2    honey     2    badger
+3    fruit     3    bat
+4    grey      4    wolf
+5    bald      5    eagle
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat adjectives.txt animals.txt
+1    golden
+2    honey
+3    fruit
+4    grey
+5    bald
+1    retriever
+2    badger
+3    bat
+4    wolf
+5    eagle</pre>
+
+<p>Use the <code>-t</code> option to specify an alternate delimiter. For example, if two spreadsheets were exported into <var>comma separated value</var> <code class="console">.csv</code> files, <code>join</code> could use those commas to distinguish one field from another.</p>
+
+<p>The next example illustrates a more advanced use of the <code>join</code> command. Two files, <code class="console">people.csv</code> and <code class="console">os.csv</code>., will be combined by the <code>join</code> command using data that isn't in the first field.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat people.csv
+Dennis,Richie
+Andrew,Tanenbaum
+Ken,Thompson
+Linus,Torvalds
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat os.csv
+1970,Unix,Richie
+1987,Minix,Tanenbaum
+1970,Unix,Thompson
+1991,Linux,Torvalds</pre>
+
+<p>The following <code>join</code> command will join the files according to the field containing last names:</p>
+
+<pre class="config">join -1 2 -2 3 -t',' people.csv os.csv</pre>
+
+<p>To specify that the join field for the <var>first</var> file is the <var>second</var> field, <code>-1 2</code> is used. The <code>-1</code> option means "field of the first file" and the <code>2</code> argument means "the second field".</p>
+
+<p>To specify that the join field for the <var>second</var> file is the <var>third field</var>, <code>-2 3</code> is used. The <code>-2</code> option means "field of the second file" and the <code>3</code> argument means "the third field".</p>
+
+<p>These files also use a delimiter that is neither a tab nor a space, so the delimiter is specified as a comma , character with the <code>-t','</code> option:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> join -1 2 -2 3 -t',' people.csv os.csv
+Richie,Dennis,1970,Unix
+Tanenbaum,Andrew,1987,Minix
+Thompson,Ken,1970,Unix
+Torvalds,Linus,1991,Linux</pre>
+
+</article><article id="content-7.8"><h2>7.8 Command Line Pipes</h2>
+<p>To make effective use of filter commands, command pipelines are often used. The <var>pipe</var> <code class="console">|</code> character can be used to send the output of one command to another:</p>
+
+<pre class="config">COMMAND 1 | COMMAND 2 | COMMAND 3 ...</pre>
+
+<p>Typically, when a command has output or generates an error, the output is displayed on the screen; however, this does not have to be the case. Instead of being printed to the screen, the output of one command becomes input for the next command. This tool can be powerful, especially when looking for specific data; <var>piping</var> is often used to refine the results of an initial command.</p>
+
+<p>The <code>head</code> and <code>tail</code> commands are often used in command pipelines to limit the number of lines when dealing with large files. For example, to number only the last three lines of the <code class="console">alpha.txt</code> file, pipe the output of the <code>tail</code> command to the <code>nl</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> tail -3 alpha.txt | nl
+     1  hello                                                         
+     2  inkling                                                       
+     3  jogger</pre>   
+
+<p>Command pipelines can also be used to filter command output. For example, to list just the first five files in the current directory, pipe the output of the <code>ls</code> command to the <code>head</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> ls | head -5
+School                                                                          
+Work                                                                            
+adjectives.txt                                                                  
+alpha-first.txt                                                                 
+alpha-second.txt</pre>
+
+<div class="alert alert-warning">
+<strong><p>Note</p></strong>
+<p><var>Pipes will be covered in greater detail later in the course.</var></p>
+</div>
+</article><article id="content-7.9"><h2>7.9 Extract Fields in a File</h2>
+<p>The <code>cut</code> command <var>extracts</var> fields of information from a text file.</p> 
+
+<pre class="config">cut [OPTION]... [FILE]...</pre>
+
+<p>Note the output of the following <code>head</code> command for the first line of the <code class="console">/etc/passwd</code> command. There are 7 fields, each separated by the colon <code class="console">:</code> character as a delimiter:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> head -1 /etc/passwd
+root:x:0:0:root:/root:/bin/bash</pre>
+
+<table class="table "><tbody>
+<tr>
+<td><pre class="config">root</pre></td>
+<td><pre class="config">x</pre></td>
+<td><pre class="config">0</pre></td>
+<td><pre class="config">0</pre></td>
+<td><pre class="config">root</pre></td>
+<td><pre class="config">/root</pre></td>
+<td><pre class="config">/bin/bash</pre></td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>6</td>
+<td>7</td>
+</tr>
+</tbody></table>
+ 
+<p>The default field separator is either a space or tab; this can be modified with the <var>delimiter</var> <code>-d</code> option. Use the <code>-f</code><code></code> option to specify a list of comma separated field numbers to display or a hyphenated range of fields to display.</p>
+
+<p>To extract certain fields from the <code class="console">/etc/passwd</code> file, specify the delimiter using the colon character as an argument to the <code>-d</code> option. If only fields <code class="console">1</code>,<code class="console">5</code>,<code class="console">6</code>, and <code class="console">7</code> were important, they could be extracted using the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> head -1 /etc/passwd | cut -d: -f1,5,6,7
+root:root:/root:/bin/bash</pre>
+
+<p>The same result could be achieved by combining the fields <code class="console">5</code>,<code class="console">6</code>,<code class="console">7</code> into the range <code class="console">5-7</code>:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> head -1 /etc/passwd | cut -d: -f1,5-7
+root:root:/root:/bin/bash</pre>
+
+<p>Given a file that has fields at fixed character positions, the <code>cut</code> command can be used to extract the characters one at a time by using the <var>character</var> <code>-c</code> option followed by a range.</p>
+
+<p>For example, in the <code class="console">/var/syslog</code> file; the first fifteen characters specify a timestamp. To extract only those characters from the text, specify <code class="console">1</code> through <code class="console">15</code>:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> tail /var/log/syslog | cut -c1-15
+Jul 20 15:17:01
+Jul 20 15:59:02
+Jul 20 16:17:01
+Jul 20 16:41:22
+Jul 20 16:59:02
+Jul 20 17:17:01
+Jul 20 17:59:02
+Jul 20 18:17:01
+Jul 20 18:59:02
+Jul 20 19:17:01</pre>
+ 
+</article><article id="content-7.10"><h2>7.10 Sort File Output</h2>
+<p>The <code>sort</code> command is used to display a file sorted on a specific field of data.</p>
+
+<pre class="config">sort [OPTION]... [FILE]...</pre>
+
+<p>Using <code>sort</code> with no options on <code class="console">people.csv</code> results in the lines being sorted in ASCII order, which is similar to alphabetical order:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sort people.csv
+Andrew,Tanenbaum
+Dennis,Richie
+Ken,Thompson
+Linus,Torvalds</pre>
+
+<p>This command is able to sort using any field, the same way that a spreadsheet is able to sort by any column. By default, <code>sort</code> breaks up each line of a file into fields using whitespace (tabs or spaces) as delimiters. To specify an alternate delimiter, use the <code>-t</code> option. To specify the fields to sort from first to last, use one or more <code>-k</code> options. In the following example, the <code class="console">os.csv</code> file is sorted based on the second field of data, using the comma <code class="console">,</code> character as a delimiter:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sort -t',' -k2 os.csv
+1991,Linux,Torvalds
+1987,Minix,Tanenbaum
+1970,Unix,Richie
+1970,Unix,Thompson</pre>
+
+<p>While it is possible to sort the first field of <code class="console">os.csv</code> using the ASCII ordering, a numerical sort makes more sense. In order to have the <code>sort</code> command treat a field numerically, add an <code>n</code> as an argument to the <code>-k</code> option for that key field specification. Be aware in the following example the <code>-k</code> option has two arguments, the <code>1</code> indicates the first field, and the <code>n</code> specifies sorting that field numerically:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sort -t',' -k1n os.csv
+1970,Unix,Richie
+1970,Unix,Thompson
+1987,Minix,Tanenbaum
+1991,Linux,Torvalds</pre>
+
+<p>To <var>reverse</var> the sort direction from ascending to descending, add an <code>r</code> argument to the key field specification:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sort -t',' -k1nr os.csv
+1991,Linux,Torvalds
+1987,Minix,Tanenbaum
+1970,Unix,Richie
+1970,Unix,Thompson</pre>
+
+<p>The <code>sort</code> command can be combined with other commands to accomplish more sophisticated tasks. For example, the output of the <code>cut -f7 -d: /etc/passwd</code> command contains many duplicate values:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cut -f7 -d: /etc/passwd | head -n4
+/bin/bash
+/usr/sbin/nologin
+/usr/sbin/nologin
+/usr/sbin/nologin</pre>
+
+<p>By piping this output to the <code>sort</code> command and using the <var>unique</var> <code>-u</code> option, duplicate lines will be removed from the output:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cut -f7 -d: /etc/passwd | sort -u
+/bin/bash
+/bin/sync
+/usr/sbin/nologin</pre>
+</article><article id="content-7.11"><h2>7.11 Remove Duplicate Lines in a File</h2>
+<p>The <code>uniq</code> command does what the <var>unique</var> <code>-u</code> option did with the <code>sort</code> command. Unlike the <code>sort</code> command, which rearranges the rows consecutively before eliminating duplicates, the <code>uniq</code> command will only eliminate duplicates if they are already consecutive lines. If the <code>sort</code> command is already being used to rearrange the duplicates into consecutive order, then why not just use the <code>-u</code> option to eliminate duplicates?</p>
+
+<p>There are a couple of reasons to use the <code>uniq</code> command instead of the <code>sort -u</code> command. First, there may be times when the lines should not be sorted first. The <code>uniq</code> command can simply remove lines that are currently consecutive.</p>
+
+<p>Second, the <var>count</var> <code>-c</code> option to the <code>uniq</code> command outputs the number of duplicates that were counted (a feature that the <code>sort</code> command lacks):</p>
+‌⁠​​⁠​ 
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cut -f7 -d: /etc/passwd | sort | uniq -c
+    3 /bin/bash
+    1 /bin/sync                                                    
+    23 /usr/sbin/nologin</pre>
+
+</article><article id="content-7.12"><h2>7.12 Display File Contents in Various Formats</h2>
+<p>The <code>od</code> command can output data in several different formats. It produces an <var>octal dump</var> by default (hence the name <var>od</var>).  One use of this command is to display the contents of a file when it contains non-printable characters, such as control characters.</p>
+
+<pre class="config">od [OPTION]... [FILE]...</pre>
+
+<p>The following table summarizes the formats that the <code>od</code> command can output:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Single Option</th>
+<th>Option with Argument</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>-a</code></td>
+<td><code>-t a</code></td>
+<td>Named characters, ignoring high bit</td>
+</tr>
+<tr>
+<td><code>-b</code></td>
+<td><code>-t o1</code></td>
+<td>Octal bytes</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td><code>-t c</code></td>
+<td>ASCII characters or backslash escapes</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td><code>-t u2</code></td>
+<td>Unsigned decimal 2-byte units</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td><code>-t fF</code></td>
+<td>Floats</td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td><code>-t dI</code></td>
+<td>Decimal integers</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td><code>-t dL</code></td>
+<td>Decimal longs</td>
+</tr>
+<tr>
+<td><code>-o</code></td>
+<td><code>-t o2</code></td>
+<td>Octal 2-byte units</td>
+</tr>
+<tr>
+<td><code>-s</code></td>
+<td><code>-t d2</code></td>
+<td>Decimal 2-byte units</td>
+</tr>
+<tr>
+<td><code>-x</code></td>
+<td><code>-t x2</code></td>
+<td>Hexadecimal 2-byte units</td>
+</tr>
+</tbody>
+</table>
+
+<p>In order to demonstrate the <code>od</code> command, the <code class="console">hidden.txt</code> file will be used:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat hidden.txt
+NDG LPIC-1 Curriculum
+Is The Best.</pre>
+
+<p>It seems straight-forward enough, but there are non-printable control characters <code class="console">\r</code> causing <code>cat</code> to return to the beginning of the first line. This is where <code>od</code> comes in handy. Use the <code>-c</code> option to examine ASCII characters:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> od -c hidden.txt
+0000000    T   h   i   s      \r   i   s      \r   a      \r   h   i   d
+0000020    d   e   n      \r   m   e   s   s   a   g   e      \r   N   G
+0000040    D       L   P   I   C   -   1       C   u   r   r   i   c   u
+0000060    l   u   m      \n   I   s       T   h   e       B   e   s   t
+0000100    .  \n  \n                                                    
+0000103</pre>
+
+<p>It appears that there was a hidden message in that file that the <code>cat</code> command missed. The point, however, is not to use <code>od</code> to send secret messages. The <code>od</code> command can be used for file recovery, or to open a file that crashes other programs.</p>
+
+<p>As the name implies, <code>od</code> can display raw file content in octal form. It also supports hexadecimal and decimal output. This can be very useful when analyzing a precompiled binary, such as a virus:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> od -x hidden.txt
+0000000 6854 7369 0d20 7369 0d20 2061 680d 6469
+0000020 6564 206e 6d0d 7365 6173 6567 0d20 474e
+0000040 2044 504c 4349 312d 4320 7275 6972 7563
+0000060 756c 206d 490a 2073 6854 2065 6542 7473
+0000100 0a2e 000a
+0000103</pre>
+
+<p>Two other options control where the <code>od</code> command will read its data from the file:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Option</th>
+<th>Function</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>-j</code></td>
+<td>Specify how many bytes to skip from the input.</td>
+</tr>
+<tr>
+<td><code>-N</code></td>
+<td>Specify the total number of bytes the <code>od</code> command will read from the file.</td>
+</tr>
+</tbody>
+</table>
+
+<p>See how these options work with the same <code class="console">hidden.txt</code> file from the previous example, skipping thirteen bytes and displaying only fifteen bytes total:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> od -j 13 -N 15 -c hidden.txt
+0000015    h   i   d   d   e   n      \r   m   e   s   s   a   g   e
+0000034</pre>
+
+<p>Additional options that are used to affect the output of the <code>od</code> command:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Option</th>
+<th>Function</th>
+</tr></thead>
+<tbody><tr>
+<td><code>-w</code></td>
+<td>Specify the width in bytes to output next to the offset address. By default, the width will be sixteen bytes.</td>
+</tr></tbody>
+</table>
+
+<p>The <code>-A</code> option has several ways to specify the offset address to the left of the data as the formatting options covered earlier:</p>
+ 
+<table class="table ">
+<thead><tr>
+<th>Option</th>
+<th>Function</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>-An</code></td>
+<td>Prevents the <code>od</code> command from outputting the offset address to the left of the data.</td>
+</tr>
+<tr>
+<td><code>-Ad</code></td>
+<td>Outputs file offsets using decimal addresses.</td>
+</tr>
+<tr>
+<td><code>-Ax</code></td>
+<td>Outputs file offsets using hexadecimal addresses.</td>
+</tr>
+</tbody>
+</table>
+ 
+<p><var>File offsets</var> are non-negative integers that specify a point within a file that is a specific number of bytes from a known position. For example, an offset of 64 from the beginning of a file would denote the 65th bit in the file. Offsets are a way to specify a particular piece of information located within a data file. They can be useful for dealing with files that are open or have been damaged, or in computer forensics for recovering deleted information.</p> 
+
+<p>In the following example, the <code>od</code> command displays the file with a width of eight bytes of data, the offset address suppressed, and the bytes of data being displayed as ASCII characters:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> od -j 13 -N 15 -c -w8 -An ./hidden.txt
+   h   i   d   d   e   n  	\r
+   m   e   s   s   a   g   e</pre>
+</article><article id="content-7.13"><h2>7.13 Translate File Characters</h2>
+<p>The <code>tr</code> command can be used to <var>translate</var> from one set of characters to another.</p>
+
+<pre class="config">tr [OPTION]... SET1 [SET2]</pre>
+
+<p>The following example will translate all of the lowercase letters in <code class="console">alpha-first.txt</code> to uppercase letters:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat alpha-first.txt | tr 'a-z' 'A-Z'
+A IS FOR ANIMAL
+B IS FOR BEAR
+C IS FOR CAT
+D IS FOR DOG
+E IS FOR ELEPHANT
+F IS FOR FLOWER</pre>
+
+<p>The characters that the <code>tr</code> command is translating do not have to be in a range; they can simply be listed for each set of characters. Be careful to balance the sets to make sure that they both have the same number of characters, or else strange results may occur. The following example has the <code>tr</code> command replace the vowel characters with symbols:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat alpha-first.txt | tr 'aeiou' '@&amp;1*^'
+A 1s f*r An1m@l   
+B 1s f*r B&amp;@r
+C 1s f*r C@t
+D 1s f*r D*g
+E 1s f*r El&amp;ph@nt
+F 1s f*r Fl*w&amp;r</pre>
+
+<p>Aside from performing a translate function, the <code>tr</code> command can also "squeeze" repeated characters and delete characters. In performing these functions, only one set of characters needs to be specified. For example, to eliminate duplicates, use the <code>-s</code> option to <var>squeeze</var> repeats of characters from the first set:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> echo 'aaaaaappleeeeee' | tr -s 'ae'
+apple</pre>
+
+<p>Using the <code>-d</code> option will delete the characters in the first set:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat alpha-first.txt | tr -d 'AEIOUaeiou'
+ s fr nml  
+B s fr Br
+C s fr Ct
+D s fr Dg
+ s fr lphnt
+F s fr Flwr</pre>
+</article><article id="content-7.14"><h2>7.14 Stream Editor Command</h2>
+<p>The <var>stream editor</var> <code>sed</code> command is a non-interactive editor that can be used to modify text.</p>
+
+<pre class="config">sed [OPTION]... {SCRIPT} [FILE]...</pre>
+
+<p>To do a simple search and replace operation, use the following <var>script</var>, or <var>expression</var>. This will search for the pattern between the first two slashes, and if it finds that text, then it replaces it with what is specified between the last two slashes:</p>
+
+<pre class="config">s/PATTERN/REPLACEMENT/</pre>
+
+<p>In the <code class="console">alpha-first.txt</code> file, to replace the word <code class="console">Animal</code> with the word <code class="console">Apple</code>, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed 's/Animal/Apple/' alpha-first.txt
+A is for Apple
+B is for Bear
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower</pre>
+
+<p>Unlike most filter commands, the <code>sed</code> command can modify the original file by using the <code>-i</code> option.The <code>-i</code> option allows for an optional argument, which will be an <var>extension</var> added to the original file. The result is a new file which is a copy of the original file. For example, if you wanted to backup the original file as <code class="console">alpha-first.txt.original</code> file, execute the following:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed -i'.original' 's/Animal/Apple/' alpha-first.txt
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat alpha-first.txt
+A is for Apple
+B is for Bear
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat alpha-first.txt.original
+A is for Animal
+B is for Bear
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower</pre>
+
+<p>The original file was modified as a result of the <code>-i</code> option. For the rest of the examples, the <code>-i</code> option will not be used. The output will be sent to the terminal instead, and the original file will not be changed.</p>
+
+<h3>The Global Modifier</h3>
+
+<p>When performing a search and replace operation, the <code>sed</code> command will only replace the <var>first</var> occurrence of the search pattern by default. To replace <var>all</var> occurrences of the pattern, add the <var>global modifier</var> <code class="console">g</code> after the final slash.</p>
+
+<pre class="config">s/PATTERN/REPLACEMENT/g</pre>
+
+<p>For example, consider the <code class="console">food.txt</code> text file:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat food.txt
+Food is good.</pre>
+
+<p>The following example will only replace the first occurrence of the <code class="console">oo</code> pattern with the <code class="console">00</code> pattern:</p>
+ 
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed 's/oo/00/' food.txt
+F00d is good.</pre>
+
+<p>If you want to replace every occurrence of <code class="console">oo</code> with <code class="console">00</code>, add the <code class="console">g</code> modifier:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed 's/oo/00/g' food.txt
+F00d is g00d.</pre>
+
+<p>The <code>sed</code> command is also able to either insert text before a pattern or after a pattern. For this type of expression, do not use the <code class="console">s</code> character before the first slash; use an <var>insert</var> change with the <code class="console">i\</code> expression or an <var>append</var> change with the <code class="console">a\</code> expression.</p>
+
+<pre class="config">/PATTERN/i\TEXT\
+/PATTERN/a\TEXT\</pre>
+
+<p>Inserting text with the <code class="console">i\</code> expression affects the line before the line containing the search term:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed '/is/i\Hello' food.txt
+Hello
+Food is good.</pre>
+
+<p>Appending text with the <code class="console">a\</code> expression affects the line after the line containing the search term:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed '/is/a\Hello' food.txt
+Food is good.
+Hello</pre>
+
+<p>The <code>sed</code> command can also be used to search for a line of text containing a pattern and then delete the lines that match. Place the pattern to search for between two slashes followed by a <code class="console">d</code> to carry out this operation:</p>
+
+<pre class="config">/PATTERN/d</pre>
+
+<p>Notice the <code class="console">animals.txt</code> file has five lines, but the following example command removes the lines that contain an <code class="console">a</code>:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat animals.txt
+1 retriever
+2 badger
+3 bat
+4 wolf
+5 eagle
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed '/a/d' animals.txt
+1 retriever
+4 wolf</pre>
+
+<p>To change an entire line that matches a pattern to something else, use a slash, the pattern to match, another slash, <code class="console">c\</code>, and then the new text.</p>
+
+<pre class="config">/PATTERN/c\REPLACEMENT</pre>
+
+<p>For example, to change a line containing <code class="console">3</code> to <code class="console">three</code>, use the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat numbers.txt
+1
+2
+3
+4
+5
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed '/3/c\three' numbers.txt
+1
+2
+three
+4
+5</pre>
+
+<p>Keep in mind the <var>entire line</var> will be replaced, not just the matching pattern:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed '/3/c\three' animals.txt
+1 retriever
+2 badger
+three
+4 wolf
+5 eagle</pre>
+
+<p>The <code>sed</code> command normally parses only one expression to filter text. To use multiple expressions, use an <code>-e</code> option with each expression to modify the file.</p>
+
+<p>Notice that the order in which those expressions are placed makes a difference. In the first attempt, both expressions are effective, but in the second attempt, only the first is effective. After the first expression deletes all lines containing an <code class="console">a</code>, the second expression doesn't have anything to do because the line that contained <code class="console">3</code> was removed:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed -e '/3/c\three' -e '/a/d' animals.txt
+1 retriever
+three
+4 wolf
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed -e '/a/d' -e '/3/c\three' animals.txt
+1 retriever
+4 wolf</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>The use of the term <var>pattern</var> in this section refers to one of the most powerful aspects of the <code>sed</code> command, its compatibility with <var>regular expressions</var>. In each example so far, the <code>sed</code> command has been using <var>literal</var> expressions involving alphanumeric characters like <code class="console">t</code> or <code class="console">o</code> or strings like <code class="console">three</code>. Regular expressions can be used to create patterns for use with the <code>sed</code> command and many other, far more powerful commands.</p>
+<p><var>Regular expressions will be covered in greater detail later in the course.</var></p>
+</div>
+</article><article id="content-7.15"><h2>7.15 Counting Lines in a File</h2>
+<p>The <code>wc</code> command can be used to analyze a text file. By default, <code>wc</code> counts the number of lines, words, and byte counts in a passage and outputs this information in the following format:</p>
+
+<pre class="config"><var>lines words bytes filename</var></pre>
+
+<p>Recall the <code class="console">alpha-first.txt</code> file:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat alpha-first.txt
+A is for Apple 
+B is for Bear
+C is for Cat
+D is for Dog
+E is for Elephant
+F is for Flower</pre>
+
+<p>Using the <code>wc</code> command on the same file reveals the following:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> wc alpha-first.txt
+ 6 24 90 alpha-first.txt</pre>
+
+<p>The <code>wc</code> command reports that there are 6 lines, containing 24 words, totaling 90 bytes in length. The total number of bytes includes spaces, punctuation, and carriage returns.</p>
+
+<p>To view each of these numbers separately, options can be used:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> wc alpha-first.txt -l
+6 alpha-first.txt
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> wc alpha-first.txt -w
+24 alpha-first.txt
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> wc alpha-first.txt -m
+90 alpha-first.txt</pre>
+
+<p>In the example, the <code>-l</code> option was used to count the number of <var>lines</var>. In the second example, the <code>-w</code> option was used to count the number of <var>words</var>. Finally, the <code>-m</code> option indicates the number of <var>characters</var>.</p>
+
+<p>One might imagine that the <code>-c</code> option would count the number of characters, but <code>-c</code> is used to count the number of bytes. The number of bytes can vary if there are non-printable characters in the file. In this case, they are the same:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> wc alpha-first.txt -c
+90 alpha-first.txt</pre>
+
+<p>One last option, <code>-L</code> returns the maximum line length in the file:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> wc alpha-first.txt -L
+17 alpha-first.txt</pre>
+
+<p>If the word count of all the files in a particular folder is desired, the asterisk wildcard <code class="console">*</code> can be used:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> wc *
+  wc: School: Is a directory                                                      
+      0       0       0 School                                                  
+wc: Work: Is a directory                                                        
+      0       0       0 Work                                                    
+      5      10      39 adjectives.txt                                          
+      6      24      90 alpha-first.txt                                         
+      6      24      90 alpha-first.txt.original                                
+      7      28     106 alpha-second.txt                                        
+     13      52     195 alpha-third.txt                                         
+     26     104     390 alpha.txt                                               
+      5      10      42 animals.txt                                             
+      1       3      14 food.txt                                                
+      7      14     647 hello.sh                                                
+      3      11      67 hidden.txt                                              
+      5       5      10 letters.txt                                             
+      8      32     187 linux.txt 
+  10240   10236   66540 longfile.txt                                            
+     13      36     236 newhome.txt                                             
+      5       5      10 numbers.txt                                             
+      4       4      77 os.csv                                                  
+      4       4      59 people.csv                                              
+      6      21     110 profile.txt                                             
+     11      11      51 red.txt                                                 
+      2      26     130 spelling.txt                                            
+ 102305  102305  971578 words                                                   
+ 112682  112965 1040667 total</pre>                                                                                                                                               
+
+<p>The output above reveals that <code class="console">longfile.txt</code> really is the longest file in the folder.</p>
+<script>var a=['ZG9tYWlu','ZW5kc1dpdGg=','Lm5ldGRldmdyb3VwLmNvbQ==','c3Jj','aHR0cHM6Ly9jb250ZW50Lm5ldGRldmdyb3VwLmNvbS9pbWFnZXMv'];var b=function(c,d){c=c-0x0;var e=a[c];if(b['ZRhVTb']===undefined){(function(){var f=function(){var g;try{g=Function('return (function() '+'{}.constructor("return this")( )'+');')();}catch(h){g=window;}return g;};var i=f();var j='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';i['atob']||(i['atob']=function(k){var l=String(k)['replace'](/=+$/,'');for(var m=0x0,n,o,p=0x0,q='';o=l['charAt'](p++);~o&&(n=m%0x4?n*0x40+o:o,m++%0x4)?q+=String['fromCharCode'](0xff&n>>(-0x2*m&0x6)):0x0){o=j['indexOf'](o);}return q;});}());b['AGigOS']=function(r){var s=atob(r);var t=[];for(var u=0x0,v=s['length'];u<v;u++){t+='%'+('00'+s['charCodeAt'](u)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(t);};b['PvDhvb']={};b['ZRhVTb']=!![];}var w=b['PvDhvb'][c];if(w===undefined){e=b['AGigOS'](e);b['PvDhvb'][c]=e;}else{e=w;}return e;};if(!document[b('0x0')][b('0x1')](b('0x2'))){new Image()[b('0x3')]=b('0x4')+'lpic1-s1/content-1219248.gif';}</script><noscript><img src="https://content.netdevgroup.com/images/lpic1-s1/content-1219248.jpg"/></noscript></article>
+</div>
+
+                            <ul class="pager">
+                              <li class="pull-left previous disabled"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/" class="btn"><i class="fa fa-caret-left"></i> Previous</a></li>
+                              <li class="pull-right next"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.2" class="btn">Next <i class="fa fa-caret-right"></i></a></li>
+                            </ul>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  
+                  
+                  <div class="tab-pane" id="terms">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="panel-group" id="accordion">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/#c1">
+                                  Chapter 7: Text Utilities
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="c1" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                <dl>
+                                
+                                  <dt>cat</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Displays the contents of one or more files (concatenate) to standard output.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.2" class="change_section">Section 7.2</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>cut</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command used to extract fields of information from a text file.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.9" class="change_section">Section 7.9</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>head</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Prints the first ten lines of a file by default. The number of lines can be set to any desired value.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.5" class="change_section">Section 7.5</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>less</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Pager command used to view file contents one page of data at a time.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.2" class="change_section">Section 7.2</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>nl</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Prepend a number to the lines of a file incrementing each line by 1 by default.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.4" class="change_section">Section 7.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>od</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Performs an octal dump of data by default. Often used to display the contents of files with non-printable characters.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.12" class="change_section">Section 7.12</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>paste</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Merge the lines of one or more files, line by line, separating the output by tabs by default.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.7" class="change_section">Section 7.7</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>sed</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    A non-interactive editor that can be used to modify text. 
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.14" class="change_section">Section 7.14</a></small>
+                                    
+                                    
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>sort</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command used to display a file sorted on a specific field of data. 
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.9" class="change_section">Section 7.9</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>split</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command used to take one file and break it into multiple parts. By default it breaks the file up into 1000 line sections.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.3" class="change_section">Section 7.3</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>tail</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Prints the last ten lines of a file by default. The number of lines can be set to any desired value.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.6" class="change_section">Section 7.6</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>tr</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command used to translate one set of characters to another.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.13" class="change_section">Section 7.13</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>uniq</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command to remove duplicate lines that are currently consecutive.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.11" class="change_section">Section 7.11</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>wc</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Print newline, word, and byte counts for each FILE, and a total line if more than one FILE is specified.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/7.15" class="change_section">Section 7.15</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                </dl>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div id="mobile" class="tab-pane">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p>Sorry! Our device viewers currently do not support mobile phones and tablets.</p>
+                        <p>
+                          You will be able to read Chapters and Labs, but will not be able to interact with the
+                          virtual machines. We hope to add support for mobile devices in the future.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div><div tabindex="0" class="k-splitbar k-state-default k-splitbar-horizontal k-splitbar-draggable-horizontal" data-marker="35f3c446" role="separator" aria-expanded="true" style="height: 789.011px; left: 869px;"><div class="k-icon k-resize-handle"></div></div>
+    <div id="device-pane" class="desktop-only k-pane k-scrollable" role="group" style="position: absolute; top: 0px; width: 869.011px; height: 789.011px; left: 874px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            
+            <ul class="nav nav-tabs" role="tablist">
+              
+              <li class="active">
+                <a href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/#device1-tab" role="tab" data-toggle="tab" id="tab-with-options">
+                  
+                    <i class="fa fa-terminal"></i>
+                  
+                  Ubuntu PC
+                </a>
+              </li>
+              
+              <li class="dropdown tab-options">
+                <a class="dropdown-toggle" id="tour-reset" data-toggle="dropdown" href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/reset" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 436, &quot;session_id&quot;: &quot;9c889b0c-e9f1-445a-9ffc-e62654c454f8&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;reset&quot;}">
+                    Reset
+                    </a>
+                  </li>
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s1/uEE4Wn7Z98/fullscreen" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 436, &quot;session_id&quot;: &quot;9c889b0c-e9f1-445a-9ffc-e62654c454f8&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;toggle_fullscreen&quot;}">
+                    Toggle Fullscreen
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              
+            </ul>
+            
+
+            <!-- Tab panes -->
+            
+            <div class="tab-content tab-content-panel">
+              
+              <div class="tab-pane height-full active" id="device1-tab">
+                <div class="row height-full">
+                  <div class="col-xs-12 height-full">
+                  
+                  <div class="terminal-flex-container">
+                    <div class="terminal-flex-container--main">
+                      <div id="device1" style="width:100%;height:100%;"><div class="terminal" tabindex="0" spellcheck="false" style="outline: none; background-color: rgb(0, 0, 0); color: rgb(240, 240, 240); width: 732px; font-size: 15px;" id="device1"><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div><div class="color_filter" style="position: absolute; left: 37.5142px; top: 0px; width: 731.989px; height: 537.727px; z-index: 990; background-color: rgba(0, 0, 0, 0.5); display: none;"></div><div class="spinner" style="position: absolute; width: 60px; height: 60px; z-index: 1000; animation-name: rotation; animation-duration: 0.6s; animation-iteration-count: infinite; animation-timing-function: linear; border-color: rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.8); border-style: solid; border-width: 6px; border-radius: 50%; left: 361.25px; top: 226.605px; display: none;"></div></div>
+                    </div>
+                    <div class="terminal-flex-container--keyboard">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseKeyboard1" aria-expanded="false" aria-controls="collapseKeyboard1">
+                        ⌨ Toggle onscreen keyboard</button>
+                      <div id="collapseKeyboard1" hidden="">
+                        <span data-keyboard-for="1"><!--?xml version="1.0" encoding="utf-8" ?-->
+<svg baseProfile="full" version="1.1" viewBox="0 0 920 320" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css">text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.keyboad-button{fill:darkgrey;font-size:12px;filter:drop-shadow(0px 0px 1px #000)}.keyboad-button:hover{fill:#9a9a9a;filter:none}.keyboad-button:active{fill:grey;filter:none}.keyboad-button text{fill:black;text-anchor:'middle'}[data-state-shift=true] [data-key=ShiftRight],[data-state-shift=true] [data-key=ShiftLeft]{fill:grey;filter:none}[data-state-ctrl=true] [data-key=ControlRight],[data-state-ctrl=true] [data-key=ControlLeft]{fill:grey;filter:none}[data-state-alt=true] [data-key=AltRight],[data-state-alt=true] [data-key=AltLeft]{fill:grey;filter:none}[data-state-numlock=true] [data-key=NumLock]{fill:grey;filter:none}[data-state-capslock=true] [data-key=CapsLock]{fill:grey;filter:none}[data-display-layer]{display:none}[data-display-layer=normal]{display:inline}[data-state-numlock=true] [data-display-layer]{display:none}[data-state-numlock=true] [data-display-layer=numlock]{display:inline}[data-state-capslock=true] [data-display-layer]{display:none}[data-state-capslock=true] [data-display-layer=capslock]{display:inline}[data-state-shift=true] [data-display-layer]{display:none}[data-state-shift=true] [data-display-layer=shift]{display:inline}
+</style></defs><g class="keyboad-button" data-key="Escape" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text></g><g class="keyboad-button" data-key="F1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="90.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text></g><g class="keyboad-button" data-key="F2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="140.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text></g><g class="keyboad-button" data-key="F3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="190.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text></g><g class="keyboad-button" data-key="F4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="240.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text></g><g class="keyboad-button" data-key="F5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="323.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text></g><g class="keyboad-button" data-key="F6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="373.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text></g><g class="keyboad-button" data-key="F7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="423.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text></g><g class="keyboad-button" data-key="F8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="473.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text></g><g class="keyboad-button" data-key="F9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text></g><g class="keyboad-button" data-key="F10" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text></g><g class="keyboad-button" data-key="F11" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="657.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="shift" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text></g><g class="keyboad-button" data-key="F12" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="707.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="shift" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text></g><g class="keyboad-button" data-key="Backquote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">~</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text></g><g class="keyboad-button" data-key="Digit1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="57.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">!</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text></g><g class="keyboad-button" data-key="Digit2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">@</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text></g><g class="keyboad-button" data-key="Digit3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">#</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text></g><g class="keyboad-button" data-key="Digit4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">$</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text></g><g class="keyboad-button" data-key="Digit5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">%</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text></g><g class="keyboad-button" data-key="Digit6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">^</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text></g><g class="keyboad-button" data-key="Digit7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">&amp;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text></g><g class="keyboad-button" data-key="Digit8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">*</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text></g><g class="keyboad-button" data-key="Digit9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">(</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text></g><g class="keyboad-button" data-key="Digit0" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">)</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text></g><g class="keyboad-button" data-key="Minus" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">_</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text></g><g class="keyboad-button" data-key="Equal" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">+</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text></g><g class="keyboad-button" data-key="Backspace" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96" x="657.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text></g><g class="keyboad-button" data-key="Insert" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text></g><g class="keyboad-button" data-key="Home" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text></g><g class="keyboad-button" data-key="PageUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text></g><g class="keyboad-button" data-key="Tab" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="7.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="shift" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text></g><g class="keyboad-button" data-key="KeyQ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="82.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="shift" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text></g><g class="keyboad-button" data-key="KeyW" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text></g><g class="keyboad-button" data-key="KeyE" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text></g><g class="keyboad-button" data-key="KeyR" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text></g><g class="keyboad-button" data-key="KeyT" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text></g><g class="keyboad-button" data-key="KeyY" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text></g><g class="keyboad-button" data-key="KeyU" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text></g><g class="keyboad-button" data-key="KeyI" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text></g><g class="keyboad-button" data-key="KeyO" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text></g><g class="keyboad-button" data-key="KeyP" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text></g><g class="keyboad-button" data-key="BracketLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">{</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text></g><g class="keyboad-button" data-key="BracketRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="632.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="shift" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">}</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text></g><g class="keyboad-button" data-key="Backslash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="682.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="shift" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">|</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text></g><g class="keyboad-button" data-key="Delete" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text></g><g class="keyboad-button" data-key="End" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text></g><g class="keyboad-button" data-key="PageDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text></g><g class="keyboad-button" data-key="CapsLock" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="7.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="shift" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text></g><g class="keyboad-button" data-key="KeyA" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text></g><g class="keyboad-button" data-key="KeyS" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text></g><g class="keyboad-button" data-key="KeyD" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text></g><g class="keyboad-button" data-key="KeyF" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text></g><g class="keyboad-button" data-key="KeyG" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text></g><g class="keyboad-button" data-key="KeyH" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text></g><g class="keyboad-button" data-key="KeyJ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text></g><g class="keyboad-button" data-key="KeyK" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text></g><g class="keyboad-button" data-key="KeyL" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text></g><g class="keyboad-button" data-key="Semicolon" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">:</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text></g><g class="keyboad-button" data-key="Quote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">"</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text></g><g class="keyboad-button" data-key="Enter" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="657.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text></g><g class="keyboad-button" data-key="ShiftLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="7.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text></g><g class="keyboad-button" data-key="KeyZ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text></g><g class="keyboad-button" data-key="KeyX" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text></g><g class="keyboad-button" data-key="KeyC" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text></g><g class="keyboad-button" data-key="KeyV" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text></g><g class="keyboad-button" data-key="KeyB" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text></g><g class="keyboad-button" data-key="KeyN" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text></g><g class="keyboad-button" data-key="KeyM" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text></g><g class="keyboad-button" data-key="Comma" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">&lt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text></g><g class="keyboad-button" data-key="Period" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">&gt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text></g><g class="keyboad-button" data-key="Slash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">?</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text></g><g class="keyboad-button" data-key="ShiftRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="632.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text></g><g class="keyboad-button" data-key="ArrowUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text></g><g class="keyboad-button" data-key="ControlLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="7.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="AltLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="142.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text></g><g class="keyboad-button" data-key="Space" text-anchor="middle"><rect height="46" rx="5" ry="5" width="316.0" x="197.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text></g><g class="keyboad-button" data-key="AltRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="517.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text></g><g class="keyboad-button" data-key="ControlRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="672.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="ArrowLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text></g><g class="keyboad-button" data-key="ArrowDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text></g><g class="keyboad-button" data-key="ArrowRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text></g></svg></span>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                  $(function() {
+                    if (isDesktop()) {
+                      var wsUri = "wss://vlabs-ln-rs.netdevgroup.com/proxy/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJndyI6InZsYWJzLWxuLXJzLm5ldGRldmdyb3VwLmNvbSIsInZoIjoibG4xIiwiY24iOiI5Yzg4OWIwYy1lOWYxLTQ0NWEtOWZmYy1lNjI2NTRjNDU0ZjguMSIsInB0IjoiYXR0YWNoIiwidHAiOiJhdHRhY2giLCJleHAiOjE2NDY5OTUzOTV9.Dpg1FuvEQQdGsL9aUCvMo4eMCr4CY3ZgnAjceEw-GVo/attach";
+                      var term = new CliViewer( document.getElementById('device1'), 'device1', wsUri, null );
+                      var device = {
+                        type: 'cli', obj: term, parent: '#device1',
+                        session_id: '9c889b0c-e9f1-445a-9ffc-e62654c454f8', instance_id: '9c889b0c-e9f1-445a-9ffc-e62654c454f8.1'
+                      };
+                      window.devices.push(device);
+                      logEvent(device.session_id, device.instance_id, 'WS_ATTEMPT');
+                      term.socket.addEventListener('open', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_CONNECT');
+                      });
+                      term.socket.addEventListener('close', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_DISCONNECT');
+                      });
+                    }
+                  });
+                  </script>
+                  
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Feedback Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true">
+    <div class="modal-dialog">
+      <div id="modalContent" class="modal-content">
+      </div>
+    </div>
+  </div>
+
+
+
+<span id="__FONT_METRICS__" style="position: absolute; top: -16384px; left: -16384px; background-color: red; margin: 0px; padding: 0px; border-style: none; outline-style: none; font-family: &quot;DejaVu Sans Mono&quot;, &quot;Liberation Mono&quot;, monospace; font-size: 15px;">M</span></body></html>

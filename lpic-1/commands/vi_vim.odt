@@ -1,0 +1,16 @@
+In Command Mode
+	:q			quit
+	:w			save
+	:q!			quit without savings
+	:wq			quit and save
+	:set number		set numbers on the left side
+	i			change to insert mode
+	Esc			change back to command mode
+	ddd			delete current line
+	3ddd			delete 3 lines (current and follow 2)
+	u			undo
+	Ctrl-r			redo
+	/search_string		search, n for next and shift-n previous
+	:%s/xx/yy		search and replace xx with yy (lazy)
+	:%s/xx/yy/g		search and replace xx with yy (greedy)
+	:%s/xx/yy/c		ask for confirmation	

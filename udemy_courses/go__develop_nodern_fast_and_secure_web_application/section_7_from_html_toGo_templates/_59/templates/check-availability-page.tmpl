@@ -6,19 +6,19 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <h1 class="text-center">Check Availability</h1>
-            <form class="row g-2 needs-validation" id="reservation-dates" novalidate action="" method="GET">
+            <form class="row g-2 needs-validation" id="reservation-dates" novalidate action="/reservation" method="POST">
                 <div class="col mb-3">
                     <input class="form-control" type="text" name="startingDate" id="startingDate"
-                        placeholder="Departure Date (YYYY-MM-DD)" required>
+                    placeholder="Departure Date (YYYY-MM-DD)" required>
                 </div>
                 <div class="col mb-3">
                     <input class="form-control" type="text" name="endingDate" id="endingDate"
-                        placeholder="Departure Date (YYYY-MM-DD)" required>
+                    placeholder="Departure Date (YYYY-MM-DD)" required>
                 </div>
-
-
+                
                 <hr>
-
+                
+                <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
                 <div class="col">
                     <button type="submit" class="btn btn-success mb-3">Check Availability</button>
                 </div>
@@ -34,11 +34,5 @@
             // ...options
             format: "yyyy-mm-dd",
         });
-
-
-
-
-
-
 </script>
 {{end}}
