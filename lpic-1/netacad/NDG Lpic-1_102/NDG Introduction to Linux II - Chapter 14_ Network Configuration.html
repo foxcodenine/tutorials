@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/ -->
+<html lang="en" class="k-webkit k-webkit102"><input type="hidden" id="__yoroi_connector_api_injected_type" value="prod"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="spinner-keyframes">
+@-webkit-keyframes rotation 
+{  from { -webkit-transform : rotate( 0deg );   }
+  to   { -webkit-transform : rotate( 359deg ); }
+}
+@-moz-keyframes rotation {
+  from { -moz-transform : rotate( 0deg );   }
+  to   { -moz-transform : rotate( 359deg ); }
+}
+@-o-keyframes rotation {
+  from { -o-transform : rotate( 0deg );   }
+  to   { -o-transform : rotate( 359deg ); }
+}
+@keyframes rotation {
+  from { transform : rotate( 0deg );   }
+  to   { transform : rotate( 359deg ); }
+}
+</style><style id="term-style">.terminal {
+  float: left;
+  border: #000000 solid 5px;
+  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-size: 11px;
+  color: #f0f0f0;
+  background: #000000;
+  white-space: nowrap;
+}
+
+.terminal-cursor {
+  color: #000000;
+  background: #f0f0f0;
+}
+</style>
+  <title>NDG Introduction to Linux II - Chapter 14: Network Configuration</title>
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="https://ndg-content.s3.us-west-2.amazonaws.com/img/favicon.ico">
+
+  <link rel="stylesheet" href="./NDG Introduction to Linux II - Chapter 14_ Network Configuration_files/44d1a56e411f.css" type="text/css">
+
+  <script async="" src="./NDG Introduction to Linux II - Chapter 14_ Network Configuration_files/analytics.js"></script><script type="text/javascript" src="./NDG Introduction to Linux II - Chapter 14_ Network Configuration_files/polyfill-6.26.0.min.js"></script>
+  <script type="text/javascript" src="./NDG Introduction to Linux II - Chapter 14_ Network Configuration_files/9930c7fbf6d8.js"></script>
+
+  <script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-11306725-3', 'netdevgroup.com');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+
+</script>
+
+  <script type="text/javascript">
+    var NDGCourse = {name: "NDG Introduction to Linux II"};
+    var videoContent = {};
+  </script>
+</head>
+
+<body style="">
+
+  <!-- Start Navbar -->
+  <div class="navbar navbar-primary navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand hidden-xs">
+          NDG Introduction to Linux II - Chapter 14: Network Configuration
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-share-alt" aria-hidden="true"></i> Share <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://www.facebook.com/share.php?u=https://netdevgroup.com/online/courses/linux.html&amp;title=Learn%20Linux%20with%20NDG" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+            </li>
+            <li>
+              <a href="http://twitter.com/home?status=Learn%20Linux%20with%20NDG+https://netdevgroup.com/online/courses/linux.html" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li id="tour-help" class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-lg hidden-md hidden-sm">NDG Introduction to Linux II</span>
+            <div class="pull-right">
+              <i class="fa fa-question-circle"></i>
+              <span class="hidden-xs"> Help</span>
+              <b class="caret"></b>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header hidden-md hidden-sm hidden-lg">Chapter 14: Network Configuration</li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s2/faq/">Frequently Asked Questions</a></li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s2/feedback/">Contact Support</a></li>
+            <li class="hidden-xs desktop-only"><a id="toursb" class="support" href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/#">Start Tour</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- End Navbar -->
+
+
+  <div id="splitter" class="height-full k-widget k-splitter" data-role="splitter">
+    <div role="group" class="k-pane k-scrollable" style="position: absolute; top: 0px; width: 567px; height: 455.008px; left: 0px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            <!-- Tab Btns -->
+              <ul id="left-tabs" class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/#content" role="tab" data-toggle="tab">Content</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/#objectives" role="tab" data-toggle="tab">Objectives</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/#terms" role="tab" data-toggle="tab">Key Terms</a></li>
+                
+                <li class="mobile-only" style="display:none;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/#mobile" role="tab" data-toggle="tab"><i class="fa fa-terminal"></i> Devices</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div id="content-container" class="tab-content tab-content-panel">
+                  <div id="content" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="tour2" class="btn-group-vertical btn-group-xs pull-left hidden-xs">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                          
+                                          14.1 Introduction
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.2 TCP/IP Configuration
+                                        </a>
+                                        
+                                          
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.2.1 Setting the Hostname
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.2.2 Configuring DNS
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.2.3 Name Service Switch
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.2.4 Configuring Routing Tables
+                                        </a>
+                                        
+                                      
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.3 Network Interfaces
+                                        </a>
+                                        
+                                          
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.3.1 Network Interface Configuration
+                                        </a>
+                                        
+                                          
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.1.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.3.1.1 Red Hat Interface Configuration
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.1.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.3.1.2 Debian Interface Configuration
+                                        </a>
+                                        
+                                      
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.3.2 NetworkManager
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.3.3 Wireless Interfaces
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.3.4 iproute2 tools
+                                        </a>
+                                        
+                                      
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          14.4 systemd-networkd
+                                        </a>
+                                        
+                                      
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.1" class="btn btn-default ndg-menu-btn change_section btn-primary active" style="text-align:left;">
+                                    14.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.2
+                                  </a>
+                                  
+                                    
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.2.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.2.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.2.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.2.4
+                                  </a>
+                                  
+                                
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.3
+                                  </a>
+                                  
+                                    
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.3.1
+                                  </a>
+                                  
+                                    
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.1.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.3.1.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.1.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.3.1.2
+                                  </a>
+                                  
+                                
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.3.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.3.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.3.4
+                                  </a>
+                                  
+                                
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    14.4
+                                  </a>
+                                  
+                                
+                            </div>
+                            <div class="content-menu-space">
+                              <div class="btn-group hidden-lg hidden-md hidden-sm mobile-chapter-select">
+                                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-caret-down"></i> Sections
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                        14.1 Introduction
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2" class="btn-default ndg-menu-btn change_section">
+                                        14.2 TCP/IP Configuration
+                                      </a>
+                                      
+                                        
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.1" class="btn-default ndg-menu-btn change_section">
+                                        14.2.1 Setting the Hostname
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.2" class="btn-default ndg-menu-btn change_section">
+                                        14.2.2 Configuring DNS
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.3" class="btn-default ndg-menu-btn change_section">
+                                        14.2.3 Name Service Switch
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.4" class="btn-default ndg-menu-btn change_section">
+                                        14.2.4 Configuring Routing Tables
+                                      </a>
+                                      
+                                    
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3" class="btn-default ndg-menu-btn change_section">
+                                        14.3 Network Interfaces
+                                      </a>
+                                      
+                                        
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.1" class="btn-default ndg-menu-btn change_section">
+                                        14.3.1 Network Interface Configuration
+                                      </a>
+                                      
+                                        
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.1.1" class="btn-default ndg-menu-btn change_section">
+                                        14.3.1.1 Red Hat Interface Configuration
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.1.2" class="btn-default ndg-menu-btn change_section">
+                                        14.3.1.2 Debian Interface Configuration
+                                      </a>
+                                      
+                                    
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.2" class="btn-default ndg-menu-btn change_section">
+                                        14.3.2 NetworkManager
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.3" class="btn-default ndg-menu-btn change_section">
+                                        14.3.3 Wireless Interfaces
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.4" class="btn-default ndg-menu-btn change_section">
+                                        14.3.4 iproute2 tools
+                                      </a>
+                                      
+                                    
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.4" class="btn-default ndg-menu-btn change_section">
+                                        14.4 systemd-networkd
+                                      </a>
+                                      
+                                    
+                                    </li>
+                                  </ul>
+                                </div>
+                              <div>
+<article id="content-14.1" style="display: block;"><h2>14.1 Introduction</h2>
+<p>The system administrator needs to know how to configure the system for network access. This chapter discusses configuring routing tables, the manual and automatic configuration of interfaces,  and common issues related to network configuration.</p>
+</article><article id="content-14.2"><h2>14.2 TCP/IP Configuration</h2>
+<p>Recall that the <var>Transmission Control Protocol (TCP)</var> provides connection-oriented service between two applications exchanging data. To configure a network port, or interface, on legacy systems, use the <code>ifconfig</code> command. The <code>ifconfig</code> command stands for <var>interface configuration</var> and is used to display network configuration information.</p>
+
+<p>This command is used for the following functions:</p>
+
+<ul type="disc" class="">
+<li>Assigning static IP address</li>
+<li>Viewing current network configuration</li>
+<li>Setting the netmask</li>
+<li>Setting the broadcast address</li>
+<li>Enable/disable network interfaces</li>
+</ul>
+
+<p>The <code>ifconfig</code> command can be used without options or arguments to display all interfaces on the network, or with options and an interface name as an argument:</p>
+
+<pre class="config">ifconfig [<var>INTERFACE</var>] [<var>OPTIONS</var>]</pre>
+
+<p>Not all network settings are covered in this course, but it is important to note from the output below that the IP address of the primary network device (<code class="console">eth0</code>) is <code class="console">192.168.1.2</code> and that the device is currently active (<code class="console">UP</code>):</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ifconfig                                     
+<code class="input">eth0</code>      Link encap:Ethernet  HWaddr b6:84:ab:e9:8f:0a    
+          inet addr:192.168.1.2  Bcast:0.0.0.0  Mask:255.255.255.0  
+          inet6 addr: fe80::b484:abff:fee9:8f0a/64 Scope:Link       
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1        
+          RX packets:95 errors:0 dropped:4 overruns:0 frame:0       
+          TX packets:9 errors:0 dropped:0 overruns:0 carrier:0      
+          collisions:0 txqueuelen:1000                              
+          RX bytes:25306 (25.3 KB)  TX bytes:690 (690.0 B)          
+lo        Link encap:Local Loopback                               
+          inet addr:127.0.0.1  Mask:255.0.0.0                       
+          inet6 addr: ::1/128 Scope:Host                           
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1                  
+          RX packets:6 errors:0 dropped:0 overruns:0 frame:0        
+          TX packets:6 errors:0 dropped:0 overruns:0 carrier:0      
+          collisions:0 txqueuelen:0                                 
+          RX bytes:460 (460.0 B)  TX bytes:460 (460.0 B)
+</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>The <code class="console">lo</code> device is referred to as the <var>loopback</var> device. It is a special network device used by the system when sending network-based data to itself.</p>
+</div>
+
+<p>To view all the network interfaces on the system, execute the <code>ifconfig –a</code> command. Typically, this output won’t be any different from the previous <code>ifconfig</code> command unless there are some interfaces that are not currently active.</p>
+
+<p>To view the details of a specific interface, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ifconfig eth0                                  
+eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1450            
+        inet 192.168.1.2  netmask 255.255.255.0  broadcast 0.0.0.0              
+        inet6 fe80::42:c0ff:fea8:102  prefixlen 64  scopeid 0x20&lt;link&gt;          
+        ether 02:42:c0:a8:01:02  txqueuelen 0  (Ethernet)                       
+        RX packets 13  bytes 1038 (1.0 KB)                                      
+        RX errors 0  dropped 0  overruns 0  frame 0                             
+        TX packets 8  bytes 648 (648.0 B)                                       
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</pre>                                                                                                            
+ 
+<p>To assign an IP address to an interface, execute the following command:</p>
+ 
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo ifconfig eth0 192.168.1.3</pre>
+ 
+<p>To assign a netmask to an interface, execute the following command:</p>
+ 
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo ifconfig eth0 netmask 255.255.255.192</pre>
+ 
+<p>To assign a broadcast address to an interface, execute the following command:</p>
+ 
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo ifconfig eth0 broadcast 192.168.1.63</pre>
+ 
+<p>The <code>ifconfig</code> command can be used to enable and disable an interface. To disable (deactivate) a network interface, execute the following command:</p>
+ 
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo ifconfig eth0 down</pre>
+ 
+<p>To view the changes that were made, execute the following command again:</p>
+ 
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ifconfig eth0                                 
+eth0: flags=4163&lt;BROADCAST,MULTICAST&gt;  mtu 1450                      
+        inet 192.168.1.2  netmask 255.255.255.0  broadcast 0.0.0.0              
+        inet6 fe80::42:c0ff:fea8:102  prefixlen 64  scopeid 0x20&lt;link&gt;          
+        ether 02:42:c0:a8:01:02  txqueuelen 0  (Ethernet)                       
+        RX packets 13  bytes 1038 (1.0 KB)                                      
+        RX errors 0  dropped 0  overruns 0  frame 0                             
+        TX packets 8  bytes 648 (648.0 B)                                       
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</pre>   
+ 
+<p>Note from the output above that the <code class="console">eth0</code> interface is no longer <code class="console">UP</code> and <code class="console">RUNNING</code>.</p>
+ 
+<p>To enable (activate) a network interface, execute this command:</p>
+ 
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo ifconfig eth0 up</pre>
+ 
+<p>To verify the interface is enabled, execute the following command again:</p>
+ 
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ifconfig eth0                            
+eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1450           
+        inet 192.168.1.2  netmask 255.255.255.0  broadcast 0.0.0.0              
+        inet6 fe80::42:c0ff:fea8:102  prefixlen 64  scopeid 0x20&lt;link&gt;          
+        ether 02:42:c0:a8:01:02  txqueuelen 0  (Ethernet)                       
+        RX packets 13  bytes 1038 (1.0 KB)                                      
+        RX errors 0  dropped 0  overruns 0  frame 0                             
+        TX packets 8  bytes 648 (648.0 B)                                       
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</pre>    
+ 
+
+<p>The <code>ifconfig</code> command can also be used to modify network settings temporarily. Typically these changes should be permanent, so using the <code>ifconfig</code> command to make such changes is relatively rare.</p>
+</article><article id="content-14.2.1"><h2>14.2.1 Setting the Hostname</h2>
+<p>The <var>hostname</var> is used to identify the system by applications such as web servers. On Debian-derived and modern Red Hat-derived systems, the <code class="console">/etc/hostname</code> file contains this information, while legacy Red Hat-derived systems store this information in the <code class="console">/etc/sysconfig/network</code> file. This file is read at boot time to set the hostname.</p>
+
+<p>The <code>hostname</code> command is used to set and view the system’s host and domain name. It is the system administrator’s responsibility to assign an appropriate hostname. It cannot be longer than 64 characters and can contain alphanumeric [<code class="console">a-z</code>] [<code class="console">0-9</code>], period <code class="console">.</code> characters, and hyphen <code class="console">-</code> characters only.</p>
+
+<p>To view the currently assigned hostname of the system, execute the <code>hostname</code> or <var>short name cut at the first dot</var>  <code>hostname -s</code>, or <var>full domain name</var> <code>hostname -f</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> hostname -s
+localhost
+</pre>
+
+<p>The name displayed above is returned by the <code class="console">gethostname()</code> application programming interface (API).</p>
+
+<p>To view the fully-qualified domain name, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> hostname -f
+test.example.com
+</pre>
+
+<p>To set the hostname of the system, the root user can execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> hostname example.com
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> hostname
+example.com
+</pre>
+
+<div class="alert alert-warning"><p>The examples above may not match the output in our virtual environment.</p></div>
+
+<p>Note that setting the hostname using the <code>hostname</code> command results in a change that is only persistent until the next system boot.</p>
+
+<p>The <code class="console">/etc/hosts</code> file is used for mapping hostnames with IP addresses. It is a flat-file with one record on each line. The format of the file is:</p>
+
+<pre class="config"><var>IP Address    Host Name    Alias</var></pre>
+
+<p>A sample <code class="console">/etc/hosts</code> file will look like the following:</p>
+
+<pre class="config">127.0.0.1      localhost
+192.168.4.8    apps.sample.com      apps
+192.168.4.12   vm1.sample.com       vm1
+</pre>
+
+<p>The <code class="console">Alias</code> field is used for mapping short names or labels to a host.</p> 
+
+<p>The functionality of the <code class="console">/etc/hosts</code> file has been relegated by DNS but is still used in the following situations:</p>
+
+<ol type="disc" class="">
+<li><p><strong>Bootstrapping</strong>: This file is referred to during system startup since the DNS service is not started at this point.</p></li>
+<li><p><strong>Isolated Nodes</strong>: If a node is not connected to the internet, it is unlikely to use DNS. The <code class="console">/etc/hosts</code> file is useful for such nodes.</p></li>
+<li><p><strong>NIS</strong>: The records in the hosts file are used as input for the NIS (Network Information Services) database.</p></li>
+</ol>
+
+<p>Systemd systems use an alternative to the <code>hostname</code> command, the <code>hostnamectl</code> command. Similar to the <code>hostname</code> command, the <code>hostnamectl</code> command can also be used to query and set system hostnames, but the <code>hostnamectl</code> command provides additional categories for hostnames; <var>static</var>, <var>pretty</var>, and <var>transient</var> which are described below:<code><code></code></code></p>
+
+<ol type="disc" class="">
+<li><p><strong>Static</strong>: A <var>static hostname</var> is limited to [<code class="console">a-z</code>], [<code class="console">0-9</code>], hyphen <code class="console">-</code>, and period <code class="console">.</code> characters (no spaces i.e., <code class="console">localhost</code> or <code class="console">ndg-server</code>). This hostname is stored in the <code class="console">/etc/hostname</code> file. Static hostnames can be set by a user.</p></li>
+<li><p><strong>Pretty</strong>: Hostname can be in a human-readable format using any valid UTF-8 characters and can include special characters (i.e., Sarah’s Laptop or Joe’s Home PC).</p></li>
+<li><p><strong>Transient</strong>: The transient hostname is a dynamic hostname usually set by the kernel to localhost by default. A dynamic hostname can be modified if needed. The transient hostname can be modified by DHCP or mDNS at runtime.</p></li>
+</ol>
+
+<p>Hostnames can be up to 64 characters, but it is recommended that static and transient hostnames are limited to only 7 bit ASCII lowercase characters with no spaces or dots and conforming to strings acceptable for DNS domain names.</p>
+
+<p>To demonstrate, in order to view the current hostname, simply use the <code>hostnamectl</code> command by itself or with the <code>status</code> subcommand:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> hostnamectl status 
+      Static hostname: localhost
+            Icon name: computer-vm
+              Chassis: vm
+           Machine ID: 5b91eb5e50594030b48b28f103cf5cd6
+              Boot ID: c04fc73d939a4fc18b279cd46d08f8d7
+       Virtualization: kvm
+     Operating System: Ubuntu 18.04.2 LTS
+               Kernel: Linux 4.15.0-45-generic
+         Architecture: x86-64
+</pre>
+
+<p>To change the local machine hostname, use the <code>hostnamectl</code> command with the <code>set-hostname</code> subcommand, this must be done with elevated permissions:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo hostnamectl set-hostname netlab01
+[sudo] password for sysadmin:
+sysadmin@localhost:~$ hostnamectl status
+      Static hostname: netlab01 
+            Icon name: computer-vm
+              Chassis: vm
+           Machine ID: 5b91eb5e50594030b48b28f103cf5cd6
+              Boot ID: c04fc73d939a4fc18b279cd46d08f8d7
+       Virtualization: kvm
+     Operating System: Ubuntu 18.04.2 LTS
+               Kernel: Linux 4.15.0-45-generic
+         Architecture: x86-64
+
+</pre>
+</article><article id="content-14.2.2"><h2>14.2.2 Configuring DNS</h2>
+<p>The <var>DNS (Domain Name System)</var> is the mapping table for the internet, allowing any computer or device to access websites, mail servers, etc. by using a name (i.e., google.com, mail.comcast.net) instead of an IP address. The DNS implementation is based on a distributed database of network names and IP addresses and query interfaces to retrieve information.</p>
+
+<p>The <code class="console">/etc/resolv.conf</code> file is the configuration file for DNS resolvers. The information in this file is normally set up by network initialization scripts. If DNS servers are like giant <var>phone books</var> of domain names and IP addresses, the <code class="console">/etc/resolv.conf</code> file is used to tell a computer where the phone book is located on the network or internet.</p>
+
+<p>A sample <code class="console">/etc/resolv.conf</code> file looks like the following:</p>
+
+<pre class="config"># /etc/resolv.conf           
+domain        sample.com
+search        sample.com           
+# central nameserver
+nameserver    191.74.10.12
+ 
+sortlist 191.74.10.0 191.74.40.0
+</pre>
+
+<p>The format of the <code class="console">/etc/resolv.conf</code> is:</p>
+
+<pre class="config"><var>directive    value1, value2…</var></pre>
+
+<p>The configuration directives used in this file are:</p>
+
+<table class="table ">
+<thead><tr>
+  <th>Option</th>
+  <th>Meaning</th>
+ </tr></thead>
+<tbody>
+<tr>
+  <td><p><code class="console">nameserver</code></p></td> 
+  <td>
+<p>IP address of the name server that the resolver will use</p>
+<p>Maximum of 3 servers can be listed</p>
+</td>
+</tr>
+<tr>
+  <td><p><code class="console">domain</code></p></td> 
+  <td><p>Domain name to be used locally</p></td>
+</tr>
+<tr>
+  <td><p><code class="console">search</code></p></td> 
+  <td><p>Search list to be used for hostname lookup</p></td>
+</tr>
+<tr>
+  <td><p><code class="console">sortlist</code></p></td> 
+  <td>
+<p>Allow addresses to be sorted</p>
+<p>The list is specified by IP addresses and optionally the netmask</p>
+</td>
+</tr>
+<tr>
+  <td><p><code class="console">options</code></p></td> 
+  <td>
+<p>Used to modify the resolver’s internal variables using certain keywords</p>
+<p>E.g.<code class="console"> attempts: 3</code> will set the retry count for querying the name servers to 3</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+<p>The DNS implementation queries a name server, and if the query times out without a response, then the next name server is queried. If any server responds, then the query is finished; otherwise, all the servers in the list will be queried for the maximum number of attempts specified.</p>
+</div>
+</article><article id="content-14.2.3"><h2>14.2.3 Name Service Switch</h2>
+<p>The Name Service Switch (NSS) is used by the system administrator to specify which name information source (i.e., local files, LDAP, etc.) to use for different categories (i.e., <code class="console">passwd</code>, <code class="console">shadow</code>, <code class="console">hosts</code>, etc.), and in which order the sources are searched. The client applications query the name service database using APIs such as:</p>
+
+<ul type="disc" class="">
+<li><code class="console">gethostbyname()</code></li>
+<li><code class="console">getaddrinfo()</code></li>
+<li><code class="console">getnetent()</code></li>
+</ul>
+
+<p>The <code class="console">/etc/nsswitch.conf</code> file is used to store the information used for name service switching. It is a text file with columns that contain the following information:</p>
+
+<ul type="disc" class="">
+<li>Database name</li>
+<li>Lookup order of sources</li>
+<li>Actions permitted for the lookup result</li>
+</ul>
+
+<p>A process that needs to lookup host or network-related information will refer to the configuration for the required database in this file.</p>
+
+<p>A sample portion of an <code class="console">/etc/nsswitch.conf</code> file will look like the following:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cat /etc/nsswitch.conf                                    
+...                                                            
+passwd:         compat                                                          
+group:          compat                                                          
+⁠⁠ 
+...
+hosts:          files dns                                                       
+networks:       files                                                           
+...
+</pre>
+
+<p>The first column contains the database name, followed by the services to be queried in the order of their occurrence in the file.</p>
+
+<p>For example, the current sample of the <code class="console">/etc/nsswitch.conf </code>file demonstrates the <code class="console">hosts</code> database services configured like the following:</p>
+
+<pre class="config">hosts:        files dns</pre>
+
+<p>When a hostname lookup is performed, the <code class="console">files</code> entry will make use of the <code class="console">/etc/hosts</code> file to perform the resolving. If the query does not return any results, then the query will be sent to the DNS resolver.</p>
+
+<p>By changing the order of the name services listed for a particular database, like <code class="console">hosts</code>, the administrator could change whether the local <code class="console">/etc/hosts</code> file is consulted before or after the DNS servers listed in <code class="console">/etc/resolv.conf</code>.</p>
+
+<pre class="config">hosts:        dns files</pre>
+
+<p>In the event of the query not returning any results, specific actions can also be mentioned in the <code class="console">/etc/nsswitch.conf</code> file.</p>
+
+<pre class="config">hosts: dns [NOTFOUND=return] files</pre>
+
+<p>In the above example, the DNS resolver will try to resolve the hostname. If a match is not found, then the resolver will immediately return the <code class="console">NOTFOUND</code> status and the <code class="console">/etc/host</code> file will not be queried. The <code class="console">/etc/host</code> file will only be queried if the DNS resolver service itself is unavailable for some reason.</p>
+</article><article id="content-14.2.4"><h2>14.2.4 Configuring Routing Tables</h2>
+<p>As discussed in the previous chapter, routing tables are used by the kernel to store information about how to reach a network directly or indirectly.  The <code>route</code> command is used to view, as well as update, the IP routing table.  </p>
+
+<p>Any system using the TCP/IP protocol to send network packets will have a routing table.  The routing function is managed by the IP layer.  The routing table will decide the forwarding IP address for the packet.</p>
+
+<p>Static routes in the kernel’s routing table can be set using the <code>route</code> command (note, as shown in the previous chapter, the <code>ip</code> command can also display and modify routes).  To view the current routing table, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> route 
+Kernel IP routing table                                                         
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface   
+192.168.1.0     *               255.255.255.192 U     0      0        0 eth0    
+192.168.1.0     *               255.255.255.0   U     0      0        0 eth0</pre>
+
+<p>The fields in the output are as follows:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Option</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">Destination</code></td>
+<td>Destination host or network</td>
+</tr>
+<tr>
+<td><code class="console">Gateway</code></td>
+<td>
+<p>IP address of the gateway</p>
+<code class="console">0.0.0.0</code> means “no route, broadcast on this network”</td>
+</tr>
+<tr>
+<td><code class="console">Genmask</code></td>
+<td>
+<p>Subnet mask for the destination network</p> 
+Set to <code class="console">0.0.0.0</code> for the default route</td>
+</tr>
+<tr>
+<td><code class="console">Flags</code></td>
+<td>
+<p>Values include <code class="console">C</code> (cache entry), <code class="console">G</code> (use gateway) and <code class="console">U</code> (up)</p> For more options, refer to the man page for <code>route</code>
+</td>
+</tr>
+<tr>
+<td><code class="console">Metric</code></td>
+<td>Number of hops to the target, used as a measure of distance</td>
+</tr>
+<tr>
+<td><code class="console">Ref</code></td>
+<td>Number of references to this route; this is not used in Linux</td>
+</tr>
+<tr>
+<td><code class="console">Use</code></td>
+<td>Count of lookups done for this route</td>
+</tr>
+<tr>
+<td><code class="console">Iface</code></td>
+<td>Interface to use for sending packets for this route</td>
+</tr>
+</tbody>
+</table>
+
+<p>If an administrator wants to add a route, they must specify a gateway which is connected to a network that one of the system's interfaces is on. If an attempt is made to add a route that will be unusable due to an unreachable gateway, then it will be ignored and an error will be displayed.  For example, because the <code class="console">eth0</code> interface in the previous example is on the <code class="console">192.168.1.0-63</code> network, any routes that get added for this interface must use a router on that network.  </p>
+
+<p>For instance, to be able to reach the <code class="console">192.56.78.0/255.255.255.0</code> network, a router like <code class="console">192.168.1.1</code> could be used, if that machine is connected to both the <code class="console">192.168.1.0</code> network and the <code class="console">192.56.78.0</code> network (it would likely have two network interfaces).  To add this route to the <code class="console">eth0</code> interface, the administrator could execute the following <code>sudo</code> command (or as root):</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo route add -net 192.56.78.0 netmask 255.255.255.0 gw 192.168.1.1 dev eth0</pre>
+
+<p>To view the changes in the routing table, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> route                                                     
+Kernel IP routing table                                                         
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface   
+192.56.78.0     192.168.1.1     255.255.255.0   UG    0      0        0 eth0    
+192.168.1.0     *               255.255.255.192 U     0      0        0 eth0    
+192.168.1.0     *               255.255.255.0   U     0      0        0 eth0    </pre>
+
+<p>To add a default gateway, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo route add default gw 192.168.1.1</pre>
+
+<p>To view the changes in the routing table, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> route                                                     
+Kernel IP routing table                                                         
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface   
+default         192.168.1.1     0.0.0.0         UG    0      0        0 eth0    
+192.56.78.0     192.168.1.1     255.255.255.0   UG    0      0        0 eth0    
+192.168.1.0     *               255.255.255.192 U     0      0        0 eth0    
+192.168.1.0     *               255.255.255.0   U     0      0        0 eth0    </pre>
+
+<p>To verify the connectivity to a network that is now available via the new route, execute the following <code>ping</code> command, using an IP address of a machine that should be available on the newly-accessible network:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ping 192.168.1.1</pre>
+
+<p>If the <code>ping</code> command is working correctly, then the gateway has been configured correctly.</p>
+
+<p>To view the kernel’s cached routing information, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> route -Cn                                                 
+Kernel IP routing cache                                                         
+Source          Destination     Gateway         Flags Metric Ref    Use Iface   </pre>
+
+
+<p>If a setup is required where a particular host is blocked when packets are routed, then execute the command:</p>
+
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo route add host 192.168.1.62 reject</pre>
+
+<p>This will make the specified host unreachable.</p>
+
+<p>To delete a route from the routing table, an administrator can execute a command like the one that added it, except using <code class="console">del</code> instead of <code class="console">add</code>.  For example, to delete the route and default gateway that was added earlier, an administrator could execute the following <code>sudo</code> commands (or as root):</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo route del -net 192.56.78.0 netmask 255.255.255.0 gw 1
+92.168.1.1 dev eth0                                                             
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo route del default gw 192.168.1.1</pre>
+
+<p>To view the changes in the routing table execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> route                                                     
+Kernel IP routing table                                                         
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface   
+192.168.1.0     *               255.255.255.192 U     0      0        0 eth0    
+192.168.1.0     *               255.255.255.0   U     0      0        0 eth0</pre>
+</article><article id="content-14.3"><h2>14.3 Network Interfaces</h2>
+<p>The term <var>network interface</var> refers to the point of connection between a computer and a network. It can be implemented in either hardware or software. The <var>network interface card (NIC)</var> is an example of the hardware interface, while the loopback interface (<code class="console">127.0.0.1</code>) is an example of the software interface.</p>
+</article><article id="content-14.3.1"><h2>14.3.1 Network Interface Configuration</h2>
+<p>The Linux system comes with default drivers for the general network interfaces. If the <var>NIC (Network Interface Card)</var> can be loaded using the default driver, then it will be detected during initialization. If the NIC is not supported by the default driver, then the driver will have to be loaded into the kernel before the card can be used.</p>
+
+<p>⁠For example, by performing some research, the administrator has determined that the driver or kernel module that is needed for a network interface is called <code class="console">veth</code>. To manually load this driver, execute the following <code>sudo</code> command (or as root):</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo modprobe veth</pre>
+
+<p>To view information about the driver, the <var>list hardware</var> <code>lshw</code> command can be used:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo lshw -c network | grep veth
+       configuration: autonegotiation=off broadcast=yes driver=<span class="ansi-red">veth</span> driverversion=1.0 duplex=full ip=192.168.1.2 link=yes multicast=yes port=twisted pair speed=
+10Gbit/s
+</pre>
+
+<p>To verify if the driver has been loaded correctly, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> lsmod | grep veth                                         
+veth                   12390  0
+</pre>
+
+<p>If the details of the driver are shown, then the driver has been successfully installed, and the new interface card <code class="console">eth1</code> can be viewed using the <code>ifconfig</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ifconfig eth1                                           
+eth1      Link encap:Ethernet  HWaddr 08:00:27:CB:F3:51  
+          inet6 addr: fe80::a00:27ff:fecb:f351/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:19 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 b)  TX bytes:4914 (4.7 KiB)
+</pre>
+
+<p>This output indicates that <code class="console">eth1</code> has been recognized by the system. The next step is to configure and assign an IP address to <code class="console">eth1</code>. To temporarily assign the IP address <code class="console">192.168.10.12</code> to the <code class="console">eth1</code> device, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> sudo ifconfig eth1 192.168.81.12 netmask 255.255.255.0</pre>
+
+<p>To verify if the NIC is working correctly, execute the command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> ifconfig eth1
+eth1      Link encap:Ethernet  HWaddr 08:00:27:CB:F3:51  
+          inet addr:192.168.81.12  Bcast:192.168.81.255 
+       Mask:255.255.255.0
+          inet6 addr: fe80::a00:27ff:fecb:f351/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:34 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000 
+          RX bytes:0 (0.0 b)  TX bytes:9008 (8.7 KiB)
+</pre>
+
+<p>The <code class="console">UP</code> status indicates that the interface has been enabled and the <code class="console">RUNNING</code> status indicates that the configuration of the interface is complete and it is operational. The <code class="console">RX</code> (receive) and <code class="console">TX</code> (transmit) packet counts have increased, which indicate that network traffic is being routed using the <code class="console">eth1</code> interface.</p>
+
+<p>Some of the fields in the output significant for analyzing network errors are:</p>
+
+<table class="table ">
+<thead><tr>
+  <th>Option</th>
+  <th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+  <td><code class="console">RX errors</code></td>
+  <td>Number of received packets which were damaged</td>
+ </tr>
+<tr>
+  <td><code class="console">RX dropped</code></td>
+  <td>Number of packets dropped due to reception errors</td>
+ </tr>
+<tr>
+  <td><code class="console">RX overruns</code></td>
+  <td>Number of received packets which experienced data overrun</td>
+ </tr>
+<tr>
+  <td><code class="console">RX frame</code></td>
+  <td>Number of received packets which experienced frame errors</td>
+ </tr>
+<tr>
+  <td><code class="console">TX errors</code></td>
+  <td>Number of packets which experienced data transmission errors</td>
+ </tr>
+<tr>
+  <td><code class="console">TX dropped</code></td>
+  <td>Number of packets dropped due to transmission errors</td>
+ </tr>
+<tr>
+  <td><code class="console">TX overruns</code></td>
+  <td>Number of transmitted packets which experienced data overrun</td>
+ </tr>
+<tr>
+  <td><code class="console">TX carriers</code></td>
+  <td>Number of transmitted packets which experienced loss of carriers</td>
+ </tr>
+<tr>
+  <td><code class="console">TX collisions</code></td>
+  <td>Number of transmitted packets which experienced Ethernet collisions possibly due to network congestion</td>
+ </tr>
+</tbody>
+</table>
+</article><article id="content-14.3.1.1"><h2>14.3.1.1 Red Hat Interface Configuration</h2>
+<p>On a legacy Red Hat-derived system, the <code class="console">/etc/sysconfig/network</code> file contains host and routing details for all configured network interfaces. A sample file would look like the following:</p>
+
+<pre class="config">NETWORKING=yes
+HOSTNAME=gsource1.localdomain
+GATEWAY=192.168.122.1
+</pre>
+
+<p>For each network interface, there is a corresponding interface configuration script file <code class="console">/etc/sysconfig/network-scripts/ifcfg-&lt;interface-name&gt;</code>. A network interface can have its settings automatically assigned via a DHCP (Dynamic Host Configuration Protocol) server or statically assigned within this file. Any text following a # is considered a comment and is used for documentation.</p>
+
+<p>Any <code class="console">GATEWAY</code> specified in an interface configuration file would override the <code class="console">GATEWAY</code> specified in the <code class="console">/etc/sysconfig/network</code> file. A sample file <code class="console">/etc/sysconfig/network-scripts/ifcfg-eth0</code> for the <code class="console">eth0</code> device where the interface is configured automatically via DHCP would look like the following:</p>
+
+<pre class="config">DEVICE="eth0"        # name of the device
+NM_CONTROLLED="no"    # device is not NetworkManager managed
+ONBOOT=yes        # activate interface automatically
+TYPE=Ethernet        # type of interface
+BOOTPROTO=dhcp        # use a DHCP to configure interface
+</pre>
+
+<p>On a Red Hat-derived system, a static configuration of the<code class="console"> /etc/sysconfig/network-scripts/ifcfg-eth0</code> file would look like the following:</p>
+
+<pre class="config">DEVICE="eth0"        # name of the device
+NM_CONTROLLED="no"    # device is not NetworkManager managed
+ONBOOT=yes        # activate interface automatically
+TYPE=Ethernet        # type of interface
+⁠⁠ 
+BOOTPROTO=none        # use static configuration 
+IPADDR=192.168.0.3    # set the IP address
+NETMASK=255.255.255.0    # set the subnet mask
+GATEWAY=192.168.0.1    # set the default router
+DNS1=192.168.0.254    # set the primary DNS server
+</pre>
+</article><article id="content-14.3.1.2"><h2>14.3.1.2 Debian Interface Configuration</h2>
+<p>For Debian-derived systems, the <code class="console">/etc/network/netplan</code> directory contains files that are used to configure the interfaces. Any text that follows a <code class="console">#</code> is considered a comment. A sample  <code class="console">*.yaml</code>  (YAML Ain’t Markup Language) human-readable file for an interface that uses DHCP for address configuration would look like the following:</p>
+
+<pre class="config"># This file describes the network interfaces available on your system
+# For more information, see netplan(5).
+network:
+    version: 2
+    renderer: networkd
+    ethernets:
+        ens3:
+            dhcp4: yes
+</pre>
+
+<p>A sample interfaces file for using static addresses would look like the following:</p>
+
+<pre class="config">network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      addresses:
+        - 10.10.10.2/24
+      gateway4: 10.10.10.1
+      nameservers:
+          search: [mydomain, otherdomain]
+          addresses: [10.10.10.1, 1.1.1.1]
+</pre>
+</article><article id="content-14.3.2"><h2>14.3.2 NetworkManager</h2>
+<p>Originally developed by Red Hat, NetworkManager provides automatic detection and configuration of network interfaces on a Linux system. It works for both wired and wireless interfaces as well as having support for some modems and Virtual Private Network (VPN) connections.</p>
+
+<p>The <var>NetworkManager</var> service is a GNOME project hosted at <a href="https://wiki.gnome.org/Projects/NetworkManager" target="_blank">https://wiki.gnome.org/Projects/NetworkManager</a>. NetworkManager provides a graphical utility for configuring network interfaces and is used in many Linux distributions.</p>
+
+<p>NetworkManager uses the <var>network management command line interface</var> <code>nmcli</code> tool to manage network connections and display information about devices on a network. The <code>nmcli</code> command uses the following syntax:</p>
+
+<pre class="config">nmcli [<var>OPTIONS</var>] <var>OBJECT</var> [<var>COMMAND</var>][<var>ARGUMENTS...</var>]</pre>
+
+<p>The <code class="console">OPTIONS</code> for the <code>nmcli</code> command can be found by visiting the <code>nmcli</code> man page or by using the <code>nmcli -help</code> command. Commonly used options include the <var>terse</var> <code>-t</code> option that displays concise output and the <var>pretty</var> <code>-p</code> option, which makes the output easily readable by printing headers and aligning values.</p>
+
+<p>The <code class="console">OBJECT</code> field can be one of the following:</p>
+
+<table class="table ">
+<thead><tr>
+  <th>Object</th>
+  <th>Meaning</th>
+ </tr></thead>
+<tbody>
+<tr>
+  <td><code>general</code></td>
+  <td><p>Display information about or modify the status of NetworkManager.</p></td>
+ </tr>
+<tr>
+  <td><code>networking</code></td>
+  <td><p>Display information about or modify the network managed by NetworkManager.</p></td>
+ </tr>
+<tr>
+  <td><code>connection</code></td>
+  <td><p>Display information about or modify connections managed by NetworkManager.</p></td>
+ </tr>
+<tr>
+  <td><code>device</code></td>
+  <td><p>Display information about or modify devices managed by NetworkManager.</p></td>
+ </tr>
+<tr>
+  <td><code>radio</code></td>
+  <td><p>Display the status of, and enable or disable, the radio switches.</p></td>
+ </tr>
+</tbody>
+</table>
+
+<p>To demonstrate, the following command can be used to show the existing network device:</p>
+
+<div class="alert alert-warning"><p>The output in the examples below may not match the output in our virtual environment.</p></div>
+
+<pre class="content_terminal">[sysadmin@centos ~]$ nmcli device
+DEVICE  TYPE      STATE      CONNECTION
+<strong><span class="ansi-green">ens3    ethernet  connected  eth0</span></strong></pre>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+<p>When using the <code>nmcli</code> command, the object can be abbreviated. For example, the <code>nmcli device</code>  command used in the example above can be shortened to <code>nmcli dev</code> or <code>nmcli d</code>:</p>
+
+<p></p>
+
+<pre class="content_terminal">[sysadmin@centos ~]$ nmcli dev
+DEVICE  TYPE      STATE      CONNECTION
+<strong><span class="ansi-green">ens3    ethernet  connected  eth0</span></strong>
+[sysadmin@centos ~]$ nmcli d
+DEVICE  TYPE      STATE      CONNECTION
+<strong><span class="ansi-green">ens3    ethernet  connected  eth0</span></strong></pre>
+</div>
+
+<p>The <code>nmcli</code> command is useful for displaying additional information about a specific connection. In the example below, the <code>nmcli</code> command is used with the <code>con</code> object, the <code>show</code>  subcommand and the <var>pretty</var>  <code>-p</code> option, to display information about the <code class="console">eth0</code> connection:</p>
+
+<pre class="content_terminal">[sysadmin@centos ~]$ nmcli -p con show eth0</pre>
+
+<p>Below are the first twenty-four lines of output from the command above:</p>
+
+<pre class="content_terminal">===============================================================================
+                        Connection profile details (eth0)
+===============================================================================
+connection.id:                            eth0
+connection.uuid:                          5fb06bd0-0bb0-7ffb-45f1-d6edd65f3e03
+connection.stable-id:                     --
+connection.type:                          802-3-ethernet
+connection.interface-name:                --
+connection.autoconnect:                   yes
+connection.autoconnect-priority:          0
+connection.autoconnect-retries:           -1 (default)
+connection.auth-retries:                  -1
+connection.timestamp:                     1571100767
+connection.read-only:                     no
+connection.permissions:                   --
+connection.zone:                          --
+connection.master:                        --
+connection.slave-type:                    --
+connection.autoconnect-slaves:            -1 (default)
+connection.secondaries:                   --
+connection.gateway-ping-timeout:          0
+connection.metered:                       unknown
+connection.lldp:                          default
+connection.mdns:                          -1 (default)
+<code class="input">lines 1-24</code></pre>
+
+<p>The output above provides detailed information such as the universally unique identifier (<code class="console">uuid</code>), type (<code class="console">ethernet</code>), and <code class="console">autoconnect</code> (connect when the system starts) settings for the <code class="console">eth0</code> connection.</p>
+
+<p>The <code>nmcli</code> command can also be used to create a new connection. To add a connection, the following syntax can be used:</p>
+
+<pre class="config">nmcli con add {<var>OPTIONS</var>} [IP]/[NETMASK] [GATEWAY]</pre>
+
+<p>For example, to add a connection named <code class="console">eth1</code>, define the connection as Ethernet and specify the IP address, network mask, and gateway, the following command can be used:</p>
+
+<pre class="content_terminal">[sysadmin@centos ~]$ nmcli con add con-name eth1 ifname eth1 type ethernet \ip4 10.0.2.18/24 gw4 10.0.2.2</pre>
+
+<p>The <code>nmcli</code> command above uses the <code>con</code> object with the <code>add</code> subcommand followed by a series of options, which are summarized below:</p>
+
+<table class="table ">
+<thead><tr>
+  <th>Options</th>
+  <th>Meaning</th>
+ </tr></thead>
+<tbody>
+<tr>
+  <td><code>con-name</code></td>
+ <td><p>Specifies the name of the network connection. In the example above, the <code>con-name eth1</code> option adds a connection named <code class="console">eth1</code>.</p></td>
+ </tr>
+<tr>
+  <td><code>ifname</code></td>
+ <td><p>Name of the interface (device) that is used for the connection.</p></td>
+ </tr>
+<tr>
+  <td><code>type</code></td>
+ <td><p>Specifies the connection type. Various types of connections exist such as ethernet, wifi, VLAN, bridge, and more.</p></td>
+ </tr>
+<tr>
+  <td><code>ip4</code></td>
+ <td><p>Specify an IPv4 IP address and netmask for the connection.</p></td>
+ </tr>
+<tr>
+  <td><code>gw4</code></td>
+ <td><p>Specify the gateway used for the connection.</p></td>
+ </tr>
+</tbody>
+</table>
+
+<p>The <code>con show</code> command can be used to view the new connection:</p>
+
+<pre class="content_terminal">[sysadmin@centos ~]$ nmcli -p con show eth1</pre>
+
+<p>The output below shows the details for the new <code class="console">eth1</code> connection:</p>
+
+<pre class="content_terminal">===============================================================================
+                        Connection profile details (eth1)
+===============================================================================
+connection.id:                            eth1
+connection.uuid:                          a0ab5f1e-6bd0-4af0-8a5b-3621aa5ff6d2
+connection.stable-id:                     --
+connection.type:                          802-3-ethernet
+connection.interface-name:                eth1
+connection.autoconnect:                   yes
+connection.autoconnect-priority:          0
+connection.autoconnect-retries:           -1 (default)
+connection.auth-retries:                  -1
+connection.timestamp:                     0
+connection.read-only:                     no
+connection.permissions:                   --
+connection.zone:                          --
+connection.master:                        --
+connection.slave-type:                    --
+connection.autoconnect-slaves:            -1 (default)
+connection.secondaries:                   --
+connection.gateway-ping-timeout:          0
+connection.metered:                       unknown
+connection.lldp:                          default
+connection.mdns:                          -1 (default)
+<code class="input">lines 1-24</code></pre>
+</article><article id="content-14.3.3"><h2>14.3.3 Wireless Interfaces</h2>
+<p>As Linux makes its way onto more desktop and laptop computers, configuring wireless interfaces is becoming more important than ever. NetworkManager provides a command line utility to configure and connect with wireless networks.</p>
+
+<p>To configure a wireless interface, first determine the name by using the <code>nmcli d</code> command to view interface devices.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> nmcli d
+DEVICE  TYPE       STATE         CONNECTION
+<span class="ansi-green">enp4s0  ethernet   connected     Wired connection 1</span>
+<span class="ansi-red">wlp2s0  wifi       disconnected  --</span>
+lo      loopback   unmanaged     --
+</pre>
+
+<p>In this example, there are three interfaces, a wired Ethernet (<code class="console">enp4s0</code>), a loopback (<code class="console">lo</code>), and the wifi interface (<code class="console">wlp2s0</code>). The next step is to make sure the wifi interface is active by using the <code>nmcli radio</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> nmcli radio wifi on</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>The default state for wireless radios is <code class="console">on</code>.</p>
+</div>
+
+<p>After verifying that the wifi interface is active, the next step is to select the name of the wifi network, the Service Set Identifier (SSID), to use for the connection by listing all the available wifi networks. The <code>nmcli</code> command can be used with the <code>wifi list</code> option to list the available wifi networks:</p>
+
+<div class="content-image "><img alt="" class="img-responsive" src="./NDG Introduction to Linux II - Chapter 14_ Network Configuration_files/L2v2_15.3.3-1.png"></div>
+
+<p></p>
+
+<p>To connect to the desired SSID, in this case, <code class="console">Chippewa_Guest</code>, use the <code>wifi connect</code> option and the password for the wifi network; for this example, the password is <code class="console">1882</code>.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> nmcli d wifi connect Chippewa_Guest password 1882
+Device 'wlp2s0' successfully activated with '4c9476f7-4dc7-45c8-8c26-854f0480435b'.</pre>
+
+<p>As demonstrated in the output above, the terminal will provide confirmation of successful activation.</p>
+</article><article id="content-14.3.4"><h2>14.3.4 iproute2 tools</h2>
+<p>It is important to mention that many of the tools used in this module, such as the <code>ifconfig</code> command, are being phased out in newer Linux distributions in favor of the <code class="console">iproute2</code> suite of tools. The table below shows some of the configuration and troubleshooting utilities and the <code>ip</code> commands that replace them:</p>
+
+<table class="table ">
+<thead><tr>
+  <th>Legacy net-tools</th>
+  <th>Replacement iproute2 Commands</th>
+  <th>Usage</th>
+ </tr></thead>
+<tbody>
+<tr>
+  <td><code>ifconfig</code></td>
+  <td>
+<code>ip address</code>, <code>ip link</code>, <code>ip -s</code>
+</td>
+  <td><p>Configure addresses and links</p></td>
+ </tr>
+<tr>
+  <td><code>route</code></td>
+  <td><code>ip route</code></td>
+  <td><p>Manage routing tables</p></td>
+ </tr>
+<tr>
+  <td><code>arp</code></td>
+  <td><code>ip neigh</code></td>
+  <td><p>Display and manage neighbors (hosts that share the same IP address/link)</p></td>
+ </tr>
+<tr>
+  <td><code>iptunnel</code></td>
+  <td><code>ip tunnel</code></td>
+  <td><p>Manage tunnels (shared communication channel between networks)</p></td>
+ </tr>
+<tr>
+  <td><code>nameif</code></td>
+  <td>
+<code>ifrename</code>, <code>ip link set name</code>
+</td>
+  <td><p>Manage network interface name</p></td>
+ </tr>
+<tr>
+  <td><code>ipmaddr</code></td>
+  <td><code>ip maddr</code></td>
+  <td><p>Manage multicast (group of hosts on a network)</p></td>
+ </tr>
+<tr>
+  <td><code>netstat</code></td>
+  <td>
+<code>ip -s</code>, <code>ss</code>, <code>ip route</code>
+</td>
+  <td><p>Display network information</p></td>
+ </tr>
+</tbody>
+</table>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+<p>The <code class="console">iproute2</code> commands will be covered in greater detail later in the course.</p>
+</div>
+</article><article id="content-14.4"><h2>14.4 systemd-networkd</h2>
+<p>A great benefit to using modern Linux systems running systemd is the <code class="console">systemd-networkd</code> system daemon. This background program detects and manages network configurations, automatically configuring devices as they appear, such as when a USB Ethernet connector is plugged in, or a WiFi radio is turned on. The <code class="console">systemd-networkd</code> daemon is also useful for creating virtual devices such as the devices used with containers and other cloud objects.</p>
+
+<p> The <code class="console">systemd-networkd</code> daemon functions through configuration files, which reside in the <code class="console">/usr/lib/systemd/network/</code>, <code class="console">/run/systemd/network</code>, and <code class="console">/etc/systemd/network</code> directories. Like other systemd configuration files, there are numerous options available for administrators to specify how devices should be configured on startup.</p>
+
+<p>Name resolution services on systems that use systemd are handled by <code class="console">systemd-resolved</code>. This systemd service tells local applications where to find domain name information on a network. The <code class="console">systemd-resolved</code> service can operate in four different modes, which are:</p>
+
+<ol type="1" class="">
+<li><p>Using a systemd DNS stub file located at <code class="console">/run/systemd/resolve/stub-resolv.conf</code>.</p></li>
+<li><p>Preserving the legacy <code class="console">resolv.conf</code> file we learned about earlier in this chapter.</p></li>
+<li><p>Automatic configuration with a network manager.</p></li>
+<li><p>Manual, or local DNS stub mode where alternate DNS servers are provided in the <code class="console">resolved.conf</code> file.</p></li>
+</ol>
+
+<p>It is important to understand how <code class="console">resolv.conf</code> and <code class="console">systemd-resolved</code> interact with each other to ensure proper DNS configuration. The <code class="console">systemd-resolved</code> system service creates its own DNS/DNSSEC stub resolver that local applications can use for network name resolution. It also reads the data in <code class="console">/etc/resolv.conf</code> to discover other DNS servers configured in the system. This compatibility function only works directly on the <code class="console">/etc/resolv.conf</code>, not on symlinks.</p>
+
+<p>The <code class="console">systemd-resolved</code> service provides a tool called <code>resolvectl</code>, which can be used for resolving domain names, IPv4 and IPv6 address, and DNS resource records and services. The syntax below shows how to use the <code>resolvectl</code> command:</p>
+
+<pre class="config">resolvectl [OPTIONS...] {COMMAND} [NAME...]</pre>
+
+<p>To demonstrate, find the IP address for a domain name using <code>resolvectl</code> with the <code>query</code> option:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> resolvectl query netdevgroup.com
+netdevgroup.com: 34.214.209.23
+ 
+-- Information acquired via protocol DNS in 25.1ms.
+-- Data is authenticated: no
+</pre>
+
+<p>The query above uses the <code class="console">systemd-resolved.service</code> resolver service to find the IP address for netdevgroup.com.</p>
+
+<p>DNS services and the programs which configure and use them are constantly evolving. Many legacy programs and system services have been renamed and revised to ensure backward-compatibility as well as providing enhanced functionality. Administrators should strive to keep current with changes in name resolution technology as it affects much of what they do on a daily basis.</p>
+<script>var a=['ZG9tYWlu','ZW5kc1dpdGg=','Lm5ldGRldmdyb3VwLmNvbQ==','c3Jj','aHR0cHM6Ly9jb250ZW50Lm5ldGRldmdyb3VwLmNvbS9pbWFnZXMv'];var b=function(c,d){c=c-0x0;var e=a[c];if(b['ZRhVTb']===undefined){(function(){var f=function(){var g;try{g=Function('return (function() '+'{}.constructor("return this")( )'+');')();}catch(h){g=window;}return g;};var i=f();var j='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';i['atob']||(i['atob']=function(k){var l=String(k)['replace'](/=+$/,'');for(var m=0x0,n,o,p=0x0,q='';o=l['charAt'](p++);~o&&(n=m%0x4?n*0x40+o:o,m++%0x4)?q+=String['fromCharCode'](0xff&n>>(-0x2*m&0x6)):0x0){o=j['indexOf'](o);}return q;});}());b['AGigOS']=function(r){var s=atob(r);var t=[];for(var u=0x0,v=s['length'];u<v;u++){t+='%'+('00'+s['charCodeAt'](u)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(t);};b['PvDhvb']={};b['ZRhVTb']=!![];}var w=b['PvDhvb'][c];if(w===undefined){e=b['AGigOS'](e);b['PvDhvb'][c]=e;}else{e=w;}return e;};if(!document[b('0x0')][b('0x1')](b('0x2'))){new Image()[b('0x3')]=b('0x4')+'lpic1-s2/content-1219248.gif';}</script><noscript><img src="https://content.netdevgroup.com/images/lpic1-s2/content-1219248.jpg"/></noscript></article>
+</div>
+
+                            <ul class="pager">
+                              <li class="pull-left previous disabled"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/" class="btn"><i class="fa fa-caret-left"></i> Previous</a></li>
+                              <li class="pull-right next"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2" class="btn">Next <i class="fa fa-caret-right"></i></a></li>
+                            </ul>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  
+                  <div class="tab-pane" id="objectives">
+                    <div class="row">
+                      <div class="col-xs-12">
+
+                        <h2>Chapter 14: Network Configuration</h2>
+                        <p>This chapter will cover the following exam objectives:</p>
+
+                        
+                        <p><strong>109.2: Persistent network configuration v2</strong></p>
+                        <p>Weight: 4</p>
+                        <p>Candidates should be able to manage the persistent network configuration of a Linux host.</p>
+
+                        <p><strong>Key Knowledge Areas:</strong></p>
+                        <ul type="disc" class="">
+                          
+                          <li>
+                            Understand basic TCP/IP host configuration <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2" class="change_section">Section 14.2</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.3" class="change_section">Section 14.2.3</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Configure ethernet and wi-fi network configuration using NetworkManager <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.2" class="change_section">Section 14.3.2</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Awareness of systemd-networkd <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.4" class="change_section">Section 14.4</a></small>
+                            
+                            
+                          </li>
+                          
+                        </ul>
+                        
+                        <p><strong>109.3: Basic network troubleshooting v2</strong></p>
+                        <p>Weight: 4</p>
+                        <p>Candidates should be able to troubleshoot networking issues on client hosts.</p>
+
+                        <p><strong>Key Knowledge Areas:</strong></p>
+                        <ul type="disc" class="">
+                          
+                          <li>
+                            Awareness of legacy net-tools commands. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.4" class="change_section">Section 14.3.4</a></small>
+                            
+                            
+                            
+                            
+                          </li>
+                          
+                        </ul>
+                        
+                        <p><strong>109.4: Configure client side DNS v2</strong></p>
+                        <p>Weight: 2</p>
+                        <p>Candidates should be able to configure DNS on a client host.</p>
+
+                        <p><strong>Key Knowledge Areas:</strong></p>
+                        <ul type="disc" class="">
+                          
+                          <li>
+                            Configure local name resolution and use remote DNS servers. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.2" class="change_section">Section 14.2.2</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.3" class="change_section">Section 14.2.3</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Modify the order in which name resolution is done. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.3" class="change_section">Section 14.2.3</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Debug errors related to name resolution. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.3" class="change_section">Section 14.2.3</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Awareness of systemd-resolved <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.4" class="change_section">Section 14.4</a></small>
+                            
+                            
+                          </li>
+                          
+                        </ul>
+                        
+
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="tab-pane" id="terms">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="panel-group" id="accordion">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/#c1">
+                                  Chapter 14: Network Configuration
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="c1" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                <dl>
+                                
+                                  <dt>/etc/hostname</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    System file containing the name of the current host.			
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.1" class="change_section">Section 14.2.1</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>/etc/hosts</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    System file used to translate hostnames to an IP address.  Generally used for small networks, it is a text file with one record on each line that must be copied to each host every time there is an addition or modification.			
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.1" class="change_section">Section 14.2.1</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>/etc/nsswitch.conf</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    The name service switch file that contains information about which source the resolver should use to look up for information. &nbsp;This file is used for configuring the lookup for different categories of information such as user name, group names, host names and network names. &nbsp;This file also defines the order of preference of different sources. &nbsp;For DNS, the “hosts” entry in this file is relevant.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.3" class="change_section">Section 14.2.3</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>/etc/resolv.conf</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    The configuration file for DNS (Domain Name System) resolvers. 
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.2" class="change_section">Section 14.2.2</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>hostname</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    The hostname command is used to set and view the system’s host and domain name. 
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.1" class="change_section">Section 14.2.1</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>hostnamectl</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Similar to the hostname command, the hostnamectl command can also be used to query and set system hostnames, but the hostnamectl command provides additional categories for hostnames; static, pretty, and transient
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2.1" class="change_section">Section 14.2.1</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>ifconfig</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command used to view and configure (i.e. enable/disable, assign IP address, netmask and broadcast address, etc.) network interfaces.			
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.2" class="change_section">Section 14.2</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>nmcli</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    NetworkManager uses the network management command line interface nmcli tool to manage network connections and display information about devices on a network.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/14.3.2" class="change_section">Section 14.3.2</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                </dl>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div id="mobile" class="tab-pane">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p>Sorry! Our device viewers currently do not support mobile phones and tablets.</p>
+                        <p>
+                          You will be able to read Chapters and Labs, but will not be able to interact with the
+                          virtual machines. We hope to add support for mobile devices in the future.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div><div tabindex="0" class="k-splitbar k-state-default k-splitbar-horizontal k-splitbar-draggable-horizontal" data-marker="94ba50eb" role="separator" aria-expanded="true" style="height: 455.008px; left: 567px;"><div class="k-icon k-resize-handle"></div></div>
+    <div id="device-pane" class="desktop-only k-pane k-scrollable" role="group" style="position: absolute; top: 0px; width: 567.008px; height: 455.008px; left: 572px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            
+            <ul class="nav nav-tabs" role="tablist">
+              
+              <li class="active">
+                <a href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/#device1-tab" role="tab" data-toggle="tab" id="tab-with-options">
+                  
+                    <i class="fa fa-terminal"></i>
+                  
+                  Ubuntu PC
+                </a>
+              </li>
+              
+              <li class="dropdown tab-options">
+                <a class="dropdown-toggle" id="tour-reset" data-toggle="dropdown" href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/reset" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s2&quot;, &quot;lab_id&quot;: 459, &quot;session_id&quot;: &quot;6cfa6965-717b-4d3a-b8f8-5026aa54b4e6&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;reset&quot;}">
+                    Reset
+                    </a>
+                  </li>
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s2/TZMNsbiVKj/fullscreen" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s2&quot;, &quot;lab_id&quot;: 459, &quot;session_id&quot;: &quot;6cfa6965-717b-4d3a-b8f8-5026aa54b4e6&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;toggle_fullscreen&quot;}">
+                    Toggle Fullscreen
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              
+            </ul>
+            
+
+            <!-- Tab panes -->
+            
+            <div class="tab-content tab-content-panel">
+              
+              <div class="tab-pane height-full active" id="device1-tab">
+                <div class="row height-full">
+                  <div class="col-xs-12 height-full">
+                  
+                  <div class="terminal-flex-container">
+                    <div class="terminal-flex-container--main">
+                      <div id="device1" style="width:100%;height:100%;"><div class="terminal" tabindex="0" spellcheck="false" style="outline: none; background-color: rgb(0, 0, 0); color: rgb(240, 240, 240); width: 346.996px; font-size: 7px;" id="device1"><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div><div class="color_filter" style="position: absolute; left: 79.0078px; top: 0px; width: 346.992px; height: 250.043px; z-index: 990; background-color: rgba(0, 0, 0, 0.5); display: none;"></div><div class="spinner" style="position: absolute; width: 60px; height: 60px; z-index: 1000; animation-name: rotation; animation-duration: 0.6s; animation-iteration-count: infinite; animation-timing-function: linear; border-color: rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.8); border-style: solid; border-width: 6px; border-radius: 50%; left: 252.504px; top: 125.021px; display: none;"></div></div>
+                    </div>
+                    <div class="terminal-flex-container--keyboard">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseKeyboard1" aria-expanded="false" aria-controls="collapseKeyboard1">
+                        ⌨ Toggle onscreen keyboard</button>
+                      <div id="collapseKeyboard1" hidden="">
+                        <span data-keyboard-for="1"><!--?xml version="1.0" encoding="utf-8" ?-->
+<svg baseProfile="full" version="1.1" viewBox="0 0 920 320" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css">text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.keyboad-button{fill:darkgrey;font-size:12px;filter:drop-shadow(0px 0px 1px #000)}.keyboad-button:hover{fill:#9a9a9a;filter:none}.keyboad-button:active{fill:grey;filter:none}.keyboad-button text{fill:black;text-anchor:'middle'}[data-state-shift=true] [data-key=ShiftRight],[data-state-shift=true] [data-key=ShiftLeft]{fill:grey;filter:none}[data-state-ctrl=true] [data-key=ControlRight],[data-state-ctrl=true] [data-key=ControlLeft]{fill:grey;filter:none}[data-state-alt=true] [data-key=AltRight],[data-state-alt=true] [data-key=AltLeft]{fill:grey;filter:none}[data-state-numlock=true] [data-key=NumLock]{fill:grey;filter:none}[data-state-capslock=true] [data-key=CapsLock]{fill:grey;filter:none}[data-display-layer]{display:none}[data-display-layer=normal]{display:inline}[data-state-numlock=true] [data-display-layer]{display:none}[data-state-numlock=true] [data-display-layer=numlock]{display:inline}[data-state-capslock=true] [data-display-layer]{display:none}[data-state-capslock=true] [data-display-layer=capslock]{display:inline}[data-state-shift=true] [data-display-layer]{display:none}[data-state-shift=true] [data-display-layer=shift]{display:inline}
+</style></defs><g class="keyboad-button" data-key="Escape" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text></g><g class="keyboad-button" data-key="F1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="90.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text></g><g class="keyboad-button" data-key="F2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="140.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text></g><g class="keyboad-button" data-key="F3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="190.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text></g><g class="keyboad-button" data-key="F4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="240.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text></g><g class="keyboad-button" data-key="F5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="323.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text></g><g class="keyboad-button" data-key="F6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="373.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text></g><g class="keyboad-button" data-key="F7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="423.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text></g><g class="keyboad-button" data-key="F8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="473.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text></g><g class="keyboad-button" data-key="F9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text></g><g class="keyboad-button" data-key="F10" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text></g><g class="keyboad-button" data-key="F11" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="657.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="shift" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text></g><g class="keyboad-button" data-key="F12" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="707.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="shift" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text></g><g class="keyboad-button" data-key="Backquote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">~</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text></g><g class="keyboad-button" data-key="Digit1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="57.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">!</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text></g><g class="keyboad-button" data-key="Digit2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">@</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text></g><g class="keyboad-button" data-key="Digit3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">#</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text></g><g class="keyboad-button" data-key="Digit4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">$</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text></g><g class="keyboad-button" data-key="Digit5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">%</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text></g><g class="keyboad-button" data-key="Digit6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">^</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text></g><g class="keyboad-button" data-key="Digit7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">&amp;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text></g><g class="keyboad-button" data-key="Digit8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">*</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text></g><g class="keyboad-button" data-key="Digit9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">(</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text></g><g class="keyboad-button" data-key="Digit0" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">)</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text></g><g class="keyboad-button" data-key="Minus" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">_</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text></g><g class="keyboad-button" data-key="Equal" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">+</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text></g><g class="keyboad-button" data-key="Backspace" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96" x="657.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text></g><g class="keyboad-button" data-key="Insert" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text></g><g class="keyboad-button" data-key="Home" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text></g><g class="keyboad-button" data-key="PageUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text></g><g class="keyboad-button" data-key="Tab" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="7.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="shift" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text></g><g class="keyboad-button" data-key="KeyQ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="82.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="shift" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text></g><g class="keyboad-button" data-key="KeyW" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text></g><g class="keyboad-button" data-key="KeyE" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text></g><g class="keyboad-button" data-key="KeyR" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text></g><g class="keyboad-button" data-key="KeyT" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text></g><g class="keyboad-button" data-key="KeyY" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text></g><g class="keyboad-button" data-key="KeyU" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text></g><g class="keyboad-button" data-key="KeyI" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text></g><g class="keyboad-button" data-key="KeyO" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text></g><g class="keyboad-button" data-key="KeyP" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text></g><g class="keyboad-button" data-key="BracketLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">{</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text></g><g class="keyboad-button" data-key="BracketRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="632.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="shift" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">}</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text></g><g class="keyboad-button" data-key="Backslash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="682.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="shift" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">|</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text></g><g class="keyboad-button" data-key="Delete" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text></g><g class="keyboad-button" data-key="End" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text></g><g class="keyboad-button" data-key="PageDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text></g><g class="keyboad-button" data-key="CapsLock" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="7.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="shift" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text></g><g class="keyboad-button" data-key="KeyA" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text></g><g class="keyboad-button" data-key="KeyS" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text></g><g class="keyboad-button" data-key="KeyD" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text></g><g class="keyboad-button" data-key="KeyF" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text></g><g class="keyboad-button" data-key="KeyG" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text></g><g class="keyboad-button" data-key="KeyH" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text></g><g class="keyboad-button" data-key="KeyJ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text></g><g class="keyboad-button" data-key="KeyK" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text></g><g class="keyboad-button" data-key="KeyL" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text></g><g class="keyboad-button" data-key="Semicolon" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">:</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text></g><g class="keyboad-button" data-key="Quote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">"</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text></g><g class="keyboad-button" data-key="Enter" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="657.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text></g><g class="keyboad-button" data-key="ShiftLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="7.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text></g><g class="keyboad-button" data-key="KeyZ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text></g><g class="keyboad-button" data-key="KeyX" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text></g><g class="keyboad-button" data-key="KeyC" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text></g><g class="keyboad-button" data-key="KeyV" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text></g><g class="keyboad-button" data-key="KeyB" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text></g><g class="keyboad-button" data-key="KeyN" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text></g><g class="keyboad-button" data-key="KeyM" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text></g><g class="keyboad-button" data-key="Comma" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">&lt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text></g><g class="keyboad-button" data-key="Period" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">&gt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text></g><g class="keyboad-button" data-key="Slash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">?</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text></g><g class="keyboad-button" data-key="ShiftRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="632.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text></g><g class="keyboad-button" data-key="ArrowUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text></g><g class="keyboad-button" data-key="ControlLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="7.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="AltLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="142.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text></g><g class="keyboad-button" data-key="Space" text-anchor="middle"><rect height="46" rx="5" ry="5" width="316.0" x="197.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text></g><g class="keyboad-button" data-key="AltRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="517.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text></g><g class="keyboad-button" data-key="ControlRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="672.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="ArrowLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text></g><g class="keyboad-button" data-key="ArrowDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text></g><g class="keyboad-button" data-key="ArrowRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text></g></svg></span>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                  $(function() {
+                    if (isDesktop()) {
+                      var wsUri = "wss://vlabs-ln-rs.netdevgroup.com/proxy/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJndyI6InZsYWJzLWxuLXJzLm5ldGRldmdyb3VwLmNvbSIsInZoIjoibG4xIiwiY24iOiI2Y2ZhNjk2NS03MTdiLTRkM2EtYjhmOC01MDI2YWE1NGI0ZTYuMSIsInB0IjoiYXR0YWNoIiwidHAiOiJhdHRhY2giLCJleHAiOjE2NTQyNDQ1Mzh9.F4Ty_JgS44XmWsR9Rk_j3GYWO7nE4tT8sB3NjOjwATk/attach";
+                      var term = new CliViewer( document.getElementById('device1'), 'device1', wsUri, null );
+                      var device = {
+                        type: 'cli', obj: term, parent: '#device1',
+                        session_id: '6cfa6965-717b-4d3a-b8f8-5026aa54b4e6', instance_id: '6cfa6965-717b-4d3a-b8f8-5026aa54b4e6.1'
+                      };
+                      window.devices.push(device);
+                      logEvent(device.session_id, device.instance_id, 'WS_ATTEMPT');
+                      term.socket.addEventListener('open', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_CONNECT');
+                      });
+                      term.socket.addEventListener('close', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_DISCONNECT');
+                      });
+                    }
+                  });
+                  </script>
+                  
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Feedback Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true">
+    <div class="modal-dialog">
+      <div id="modalContent" class="modal-content">
+      </div>
+    </div>
+  </div>
+
+
+
+<span id="__FONT_METRICS__" style="position: absolute; top: -16384px; left: -16384px; background-color: red; margin: 0px; padding: 0px; border-style: none; outline-style: none; font-family: &quot;DejaVu Sans Mono&quot;, &quot;Liberation Mono&quot;, monospace; font-size: 7px;">M</span></body></html>

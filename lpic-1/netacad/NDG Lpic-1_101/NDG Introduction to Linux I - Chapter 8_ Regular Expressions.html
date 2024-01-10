@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/ -->
+<html lang="en" class="k-webkit k-webkit99"><input type="hidden" id="__yoroi_connector_api_injected_type" value="prod"><script async="" src="./NDG Introduction to Linux I - Chapter 8_ Regular Expressions_files/analytics.js"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="spinner-keyframes">
+@-webkit-keyframes rotation 
+{  from { -webkit-transform : rotate( 0deg );   }
+  to   { -webkit-transform : rotate( 359deg ); }
+}
+@-moz-keyframes rotation {
+  from { -moz-transform : rotate( 0deg );   }
+  to   { -moz-transform : rotate( 359deg ); }
+}
+@-o-keyframes rotation {
+  from { -o-transform : rotate( 0deg );   }
+  to   { -o-transform : rotate( 359deg ); }
+}
+@keyframes rotation {
+  from { transform : rotate( 0deg );   }
+  to   { transform : rotate( 359deg ); }
+}
+</style><style id="term-style">.terminal {
+  float: left;
+  border: #000000 solid 5px;
+  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-size: 11px;
+  color: #f0f0f0;
+  background: #000000;
+  white-space: nowrap;
+}
+
+.terminal-cursor {
+  color: #000000;
+  background: #f0f0f0;
+}
+</style>
+  <title>NDG Introduction to Linux I - Chapter 8: Regular Expressions</title>
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="https://ndg-content.s3.us-west-2.amazonaws.com/img/favicon.ico">
+
+  <link rel="stylesheet" href="./NDG Introduction to Linux I - Chapter 8_ Regular Expressions_files/44d1a56e411f.css" type="text/css">
+
+  <script type="text/javascript" src="./NDG Introduction to Linux I - Chapter 8_ Regular Expressions_files/polyfill-6.26.0.min.js"></script>
+  <script type="text/javascript" src="./NDG Introduction to Linux I - Chapter 8_ Regular Expressions_files/9930c7fbf6d8.js"></script>
+
+  <script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-11306725-3', 'netdevgroup.com');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+
+</script>
+
+  <script type="text/javascript">
+    var NDGCourse = {name: "NDG Introduction to Linux I"};
+    var videoContent = {};
+  </script>
+</head>
+
+<body style="">
+
+  <!-- Start Navbar -->
+  <div class="navbar navbar-primary navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand hidden-xs">
+          NDG Introduction to Linux I - Chapter 8: Regular Expressions
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-share-alt" aria-hidden="true"></i> Share <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://www.facebook.com/share.php?u=https://netdevgroup.com/online/courses/linux.html&amp;title=Learn%20Linux%20with%20NDG" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+            </li>
+            <li>
+              <a href="http://twitter.com/home?status=Learn%20Linux%20with%20NDG+https://netdevgroup.com/online/courses/linux.html" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li id="tour-help" class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-lg hidden-md hidden-sm">NDG Introduction to Linux I</span>
+            <div class="pull-right">
+              <i class="fa fa-question-circle"></i>
+              <span class="hidden-xs"> Help</span>
+              <b class="caret"></b>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header hidden-md hidden-sm hidden-lg">Chapter 8: Regular Expressions</li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/faq/">Frequently Asked Questions</a></li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/feedback/">Contact Support</a></li>
+            <li class="hidden-xs desktop-only"><a id="toursb" class="support" href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/#">Start Tour</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- End Navbar -->
+
+
+  <div id="splitter" class="height-full k-widget k-splitter" data-role="splitter">
+    <div role="group" class="k-pane k-scrollable" style="position: absolute; top: 0px; width: 869px; height: 789.011px; left: 0px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            <!-- Tab Btns -->
+              <ul id="left-tabs" class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/#content" role="tab" data-toggle="tab">Content</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/#objectives" role="tab" data-toggle="tab">Objectives</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/#terms" role="tab" data-toggle="tab">Key Terms</a></li>
+                
+                <li class="mobile-only" style="display:none;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/#mobile" role="tab" data-toggle="tab"><i class="fa fa-terminal"></i> Devices</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div id="content-container" class="tab-content tab-content-panel">
+                  <div id="content" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="tour2" class="btn-group-vertical btn-group-xs pull-left hidden-xs">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                          
+                                          8.1 Introduction
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.2 Basic Regular Expressions
+                                        </a>
+                                        
+                                          
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.2.1 Anchoring
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.2.2 Match a Single Character With .
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.2.3 Match a Single Character With [ ]
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.2.4 Match a Single Character With *
+                                        </a>
+                                        
+                                      
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.3 Extended Regular Expressions
+                                        </a>
+                                        
+                                          
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.3.1 Grouping With ( )
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.3.2 Match a Repeated Character With +
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.3.3 Match an Optional Character With ?
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.3.4 Match a Repeated Character With { }
+                                        </a>
+                                        
+                                          
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.4.1" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.3.4.1 Comparing Quantifiers
+                                        </a>
+                                        
+                                      
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.5" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.3.5 Match Subpatterns With |
+                                        </a>
+                                        
+                                      
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.4 Using Special Regular Expression Sequences
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.5" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.5 Escaping Special Characters With \
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.6" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.6 Using the fgrep Command
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.7" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.7 Options for the grep Command
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.8" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          8.8 Using grep to Search Multiple Files
+                                        </a>
+                                        
+                                      
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.1" class="btn btn-default ndg-menu-btn change_section btn-primary active" style="text-align:left;">
+                                    8.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.2
+                                  </a>
+                                  
+                                    
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.2.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.2.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.2.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.2.4
+                                  </a>
+                                  
+                                
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.3
+                                  </a>
+                                  
+                                    
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.3.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.3.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.3.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.3.4
+                                  </a>
+                                  
+                                    
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.4.1" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.3.4.1
+                                  </a>
+                                  
+                                
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.5" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.3.5
+                                  </a>
+                                  
+                                
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.4
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.5" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.5
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.6" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.6
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.7" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.7
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.8" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    8.8
+                                  </a>
+                                  
+                                
+                            </div>
+                            <div class="content-menu-space">
+                              <div class="btn-group hidden-lg hidden-md hidden-sm mobile-chapter-select">
+                                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-caret-down"></i> Sections
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                        8.1 Introduction
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2" class="btn-default ndg-menu-btn change_section">
+                                        8.2 Basic Regular Expressions
+                                      </a>
+                                      
+                                        
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.1" class="btn-default ndg-menu-btn change_section">
+                                        8.2.1 Anchoring
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.2" class="btn-default ndg-menu-btn change_section">
+                                        8.2.2 Match a Single Character With .
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.3" class="btn-default ndg-menu-btn change_section">
+                                        8.2.3 Match a Single Character With [ ]
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.4" class="btn-default ndg-menu-btn change_section">
+                                        8.2.4 Match a Single Character With *
+                                      </a>
+                                      
+                                    
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3" class="btn-default ndg-menu-btn change_section">
+                                        8.3 Extended Regular Expressions
+                                      </a>
+                                      
+                                        
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.1" class="btn-default ndg-menu-btn change_section">
+                                        8.3.1 Grouping With ( )
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.2" class="btn-default ndg-menu-btn change_section">
+                                        8.3.2 Match a Repeated Character With +
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.3" class="btn-default ndg-menu-btn change_section">
+                                        8.3.3 Match an Optional Character With ?
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.4" class="btn-default ndg-menu-btn change_section">
+                                        8.3.4 Match a Repeated Character With { }
+                                      </a>
+                                      
+                                        
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.4.1" class="btn-default ndg-menu-btn change_section">
+                                        8.3.4.1 Comparing Quantifiers
+                                      </a>
+                                      
+                                    
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.5" class="btn-default ndg-menu-btn change_section">
+                                        8.3.5 Match Subpatterns With |
+                                      </a>
+                                      
+                                    
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.4" class="btn-default ndg-menu-btn change_section">
+                                        8.4 Using Special Regular Expression Sequences
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.5" class="btn-default ndg-menu-btn change_section">
+                                        8.5 Escaping Special Characters With \
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.6" class="btn-default ndg-menu-btn change_section">
+                                        8.6 Using the fgrep Command
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.7" class="btn-default ndg-menu-btn change_section">
+                                        8.7 Options for the grep Command
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.8" class="btn-default ndg-menu-btn change_section">
+                                        8.8 Using grep to Search Multiple Files
+                                      </a>
+                                      
+                                    
+                                    </li>
+                                  </ul>
+                                </div>
+                              <div>
+<article id="content-8.1" style="display: block;"><h2>8.1 Introduction</h2>
+<p>‌⁠​​⁠​ <var>Regular expressions</var> (or <var>regex</var>) define a search <var>pattern</var>.  They are similar to globbing in that they can be expanded to <var>match</var> certain sequences of characters in text, but have more variety and power.</p>
+
+<p>A regex pattern is composed of <var>literal</var> characters and <var>operators</var>.</p>
+
+<p>A <var>literal</var> character in a pattern represents the character itself.  It has no special meaning, and no substitution is performed.  Literal characters include letters, numbers, some punctuation characters, and basically any other character that is not an operator.</p>
+
+<p>An <var>operator</var> is a special character or character sequence that has special meaning.  Operators give regular expressions their superpowers!  Operators are sometimes referred to as <var>metacharacters</var>. The word “operator” more readily conveys transformative action, so we will use that term in this chapter.</p>
+
+<p>A regular expression has two common forms: basic and extended.  <var>Extended regular expressions</var> support more operators than their basic counterparts.  Most commands that can use regular expressions can interpret <var>basic regular expressions</var>. Extended regular expressions are not available for all commands and may require an additional option for them to work correctly.</p>
+
+<p>The man page for regex is a good source of information to learn about basic vs. extended regex, the syntax for regex, and regex compatibility:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> man regex
+</pre>
+
+<pre class="content_terminal">REGEX(7)                   Linux Programmer's Manual             REGEX(7)
+
+<strong>NAME</strong>
+       regex - POSIX.2 regular expressions
+
+<strong>DESCRIPTION</strong>
+       Regular  expressions ("RE"s), as defined in POSIX.2, come in two forms:
+       modern REs (roughly those of egrep; POSIX.2 calls these "extended" REs)
+       and  obsolete REs (roughly those of ed(1); POSIX.2 "basic" REs).  Obso-
+       lete REs mostly exist for backward compatibility in some old  programs;
+       they  will  be discussed at the end.  POSIX.2 leaves some aspects of RE
+       syntax and semantics open; "(!)" marks decisions on these aspects  that
+       may not be fully portable to other POSIX.2 implementations.
+
+       A (modern) RE is one(!) or more nonempty(!) branches, separated by '|'.
+       It matches anything that matches one of the branches.
+
+       A branch is one(!) or more pieces, concatenated.  It  matches  a  match
+       for the first, followed by a match for the second, and so on.
+
+       A  piece  is an atom possibly followed by a single(!) '*', '+', '?', or
+       bound.  An atom followed by '*' matches a sequence of 0 or more matches
+       of  the  atom.  An atom followed by '+' matches a sequence of 1 or more
+<code class="input"> Manual page regex(7) line 1 (press h for help or q to quit)</code>
+</pre>
+ 
+<p>The examples displayed in this chapter will make use of the <code>grep</code> command to demonstrate regular expressions. The <code>grep</code> command is able to filter text from data, providing a very visual demonstration of how regular expressions work. The <code>grep</code> command that will be used is actually an <var>alias</var> that runs <code>grep --color</code> so that the text that matches will be displayed in a red color.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>Unlike globs, regular expressions are only supported by a small set of commands.  This is because glob expansion is usually provided by the shell; the command (in most cases) does not need to worry about the implementation of glob expansion.</p>
+
+<p>On the other hand, commands that support regular expressions must implement regular expression logic, and all the complexity and extra code that comes with them.</p>
+</div>
+
+<div class="alert alert-danger">
+<p><strong>Important</strong></p>
+
+<p>The pattern argument of a command should be protected by <var>strong quotes</var> to prevent the shell from misinterpreting them as special shell characters.  This means that you should place <var>single quotes</var> <code class="console">'</code> around a regular expression. The following example demonstrates how not placing single quotes around special characters will result in unexpected output, which is resolved by adding single quotes:</p>
+<p></p>
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo Use single quotes around characters like $ &amp; * ; .
+[1] 85
+Use single quotes around characters like $
+Desktop: command not found
+[1]+  Done                    echo Use single quotes around characters like $
+-bash: .: filename argument required
+.: usage: . filename [arguments]
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> echo Use single quotes around characters like '$ &amp; * ; .'
+Use single quotes around characters like $ &amp; * ; .
+</pre> 
+</div>
+
+</article><article id="content-8.2"><h2>8.2 Basic Regular Expressions</h2>
+<p>The simplest of all regular expressions just use literal characters, such as alphanumeric characters. For example, to locate all lines of the <code class="console">/etc/passwd</code> file that contain the expression <code class="console">root</code>, use the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> grep 'root' /etc/passwd
+<span class="ansi-red">root</span>:x:0:0:<span class="ansi-red">root</span>:/<span class="ansi-red">root</span>:bin/bash
+operator:x:11:0:operator:/<span class="ansi-red">root</span>:/sbin/nologin
+</pre>
+
+<p>Although very useful for the <code>grep</code> command, literal characters alone provide no wildcarding or special matching capabilities.  For that, let’s introduce the <var>operators</var> that are available in basic regular expressions.</p>
+
+<table class="table ">
+<thead><tr> 
+<th>Basic Regex</th>
+<th>Operator</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Period operator</td>
+<td><code class="console">.</code></td>
+<td>Matches any one single character.</td>
+</tr>
+<tr>
+<td>List operator</td>
+<td>
+<p><code class="console">[ ]</code></p>
+<p><code class="console">[^ ]</code></p>
+</td>
+<td>
+Defines a list or range of literal characters that can match one character.  If the first character is the <var>negation</var> <code class="console">^</code> operator, it matches any character that is <var>not</var> in the list.
+</td>
+</tr>
+<tr>
+<td>Asterisk operator</td>
+<td><code class="console">*</code></td>
+<td>Matches zero or more instances of the previous character.</td>
+</tr>
+<tr>
+<td>Front anchor operator</td>
+<td><code class="console">^</code></td>
+<td>
+If <code class="console">^</code> is the first character in the pattern, then the entire pattern must be present at the beginning of the line to match.  If <code class="console">^</code> is not the first character, then it is treated as an ordinary literal <code class="console">^</code> character.
+</td>
+</tr>
+<tr>
+<td>Back anchor operator</td>
+<td><code class="console">$</code></td>
+<td>
+If <code class="console">$</code> is the last character in the pattern, then the pattern must be at the end of the line to match, otherwise, it is treated as a literal <code class="console">$</code> character.
+</td>
+</tr>
+</tbody>
+</table>
+</article><article id="content-8.2.1"><h2>8.2.1 Anchoring</h2>
+<p>Anchoring is one of the ways regular expressions can be used to narrow search results. For example, the pattern <code class="console">root</code> appears many times in the <code class="console">/etc/passwd</code> file:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> grep 'root' /etc/passwd
+<span class="ansi-red">root</span>:x:0:0:<span class="ansi-red">root</span>:/<span class="ansi-red">root</span>:bin/bash
+operator:x:11:0:operator:/<span class="ansi-red">root</span>:/sbin/nologin
+</pre>
+
+<p>The <var>front anchor</var> <code class="console">^</code> operator can be used to ensure that a pattern appears at the <var>beginning</var> of the line. For example, to find all lines in <code class="console">/etc/passwd</code> that start with <code class="console">root</code>, use the <code class="console">^root</code> pattern. Note that the <code class="console">^</code> operator must be the <var>first</var> character in the pattern to be effective.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> grep ^root /etc/passwd
+<span class="ansi-red">root</span>:x:0:0:root:/root:bin/bash
+</pre>
+
+<p>The <var>back anchor</var> <code class="console">$</code> operator can be used to ensure a pattern appears at the <var>end</var> of the line, thereby effectively reducing the search results. To find the lines that end with an <code class="console">r</code> in the <code class="console">alpha-first.txt</code> file, use the <code class="console">r$</code> pattern:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> cd Documents
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep 'r$' alpha-first.txt
+B is for Bea<span class="ansi-red">r</span>
+F is for Flowe<span class="ansi-red">r</span>
+</pre>
+
+<p>Again, the position of this operator is important.  The <code class="console">$</code> operator must be the <var>last</var> character in the pattern in order to be effective as an anchor.</p>
+
+<p>If the <code class="console">^</code> and <code class="console">$</code> operators are used at the beginning and end of the same pattern, the entire line must match the pattern. Meaning that the only way a line would be returned is if the entire line matched exactly, with no other characters on the line.</p>
+
+<table class="table ">
+<thead><tr>
+<th>Pattern</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">^Hello</code></td>
+<td>Matches any line that begins with the <code class="console">Hello</code> string</td>
+</tr>
+<tr>
+<td><code class="console">World$</code></td>
+<td>Matches any line that ends with the <code class="console">World</code> string</td>
+</tr>
+<tr>
+<td><code class="console">^Hello World$</code></td>
+<td>Matches any line which matches the <code class="console">Hello World</code> string <var>exactly</var>
+</td>
+</tr>
+</tbody>
+</table>
+</article><article id="content-8.2.2"><h2>8.2.2 Match a Single Character With .</h2>
+<p>One of the most useful matching capabilities is provided by the <var>period</var> <code class="console">.</code> operator. It will match any character except for the new line character. The <code class="console">red.txt</code> file contains a list of words:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat red.txt
+red
+reef
+rot
+reeed
+rd
+rod
+roof
+reed
+root
+reel
+read
+</pre>
+
+<p>The <code class="console">r..t</code> pattern will find any line that contained the letter <code class="console">r</code> followed by exactly two characters (which can be any character except a newline) and then the letter <code class="console">t</code>:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep r..t red.txt
+<span class="ansi-red">root</span>
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep r..f red.txt
+<span class="ansi-red">reef</span>
+<span class="ansi-red">roof</span>
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep r..d red.txt
+<span class="ansi-red">reed</span>
+<span class="ansi-red">read</span>
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep r.d red.txt
+<span class="ansi-red">red</span>
+<span class="ansi-red">rod</span>
+</pre>
+
+<p>Remember, the line does not have to be an exact match, it simply must <var>contain</var> the pattern, as seen here when the <code class="console">r..t</code> pattern is searched for in the <code class="console">/etc/passwd</code> file:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep r..t /etc/passwd
+<span class="ansi-red">root</span>:x:0:0:<span class="ansi-red">root</span>:/<span class="ansi-red">root</span>:/bin/bash
+operator:x:1000:37::/<span class="ansi-red">root</span>:
+</pre>
+</article><article id="content-8.2.3"><h2>8.2.3 Match a Single Character With [ ]</h2>
+<p>The <var>list</var> <code class="console">[ ]</code> operator works in regular expressions similar to how they work in glob expressions; they match a <var>single</var> character from the list or range of possible characters contained within the brackets.</p>
+
+<p>For example, given the <code class="console">profile.txt</code> file:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat profile.txt
+Hello my name is Joe.
+I am 37 years old.
+3121991
+My favorite food is avocados.
+I have 2 dogs.
+123456789101112
+</pre>
+
+<p>To find all the lines in the <code class="console">profile.txt</code> file that have a number in them, use either the  <code class="console">[0123456789]</code> or <code class="console">[0-9]</code> pattern:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat profile.txt | grep [0-9]
+I am <span class="ansi-red">37</span> years old.
+<span class="ansi-red">3121991</span>
+I have <span class="ansi-red">2</span> dogs.
+<span class="ansi-red">123456789101112</span>
+</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>In the last example, the <var>pipe</var> | character is used to send the output of one command to another.  Some of the following examples use the <code>cat</code> command to send the contents of a file to the <code>grep</code> command.</p>
+
+<p>As explained later in this chapter, the pipe <code class="console">|</code> character can also be used as an alternation operator within an extended regular expression.  This should not be confused with the use of pipes in output chains, such as the <code>cat | grep</code> examples.</p>
+
+<p><var>Pipes will be covered in greater detail later in the course.</var></p>
+</div>
+ 
+<p>To find all the lines which contain any non-numeric characters, insert the <var>negation</var> <code class="console">^</code> operator as the first character inside the brackets. This <var>negates</var> the characters listed:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat profile.txt | grep [^0-9]
+<span class="ansi-red">Hello my name is Joe.</span>
+<span class="ansi-red">I am</span> 37 <span class="ansi-red">years old.</span>
+<span class="ansi-red">My favorite food is avocados.</span>
+<span class="ansi-red">I have</span> 2 <span class="ansi-red">dogs.</span>
+</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>Do not mistake <code class="console">[^0-9]</code> to match <var>lines which do not contain numbers</var>. It actually matches <var>lines which contain non-number characters</var>. Look at the original file to see the difference. The third and sixth lines only contain numbers, they do not contain non-numbers, so those lines do not match.</p>
+</div>
+ 
+<p>When other regular expression operators are placed inside of the list <code class="console">[ ]</code> operators, they are treated as literal characters. For example, the <code class="console">.</code> character normally matches any one character, but when placed inside the square brackets, then it will just match the <code class="console">.</code> character itself. In the example, only lines which contain the literal <code class="console">.</code> character are matched.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat profile.txt | grep [.]
+Hello my name is Joe<span class="ansi-red">.</span>
+I am 37 years old<span class="ansi-red">.</span>
+My favorite food is avocados<span class="ansi-red">.</span>
+I have 2 dogs<span class="ansi-red">.</span>
+</pre>
+</article><article id="content-8.2.4"><h2>8.2.4 Match a Single Character With *</h2>
+<p>The <var>asterisk</var> <code class="console">*</code> operator is used to match zero or more occurrences of the character preceding it. For example, the <code class="console">e*</code> pattern would match zero or more occurrences of the <code class="console">e</code> character:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat red.txt
+red
+reef
+rot
+reeed
+rd
+rod
+roof
+reed
+root
+reel
+rood
+read
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat red.txt | grep 're*d'
+<span class="ansi-red">red
+reeed
+rd
+reed</span>
+</pre>
+
+<p>It is also possible to match zero or more occurrences of a list of characters by utilizing the square brackets:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat red.txt | grep 'r[oe]*d'
+<span class="ansi-red">red
+reeed
+rd
+rod
+reed
+rood</span>
+</pre>
+
+<p>When used with only one other character, the asterisk <code class="console">*</code> operator isn't very helpful. Any of the following patterns would match <var>every</var> string or line in the file: <code class="console">'.*' 'e*' 'b*' 'z*'</code> This is because the asterisk <code class="console">*</code> operator can match <var>zero</var> occurrences of a pattern.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat red.txt | grep 'z*'
+red
+reef
+rot
+reeed
+rd
+rod
+roof
+reed
+root
+reel
+read
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat red.txt | grep 'e*'
+r<span class="ansi-red">e</span>d
+r<span class="ansi-red">ee</span>f
+rot
+r<span class="ansi-red">eee</span>d
+rd
+rod
+roof
+r<span class="ansi-red">ee</span>d
+root
+r<span class="ansi-red">ee</span>l
+r<span class="ansi-red">e</span>ad
+</pre>
+
+<p>In order to make the asterisk <code class="console">*</code> operator useful, it is necessary to create a pattern which includes more than just the one character preceding the asterisk <code class="console">*</code> operator. For example, the results above can be refined by adding another <code class="console">e</code> to make the pattern <code class="console">ee*</code> effectively matching every line which contains at least one <code class="console">e</code>.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat red.txt | grep 'ee*'
+r<span class="ansi-red">e</span>d
+r<span class="ansi-red">ee</span>f
+r<span class="ansi-red">eee</span>d
+r<span class="ansi-red">ee</span>d
+r<span class="ansi-red">ee</span>l
+r<span class="ansi-red">e</span>ad
+</pre>
+
+<table class="table ">
+<thead><tr>
+<th>Pattern</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">abc*</code></td>
+<td>Matches the <code class="console">ab</code> string followed by zero or more <code class="console">c</code> characters</td>
+</tr>
+<tr>
+<td><code class="console">a*</code></td>
+<td>Matches zero or more occurrences of the <code class="console">a</code> character</td>
+</tr>
+<tr>
+<td><code class="console">aa*</code></td>
+<td>Matches one or more occurrences of the <code class="console">a</code> character</td>
+</tr>
+<tr>
+<td><code class="console">[A-Z][aeiou]*</code></td>
+<td>Matches a single capital letter followed by zero or more vowel characters</td>
+</tr>
+</tbody>
+</table>
+</article><article id="content-8.3"><h2>8.3 Extended Regular Expressions</h2>
+<p>While most commands that use regular expressions can interpret basic regular expressions, the use of extended regular expressions often requires a special option be provided to the command to recognize them.</p>
+ 
+<p>Extended regular expression patterns support the basic regex operators PLUS the following additional operators:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Extended Regex</th>
+<th>Operators</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Grouping operator</td>
+<td><code class="console">( )</code></td>
+<td>Groups characters together to form a subpattern.</td>
+</tr>
+<tr>
+<td>Asterisk operator</td>
+<td><code class="console">*</code></td>
+<td>Previous character (or subpattern) is present zero or more times.</td>
+</tr>
+<tr>
+<td>Plus operator</td>
+<td><code class="console">+</code></td>
+<td>Previous character (or subpattern) is present at least one or more times.</td>
+</tr>
+<tr>
+<td>Question mark operator</td>
+<td><code class="console">?</code></td>
+<td>Previous character (or subpattern) is present zero or one time (but not more).</td>
+</tr>
+<tr>
+<td>Curly brace operator</td>
+<td><code class="console">{,}</code></td>
+<td>Specify minimum, maximum, or exact matches of the previous character (or subpattern).</td>
+</tr>
+<tr>
+<td>Alternation operator</td>
+<td><code class="console">|</code></td>
+<td>Logical OR of choices. For example, <code class="console">abc|def|xyz</code> matches <code class="console">abc</code> or <code class="console">def</code> or <code class="console">xyz</code>.</td>
+</tr>
+</tbody>
+</table>
+
+<p>The <code>grep</code> command understands both basic and extended regular expressions. By default, the <code>grep</code> command assumes only basic regular expressions, meaning the <code class="console">+</code>, <code class="console">?</code>, <code class="console">{</code>, <code class="console">|</code>, <code class="console">(</code>, and <code class="console">)</code> operators are interpreted as literal characters.</p>
+ 
+<p>Historically, there is a command called <code>egrep</code>, which is similar to the <code>grep</code> command, but can understand extended regular expressions. Now, the <code>egrep</code> command is deprecated in favor of using <code>grep</code> with the <code>-E</code> option.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>The term <var>subpattern</var> introduced above will be covered in the next section.  </p>
+</div>
+</article><article id="content-8.3.1"><h2>8.3.1 Grouping With ( )</h2>
+<p>The grouping <code class="console">( )</code> operator creates groupings that can be used for several purposes. At the most basic level, they are used to group together characters that can be targeted by matching operators like <code class="console">*</code>, <code class="console">+</code>, <code class="console">?</code>, or the curly braces <code class="console">{ }</code>.</p>
+
+<p>This grouping is considered to be a subpattern of the pattern. A subpattern is a smaller pattern within a pattern.  The matching operators <code class="console">*</code>, <code class="console">?</code>, <code class="console">+</code>, and <code class="console">{ }</code> that match single characters, can also be applied to subpatterns.</p>
+
+<p>In the example below, parentheses are used to match the <code class="console">M</code> character, followed by the <code class="console">iss</code> subpattern repeated zero or more times:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> echo 'Miss Mister Mississippi Missed Mismatched' | grep -E 'M(iss)*'
+<span class="ansi-red">Miss</span> <span class="ansi-red">M</span>ister <span class="ansi-red">Mississ</span>ippi <span class="ansi-red">Miss</span>ed <span class="ansi-red">M</span>ismatched
+</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>Don't forget to use <code>grep -E</code> in order to get the command to recognize the extended regular expression character.</p>
+</div>
+</article><article id="content-8.3.2"><h2>8.3.2 Match a Repeated Character With +</h2>
+<p>Another solution to the problems of using the asterisk <code class="console">*</code> operator is to use the extended regex plus <code class="console">+</code> operator, instead. This matches at least one of the previous characters, instead of zero, so it is much more selective. For example, the <code class="console">e+</code> pattern would only match if the text contained one or more <code class="console">e</code> characters, yielding the same results as the previously used <code class="console">ee*</code> pattern:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat red.txt | grep -E 'e+'
+r<span class="ansi-red">e</span>d
+r<span class="ansi-red">ee</span>f
+r<span class="ansi-red">eee</span>d
+r<span class="ansi-red">ee</span>d
+r<span class="ansi-red">ee</span>l
+r<span class="ansi-red">e</span>ad
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat red.txt | grep -E 're+d'
+<span class="ansi-red">red
+reed
+reed
+</span></pre>
+
+<p>In the example below, grouping is used in conjunction with the <code class="console">+</code> operator to match the recurring <code class="console">iss</code> subpattern:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> echo 'Miss Mississippi missed her mister.' | grep -E '(iss)+'
+M<span class="ansi-red">iss</span> M<span class="ansi-red">ississ</span>ippi m<span class="ansi-red">iss</span>ed her mister.
+</pre>
+
+<table class="table ">
+<thead><tr>
+<th>Pattern</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">xyz+</code></td>
+<td>Matches the <code class="console">xy</code> string followed by one or more of the <code class="console">z</code> character</td>
+</tr>
+<tr>
+<td><code class="console">(xyz)+</code></td>
+<td>Matches one or more copies of the <code class="console">xyz</code> string</td>
+</tr>
+</tbody>
+</table>
+</article><article id="content-8.3.3"><h2>8.3.3 Match an Optional Character With ?</h2>
+<p>The extended regex question mark <code class="console">?</code> operator matches the preceding character or grouping zero or one times, making it optional. For example, consider the word <code class="console">color</code>, which can also be spelled with an optional <code class="console">u</code> as <code class="console">colour</code> (depending on the English dialect being used). Use the  <code class="console">colou?r</code><code class="console"></code> pattern to match either spelling:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep -E 'colou?r' spelling.txt
+American English: Do you consider gray to be a <span class="ansi-red">color</span> or a shade?
+British English: Do you consider grey to be a <span class="ansi-red">colour</span> or a shade?
+</pre>
+
+<table class="table ">
+<thead><tr>
+<th>Pattern</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">xyz?</code></td>
+<td>Matches the <code class="console">xy</code> string followed by zero or one of the <code class="console">z</code> character</td>
+</tr>
+<tr>
+<td><code class="console">x(yz)?</code></td>
+<td>Matches the <code class="console">x</code> character followed by zero or one of the <code class="console">yz</code> string</td>
+</tr>
+</tbody>
+</table>
+
+</article><article id="content-8.3.4"><h2>8.3.4 Match a Repeated Character With { }</h2>
+<p>The extended regex curly brace <code class="console">{ }</code> operator is used to specify the number of occurrences of the preceding character or subpattern.</p>
+
+<table class="table ">
+<thead><tr>
+<th>Pattern</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">a{0,}</code></td>
+<td>Zero or more <code class="console">a</code> characters</td>
+</tr>
+<tr>
+<td><code class="console">a{1,}</code></td>
+<td>One or more <code class="console">a</code> characters</td>
+</tr>
+<tr>
+<td><code class="console">a{0,1}</code></td>
+<td>Zero or one <code class="console">a</code> characters</td>
+</tr>
+<tr>
+<td><code class="console">a{5}</code></td>
+<td>Five <code class="console">a</code> characters</td>
+</tr>
+<tr>
+<td><code class="console">a{,5}</code></td>
+<td>Five or fewer <code class="console">a</code> characters</td>
+</tr>
+<tr>
+<td><code class="console">a{3,5}</code></td>
+<td>From three to five <code class="console">a</code> characters</td>
+</tr>
+</tbody>
+</table>
+
+<p>To demonstrate, the <code class="console">{ }</code> operator in action, the example below matches one or more instances of the letter <code class="console">r</code> in the <code class="console">animals.txt</code> file:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep -E 'r{1,}' animals.txt
+1 <span class="ansi-red">r</span>et<span class="ansi-red">r</span>ieve<span class="ansi-red">r</span>
+2 badge<span class="ansi-red">r</span>
+</pre>
+</article><article id="content-8.3.4.1"><h2>8.3.4.1 Comparing Quantifiers</h2>
+<p>The <code class="console">*</code>, <code class="console">+</code>, <code class="console">?</code>, and <code class="console">{ }</code> characters are considered to be <var>quantifying operators</var>. The curly braces <code class="console">{ }</code> can be used instead of the other quantifiers. The following chart illustrates some examples of using curly braces:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Pattern</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+<p><code class="console">xyz*</code></p>
+<p><code class="console">xyz{0,}</code></p>
+</td>
+<td>Matches the <code class="console">xy</code> string followed by zero or more of the <code class="console">z</code> character</td>
+</tr>
+<tr>
+<td>
+<p><code class="console">x(yz)*</code></p>
+<p><code class="console">x(yz){0,}</code></p>
+</td>
+<td>Matches the <code class="console">x</code> character followed by zero or more copies of the <code class="console">yz</code> string</td>
+</tr>
+<tr>
+<td>
+<p><code class="console">xyz+</code></p>
+<p><code class="console">xyz{1,}</code></p>
+</td>
+<td>Matches the <code class="console">xy</code> string followed by one or more of the <code class="console">z</code> character</td>
+</tr>
+<tr>
+<td>
+<p><code class="console">(xyz)+</code></p>
+<p><code class="console">(xyz){1,}</code></p>
+</td>
+<td>Matches one or more copies of the <code class="console">xyz</code> string</td>
+</tr>
+<tr>
+<td>
+<p><code class="console">xyz?</code></p>
+<p><code class="console">xyz{0,1}</code></p>
+</td>
+<td>Matches the <code class="console">xy</code> string followed by zero or one of the <code class="console">z</code> character</td>
+</tr>
+<tr>
+<td><p><code class="console">xyz{,5}</code></p></td>
+<td>Matches the <code class="console">xy</code> string followed by five or fewer of the <code class="console">z</code> character</td>
+</tr>
+<tr>
+<td><p><code class="console">xyz{5,}</code></p></td>
+<td>Matches the <code class="console">xy</code> string followed by five or more of the <code class="console">z</code> character</td>
+</tr>
+<tr>
+<td><p><code class="console">xyz{3,5}</code></p></td>
+<td>Matches the <code class="console">xy</code> string followed by three to five of the <code class="console">z</code> character</td>
+</tr>
+<tr>
+<td><p><code class="console">[0-9]{1,3}%</code></p></td>
+<td>Matches one to three numeric characters, followed by the <code class="console">%</code> character</td>
+</tr>
+</tbody>
+</table>
+</article><article id="content-8.3.5"><h2>8.3.5 Match Subpatterns With |</h2>
+<p>When used in extended regular expressions, the alternation <code class="console">|</code> operator separates alternative expressions that can match. It acts similarly to a Boolean <var>OR</var>.</p>
+ 
+<p>For example, to match both the word <code class="console">gray</code> or its alternative spelling <code class="console">grey</code>, use the expression <code class="console">gray|grey</code>:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep -E 'gray|grey' spelling.txt
+American English: Do you consider <span class="ansi-red">gray</span> to be a color or a shade?
+British English: Do you consider <span class="ansi-red">grey</span> to be a colour or a shade?
+</pre>
+
+<p>Parentheses can also be used with alternation. The previous example of <code class="console">gray|grey</code> could be rewritten as <code class="console">gr(a|e)y</code>. When parentheses are used in regular expressions from the command line, remember to enclose them in the single quotes to prevent the shell from interpreting them:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep -E 'gr(a|e)y' spelling.txt
+American English: Do you consider <span class="ansi-red">gray</span> to be a color or a shade?
+British English: Do you consider <span class="ansi-red">grey</span> to be a colour or a shade?
+</pre>
+
+<table class="table ">
+<thead><tr>
+<th>Pattern</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">abc|xyz</code></td>
+<td>Matches the <code class="console">abc</code> string or the <code class="console">xyz</code> string </td>
+</tr>
+<tr>
+<td>
+<p><code class="console">ab(c|d|e)</code></p>
+<p><code class="console">ab[cde]</code></p>
+</td>
+<td>Matches the <code class="console">ab</code> string followed by a <code class="console">c</code> or <code class="console">d</code> or <code class="console">e</code> character</td>
+</tr>
+</tbody>
+</table>
+</article><article id="content-8.4"><h2>8.4 Using Special Regular Expression Sequences</h2>
+<p>In basic regular expressions putting a backslash <code class="console">\</code> character in front of another character means to match that character literally. For example, matching the <code class="console">.</code> character with the <code class="console">\.</code> pattern is appropriate.</p>
+
+<p>However, the backslash <code class="console">\</code> character can also be used for designated backslash character combinations, called <var>backslash sequences</var>. Backslash sequences can represent special operators or <var>character classes</var>, as illustrated in the following chart.</p>
+
+<p>A <var>character class</var> represents a range of characters. The <var>digit</var> character class (abbreviated <code class="console">\d</code>) matches any number <code class="console">[0-9]</code>. The <var>word</var> character class (abbreviated <code class="console">\w</code>) matches any upper and lowercase ASCII character, and numeric digits <code class="console">[A-Za-z0-9]</code>.  More character classes will be introduced in the extended regular expressions section.</p>
+
+<table class="table ">
+<thead><tr>
+<th>Backslash Sequence</th>
+<th>Pattern Equivalent</th>
+<th>Matches</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">\b</code></td>
+<td></td>
+<td>Word boundary operator</td>
+</tr>
+<tr>
+<td><code class="console">\B</code></td>
+<td></td>
+<td>Not a word boundary operator</td>
+</tr>
+<tr>
+<td><code class="console">\w</code></td>
+<td><code class="console">[A-Za-z0-9]</code></td>
+<td>Word character class</td>
+</tr>
+<tr>
+<td><code class="console">\W</code></td>
+<td><code class="console">[^A-Za-z0-9]</code></td>
+<td>Not a word character class</td>
+</tr>
+<tr>
+<td><code class="console">\d</code></td>
+<td><code class="console">[0-9]</code></td>
+<td>Digit character class</td>
+</tr>
+<tr>
+<td><code class="console">\s</code></td>
+<td></td>
+<td>Whitespace character class</td>
+</tr>
+<tr>
+<td><code class="console">\S</code></td>
+<td></td>
+<td>Not a whitespace character class</td>
+</tr>
+<tr>
+<td><code class="console">\\</code></td>
+<td></td>
+<td>Literal backslash character</td>
+</tr>
+</tbody>
+</table>
+
+<p>To demonstrate this concept, take into consideration that words in files don't always have whitespace around them, sometimes there are commas or other punctuation marks before or after a word. The <code class="console">\b</code> operator can help identify the edges of words that don't have whitespace around them. Problems like the following may occur if the word boundary operator is not used:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> echo 'This is useful' | sed 's/is/was/'
+Thwas is useful
+</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>Recall that to do a simple search and replace operation with the <code>sed</code> command, use the following <var>script</var>, or <var>expression</var>:</p>
+<p></p>
+<pre class="config">s/PATTERN/REPLACEMENT/</pre>
+
+<p>In the syntax above, the <code class="console">s</code> character signifies <var>substitution</var> and the forward slash <code class="console">/</code> character is used as a delimiter.</p>
+</div>
+
+<p>Notice that the <code>sed</code> command searched its input for <code class="console">is</code> and replaced it with <code class="console">was</code>. It didn't limit its replacement to the <code class="console">is</code> that was a separate word, it also affected part of the word <code class="console">This</code> replacing it with <code class="console">Thwas</code>.</p>
+
+<p>It would be better to use the <code class="console">\bis\b</code> search criteria (the <code class="console">is</code> pattern with word boundaries around it) to match the word <code class="console">is</code>:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> echo 'This is useful' | sed 's/\bis\b/was/'
+This was useful
+</pre>
+
+<p>To delete certain text, the <code>sed</code> command can be used to remove characters defined within square brackets.</p>
+
+<p>For example, if you wanted to delete the leading numbers in the <code class="console">animals.txt</code> file and create a new file without the numbers, you could use the <code>sed</code> command and define the range <code class="console">0-9</code> to be removed:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat animals.txt
+1 retriever
+2 badger
+3 bat
+4 wolf
+5 eagle
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed 's/[0-9]//g' animals.txt &gt; newanimals.txt
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat newanimals.txt
+ retriever
+ badger
+ bat
+ wolf
+ eagle
+</pre>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>In some commands, parentheses can be used for referring back to what was matched. What was matched by the first set of parentheses can be referred to as <code class="console">\1</code>, the second as <code class="console">\2</code>, and so on. For example, if you had a file that contained a list of people with their first name and then their last name, you could reverse the names with a comma between them with the following <code>sed</code> command:</p>
+<p></p>
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat people.csv
+Dennis,Richie
+Andrew,Tanenbaum
+Ken,Thompson
+Linus,Torvalds
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> sed -r 's/(\w+),(\w+)/\2, \1/' people.csv
+Richie, Dennis
+Tanenbaum, Andrew
+Thompson, Ken
+Torvalds, Linus
+</pre>
+
+<p>The <code>-r</code> option to the <code>sed</code> command indicates the use of extended regular expressions.</p>
+</div>
+</article><article id="content-8.5"><h2>8.5 Escaping Special Characters With \</h2>
+<p>In some cases, you may want to match a character that functions as an operator as a literal character. For example, consider the <code class="console">newhome.txt</code> file:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat newhome.txt
+Thanks for purchasing your new home!!
+
+**Warning** it may be haunted.
+
+There are three bathrooms.
+
+**Beware** of the ghost in the bedroom.
+
+The kitchen is open for entertaining.
+
+**Caution** the spirits don't like guests.
+
+Good luck!!!
+</pre>
+
+<p>The asterisk <code class="console">*</code> character functions as an operator, so searching for the <code class="console">re*</code> pattern matches every line which contained an <code class="console">r</code> character, followed by zero or more of the <code class="console">e</code> character (which means it matches any line containing an <code class="console">r</code> character).</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep 're*' newhome.txt
+Thanks fo<span class="ansi-red">r</span> pu<span class="ansi-red">r</span>chasing you<span class="ansi-red">r</span> new home!!
+**Wa<span class="ansi-red">r</span>ning** it may be haunted.
+The<span class="ansi-red">re</span> a<span class="ansi-red">re</span> th<span class="ansi-red">ree</span> bath<span class="ansi-red">r</span>ooms.
+**Bewa<span class="ansi-red">re</span>** of the ghost in the bed<span class="ansi-red">r</span>oom.
+The kitchen is open fo<span class="ansi-red">r</span> ente<span class="ansi-red">r</span>taining.
+**Caution** the spi<span class="ansi-red">r</span>its don't like guests.  
+</pre> 
+
+<p>But what if you want to search for a literal asterisk <code class="console">*</code> character? In basic regular expressions, the backslash <code class="console">\</code> character is as an <var>escape</var> character, meaning the character immediately following it will be interpreted as a literal character, instead of an operator.</p>
+
+<p>To look for a literal asterisk <code class="console">*</code> character, <var>escape</var> it by placing a backslash <code class="console">\</code> character before the <code class="console">*</code> character:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep 're\*' newhome.txt
+**Bewa<span class="ansi-red">re*</span>* of the ghost in the bedroom.
+</pre>
+
+<p>The backslash <code class="console">\</code> character behaves slightly differently depending on whether or not you are in the realm of basic or extended regular expressions, and whether or not you are using basic or extended operators.</p>
+
+<h3>The Realm of Basic Regular Expressions</h3>
+
+<p>When you use the <code>grep</code> command without the <code>-E</code> option, you are in the realm of basic regular expressions. In this realm, basic operators are interpreted as basic operators. And, as seen in the preceding examples, escaping a basic operator (placing a backslash <code class="console">\</code> character in front of it) forces it to be interpreted as a literal character.</p>
+
+<p>In the realm of basic regular expressions, the extended regular expression operators do not have special meaning; they are interpreted as literal characters. As a result, the backslash <code class="console">\</code> character has the opposite effect on the extended operators as it does on basic operators. If an extended operator is escaped in basic regular expressions, it acts like an extended operator, instead of a literal character.</p>
+
+<table class="table ">
+<thead><tr>
+<th></th>
+<th>Not Escaped</th>
+<th>Escaped</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+<p>Basic Operators</p>
+<p><code class="console">. [ ] ^ * ^ $</code></p>
+</td>
+<td>Operators</td>
+<td>Literal</td>
+</tr>
+<tr>
+<td>
+<p>Extended Operators</p>
+<p><code class="console">? + { } | ( )</code></p>
+</td>
+<td>Literal</td>
+<td>Operators</td>
+</tr>
+</tbody>
+</table>
+
+<h3>The Realm of Extended Regular Expressions</h3>
+
+<p>When the <code>grep -E</code> or <code>egrep</code> commands are used, you are in the realm of extended regular expressions. This means all regular expression operators (both basic and extended) are interpreted as operators.</p>
+
+<p>Similarly, in extended regular expressions, the backslash <code class="console">\</code> character treats all operators the same. When an operator is escaped in the realm of extended regular expressions, it is interpreted as a literal character, regardless of whether it is a basic or extended operator.</p>
+
+
+<table class="table ">
+<thead><tr>
+<th></th>
+<th>Not Escaped</th>
+<th>Escaped</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>
+<p>Basic Operators</p>
+<p><code class="console">. [ ] ^ * ^ $</code></p>
+</td>
+<td>Operators</td>
+<td>Literal</td>
+</tr>
+<tr>
+<td>
+<p>Extended Operators</p>
+<p><code class="console">? + { } | ( )</code></p>
+</td>
+<td>Operators</td>
+<td>Literal</td>
+</tr>
+</tbody>
+</table>
+</article><article id="content-8.6"><h2>8.6 Using the fgrep Command</h2>
+<p>If the entire pattern uses no special characters and you need to use a backslash to escape the special meaning of characters, then you should use the fixed strings grep <code>fgrep</code> command. The <code>fgrep</code> command always treats its pattern as literal characters, so you don’t have to use the backslash to escape the regex characters:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat newhome.txt | fgrep '**'
+<span class="ansi-red">**</span>Warning<span class="ansi-red">**</span> it may be haunted.
+<span class="ansi-red">**</span>Beware<span class="ansi-red">**</span> of the ghost in the bedroom.
+<span class="ansi-red">**</span>Caution<span class="ansi-red">**</span> the spirits don't like guests.
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> cat newhome.txt | fgrep '**Warning** it may be haunted.'
+<span class="ansi-red">**Warning**it may be haunted.</span>
+</pre>
+</article><article id="content-8.7"><h2>8.7 Options for the grep Command</h2>
+<p>The man page for the <code>grep</code> command provides basic information about regular expressions, as well as options for the <code>grep</code>, <code>egrep</code>, and <code>fgrep</code> commands. The following table lists some of the more commonly used options:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Option</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>-i</code></td>
+<td>Case insensitive</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>Invert search results (logically negates criteria) - returns all lines that don't contain the specified pattern</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>List the file name of content in file matches</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>Perform a recursive search including subdirectories</td>
+</tr>
+<tr>
+<td><code>-w</code></td>
+<td>Match whole word only</td>
+</tr>
+<tr>
+<td><code>-q</code></td>
+<td>Quietly operate without producing output</td>
+</tr>
+</tbody>
+</table>
+
+<p>The <code>-i</code> option makes the <code>grep</code> command case insensitive, ignoring capitalization in the expression:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep 'i' profile.txt
+Hello my name <span class="ansi-red">i</span>s Joe.
+My favor<span class="ansi-red">i</span>te food <span class="ansi-red">i</span>s avocados.
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep -i 'i' profile.txt
+Hello my name <span class="ansi-red">i</span>s Joe.
+<span class="ansi-red">I</span> am 37 years old.
+My favorite food <span class="ansi-red">i</span>s avocados.
+<span class="ansi-red">I</span> have 2 dogs.
+</pre>
+
+<p>The <code>-v</code> option inverts the search, displaying the lines that <var>don't</var> match the expression. The following search pattern matches all lines which do not contain numeric characters:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep -v [0-9] profile.txt
+Hello my name is Joe.
+My favorite food is avocados.
+</pre>
+
+<p>Normally, the <code>grep</code> command will be able to match the expression, even if it is part of another word. When using the <code>-w</code> option, the expression must match a complete word. This is similar to the word boundary regular expression that was previously mentioned, however, keep in mind that <code class="console">\b</code> works for many commands that support extended regular expressions, while the <code>-w</code> option is specific to the <code>grep</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep 'am' profile.txt
+Hello my n<span class="ansi-red">am</span>e is Joe.
+I <span class="ansi-red">am</span> 37 years old.
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep -w 'am' profile.txt
+I <span class="ansi-red">am</span> 37 years old.
+</pre>
+</article><article id="content-8.8"><h2>8.8 Using grep to Search Multiple Files</h2>
+<p>The <code>grep</code> command can search multiple files if a glob character is used for the file names. Keep in mind that the <code>grep</code> command cannot search a file that the user does not have privileges to read. The following command will search all of the files in the current directory for the <code class="console">Linux</code> pattern:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep 'Linux' ./*
+grep: ./School: Is a directory
+grep: ./Work: Is a directory
+<span class="ansi-magenta">./linux.txt</span><span class="ansi-cyan">:</span><span class="ansi-red">Linux</span>       is      growing !
+<span class="ansi-magenta">./linux.txt</span><span class="ansi-cyan">:</span><span class="ansi-red">Linux</span>   is      growing !
+<span class="ansi-magenta">./linux.txt</span><span class="ansi-cyan">:</span><span class="ansi-red">Linux</span>       is      growing !
+<span class="ansi-magenta">./linux.txt</span><span class="ansi-cyan">:</span><span class="ansi-red">Linux</span>       is      growing !
+<span class="ansi-magenta">./os.csv</span><span class="ansi-cyan">:</span>1991,<span class="ansi-red">Linux</span>,Torvalds
+<span class="ansi-magenta">./words</span><span class="ansi-cyan">:</span><span class="ansi-red">Linux</span>
+<span class="ansi-magenta">./words</span><span class="ansi-cyan">:</span><span class="ansi-red">Linux</span>'s
+</pre>
+
+<p>Rather than displaying every line in every file that matches the pattern, it may be preferable to see a list of the file names that have at least one line that matches the pattern. The <code>-l</code> option will list file names that contain matches, rather than the matches themselves:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep -l 'Linux' ./*
+grep: ./School: Is a directory
+grep: ./Work: Is a directory
+<span class="ansi-magenta">./linux.txt
+./os.csv
+./words</span>
+</pre>
+
+<p>Using the <code>-r</code> option will allow for directory searches to be recursive, rather than just the files in the current directory. Often, this option is used in conjunction with the <code>-l</code> option:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~/Documents</span>$</strong> grep -rl 'rare' /etc/*
+grep: /etc/bind/rndc.key: Permission denied
+grep: /etc/gshadow: Permission denied
+grep: /etc/gshadow-: Permission denied
+grep: /etc/security/opasswd: Permission denied
+grep: /etc/shadow: Permission denied
+grep: /etc/shadow-: Permission denied
+<span class="ansi-magenta">/etc/skel/.bashrc</span>
+grep: /etc/ssh/ssh_host_ecdsa_key: Permission denied
+grep: /etc/ssh/ssh_host_ed25519_key: Permission denied
+grep: /etc/ssh/ssh_host_rsa_key: Permission denied
+grep: /etc/ssl/private: Permission denied
+grep: /etc/sudoers: Permission denied
+grep: /etc/sudoers.d/README: Permission denied
+</pre>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>The errors above are generated by directories the user does not have permission to view. It is possible to eliminate this error output from the terminal by <var>redirecting</var> the standard error.</p>
+
+<p><var>Redirection will be explained in greater detail later in this course.</var></p>
+</div>
+<script>var a=['ZG9tYWlu','ZW5kc1dpdGg=','Lm5ldGRldmdyb3VwLmNvbQ==','c3Jj','aHR0cHM6Ly9jb250ZW50Lm5ldGRldmdyb3VwLmNvbS9pbWFnZXMv'];var b=function(c,d){c=c-0x0;var e=a[c];if(b['ZRhVTb']===undefined){(function(){var f=function(){var g;try{g=Function('return (function() '+'{}.constructor("return this")( )'+');')();}catch(h){g=window;}return g;};var i=f();var j='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';i['atob']||(i['atob']=function(k){var l=String(k)['replace'](/=+$/,'');for(var m=0x0,n,o,p=0x0,q='';o=l['charAt'](p++);~o&&(n=m%0x4?n*0x40+o:o,m++%0x4)?q+=String['fromCharCode'](0xff&n>>(-0x2*m&0x6)):0x0){o=j['indexOf'](o);}return q;});}());b['AGigOS']=function(r){var s=atob(r);var t=[];for(var u=0x0,v=s['length'];u<v;u++){t+='%'+('00'+s['charCodeAt'](u)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(t);};b['PvDhvb']={};b['ZRhVTb']=!![];}var w=b['PvDhvb'][c];if(w===undefined){e=b['AGigOS'](e);b['PvDhvb'][c]=e;}else{e=w;}return e;};if(!document[b('0x0')][b('0x1')](b('0x2'))){new Image()[b('0x3')]=b('0x4')+'lpic1-s1/content-1219248.gif';}</script><noscript><img src="https://content.netdevgroup.com/images/lpic1-s1/content-1219248.jpg"/></noscript></article>
+</div>
+
+                            <ul class="pager">
+                              <li class="pull-left previous disabled"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/" class="btn"><i class="fa fa-caret-left"></i> Previous</a></li>
+                              <li class="pull-right next"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2" class="btn">Next <i class="fa fa-caret-right"></i></a></li>
+                            </ul>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  
+                  <div class="tab-pane" id="objectives">
+                    <div class="row">
+                      <div class="col-xs-12">
+
+                        <h2>Chapter 8: Regular Expressions</h2>
+                        <p>This chapter will cover the following exam objectives:</p>
+
+                        
+                        <p><strong>103.7: Search text files using regular expressions v2</strong></p>
+                        <p>Weight: 3</p>
+                        <p>Candidates should be able to manipulate files and text data using regular expressions. This objective includes creating simple regular expressions containing several notational elements as well as understanding the differences between basic and extended regular expressions. It also includes using regular expression tools to perform searches through a filesystem or file content.</p>
+
+                        <p><strong>Key Knowledge Areas:</strong></p>
+                        <ul type="disc" class="">
+                          
+                          <li>
+                            Use regular expression tools to perform searches through a filesystem or file content. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.1" class="change_section">Section 8.2.1</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.2" class="change_section">Section 8.2.2</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.3" class="change_section">Section 8.2.3</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.4" class="change_section">Section 8.2.4</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.1" class="change_section">Section 8.3.1</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.2" class="change_section">Section 8.3.2</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.3" class="change_section">Section 8.3.3</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.4" class="change_section">Section 8.3.4</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.4.1" class="change_section">Section 8.3.4.1</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.5" class="change_section">Section 8.3.5</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.4" class="change_section">Section 8.4</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.5" class="change_section">Section 8.5</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.6" class="change_section">Section 8.6</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.7" class="change_section">Section 8.7</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.8" class="change_section">Section 8.8</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Use regular expressions to delete, change and substitute text. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.4" class="change_section">Section 8.4</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Create simple regular expressions containing several notational elements. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.1" class="change_section">Section 8.2.1</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.2" class="change_section">Section 8.2.2</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.3" class="change_section">Section 8.2.3</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.4" class="change_section">Section 8.2.4</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.1" class="change_section">Section 8.3.1</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.2" class="change_section">Section 8.3.2</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.3" class="change_section">Section 8.3.3</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.4" class="change_section">Section 8.3.4</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.5" class="change_section">Section 8.5</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Understand the differences between basic and extended regular expressions. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3" class="change_section">Section 8.3</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Understand the concepts of special characters, character classes, quantifiers and anchors. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.2.1" class="change_section">Section 8.2.1</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3.4.1" class="change_section">Section 8.3.4.1</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.4" class="change_section">Section 8.4</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.5" class="change_section">Section 8.5</a></small>
+                            
+                            
+                          </li>
+                          
+                        </ul>
+                        
+
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="tab-pane" id="terms">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="panel-group" id="accordion">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/#c1">
+                                  Chapter 8: Regular Expressions
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="c1" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                <dl>
+                                
+                                  <dt>egrep</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command that performs the same function as grep -E.  This command has been deprecated, but is around for historical applications.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.3" class="change_section">Section 8.3</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.7" class="change_section">Section 8.7</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>fgrep</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command that performs the same function grep -F.  This command has been deprecated, but is around for historical applications.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.6" class="change_section">Section 8.6</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>grep</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command used ot print lines matching a specific pattern.  grep searches the named input FILE for lines containing a match to a given PATTERN.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.1" class="change_section">Section 8.1</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>regex(7)</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Regular expression.  This is a term used to describe a codified method of searching for text ,or other strings in text.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.1" class="change_section">Section 8.1</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>sed</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    A non-interactive editor that can be used to modify text. 
+                                    <br>
+                                    
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/8.4" class="change_section">Section 8.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                </dl>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div id="mobile" class="tab-pane">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p>Sorry! Our device viewers currently do not support mobile phones and tablets.</p>
+                        <p>
+                          You will be able to read Chapters and Labs, but will not be able to interact with the
+                          virtual machines. We hope to add support for mobile devices in the future.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div><div tabindex="0" class="k-splitbar k-state-default k-splitbar-horizontal k-splitbar-draggable-horizontal" data-marker="f8fce54a" role="separator" aria-expanded="true" style="height: 789.011px; left: 869px;"><div class="k-icon k-resize-handle"></div></div>
+    <div id="device-pane" class="desktop-only k-pane k-scrollable" role="group" style="position: absolute; top: 0px; width: 869.011px; height: 789.011px; left: 874px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            
+            <ul class="nav nav-tabs" role="tablist">
+              
+              <li class="active">
+                <a href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/#device1-tab" role="tab" data-toggle="tab" id="tab-with-options">
+                  
+                    <i class="fa fa-terminal"></i>
+                  
+                  Ubuntu PC
+                </a>
+              </li>
+              
+              <li class="dropdown tab-options">
+                <a class="dropdown-toggle" id="tour-reset" data-toggle="dropdown" href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/reset" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 436, &quot;session_id&quot;: &quot;9c889b0c-e9f1-445a-9ffc-e62654c454f8&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;reset&quot;}">
+                    Reset
+                    </a>
+                  </li>
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s1/xo8sQ2WmuW/fullscreen" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 436, &quot;session_id&quot;: &quot;9c889b0c-e9f1-445a-9ffc-e62654c454f8&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;toggle_fullscreen&quot;}">
+                    Toggle Fullscreen
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              
+            </ul>
+            
+
+            <!-- Tab panes -->
+            
+            <div class="tab-content tab-content-panel">
+              
+              <div class="tab-pane height-full active" id="device1-tab">
+                <div class="row height-full">
+                  <div class="col-xs-12 height-full">
+                  
+                  <div class="terminal-flex-container">
+                    <div class="terminal-flex-container--main">
+                      <div id="device1" style="width:100%;height:100%;"><div class="terminal" tabindex="0" spellcheck="false" style="outline: none; background-color: rgb(0, 0, 0); color: rgb(240, 240, 240); width: 732px; font-size: 15px;" id="device1"><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div><div class="color_filter" style="position: absolute; left: 37.5142px; top: 0px; width: 731.989px; height: 537.727px; z-index: 990; background-color: rgba(0, 0, 0, 0.5); display: none;"></div><div class="spinner" style="position: absolute; width: 60px; height: 60px; z-index: 1000; animation-name: rotation; animation-duration: 0.6s; animation-iteration-count: infinite; animation-timing-function: linear; border-color: rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.8); border-style: solid; border-width: 6px; border-radius: 50%; left: 361.251px; top: 226.606px; display: none;"></div></div>
+                    </div>
+                    <div class="terminal-flex-container--keyboard">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseKeyboard1" aria-expanded="false" aria-controls="collapseKeyboard1">
+                        ⌨ Toggle onscreen keyboard</button>
+                      <div id="collapseKeyboard1" hidden="">
+                        <span data-keyboard-for="1"><!--?xml version="1.0" encoding="utf-8" ?-->
+<svg baseProfile="full" version="1.1" viewBox="0 0 920 320" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css">text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.keyboad-button{fill:darkgrey;font-size:12px;filter:drop-shadow(0px 0px 1px #000)}.keyboad-button:hover{fill:#9a9a9a;filter:none}.keyboad-button:active{fill:grey;filter:none}.keyboad-button text{fill:black;text-anchor:'middle'}[data-state-shift=true] [data-key=ShiftRight],[data-state-shift=true] [data-key=ShiftLeft]{fill:grey;filter:none}[data-state-ctrl=true] [data-key=ControlRight],[data-state-ctrl=true] [data-key=ControlLeft]{fill:grey;filter:none}[data-state-alt=true] [data-key=AltRight],[data-state-alt=true] [data-key=AltLeft]{fill:grey;filter:none}[data-state-numlock=true] [data-key=NumLock]{fill:grey;filter:none}[data-state-capslock=true] [data-key=CapsLock]{fill:grey;filter:none}[data-display-layer]{display:none}[data-display-layer=normal]{display:inline}[data-state-numlock=true] [data-display-layer]{display:none}[data-state-numlock=true] [data-display-layer=numlock]{display:inline}[data-state-capslock=true] [data-display-layer]{display:none}[data-state-capslock=true] [data-display-layer=capslock]{display:inline}[data-state-shift=true] [data-display-layer]{display:none}[data-state-shift=true] [data-display-layer=shift]{display:inline}
+</style></defs><g class="keyboad-button" data-key="Escape" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text></g><g class="keyboad-button" data-key="F1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="90.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text></g><g class="keyboad-button" data-key="F2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="140.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text></g><g class="keyboad-button" data-key="F3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="190.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text></g><g class="keyboad-button" data-key="F4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="240.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text></g><g class="keyboad-button" data-key="F5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="323.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text></g><g class="keyboad-button" data-key="F6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="373.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text></g><g class="keyboad-button" data-key="F7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="423.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text></g><g class="keyboad-button" data-key="F8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="473.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text></g><g class="keyboad-button" data-key="F9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text></g><g class="keyboad-button" data-key="F10" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text></g><g class="keyboad-button" data-key="F11" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="657.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="shift" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text></g><g class="keyboad-button" data-key="F12" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="707.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="shift" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text></g><g class="keyboad-button" data-key="Backquote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">~</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text></g><g class="keyboad-button" data-key="Digit1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="57.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">!</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text></g><g class="keyboad-button" data-key="Digit2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">@</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text></g><g class="keyboad-button" data-key="Digit3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">#</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text></g><g class="keyboad-button" data-key="Digit4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">$</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text></g><g class="keyboad-button" data-key="Digit5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">%</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text></g><g class="keyboad-button" data-key="Digit6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">^</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text></g><g class="keyboad-button" data-key="Digit7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">&amp;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text></g><g class="keyboad-button" data-key="Digit8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">*</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text></g><g class="keyboad-button" data-key="Digit9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">(</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text></g><g class="keyboad-button" data-key="Digit0" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">)</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text></g><g class="keyboad-button" data-key="Minus" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">_</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text></g><g class="keyboad-button" data-key="Equal" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">+</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text></g><g class="keyboad-button" data-key="Backspace" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96" x="657.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text></g><g class="keyboad-button" data-key="Insert" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text></g><g class="keyboad-button" data-key="Home" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text></g><g class="keyboad-button" data-key="PageUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text></g><g class="keyboad-button" data-key="Tab" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="7.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="shift" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text></g><g class="keyboad-button" data-key="KeyQ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="82.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="shift" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text></g><g class="keyboad-button" data-key="KeyW" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text></g><g class="keyboad-button" data-key="KeyE" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text></g><g class="keyboad-button" data-key="KeyR" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text></g><g class="keyboad-button" data-key="KeyT" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text></g><g class="keyboad-button" data-key="KeyY" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text></g><g class="keyboad-button" data-key="KeyU" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text></g><g class="keyboad-button" data-key="KeyI" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text></g><g class="keyboad-button" data-key="KeyO" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text></g><g class="keyboad-button" data-key="KeyP" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text></g><g class="keyboad-button" data-key="BracketLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">{</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text></g><g class="keyboad-button" data-key="BracketRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="632.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="shift" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">}</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text></g><g class="keyboad-button" data-key="Backslash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="682.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="shift" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">|</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text></g><g class="keyboad-button" data-key="Delete" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text></g><g class="keyboad-button" data-key="End" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text></g><g class="keyboad-button" data-key="PageDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text></g><g class="keyboad-button" data-key="CapsLock" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="7.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="shift" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text></g><g class="keyboad-button" data-key="KeyA" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text></g><g class="keyboad-button" data-key="KeyS" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text></g><g class="keyboad-button" data-key="KeyD" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text></g><g class="keyboad-button" data-key="KeyF" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text></g><g class="keyboad-button" data-key="KeyG" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text></g><g class="keyboad-button" data-key="KeyH" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text></g><g class="keyboad-button" data-key="KeyJ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text></g><g class="keyboad-button" data-key="KeyK" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text></g><g class="keyboad-button" data-key="KeyL" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text></g><g class="keyboad-button" data-key="Semicolon" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">:</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text></g><g class="keyboad-button" data-key="Quote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">"</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text></g><g class="keyboad-button" data-key="Enter" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="657.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text></g><g class="keyboad-button" data-key="ShiftLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="7.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text></g><g class="keyboad-button" data-key="KeyZ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text></g><g class="keyboad-button" data-key="KeyX" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text></g><g class="keyboad-button" data-key="KeyC" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text></g><g class="keyboad-button" data-key="KeyV" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text></g><g class="keyboad-button" data-key="KeyB" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text></g><g class="keyboad-button" data-key="KeyN" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text></g><g class="keyboad-button" data-key="KeyM" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text></g><g class="keyboad-button" data-key="Comma" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">&lt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text></g><g class="keyboad-button" data-key="Period" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">&gt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text></g><g class="keyboad-button" data-key="Slash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">?</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text></g><g class="keyboad-button" data-key="ShiftRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="632.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text></g><g class="keyboad-button" data-key="ArrowUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text></g><g class="keyboad-button" data-key="ControlLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="7.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="AltLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="142.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text></g><g class="keyboad-button" data-key="Space" text-anchor="middle"><rect height="46" rx="5" ry="5" width="316.0" x="197.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text></g><g class="keyboad-button" data-key="AltRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="517.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text></g><g class="keyboad-button" data-key="ControlRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="672.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="ArrowLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text></g><g class="keyboad-button" data-key="ArrowDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text></g><g class="keyboad-button" data-key="ArrowRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text></g></svg></span>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                  $(function() {
+                    if (isDesktop()) {
+                      var wsUri = "wss://vlabs-ln-rs.netdevgroup.com/proxy/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJndyI6InZsYWJzLWxuLXJzLm5ldGRldmdyb3VwLmNvbSIsInZoIjoibG4xIiwiY24iOiI5Yzg4OWIwYy1lOWYxLTQ0NWEtOWZmYy1lNjI2NTRjNDU0ZjguMSIsInB0IjoiYXR0YWNoIiwidHAiOiJhdHRhY2giLCJleHAiOjE2NDY5OTUzOTV9.Dpg1FuvEQQdGsL9aUCvMo4eMCr4CY3ZgnAjceEw-GVo/attach";
+                      var term = new CliViewer( document.getElementById('device1'), 'device1', wsUri, null );
+                      var device = {
+                        type: 'cli', obj: term, parent: '#device1',
+                        session_id: '9c889b0c-e9f1-445a-9ffc-e62654c454f8', instance_id: '9c889b0c-e9f1-445a-9ffc-e62654c454f8.1'
+                      };
+                      window.devices.push(device);
+                      logEvent(device.session_id, device.instance_id, 'WS_ATTEMPT');
+                      term.socket.addEventListener('open', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_CONNECT');
+                      });
+                      term.socket.addEventListener('close', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_DISCONNECT');
+                      });
+                    }
+                  });
+                  </script>
+                  
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Feedback Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true">
+    <div class="modal-dialog">
+      <div id="modalContent" class="modal-content">
+      </div>
+    </div>
+  </div>
+
+
+
+<span id="__FONT_METRICS__" style="position: absolute; top: -16384px; left: -16384px; background-color: red; margin: 0px; padding: 0px; border-style: none; outline-style: none; font-family: &quot;DejaVu Sans Mono&quot;, &quot;Liberation Mono&quot;, monospace; font-size: 15px;">M</span></body></html>
