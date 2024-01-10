@@ -29,6 +29,7 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/couple", handlers.Repo.CoupleHandler)
 	mux.Get("/family", handlers.Repo.FamilyHandler)
 	mux.Get("/reservation", handlers.Repo.ReservationHandler)
+	mux.Post("/reservation", handlers.Repo.PostReservationHandler)
 	mux.Get("/make-reservation", handlers.Repo.MakeReservationHandler)
 
 	// Serve static files from the "static" directory.

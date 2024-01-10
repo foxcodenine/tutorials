@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/ -->
+<html lang="en" class="k-webkit k-webkit99"><input type="hidden" id="__yoroi_connector_api_injected_type" value="prod"><script async="" src="./NDG Introduction to Linux I - Chapter 21_ Mounting Filesystems_files/analytics.js"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="spinner-keyframes">
+@-webkit-keyframes rotation 
+{  from { -webkit-transform : rotate( 0deg );   }
+  to   { -webkit-transform : rotate( 359deg ); }
+}
+@-moz-keyframes rotation {
+  from { -moz-transform : rotate( 0deg );   }
+  to   { -moz-transform : rotate( 359deg ); }
+}
+@-o-keyframes rotation {
+  from { -o-transform : rotate( 0deg );   }
+  to   { -o-transform : rotate( 359deg ); }
+}
+@keyframes rotation {
+  from { transform : rotate( 0deg );   }
+  to   { transform : rotate( 359deg ); }
+}
+</style><style id="term-style">.terminal {
+  float: left;
+  border: #000000 solid 5px;
+  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-size: 11px;
+  color: #f0f0f0;
+  background: #000000;
+  white-space: nowrap;
+}
+
+.terminal-cursor {
+  color: #000000;
+  background: #f0f0f0;
+}
+</style>
+  <title>NDG Introduction to Linux I - Chapter 21: Mounting Filesystems</title>
+
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="https://ndg-content.s3.us-west-2.amazonaws.com/img/favicon.ico">
+
+  <link rel="stylesheet" href="./NDG Introduction to Linux I - Chapter 21_ Mounting Filesystems_files/44d1a56e411f.css" type="text/css">
+
+  <script type="text/javascript" src="./NDG Introduction to Linux I - Chapter 21_ Mounting Filesystems_files/polyfill-6.26.0.min.js"></script>
+  <script type="text/javascript" src="./NDG Introduction to Linux I - Chapter 21_ Mounting Filesystems_files/9930c7fbf6d8.js"></script>
+
+  <script>
+  (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+      (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+  })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-11306725-3', 'netdevgroup.com');
+  ga('set', 'anonymizeIp', true);
+  ga('send', 'pageview');
+
+</script>
+
+  <script type="text/javascript">
+    var NDGCourse = {name: "NDG Introduction to Linux I"};
+    var videoContent = {};
+  </script>
+</head>
+
+<body style="">
+
+  <!-- Start Navbar -->
+  <div class="navbar navbar-primary navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand hidden-xs">
+          NDG Introduction to Linux I - Chapter 21: Mounting Filesystems
+        </a>
+      </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        
+        <li class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-share-alt" aria-hidden="true"></i> Share <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="http://www.facebook.com/share.php?u=https://netdevgroup.com/online/courses/linux.html&amp;title=Learn%20Linux%20with%20NDG" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-facebook-square" aria-hidden="true"></i> Facebook</a>
+            </li>
+            <li>
+              <a href="http://twitter.com/home?status=Learn%20Linux%20with%20NDG+https://netdevgroup.com/online/courses/linux.html" onclick="javascript:window.open(this.href,&#39;&#39;, &#39;menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600&#39;);return false;">
+                <i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li id="tour-help" class="dropdown">
+          <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="hidden-lg hidden-md hidden-sm">NDG Introduction to Linux I</span>
+            <div class="pull-right">
+              <i class="fa fa-question-circle"></i>
+              <span class="hidden-xs"> Help</span>
+              <b class="caret"></b>
+            </div>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="dropdown-header hidden-md hidden-sm hidden-lg">Chapter 21: Mounting Filesystems</li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/faq/">Frequently Asked Questions</a></li>
+            <li><a class="support" href="https://content.netdevgroup.com/support/lpic1-s1/feedback/">Contact Support</a></li>
+            <li class="hidden-xs desktop-only"><a id="toursb" class="support" href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/#">Start Tour</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div><!-- End Navbar -->
+
+
+  <div id="splitter" class="height-full k-widget k-splitter" data-role="splitter">
+    <div role="group" class="k-pane k-scrollable" style="position: absolute; top: 0px; width: 869px; height: 789.011px; left: 0px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            <!-- Tab Btns -->
+              <ul id="left-tabs" class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/#content" role="tab" data-toggle="tab">Content</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/#objectives" role="tab" data-toggle="tab">Objectives</a></li>
+                <li><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/#terms" role="tab" data-toggle="tab">Key Terms</a></li>
+                
+                <li class="mobile-only" style="display:none;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/#mobile" role="tab" data-toggle="tab"><i class="fa fa-terminal"></i> Devices</a></li>
+              </ul>
+              <!-- Tab panes -->
+              <div id="content-container" class="tab-content tab-content-panel">
+                  <div id="content" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="tour2" class="btn-group-vertical btn-group-xs pull-left hidden-xs">
+                                <div class="btn-group btn-group-xs">
+                                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-caret-right"></i>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li>
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                          
+                                          21.1 Introduction
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.2" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          21.2 Viewing Mounted Filesystems
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.3" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          21.3 Mounting Filesystems Manually
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.4" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          21.4 Unmounting Filesystems Manually
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.5" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          21.5 Mounting Filesystems Automatically On Boot
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.6" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          21.6 Mounting With fstab
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.7" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          21.7 Systemd Mount Units
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.8" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          21.8 loop Option
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.9" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          21.9 Monitoring Filesystems
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.10" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          21.10 Mount a Filesystem
+                                        </a>
+                                        
+                                      
+                                        <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.11" class="btn-default ndg-menu-btn change_section">
+                                          
+                                          21.11 Activate Swap Space
+                                        </a>
+                                        
+                                      
+                                      </li>
+                                    </ul>
+                                </div>
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.1" class="btn btn-default ndg-menu-btn change_section btn-primary active" style="text-align:left;">
+                                    21.1
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.2" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    21.2
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.3" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    21.3
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.4" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    21.4
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.5" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    21.5
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.6" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    21.6
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.7" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    21.7
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.8" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    21.8
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.9" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    21.9
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.10" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    21.10
+                                  </a>
+                                  
+                                
+                                  <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.11" class="btn btn-default ndg-menu-btn change_section" style="text-align:left;">
+                                    21.11
+                                  </a>
+                                  
+                                
+                            </div>
+                            <div class="content-menu-space">
+                              <div class="btn-group hidden-lg hidden-md hidden-sm mobile-chapter-select">
+                                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                      <i class="fa fa-caret-down"></i> Sections
+                                  </a>
+                                  <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.1" class="btn-default ndg-menu-btn change_section btn-primary active">
+                                        21.1 Introduction
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.2" class="btn-default ndg-menu-btn change_section">
+                                        21.2 Viewing Mounted Filesystems
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.3" class="btn-default ndg-menu-btn change_section">
+                                        21.3 Mounting Filesystems Manually
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.4" class="btn-default ndg-menu-btn change_section">
+                                        21.4 Unmounting Filesystems Manually
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.5" class="btn-default ndg-menu-btn change_section">
+                                        21.5 Mounting Filesystems Automatically On Boot
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.6" class="btn-default ndg-menu-btn change_section">
+                                        21.6 Mounting With fstab
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.7" class="btn-default ndg-menu-btn change_section">
+                                        21.7 Systemd Mount Units
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.8" class="btn-default ndg-menu-btn change_section">
+                                        21.8 loop Option
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.9" class="btn-default ndg-menu-btn change_section">
+                                        21.9 Monitoring Filesystems
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.10" class="btn-default ndg-menu-btn change_section">
+                                        21.10 Mount a Filesystem
+                                      </a>
+                                      
+                                    
+                                      <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.11" class="btn-default ndg-menu-btn change_section">
+                                        21.11 Activate Swap Space
+                                      </a>
+                                      
+                                    
+                                    </li>
+                                  </ul>
+                                </div>
+                              <div>
+<article id="content-21.1" style="display: block;"><h2>21.1 Introduction</h2>
+<p>Linux treats almost everything as a file, which makes the job that the filesystem performs particularly important. The filesystem is a tree-like structure, with directories containing sub-directories and files. Unlike other operating systems you may be familiar with, the logical directory structure of Linux can span multiple disks and partitions, organized under a single root directory. Instead of manipulating drive letters, the administrator grafts, or <var>mounts</var>, new partitions, each with their own filesystem, on top of existing directories to give the illusion of a single, large, drive.</p>
+
+<p>Recall the three steps in the process of making and using filesystems:</p>
+
+<ol type="1" class="">
+<li>Divide the hard drive into partitions.</li>
+<li>Format each partition with a filesystem.</li>
+<li>Mount the formatted partitions onto the directory tree of an existing filesystem.</li>
+</ol>
+
+<p>This chapter will focus on the final step of mounting the formatted partition.</p></article><article id="content-21.2"><h2>21.2 Viewing Mounted Filesystems</h2>
+<p>Mounting of partitions and checking on existing mounts is accomplished with the <code>mount</code> command. When called with no arguments, the <code>mount</code> command shows the currently mounted devices. This can be performed by regular users, not just the root user.</p>
+
+<p>‌⁠​​The output of the command may appear like the following:</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>The following example may not match the output in our virtual environment.</p>
+</div>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">~</span>$</strong> mount
+/dev/sda2 on / type ext4 (rw)
+proc on /proc type proc (rw)
+sysfs on /sys type sysfs (rw)
+devpts on /dev/pts type devpts (rw,gid=5,mode=620)
+tmpfs on /dev/shm type tmpfs (rw)
+/dev/sda1 on /boot type ext4 (rw)
+/dev/sda5 on /home type ext4 (rw)
+none on /proc/sys/fs/binfmt_misc type binfmt_misc (rw)
+sunrpc on /var/lib/nfs/rpc_pipefs type rpc_pipefs</pre>
+
+<p>The general format of this output is:</p>
+
+<pre class="config">DESCRIPTION OF SOURCE <strong>on</strong> MOUNT POINT <strong>type</strong> FILESYSTEM TYPE <strong>(</strong>OPTIONS<strong>)</strong></pre>
+
+<p><strong>Description of Source</strong></p>
+
+<pre class="config"><span class="attention">/dev/sda5</span> on /home type ext4 (rw)
+
+<span class="attention">proc</span> on /proc type proc (rw)</pre>
+
+<p>Every mounted filesystem comes from a source—either a device representing a disk, a network location for a network filesystem, or a tag indicating a pseudo-filesystem. This latter class (which includes <code class="console">proc</code>, <code class="console">sysfs</code>, <code class="console">devpts</code>, <code class="console">tmpfs</code>, <code class="console">none</code>, and <code class="console">sunrpc</code> in the output above) is the Linux kernel's way of sharing information with the real filesystem. For example, the <code class="console">proc</code> filesystem exposes the process list and system configuration as a set of files that can be read and written to. </p>
+
+<p><strong>Mount Point</strong></p>
+<pre class="config">/dev/sda2 on <span class="attention">/</span> type ext4 (rw)
+/dev/sda5 on <span class="attention">/home</span> type ext4 (rw)</pre>
+
+<p>The mount point shows where the source can be found on the filesystem. The output above indicates that the root <code class="console">/</code> filesystem is actually served from the <code class="console">/dev/sda2</code> partition, but files in the <code class="console">/home</code> directory are stored on the <code class="console">/dev/sda5</code> partition.</p>
+
+<p><strong>Filesystem Type</strong></p>
+
+<pre class="config">/dev/sda5 on /home type <span class="attention">ext4</span> (rw)
+proc on /proc type <span class="attention">proc</span> (rw)</pre>
+
+<p>Each filesystem has a type, which tells the kernel how to work with the data contained on the device. For actual filesystems like the <code class="console">xfs</code>, <code class="console">ext4</code>, and <code class="console">reiserfs</code> filesystems, this relates the blocks stored on disk to the files and directories that you see. For network filesystems like the <code class="console">nfs</code> filesystem, this translates the network calls and packets sent and received into disk reads and writes. For the pseudo-filesystems, the filesystem type describes what kind of resources are exposed.</p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>Most operating systems allow files to be accessed on another computer rather than requiring that the files be copied back and forth. This concept is often known as a <var>network file share</var>, or simply a file share. With many operating systems, a remote file is accessed differently than a local file, such as having to specify a network path every time the file is accessed.</p>
+
+<p>UNIX makes heavy use of abstractions to make the user’s job easier. Rather than present a remote file share and a local hard drive differently, the kernel takes care of the details and presents a standard interface. Thus, a network volume (drive, partition, or folder) from another computer can be mounted in a similar fashion as a local drive. The only differences are the time to access the resource and the location: network volumes use an IP address and path, while local volumes simply use a path to a device for a local volume. After a volume is mounted, it looks like any other part of the disk.</p>
+
+<p>Another abstraction is the concept of a <var>pseudo-filesystem</var>. A pseudo-filesystem is not contained on an actual disk; it’s a hierarchical view into the kernel’s data. For example, the <code class="console">proc</code> pseudo-filesystem exposes each process as a directory of files and subdirectories, where each file contains various information from the process's environment to the list of files it has open. The <code class="console">proc</code> pseudo-filesystem also has files and directories corresponding to various options, such as network buffer sizes that can be read and written.</p>
+
+<p>Presenting system information as a filesystem gives the administrator a familiar interface that is easily used and scripted.</p>
+</div>
+
+<p><strong>Options</strong></p>
+
+<pre class="config">/dev/sda5 on /home type ext4 <span class="attention">(rw)</span>
+devpts on /dev/pts type devpts <span class="attention">(rw,gid=5,mode=620)</span></pre>
+
+<p>Each filesystem also has options. Some options, such as the <var>read/write</var> <code class="console">rw</code> option and <var>read-only</var> <code class="console">ro</code> option, are fairly universal. Some filesystems have options corresponding to specific items such as the network timeout parameters for a network filesystem or the journalling parameters for a journalled filesystem.</p>
+
+<p>Administrators generally work with disk drives and network filesystems, leaving the pseudo filesystems for the distribution to set up and manage. The disks may take many forms such as individual disk partitions, logical disks made up of multiple disks (such as LVM), or even other hardware that presents itself as a disk (such as RAID).</p>
+
+<p>Another method for getting information about filesystems is by using the <code>lsblk</code> command. The <code>lsblk</code> command lists information about block devices, either all of the ones that are available with the <code>-a</code> option, or output can be tailored with various other options such as the <code>-f</code> option, which outputs information about available filesystems.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">/</span>$</strong> lsblk -a
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
+loop0    7:0    0        0 loop
+loop1    7:1    0        0 loop
+loop2    7:2    0        0 loop
+loop3    7:3    0        0 loop
+loop4    7:4    0        0 loop
+loop5    7:5    0        0 loop
+loop6    7:6    0        0 loop
+loop7    7:7    0        0 loop
+sda      8:0    0  3.7T  0 disk
+|-sda1   8:1    0  512M  0 part
+|-sda2   8:2    0  3.5T  0 part /etc/hosts
+`-sda3   8:3    0  128G  0 part [SWAP]
+sdb      8:16   1        0 disk
+sdc      8:32   1        0 disk
+sr0     11:0    1 1024M  0 rom
+sr1     11:1    1 1024M  0 rom
+<strong><span class="ansi-green">sysadmin@localhost</span>:<span class="ansi-blue">/</span>$</strong> lsblk -f
+NAME   FSTYPE LABEL UUID MOUNTPOINT
+sda
+|-sda1
+|-sda2                   /etc/hosts
+`-sda3                   [SWAP]
+sr0
+sr1                            
+</pre></article><article id="content-21.3"><h2>21.3 Mounting Filesystems Manually</h2>
+<p>In order to properly mount a filesystem, at least two parameters must be provided to the <code>mount</code> command: the filesystem identifier and the directory path name to mount it on. If no other options are needed, the <code>mount</code> command will mount the filesystem on the specified directory mount point. </p>
+
+<div class="alert alert-danger">
+<p><strong>Important</strong></p>
+<p>Unless set up in the <code class="console">/etc/fstab</code> file beforehand, mounting requires root user access.</p>
+</div>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>The following examples may not match the output in our virtual environment.</p>
+</div>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount /dev/sdb1 /mnt
+</pre>
+
+<p>The first step to mounting a filesystem is to create a directory to serve as a mount point. Alternatively, the <code class="console">/mnt</code> and <code class="console">/media</code> directories may be used, which usually exist by default on most Linux distributions for this purpose. The <code class="console">/mnt</code> and <code class="console">/media</code> directories are typically only used to mount a temporary resource such as removable media, including USB drives and optical disks. Some desktop-oriented distributions will automatically mount removable devices under the <code class="console">/media/USERNAME/DEVICENAME</code> directory.</p>
+
+<p>The easiest form of the manual <code>mount</code> command is shown above. In this situation, the Linux kernel understands that <code class="console">/dev/sdb1</code> is a filesystem and can even detect what kind of filesystem is on the disk. If the filesystem cannot be detected, then use the <code>-t</code> option to indicate the type of filesystem:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount -t iso9660 /dev/scd0 /mnt
+</pre>
+
+<p>This last command mounts a device called <code class="console">/dev/scd0</code> on <code class="console">/mnt</code> and tells the kernel to use the <code class="console">iso9660</code> filesystem, which is for CD and DVD devices. If it is necessary to tell the kernel what kind of filesystem is being used, then this should be a sign that something is amiss as the autodetection is generally reliable.</p>
+
+<p>When a filesystem is mounted, the default options for that filesystem are used. The <code>-o</code> option can be used to specify alternative mount options from the command line. Some mount options are only used when manually mounting a filesystem, while others are commonly used when automatically mounting a filesystem.</p>
+
+<p>To mount a filesystem read-only, pass the <code class="console">ro</code> option, such as:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount /dev/sdb2 /opt -o ro
+</pre>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>Mounting a filesystem on a directory that already contains files will render those files temporarily inaccessible. Therefore be careful to mount on directories known to be empty.</p>
+
+<p>Once a filesystem is mounted on a directory, only the contents of that filesystem will be visible. What was previously visible in a directory is not gone, but will become visible only after the new filesystem is unmounted.</p>
+
+<p>For example, consider the situation in which the <code class="console">/data</code> directory already contains files and then it is used as a mount point:</p>
+
+<p></p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls /data
+file1 file2
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount /dev/sda3 /data
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls /data
+file3 file4</pre>
+
+<p>It appears that <code class="console">file1</code> and <code class="console">file2</code> were deleted, but they are just hidden from view. If the filesystem was unmounted, then these files would reappear:</p>
+
+<p></p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls /data
+file3 file4
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> umount /data
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> ls /data
+file1 file2
+</pre>
+</div></article><article id="content-21.4"><h2>21.4 Unmounting Filesystems Manually</h2>
+<p>To maximize performance, Linux keeps parts of the filesystem in memory. If media, such as USB devices, were to be removed before those memory buffers were flushed, some data may not be written to disk.  This is known as an “unclean” dismount.  This may result in data loss or even filesystem corruption. Unmounting is the procedure used to flush all the buffers and make the disk safe to remove.</p>
+
+<p>To unmount a filesystem, use the <code>umount</code> command with either the filesystem or the directory given as an argument. For example, to unmount the <code class="console">/mnt</code> directory that was previously mounted, execute the following command:</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>The following examples may not match the output in our virtual environment.</p>
+</div>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> umount /mnt
+</pre>
+
+<p>Because the <code class="console">/dev/sdb1</code> filesystem was mounted under the <code class="console">/mnt</code> directory, the following command would have also worked:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> umount /dev/sdb1</pre>
+<p>There are a few instances where the <code>umount</code> command will fail to unmount a filesystem:</p>
+
+<ul type="disc" class="">
+<li>
+<p>There is a file open that is located within the filesystem. The term <var>open</var> means <var>in use by a program</var>. For example, if the file was being edited by a text editor like the <code>vi</code> editor, it would be considered to be open.</p>
+</li>
+<li>
+<p>There is an executable file running that is located within the filesystem.</p>
+</li>
+<li>
+<p>A user has a directory within the filesystem as their current working directory.</p>
+</li>
+</ul>
+
+<p>When the <code>umount</code> command fails to unmount a filesystem, it will normally report that the device is busy:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> umount /mnt
+umount: /mnt: device is busy.
+	(In some cases useful info about processes that use
+	 the device is found by lsof(8) or fuser(1))
+</pre>
+
+<p>To determine what is making the filesystem busy, use the <code>lsof</code> or <code>fuser</code> commands as suggested in the output of the previous example.</p>
+
+<p>The output of the <code>lsof</code> command is the list of all open files on the operating system, which can easily number in the thousands. Therefore, it is important to filter the output of the <code>lsof</code> command to find the correct opened file. A good way to do this is to pipe the output of the <code>lsof</code> command to the <code>grep</code> command. Use the <code>grep</code> command to find the filesystem that should be unmounted. For example, if the <code class="console">/mnt</code> directory was busy, the root user can execute the following command from the <code class="console">/mnt</code> directory:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">/mnt</span>#</strong> lsof | grep /mnt
+bash      2577      root  cwd       DIR        8,1     1024          2 /mnt
+lsof      2631      root  cwd       DIR        8,1     1024          2 /mnt
+grep      2632      root  cwd       DIR        8,1     1024          2 /mnt
+lsof      2633      root  cwd       DIR        8,1     1024          2 /mnt</pre>
+
+<p>The first three columns are most useful: the name of the process, the process ID, and the user running the process. Using the process ID along with the <code>kill</code> command, a system administrator can terminate processes that may be keeping the directory busy. However, be very careful about killing processes that have files open for writing as this may damage files or directories within a filesystem.</p>
+
+<p>The <code>fuser</code> command provides much more concise output, and it will indicate if a file is open for writing. It is even able to terminate processes, much like the <code>kill</code> command.</p>
+
+<p>The <code>-v</code> option to the <code>fuser</code> command produces slightly more output, including the name of the user who is running the process and a code which indicates the way that a process is using the directory. For example, if unsuccessfully attempting to unmount the <code class="console">/mnt</code> directory, try executing the following <code>fuser</code> command:</p>
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> fuser -v /mnt
+                     USER        PID ACCESS COMMAND
+/mnt:                root       2529 ..c.. bash</pre>
+
+<p>In this case, the process keeping the <code class="console">/mnt</code> directory busy is being run by the root user. The process id is <code class="console">2529</code>, the access of <code class="console">c</code> indicates the process is using the directory as its current directory. The process itself is the Bash shell. </p>
+
+<p>Access codes that might be reported by the <code>fuser</code> command are:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Access Code</th>
+<th>Meaning</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">c</code></td>
+<td>The process is using the mount point or a subdirectory as its current directory.</td>
+</tr>
+<tr>
+<td><code class="console">e</code></td>
+<td>The process is an executable file that resides in the mount point structure.</td>
+</tr>
+<tr>
+<td><code class="console">f</code></td>
+<td>The process has an open file from the mount point structure.</td>
+</tr>
+<tr>
+<td><code class="console">F</code></td>
+<td>The process has an open file from the mount point structure that it is writing to.</td>
+</tr>
+<tr>
+<td><code class="console">r</code></td>
+<td>The process is using the mount point as the root directory.</td>
+</tr>
+<tr>
+<td><code class="console">m</code></td>
+<td>The process is a mmap'ed file or shared library.</td>
+</tr>
+</tbody>
+</table>
+
+<p>If the process has a file open for writing or the mount point is a root directory, it is not wise to kill that process. Otherwise, to terminate the process, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> fuser -k /mnt
+</pre>
+
+<p>As with the <code>kill</code> command, the default signal sent by the <code>fuser</code> command is the TERM signal. Use the <code>fuser -l</code> command to list the signals that can be used:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> fuser -l
+HUP INT QUIT ILL TRAP ABRT IOT BUS FPE KILL USR1 SEGV USR2 PIPE ALRM TERM STKFLT CHLD CONT STOP TSTP TTIN TTOU URG XCPU XFSZ VTALRM PROF WINCH IO PWR SYS
+</pre>
+
+<p>These are the same signals that are available for the <code>kill</code> command. To send a specific signal with the <code>fuser</code> command, place a hyphen in front of the signal name. For example, to end a stubborn process that is keeping the <code class="console">/mnt</code> directory busy, execute the following command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> fuser -k -KILL /mnt
+</pre>
+
+<p>Once the process has been terminated, it should be possible to execute the <code>umount</code> command to unmount the filesystem.</p>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>As with the <code>kill</code> command, the <code>fuser</code> command must be executed with root privileges when attempting to manage a process that is not owned by the current user.</p>
+
+<p>The <code>fuser</code> command is designed to stop processes so a filesystem can be unmounted. Because filesystems typically require root privileges to unmount, it would seem to be unusual for a regular user to execute either the <code>fuser</code> or <code>umount</code> commands.</p>
+
+<p>However, removable media, such as USB dongles and optical devices, typically can be unmounted by regular users. As a result, knowing how the <code>fuser</code> command works can be useful for regular users, as well as administrators.</p>
+</div>
+</article><article id="content-21.5"><h2>21.5 Mounting Filesystems Automatically On Boot</h2>
+<p>Manually mounting filesystems with the <code>mount</code> command results in a non-persistent mount. If the system is rebooted, then the filesystem must be mounted again to be accessed. The same is true for activating swap devices with the <code>swapon</code> command.</p>
+
+<p>The <code class="console">/etc/fstab</code> file is used to configure what filesystems will be mounted automatically at boot. It can also be used to activate swap devices automatically. It may be helpful to think of this file as the <var>filesystem table</var>, to remember its name. To those familiar with mounting a filesystem manually, the format of the file should make sense.</p>
+
+<p>Root privileges are required to make changes to the <code class="console">/etc/fstab</code> file. Any changes made to this file should be performed with care, as mistakes may prevent the system from booting normally.</p>
+
+<p>In fact, it would be an excellent idea to create a backup of the <code class="console">/etc/fstab</code> file before making changes. In the event of a disaster, the original file can be restored by copying the backup to the <code class="console">/etc/fstab</code> file using a recovery of a live disk. To make a backup copy, as the root user, execute a command like the following:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> cp /etc/fstab /etc/fstab.backup
+</pre>
+
+<p>A system with three filesystem partitions and one swap partition might have an <code class="console">/etc/fstab</code> file that looks like the following:</p>
+
+<pre class="config">#
+# /etc/fstab
+# Created by anaconda on Fri Jan 17 10:31:51 2014
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /      ext4    defaults        1 1
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 /boot  ext4    defaults        1 2
+UUID=5ee634a5-c360-4211-a41b-9aa40d78a804 /home  ext4    defaults        1 2
+UUID=34819281-65e3-4c78-ba2d-16952684c9cb swap   swap    defaults        0 0
+tmpfs                   /dev/shm                tmpfs   defaults        0 0
+devpts                  /dev/pts                devpts  gid=5,mode=620  0 0
+sysfs                   /sys                    sysfs   defaults        0 0
+proc                    /proc                   proc    defaults        0 0
+</pre>
+
+<p>Notice that the first seven lines of this file are comments because they start with the <code class="console">#</code>F character. To add comments to the file, start a line with a <code class="console">#</code> character. The existing comments recommend referring to man pages for the <code>fstab</code>, <code>findfs</code>, <code>mount</code>, and <code>blkid</code> commands.</p>
+
+<p>The first four columns in the <code class="console">/etc/fstab</code> file map directly to the parameters used to mount a filesystem manually with the <code>mount</code> command.</p>
+
+
+<h3>Device Identifier</h3>
+
+<p>The first column identifies the device to be mounted. This could be the name of a device like <code class="console">/dev/sdb1</code> in the previous manual mount examples. However, the <code class="console">/etc/fstab</code> file is read at boot time when the system is unattended, so it is not always possible to predict the name of the devices. For example, if SATA cables are switched during maintenance, the <code class="console">/dev/sda</code> device may change places with the <code class="console">/dev/sdb</code> device.</p>
+
+<p><strong>UUID</strong></p>
+
+<p>For this reason, the most common way to refer to a partition is by using a <var>universally unique identifier (UUID)</var>, as in the following example:</p>
+
+<pre class="config"><span class="attention">UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d</span> /      ext4    defaults        1 1
+<span class="attention">UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3</span> /boot  ext4    defaults        1 2
+<span class="attention">UUID=5ee634a5-c360-4211-a41b-9aa40d78a804</span> /home  ext4    defaults        1 2
+</pre>
+
+<p>To determine what the UUID value is for a device, use the <code>blkid</code> command. The output of this command will look similar to this, though the UUIDs will be different:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> blkid
+/dev/sda1: UUID="09d641d5-bc5a-4065-8d80-8ae797dfa7f3" TYPE="ext4"
+/dev/sda2: UUID="3db6ba40-67d2-403d-9c0a-9a901697cd8d" TYPE="ext4"
+/dev/sda3: UUID="34819281-65e3-4c78-ba2d-16952684c9cb" TYPE="swap"
+/dev/sda5: UUID="5ee634a5-c360-4211-a41b-9aa40d78a804" TYPE="ext4"
+/dev/sdb1: UUID="a9183c2c-ee1f-4e57-9a60-b0d9e87a0337" TYPE="ext4"
+/dev/sdb2: UUID="71b38ae6-6824-4ad3-9e2f-821d7f532b97" TYPE="swap"</pre>
+
+<p>The <code>blkid</code> command can also be used with a path name for a filesystem as an argument and it will provide information about just that one device:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> blkid /dev/sdb1
+/dev/sdb1: UUID="a9183c2c-ee1f-4e57-9a60-b0d9e87a0337" TYPE="ext4"
+</pre>
+
+<p>The UUID is automatically created when the filesystem is created. It is considered the best way to identify local filesystems in the <code class="console">/etc/fstab</code> file because it doesn't change after the filesystem has been created and it should always be unique. Even if the hard drive is moved to another computer, the UUIDs will be unique for each filesystem. Unfortunately, the UUID isn't easy to remember or type, so it is difficult to use for manual mounting.</p>
+
+<p><strong>Device Name</strong></p>
+
+<p>A second, more traditional way of specifying a local filesystem is to use the path name for the device, such as <code class="console">/dev/sda1</code> for the first partition on the first disk:</p>
+
+<pre class="config"><span class="attention">/dev/sda1</span>  /      ext4    defaults        1 1
+<span class="attention">/dev/sda2</span>  /boot  ext4    defaults        1 2
+<span class="attention">/dev/sda5</span>  /home  ext4    defaults        1 2
+</pre>
+
+<p>While device path names like <code class="console">/dev/sdb1</code> are easy to remember and type, they are not as reliable as UUIDs. As the naming of the disk drive depends on the order of detection during the boot process, the naming of the disks might change if the order of detection changes (such as when a new disk drive is added to the system).</p>
+
+<p><strong>Labels</strong></p>
+
+<p>Another option is to use filesystem <var>labels</var>. The volume label can be set using the <code>e2label</code> command. For example, the following command will set a label called <code class="input">mydata</code> on the<code class="console"> /dev/sdb1</code> filesystem:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> e2label /dev/sdb1 mydata
+</pre>
+
+<p>The label for a filesystem can be viewed with the <code>e2label</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> e2label /dev/sdb1
+mydata
+</pre>
+
+<p>Labels can also be created for the extents filesystem xfs, either while making the filesystem or by using the <code>xfs_admin</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> xfs_admin -L myapps /dev/sdb3
+</pre>
+
+<p>Labels can be viewed (if they are set) with the <code>blkid</code> command just like they were for the UUIDs. The output of the <code>blkid</code> command is helpful, as it shows how to use the label:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> blkid /dev/sdb1
+/dev/sdb1: UUID="a9183c2c-ee1f-4e57-9a60-b0d9e87a0337" TYPE="ext4" LABEL="mydata"
+</pre>
+
+<p>Labels can be used in the first field of the <code class="console">/etc/fstab</code> file, such as <code class="console">LABEL="mydata"</code>. If labels are created by a single administrator, unique labels can be ensured; however, multiple users with root access may accidentally create partitions with the same label name:</p>
+
+<pre class="config"><span class="attention">LABEL="root"</span> /      ext4    defaults        1 1
+<span class="attention">LABEL="boot"</span> /boot  ext4    defaults        1 2
+<span class="attention">LABEL="home"</span> /home  ext4    defaults        1 2
+</pre>
+
+<div class="alert alert-danger">
+<p><strong>Warning</strong></p>
+
+<p>Be careful with labels because they are human generated and can be duplicated when cloning a disk.</p>
+</div>
+
+<p>If the system detects a duplicate label, it is unpredictable which disk partition the system will actually mount when that label is used.</p>
+
+<p>The following table provides a summary of these three methods of referring to the partition to mount:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Method</th>
+<th>Advantages</th>
+<th>Disadvantages</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>UUID</td>
+<td>Should always be unique, preventing any mounting conflicts.</td>
+<td>Hard to type and difficult to remember.</td>
+</tr>
+<tr>
+<td>Device Name</td>
+<td>Easy to type and remember.</td>
+<td>Device names can easily change, causing mounting errors.</td>
+</tr>
+<tr>
+<td>Label</td>
+<td>Easy to type and remember. Label names won't dynamically change like device names, but they are not always unique.</td>
+<td>May not be unique like UUID naming.</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>Mount Point Field</h3>
+
+<p>The second field is the mount point (mount directory) where the partition is to be mounted. It also corresponds to the second parameter to the <code>mount</code> command:</p>
+
+<pre class="config">UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d <span class="attention">/</span>      ext4    defaults        1 1
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 <span class="attention">/boot</span>  ext4    defaults        1 2
+UUID=5ee634a5-c360-4211-a41b-9aa40d78a804 <span class="attention">/home</span>  ext4    defaults        1 2
+</pre>
+
+<p>There is nothing special about a mount point, it is either an empty directory that was created with the <code>mkdir</code> command for that purpose or an existing directory.</p>
+
+
+<h3>Filesystem Field</h3>
+
+<p>The third field is the filesystem type. Enter the correct Type Code using the values provided by the following table:</p>
+
+<table class="table ">
+<thead><tr>
+<th>Name</th>
+<th>Type Code</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>Fourth Extended Filesystem</td>
+<td><code class="console">ext4</code></td>
+</tr>
+<tr>
+<td>Third Extended Filesystem</td>
+<td><code class="console">ext3</code></td>
+</tr>
+<tr>
+<td>Second Extended Filesystem</td>
+<td><code class="console">ext2</code></td>
+</tr>
+<tr>
+<td>Extents Filesystem</td>
+<td><code class="console">xfs</code></td>
+</tr>
+<tr>
+<td>File Allocation Table</td>
+<td><code class="console">vfat</code></td>
+</tr>
+<tr>
+<td>ISO 9660</td>
+<td><code class="console">iso</code></td>
+</tr>
+<tr>
+<td>Universal Disc Format</td>
+<td><code class="console">udf</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>In most cases, the filesystem type for regular partitions will be the <code class="console">ext4</code> filesystem:</p>
+
+<pre class="config">UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /      <span class="attention">ext4</span>    defaults        1 1
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 /boot  <span class="attention">ext4</span>    defaults        1 2
+UUID=5ee634a5-c360-4211-a41b-9aa40d78a804 /home  <span class="attention">ext4</span>    defaults        1 2</pre>
+
+
+<h3>Mount Option Field</h3>
+
+<p>The fourth field in the <code class="console">/etc/fstab</code> file is a comma-separated list of the mount options which would normally be passed to <code>mount</code> with the <code>-o</code> options. This field is used to pass parameters to the filesystem driver, such as to make the device read-only or to adjust timeouts. Most filesystems have a huge number of mount options available:</p>
+
+<pre class="config">UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /      ext4    <span class="attention">defaults</span>        1 1
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 /boot  ext4    <span class="attention">defaults</span>        1 2
+UUID=5ee634a5-c360-4211-a41b-9aa40d78a804 /home  ext4    <span class="attention">defaults</span>        1 2
+</pre>
+
+<p>The man page for the <code>mount</code> command provides documentation of some of the mount options that apply to all filesystems. In addition, a search through the man page for the <code>mount</code> command will result in finding mount options for specific filesystems. The following is an excerpt:
+</p>
+
+<pre class="content_terminal">Mount options for ext4
+       The  ext4  filesystem is an advanced level of the ext3 filesystem which
+       incorporates scalability and reliability  enhancements  for  supporting
+       large filesystem.
+
+       The   options  journal_dev,  noload,  data,  commit,  orlov,  oldalloc,
+       [no]user_xattr [no]acl, bsddf, minixdf, debug, errors, data_err, grpid,
+       bsdgroups,  nogrpid  sysvgroups,  resgid,  resuid,  sb, quota, noquota,
+       grpquota and usrquota are backwardly compatible with ext3 or ext2.
+
+       journal_checksum
+              Enable checksumming of  the  journal  transactions.   This  will
+              allow  the recovery code in e2fsck and the kernel to detect cor-
+              ruption in the kernel.  It is a compatible change  and  will  be
+              ignored by older kernels.
+
+       journal_async_commit
+              Commit block can be written to disk without waiting for descrip-
+              tor blocks. If enabled older kernels cannot  mount  the  device.
+              This will enable 'journal_checksum' internally.
+</pre>
+
+<p>The <code class="console">man</code> page for the particular filesystem to be mounted will often include useful mount options. For example, when determining mount options for an ext4 filesystem, then the <code class="console">man</code> page for <code class="console">mkfs.ext4</code> would display the correct documentation.</p>
+
+<p>Earlier in this chapter, it was mentioned that partitions could be mounted read-only. To prevent any changes to a filesystem, place the read-only mount option in the corresponding line of the <code class="console">/etc/fstab</code> file:</p>
+
+<pre class="config">UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /date      ext4    <span class="attention">ro</span>        1 1
+</pre>
+
+<p>The most common mount option is the <code class="console">defaults</code> option. The <code class="console">defaults</code> mount option implies a number of standard mount options are in effect. The following table lists the mount options that are in effect when <code class="console">defaults</code> is used, the purpose of the mount option, and the option that is the opposite of the default mount option (if available):</p>
+
+<table class="table ">
+<thead><tr>
+<th>Mount Option</th>
+<th>Purpose</th>
+<th>Opposite</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">rw</code></td>
+<td>Allow reading and writing</td>
+<td><code class="console">ro</code></td>
+</tr>
+<tr>
+<td><code class="console">suid</code></td>
+<td>Allow suid executes</td>
+<td><code class="console">nosuid</code></td>
+</tr>
+<tr>
+<td><code class="console">dev</code></td>
+<td>Allow device files</td>
+<td><code class="console">nodev</code></td>
+</tr>
+<tr>
+<td><code class="console">exec</code></td>
+<td>Allow executable files</td>
+<td><code class="console">noexec</code></td>
+</tr>
+<tr>
+<td><code class="console">auto</code></td>
+<td>Automatically mount</td>
+<td><code class="console">noauto</code></td>
+</tr>
+<tr>
+<td><code class="console">nouser</code></td>
+<td>Prevent ordinary users from mounting or unmounting the partition. Using the <code class="console">user</code> option allows non-root users to mount that particular device, which is helpful for removable media.</td>
+<td><code class="console">user</code></td>
+</tr>
+<tr>
+<td><code class="console">async</code></td>
+<td>All writes should be asynchronous</td>
+<td><code class="console">sync</code></td>
+</tr>
+<tr>
+<td><code class="console">relatime</code></td>
+<td>Only update access time on file access if the file has been modified or its metadata changed since last access</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+
+<p>Using the <code class="console">defaults</code> keyword is clearer and faster than specifying each individual option.</p>
+
+<p>If multiple options are to be used, then they must be separated by a comma and have no embedded spaces. Any unspecified options will still use the default values, so using the <code class="console">defaults</code> keyword can be thought of as a simple placeholder.</p>
+
+<p>The following configuration will still be mounted in read/write mode, allow executable files, and so forth:</p>
+
+<pre class="config">UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /date      ext4    nosuid,nodev   1 1</pre>
+
+<p></p>
+
+<p>It is interesting to note that when using <code class="console">defaults</code> for the mount options, the only mount option that will be displayed when the <code>mount</code> command is executed will be the <code class="console">rw</code> options:</p>
+<pre class="config">/dev/sda2 on / type ext4 (rw)</pre>
+
+
+<h3>Dump Field</h3>
+
+<pre class="config">UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /      ext4    defaults        <span class="attention">1</span> 1
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 /boot  ext4    defaults        <span class="attention">1</span> 2
+UUID=34819281-65e3-4c78-ba2d-16952684c9cb swap   swap    defaults        <span class="attention">0</span> 0
+</pre>
+
+<p>The purpose of this field is to tell an administrator which filesystems should be backed up when using the <code>dump</code> command. The administrator would execute the <code>dump -w</code> command and the resulting output would be a list of the filesystems to back up. This list is generated by filesystems that have a value of <code class="console">1</code> in the dump field of the <code class="console">/etc/fstab</code> file. A value of <code class="console">1</code> in this field is used for local real filesystems (filesystems on partitions that reside on local hard drives). Any pseudo-filesystems, remote filesystems, or swap space entries should have a <code class="console">0</code> value in this field.</p>
+
+<p>This is a bit out of date, as the <code>dump</code> command is rarely used by system administrators on modern Linux distributions. However, it is important to know since the <code class="console">/etc/fstab</code> file requires a valid entry in this field.</p>
+
+
+<h3>Filesystem Check Field</h3>
+
+<pre class="config">UUID=3db6ba40-67d2-403d-9c0a-9a901697cd8d /      ext4    defaults        1 <span class="attention">1</span>
+UUID=09d641d5-bc5a-4065-8d80-8ae797dfa7f3 /boot  ext4    defaults        1 <span class="attention">2</span>
+UUID=34819281-65e3-4c78-ba2d-16952684c9cb swap   swap    defaults        0 <span class="attention">0</span>
+</pre>
+
+<p>The sixth field is for determining the order in which the filesystems will be checked by the <code>fsck</code> (<strong>F</strong>ile <strong>S</strong>ystem <strong>C</strong>hec<strong>K</strong> ) utility during system boot. This utility is designed to find and fix filesystem problems.</p>
+
+<p>The root filesystem should always have a 1 in this field to indicate that it will be checked by the <code>fsck</code> program first. All other local filesystems (ext2/ext3/ext4) should have a value of 2 specified for this field, so they will be checked after the root filesystem.</p>
+
+<p>If the filesystems are within the same drive, they will be checked sequentially, but if they are on separate drives, they will be checked in parallel, if possible.</p>
+
+<p>Any pseudo-filesystems, remote filesystems, or swap space entries should have a 0 value in this field. These filesystems should never be checked by the <code>fsck</code> utility.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>The <code>fsck</code> utility will be covered in greater detail in a later chapter, as it can also be used as an interactive program.</p>
+</div>
+</article><article id="content-21.6"><h2>21.6 Mounting With fstab</h2>
+<p>Another useful feature of <code>mount</code> requires discussion, passing only one argument, such as:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount /home
+</pre>
+
+<p>Linux will read the configuration for this mount from the <code class="console">/etc/fstab</code> file if it exists. This allows a new mount to be created in <code class="console">/etc/fstab</code> and then tested instead of needing a reboot. It can also be used to remount a volume that has been taken offline for maintenance.</p>
+
+<p>There is also a valuable mount option that will never be specified in the <code class="console">/etc/fstab</code> file: the <code>remount</code> option. This option is useful for changing a mounted filesystem’s options without unmounting the filesystem itself.</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount /home -o remount, noatime
+</pre>
+
+<p>This command will switch the <code class="console">/home</code> mount to have the <code>noatime</code> option (the <code>atime</code> option shows the last time a file was accessed or read) without needing to remount the filesystem. Keep in mind that this will not persist across a reboot until the <code class="console">fstab</code> file has been updated. Once changes have been made to the <code class="console">fstab</code> file, execute something like the following to make them effective:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount -o remount /mnt
+</pre>
+
+<p>Remounting is different from executing the <code>umount</code> command on a filesystem and then executing the mount command on that same filesystem. While unmounting/mounting will fail on an in-use  filesystem, remounting is really just changing the <code>mount</code> options and will succeed on an in-use  filesystem.</p>
+
+<p>After updating the <code class="console">/etc/fstab</code> file, don't reboot the system to test the changes. Instead, use the <code>-o remount</code> option. If the changes are correct, no message will be displayed, but if a mistake was made, an error like the following would be displayed:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount -o remount /
+mount: / not mounted already, or bad option
+</pre>
+
+<p>If there are no errors in the corresponding entry contained within the <code class="console">/etc/fstab</code> file, then the <code>mount -o</code> command will produce no output.</p>
+
+<p>The <code>remount</code> option is helpful but can lead to problems if the administrator allows the <code class="console">/etc/fstab</code> file to get out of sync with the running configuration.</p></article><article id="content-21.7"><h2>21.7 Systemd Mount Units</h2>
+<p>Another approach to mounting filesystems is by using systemd <var>mount units</var>. Systemd mount units are configuration files that end in <code class="console">.mount</code> and contain information about resources to be mounted at startup.</p>
+
+<p>These files contain a <code class="console">Mount</code> section that has information about the filesystem mount point, and they must be named for the specific path to be mounted. Mounts which are listed in the <code class="console">/etc/fstab</code> file are converted at boot time and when the system manager is reloaded.</p>
+
+<p>The <code>systemd-mount</code> utility is the mechanism that systemd uses to create and start a transient <code class="console">.mount</code> file, destroy a transient <code class="console">.mount</code> file, or to start an <code class="console">.automount</code> unit of the filesystem.</p>
+
+<p>Below is an example of a <code class="console">.mount</code> file used for a snap install of software. Snaps are software installation files that can be used across various Linux distributions instead of the specific binary installers used by Ubuntu, Red Hat, and other distributions.</p>
+
+<pre class="config">[Unit]
+
+Description=Mount unit for core, revision 6673
+
+Before=snapd.service
+
+[Mount]
+
+What=/var/lib/snapd/snaps/core_6673.snap
+
+Where=/snap/core/6673
+
+Type=squashfs
+
+Options=nodev,ro,x-gdu.hide
+
+[Install]
+
+WantedBy=multi-user.target
+</pre>
+
+<p>In the example above, a snap mount unit was created to install software in the contents of the <code class="console">mount</code> file above. Below is a breakdown of the fields and options in a <code class="console">mount</code> file. </p>
+
+<ul type="disc" class="">
+<li>
+<p>The <code class="console">[Unit]</code> field:</p>
+
+<pre class="config">[Unit]
+ 
+Description=Mount unit for core, revision 6673
+ 
+Before=snapd.service
+</pre>
+
+<table class="table ">
+<thead><tr>
+<th>Field</th>
+<th>Purpose</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">Description</code></td>
+<td>Shows which mount unit is going to be mounted.</td>
+</tr>
+<tr>
+<td><code class="console">Before</code></td>
+<td>Shows the <code class="console">snapd.service</code> file as the file name to be mounted.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>The <code class="console">[Mount]</code> field:</p>
+
+<pre class="config">[Mount]
+ 
+What=/var/lib/snapd/snaps/core_6673.snap
+ 
+Where=/snap/core/6673
+ 
+Type=squashfs
+ 
+Options=nodev,ro,x-gdu.hide
+</pre>
+
+<table class="table ">
+<thead><tr>
+<th>Field</th>
+<th>Purpose</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code class="console">What</code></td>
+<td>The file to be mounted including its path. Note that an absolute path must be used in the name of the mount unit which it controls.</td>
+</tr>
+<tr>
+<td><code class="console">Where</code></td>
+<td>The location it will be mounted to.</td>
+</tr>
+<tr>
+<td><code class="console">Type</code></td>
+<td>The filesystem type that the file is stored in. In the example above, this is <code class="console">squashfs</code>, the compressed, read-only filesystem.</td>
+</tr>
+<tr>
+<td><code class="console">Options</code></td>
+<td>Defines the specific options to be used. The <code class="console">nodev</code> option is a security feature that prevents block special devices (which could allow harmful code to be run) from being mounted on the filesystem. The <code class="console">ro</code> option stands for read-only and the <code class="console">x-gdu.hide</code> option prevents the snap mount from being visible to System Monitor.</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>The <code class="console">[Install]</code> field:</p>
+
+<pre class="config">[Install]
+ 
+WantedBy=multi-user.target
+</pre>
+
+<table class="table ">
+<thead><tr>
+<th>Field</th>
+<th>Purpose</th>
+</tr></thead>
+<tbody><tr>
+<td><code class="console">WantedBy</code></td>
+<td>Tells systemd that this filesystem is to be used by the multi-user boot target.</td>
+</tr></tbody>
+</table>
+</li>
+</ul>
+
+<p>Although mount unit configuration does allow for more flexible mounting of resources, one case for network resources would be where having the ability to define things like how long to wait for the <code>mount</code> command to finish, is desirable. However, in many cases, using the <code class="console">fstab</code> file is still the preferred approach.</p>
+</article><article id="content-21.8"><h2>21.8 loop Option</h2>
+<p>The <code>loop</code> option to the <code>mount</code> command is used to mount special filesystems that are stored within a file. These files have the extension of <code class="console">.img</code> or <code class="console">.iso</code> (for ISO 9660 filesystem files), which contain complete filesystems that can be mounted with the <code>mount</code> command by using the <code>loop</code> option:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount -o loop fs.img /mnt
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount -o loop cdrom.iso /mnt
+</pre>
+
+<p>To better understand the purpose of the <code>loop</code> option, consider the following scenario: A system administrator has been instructed to download an ISO file <code class="console">software.iso</code> from the internet. This ISO file contains several RPM software packages that need to be installed on some local systems. The administrator has two choices, burn a DVD of the ISO file, or to mount the ISO file as part of the filesystem. To conserve resources, the administrator chooses to mount the ISO file.</p>
+
+<p>To gain access to these software packages, which all end with the <code class="console">.rpm</code> extension, the system administrator mounts the ISO file and then copies the software packages by executing the following commands:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount -o loop software.iso /mnt
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mkdir /root/latestrpms
+<strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> cp /mnt/*.rpm /root/latestrpms
+</pre>
+
+<p>After copying the software packages to the <code class="console">/root/latestrpms</code> directory, the <code class="console">software.iso</code> file can be unmounted and deleted from the system.</p>
+
+<div class="alert alert-warning">
+<p><strong>Note</strong></p>
+
+<p>Almost everything in Linux is a file, including optical disks. If there is an image of a disk inside a file, it can be mounted directly from the file without needing to burn the image back on a disk using the <code>loop</code> option.</p>
+</div></article><article id="content-21.9"><h2>21.9 Monitoring Filesystems</h2>
+<p>The <code>df</code> command can also be used to view mounted filesystems. The output of this command displays the usage of the filesystem, where it's mounted, and the space usage of the device. To have the <code>df</code> command display filesystem sizes in human-readable format, use the <code>-h</code> option. Use the <code>-T</code> option to have the <code>df</code> command display the filesystem type:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> df -hT
+Filesystem    Type    Size  Used Avail Use% Mounted on
+/dev/sda2     ext4    6.3G  3.2G  2.9G  53% /
+tmpfs        tmpfs    351M   84K  351M   1% /dev/shm
+/dev/sda1     ext4    485M   52M  408M  12% /boot
+/dev/sda5     ext4    2.2G   69M  2.0G   4% /home
+</pre>
+
+<p>The output displays the filesystems that have variable free space; the <code class="console">tmpfs</code> filesystem, which is similar to a RAM disk, falls into this category, while other pseudo-filesystems like the <code class="console">proc</code> filesystem, do not.</p></article><article id="content-21.10"><h2>21.10 Mount a Filesystem</h2>
+<p>The following describes how to configure a new filesystem that has been created on the <code class="console">/dev/sdb1</code> device to mount during the boot process automatically. One single line will be added at the end of the <code class="console">/etc/fstab</code> file. The assumption for this example is that the partition has been created by the <code>fdisk</code> command and the filesystem has been created by the <code>mkfs</code> command.</p>
+
+<p>Before modifying the <code class="console">/etc/fstab</code> file, first, gather the information needed. Use the <code>blkid</code> command to determine the UUID or label of the new filesystem. The result will be similar to the following:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> blkid dev/sdb1
+/dev/sdb1: UUID="a9183c2c-ee1f-4e57-9a60-b0d9e87a0337" TYPE="ext4" LABEL="mydata"
+</pre>
+
+<p>In this example, the filesystem label will be used. So, the first field should be:</p>
+
+<pre class="config"><span class="attention">LABEL="mydata"</span></pre>
+
+<p>Next, create a mount point in the existing tree with the <code>mkdir</code> command:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mkdir /data
+</pre>
+
+<p>Now, place the following as the second field:</p>
+
+<pre class="config">LABEL="mydata" <span class="attention">/data</span></pre>
+
+<p>Assuming the filesystem on the partition is the Fourth Extended type, the value for the third field will be:</p>
+
+<pre class="config">LABEL="mydata" /data <span class="attention">ext4</span></pre>
+
+<p>Unless there is a compelling reason not to do so, use the defaults for the mount options field by specifying the value for the fourth field as:</p>
+
+<pre class="config">LABEL="mydata" /data ext4 <span class="attention">defaults</span></pre>
+
+<p>Since <code class="console">/dev/sdb1</code> is formatted as an ext4 filesystem and this device is local to the system, the fifth field (the dump check) should be enabled with the value of:</p>
+
+<pre class="config">LABEL="mydata" /data ext4 defaults <span class="attention">1</span></pre>
+
+<p>By the same logic, the sixth field should have the value:</p>
+
+<pre class="config">LABEL="mydata" /data ext4 defaults 1 <span class="attention">2</span></pre>
+
+<p>Putting all of these fields together for the normal entry into the <code class="console">/etc/fstab</code> file results in the following line:</p>
+
+<table class="table "><tbody>
+<tr>
+<td><pre class="config">LABEL="mydata"  </pre></td>
+<td><pre class="config">/data</pre></td>
+<td><pre class="config">ext4</pre></td>
+<td><pre class="config">defaults</pre></td>
+<td><pre class="config">1</pre></td>
+<td><pre class="config">2</pre></td>
+</tr>
+<tr>
+<td>Device</td>
+<td>Mount Point</td>
+<td>Filesystem</td>
+<td>Options</td>
+<td><code>dump</code></td>
+<td><code>fsck</code></td>
+</tr>
+</tbody></table>
+
+<p>After modifying the <code class="console">/etc/fstab</code> file, check that the new line has been added correctly by mounting the filesystem with only the mount point or device name as an argument:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount /data
+</pre>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> mount /dev/sdb1
+</pre>
+
+<div class="alert alert-danger">
+<p><strong>Important</strong></p>
+
+<p>If there is an error when trying to mount the filesystem, then go back and fix the <code class="console">/etc/fstab</code> file or restore the backup of this file. <strong>Do not reboot the system until the error is fixed</strong>; errors in the <code class="console">/etc/fstab</code> file can prevent the system from booting.</p>
+</div></article><article id="content-21.11"><h2>21.11 Activate Swap Space</h2>
+<p>The following describes how to configure a new swap partition that has been created on the <code class="console">/dev/sdb2</code> device to activate during the boot process automatically. One single line will be added at the end of the <code class="console">/etc/fstab</code> file. The assumption here is that the partition has been created by the <code>fdisk</code> command and the partition has been configured as a swap partition with the <code>mkswap</code> command.</p>
+
+<p>For the first field, specify the device. Again, use the <code>blkid</code> command to gather the information about this partition. The output would look something like the following:</p>
+
+<pre class="content_terminal"><strong><span class="ansi-green">root@localhost</span>:<span class="ansi-blue">~</span>#</strong> blkid /dev/sdb2
+/dev/sdb2: UUID="6f450a83-9d2e-409f-8bce-826696a49e54" TYPE="swap" LABEL="myswap"
+</pre>
+
+<p>In this example, the swap label will be used. So, the first field should be:</p>
+
+<pre class="config"><span class="attention">LABEL="myswap"</span></pre>
+
+<div class="alert alert-danger">
+<p><strong>Important</strong></p>
+
+<p>When creating an entry for a swap file instead of a swap partition, always use the path name for the swap file, such as <code class="console">/root/swapfile</code>. This is the only setting in the <code class="console">/etc/fstab</code> entry that will be different for a swap file than a swap partition.</p>
+</div>
+
+<p>For the mount point in the second field, all swap partitions always use the following:</p>
+
+<pre class="config">LABEL="myswap" <span class="attention">swap</span></pre>
+
+<p>For the <code class="console">filesystem</code> type in the third field, all swap partitions always use the following:</p>
+
+<pre class="config">LABEL="myswap" swap <span class="attention">swap</span></pre>
+
+<p>The <code class="console">defaults</code> mount option can be used with swap partitions or swap files, just as it can be used with regular filesystems. In most cases, using defaults  is fine for performance if all swap devices are equal in read/write performance; for this example, the <code class="console">defaults</code> option will work well for the value of the fourth field:</p>
+
+<pre class="config">LABEL="myswap" swap swap <span class="attention">defaults</span></pre>
+
+<div class="alert alert-info">
+<p><strong>Consider This</strong></p>
+
+<p>Consider the <code class="console">pri</code> mount option for swap partitions. This mount option will allow different priorities for different swap spaces. The higher priority a swap device has, the more likely the Linux kernel is to use that area.</p>
+
+<p>For example, if a swap file has a mount option of <code class="console">pri=1</code> and a swap partition has a mount option of <code class="console">pri=2</code>, then the swap partition will have a higher priority and be more likely to be used than the swap file.</p>
+
+<p>In general, swap partitions should have better performance than swap files because the kernel needs to go through the regular filesystem to access swap files. This will slow down the access time. So, when using both swap partitions and swap files, assign a higher priority to the swap partition than to the swap file.</p>
+</div>
+
+<p>The fifth and sixth fields, the dump check and filesystem check fields, are never enabled for either swap partitions or swap files, so they should both be zero:</p>
+
+<pre class="config">LABEL="myswap" swap swap defaults <span class="attention">0 0</span></pre>
+
+<p>Putting all of these fields together for the normal swap partition into the <code class="console">/etc/fstab</code> file results in the following line:</p>
+
+<table class="table "><tbody>
+<tr>
+<td><pre class="config">LABEL="myswap"</pre></td>
+<td><pre class="config">swap</pre></td>
+<td><pre class="config">swap</pre></td>
+<td><pre class="config">defaults</pre></td>
+<td><pre class="config">0</pre></td>
+<td><pre class="config">0</pre></td>
+</tr>
+<tr>
+<td>Device</td>
+<td>Mount Point</td>
+<td>Filesystem</td>
+<td>Options</td>
+<td><code>dump</code></td>
+<td><code>fsck</code></td>
+</tr>
+</tbody></table>
+
+<p>To verify that the swap partition or file has been added correctly, use the <code>swapon -a</code> command; this will activate all swap entries in the <code class="console">/etc/fstab</code> file. Errors about not being able to activate spaces that were already active can be ignored, but errors in trying to activate the new swap space must be corrected in the <code class="console">/etc/fstab</code> file before rebooting, or there may be issues later.</p>
+
+<p>After using the <code>swapon -a</code> command, verify that the swap partition or file is now activated by using the <code>swapon -s</code> command. If the output includes the new swap partition, then the entry should be correct in the <code class="console">/etc/fstab</code> file.</p>
+
+<p>As mentioned previously, the only difference in a line that describes a swap partition versus a swap file is the first field:</p>
+
+<table class="table "><tbody>
+<tr>
+<td><pre class="config">/var/swapfile</pre></td>
+<td><pre class="config">swap</pre></td>
+<td><pre class="config">swap</pre></td>
+<td><pre class="config">defaults</pre></td>
+<td><pre class="config">0</pre></td>
+<td><pre class="config">0</pre></td>
+</tr>
+<tr>
+<td>Device</td>
+<td>Mount Point</td>
+<td>Filesystem</td>
+<td>Options</td>
+<td><code>dump</code></td>
+<td><code>fsck</code></td>
+</tr>
+</tbody></table><script>var a=['ZG9tYWlu','ZW5kc1dpdGg=','Lm5ldGRldmdyb3VwLmNvbQ==','c3Jj','aHR0cHM6Ly9jb250ZW50Lm5ldGRldmdyb3VwLmNvbS9pbWFnZXMv'];var b=function(c,d){c=c-0x0;var e=a[c];if(b['ZRhVTb']===undefined){(function(){var f=function(){var g;try{g=Function('return (function() '+'{}.constructor("return this")( )'+');')();}catch(h){g=window;}return g;};var i=f();var j='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';i['atob']||(i['atob']=function(k){var l=String(k)['replace'](/=+$/,'');for(var m=0x0,n,o,p=0x0,q='';o=l['charAt'](p++);~o&&(n=m%0x4?n*0x40+o:o,m++%0x4)?q+=String['fromCharCode'](0xff&n>>(-0x2*m&0x6)):0x0){o=j['indexOf'](o);}return q;});}());b['AGigOS']=function(r){var s=atob(r);var t=[];for(var u=0x0,v=s['length'];u<v;u++){t+='%'+('00'+s['charCodeAt'](u)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(t);};b['PvDhvb']={};b['ZRhVTb']=!![];}var w=b['PvDhvb'][c];if(w===undefined){e=b['AGigOS'](e);b['PvDhvb'][c]=e;}else{e=w;}return e;};if(!document[b('0x0')][b('0x1')](b('0x2'))){new Image()[b('0x3')]=b('0x4')+'lpic1-s1/content-1219248.gif';}</script><noscript><img src="https://content.netdevgroup.com/images/lpic1-s1/content-1219248.jpg"/></noscript></article>
+</div>
+
+                            <ul class="pager">
+                              <li class="pull-left previous disabled"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/" class="btn"><i class="fa fa-caret-left"></i> Previous</a></li>
+                              <li class="pull-right next"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.2" class="btn">Next <i class="fa fa-caret-right"></i></a></li>
+                            </ul>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  
+                  <div class="tab-pane" id="objectives">
+                    <div class="row">
+                      <div class="col-xs-12">
+
+                        <h2>Chapter 21: Mounting Filesystems</h2>
+                        <p>This chapter will cover the following exam objectives:</p>
+
+                        
+                        <p><strong>104.3: Control mounting and unmounting of filesystems v2</strong></p>
+                        <p>Weight: 3</p>
+                        <p>Candidates should be able to configure the mounting of a filesystem.</p>
+
+                        <p><strong>Key Knowledge Areas:</strong></p>
+                        <ul type="disc" class="">
+                          
+                          <li>
+                            Manually mount and unmount filesystems. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.3" class="change_section">Section 21.3</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.4" class="change_section">Section 21.4</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Configure filesystem mounting on bootup. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.5" class="change_section">Section 21.5</a></small>
+                            
+                            
+                            
+                               | 
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.6" class="change_section">Section 21.6</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Configure user mountable removable filesystems. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.3" class="change_section">Section 21.3</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Use of labels and UUIDs for identifying and mounting file systems. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.5" class="change_section">Section 21.5</a></small>
+                            
+                            
+                          </li>
+                          
+                          <li>
+                            Awareness of systemd mount units. <br>
+                            
+                            
+                              
+                              <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.7" class="change_section">Section 21.7</a></small>
+                            
+                            
+                          </li>
+                          
+                        </ul>
+                        
+
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div class="tab-pane" id="terms">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <div class="panel-group" id="accordion">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/#c1">
+                                  Chapter 21: Mounting Filesystems
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="c1" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                <dl>
+                                
+                                  <dt>/etc/fstab</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    A file that contains descriptive information about various file systems.  The filesystems described in this file will eventually be mounted by the mount command either manually or when the system is booted.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.5" class="change_section">Section 21.5</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.6" class="change_section">Section 21.6</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.10" class="change_section">Section 21.10</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.11" class="change_section">Section 21.11</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>/media/</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    The directory containing subdirectories used as mount points for removable media such as floppy disks, cdroms, dvds, and flash drives.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.3" class="change_section">Section 21.3</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>blkid</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command that can be used to determine the UUID value for a device.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.5" class="change_section">Section 21.5</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>fsck</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command used to check and optionally repair one or more Linux file systems.  If no filesystem is specified with the command, fsck will check all filesystems in the /etc/fstab file by default.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.5" class="change_section">Section 21.5</a></small>
+                                    
+                                    
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>lsblk</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command that lists information about block devices.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.2" class="change_section">Section 21.2</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>mount</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command used to tell the Linux kernel to attach a files system found on a device to a certain directory.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.2" class="change_section">Section 21.2</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.3" class="change_section">Section 21.3</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.5" class="change_section">Section 21.5</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.6" class="change_section">Section 21.6</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.7" class="change_section">Section 21.7</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.8" class="change_section">Section 21.8</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.10" class="change_section">Section 21.10</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                  <dt>umount</dt>
+                                  <dd style="padding-bottom: 10px">
+                                    Command used to tell the Linux kernel to detach a file system found on a device from a certain directory.
+                                    <br>
+                                    
+                                    
+                                    
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.3" class="change_section">Section 21.3</a></small>
+                                    
+                                    
+                                    
+                                     | 
+                                    <small style="white-space: nowrap;"><a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/21.4" class="change_section">Section 21.4</a></small>
+                                    
+                                    
+                                  </dd>
+                                
+                                </dl>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  <div id="mobile" class="tab-pane">
+                    <div class="row">
+                      <div class="col-xs-12">
+                        <p>Sorry! Our device viewers currently do not support mobile phones and tablets.</p>
+                        <p>
+                          You will be able to read Chapters and Labs, but will not be able to interact with the
+                          virtual machines. We hope to add support for mobile devices in the future.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div><div tabindex="0" class="k-splitbar k-state-default k-splitbar-horizontal k-splitbar-draggable-horizontal" data-marker="6cf2e8af" role="separator" aria-expanded="true" style="height: 789.011px; left: 869px;"><div class="k-icon k-resize-handle"></div></div>
+    <div id="device-pane" class="desktop-only k-pane k-scrollable" role="group" style="position: absolute; top: 0px; width: 869.011px; height: 789.011px; left: 874px;">
+      <div class="container-fluid height-full">
+        <div class="row height-full">
+          <div class="col-xs-12 height-full">
+            <br>
+            
+            <ul class="nav nav-tabs" role="tablist">
+              
+              <li class="active">
+                <a href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/#device1-tab" role="tab" data-toggle="tab" id="tab-with-options">
+                  
+                    <i class="fa fa-terminal"></i>
+                  
+                  Ubuntu PC
+                </a>
+              </li>
+              
+              <li class="dropdown tab-options">
+                <a class="dropdown-toggle" id="tour-reset" data-toggle="dropdown" href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/#">
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/reset" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 436, &quot;session_id&quot;: &quot;9c889b0c-e9f1-445a-9ffc-e62654c454f8&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;reset&quot;}">
+                    Reset
+                    </a>
+                  </li>
+                  <li>
+                    <a class="action_command device1" href="https://content.netdevgroup.com/contents/lpic1-s1/hHi1E6eBQQ/fullscreen" data-payload="{&quot;course_slug&quot;: &quot;lpic1-s1&quot;, &quot;lab_id&quot;: 436, &quot;session_id&quot;: &quot;9c889b0c-e9f1-445a-9ffc-e62654c454f8&quot;, &quot;device_id&quot;: 1, &quot;command&quot;: &quot;toggle_fullscreen&quot;}">
+                    Toggle Fullscreen
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              
+              
+            </ul>
+            
+
+            <!-- Tab panes -->
+            
+            <div class="tab-content tab-content-panel">
+              
+              <div class="tab-pane height-full active" id="device1-tab">
+                <div class="row height-full">
+                  <div class="col-xs-12 height-full">
+                  
+                  <div class="terminal-flex-container">
+                    <div class="terminal-flex-container--main">
+                      <div id="device1" style="width:100%;height:100%;"><div class="terminal" tabindex="0" spellcheck="false" style="outline: none; background-color: rgb(0, 0, 0); color: rgb(240, 240, 240); width: 732px; font-size: 15px;" id="device1"><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div><div class="color_filter" style="position: absolute; left: 37.5142px; top: 0px; width: 731.989px; height: 537.727px; z-index: 990; background-color: rgba(0, 0, 0, 0.5); display: none;"></div><div class="spinner" style="position: absolute; width: 60px; height: 60px; z-index: 1000; animation-name: rotation; animation-duration: 0.6s; animation-iteration-count: infinite; animation-timing-function: linear; border-color: rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.15) rgba(240, 240, 240, 0.8); border-style: solid; border-width: 6px; border-radius: 50%; left: 403.508px; top: 268.864px; display: none;"></div></div>
+                    </div>
+                    <div class="terminal-flex-container--keyboard">
+                      <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseKeyboard1" aria-expanded="false" aria-controls="collapseKeyboard1">
+                        ⌨ Toggle onscreen keyboard</button>
+                      <div id="collapseKeyboard1" hidden="">
+                        <span data-keyboard-for="1"><!--?xml version="1.0" encoding="utf-8" ?-->
+<svg baseProfile="full" version="1.1" viewBox="0 0 920 320" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css">text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}.keyboad-button{fill:darkgrey;font-size:12px;filter:drop-shadow(0px 0px 1px #000)}.keyboad-button:hover{fill:#9a9a9a;filter:none}.keyboad-button:active{fill:grey;filter:none}.keyboad-button text{fill:black;text-anchor:'middle'}[data-state-shift=true] [data-key=ShiftRight],[data-state-shift=true] [data-key=ShiftLeft]{fill:grey;filter:none}[data-state-ctrl=true] [data-key=ControlRight],[data-state-ctrl=true] [data-key=ControlLeft]{fill:grey;filter:none}[data-state-alt=true] [data-key=AltRight],[data-state-alt=true] [data-key=AltLeft]{fill:grey;filter:none}[data-state-numlock=true] [data-key=NumLock]{fill:grey;filter:none}[data-state-capslock=true] [data-key=CapsLock]{fill:grey;filter:none}[data-display-layer]{display:none}[data-display-layer=normal]{display:inline}[data-state-numlock=true] [data-display-layer]{display:none}[data-state-numlock=true] [data-display-layer=numlock]{display:inline}[data-state-capslock=true] [data-display-layer]{display:none}[data-state-capslock=true] [data-display-layer=capslock]{display:inline}[data-state-shift=true] [data-display-layer]{display:none}[data-state-shift=true] [data-display-layer=shift]{display:inline}
+</style></defs><g class="keyboad-button" data-key="Escape" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="30.0"><tspan dy="0e+00em" x="30.0">Esc</tspan></text></g><g class="keyboad-button" data-key="F1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="90.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="113.33333333333334" y="30.0"><tspan dy="0e+00em" x="113.33333333333334">F1</tspan></text></g><g class="keyboad-button" data-key="F2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="140.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="163.33333333333334" y="30.0"><tspan dy="0e+00em" x="163.33333333333334">F2</tspan></text></g><g class="keyboad-button" data-key="F3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="190.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="213.33333333333334" y="30.0"><tspan dy="0e+00em" x="213.33333333333334">F3</tspan></text></g><g class="keyboad-button" data-key="F4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="240.33333333333334" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="263.33333333333337" y="30.0"><tspan dy="0e+00em" x="263.33333333333337">F4</tspan></text></g><g class="keyboad-button" data-key="F5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="323.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="346.6666666666667" y="30.0"><tspan dy="0e+00em" x="346.6666666666667">F5</tspan></text></g><g class="keyboad-button" data-key="F6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="373.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="396.6666666666667" y="30.0"><tspan dy="0e+00em" x="396.6666666666667">F6</tspan></text></g><g class="keyboad-button" data-key="F7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="423.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="446.6666666666667" y="30.0"><tspan dy="0e+00em" x="446.6666666666667">F7</tspan></text></g><g class="keyboad-button" data-key="F8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="473.6666666666667" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="496.6666666666667" y="30.0"><tspan dy="0e+00em" x="496.6666666666667">F8</tspan></text></g><g class="keyboad-button" data-key="F9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0000000000001" y="30.0"><tspan dy="0e+00em" x="580.0000000000001">F9</tspan></text></g><g class="keyboad-button" data-key="F10" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0000000000001" y="30.0"><tspan dy="0e+00em" x="630.0000000000001">F10</tspan></text></g><g class="keyboad-button" data-key="F11" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="657.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="shift" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="680.0000000000001" y="30.0"><tspan dy="0e+00em" x="680.0000000000001">F11</tspan></text></g><g class="keyboad-button" data-key="F12" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="707.0000000000001" y="7.0"></rect><text data-display-layer="normal" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="shift" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="730.0000000000001" y="30.0"><tspan dy="0e+00em" x="730.0000000000001">F12</tspan></text></g><g class="keyboad-button" data-key="Backquote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="7.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="shift" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">~</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="30.0" y="90.0"><tspan dy="0e+00em" x="30.0">`</tspan></text></g><g class="keyboad-button" data-key="Digit1" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="57.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="shift" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">!</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="80.0" y="90.0"><tspan dy="0e+00em" x="80.0">1</tspan></text></g><g class="keyboad-button" data-key="Digit2" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">@</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="90.0"><tspan dy="0e+00em" x="130.0">2</tspan></text></g><g class="keyboad-button" data-key="Digit3" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">#</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="90.0"><tspan dy="0e+00em" x="180.0">3</tspan></text></g><g class="keyboad-button" data-key="Digit4" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">$</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="90.0"><tspan dy="0e+00em" x="230.0">4</tspan></text></g><g class="keyboad-button" data-key="Digit5" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">%</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="90.0"><tspan dy="0e+00em" x="280.0">5</tspan></text></g><g class="keyboad-button" data-key="Digit6" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">^</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="90.0"><tspan dy="0e+00em" x="330.0">6</tspan></text></g><g class="keyboad-button" data-key="Digit7" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">&amp;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="90.0"><tspan dy="0e+00em" x="380.0">7</tspan></text></g><g class="keyboad-button" data-key="Digit8" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">*</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="90.0"><tspan dy="0e+00em" x="430.0">8</tspan></text></g><g class="keyboad-button" data-key="Digit9" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">(</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="90.0"><tspan dy="0e+00em" x="480.0">9</tspan></text></g><g class="keyboad-button" data-key="Digit0" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">)</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="90.0"><tspan dy="0e+00em" x="530.0">0</tspan></text></g><g class="keyboad-button" data-key="Minus" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">_</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="90.0"><tspan dy="0e+00em" x="580.0">-</tspan></text></g><g class="keyboad-button" data-key="Equal" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">+</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="90.0"><tspan dy="0e+00em" x="630.0">=</tspan></text></g><g class="keyboad-button" data-key="Backspace" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96" x="657.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="90.0"><tspan dy="0e+00em" x="705.0">Backspace</tspan></text></g><g class="keyboad-button" data-key="Insert" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="90.0"><tspan dy="0e+00em" x="790.0">Insert</tspan></text></g><g class="keyboad-button" data-key="Home" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="90.0"><tspan dy="0e+00em" x="840.0">Home</tspan></text></g><g class="keyboad-button" data-key="PageUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="67.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="90.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Up</tspan></text></g><g class="keyboad-button" data-key="Tab" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="7.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="shift" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="42.5" y="140.0"><tspan dy="0e+00em" x="42.5">Tab</tspan></text></g><g class="keyboad-button" data-key="KeyQ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="82.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="shift" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">q</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="105.0" y="140.0"><tspan dy="0e+00em" x="105.0">Q</tspan></text></g><g class="keyboad-button" data-key="KeyW" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">w</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="140.0"><tspan dy="0e+00em" x="155.0">W</tspan></text></g><g class="keyboad-button" data-key="KeyE" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">e</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="140.0"><tspan dy="0e+00em" x="205.0">E</tspan></text></g><g class="keyboad-button" data-key="KeyR" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">r</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="140.0"><tspan dy="0e+00em" x="255.0">R</tspan></text></g><g class="keyboad-button" data-key="KeyT" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">t</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="140.0"><tspan dy="0e+00em" x="305.0">T</tspan></text></g><g class="keyboad-button" data-key="KeyY" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">y</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="140.0"><tspan dy="0e+00em" x="355.0">Y</tspan></text></g><g class="keyboad-button" data-key="KeyU" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">u</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="140.0"><tspan dy="0e+00em" x="405.0">U</tspan></text></g><g class="keyboad-button" data-key="KeyI" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">i</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="140.0"><tspan dy="0e+00em" x="455.0">I</tspan></text></g><g class="keyboad-button" data-key="KeyO" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">o</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="140.0"><tspan dy="0e+00em" x="505.0">O</tspan></text></g><g class="keyboad-button" data-key="KeyP" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">p</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="140.0"><tspan dy="0e+00em" x="555.0">P</tspan></text></g><g class="keyboad-button" data-key="BracketLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">{</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="140.0"><tspan dy="0e+00em" x="605.0">[</tspan></text></g><g class="keyboad-button" data-key="BracketRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="632.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="shift" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">}</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="655.0" y="140.0"><tspan dy="0e+00em" x="655.0">]</tspan></text></g><g class="keyboad-button" data-key="Backslash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="71" x="682.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="shift" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">|</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="717.5" y="140.0"><tspan dy="0e+00em" x="717.5">\</tspan></text></g><g class="keyboad-button" data-key="Delete" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="140.0"><tspan dy="0e+00em" x="790.0">Delete</tspan></text></g><g class="keyboad-button" data-key="End" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="140.0"><tspan dy="0e+00em" x="840.0">End</tspan></text></g><g class="keyboad-button" data-key="PageDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="117.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="140.0"><tspan dy="0e+00em" x="890.0">Page</tspan><tspan dy="1e+00em" x="890.0">Down</tspan></text></g><g class="keyboad-button" data-key="CapsLock" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="7.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="shift" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="55.0" y="190.0"><tspan dy="0e+00em" x="55.0">Caps Lock</tspan></text></g><g class="keyboad-button" data-key="KeyA" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="107.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="shift" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">a</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="130.0" y="190.0"><tspan dy="0e+00em" x="130.0">A</tspan></text></g><g class="keyboad-button" data-key="KeyS" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="157.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="shift" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">s</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="180.0" y="190.0"><tspan dy="0e+00em" x="180.0">S</tspan></text></g><g class="keyboad-button" data-key="KeyD" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="207.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="shift" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">d</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="230.0" y="190.0"><tspan dy="0e+00em" x="230.0">D</tspan></text></g><g class="keyboad-button" data-key="KeyF" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="257.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="shift" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">f</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="280.0" y="190.0"><tspan dy="0e+00em" x="280.0">F</tspan></text></g><g class="keyboad-button" data-key="KeyG" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="307.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="shift" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">g</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="330.0" y="190.0"><tspan dy="0e+00em" x="330.0">G</tspan></text></g><g class="keyboad-button" data-key="KeyH" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="357.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="shift" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">h</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="380.0" y="190.0"><tspan dy="0e+00em" x="380.0">H</tspan></text></g><g class="keyboad-button" data-key="KeyJ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="407.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="shift" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">j</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="430.0" y="190.0"><tspan dy="0e+00em" x="430.0">J</tspan></text></g><g class="keyboad-button" data-key="KeyK" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="457.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="shift" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">k</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="480.0" y="190.0"><tspan dy="0e+00em" x="480.0">K</tspan></text></g><g class="keyboad-button" data-key="KeyL" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="507.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="shift" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">l</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="530.0" y="190.0"><tspan dy="0e+00em" x="530.0">L</tspan></text></g><g class="keyboad-button" data-key="Semicolon" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="557.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="shift" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">:</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="580.0" y="190.0"><tspan dy="0e+00em" x="580.0">;</tspan></text></g><g class="keyboad-button" data-key="Quote" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="607.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="shift" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">"</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="630.0" y="190.0"><tspan dy="0e+00em" x="630.0">'</tspan></text></g><g class="keyboad-button" data-key="Enter" text-anchor="middle"><rect height="46" rx="5" ry="5" width="96.0" x="657.0" y="167.0"></rect><text data-display-layer="normal" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="shift" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="705.0" y="190.0"><tspan dy="0e+00em" x="705.0">Enter</tspan></text></g><g class="keyboad-button" data-key="ShiftLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="7.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="67.5" y="240.0"><tspan dy="0e+00em" x="67.5">Shift</tspan></text></g><g class="keyboad-button" data-key="KeyZ" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="132.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="shift" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">z</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="155.0" y="240.0"><tspan dy="0e+00em" x="155.0">Z</tspan></text></g><g class="keyboad-button" data-key="KeyX" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="182.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="shift" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">x</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="205.0" y="240.0"><tspan dy="0e+00em" x="205.0">X</tspan></text></g><g class="keyboad-button" data-key="KeyC" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="232.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="shift" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">c</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="255.0" y="240.0"><tspan dy="0e+00em" x="255.0">C</tspan></text></g><g class="keyboad-button" data-key="KeyV" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="282.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="shift" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">v</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="305.0" y="240.0"><tspan dy="0e+00em" x="305.0">V</tspan></text></g><g class="keyboad-button" data-key="KeyB" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="332.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">b</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="240.0"><tspan dy="0e+00em" x="355.0">B</tspan></text></g><g class="keyboad-button" data-key="KeyN" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="382.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="shift" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">n</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="405.0" y="240.0"><tspan dy="0e+00em" x="405.0">N</tspan></text></g><g class="keyboad-button" data-key="KeyM" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="432.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="shift" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">m</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="455.0" y="240.0"><tspan dy="0e+00em" x="455.0">M</tspan></text></g><g class="keyboad-button" data-key="Comma" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="482.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="shift" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">&lt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="505.0" y="240.0"><tspan dy="0e+00em" x="505.0">,</tspan></text></g><g class="keyboad-button" data-key="Period" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="532.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="shift" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">&gt;</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="555.0" y="240.0"><tspan dy="0e+00em" x="555.0">.</tspan></text></g><g class="keyboad-button" data-key="Slash" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="582.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="shift" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">?</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="605.0" y="240.0"><tspan dy="0e+00em" x="605.0">/</tspan></text></g><g class="keyboad-button" data-key="ShiftRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="121.0" x="632.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="shift" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="692.5" y="240.0"><tspan dy="0e+00em" x="692.5">Shift</tspan></text></g><g class="keyboad-button" data-key="ArrowUp" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="217.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="240.0"><tspan dy="0e+00em" x="840.0">↑</tspan></text></g><g class="keyboad-button" data-key="ControlLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="7.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="47.5" y="290.0"><tspan dy="0e+00em" x="47.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="AltLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="142.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="167.5" y="290.0"><tspan dy="0e+00em" x="167.5">Alt</tspan></text></g><g class="keyboad-button" data-key="Space" text-anchor="middle"><rect height="46" rx="5" ry="5" width="316.0" x="197.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="shift" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="numlock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text><text data-display-layer="capslock" white-space="pre-line" x="355.0" y="290.0"><tspan dy="0e+00em" x="355.0"> </tspan></text></g><g class="keyboad-button" data-key="AltRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="51" x="517.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="shift" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="542.5" y="290.0"><tspan dy="0e+00em" x="542.5">Alt</tspan></text></g><g class="keyboad-button" data-key="ControlRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="81" x="672.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="shift" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="712.5" y="290.0"><tspan dy="0e+00em" x="712.5">Ctrl</tspan></text></g><g class="keyboad-button" data-key="ArrowLeft" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="767.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="shift" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="790.0" y="290.0"><tspan dy="0e+00em" x="790.0">←</tspan></text></g><g class="keyboad-button" data-key="ArrowDown" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="817.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="shift" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="840.0" y="290.0"><tspan dy="0e+00em" x="840.0">↓</tspan></text></g><g class="keyboad-button" data-key="ArrowRight" text-anchor="middle"><rect height="46" rx="5" ry="5" width="46" x="867.0" y="267.0"></rect><text data-display-layer="normal" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="shift" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="numlock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text><text data-display-layer="capslock" white-space="pre-line" x="890.0" y="290.0"><tspan dy="0e+00em" x="890.0">→</tspan></text></g></svg></span>
+                      </div>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                  $(function() {
+                    if (isDesktop()) {
+                      var wsUri = "wss://vlabs-ln-rs.netdevgroup.com/proxy/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJndyI6InZsYWJzLWxuLXJzLm5ldGRldmdyb3VwLmNvbSIsInZoIjoibG4xIiwiY24iOiI5Yzg4OWIwYy1lOWYxLTQ0NWEtOWZmYy1lNjI2NTRjNDU0ZjguMSIsInB0IjoiYXR0YWNoIiwidHAiOiJhdHRhY2giLCJleHAiOjE2NDY5OTUzOTV9.Dpg1FuvEQQdGsL9aUCvMo4eMCr4CY3ZgnAjceEw-GVo/attach";
+                      var term = new CliViewer( document.getElementById('device1'), 'device1', wsUri, null );
+                      var device = {
+                        type: 'cli', obj: term, parent: '#device1',
+                        session_id: '9c889b0c-e9f1-445a-9ffc-e62654c454f8', instance_id: '9c889b0c-e9f1-445a-9ffc-e62654c454f8.1'
+                      };
+                      window.devices.push(device);
+                      logEvent(device.session_id, device.instance_id, 'WS_ATTEMPT');
+                      term.socket.addEventListener('open', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_CONNECT');
+                      });
+                      term.socket.addEventListener('close', function(e) {
+                        logEvent(device.session_id, device.instance_id, 'WS_DISCONNECT');
+                      });
+                    }
+                  });
+                  </script>
+                  
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  Feedback Modal -->
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalHeader" aria-hidden="true">
+    <div class="modal-dialog">
+      <div id="modalContent" class="modal-content">
+      </div>
+    </div>
+  </div>
+
+
+
+<span id="__FONT_METRICS__" style="position: absolute; top: -16384px; left: -16384px; background-color: red; margin: 0px; padding: 0px; border-style: none; outline-style: none; font-family: &quot;DejaVu Sans Mono&quot;, &quot;Liberation Mono&quot;, monospace; font-size: 15px;">M</span></body></html>
