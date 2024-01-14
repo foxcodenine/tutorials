@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 
 	"foxcode.io/common"
-	"foxcode.io/pkg/config"
+	"foxcode.io/internal/config"
 	"github.com/justinas/nosurf"
 )
 
