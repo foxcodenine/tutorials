@@ -67,10 +67,15 @@
 
 {{define "js"}}
 <script>
+
+    // ----------------------------------------
+
     const attention = myPrompt();
 
+    // ----------------------------------------
+
     let markup = `
-    <form id="check-availability-form" action="" method="POST" novalidate class="needs validation">
+    <form id="check-availability-form" action="" method="POST" novalidate class="needs validation" autocomplete="off">
         <div class="row g-3" id="reservation-dates-modal">
         <div class="col">
             <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
@@ -82,9 +87,66 @@
     </form>
     `;
 
+    // ----------------------------------------
+
+    function willOpen() {
+        // Initialize date range picker when the modal is about to open
+        const elem = document.getElementById("reservation-dates-modal");
+        const rangepicker = new DateRangePicker(elem, {
+            format: "yyyy-mm-dd",
+            showOnFocus: true,
+        })
+    }
+
+    function didOpen() {
+        // Enable date inputs when the modal is opened
+        document.getElementById('start').removeAttribute("disabled"),
+            document.getElementById('end').removeAttribute("disabled");
+    }
+
+    function preConfirm() {
+        // Return an array of start and end date values
+        return [
+            document.getElementById("start").value,
+            document.getElementById("end").value
+        ];
+    }
+
+    async function callBack(dateArray) {
+
+        if (!dateArray) { return; }
+
+        const formElem = document.getElementById('check-availability-form');
+        const formData = new FormData(formElem);
+
+        formData.append("csrf_token", "{{ .CSRFToken }}");
+
+        const response = await axios.post('/reservation-json', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data', // Important: Set content type to multipart/form-data
+            },
+        });
+
+        console.log(response)
+    }
+
+    // ----------------------------------------
+
     document.getElementById("check-availability").addEventListener("click", function () {
-        attention.customMsg({ title: 'my title', msg: markup });
+        attention.customMsg({
+            title: 'my title',
+            msg: markup,
+            functions: {
+                willOpen,
+                didOpen,
+                preConfirm,
+                callBack
+            },
+
+        });
     })
+
+    // ----------------------------------------
 
 </script>
 {{end}}

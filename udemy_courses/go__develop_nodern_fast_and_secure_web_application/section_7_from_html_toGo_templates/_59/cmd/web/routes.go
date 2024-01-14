@@ -3,8 +3,8 @@ package main
 import (
 	"net/http"
 
-	"foxcode.io/pkg/config"
-	"foxcode.io/pkg/handlers"
+	"foxcode.io/internal/config"
+	"foxcode.io/internal/handlers"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )
@@ -30,6 +30,7 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/family", handlers.Repo.FamilyHandler)
 	mux.Get("/reservation", handlers.Repo.ReservationHandler)
 	mux.Post("/reservation", handlers.Repo.PostReservationHandler)
+	mux.Post("/reservation-json", handlers.Repo.ReservationHandlerJSON)
 	mux.Get("/make-reservation", handlers.Repo.MakeReservationHandler)
 
 	// Serve static files from the "static" directory.

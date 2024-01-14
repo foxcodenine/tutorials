@@ -6,10 +6,10 @@ import (
 	"strconv"
 	"time"
 
-	"foxcode.io/pkg/config"
+	"foxcode.io/internal/config"
+	"foxcode.io/internal/handlers"
+	"foxcode.io/internal/render"
 	"foxcode.io/pkg/envloader"
-	"foxcode.io/pkg/handlers"
-	"foxcode.io/pkg/render"
 	"github.com/alexedwards/scs/v2"
 )
 

@@ -1,12 +1,14 @@
 package handlers
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	"foxcode.io/common"
-	"foxcode.io/pkg/config"
-	"foxcode.io/pkg/render"
+	"foxcode.io/internal/config"
+	"foxcode.io/internal/render"
 )
 
 // ---------------------------------------------------------------------
@@ -94,6 +96,37 @@ func (m *Repository) PostReservationHandler(w http.ResponseWriter, r *http.Reque
 	end := r.Form.Get("endingDate")
 	returnString := fmt.Sprintf("Arrival date: %s, Departure date: %s", start, end)
 	w.Write([]byte(returnString))
+}
+
+type jsonResponse struct {
+	Ok      bool   `json:"ok"`
+	Message string `json:"message"`
+}
+
+func (m *Repository) ReservationHandlerJSON(w http.ResponseWriter, r *http.Request) {
+	resp := jsonResponse{
+		Ok:      true,
+		Message: "It's available!",
+	}
+
+	// Retrieve the form values
+	start := r.FormValue("start")
+	end := r.FormValue("end")
+	csrfToken := r.FormValue("csrf_token")
+
+	// Print the form values
+	fmt.Printf("Start: %s\n", start)
+	fmt.Printf("End: %s\n", end)
+	fmt.Printf("CSRF Token: %s\n", csrfToken)
+
+	output, err := json.MarshalIndent(resp, "", "    ")
+	if err != nil {
+		log.Println(err)
+	}
+
+	log.Println(string(output))
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(output)
 }
 
 func (m *Repository) MakeReservationHandler(w http.ResponseWriter, r *http.Request) {
