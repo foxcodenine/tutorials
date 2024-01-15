@@ -8,6 +8,7 @@ import (
 
 	"foxcode.io/common"
 	"foxcode.io/internal/config"
+	"foxcode.io/internal/forms"
 	"foxcode.io/internal/render"
 )
 
@@ -131,5 +132,11 @@ func (m *Repository) ReservationHandlerJSON(w http.ResponseWriter, r *http.Reque
 
 func (m *Repository) MakeReservationHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, r, "make-reservation-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "make-reservation-page.tmpl", &common.TemplateData{
+		Form: forms.New(nil),
+	})
+}
+
+func (m *Repository) PostMakeReservation(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(1333)
 }

@@ -1,5 +1,7 @@
 package common
 
+import "foxcode.io/internal/forms"
+
 // TemplateData is a shared type used by handlers and render packages.
 type TemplateData struct {
 	StringMap map[string]string
@@ -10,4 +12,5 @@ type TemplateData struct {
 	Flash     string
 	Warning   string
 	Error     string
+	Form      *forms.Form
 }
