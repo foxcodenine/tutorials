@@ -27,6 +27,14 @@
     https://github.com/alexedwards/scs
 
 
+### govalidator
+
+    $ go get github.com/asaskevich/govalidator
+
+    https://github.com/asaskevich/govalidator
+
+
+<!-- --------------------------------------------------------------- -->
 
 ### Vanilla JS Datepicker
 
