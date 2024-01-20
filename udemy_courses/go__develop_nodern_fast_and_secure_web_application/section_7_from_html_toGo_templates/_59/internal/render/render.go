@@ -7,15 +7,15 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"foxcode.io/common"
 	"foxcode.io/internal/config"
+	"foxcode.io/models"
 	"github.com/justinas/nosurf"
 )
 
 // ---------------------------------------------------------------------
 
 // AddDefaultData adds default values to the provided TemplateData and returns the modified instance.
-func AddDefaultData(td *common.TemplateData, r *http.Request) *common.TemplateData {
+func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
 	// Add default values here if needed.
 	td.CSRFToken = nosurf.Token(r)
 	return td
@@ -33,7 +33,7 @@ func SetAppConfig(a *config.AppConfig) {
 // ---------------------------------------------------------------------
 
 // RenderTemplate renders the specified template to the provided http.ResponseWriter.
-func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *common.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) {
 
 	var templateCache map[string]*template.Template
 	var err error

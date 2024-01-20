@@ -6,10 +6,10 @@ import (
 	"log"
 	"net/http"
 
-	"foxcode.io/common"
 	"foxcode.io/internal/config"
 	"foxcode.io/internal/forms"
 	"foxcode.io/internal/render"
+	"foxcode.io/models"
 )
 
 // ---------------------------------------------------------------------
@@ -52,7 +52,7 @@ func (m *Repository) HomeHandler(w http.ResponseWriter, r *http.Request) {
 	m.App.Session.Put(r.Context(), "user_agent", userAgent)
 
 	// Render the home page template with the provided data
-	render.RenderTemplate(w, r, "home-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "home-page.tmpl", &models.TemplateData{})
 }
 
 // AboutHandler handles requests to the about page
@@ -64,32 +64,32 @@ func (m *Repository) AboutHandler(w http.ResponseWriter, r *http.Request) {
 	// fmt.Println("Remote IP:", remoteIP)
 	// fmt.Println("User Agent:", userAgent)
 
-	render.RenderTemplate(w, r, "about-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "about-page.tmpl", &models.TemplateData{})
 }
 
 func (m *Repository) ContactHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, r, "contact-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "contact-page.tmpl", &models.TemplateData{})
 }
 
 func (m *Repository) EremiteHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, r, "eremite-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "eremite-page.tmpl", &models.TemplateData{})
 }
 
 func (m *Repository) CoupleHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, r, "couple-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "couple-page.tmpl", &models.TemplateData{})
 }
 
 func (m *Repository) FamilyHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, r, "family-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "family-page.tmpl", &models.TemplateData{})
 }
 
 func (m *Repository) ReservationHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, r, "check-availability-page.tmpl", &common.TemplateData{})
+	render.RenderTemplate(w, r, "check-availability-page.tmpl", &models.TemplateData{})
 }
 
 func (m *Repository) PostReservationHandler(w http.ResponseWriter, r *http.Request) {
@@ -132,11 +132,60 @@ func (m *Repository) ReservationHandlerJSON(w http.ResponseWriter, r *http.Reque
 
 func (m *Repository) MakeReservationHandler(w http.ResponseWriter, r *http.Request) {
 
-	render.RenderTemplate(w, r, "make-reservation-page.tmpl", &common.TemplateData{
+	emptyReservation := models.Reservation{}
+
+	render.RenderTemplate(w, r, "make-reservation-page.tmpl", &models.TemplateData{
 		Form: forms.New(nil),
+		DataMap: map[string]interface{}{
+			"reservation": emptyReservation,
+		},
 	})
 }
 
 func (m *Repository) PostMakeReservation(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(1333)
+
+	err := r.ParseForm()
+
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	// firstname := r.FormValue("firstname")
+	// phone := r.FormValue("phone")
+	// email := r.FormValue("email")
+
+	reservation := models.Reservation{
+		Name:  r.Form.Get("full_name"),
+		Phone: r.Form.Get("phone"),
+		Email: r.Form.Get("email"),
+	}
+
+	fmt.Println(reservation)
+	// fmt.Println(r.PostForm)
+
+	form := forms.New(r.PostForm)
+
+	// form.Has("full_name", r)
+	// form.Has("email", r)
+	// form.Has("phone", r)
+
+	form.Required("email", "phone", "full_name")
+	form.MinLength("full_name", 2)
+	form.IsEmail("email")
+
+	if !form.Valid() {
+		data := map[string]interface{}{
+			"reservation": reservation,
+		}
+
+		fmt.Println(data)
+
+		render.RenderTemplate(w, r, "make-reservation-page.tmpl", &models.TemplateData{
+			Form:    form,
+			DataMap: data,
+		})
+		return
+	}
+
 }
