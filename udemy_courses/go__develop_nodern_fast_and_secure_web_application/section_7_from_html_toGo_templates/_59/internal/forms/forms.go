@@ -48,7 +48,6 @@ func (f *Form) Required(fields ...string) {
 }
 
 // MinLength return false if the field value is shorter than a given length
-
 func (f *Form) MinLength(field string, length int) bool {
 	value := f.Get(field)
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/gob"
 	"log"
 	"net/http"
 	"strconv"
@@ -9,6 +10,7 @@ import (
 	"foxcode.io/internal/config"
 	"foxcode.io/internal/handlers"
 	"foxcode.io/internal/render"
+	"foxcode.io/models"
 	"foxcode.io/pkg/envloader"
 	"github.com/alexedwards/scs/v2"
 )
@@ -27,6 +29,10 @@ func main() {
 		log.Fatalf("Error loading environment variables: %v", err)
 	}
 	app.Env = envVars
+
+	// Register the models.Reservation type with gob to enable automatic encoding
+	// and decoding in sessions, ensuring smooth serialization and deserialization.
+	gob.Register(models.Reservation{})
 
 	// Set application configuration for rendering
 	render.SetAppConfig(&app)
