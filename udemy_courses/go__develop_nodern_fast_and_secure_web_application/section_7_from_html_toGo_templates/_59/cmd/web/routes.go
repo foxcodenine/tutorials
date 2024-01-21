@@ -33,6 +33,7 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Post("/reservation-json", handlers.Repo.ReservationHandlerJSON)
 	mux.Get("/make-reservation", handlers.Repo.MakeReservationHandler)
 	mux.Post("/make-reservation", handlers.Repo.PostMakeReservation)
+	mux.Get("/reservation-overview", handlers.Repo.ReservationOverview)
 
 	// Serve static files from the "static" directory.
 	fileServer := http.FileServer(http.Dir(app.RootPath + "static/"))
