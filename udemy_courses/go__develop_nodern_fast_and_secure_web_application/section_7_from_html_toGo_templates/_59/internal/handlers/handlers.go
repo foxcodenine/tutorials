@@ -187,5 +187,26 @@ func (m *Repository) PostMakeReservation(w http.ResponseWriter, r *http.Request)
 		})
 		return
 	}
+	m.App.Session.Put(r.Context(), "reservation", reservation)
+	http.Redirect(w, r, "/reservation-overview", http.StatusSeeOther)
+}
 
+// ReservationOverview display the reservation summery page
+
+func (m *Repository) ReservationOverview(w http.ResponseWriter, r *http.Request) {
+
+	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
+
+	if !ok {
+		log.Panicln("Cound not get item from session")
+		return
+	}
+
+	data := map[string]interface{}{
+		"reservation": reservation,
+	}
+
+	render.RenderTemplate(w, r, "reservation-overview-page.tmpl", &models.TemplateData{
+		DataMap: data,
+	})
 }
