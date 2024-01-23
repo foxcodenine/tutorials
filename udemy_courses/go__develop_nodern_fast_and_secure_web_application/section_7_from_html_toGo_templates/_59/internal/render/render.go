@@ -17,6 +17,10 @@ import (
 // AddDefaultData adds default values to the provided TemplateData and returns the modified instance.
 func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
 	// Add default values here if needed.
+	td.Flash = app.Session.PopString(r.Context(), "flash")
+	td.Error = app.Session.PopString(r.Context(), "error")
+	td.Warning = app.Session.PopString(r.Context(), "warning")
+
 	td.CSRFToken = nosurf.Token(r)
 	return td
 }

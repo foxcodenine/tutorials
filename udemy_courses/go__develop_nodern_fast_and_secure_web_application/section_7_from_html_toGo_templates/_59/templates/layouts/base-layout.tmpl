@@ -76,6 +76,16 @@
                     form.classList.add('was-validated')
                 }, false)
             })
+            
+            {{with .Flash}}
+                myNotify({{.}}, 'flash')
+            {{end}}
+            {{with .Warning}}
+                myNotify({{.}}, 'warning')
+            {{end}}
+            {{with .Error}}
+                myNotify({{.}}, 'error')
+            {{end}}
         })()
 
         // -----------------------------------------------------------------------------------------
@@ -205,12 +215,10 @@
                         // Swal.fire(JSON.stringify(result.value));  
 
                     } else {
-                        console.log(2)
                         context.functions.callBack(false);
                     }
 
                 } else {
-                    console.log(3)
                     context.functions.callBack(false);
                 }
             }
