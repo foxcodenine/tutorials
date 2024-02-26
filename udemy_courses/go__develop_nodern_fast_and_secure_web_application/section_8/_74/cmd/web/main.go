@@ -47,7 +47,7 @@ func main() {
 
 func run() error {
 	// Load environment variables
-	app.RootPath = "../../"
+	app.RootPath = "./"
 	envVars, err := envloader.LoadEnvFile(app.RootPath + ".env")
 	if err != nil {
 		log.Fatalf("Error loading environment variables: %v", err)

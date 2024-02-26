@@ -114,7 +114,62 @@ func TestForm_IsEmail(t *testing.T) {
 	}
 }
 
+func TestForm_Has(t *testing.T) {
+	formData := url.Values{}
+	formData.Set("name", "Chris")
+
+	body := strings.NewReader(formData.Encode()) // Encode form data as request body
+
+	// Create a new HTTP request with the form data in the body
+	r := httptest.NewRequest("POST", "/blablabla", body)
+	r.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+
+	// Before parsing, r.PostForm is empty
+
+	// Parse form data from the request body
+	if err := r.ParseForm(); err != nil {
+		t.Fatal("Failed to parse form:", err)
+	}
+
+	// After parsing, r.PostForm contains the submitted form data
+
+	// Now, initialize the form with the parsed form data
+	form := New(r.PostForm) // Ensure New correctly initializes the form with parsed form data
+
+	if form.Has("email") {
+		t.Error("expacted 'email' field to be false but got true.")
+	}
+
+	if !form.Has("name") {
+		t.Error("expacted 'name' field to be true but got false.")
+	}
+}
+
+func TestForm_Has_Simpler(t *testing.T) {
+	formData := url.Values{}
+	formData.Add("email", "me@hear.com")
+
+	form := New(formData)
+
+	if form.Has("name") {
+		t.Error("expacted 'email' field to be false but got true.")
+	}
+
+	if !form.Has("email") {
+		t.Error("expacted 'name' field to be true but got false.")
+	}
+}
+
 /*
+
+// Has check for the existence of a form field in the post and ensure it is not empty
+func (f *Form) Has(field string, r *http.Request) bool {
+	formFild := r.Form.Get(field)
+	if formFild == "" {
+		return false
+	}
+	return true
+}
 
 // IsEmail check it the value of a feld is a valid email address
 func (f *Form) IsEmail(field string) bool {
@@ -131,13 +186,3 @@ func (f *Form) IsEmail(field string) bool {
 
 
 */
-
-// func (f *Form) MinLength(field string, length int) bool {
-// 	value := f.Get(field)
-
-// 	if len(strings.TrimSpace(value)) < length {
-// 		f.Errors.Add(field, fmt.Sprintf("This field musthave at least %d characters.", length))
-// 		return false
-// 	}
-// 	return true
-// }
