@@ -4,6 +4,7 @@ import (
 	"encoding/gob"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -19,6 +20,8 @@ import (
 
 var app config.AppConfig
 var session *scs.SessionManager
+var infoLog *log.Logger
+var errorLog *log.Logger
 
 func main() {
 	err := run()
@@ -67,6 +70,11 @@ func run() error {
 	session.Cookie.Persist, _ = strconv.ParseBool(app.Env["COOKIE_PERSIST"])
 	session.Cookie.SameSite = http.SameSiteLaxMode
 	session.Cookie.Secure, _ = strconv.ParseBool(app.Env["COOKIE_SECURE"])
+
+	app.InProduction = false
+
+	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	app.InfoLog = infoLog
 
 	// Set the session manager in the application configuration.
 	app.Session = session
