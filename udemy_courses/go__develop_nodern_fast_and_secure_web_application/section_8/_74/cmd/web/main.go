@@ -10,6 +10,7 @@ import (
 
 	"foxcode.io/internal/config"
 	"foxcode.io/internal/handlers"
+	"foxcode.io/internal/helpers"
 	"foxcode.io/internal/render"
 	"foxcode.io/models"
 	"foxcode.io/pkg/envloader"
@@ -63,6 +64,7 @@ func run() error {
 
 	// Set application configuration for rendering
 	render.SetAppConfig(&app)
+	helpers.SetAppConfig(&app)
 
 	// Create a new session manager with a 24-hour lifetime.
 	session = scs.New()
@@ -75,6 +77,9 @@ func run() error {
 
 	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	app.InfoLog = infoLog
+
+	errorLog = log.New(os.Stdout, "Error\t", log.Ldate|log.Ltime|log.Lshortfile)
+	app.ErrorLog = errorLog
 
 	// Set the session manager in the application configuration.
 	app.Session = session
