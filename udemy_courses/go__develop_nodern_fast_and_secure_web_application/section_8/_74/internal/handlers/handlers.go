@@ -8,6 +8,7 @@ import (
 
 	"foxcode.io/internal/config"
 	"foxcode.io/internal/forms"
+	"foxcode.io/internal/helpers"
 	"foxcode.io/internal/render"
 	"foxcode.io/models"
 )
@@ -121,7 +122,8 @@ func (m *Repository) ReservationHandlerJSON(w http.ResponseWriter, r *http.Reque
 
 	output, err := json.MarshalIndent(resp, "", "    ")
 	if err != nil {
-		log.Println(err)
+		helpers.ServerError(w, err)
+		return
 	}
 
 	log.Println(string(output))
@@ -146,7 +148,8 @@ func (m *Repository) PostMakeReservation(w http.ResponseWriter, r *http.Request)
 	err := r.ParseForm()
 
 	if err != nil {
-		log.Println(err)
+		// log.Println(err)
+		helpers.ServerError(w, err)
 		return
 	}
 
@@ -197,7 +200,9 @@ func (m *Repository) ReservationOverview(w http.ResponseWriter, r *http.Request)
 	reservation, ok := m.App.Session.Get(r.Context(), "reservation").(models.Reservation)
 
 	if !ok {
-		log.Println("Cound not get item from session")
+		// log.Println("Cound not get item from session")
+		// helpers.ServerError(w, errors.New("cound not get item from session"))
+		m.App.ErrorLog.Println("cound not get item from session")
 		m.App.Session.Put(r.Context(), "error", "No reservation data in this session available.")
 		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
 		return
