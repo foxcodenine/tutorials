@@ -4,6 +4,7 @@ import (
 	"encoding/gob"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -53,6 +54,12 @@ func getRoutes() http.Handler {
 
 	// Set the session manager in the application configuration.
 	app.Session = session
+
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	app.InfoLog = infoLog
+
+	errorLog := log.New(os.Stdout, "Error\t", log.Ldate|log.Ltime|log.Lshortfile)
+	app.ErrorLog = errorLog
 
 	// Create template cache
 	templateCache, err := CreateTestTemplateCache()
