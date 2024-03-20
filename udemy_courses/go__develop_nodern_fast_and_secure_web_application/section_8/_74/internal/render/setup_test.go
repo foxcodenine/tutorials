@@ -41,6 +41,12 @@ func TestMain(m *testing.M) {
 	session.Cookie.SameSite = http.SameSiteLaxMode
 	session.Cookie.Secure = false
 
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	testApp.InfoLog = infoLog
+
+	errorLog := log.New(os.Stdout, "Error\t", log.Ldate|log.Ltime|log.Lshortfile)
+	testApp.ErrorLog = errorLog
+
 	// Set the session manager in the application configuration.
 	testApp.Session = session
 	app = &testApp
