@@ -7,9 +7,12 @@ import (
 	"net/http"
 
 	"foxcode.io/internal/config"
+	"foxcode.io/internal/driver"
 	"foxcode.io/internal/forms"
 	"foxcode.io/internal/helpers"
 	"foxcode.io/internal/render"
+	"foxcode.io/internal/repository"
+	"foxcode.io/internal/repository/dbrepo"
 	"foxcode.io/models"
 )
 
@@ -18,13 +21,15 @@ import (
 // Repository is a struct holding the application configuration.
 type Repository struct {
 	App *config.AppConfig
+	DB  repository.DatabaseRepo
 }
 
 // InitializeRepository creates a new instance of Repository with the provided
 // config.AppConfig and returns a pointer to the created Repository instance.
-func InitializeRepository(appConfig *config.AppConfig) *Repository {
+func InitializeRepository(appConfig *config.AppConfig, dbConn *driver.DB) *Repository {
 	return &Repository{
 		App: appConfig,
+		DB:  dbrepo.NewPostgersRepo(dbConn.SQL, appConfig),
 	}
 }
 
@@ -41,6 +46,8 @@ func SetHandlersRepository(repository *Repository) {
 
 // HomeHandler handles requests to the home page
 func (m *Repository) HomeHandler(w http.ResponseWriter, r *http.Request) {
+	// allUsers := m.DB.AllUsers()
+	// fmt.Println(allUsers, 123)
 
 	remoteIP := r.RemoteAddr
 

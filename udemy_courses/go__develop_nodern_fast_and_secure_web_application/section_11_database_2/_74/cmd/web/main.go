@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"foxcode.io/internal/config"
+	"foxcode.io/internal/driver"
 	"foxcode.io/internal/handlers"
 	"foxcode.io/internal/helpers"
 	"foxcode.io/internal/render"
@@ -25,11 +26,13 @@ var infoLog *log.Logger
 var errorLog *log.Logger
 
 func main() {
-	err := run()
+	db, err := run()
 
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	defer db.SQL.Close()
 
 	// Get port number from environment variables
 	portNumber := app.Env["PORT_NUMBER"]
@@ -49,7 +52,7 @@ func main() {
 	}
 }
 
-func run() error {
+func run() (*driver.DB, error) {
 	// Load environment variables
 	app.RootPath = "./"
 	// app.RootPath = "../../"
@@ -85,6 +88,14 @@ func run() error {
 	// Set the session manager in the application configuration.
 	app.Session = session
 
+	// Connecting to database
+	db, err := driver.ConnectSQL(app.Env["DATABASE_URL"])
+
+	if err != nil {
+		log.Fatal("Cannot connect to database! Drying...")
+	}
+	log.Println("Connecting to database!")
+
 	// Create template cache
 	templateCache, err := render.CreateTemplateCache()
 	if err != nil {
@@ -102,12 +113,12 @@ func run() error {
 
 	// Initialize a new repository for handlers with the provided application configuration.
 	// This creates a new Repository instance.
-	repo := handlers.InitializeRepository(&app)
+	repo := handlers.InitializeRepository(&app, db)
 
 	// Set the initialized repository for use in the handlers package
 	// by associating it with the global 'handlers.Repo'.
 	handlers.SetHandlersRepository(repo)
 
-	return nil
+	return db, nil
 
 }
