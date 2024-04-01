@@ -17,3 +17,12 @@
     soda migrate
     soda migrate down
     soda reset
+
+    go get github.com/jackc/pgx/v4
+    go get github.com/jackc/pgx/v5
+
+    go mod tidy -e
+
+    APP_ENV=test go test -v ./...
+
+    soda generate fizz AllowReservationIdNoNullInTableRestrictions

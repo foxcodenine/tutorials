@@ -26,8 +26,7 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.reservations (
     id integer NOT NULL,
-    first_name character varying(255) DEFAULT ''::character varying NOT NULL,
-    last_name character varying(255) DEFAULT ''::character varying NOT NULL,
+    full_name character varying(255) DEFAULT ''::character varying NOT NULL,
     email character varying(255) NOT NULL,
     phone character varying(255) DEFAULT ''::character varying NOT NULL,
     start_date date NOT NULL,
@@ -191,8 +190,7 @@ ALTER TABLE public.schema_migration OWNER TO foxcodenine;
 
 CREATE TABLE public.users (
     id integer NOT NULL,
-    first_name character varying(255) DEFAULT ''::character varying NOT NULL,
-    last_name character varying(255) DEFAULT ''::character varying NOT NULL,
+    full_name character varying(255) DEFAULT ''::character varying NOT NULL,
     email character varying(255) NOT NULL,
     password character varying(60) NOT NULL,
     access_level integer DEFAULT 1 NOT NULL,
@@ -316,10 +314,10 @@ CREATE INDEX reservations_email_idx ON public.reservations USING btree (email);
 
 
 --
--- Name: reservations_first_name_last_name_idx; Type: INDEX; Schema: public; Owner: foxcodenine
+-- Name: reservations_full_name_idx; Type: INDEX; Schema: public; Owner: foxcodenine
 --
 
-CREATE INDEX reservations_first_name_last_name_idx ON public.reservations USING btree (first_name, last_name);
+CREATE INDEX reservations_full_name_idx ON public.reservations USING btree (full_name);
 
 
 --
