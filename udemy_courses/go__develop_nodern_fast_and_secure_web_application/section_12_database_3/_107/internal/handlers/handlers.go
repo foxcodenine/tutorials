@@ -60,6 +60,27 @@ func (m *Repository) HomeHandler(w http.ResponseWriter, r *http.Request) {
 	m.App.Session.Put(r.Context(), "remote_ip", remoteIP)
 	m.App.Session.Put(r.Context(), "user_agent", userAgent)
 
+	// Test ----------
+	// const layout = "2006-01-02"
+	// sd, err := time.Parse(layout, "2024-02-03")
+	// if err != nil {
+	// 	log.Fatal("Error parsing date:", err)
+	// 	return
+	// }
+	// ed, err := time.Parse(layout, "2024-02-03")
+	// if err != nil {
+	// 	log.Fatal("Error parsing date:", err)
+	// 	return
+	// }
+	// rooms, err := m.DB.SearchAvailabilityByDatesForAllRooms(sd, ed)
+	// if err != nil {
+	// 	log.Fatal("Error parsing date:", err)
+	// 	return
+	// }
+
+	// fmt.Println(rooms)
+	// ---------------
+
 	// Render the home page template with the provided data
 	render.Template(w, r, "home-page.tmpl", &models.TemplateData{})
 }
@@ -104,8 +125,51 @@ func (m *Repository) ReservationHandler(w http.ResponseWriter, r *http.Request) 
 func (m *Repository) PostReservationHandler(w http.ResponseWriter, r *http.Request) {
 	start := r.Form.Get("startingDate")
 	end := r.Form.Get("endingDate")
-	returnString := fmt.Sprintf("Arrival date: %s, Departure date: %s", start, end)
-	w.Write([]byte(returnString))
+
+	// -----------------------------
+	const layout = "2006-01-02"
+	sd, err := time.Parse(layout, start)
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	ed, err := time.Parse(layout, end)
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	rooms, err := m.DB.SearchAvailabilityByDatesForAllRooms(sd, ed)
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	if len(rooms) == 0 {
+		m.App.Session.Put(r.Context(), "error", ":( No holiday home is available at that time.")
+		http.Redirect(w, r, "/reservation", http.StatusSeeOther)
+		return
+	}
+
+	data := make(map[string]interface{})
+	data["rooms"] = rooms
+
+	res := models.Reservation{
+		StartDate: sd,
+		EndDate:   ed,
+	}
+
+	m.App.Session.Put(r.Context(), "reservation", res)
+
+	render.Template(w, r, "choose-room-page.tmpl", &models.TemplateData{
+		DataMap: data,
+	})
+
+	// -----------------------------
+
+	// returnString := fmt.Sprintf("Arrival date: %s, Departure date: %s", start, end)
+	// w.Write([]byte(returnString))
 }
 
 type jsonResponse struct {
