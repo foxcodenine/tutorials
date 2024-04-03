@@ -1,0 +1,19 @@
+{{ template "base" . }}
+
+{{define "content"}}
+<div class="container mt-5">
+
+    <div class="row">
+        <div class="col">
+            <h1 class="">Choose a Room</h1>            
+
+            {{$rooms := index .DataMap "rooms"}}
+          
+                {{range $rooms}}
+                    <div style="text-transform: capitalize;">{{.RoomName}}</div>
+                {{end}}
+         
+        </div>
+    </div>
+</div>
+{{end}}
