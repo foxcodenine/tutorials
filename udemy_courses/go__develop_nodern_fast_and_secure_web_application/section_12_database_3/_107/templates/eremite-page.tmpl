@@ -77,12 +77,12 @@
     let markup = `
     <form id="check-availability-form" action="" method="POST" novalidate class="needs validation" autocomplete="off">
         <div class="row g-3" id="reservation-dates-modal">
-        <div class="col">
-            <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
-        </div>
-        <div class="col">
-            <input disabled required class="form-control" type="text" name="end" id="end" placeholder="Departure">
-        </div>
+            <div class="col">
+                <input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival">
+            </div>
+            <div class="col">
+                <input disabled required class="form-control" type="text" name="end" id="end" placeholder="Departure">
+            </div>
         </div>
     </form>
     `;
@@ -95,6 +95,7 @@
         const rangepicker = new DateRangePicker(elem, {
             format: "yyyy-mm-dd",
             showOnFocus: true,
+            minDate: new Date(),
         })
     }
 
@@ -120,6 +121,7 @@
         const formData = new FormData(formElem);
 
         formData.append("csrf_token", "{{ .CSRFToken }}");
+        formData.append("room_id", "1");
 
         const response = await axios.post('/reservation-json', formData, {
             headers: {
@@ -127,7 +129,25 @@
             },
         });
 
-        console.log(response)
+        if (response.data.ok) {
+            const markup = `
+                <div class="d-inline-flex">
+                    <p><a href="/book-room?id=${response.data.room_id}&s=${response.data.start_date}&e=${response.data.end_date}" class="btn btn-primary">'Book now!'</a></p>
+                    <p><a id="close-modal" class="btn btn-secondary ml-2 ms-2">'Cancel'</a></p>
+                </div>
+            `;
+            attention.modalMsg({
+                title: "Room is avalable!",
+                html: markup,
+                showConfirmButton: false,
+                type: "success"
+            })
+        } else {
+            attention.modalMsg({
+                title: "No availability",
+                type: "error"
+            })
+        }
     }
 
     // ----------------------------------------
