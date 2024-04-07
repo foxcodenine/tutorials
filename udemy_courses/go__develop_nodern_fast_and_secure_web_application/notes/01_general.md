@@ -26,3 +26,4 @@
     APP_ENV=test go test -v ./...
 
     soda generate fizz AllowReservationIdNoNullInTableRestrictions
+    soda generate sql SeedRoomTable

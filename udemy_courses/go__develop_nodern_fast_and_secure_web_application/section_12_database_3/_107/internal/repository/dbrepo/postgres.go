@@ -82,11 +82,12 @@ func (m *postgresDBRepo) SearchAvailabilityByDate(start, end time.Time, roomId i
 
 	var numRows int
 
+	// Adjust the WHERE clause to find overlaps, which indicates unavailability
 	sql := `
-		SELECT COUNT(id) FROM public.room_restrictions
-		WHERE NOT ($1 < start_date OR $2 > end_date)
-		AND room_id = $3;
-	`
+        SELECT COUNT(id) FROM public.room_restrictions
+        WHERE $1 < end_date AND $2 > start_date
+        AND room_id = $3;
+    `
 	row := m.DB.QueryRowContext(ctx, sql, start, end, roomId)
 	err := row.Scan(&numRows)
 
@@ -94,11 +95,8 @@ func (m *postgresDBRepo) SearchAvailabilityByDate(start, end time.Time, roomId i
 		return false, err
 	}
 
-	if numRows == 0 {
-		return true, nil
-	}
-
-	return false, nil
+	// If numRows > 0, it means there is at least one restriction that overlaps with the given dates, hence the room is not available
+	return numRows == 0, nil
 }
 
 func (m *postgresDBRepo) SearchAvailabilityByDatesForAllRooms(start, end time.Time) ([]models.Room, error) {
@@ -140,4 +138,31 @@ func (m *postgresDBRepo) SearchAvailabilityByDatesForAllRooms(start, end time.Ti
 	}
 
 	return rooms, nil
+}
+
+func (m *postgresDBRepo) GetRoomById(id int) (models.Room, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	sql := `SELECT id, room_name, created_at, updated_at FROM rooms WHERE id = $1`
+	var room models.Room
+
+	row := m.DB.QueryRowContext(
+		ctx,
+		sql,
+		id,
+	)
+
+	err := row.Scan(
+		&room.ID,
+		&room.RoomName,
+		&room.CreatedAt,
+		&room.UpdatedAt,
+	)
+
+	if err != nil {
+		return room, err
+	}
+
+	return room, nil
 }

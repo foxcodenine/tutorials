@@ -8,10 +8,12 @@
             <h1 class="">Choose a Room</h1>            
 
             {{$rooms := index .DataMap "rooms"}}
-          
-                {{range $rooms}}
-                    <div style="text-transform: capitalize;">{{.RoomName}}</div>
-                {{end}}
+                <ul>
+                    {{range $rooms}}
+                        <li style="text-transform: capitalize;">
+                        <a href="/choose-room/{{.ID}}">{{.RoomName}}</a></li>
+                    {{end}}
+                </ul>
          
         </div>
     </div>
