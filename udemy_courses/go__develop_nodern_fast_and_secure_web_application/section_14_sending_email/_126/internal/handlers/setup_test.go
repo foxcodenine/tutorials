@@ -62,6 +62,14 @@ func TestMain(m *testing.M) {
 	errorLog := log.New(os.Stdout, "Error\t", log.Ldate|log.Ltime|log.Lshortfile)
 	app.ErrorLog = errorLog
 
+	// ---------------------
+
+	mailChan := make(chan models.MailData)
+	app.MailChan = mailChan
+	defer close(mailChan)
+
+	listenForMail()
+
 	// Create template cache
 	templateCache, err := CreateTestTemplateCache()
 	if err != nil {
@@ -93,6 +101,17 @@ func TestMain(m *testing.M) {
 	SetHandlersRepository(repo)
 
 	os.Exit(m.Run())
+}
+
+func listenForMail() {
+	// message := <-app.MailChan
+
+	go func() {
+		for {
+			_ = <-app.MailChan
+
+		}
+	}()
 }
 
 func getRoutes() http.Handler {

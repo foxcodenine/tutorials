@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"log"
+	"os"
+	"strings"
 	"time"
 
 	"foxcode.io/models"
@@ -35,13 +38,29 @@ func sendMsg(m models.MailData) {
 
 	email := mail.NewMSG()
 	email.SetFrom(m.From).AddTo(m.To).SetSubject(m.Subject)
-	email.SetBody(mail.TextHTML, "Hello <strong>World</strong>!")
+
+	if m.Template == "" {
+		email.SetBody(mail.TextHTML, m.Content)
+	} else {
+
+		data, err := os.ReadFile(fmt.Sprintf("./email-templates/%s", m.Template))
+
+		if err != nil {
+			app.ErrorLog.Println(err)
+		}
+
+		mailTemplate := string(data)
+
+		msgToSend := strings.Replace(mailTemplate, "[[body]]", m.Content, 1)
+
+		email.SetBody(mail.TextHTML, msgToSend)
+	}
 
 	err = email.Send(client)
 
 	if err != nil {
 		errorLog.Println(err)
 	} else {
-		log.Panicln("email sent!")
+		log.Println("email sent!")
 	}
 }

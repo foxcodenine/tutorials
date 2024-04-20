@@ -409,6 +409,32 @@ func (m *Repository) PostMakeReservation(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
+	// send notifications
+
+	htmlMessage := fmt.Sprintf(`
+		<p><strong>Reservation Confirmation</strong></p>
+		<p>Dear %s,</p>
+		<p>We are pleased to confirm your reservation with us. Below are the details of your stay:</p>
+		<ul>
+			<li><strong>Check-in:</strong> %s</li>
+			<li><strong>Check-out:</strong> %s</li>
+			<li><strong>Room:</strong> %s</li>
+		</ul>
+		<p>Thank you for choosing us. We look forward to hosting you and hope you have a wonderful trip. Should you have any questions or need further assistance, please feel free to contact us.</p>
+		<p>Warm regards,<br>Your Bungalow Bliss Team</p>
+
+	`, reservation.FullName, reservation.StartDate.Format("2006-01-02"), reservation.EndDate.Format("2006-01-02"), reservation.Room.RoomName)
+
+	msg := models.MailData{
+		To:       reservation.Email,
+		From:     "me@here.com",
+		Subject:  "Reservation Confirmation",
+		Content:  htmlMessage,
+		Template: "basic.html",
+	}
+
+	m.App.MailChan <- msg
+
 	m.App.Session.Put(r.Context(), "reservation", reservation)
 	http.Redirect(w, r, "/reservation-overview", http.StatusSeeOther)
 
