@@ -1,7 +1,6 @@
 package models
 
 import (
-	"html/template"
 	"time"
 )
 
@@ -58,8 +57,9 @@ type RoomRestrintion struct {
 
 // MailData holds an email message
 type MailData struct {
-	To      string
-	From    string
-	Subject string
-	Content template.HTML
+	To       string
+	From     string
+	Subject  string
+	Content  string
+	Template string
 }

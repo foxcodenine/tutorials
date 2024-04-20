@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/gob"
+	"fmt"
 	"log"
 	"net/http"
+
 	// "net/smtp"
 	"os"
 	"strconv"
@@ -37,6 +39,18 @@ func main() {
 	defer close(app.MailChan)
 
 	listenForMail()
+	fmt.Println("Starting mail listener...")
+
+	// ------------------------------------------
+
+	// msg := models.MailData{
+	// 	To:      "john@do.ca",
+	// 	From:    "me@here.com",
+	// 	Subject: "Test Email",
+	// 	Content: "Test Body",
+	// }
+
+	// app.MailChan <- msg
 
 	// ------------------------------------------
 
