@@ -34,6 +34,13 @@
     https://github.com/asaskevich/govalidator
 
 
+### go-simple-mail
+
+    $ go get github.com/xhit/go-simple-mail/v2
+
+    https://github.com/xhit/go-simple-mail
+
+
 <!-- --------------------------------------------------------------- -->
 
 ### Vanilla JS Datepicker
