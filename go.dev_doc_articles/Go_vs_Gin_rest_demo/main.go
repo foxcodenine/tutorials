@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"regexp"
 
@@ -17,15 +18,49 @@ func main() {
 
 	// Create a new request multiplexer
 	// Take incoming requests and dispatch them to the matching handlers
-	mux := http.NewServeMux()
+	router := http.NewServeMux()
+	adminRouter := http.NewServeMux()
 
 	// Register the routes and handlers
-	mux.Handle("/", &homeHandler{})
-	mux.Handle("/recipes", recipesHandler)
-	mux.Handle("/recipes/", recipesHandler)
+	router.Handle("GET /", &homeHandler{})
 
-	// Run the server
-	http.ListenAndServe(":8080", mux)
+	/* using Go 1.22.2 new fetcher - http methods */
+	router.Handle("POST /recipes", http.HandlerFunc(recipesHandler.CreateRecipe))
+	router.Handle("GET /recipes", http.HandlerFunc(recipesHandler.ListRecipe))
+	router.Handle("GET /recipes/{id}", http.HandlerFunc((recipesHandler.GetRecipe)))
+	router.Handle("PUT /recipes/{id}", http.HandlerFunc(recipesHandler.UpdateRecipe))
+	adminRouter.Handle("DELETE /recipes/{id}", http.HandlerFunc(recipesHandler.DeleteRecipe))
+
+	stackedMiddlewares := CreateStack(
+		stripSlashMiddleware,
+		loggerMiddleware,
+	)
+
+	// ----------------------------------------------
+	/* using Go 1.22.2 new fetcher - sub-routing */
+
+	router.Handle("/", ensureAdminMiddleware(adminRouter))
+
+	// ----------------------------------------------
+	// Run the servers
+	server := http.Server{
+		Addr:    ":8080",
+		Handler: stackedMiddlewares(router),
+	}
+
+	log.Println("Server listening on post 8080")
+	server.ListenAndServe()
+
+	// ----------------------------------------------
+	/* using Go 1.22.2 new fetcher - sub-routing */
+	v1 := http.NewServeMux()
+	v1.Handle("/v1/", http.StripPrefix("/v1", router))
+	serverV1 := http.Server{
+		Addr:    ":8081",
+		Handler: stackedMiddlewares(v1),
+	}
+	serverV1.ListenAndServe()
+	// ----------------------------------------------
 }
 
 // ---------------------------------------------------------------------
@@ -33,6 +68,7 @@ func main() {
 type homeHandler struct{}
 
 func (h *homeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("This is my home page"))
 }
 
@@ -54,39 +90,13 @@ func NewRecipesHandler(s recipeStore) *RecipesHandler {
 // -------------------------
 
 var (
-	RecipeRe       = regexp.MustCompile(`^/recipes/?$`)
-	RecipeReWithID = regexp.MustCompile(`^/recipes/([a-z0-9]+(?:-[a-z0-9]+)+)$`)
+	RecipeRex       = regexp.MustCompile(`^/recipes/?$`)
+	RecipeRexWithID = regexp.MustCompile(`^/recipes/([a-z0-9]+(?:-[a-z0-9]+)+)$`)
 )
 
 // -------------------------
 
-func (h *RecipesHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	switch {
-	// Handle creating a new recipe: POST /recipes or /recipes/
-	case r.Method == http.MethodPost && RecipeRe.MatchString(r.URL.Path):
-		h.CreateRecipe(w, r)
-
-	// Handle listing all recipes: GET /recipes or /recipes/
-	case r.Method == http.MethodGet && RecipeRe.MatchString(r.URL.Path):
-		h.ListRecipe(w, r)
-
-	// Handle fetching a single recipe by ID: GET /recipes/{id}
-	case r.Method == http.MethodGet && RecipeReWithID.MatchString(r.URL.Path):
-		h.GetRecipe(w, r)
-
-	// Handle updating a recipe by ID: PUT /recipes/{id}
-	case r.Method == http.MethodPut && RecipeReWithID.MatchString(r.URL.Path):
-		h.UpdateRecipe(w, r)
-
-	// Handle deleting a recipe by ID: DELETE /recipes/{id}
-	case r.Method == http.MethodDelete && RecipeReWithID.MatchString(r.URL.Path):
-		h.DeleteRecipe(w, r)
-
-	// Default case for unmatched routes or methods
-	default:
-		NotFountHandler(w, r)
-	}
-}
+// -------------------------
 
 func (h *RecipesHandler) CreateRecipe(w http.ResponseWriter, r *http.Request) {
 
@@ -115,10 +125,135 @@ func (h *RecipesHandler) CreateRecipe(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func (h *RecipesHandler) ListRecipe(w http.ResponseWriter, r *http.Request)   {}
-func (h *RecipesHandler) GetRecipe(w http.ResponseWriter, r *http.Request)    {}
-func (h *RecipesHandler) UpdateRecipe(w http.ResponseWriter, r *http.Request) {}
-func (h *RecipesHandler) DeleteRecipe(w http.ResponseWriter, r *http.Request) {}
+// -------------------------
+
+func (h *RecipesHandler) ListRecipe(w http.ResponseWriter, r *http.Request) {
+	// Retrieve the recipes from the store:
+
+	resources, err := h.store.List()
+
+	if err != nil {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Convert the return list into JSON using the json.Marshal function:
+
+	jsonBytes, err := json.Marshal(resources)
+
+	if err != nil {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Add the JSON payload to the HTTP response
+	// using the Write function of http.ResponseWriter & set the header to 200:
+
+	w.WriteHeader(http.StatusOK)
+	_, err = w.Write(jsonBytes)
+
+	if err != nil {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+}
+
+// -------------------------
+
+func (h *RecipesHandler) GetRecipe(w http.ResponseWriter, r *http.Request) {
+
+	/* using Go 1.22.2 new fetcher - path parameters */
+	id := r.PathValue("id")
+
+	// -----------------------------------------
+
+	recipe, err := h.store.Get(id)
+
+	// -----------------------------------------
+
+	if err != nil {
+		// Special case of NotFound Error
+		if err == recipes.ErrNotFound {
+			NotFoundHandler(w, r)
+			return
+		}
+
+		// Every other error
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Marshal the recipe into JSON format
+	jsonBytes, err := json.Marshal(recipe)
+
+	if err != nil {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Respond with the JSON and a 200 OK status
+	w.WriteHeader(http.StatusOK)
+	w.Write(jsonBytes)
+
+}
+
+// -------------------------
+
+func (h *RecipesHandler) UpdateRecipe(w http.ResponseWriter, r *http.Request) {
+
+	/* using Go 1.22.2 new fetcher - path parameters */
+	id := r.PathValue("id")
+
+	// -----------------------------------------
+
+	// Declare a variable to hold the recipe data from the request body
+	var recipe recipes.Recipe
+
+	// Decode the JSON payload into the recipe struct
+	err := json.NewDecoder(r.Body).Decode(&recipe)
+	if err != nil {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Attempt to update the recipe in the store with the given ID
+	err = h.store.Update(id, recipe)
+	if err != nil {
+		// Handle the case where the recipe does not exist
+		if err == recipes.ErrNotFound {
+			NotFoundHandler(w, r)
+			return
+		}
+		// Handle any other errors
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// If the update is successful, set the status code to 200 OK
+	w.WriteHeader(http.StatusOK)
+}
+
+// -------------------------
+
+func (h *RecipesHandler) DeleteRecipe(w http.ResponseWriter, r *http.Request) {
+
+	/* using Go 1.22.2 new fetcher - path parameters */
+	id := r.PathValue("id")
+
+	err := h.store.Remove(id)
+
+	if err != nil {
+		if err == recipes.ErrNotFound {
+			NotFoundHandler(w, r)
+			return
+		}
+
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+}
 
 // ---------------------------------------------------------------------
 
@@ -137,7 +272,7 @@ func InternalServerErrorHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("500 Internal Server Error"))
 }
 
-func NotFountHandler(w http.ResponseWriter, r *http.Request) {
+func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
 	w.Write([]byte("404 Not Found"))
 }

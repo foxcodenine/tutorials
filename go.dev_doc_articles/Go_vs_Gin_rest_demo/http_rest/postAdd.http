@@ -1,0 +1,18 @@
+###
+POST http://localhost:8080/recipes HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Ham and cheese toasties",
+    "ingredients": [
+        {"name": "bread"},
+        {"name": "ham"},
+        {"name": "cheese"}
+    ]
+}
+
+
+
+
+
+
