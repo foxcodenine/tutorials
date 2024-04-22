@@ -8,8 +8,22 @@ Go REST Guide. The Standard Library
 
 GopherCon 2018: Kat Zien - How Do You Structure Your Go Apps
 
-
     https://www.youtube.com/watch?v=oL6JBUk6tj0
+
+The standard library now has all you need for advanced routing in Go.
+
+    https://www.youtube.com/watch?v=H7tbjKFSg58
+
+* middleware
+* subrouting
+* path parameters
+* http methods
+* passing down context 
+
+Uupgrading or Downgrading Go
+
+    https://www.practical-go-lessons.com/chap-40-upgrading-or-downgrading-go
+    
 
 #### Music
 
