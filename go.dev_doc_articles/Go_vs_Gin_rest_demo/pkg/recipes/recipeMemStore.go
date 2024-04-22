@@ -2,7 +2,6 @@ package recipes
 
 import (
 	"errors"
-	"fmt"
 )
 
 var (
@@ -30,7 +29,6 @@ func NewMemStore() *MemStore {
 
 func (m *MemStore) Add(name string, recipe Recipe) error {
 	m.list[name] = recipe
-	fmt.Println(recipe)
 	return nil
 }
 

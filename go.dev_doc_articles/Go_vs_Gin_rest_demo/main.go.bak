@@ -1,0 +1,296 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"regexp"
+
+	"github.com/foxcodenine/go-vs-gin-rest-demo/pkg/recipes"
+	"github.com/gosimple/slug"
+)
+
+func main() {
+
+	// Create the Store and Recipe Handler
+	store := recipes.NewMemStore()
+	recipesHandler := NewRecipesHandler(store)
+
+	// Create a new request multiplexer
+	// Take incoming requests and dispatch them to the matching handlers
+	mux := http.NewServeMux()
+
+	// Register the routes and handlers
+	mux.Handle("/", &homeHandler{})
+	mux.Handle("/recipes", recipesHandler)
+	mux.Handle("/recipes/{id}", recipesHandler)
+
+	// Run the server
+	http.ListenAndServe(":8080", mux)
+}
+
+// ---------------------------------------------------------------------
+
+type homeHandler struct{}
+
+func (h *homeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("This is my home page"))
+}
+
+// ---------------------------------------------------------------------
+
+type RecipesHandler struct {
+	store recipeStore
+}
+
+// -------------------------
+
+// NewRecipesHandler - a RecipesHandler constructor
+func NewRecipesHandler(s recipeStore) *RecipesHandler {
+	return &RecipesHandler{
+		store: s,
+	}
+}
+
+// -------------------------
+
+var (
+	RecipeRex       = regexp.MustCompile(`^/recipes/?$`)
+	RecipeRexWithID = regexp.MustCompile(`^/recipes/([a-z0-9]+(?:-[a-z0-9]+)+)$`)
+)
+
+// -------------------------
+
+func (h *RecipesHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	switch {
+	// Handle creating a new recipe: POST /recipes or /recipes/
+	case r.Method == http.MethodPost && RecipeRex.MatchString(r.URL.Path):
+		h.CreateRecipe(w, r)
+
+	// Handle listing all recipes: GET /recipes or /recipes/
+	case r.Method == http.MethodGet && RecipeRex.MatchString(r.URL.Path):
+		h.ListRecipe(w, r)
+
+	// Handle fetching a single recipe by ID: GET /recipes/{id}
+	case r.Method == http.MethodGet && RecipeRexWithID.MatchString(r.URL.Path):
+		h.GetRecipe(w, r)
+
+	// Handle updating a recipe by ID: PUT /recipes/{id}
+	case r.Method == http.MethodPut && RecipeRexWithID.MatchString(r.URL.Path):
+		h.UpdateRecipe(w, r)
+
+	// Handle deleting a recipe by ID: DELETE /recipes/{id}
+	case r.Method == http.MethodDelete && RecipeRexWithID.MatchString(r.URL.Path):
+		h.DeleteRecipe(w, r)
+
+	// Default case for unmatched routes or methods
+	default:
+		NotFoundHandler(w, r)
+	}
+}
+
+// -------------------------
+
+func (h *RecipesHandler) CreateRecipe(w http.ResponseWriter, r *http.Request) {
+
+	// Recipe object that will be populated from JSON payload
+	var recipe recipes.Recipe
+
+	err := json.NewDecoder(r.Body).Decode(&recipe)
+
+	if err != nil {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Convert the name of the recipe into URL friendly string
+	resourceID := slug.Make(recipe.Name)
+
+	// Call the store to add the recipe
+	err = h.store.Add(resourceID, recipe)
+
+	if err != nil {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Set the status code to 200
+	w.WriteHeader(http.StatusOK)
+}
+
+// -------------------------
+
+func (h *RecipesHandler) ListRecipe(w http.ResponseWriter, r *http.Request) {
+	// Retrieve the recipes from the store:
+
+	resources, err := h.store.List()
+
+	if err != nil {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Convert the return list into JSON using the json.Marshal function:
+
+	jsonBytes, err := json.Marshal(resources)
+
+	if err != nil {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Add the JSON payload to the HTTP response
+	// using the Write function of http.ResponseWriter & set the header to 200:
+
+	w.WriteHeader(http.StatusOK)
+	_, err = w.Write(jsonBytes)
+
+	if err != nil {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+}
+
+// -------------------------
+
+func (h *RecipesHandler) GetRecipe(w http.ResponseWriter, r *http.Request) {
+
+	// -----------------------------------------
+
+	id := r.PathValue("id")
+	fmt.Println(id)
+
+	// -----------------------------------------
+
+	// Extract the resource ID/slug using a regex
+	matches := RecipeRexWithID.FindStringSubmatch(r.URL.Path)
+
+	// With Go regex, the 1st match when calling FindStringSubmatch is the full matching string,
+	// Then all the subgroups.
+
+	// So for the regex ^/recipes/([a-z0-9]+(?:-[a-z0-9]+)+)$ ,
+	// The 1st matching group ([a-z0-9]+(?:-[a-z0-9]+)+)
+
+	// Expect matches to be length >= 2 (full string + 1 matching group)
+	if len(matches) < 2 {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Fetch the recipe from the store using the extracted ID
+	recipe, err := h.store.Get(matches[1])
+
+	if err != nil {
+		// Special case of NotFound Error
+		if err == recipes.ErrNotFound {
+			NotFoundHandler(w, r)
+			return
+		}
+
+		// Every other error
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Marshal the recipe into JSON format
+	jsonBytes, err := json.Marshal(recipe)
+
+	if err != nil {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Respond with the JSON and a 200 OK status
+	w.WriteHeader(http.StatusOK)
+	w.Write(jsonBytes)
+
+}
+
+// -------------------------
+
+func (h *RecipesHandler) UpdateRecipe(w http.ResponseWriter, r *http.Request) {
+	// Extract the recipe ID from the URL using a regex
+	matches := RecipeRexWithID.FindStringSubmatch(r.URL.Path)
+
+	// Ensure that the regex matched and extracted at least one group (the recipe ID)
+	if len(matches) < 2 {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Declare a variable to hold the recipe data from the request body
+	var recipe recipes.Recipe
+
+	// Decode the JSON payload into the recipe struct
+	err := json.NewDecoder(r.Body).Decode(&recipe)
+	if err != nil {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// Attempt to update the recipe in the store with the given ID
+	err = h.store.Update(matches[1], recipe)
+	if err != nil {
+		// Handle the case where the recipe does not exist
+		if err == recipes.ErrNotFound {
+			NotFoundHandler(w, r)
+			return
+		}
+		// Handle any other errors
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	// If the update is successful, set the status code to 200 OK
+	w.WriteHeader(http.StatusOK)
+}
+
+// -------------------------
+
+func (h *RecipesHandler) DeleteRecipe(w http.ResponseWriter, r *http.Request) {
+
+	matches := RecipeRexWithID.FindStringSubmatch(r.URL.Path)
+
+	if len(matches) < 2 {
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	err := h.store.Remove(matches[1])
+
+	if err != nil {
+		if err == recipes.ErrNotFound {
+			NotFoundHandler(w, r)
+			return
+		}
+
+		InternalServerErrorHandler(w, r)
+		return
+	}
+
+	w.WriteHeader(http.StatusOK)
+}
+
+// ---------------------------------------------------------------------
+
+type recipeStore interface {
+	Add(name string, recipe recipes.Recipe) error
+	Get(name string) (recipes.Recipe, error)
+	Update(name string, recipes recipes.Recipe) error
+	List() (map[string]recipes.Recipe, error)
+	Remove(name string) error
+}
+
+// ---------------------------------------------------------------------
+
+func InternalServerErrorHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusInternalServerError)
+	w.Write([]byte("500 Internal Server Error"))
+}
+
+func NotFoundHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotFound)
+	w.Write([]byte("404 Not Found"))
+}
+
+// ---------------------------------------------------------------------
