@@ -25,6 +25,11 @@ Uupgrading or Downgrading Go
     https://www.practical-go-lessons.com/chap-40-upgrading-or-downgrading-go
     
 
+Restful routing with Chi in Go
+
+    https://thedevelopercafe.com/articles/restful-routing-with-chi-in-go-d05a2f952b3d
+    
+
 #### Music
 
     The Most Peaceful DUNE Music You've Never Heard 

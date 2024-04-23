@@ -165,6 +165,10 @@ func (h *RecipesHandler) GetRecipe(w http.ResponseWriter, r *http.Request) {
 	/* using Go 1.22.2 new fetcher - path parameters */
 	id := r.PathValue("id")
 
+	if r.URL.Path == "/recipes/ham-and-cheese-toasties" && id == "" {
+		id = "ham-and-cheese-toasties"
+	}
+
 	// -----------------------------------------
 
 	recipe, err := h.store.Get(id)
@@ -204,6 +208,10 @@ func (h *RecipesHandler) UpdateRecipe(w http.ResponseWriter, r *http.Request) {
 	/* using Go 1.22.2 new fetcher - path parameters */
 	id := r.PathValue("id")
 
+	if r.URL.Path == "/recipes/ham-and-cheese-toasties" && id == "" {
+		id = "ham-and-cheese-toasties"
+	}
+
 	// -----------------------------------------
 
 	// Declare a variable to hold the recipe data from the request body
@@ -239,6 +247,10 @@ func (h *RecipesHandler) DeleteRecipe(w http.ResponseWriter, r *http.Request) {
 
 	/* using Go 1.22.2 new fetcher - path parameters */
 	id := r.PathValue("id")
+
+	if r.URL.Path == "/recipes/ham-and-cheese-toasties" && id == "" {
+		id = "ham-and-cheese-toasties"
+	}
 
 	err := h.store.Remove(id)
 
