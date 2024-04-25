@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_recipes
+    # restart: always
+    environment:
+      POSTGRES_DB: recipes
+      POSTGRES_USER: foxcodenine
+      POSTGRES_PASSWORD: ayanami99
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres_data_754862:/var/lib/postgresql/data
+
+
+
+volumes:
+  postgres_data_754862:
+
