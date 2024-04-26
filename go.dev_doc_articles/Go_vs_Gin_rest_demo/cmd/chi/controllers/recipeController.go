@@ -1,11 +1,12 @@
 package controllers
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"net/http"
-	"time"
+
+	"github.com/foxcodenine/go-vs-gin-rest-demo/cmd/chi/repository"
+	"github.com/foxcodenine/go-vs-gin-rest-demo/cmd/chi/repository/dbRepo"
 
 	"github.com/foxcodenine/go-vs-gin-rest-demo/pkg/config"
 
@@ -16,6 +17,7 @@ import (
 
 type RecipeController struct {
 	App *config.AppConfig
+	DB  repository.DatabaseRepo
 }
 
 var recipeController RecipeController
@@ -24,6 +26,7 @@ var recipeController RecipeController
 
 func InitRecipeController(app *config.AppConfig) *RecipeController {
 	recipeController.App = app
+	recipeController.DB = dbRepo.NewDbRepo(app)
 	return &recipeController
 }
 
@@ -34,43 +37,15 @@ func ImportRecipeController() *RecipeController {
 // ---------------------------------------------------------------------
 
 func (c *RecipeController) Index(w http.ResponseWriter, r *http.Request) {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 
-	defer cancel()
-
-	sql := `SELECT * FROM recipes`
-
-	var recipes []rrr
-
-	rows, err := c.App.DB.SQL.QueryContext(ctx, sql)
+	recipes, err := c.DB.SelectAllRecipes()
 
 	if err != nil {
-		log.Println("! RecipeController (1) !")
-		log.Println(err.Error())
-		return
-	}
-
-	for rows.Next() {
-		var r rrr
-
-		err := rows.Scan(
-			&r.id,
-			&r.name,
-		)
-		if err != nil {
-			log.Fatalln("! RecipeController (2) !")
-			return
-		}
-
-		recipes = append(recipes, r)
+		log.Println("! RecipeController Index !")
+		log.Println(err)
 	}
 
 	fmt.Println("func: index", recipes)
-}
-
-type rrr struct {
-	id   int
-	name string
 }
 
 // ---------------------------------------------------------------------
