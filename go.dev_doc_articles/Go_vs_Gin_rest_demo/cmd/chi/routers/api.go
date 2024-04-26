@@ -9,6 +9,7 @@ import (
 
 // Controllers ---------------------------------------------------------
 var recipeController = controllers.ImportRecipeController()
+var ingredientController = controllers.ImportIngredientController()
 
 // Routers -------------------------------------------------------------
 func InitRouter() *chi.Mux {
@@ -25,6 +26,8 @@ func InitRouter() *chi.Mux {
 	router.Get("/recipe", recipeController.Index)
 	router.Post("/recipe", recipeController.Store)
 	router.Get("/recipe/{id}", recipeController.Show)
+
+	router.Post("/ingredient", ingredientController.Store)
 
 	// -----------------------------------------------------------------
 
