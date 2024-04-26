@@ -32,6 +32,7 @@ func main() {
 	// -----------------------------------------------------------------
 
 	controllers.InitRecipeController(&app)
+	controllers.InitIngredientController(&app)
 
 	// -----------------------------------------------------------------
 
