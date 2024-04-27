@@ -1,12 +1,16 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/foxcodenine/go-vs-gin-rest-demo/cmd/chi/repository"
 	"github.com/foxcodenine/go-vs-gin-rest-demo/cmd/chi/repository/dbRepo"
+
+	"github.com/go-playground/validator/v10"
 
 	"github.com/foxcodenine/go-vs-gin-rest-demo/pkg/config"
 
@@ -45,21 +49,78 @@ func (c *RecipeController) Index(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 
-	fmt.Println("func: index", recipes)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(recipes)
 }
 
 // ---------------------------------------------------------------------
+type RecipeData struct {
+	Name        string   `json:"name" validate:"required"`
+	Ingredients []string `json:"ingredients" validate:"required"`
+}
 
 func (c *RecipeController) Store(w http.ResponseWriter, r *http.Request) {
-	var id, recipe string
-	fmt.Println("func: store, id:", id, "recipe", recipe)
+
+	var data RecipeData
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, "Invalid JSON data: "+err.Error(), http.StatusBadRequest)
+	}
+
+	validate := validator.New()
+	err = validate.Struct(data)
+	if err != nil {
+		http.Error(w, "Validation error: "+err.Error(), http.StatusBadRequest)
+	}
+
+	newRecipe, err := c.DB.CreateRecipe(data.Name, data.Ingredients)
+	if err != nil {
+		http.Error(w, "Internal server error: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(newRecipe)
+
 }
 
 // ---------------------------------------------------------------------
 
 func (c *RecipeController) Show(w http.ResponseWriter, r *http.Request) {
-	id := chi.URLParam(r, "id")
-	fmt.Println("func: show, id:", id)
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+	if err != nil {
+		fmt.Println("Error converting string to int32:", err)
+	}
+
+	fetchedRecipe, err := c.DB.SelectRecipe(id)
+	if err != nil {
+		http.Error(w, "Internal server error: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(fetchedRecipe)
+}
+
+// ---------------------------------------------------------------------
+
+func (c *RecipeController) Update(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+	if err != nil {
+		fmt.Println("Error converting string to int32:", err)
+	}
+
+	var data RecipeData
+	err = json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, "Invalid JSON data: "+err.Error(), http.StatusBadRequest)
+	}
+
+	_, err = c.DB.UpdateRecipe(id, data.Name, data.Ingredients)
+	if err != nil {
+		http.Error(w, "Internal server error: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
 }
 
 // ---------------------------------------------------------------------
