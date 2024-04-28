@@ -222,7 +222,7 @@ func (m *postgresDBRepo) Authenticate(email, testPassword string) (int, string, 
 	var id int
 	var hashedPassword string
 
-	sql := `SELECT id, password FROM user WHERE email = $1 LIMIT 1`
+	sql := `SELECT id, password FROM users WHERE email = $1 LIMIT 1`
 
 	row := m.DB.QueryRowContext(ctx, sql, email)
 
