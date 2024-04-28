@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"encoding/json"
+	"log"
+
 	// "errors"
 	"reflect"
 
@@ -540,9 +542,45 @@ func (m *Repository) BookRoom(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "make-reservation", http.StatusSeeOther)
 }
 
-func (m *Repository) UserLogin(w http.ResponseWriter, r *http.Request) {
+func (m *Repository) ShowLogin(w http.ResponseWriter, r *http.Request) {
 
 	render.Template(w, r, "login-page.tmpl", &models.TemplateData{
 		Form: forms.New(nil),
 	})
+}
+
+// PostShowLogin - handles logging the user in
+func (m *Repository) PostShowLogin(w http.ResponseWriter, r *http.Request) {
+
+	_ = m.App.Session.RenewToken(r.Context())
+
+	err := r.ParseForm()
+	if err != nil {
+		log.Println(err)
+	}
+
+	form := forms.New(r.PostForm)
+	form.Required("email", "password")
+
+	if !form.Valid() {
+		// TODO: take user back to page
+	}
+	email := r.Form.Get("email")
+	password := r.Form.Get("password")
+
+	// tempHash, _ := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	// fmt.Println(password, string(tempHash))
+	// $2a$10$2bLZ/R.9H.gNmADImi8s/OhID7EHLCf.Rk0iJ1fP8TlUlCb.tIpZO secret
+
+	id, _, err := m.DB.Authenticate(email, password)
+	if err != nil {
+		log.Println(err)
+		m.App.Session.Put(r.Context(), "error", "Invalid login credentials")
+		http.Redirect(w, r, "/user/login", http.StatusSeeOther)
+	}
+
+	m.App.Session.Put(r.Context(), "user_id", id)
+
+	m.App.Session.Put(r.Context(), "flash", "Logged in successfully")
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
