@@ -2,9 +2,11 @@ package dbrepo
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"foxcode.io/models"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func (m *postgresDBRepo) AllUsers() bool {
@@ -165,4 +167,78 @@ func (m *postgresDBRepo) GetRoomById(id int) (models.Room, error) {
 	}
 
 	return room, nil
+}
+
+// GetUserByID get a user from database by ID
+func (m *postgresDBRepo) GetUserByID(id int) (models.User, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	sql := `SELECT id, fullname, email, password, role, created_at, updated_at
+			FROM users WHERE id = $1`
+
+	row := m.DB.QueryRowContext(ctx, sql, id)
+
+	var u models.User
+
+	err := row.Scan(
+		&u.ID,
+		&u.FullName,
+		&u.Email,
+		&u.Password,
+		&u.Role,
+		&u.CreatedAt,
+		&u.UpdatedAt,
+	)
+
+	if err != nil {
+		return u, err
+	}
+
+	return u, nil
+}
+
+// UpdateUser update a user in the database
+func (m *postgresDBRepo) UpdateUser(u models.User) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	sql := `UPDATE users SET fullname = $1, email = $2, role = $3 updated_at = $4
+			WHERE id = $5`
+
+	_, err := m.DB.ExecContext(ctx, sql, u.FullName, u.Email, u.Role, time.Now(), u.ID)
+
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// Authenticate authenticate a user
+func (m *postgresDBRepo) Authenticate(email, testPassword string) (int, string, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+
+	var id int
+	var hashedPassword string
+
+	sql := `SELECT id, password FROM user WHERE email = $1 LIMIT 1`
+
+	row := m.DB.QueryRowContext(ctx, sql, email)
+
+	err := row.Scan(&id, &hashedPassword)
+
+	if err != nil {
+		return id, "", err
+	}
+
+	err = bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(testPassword))
+
+	if err != bcrypt.ErrMismatchedHashAndPassword {
+		return id, "", err
+	} else if err != nil {
+		return id, "", errors.New("incorrect password")
+	}
+
+	return id, hashedPassword, nil
 }
