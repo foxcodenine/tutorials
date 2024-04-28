@@ -2,7 +2,6 @@ package dbRepo
 
 import (
 	"context"
-	"log"
 	"time"
 
 	"github.com/foxcodenine/go-vs-gin-rest-demo/cmd/chi/models"
@@ -44,10 +43,9 @@ func (m *dbRepo) SelectAllIngredients() ([]models.Ingredient, error) {
 func (m *dbRepo) CreateIngredient(name string) (*models.Ingredient, error) {
 	// Create a context with a timeout
 
-	log.Println(1)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel() // Ensure cleanup of context resources.
-	log.Println(2)
+
 	// SQL statement to insert a new ingredient and return the new ID
 	sql := "INSERT INTO ingredients (name) VALUES ($1) RETURNING id"
 
@@ -55,12 +53,10 @@ func (m *dbRepo) CreateIngredient(name string) (*models.Ingredient, error) {
 	var id int
 	// Execute SQL statement and capture the returned ID
 	err := m.DB.QueryRowContext(ctx, sql, name).Scan(&id)
-	log.Println(3)
+
 	if err != nil {
 		return nil, err // Return any error that occurs
 	}
-
-	log.Println(4)
 
 	// Create and return the new ingredient instance
 	return &models.Ingredient{Id: id, Name: name}, nil
