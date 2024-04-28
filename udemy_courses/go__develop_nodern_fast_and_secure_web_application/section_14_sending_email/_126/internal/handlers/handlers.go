@@ -496,7 +496,7 @@ func (m *Repository) ChooseRoom(w http.ResponseWriter, r *http.Request) {
 	res.RoomID = roomId
 
 	m.App.Session.Put(r.Context(), "reservation", res)
-	fmt.Println(">>", 456)
+
 	http.Redirect(w, r, "/make-reservation", http.StatusSeeOther)
 }
 
@@ -537,7 +537,12 @@ func (m *Repository) BookRoom(w http.ResponseWriter, r *http.Request) {
 
 	m.App.Session.Put(r.Context(), "reservation", res)
 
-	fmt.Println(">>", 123)
-
 	http.Redirect(w, r, "make-reservation", http.StatusSeeOther)
+}
+
+func (m *Repository) UserLogin(w http.ResponseWriter, r *http.Request) {
+
+	render.Template(w, r, "login-page.tmpl", &models.TemplateData{
+		Form: forms.New(nil),
+	})
 }
