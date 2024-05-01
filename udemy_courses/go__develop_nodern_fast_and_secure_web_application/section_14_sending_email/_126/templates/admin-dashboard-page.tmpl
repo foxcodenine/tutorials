@@ -1,10 +1,11 @@
+{{template "admin" .}}
 
-
-{{ template "base" . }}
+{{define "page-title"}}
+    Dashboard
+{{end}}
 
 {{define "content"}}
-<div class="container mt-5">
-
-    <h3>This page is secure.</h3>
-</div>
+    <div class="col-md-12">
+        Dashboard content
+    </div>
 {{end}}

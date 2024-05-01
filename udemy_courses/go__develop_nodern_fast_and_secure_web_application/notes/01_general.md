@@ -29,3 +29,10 @@
 
     soda generate fizz AllowReservationIdNoNullInTableRestrictions
     soda generate sql SeedRoomTable
+
+
+    soda generate fizz AddProcessedToReservationsTable
+
+    soda migrate
+
+    soda reset
