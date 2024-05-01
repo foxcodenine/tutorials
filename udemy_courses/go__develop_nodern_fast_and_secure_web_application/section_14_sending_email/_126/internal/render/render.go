@@ -7,11 +7,22 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+	"time"
 
 	"foxcode.io/internal/config"
 	"foxcode.io/models"
 	"github.com/justinas/nosurf"
 )
+
+// ---------------------------------------------------------------------
+var functions = template.FuncMap{
+	"humanDate": HumanDay,
+}
+
+// HumanDay return time in YYYY-MM-DD format
+func HumanDay(t time.Time) string {
+	return t.Format("2006-01-02")
+}
 
 // ---------------------------------------------------------------------
 
@@ -64,7 +75,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 		name := filepath.Base(page)
 
 		// Step 4: Create a template set for the current page
-		templateSet, err := template.New(name).ParseFiles(page)
+		templateSet, err := template.New(name).Funcs(functions).ParseFiles(page)
 		if err != nil {
 			return templateCache, err
 		}
