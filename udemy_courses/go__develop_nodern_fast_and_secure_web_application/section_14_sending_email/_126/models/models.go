@@ -25,7 +25,7 @@ type Restriction struct {
 	ID              int
 	RestrictionName string
 	CreatedAt       time.Time
-	UdpadedAt       time.Time
+	UpdatedAt       time.Time
 }
 
 type Reservation struct {
@@ -37,7 +37,7 @@ type Reservation struct {
 	EndDate   time.Time
 	RoomID    int
 	CreatedAt time.Time
-	UdpadedAt time.Time
+	UpdatedAt time.Time
 	Room      Room
 	Processed int
 }
