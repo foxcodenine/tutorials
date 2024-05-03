@@ -55,6 +55,7 @@ func routes(app *config.AppConfig) http.Handler {
 		mux.Get("/reservation-calendar", handlers.Repo.AdminCalendarReservations)
 
 		mux.Get("/reservations/{src}/{id}", handlers.Repo.AdminShowReservation)
+		mux.Post("/reservations/{src}/{id}", handlers.Repo.PostAdminShowReservation)
 	})
 
 	// Return the configured Chi router as the HTTP handler.
