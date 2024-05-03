@@ -644,7 +644,77 @@ func (m *Repository) AdminNewReservations(w http.ResponseWriter, r *http.Request
 
 // AdminShowReservation show the reservation in the admin tool
 func (m *Repository) AdminShowReservation(w http.ResponseWriter, r *http.Request) {
-	render.Template(w, r, "admin-reservation-show-page.tmpl", &models.TemplateData{})
+	src := chi.URLParam(r, "src")
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	resv, err := m.DB.GetReservationByID(id)
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	stringMap := make(map[string]string)
+	stringMap["src"] = src
+
+	data := make(map[string]interface{})
+	data["reservation"] = resv
+
+	render.Template(w, r, "admin-reservation-show-page.tmpl", &models.TemplateData{
+		StringMap: stringMap,
+		DataMap:   data,
+		Form:      &forms.Form{},
+	})
+
+}
+
+func (m *Repository) PostAdminShowReservation(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+	src := chi.URLParam(r, "src")
+
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	resv, err := m.DB.GetReservationByID(id)
+
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	err = r.ParseForm()
+
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	// http://localhost:8081/admin/reservations/new/52
+
+	FullName := r.Form.Get("full_name")
+	Email := r.Form.Get("email")
+	Phone := r.Form.Get("phone")
+	fmt.Println(">", FullName)
+
+	resv.FullName = FullName
+	resv.Email = Email
+	resv.Phone = Phone
+
+	err = m.DB.UpdateReservation(resv)
+
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	m.App.Session.Put(r.Context(), "flash", "Changes saved")
+	http.Redirect(w, r, fmt.Sprintf("/admin/reservations/%s/%d", src, id), http.StatusSeeOther)
+
 }
 
 // AdminCalendarReservations display the reservation calendar
