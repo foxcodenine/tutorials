@@ -21,7 +21,7 @@ func (m *testDBRepo) InsertReservation(res models.Reservation) (int, error) {
 	return 1, nil
 }
 
-func (m *testDBRepo) InsertRoomRestrictions(r models.RoomRestrintion) error {
+func (m *testDBRepo) InsertRoomRestrictions(r models.RoomRestriction) error {
 	if r.RoomID == 700 {
 		return errors.New("some error")
 	}
@@ -110,4 +110,18 @@ func (m *testDBRepo) DeleteReservation(id int) error {
 }
 func (m *testDBRepo) UpdateProcessedForReservation(id, processed int) error {
 	return nil
+}
+
+func (m *testDBRepo) AllRooms() ([]models.Room, error) {
+	var rooms []models.Room
+
+	return rooms, nil
+}
+
+// GetRestrictionsForRoomByDate returns restrictions for a room by date range
+func (m *testDBRepo) GetRestrictionsForRoomByDate(roomID int, start, end time.Time) ([]models.RoomRestriction, error) {
+
+	var restrictions []models.RoomRestriction
+
+	return restrictions, nil
 }

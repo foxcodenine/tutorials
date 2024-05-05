@@ -392,7 +392,7 @@ func (m *Repository) PostMakeReservation(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	restriction := models.RoomRestrintion{
+	restriction := models.RoomRestriction{
 		StartDate:     reservation.StartDate,
 		EndDate:       reservation.EndDate,
 		RoomID:        reservation.RoomID,
@@ -586,7 +586,7 @@ func (m *Repository) PostShowLogin(w http.ResponseWriter, r *http.Request) {
 
 	m.App.Session.Put(r.Context(), "user_id", id)
 
-	m.App.Session.Put(r.Context(), "flash", "Logged in successfully")
+	m.App.Session.Put(r.Context(), "info", "Logged in successfully")
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
@@ -712,12 +712,147 @@ func (m *Repository) PostAdminShowReservation(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	m.App.Session.Put(r.Context(), "flash", "Changes saved")
+	m.App.Session.Put(r.Context(), "info", "Changes saved")
 	http.Redirect(w, r, fmt.Sprintf("/admin/reservations/%s/%d", src, id), http.StatusSeeOther)
+
+}
+
+func (m *Repository) AdminProcessReservation(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+	// src := chi.URLParam(r, "src")
+
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	err = m.DB.UpdateProcessedForReservation(id, 1)
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	m.App.Session.Put(r.Context(), "flash", fmt.Sprintf("Reservation %d Processed", id))
+
+	http.Redirect(w, r, "/admin/reservations-all", http.StatusSeeOther)
+}
+
+func (m *Repository) AdminDeleteReservation(w http.ResponseWriter, r *http.Request) {
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+	// src := chi.URLParam(r, "src")
+
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	err = m.DB.DeleteReservation(id)
+
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+	m.App.Session.Put(r.Context(), "flash", fmt.Sprintf("Reservation %d Deleted", id))
+
+	http.Redirect(w, r, "/admin/reservations-all", http.StatusSeeOther)
 
 }
 
 // AdminCalendarReservations display the reservation calendar
 func (m *Repository) AdminCalendarReservations(w http.ResponseWriter, r *http.Request) {
-	render.Template(w, r, "admin-calandar-reservations-page.tmpl", &models.TemplateData{})
+
+	now := time.Now()
+
+	if r.URL.Query().Get("y") != "" {
+		year, _ := strconv.Atoi(r.URL.Query().Get("y"))
+		month, _ := strconv.Atoi(r.URL.Query().Get("m"))
+		now = time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.UTC)
+
+		fmt.Println("aaaaa", year, month)
+	} else {
+
+		fmt.Println("bbbbb")
+	}
+
+	dataMap := map[string]interface{}{
+		"now": now,
+	}
+
+	next := now.AddDate(0, 1, 0)
+	last := now.AddDate(0, -1, 0)
+
+	nextMonth := next.Format("01")
+	nextMonthYear := next.Format("2006")
+
+	lastMonth := last.Format("01")
+	lastMonthYear := last.Format("2006")
+
+	stringMap := map[string]string{
+		"next_month":      nextMonth,
+		"next_month_year": nextMonthYear,
+		"last_month":      lastMonth,
+		"last_month_year": lastMonthYear,
+	}
+
+	stringMap["this_month"] = now.Format("01")
+	stringMap["this_month_year"] = now.Format("2006")
+
+	currentYear, currentMount, _ := now.Date()
+	currentLocation := now.Location()
+	firstOfMonth := time.Date(currentYear, currentMount, 1, 0, 0, 0, 0, currentLocation)
+	lastOfMonth := firstOfMonth.AddDate(0, 1, -1)
+
+	intMap := map[string]int{
+		"days_in_month": lastOfMonth.Day(),
+	}
+
+	rooms, err := m.DB.AllRooms()
+
+	if err != nil {
+		helpers.ServerError(w, err)
+		return
+	}
+
+	dataMap["rooms"] = rooms
+
+	for _, rm := range rooms {
+		// create maps
+		reservationMap := make(map[string]int)
+		blockMap := make(map[string]int)
+
+		// Iterate over dates starting from firstOfMonth until lastOfMonth
+		for d := firstOfMonth; !d.After(lastOfMonth); d = d.AddDate(0, 0, 1) {
+			// Inside the loop, populate reservationMap and blockMap with date keys formatted as "YYYY-MM-DD" and initial values of 0
+			reservationMap[d.Format("2006-01-2")] = 0
+			blockMap[d.Format("2006-01-2")] = 0
+		}
+
+		// get all the restriction for the current room
+		restrictions, err := m.DB.GetRestrictionsForRoomByDate(rm.ID, firstOfMonth, lastOfMonth)
+		if err != nil {
+			helpers.ServerError(w, err)
+			return
+		}
+		for _, y := range restrictions {
+			if y.ReservationID > 0 {
+				// it's a reservation - we are doing a for loop because a reservation could be a nuber of days long
+				for d := y.StartDate; !d.After(y.EndDate); d = d.AddDate(0, 0, 1) {
+					reservationMap[d.Format("2006-01-2")] = y.ReservationID
+				}
+			} else {
+				// it's a block - while block is alway a 1 day long
+				blockMap[y.StartDate.Format("2006-01-2")] = y.ID
+			}
+		}
+		dataMap[fmt.Sprintf("reservation_map_%d", rm.ID)] = reservationMap
+		dataMap[fmt.Sprintf("block_map_%d", rm.ID)] = blockMap
+
+		m.App.Session.Put(r.Context(), fmt.Sprintf("block_map_%d", rm.ID), blockMap)
+	}
+
+	render.Template(w, r, "admin-calandar-reservations-page.tmpl", &models.TemplateData{
+		StringMap: stringMap,
+		DataMap:   dataMap,
+		IntMap:    intMap,
+	})
 }
