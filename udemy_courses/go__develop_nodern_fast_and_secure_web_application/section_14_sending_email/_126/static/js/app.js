@@ -1,6 +1,6 @@
 // ---------------------------------------
 function myNotify(msg, msgType = 'success') {
-
+    console.log(8888888)
     notie.alert({
         type: msgType, // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
         text: msg,
@@ -96,10 +96,12 @@ function myPrompt() {
         const {
             title = '',
             msg = '',
+            type = '',
         } = context;
 
         // Display a custom modal with HTML content and date range picker
         const result = await Swal.fire({
+            icon: type,
             title: title,
             html: msg,
             backdrop: false,
@@ -107,17 +109,17 @@ function myPrompt() {
             showCancelButton: true,
             
             willOpen: () => {
-                if (context.functions.willOpen) {
+                if (context?.functions?.willOpen) {
                     context.functions.willOpen();
                 }
             },
             didOpen: () => {
-                if (context.functions.didOpen) {
+                if (context?.functions?.didOpen) {
                     context.functions.didOpen();
                 }
             },
             preConfirm: () => {
-                if (context.functions.preConfirm) {
+                if (context?.functions?.preConfirm) {
                     context.functions.preConfirm();
                 }
             },

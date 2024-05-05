@@ -3,6 +3,7 @@ package render
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -16,12 +17,36 @@ import (
 
 // ---------------------------------------------------------------------
 var functions = template.FuncMap{
-	"humanDate": HumanDay,
+	"humanDate":  HumanDay,
+	"formatDate": FormatDate,
+	"iterate":    Iterate,
+	"add":        Add,
 }
 
 // HumanDay return time in YYYY-MM-DD format
 func HumanDay(t time.Time) string {
 	return t.Format("2006-01-02")
+}
+
+func FormatDate(t time.Time, f string) string {
+	return t.Format(f)
+}
+
+// Iterate return a slice of ints starting at 1, going to count
+func Iterate(count int) []int {
+
+	var i int
+	var items []int
+
+	for i = 0; i < count; i++ {
+		items = append(items, i)
+	}
+
+	return items
+}
+
+func Add(a, b int) int {
+	return a + b
 }
 
 // ---------------------------------------------------------------------
@@ -41,6 +66,8 @@ func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateDa
 	td.Flash = app.Session.PopString(r.Context(), "flash")
 	td.Error = app.Session.PopString(r.Context(), "error")
 	td.Warning = app.Session.PopString(r.Context(), "warning")
+
+	fmt.Println(">>>>", td.Flash)
 
 	if app.Session.Exists(r.Context(), "user_id") {
 		td.IsAuthenticated = 1
