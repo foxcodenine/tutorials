@@ -2,6 +2,7 @@ package dbRepo
 
 import (
 	"context"
+	"database/sql"
 	"time"
 
 	"github.com/foxcodenine/go-vs-gin-rest-demo/cmd/chi/models"
@@ -39,26 +40,32 @@ func (m *dbRepo) SelectAllIngredients() ([]models.Ingredient, error) {
 
 // ---------------------------------------------------------------------
 
-// CreateIngredient inserts a new ingredient into the database and returns the newly created ingredient.
+// CreateIngredient inserts a new ingredient into the database if it doesn't exist; otherwise, it returns the existing ingredient.
 func (m *dbRepo) CreateIngredient(name string) (*models.Ingredient, error) {
-	// Create a context with a timeout
-
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel() // Ensure cleanup of context resources.
 
-	// SQL statement to insert a new ingredient and return the new ID
-	sql := "INSERT INTO ingredients (name) VALUES ($1) RETURNING id"
-
-	// Variable to store the new ingredient's ID
+	// First, try to find an existing ingredient with the same name.
+	selectSQL := "SELECT id FROM ingredients WHERE name = $1"
 	var id int
-	// Execute SQL statement and capture the returned ID
-	err := m.DB.QueryRowContext(ctx, sql, name).Scan(&id)
-
-	if err != nil {
-		return nil, err // Return any error that occurs
+	err := m.DB.QueryRowContext(ctx, selectSQL, name).Scan(&id)
+	if err != nil && err != sql.ErrNoRows {
+		return nil, err // Handle any database error.
 	}
 
-	// Create and return the new ingredient instance
+	if err == nil {
+		// Ingredient exists, return the existing one.
+		return &models.Ingredient{Id: id, Name: name}, nil
+	}
+
+	// No existing ingredient found, proceed to insert.
+	insertSQL := "INSERT INTO ingredients (name) VALUES ($1) RETURNING id"
+	err = m.DB.QueryRowContext(ctx, insertSQL, name).Scan(&id)
+	if err != nil {
+		return nil, err // Return any error that occurs during insert.
+	}
+
+	// Return the new ingredient instance.
 	return &models.Ingredient{Id: id, Name: name}, nil
 }
 

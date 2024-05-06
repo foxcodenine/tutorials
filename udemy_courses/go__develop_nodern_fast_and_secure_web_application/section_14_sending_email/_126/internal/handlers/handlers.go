@@ -856,3 +856,8 @@ func (m *Repository) AdminCalendarReservations(w http.ResponseWriter, r *http.Re
 		IntMap:    intMap,
 	})
 }
+
+// AdminCalendarReservations display the reservation calendar
+func (m *Repository) PostAdminCalendarReservations(w http.ResponseWriter, r *http.Request) {
+	log.Println("Gang banged")
+}

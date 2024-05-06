@@ -1,6 +1,8 @@
 package repository
 
-import "github.com/foxcodenine/go-vs-gin-rest-demo/cmd/chi/models"
+import (
+	"github.com/foxcodenine/go-vs-gin-rest-demo/cmd/chi/models"
+)
 
 type DatabaseRepo interface {
 	SelectAllRecipes() ([]models.Recipe, error)
@@ -10,4 +12,7 @@ type DatabaseRepo interface {
 
 	SelectAllIngredients() ([]models.Ingredient, error)
 	CreateIngredient(name string) (*models.Ingredient, error)
+
+	RemoveRecordById(table string, id int) error
+	RemoveRecordsByIds(table string, ids []int) error
 }

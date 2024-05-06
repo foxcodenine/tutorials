@@ -27,6 +27,7 @@ func InitRouter() *chi.Mux {
 	router.Post("/recipe", recipeController.Store)
 	router.Get("/recipe/{id}", recipeController.Show)
 	router.Put("/recipe/{id}", recipeController.Update)
+	router.Delete("/recipe/{id}", recipeController.Delete)
 
 	router.Post("/ingredient", ingredientController.Store)
 
