@@ -4,7 +4,8 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-	"log"
+	"fmt"
+	"strings"
 	"time"
 
 	"github.com/foxcodenine/go-vs-gin-rest-demo/cmd/chi/models"
@@ -20,7 +21,7 @@ func (m *dbRepo) SelectAllRecipes() ([]models.Recipe, error) {
 	defer cancel() // Ensure cleanup of context resources.
 
 	// SQL query to fetch all recipes and their ingredients.
-	sql := `
+	sql_q := `
     SELECT r.id, r.name, i.id, i.name
     FROM recipes r
     LEFT JOIN recipe_ingredients ri ON r.id = ri.recipe_id
@@ -33,7 +34,7 @@ func (m *dbRepo) SelectAllRecipes() ([]models.Recipe, error) {
 	var lastRecipe models.Recipe
 
 	// Execute the query.
-	rows, err := m.DB.QueryContext(ctx, sql)
+	rows, err := m.DB.QueryContext(ctx, sql_q)
 	if err != nil {
 		return nil, err // Return error if the query fails.
 	}
@@ -44,29 +45,49 @@ func (m *dbRepo) SelectAllRecipes() ([]models.Recipe, error) {
 		var (
 			rID   int
 			rName string
-			iID   int
-			iName string
+			iID   sql.NullFloat64
+			iName sql.NullString
 		)
+
+		// Scan the data into variables
 		if err := rows.Scan(&rID, &rName, &iID, &iName); err != nil {
-			return nil, err // Return error if scanning fails.
+			return nil, err
 		}
 
+		// Convert nullable SQL values to Go types; handle potential NULL values gracefully.
+		iNameString := ""
+		if iName.Valid {
+			iNameString = iName.String
+		}
+		iIDInt := 0
+		if iID.Valid {
+			iIDInt = int(iID.Float64)
+		}
+
+		// Process recipes and ingredients.
 		if lastRecipe.Id != rID {
-			if lastRecipe.Name != "" {
+			if lastRecipe.Name != "" { // Append the last recipe to the result slice before starting a new one.
 				recipes = append(recipes, lastRecipe)
 			}
-			lastRecipe.Id = rID
-			lastRecipe.Id = rID
-			lastRecipe.Name = rName
-			lastRecipe.Ingredients = []models.Ingredient{}
-			lastRecipe.Ingredients = append(lastRecipe.Ingredients, models.Ingredient{Id: iID, Name: iName})
-		} else if lastRecipe.Id == rID {
-			lastRecipe.Ingredients = append(lastRecipe.Ingredients, models.Ingredient{Id: iID, Name: iName})
+			// Reset lastRecipe for the new recipe entry.
+			lastRecipe = models.Recipe{
+				Id:          rID,
+				Name:        rName,
+				Ingredients: []models.Ingredient{},
+			}
+		}
+
+		// Append ingredients to the current recipe if they exist.
+		if iIDInt != 0 && iNameString != "" {
+			lastRecipe.Ingredients = append(lastRecipe.Ingredients, models.Ingredient{Id: iIDInt, Name: iNameString})
 		}
 
 	}
 
-	recipes = append(recipes, lastRecipe)
+	// Append the last recipe processed if not already appended.
+	if lastRecipe.Name != "" {
+		recipes = append(recipes, lastRecipe)
+	}
 
 	// Check for errors after processing all rows.
 	if err = rows.Err(); err != nil {
@@ -84,7 +105,7 @@ func (m *dbRepo) SelectRecipe(id int) (models.Recipe, error) {
 	defer cancel() // Ensure cleanup of context resources.
 
 	// SQL query to fetch the specific recipe and its ingredients.
-	sql := `
+	sql_q := `
     SELECT r.id, r.name, i.id, i.name
     FROM recipes r
     LEFT JOIN recipe_ingredients ri ON r.id = ri.recipe_id
@@ -94,21 +115,33 @@ func (m *dbRepo) SelectRecipe(id int) (models.Recipe, error) {
     `
 
 	var recipe models.Recipe
-	var ingredient models.Ingredient
+	var ingredientId sql.NullFloat64
+	var ingredientName sql.NullString
 
 	// Execute the query.
-	rows, err := m.DB.QueryContext(ctx, sql, id)
+	rows, err := m.DB.QueryContext(ctx, sql_q, id)
 	if err != nil {
 		return models.Recipe{}, err // Return error if the query fails.
 	}
 	defer rows.Close()
 
 	// Process each row in the result set.
+
 	for rows.Next() {
-		if err := rows.Scan(&recipe.Id, &recipe.Name, &ingredient.Id, &ingredient.Name); err != nil {
+		if err := rows.Scan(&recipe.Id, &recipe.Name, &ingredientId, &ingredientName); err != nil {
 			return models.Recipe{}, err // Return error if scanning fails.
 		}
-		recipe.Ingredients = append(recipe.Ingredients, ingredient)
+		var ingredient models.Ingredient
+		if ingredientId.Valid {
+			ingredient.Id = int(ingredientId.Float64)
+		}
+		if ingredientName.Valid {
+			ingredient.Name = ingredientName.String
+		}
+		if int(ingredientId.Float64) != 0 && ingredientName.String != "" {
+
+			recipe.Ingredients = append(recipe.Ingredients, ingredient)
+		}
 	}
 
 	// Check if the recipe was actually found
@@ -199,29 +232,34 @@ func (m *dbRepo) CreateRecipe(name string, ingredientNames []string) (models.Rec
 
 // ---------------------------------------------------------------------
 
+// UpdateRecipe updates an existing recipe's name and its associated ingredients based on the provided list.
 func (m *dbRepo) UpdateRecipe(id int, name string, ingredientNames []string) (models.Recipe, error) {
 
 	var recipe models.Recipe
+
+	// Create a context with a 5-second timeout to manage long-running database calls.
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel() // Ensure the context is cleaned up.
 
-	// Start a transaction
+	// Start a database transaction to ensure all changes are applied atomically.
 	tx, err := m.DB.BeginTx(ctx, nil)
 	if err != nil {
 		return recipe, err
 	}
 
-	// Check and Update recipe name
-	sql := `SELECT name FROM recipes WHERE ID = $1 LIMIT 1`
+	// Retrieve the current name of the recipe to determine if it needs to be updated.
+	sql_q := `SELECT name FROM recipes WHERE ID = $1 LIMIT 1`
 	var rName string
 
-	row := tx.QueryRowContext(ctx, sql, id)
+	row := tx.QueryRowContext(ctx, sql_q, id)
 
 	err = row.Scan(&rName)
 	if err != nil {
+		tx.Rollback()
 		return recipe, err
 	}
 
+	// Update the recipe's name if it has changed.
 	if rName != name {
 
 		sql := `UPDATE recipes SET name = $1 WHERE id = $2`
@@ -233,9 +271,8 @@ func (m *dbRepo) UpdateRecipe(id int, name string, ingredientNames []string) (mo
 		}
 	}
 
-	// Get all ingredents
-
-	sql = `
+	// Fetch all current ingredients associated with the recipe.
+	sql_q = `
 	SELECT ri.id, i.id, i.name 
     FROM recipes r
     LEFT JOIN recipe_ingredients ri ON r.id = ri.recipe_id
@@ -243,52 +280,142 @@ func (m *dbRepo) UpdateRecipe(id int, name string, ingredientNames []string) (mo
     WHERE r.id = $1	
 	`
 
-	rows, err := tx.QueryContext(ctx, sql, id)
+	rows, err := tx.QueryContext(ctx, sql_q, id)
 	if err != nil {
+		tx.Rollback()
 		return recipe, err
 	}
 
 	defer rows.Close()
 
 	type record struct {
-		row   int
-		iId   int
-		iName string
+		relationRecordIDdNullFloat64 sql.NullFloat64
+		iIdNullFloat64               sql.NullFloat64
+		iNameNullString              sql.NullString
+		relationRecordIDd            int
+		iId                          int
+		iName                        string
 	}
-	var records []record
+
+	// Collect ingredient data from the query results.
+	var iRecords []record
 
 	for rows.Next() {
 		var rr record
 
-		if err := rows.Scan(&rr.row, &rr.iId, &rr.iName); err != nil {
+		if err := rows.Scan(&rr.relationRecordIDdNullFloat64, &rr.iIdNullFloat64, &rr.iNameNullString); err != nil {
+			tx.Rollback()
 			return recipe, err
 		}
-		records = append(records, rr)
+
+		if rr.iIdNullFloat64.Valid && rr.iNameNullString.Valid {
+			rr.relationRecordIDd = int(rr.relationRecordIDdNullFloat64.Float64)
+			rr.iId = int(rr.iIdNullFloat64.Float64)
+			rr.iName = rr.iNameNullString.String
+			iRecords = append(iRecords, rr)
+		}
 	}
 
-	var iNames []string
+	// Determine which ingredients to add or remove based on the current list.
+	var currentNames []string
 
-	iNames = utils.SliceMap(records, func(rr record) string {
+	currentNames = utils.SliceMap(iRecords, func(rr record) string {
 		return rr.iName
 	})
 
-	toRemove := utils.SliceDifference(iNames, ingredientNames)
-	toAdd := utils.SliceDifference(ingredientNames, iNames)
+	iToRemove := utils.SliceDifference(currentNames, ingredientNames)
+	iToAdd := utils.SliceDifference(ingredientNames, currentNames)
 
-	recordsToRemove := utils.SliceFilter(records, func(rec record) bool {
-		return utils.SliceIncludes(toRemove, rec.iName)
+	// Remove unneeded ingredients from the recipe.
+	relationRecToRem := utils.SliceFilter(iRecords, func(rec record) bool {
+		return utils.SliceIncludes(iToRemove, rec.iName)
 	})
 
-	log.Println(toRemove, toAdd, recordsToRemove)
+	relationRecToRemIds := utils.SliceMap(relationRecToRem, func(rec record) int {
+		return rec.relationRecordIDd
+	})
 
-	// Check all ingredents
+	err = m.RemoveRecordsByIds("recipe_ingredients", relationRecToRemIds)
 
-	// Commit the transaction
+	if err != nil {
+		tx.Rollback()
+		return recipe, err
+	}
+
+	// Add new ingredients to the recipe.
+	for _, iName := range iToAdd {
+		ingredient, err := m.CreateIngredient(iName)
+
+		if err != nil {
+			return recipe, err
+		}
+
+		sql := `
+		INSERT INTO recipe_ingredients (recipe_id, ingredient_id)
+		VALUES
+		($1, $2);`
+
+		_, err = tx.ExecContext(ctx, sql, id, ingredient.Id)
+		if err != nil {
+			return recipe, err
+		}
+
+	}
+
+	// Commit the transaction to apply all changes.
 	if err = tx.Commit(); err != nil {
 		return recipe, err
 	}
 
-	return recipe, nil
+	// Retrieve and return the updated recipe.
+	recipe, err = m.SelectRecipe(id)
+	return recipe, err
+}
+
+// ---------------------------------------------------------------------
+
+func (m *dbRepo) RemoveRecordById(table string, id int) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel() // Ensure the context is cleaned up.
+
+	sql := `delete from ` + table + ` where id = $1`
+
+	_, err := m.DB.ExecContext(ctx, sql, id)
+
+	return err
+}
+
+// ---------------------------------------------------------------------
+
+func (m *dbRepo) RemoveRecordsByIds(table string, ids []int) error {
+
+	if len(ids) <= 0 {
+		return nil
+	}
+	// -------------------------------------------
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel() // Ensure the context is cleaned up.
+
+	// - Convert integers to strings -------------
+	stringNumbers := make([]string, len(ids))
+
+	for i, id := range ids {
+		stringNumbers[i] = fmt.Sprint(id)
+	}
+
+	// - Use strings.Join to concatenate ---------
+
+	joinedIds := strings.Join(stringNumbers, ", ")
+
+	// -------------------------------------------
+
+	sql := `delete from ` + table + ` where id in (` + joinedIds + `)`
+
+	_, err := m.DB.ExecContext(ctx, sql)
+
+	return err
+
 }
 
 // ---------------------------------------------------------------------
