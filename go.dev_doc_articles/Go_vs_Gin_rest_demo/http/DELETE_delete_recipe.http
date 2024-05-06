@@ -1,0 +1,16 @@
+DELETE http://localhost:8082/recipe/15 HTTP/1.1
+Content-Type: application/json
+
+{
+
+}
+
+# {
+#     "name": "Basic Soft Pretzels",
+#     "ingredients": [ "milk", "yeast","sugar", "butter", "salt", "flour"]
+# }
+
+# {
+#     "name": "Air Fryer Salmon",
+#     "ingredients": [ "salmon", "paprika","sugar", "chili", "onion", "garlic", "olive oil"]
+# }

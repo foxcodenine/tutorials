@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"runtime"
 	"strconv"
 
 	"github.com/foxcodenine/go-vs-gin-rest-demo/cmd/chi/repository"
@@ -94,6 +95,11 @@ func (c *RecipeController) Show(w http.ResponseWriter, r *http.Request) {
 
 	fetchedRecipe, err := c.DB.SelectRecipe(id)
 	if err != nil {
+
+		if err.Error() == "recipe not found" {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
 		http.Error(w, "Internal server error: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
@@ -121,6 +127,36 @@ func (c *RecipeController) Update(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Internal server error: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
+}
+
+// ---------------------------------------------------------------------
+
+func (c *RecipeController) Delete(w http.ResponseWriter, r *http.Request) {
+
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+
+	if err != nil {
+		fmt.Println("Error converting string to int32:", err)
+	}
+
+	err = c.DB.RemoveRecordById("recipes", id)
+
+	if err != nil {
+
+		_, file, line, ok := runtime.Caller(1)
+
+		if ok {
+
+			fmt.Printf("\n%s - %d", file, line)
+		}
+
+		http.Error(w, "Internal server error: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	// -------------------------------------
+
+	c.Index(w, r)
 }
 
 // ---------------------------------------------------------------------
