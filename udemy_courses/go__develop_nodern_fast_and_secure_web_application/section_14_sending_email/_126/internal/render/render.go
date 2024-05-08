@@ -3,7 +3,6 @@ package render
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -66,8 +65,6 @@ func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateDa
 	td.Flash = app.Session.PopString(r.Context(), "flash")
 	td.Error = app.Session.PopString(r.Context(), "error")
 	td.Warning = app.Session.PopString(r.Context(), "warning")
-
-	fmt.Println(">>>>", td.Flash)
 
 	if app.Session.Exists(r.Context(), "user_id") {
 		td.IsAuthenticated = 1
