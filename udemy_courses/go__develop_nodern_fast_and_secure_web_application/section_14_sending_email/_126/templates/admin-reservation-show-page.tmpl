@@ -9,6 +9,9 @@ Reservation
     {{$res := index .DataMap "reservation"}}
     {{$src := index .StringMap "src"}}
 
+
+
+
     <p><strong>Arrival:</strong> {{humanDate $res.StartDate}} </p>
     <p><strong>Depature:</strong> {{humanDate $res.EndDate}} </p>
     <p><strong>Room:</strong> {{$res.Room.RoomName}} </p>
@@ -54,7 +57,7 @@ Reservation
             {{else}}
             <a href="/admin/reservations-{{$src}}" class="btn btn-warning">Cancel</a>
             {{end}}
-            {{if eq $src "new"}}
+            {{if eq $res.Processed 0}}
             <a href="#!" class="btn btn-info" id="processed-btn" data-id="{{$res.ID}}">Mark as Processed</a>
             {{end}}
         </div>
@@ -71,9 +74,9 @@ Reservation
 {{define "js"}}
 {{end}}
 {{$src := index .StringMap "src"}}
+{{$curMonth := index .StringMap "cur_month"}}
+{{$curYear := index .StringMap "cur_year"}}
 <script>
-
-    console.log(44444)
 
     const processedBtn = document.querySelector('#processed-btn')
     const deleteBtn = document.querySelector('#delete-btn')
@@ -104,7 +107,7 @@ Reservation
     function processRes(id) {
         const callBack = (result) => {
             if (result !== false) {
-                window.location.href = "/admin/process-reservation/{{$src}}/" + id;
+                window.location.href = "/admin/process-reservation/{{$src}}/" + id + "?y={{$curYear}}&m={{$curMonth}}" ;
             }
         }
         attention.customMsg({

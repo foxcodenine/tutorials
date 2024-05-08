@@ -648,6 +648,9 @@ func (m *Repository) AdminNewReservations(w http.ResponseWriter, r *http.Request
 // AdminShowReservation show the reservation in the admin tool
 func (m *Repository) AdminShowReservation(w http.ResponseWriter, r *http.Request) {
 	src := chi.URLParam(r, "src")
+	curYear := r.URL.Query().Get("y")
+	curMonth := r.URL.Query().Get("m")
+
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
 		helpers.ServerError(w, err)
@@ -662,6 +665,8 @@ func (m *Repository) AdminShowReservation(w http.ResponseWriter, r *http.Request
 
 	stringMap := make(map[string]string)
 	stringMap["src"] = src
+	stringMap["cur_year"] = curYear
+	stringMap["cur_month"] = curMonth
 
 	data := make(map[string]interface{})
 	data["reservation"] = resv
@@ -722,7 +727,10 @@ func (m *Repository) PostAdminShowReservation(w http.ResponseWriter, r *http.Req
 
 func (m *Repository) AdminProcessReservation(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
-	// src := chi.URLParam(r, "src")
+	src := chi.URLParam(r, "src")
+
+	yy := r.URL.Query().Get("y")
+	mm := r.URL.Query().Get("m")
 
 	if err != nil {
 		helpers.ServerError(w, err)
@@ -737,7 +745,19 @@ func (m *Repository) AdminProcessReservation(w http.ResponseWriter, r *http.Requ
 
 	m.App.Session.Put(r.Context(), "flash", fmt.Sprintf("Reservation %d Processed", id))
 
-	http.Redirect(w, r, "/admin/reservations-all", http.StatusSeeOther)
+	var redirectUrl string
+
+	if src == "cal" {
+		redirectUrl = fmt.Sprintf("/admin/reservation-calendar?y=%s&m=%s", yy, mm)
+
+	} else if src == "new" {
+		redirectUrl = "/admin/reservations-new"
+
+	} else {
+		redirectUrl = "/admin/reservations-all"
+	}
+
+	http.Redirect(w, r, redirectUrl, http.StatusSeeOther)
 }
 
 func (m *Repository) AdminDeleteReservation(w http.ResponseWriter, r *http.Request) {
@@ -771,7 +791,6 @@ func (m *Repository) AdminCalendarReservations(w http.ResponseWriter, r *http.Re
 		month, _ := strconv.Atoi(r.URL.Query().Get("m"))
 		now = time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.UTC)
 
-		fmt.Println("aaaaa", year, month)
 	}
 
 	dataMap := map[string]interface{}{
@@ -894,10 +913,10 @@ func (m *Repository) PostAdminCalendarReservations(w http.ResponseWriter, r *htt
 					if !form.Has(fmt.Sprintf("remove_block_%d_%s", rm.ID, name)) {
 						// delete the restriction by ID
 						log.Println("would delete block", value)
-						// err := m.DB.DeleteBlockByID(value)
-						// if err != nil {
-						// 	log.Println("error block reservation", err)
-						// }
+						err := m.DB.DeleteBlockByID(value)
+						if err != nil {
+							log.Println("error block reservation", err)
+						}
 					}
 				}
 			}
@@ -910,9 +929,13 @@ func (m *Repository) PostAdminCalendarReservations(w http.ResponseWriter, r *htt
 		if strings.HasPrefix(name, "add_block") {
 			exploded := strings.Split(name, "_")
 			roomID, _ := strconv.Atoi(exploded[2])
-			// t, _ := time.Parse("2006-01-2", exploded[3])
+			t, _ := time.Parse("2006-01-2", exploded[3])
 			// insert new block
-			log.Println("would insert block for room id", roomID, "for date", exploded[3])
+			err := m.DB.InsertBlockForRoom(roomID, t)
+			if err != nil {
+				log.Println(err)
+			}
+			// log.Println("would insert block for room id", roomID, "for date", exploded[3])
 		}
 	}
 
