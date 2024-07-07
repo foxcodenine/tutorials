@@ -30,11 +30,25 @@ async function doSum(client) {
 }
 
 
+function doPrimes(client) {
+    console.log('doPrimes was invoked');
+    const req = new message.PrimeRequest();
+  
+    req.setNumber(12390392840);
+    const call = client.primes(req);
+  
+    call.on('data', (res) => {
+      console.log(`Primes: ${res.getResult()}`);
+    });
+}
+
+
 function main() {
     const creds = grpc.ChannelCredentials.createInsecure();
     const client = new CalculatorServiceClient(addr, creds);
 
-    doSum(client);
+    // doSum(client);
+    doPrimes(client);
 }
 
 main();

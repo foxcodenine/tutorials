@@ -41,6 +41,24 @@ async function doGreet(client) {
     }
 }
 
+// ---------------------------------------------------------------------
+
+function doGreetManyTimes(client) {
+    console.log('doGreetManyTimes was invoked');
+
+    const request = new GreetRequest();
+    request.setFirstName('Dorothy Cassar');
+
+    const call = client.greetManyTimes(request);
+    
+    call.on('data', (response) => {
+        console.log(`GreetManyTimes: ${response.getResult()}`);     
+        // client.close();    
+    })
+
+    
+}
+
 
 // ---------------------------------------------------------------------
 
@@ -48,7 +66,8 @@ function main() {
     const creds = grpc.ChannelCredentials.createInsecure();
     const client = new GreetServiceClient(addr, creds);
 
-    doGreet(client);
+    // doGreet(client);
+    doGreetManyTimes(client);
 
     process.on('SIGINT', () => {
         console.log('Caught interrupt signal, shutting down gracefully.');
