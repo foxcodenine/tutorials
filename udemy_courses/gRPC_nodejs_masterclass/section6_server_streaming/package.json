@@ -6,6 +6,7 @@
     "pb:gen": "./scripts/gen.sh greet calculator",
     "greet:server": "node greet/server/index.js",
     "greet:client": "node greet/client/index.js",
+   
     "calculator:server": "node calculator/server/index.js",
     "calculator:client": "node calculator/client/index.js"
   },
@@ -15,8 +16,7 @@
   "description": "",
   "dependencies": {
     "@grpc/grpc-js": "^1.10.10",
-    "google-protobuf": "^3.21.2",
-    "greet:client": "node greet/client/index.js"
+    "google-protobuf": "^3.21.2"
   },
   "devDependencies": {
     "grpc-tools": "^1.12.4"
