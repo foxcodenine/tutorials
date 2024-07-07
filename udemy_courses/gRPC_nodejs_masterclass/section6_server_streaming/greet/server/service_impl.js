@@ -10,7 +10,7 @@ const pb = require('../proto/greet_pb');
  */
 function greet(call, callback) {
 
-    console.log('Greet function was invoked');
+    console.log('greet function was invoked');
 
     // Extract the first name from the request using the generated getter
     const firstName = call.request.getFirstName();
@@ -25,6 +25,26 @@ function greet(call, callback) {
 
 // ---------------------------------------------------------------------
 
+function greetManyTimes(call) {
+    console.log('greetManyTimes function was invoked');
+
+    for (let i = 0; i < 10; ++i) {
+        const response = new pb.GreetResponse();  // Move this inside the loop
+        const msg = `Hello ${call.request.getFirstName()} - number ${i}`;
+        console.log(msg);
+        response.setResult(msg);
+
+        call.write(response);  // Send each unique response
+    }
+
+    call.end();  // Signify the end of stream responses
+}
+
+
+
+// ---------------------------------------------------------------------
+
 module.exports = {
-    greet
+    greet,
+    greetManyTimes
 };
