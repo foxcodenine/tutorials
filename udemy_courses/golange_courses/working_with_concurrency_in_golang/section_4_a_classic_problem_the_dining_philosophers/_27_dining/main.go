@@ -2,11 +2,9 @@ package main
 
 import (
 	"fmt"
-
+	"strings"
 	"sync"
 	"time"
-
-	"github.com/fatih/color"
 )
 
 // The Dining Philosophers problem is well known in computer science circles.
@@ -26,29 +24,26 @@ type Philosopher struct {
 	name      string
 	rightFork int
 	leftFork  int
-	color     string
 }
 
 // philosophers is list of all philosophers.
 var philosophers = []Philosopher{
-	{name: "Plato", leftFork: 4, rightFork: 0, color: "red"},
-	{name: "Socrates", leftFork: 0, rightFork: 1, color: "blue"},
-	{name: "Aristotle", leftFork: 1, rightFork: 2, color: "green"},
-	{name: "Pascal", leftFork: 2, rightFork: 3, color: "yellow"},
-	{name: "Locke", leftFork: 3, rightFork: 4, color: "cyan"},
+	{name: "Plato", leftFork: 4, rightFork: 0},
+	{name: "Socrates", leftFork: 0, rightFork: 1},
+	{name: "Aristotle", leftFork: 1, rightFork: 2},
+	{name: "Pascal", leftFork: 2, rightFork: 3},
+	{name: "Locke", leftFork: 3, rightFork: 4},
 }
 
 // Define a few variables.
 var hunger = 3                  // how many times a philosopher eats
 var eatTime = 1 * time.Second   // how long it takes to eatTime
-var thinkTime = 1 * time.Second // how long a philosopher thinks
+var thinkTime = 3 * time.Second // how long a philosopher thinks
 var sleepTime = 1 * time.Second // how long to wait when printing things out
 
-// *** add this
-var orderMutex sync.Mutex  // a mutex for the slic orderFinished
-var orderFinished []string // the order in which philosophers finish dining and leave
-
-// ---------------------------------------------------------------------
+// *** added this
+var orderMutex sync.Mutex  // a mutex for the slice orderFinished; part of challenge!
+var orderFinished []string // the order in which philosophers finish dining and leave; part of challenge!
 
 func main() {
 	// print out a welcome message
@@ -56,21 +51,26 @@ func main() {
 	fmt.Println("---------------------------")
 	fmt.Println("The table is empty.")
 
-	// *** added sleepTime
+	// *** added this
 	time.Sleep(sleepTime)
 
 	// start the meal
 	dine()
 
-	// *** added sleepTime
-	time.Sleep(sleepTime)
-
 	// print out finished message
 	fmt.Println("The table is empty.")
+
+	// *** added this
+	time.Sleep(sleepTime)
+	fmt.Printf("Order finished: %s.\n", strings.Join(orderFinished, ", "))
 
 }
 
 func dine() {
+
+	// eatTime = 0 * time.Second
+	// sleepTime = 0 * time.Second
+	// thinkTime = 0 * time.Second
 
 	// wg is the WaitGroup that keeps track of how many philosophers are still at the table. When
 	// it reaches zero, everyone is finished eating and has left. We add 5 (the number of philosophers) to this
@@ -85,7 +85,6 @@ func dine() {
 	// forks is a map of all 5 forks. Forks are assigned using the fields leftFork and rightFork in the Philosopher
 	// type. Each fork, then, can be found using the index (an integer), and each fork has a unique mutex.
 	var forks = make(map[int]*sync.Mutex)
-
 	for i := 0; i < len(philosophers); i++ {
 		forks[i] = &sync.Mutex{}
 	}
@@ -108,69 +107,51 @@ func diningProblem(philosopher Philosopher, wg *sync.WaitGroup, forks map[int]*s
 	defer wg.Done()
 
 	// seat the philosopher at the table
-	printColor(fmt.Sprintf("%s is seated at the table.", philosopher.name), philosopher.color)
+	fmt.Printf("%s is seated at the table.\n", philosopher.name)
+
+	// Decrement the seated WaitGroup by one.
 	seated.Done()
 
+	// Wait until everyone is seated.
 	seated.Wait()
 
-	// eat three times
-	for i := 0; i < hunger; i++ {
+	// Have this philosopher eatTime and thinkTime "hunger" times (3).
+	for i := hunger; i > 0; i-- {
 
-		// Get a lock on the left and right forks. We have to choose the lower numbered fork first in order
-		// to avoid a logical race condition, which is not detected by the -race flag in tests; if we don't do this,
-		// we have the potential for a deadlock, since two philosophers will wait endlessly for the same fork.
-		// Note that the goroutine will block (pause) until it gets a lock on both the right and left forks.
+		// Explaind in 'dining_philosophers_deadlock_prevention.md'
 		if philosopher.leftFork > philosopher.rightFork {
 			forks[philosopher.rightFork].Lock()
-			printColor(fmt.Sprintf("\t%s takes the right fork.", philosopher.name), philosopher.color)
+			fmt.Printf("\t%s takes the right fork.\n", philosopher.name)
 			forks[philosopher.leftFork].Lock()
-			printColor(fmt.Sprintf("\t%s takes the left fork.", philosopher.name), philosopher.color)
+			fmt.Printf("\t%s takes the left fork.\n", philosopher.name)
 		} else {
 			forks[philosopher.leftFork].Lock()
-			printColor(fmt.Sprintf("\t%s takes the left fork.", philosopher.name), philosopher.color)
+			fmt.Printf("\t%s takes the left fork.\n", philosopher.name)
 			forks[philosopher.rightFork].Lock()
-			printColor(fmt.Sprintf("\t%s takes the right fork.", philosopher.name), philosopher.color)
+			fmt.Printf("\t%s takes the right fork.\n", philosopher.name)
 		}
 
 		// By the time we get to this line, the philosopher has a lock (mutex) on both forks.
-		printColor(fmt.Sprintf("\t%s has both forks and is eating.", philosopher.name), philosopher.color)
+		fmt.Printf("\t%s has both forks and is eating.\n", philosopher.name)
 		time.Sleep(eatTime)
 
 		// The philosopher starts to think, but does not drop the forks yet.
-		printColor(fmt.Sprintf("\t%s is thinking.", philosopher.name), philosopher.color)
+		fmt.Printf("\t%s is thinking.\n", philosopher.name)
 		time.Sleep(thinkTime)
 
 		// Unlock the mutexes for both forks.
 		forks[philosopher.leftFork].Unlock()
 		forks[philosopher.rightFork].Unlock()
 
-		printColor(fmt.Sprintf("\t%s put down the forks.", philosopher.name), philosopher.color)
+		fmt.Printf("\t%s put down the forks.\n", philosopher.name)
 	}
 
 	// The philosopher has finished eating, so print out a message.
-	printColor(fmt.Sprintf("%s is satisified.", philosopher.name), philosopher.color)
-	printColor(fmt.Sprintf("%s left the table.", philosopher.name), philosopher.color)
+	fmt.Println(philosopher.name, "is satisified.")
+	fmt.Println(philosopher.name, "left the table.")
 
 	// *** added this
 	orderMutex.Lock()
 	orderFinished = append(orderFinished, philosopher.name)
 	orderMutex.Unlock()
-
-}
-
-func printColor(msg, clr string) {
-	switch clr {
-	case "red":
-		color.Red("%s\n", msg)
-	case "blue":
-		color.Blue("%s\n", msg)
-	case "green":
-		color.Green("%s\n", msg)
-	case "yellow":
-		color.Yellow("%s\n", msg)
-	case "cyan":
-		color.Cyan("%s\n", msg)
-	default:
-		fmt.Println(msg) // Default to plain text if the color is unknown
-	}
 }
