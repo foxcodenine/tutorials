@@ -9,7 +9,10 @@ import (
 // and sends it to the 'pong' channel.
 func shout(ping <-chan string, pong chan<- string) {
 	for {
-		s := <-ping                                      // Receive input from the 'ping' channel
+		s, ok := <-ping // Receive input from the 'ping' channel
+		if !ok {
+			// do something
+		}
 		pong <- fmt.Sprintf("%s!!!", strings.ToUpper(s)) // Send modified string to 'pong' channel
 	}
 }
