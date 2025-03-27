@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",  // move compiled .js files to 'dist' folder
+    "rootDir": "./",      // optional, to indicate source files are in the root
+    "target": "ES6",
+    "module": "commonjs"
+  },
+  "exclude": [
+    "dist", "node_modules"
+  ]
+}
