@@ -10,6 +10,9 @@ age = [];
 
 // ---------------------------------------------------------------------
 
-let myAge: string | number = 36;
+let myAge: string | number | boolean = 36;
 
 myAge = '40';
+myAge = 40;
+myAge = true;
+
