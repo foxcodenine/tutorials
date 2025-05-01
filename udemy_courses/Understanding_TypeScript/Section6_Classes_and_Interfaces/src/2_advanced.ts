@@ -115,4 +115,3 @@ class SideDrawElement extends UIElement {
 const drawer = new SideDrawElement('menu-drawer', 'left');
 drawer.render();                    // Rendering SideDrawer 'menu-drawer' on the left side
 drawer.clone('bottom-left');        // Cloning 'menu-drawer' to bottom-left
-
