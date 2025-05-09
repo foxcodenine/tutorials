@@ -1,4 +1,15 @@
 // =====================================
+// NOTE – Progress up to Lesson 152
+//
+// I decided to **pause detailed note-taking** here.
+// 
+// Reason:
+// - The content was becoming too complex and deep.
+// - Most decorators shown are rarely used in real-world projects.
+// =====================================
+
+
+
 // SECTION – Experimental Class Decorators
 // =====================================
 //
@@ -82,9 +93,9 @@ const pers = new Person('James');
 console.log(pers); // Person { name: 'James' }
 
 
-/// =====================================
+// ===============================================================================================================
 // SECTION – Property, Accessor, Method, Parameter Decorators
-// =====================================
+// ===============================================================================================================
 
 // ------------------------------
 // Property Decorator
