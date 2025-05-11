@@ -1,31 +1,21 @@
+"use strict";
 // ---------------------------------------------------------------------
 // Function overloading based on parameter type
-
-// Overload for string input
-function getLength(val: string): string;
-
-// Overload for array input
-function getLength(val: any[]): number;
-
+Object.defineProperty(exports, "__esModule", { value: true });
 // Function implementation handles both cases
-function getLength(val: string | any[]) {
+function getLength(val) {
     if (typeof val === 'string') {
         // const numberOfWords = val.split(' ');
         const numberOfWords = val.trim().split(/\s+/).length; // better split on multiple spaces
         return `${numberOfWords} word${numberOfWords !== 1 ? 's' : ''}`; // pluralize properly
     }
-
     return val.length;
 }
-
 // ---------------------------------------------------------------------
 // Usage examples
-
-const numberOfWords = getLength('Does this work!'); // string: "3 words"
+const numberOfWords = getLength('Does this work!'); // string: "4 words"
 const numberOfItems = getLength(['cooking', 'running']); // number: 2
-
-console.log(numberOfWords); // "3 words"
+console.log(numberOfWords); // "4 words"
 console.log(numberOfItems); // 2
-
-
 // ---------------------------------------------------------------------
+//# sourceMappingURL=3_functions.js.map
