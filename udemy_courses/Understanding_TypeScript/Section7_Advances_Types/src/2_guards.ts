@@ -7,6 +7,7 @@ const fileSource: FileSource = {
 };
 
 type DBSource = { connectionUrl: string };
+
 const dbSource: DBSource = {
     connectionUrl: 'some-connection-url',
 };

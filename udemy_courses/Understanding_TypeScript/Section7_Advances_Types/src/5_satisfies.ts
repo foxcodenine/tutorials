@@ -1,9 +1,10 @@
 // ---------------------------------------------------------------------
-// Using `satisfies` to enforce shape without losing exact types
+// Using `satisfies` to enforce shape without losing exact property types
 
 // The object must satisfy the shape: Record<string, number>
-// BUT the type of 'dataEntries' is NOT widened to just Record<string, number>,
-// it retains its precise property names and types.
+// TypeScript checks that all values are numbers
+// BUT it keeps the exact property names: 'entry1' and 'entry2'
+// You cannot later add other keys like 'entry3'
 
 const dataEntries = {
     entry1: 0.51,
