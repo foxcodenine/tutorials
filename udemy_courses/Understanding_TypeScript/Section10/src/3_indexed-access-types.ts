@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------------
-// 🧠 What Are Indexed Access Types?
+// 🧠 What Are Indexed Access Types? [number]
 //
 // Indexed access types let you extract the **type of a specific property**
 // from an object or array type using square bracket syntax.
