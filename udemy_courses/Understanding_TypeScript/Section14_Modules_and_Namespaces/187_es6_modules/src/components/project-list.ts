@@ -1,9 +1,9 @@
-import { autobind } from "../decorators/autobind.js";
-import { DragTarget } from "../models/drag-drop.js";
+import { autobind as Autobind } from "../decorators/autobind.js";
+import { type DragTarget } from "../models/drag-drop.js";
 import { Project, ProjectStatus } from "../models/project.js";
 import { projectState } from "../state/project-state.js";
-import { Component } from "./base-component.js";
 import { ProjectItem } from "./project-item.js";
+import Component from "./base-component.js";
 
 
 // ============================================================
@@ -23,7 +23,7 @@ export class ProjectList extends Component<HTMLDivElement, HTMLElement> implemen
         this.renderContent();
     }
 
-    @autobind
+    @Autobind
     dragOverHandler(_event: DragEvent): void {
         if (_event.dataTransfer && _event.dataTransfer.types[0] === 'text/plain') {
             _event.preventDefault();
@@ -33,7 +33,7 @@ export class ProjectList extends Component<HTMLDivElement, HTMLElement> implemen
         }
     }
 
-    @autobind
+    @Autobind
     dropHandler(_event: DragEvent): void {
         console.log('dropHandler');
 
@@ -41,7 +41,7 @@ export class ProjectList extends Component<HTMLDivElement, HTMLElement> implemen
         projectState.moveProject(prjID, this.type === 'active' ? ProjectStatus.active : ProjectStatus.finished);
     }
 
-    @autobind
+    @Autobind
     dragLeaveHandler(_event: DragEvent): void {
         const listEl = this.element.querySelector('ul')!;
         listEl.classList.remove("droppable");
