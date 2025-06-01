@@ -3,10 +3,12 @@ import Header from "./components/Header.tsx";
 import CourseGoals from "./components/CourseGoals.tsx";
 import goalsImg from './assets/goals.jpg'
 import { useState } from "react";
+import NewGoal from "./components/NewGoal.tsx";
 
 
 
 function App() {
+	
 	const [goals, setGoals] = useState([
 		{
 			id: 1,
@@ -19,17 +21,26 @@ function App() {
 			description: "Practics work with TS"
 		}
 	]);
+
 	function handleDeleteGoal(id:number) {
 		setGoals((prevGoals) => {	
 			return prevGoals.filter(goal => goal.id !== id);
 		})
 
 	}
+
+	function handleAddGoal(text:string, summery: string) {
+		setGoals((prevGoals) => {	
+			return [...prevGoals, {id: Math.random(), title: text, description: summery}]
+		})
+	}
+
 	return (
 		<main>
 			<Header image={{ src: goalsImg, alt: 'A list of goals' }}>
 				<h1>Your Course Goals</h1>
 			</Header>
+			<NewGoal onAdd={handleAddGoal} />
 			<CourseGoals goals={goals} onDelete={ handleDeleteGoal } />
 		</main>
 	)
