@@ -6,6 +6,10 @@
     
     go test -cover
 
+    go run -race .
+
+    go test -race .
+
 
 ## Go lib used
 
