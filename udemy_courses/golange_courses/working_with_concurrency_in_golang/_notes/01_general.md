@@ -24,3 +24,7 @@
 
     keyword go
     wait groups
+
+
+
+ssh-add ~/.ssh/id_ed25519
