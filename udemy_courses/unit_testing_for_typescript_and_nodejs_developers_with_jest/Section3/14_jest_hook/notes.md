@@ -8,10 +8,28 @@
 
 
 ### Structure of a proper written unit test:
-    AAA principles
+    - AAA principles
         - arrange
         - act
         -assert
     
-    Setup
-    Teardown
+    - Setup
+    - Teardown
+
+
+
+
+test properties:    
+    only
+    skip
+    todo
+    concurrent
+
+test aliases:
+    it for test
+    test
+    xit for it.skip
+    fit for it.only
+
+watch mode
+
