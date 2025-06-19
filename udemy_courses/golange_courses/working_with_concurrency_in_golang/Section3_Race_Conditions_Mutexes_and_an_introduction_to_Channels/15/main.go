@@ -6,7 +6,6 @@ import (
 )
 
 var msg string
-var wg sync.WaitGroup
 
 func updateMessage(s string, mutext *sync.Mutex, wg *sync.WaitGroup) {
 	defer wg.Done()
