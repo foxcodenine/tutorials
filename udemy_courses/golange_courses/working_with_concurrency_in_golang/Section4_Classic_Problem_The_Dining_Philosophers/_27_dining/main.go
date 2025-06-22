@@ -43,7 +43,7 @@ var philosophers = []Philosopher{
 
 // hunger defines how many times each philosopher will eat during the simulation.
 var hunger = 3                       // Number of times a philosopher eats
-var eatTime = 1 * time.Microsecond   // Duration spent eating each time
+var eatTime = 1 * time.Millisecond   // Duration spent eating each time
 var thinkTime = 3 * time.Millisecond // Duration spent thinking between meals
 
 var orderMutex sync.Mutex
@@ -92,6 +92,7 @@ func dine() {
 }
 
 func diningProblem(philosopher Philosopher, forks map[int]*sync.Mutex, wgSeated *sync.WaitGroup, wgDone *sync.WaitGroup) {
+
 	defer wgDone.Done()
 
 	fmt.Printf("%s is seated at the table. \n", philosopher.name)
