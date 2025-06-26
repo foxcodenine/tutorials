@@ -56,6 +56,4 @@ describe("PasswordChecker test suite", () => {
         const actual = sut.checkAdminPassword('abcdABCD1');      
         expect(actual.reasons).not.toContain(PasswordErrors.No_NUMBER);
     })
-
-
 });
