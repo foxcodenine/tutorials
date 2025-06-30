@@ -220,3 +220,37 @@ moves.
 
 
 ---
+
+### Summary of jest.mock(...) Usage
+
+| Type                     | Syntax Example                                   | Use Case                                                  |
+| ------------------------ | ------------------------------------------------ | --------------------------------------------------------- |
+| Full module mock         | `jest.mock('module')`                            | Replace all exports with `jest.fn()`                      |
+| Partial mock             | `jest.mock('module', () => ({ ... }))`           | Override some exports, keep others with `requireActual()` |
+| External library mock    | `jest.mock('uuid', () => ({ v4: () => '123' }))` | Override random/system calls (e.g. UUID, Date)            |
+| Dynamic import + mocking | `import * as mod from 'module'` after mocking    | Ensures mocks are respected at runtime                    |
+
+
+
+### Test Doubles in Practic
+
+TDD sytle/scholl: London and Chicago (Detroit)
+
+What is a unit?
+    A class
+    A function
+    A feature
+
+Chicago - low focus on mocks:
+
+    A unit: a collection of poeces
+    Test from a broader view
+    Little use of mocks
+
+London - heavy mocks use
+
+    A unit: a class
+        Mock all its dependencies
+
+
+
