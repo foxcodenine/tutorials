@@ -59,7 +59,7 @@ func (app *Config) render(w http.ResponseWriter, r *http.Request, t string, td *
 	}
 
 	// Execute writes the rendered template to the response writer
-	if err := tmpl.Execute(w, nil); err != nil {
+	if err := tmpl.Execute(w, app.AddDefaultData(td, r)); err != nil {
 		app.ErrorLog.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
