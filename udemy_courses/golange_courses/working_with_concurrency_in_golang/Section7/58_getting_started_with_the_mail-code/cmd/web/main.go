@@ -51,6 +51,8 @@ func main() {
 	// set up the application config
 
 	// set up mail
+	app.Mailer = app.createMail()
+	go app.listenForMail()
 
 	// Listen for OS shutdown signals in a separate goroutine
 	go app.listenForShutdown()
@@ -217,5 +219,10 @@ func (app *Config) shutdown() {
 
 	app.Wait.Wait() // Wait for any running goroutines to finish
 
+	app.Mailer.DoneChan <- true
+
 	app.InfoLog.Println("closing channels and shutting down application...")
+	close(app.Mailer.MailerChan)
+	close(app.Mailer.ErrorChan)
+	close(app.Mailer.DoneChan)
 }

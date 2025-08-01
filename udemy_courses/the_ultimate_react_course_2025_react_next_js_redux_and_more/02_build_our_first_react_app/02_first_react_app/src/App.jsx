@@ -6,6 +6,8 @@ export default function App() {
 	const [advice, setAdvice] = useState("Hello World");
 	const [count, setCount] = useState(0);
 
+	// -----------------------------------------------------------------
+
 	async function getAdvice(params) {
 		const res = await fetch("https://api.adviceslip.com/advice");
 		const data = await res.json(res)
@@ -14,6 +16,8 @@ export default function App() {
 		setAdvice(data.slip.advice);
 		setCount(c=>c+1);
 	}
+
+	// -----------------------------------------------------------------
 
 	useEffect(function() {
 		getAdvice();

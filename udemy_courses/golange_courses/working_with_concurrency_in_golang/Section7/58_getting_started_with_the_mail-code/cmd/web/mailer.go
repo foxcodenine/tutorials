@@ -42,6 +42,8 @@ type Message struct {
 // sendMail sends an email using SMTP with the provided message.
 // If errors occur, they are sent to errorChan.
 func (m *Mail) sendMail(msg Message, errorChan chan error) {
+	defer m.Wait.Done()
+
 	// Set default template, sender address, and name if not provided
 	if msg.Template == "" {
 		msg.Template = "mail"
