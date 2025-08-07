@@ -66,3 +66,20 @@ https://github.com/xhit/go-simple-mail
 https://pkg.go.dev/github.com/xhit/go-simple-mail/v2
 
     $ go get github.com/xhit/go-simple-mail/v2
+
+<!-- --------------------------------------------------------------- -->
+
+### bwmarrin/go-alone
+
+https://github.com/bwmarrin/go-alone
+
+    $ go get github.com/bwmarrin/go-alone
+
+<!-- --------------------------------------------------------------- -->
+
+
+### sweetalert2
+https://sweetalert2.github.io/
+https://www.npmjs.com/package/sweetalert2
+https://github.com/sweetalert2/sweetalert2
+https://www.jsdelivr.com/package/npm/sweetalert2
