@@ -71,11 +71,27 @@ https://pkg.go.dev/github.com/xhit/go-simple-mail/v2
 
 ### bwmarrin/go-alone
 
+goalone is a tiny Go library for signing and verifying byte slices (commonly URLs).
+It can embed a timestamp so you can check if a token is expired. Useful for signed links (download links, email verify, etc.).
+
 https://github.com/bwmarrin/go-alone
 
     $ go get github.com/bwmarrin/go-alone
 
 <!-- --------------------------------------------------------------- -->
+
+### gofpdi
+
+The gofpdi package is a Go port of the PHP FPDI library.
+It lets you import pages from existing PDF documents and use them in new PDFs, often together with gofpdf.
+
+https://github.com/phpdave11/gofpdi
+
+    $ go get github.com/phpdave11/gofpdi
+    $ go get github.com/phpdave11/gofpdf/contrib/gofpdi
+
+
+
 
 
 ### sweetalert2
