@@ -76,6 +76,8 @@ func (p *Plan) GetOne(id int) (*Plan, error) {
 		return nil, err
 	}
 
+	plan.PlanAmountFormatted = plan.AmountForDisplay()
+
 	return &plan, nil
 }
 
@@ -106,5 +108,6 @@ func (p *Plan) SubscribeUserToPlan(user User, plan Plan) error {
 // AmountForDisplay formats the price we have in the DB as a currency string
 func (p *Plan) AmountForDisplay() string {
 	amount := float64(p.PlanAmount) / 100.0
+
 	return fmt.Sprintf("$%.2f", amount)
 }
