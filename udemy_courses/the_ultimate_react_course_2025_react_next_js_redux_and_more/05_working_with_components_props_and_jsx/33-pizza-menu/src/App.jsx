@@ -1,4 +1,5 @@
-import "./App.scss"
+import "./App.scss";
+import React from "react";
 
 
 function App() {
@@ -46,15 +47,15 @@ function Menu() {
 // ---------------------------------------------------------------------
 
 function Pizza(props) {
-	if (props.pizzaObj.soldOut) return null;
+	// if (props.pizzaObj.soldOut) return null;
 
 	return (
-		<li className="pizza">
+		<li className={`pizza ${props.pizzaObj.soldOut ? 'sold-out' : ''}`}>
 			<img src={props.pizzaObj.photoName} alt={props.pizzaObj.photoName} />
 			<div>
 				<h3>{props.pizzaObj.name}</h3>
 				<p>{props.pizzaObj.ingredients}</p>
-				<span>{props.pizzaObj.price + 3}</span>
+				<span>{props.pizzaObj.soldOut ? "Solid out" : props.pizzaObj.price + 3}</span>
 			</div>
 		</li>
 	)
