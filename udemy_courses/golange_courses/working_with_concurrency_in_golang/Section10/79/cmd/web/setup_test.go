@@ -23,6 +23,9 @@ func TestMain(m *testing.M) {
 	// Allow scs (session store) to serialize/deserialize data.User in session.
 	gob.Register(data.User{})
 
+	tmpPath = "./../../tmp"
+	pathToManual = "./../../pdf"
+
 	// Create a new session manager for tests.
 	session := scs.New()
 
@@ -38,14 +41,14 @@ func TestMain(m *testing.M) {
 
 	// Build a minimal app config used by handlers/services in tests.
 	testApp = Config{
-		Session:  session,           // session manager used by handlers
-		DB:       nil,               // inject a real/mock DB later if needed
-		InfoLog:  infoLog,           // info logger
-		ErrorLog: errorLog,          // error logger
-		Wait:     &sync.WaitGroup{}, // shared waitgroup for background work
-		// Models:  data.New(db),  // typically set when a real DB is provided
-		ErrorChan:     make(chan error), // app-wide error channel (non-mailer)
-		ErrorChanDone: make(chan bool),  // signal to stop the error listener
+		Session:       session,           // session manager used by handlers
+		DB:            nil,               // inject a real/mock DB later if needed
+		InfoLog:       infoLog,           // info logger
+		ErrorLog:      errorLog,          // error logger
+		Wait:          &sync.WaitGroup{}, // shared waitgroup for background work
+		Models:        data.TestNew(nil), // typically set when a real DB is provided
+		ErrorChan:     make(chan error),  // app-wide error channel (non-mailer)
+		ErrorChanDone: make(chan bool),   // signal to stop the error listener
 	}
 
 	// --- Dummy mailer setup (so code using Mail doesn’t block in tests) ---
@@ -71,6 +74,7 @@ func TestMain(m *testing.M) {
 			select {
 			case <-testApp.Mailer.ErrorChan: // ignore errors in unit tests
 			case <-testApp.Mailer.MailerChan: // pretend we “sent” the email
+				testApp.Wait.Done()
 			case <-testApp.Mailer.DoneChan: // stop draining and exit
 				return
 			}
