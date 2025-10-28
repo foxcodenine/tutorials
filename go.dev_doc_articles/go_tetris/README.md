@@ -24,10 +24,24 @@ A minimalist, retro-style remake of the classic Tetris game built entirely in **
 Golang · Ebiten · Go Audio · Embed FS
 
 ---
+## Try It
 
-## Run Locally
+You can **download and play the compiled versions** directly from the repository:
 
-### Build and Run
+- **Windows:** `go-tetris.exe`
+    
+- **Linux:** `go-tetris`
+    
+
+Run them directly — no installation required.
+
+Or run from source:
+```bash
+go run main.go
+```
+
+---
+## Build and Run
 
 ```bash
 go run main.go go build -o go-tetris
@@ -74,19 +88,6 @@ go build -o Tetris.exe
 
 ---
 
-## To Do / Ideas
-
-- Pause and resume functionality
-    
-- Line-clear sound effect
-    
-- Volume control with `+` and `-` keys
-    
-- High-score tracking system
-    
-
----
-
 ## Acknowledgments
 
 - Ebiten for the excellent 2D game library
@@ -95,3 +96,4 @@ go build -o Tetris.exe
     
 
 ---
+
