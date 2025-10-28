@@ -12,27 +12,13 @@ This Tetris game is built using the Ebiten 2D game library in Go. It features cl
 
 ## Installation
 
-To run this game, you'll need to install Go and configure your environment:
-
-```bash
-go get github.com/hajimehoshi/ebiten/v2
-go get golang.org/x/image/font/basicfont
-go get github.com/hajimehoshi/ebiten/v2/audio@v2.7.3
-go get github.com/hajimehoshi/ebiten/v2/audio/mp3@v2.7.3
-go get golang.org/x/image/font/sfnt@v0.16.0
-```
+See notes.md
 
 ## Running the Game
-
-Clone the repository to your local machine and navigate to the project directory:
-
-    git clone [your-repository-link]
-    cd [project-directory]
 
 To start the game, run:
 
     go run main.go
-
 
 ## Controls
 
@@ -53,3 +39,4 @@ To start the game, run:
 
 ## License
 * This project is licensed under the MIT License - see the LICENSE.md file for details.
+
