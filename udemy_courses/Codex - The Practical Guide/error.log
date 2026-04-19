@@ -1,0 +1,18 @@
+[2026-04-16T15:37:11.784314546+00:00] startup: base_url=https://chatgpt.com/backend-api path_style=wham
+[2026-04-16T15:37:11.801999602+00:00] auth: mode=ChatGPT account_id=4dab562f-5139-4146-a3f0-942acb125c9a
+[2026-04-16T15:37:11.802037311+00:00] auth: set ChatGPT-Account-Id header: 4dab562f-5139-4146-a3f0-942acb125c9a
+[2026-04-16T15:37:11.810401176+00:00] startup: wham_force_internal=false ua=codex_cli_rs/0.120.0 (Ubuntu 24.4.0; x86_64) vscode/1.115.0 (codex_cloud_tasks_tui)
+[2026-04-16T15:37:11.845249856+00:00] env: parsed SSH GitHub origin => foxcodenine/tutorials
+[2026-04-16T15:37:11.848706902+00:00] env: git origins: ["git@github.com:foxcodenine/tutorials.git"]
+[2026-04-16T15:37:11.848771093+00:00] env: parsed SSH GitHub origin => foxcodenine/tutorials
+[2026-04-16T15:37:11.848789855+00:00] env: GET https://chatgpt.com/backend-api/wham/environments/by-repo/github/foxcodenine/tutorials
+[2026-04-16T15:37:12.007753693+00:00] env: status=400 Bad Request content-type=application/json
+[2026-04-16T15:37:12.007827046+00:00] env: by-repo fetch failed for foxcodenine/tutorials: GET https://chatgpt.com/backend-api/wham/environments/by-repo/github/foxcodenine/tutorials failed: 400 Bad Request; content-type=application/json; body={"detail":{"type":"environment_repo_access_failed","message":"Codex can’t access this repository. Confirm Codex has access on GitHub and try again.","repo_full_name":"foxcodenine/tutorials"}}
+[2026-04-16T15:37:12.007838680+00:00] env: GET https://chatgpt.com/backend-api/wham/environments
+[2026-04-16T15:37:12.024167533+00:00] env: status=400 Bad Request content-type=application/json
+[2026-04-16T15:37:12.064150921+00:00] http.list_tasks: env=<all> limit=20 cursor_in=<none> cursor_out=<none> items=0
+[2026-04-16T15:37:12.064215372+00:00] refresh.apply: env=<all> count=0
+[2026-04-16T15:37:12.330319125+00:00] env: status=200 OK content-type=application/json
+[2026-04-16T15:37:12.332099845+00:00] env: /environments JSON (pretty):
+[]
+[2026-04-16T15:37:12.336936252+00:00] env: status=200 OK content-type=application/json

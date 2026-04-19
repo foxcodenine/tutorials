@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What I Use Codex For</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero__inner">
+        <div class="hero__content">
+          <span class="hero__eyebrow">Dummy Codex Page</span>
+          <h1 class="hero__title">Key Things I Use Codex For</h1>
+          <p class="hero__lead">
+            Codex helps turn rough ideas into working results quickly. I mainly use it to write code faster,
+            fix bugs with less back-and-forth, explore unfamiliar codebases, and generate practical starting
+            points for small tools, pages, and automations.
+          </p>
+        </div>
+
+        <aside class="hero__panel">
+          <h2 class="hero__panel-title">Why it is useful</h2>
+          <ul class="hero__panel-list">
+            <li class="hero__panel-item">Speeds up repetitive coding work</li>
+            <li class="hero__panel-item">Helps explain existing code clearly</li>
+            <li class="hero__panel-item">Produces quick prototypes and drafts</li>
+            <li class="hero__panel-item">Supports debugging and cleanup tasks</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="feature-grid">
+      <article class="feature-card">
+        <div class="feature-card__number">1</div>
+        <h3 class="feature-card__title">Building Features</h3>
+        <p class="feature-card__text">
+          I use Codex to scaffold pages, components, scripts, and utilities when I want to move from idea to
+          implementation without starting from a blank file.
+        </p>
+        <span class="feature-card__example-label">Short example</span>
+        <code class="feature-card__inline-example">&lt;button class="cta"&gt;Start Project&lt;/button&gt;</code>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-card__number">2</div>
+        <h3 class="feature-card__title">Debugging Problems</h3>
+        <p class="feature-card__text">
+          It is useful for tracing errors, spotting broken logic, and suggesting targeted fixes when something
+          behaves differently from what I expected.
+        </p>
+        <span class="feature-card__example-label">Short example</span>
+        <code class="feature-card__inline-example">if (!user) return "User not found";</code>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-card__number">3</div>
+        <h3 class="feature-card__title">Understanding Code</h3>
+        <p class="feature-card__text">
+          When a project is unfamiliar, Codex helps break down files, flows, and patterns so I can understand
+          how the system works before making changes.
+        </p>
+        <span class="feature-card__example-label">Short example</span>
+        <code class="feature-card__inline-example">handleSubmit -&gt; validateForm -&gt; saveUser -&gt; showToast</code>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-card__number">4</div>
+        <h3 class="feature-card__title">Fetchers Example</h3>
+        <p class="feature-card__text">
+          A short fetcher can keep API calls reusable. For example, one function can load users or posts by only
+          changing the URL you pass into it.
+        </p>
+        <div class="feature-card__fetcher-example">
+          <strong class="feature-card__fetcher-label">Short example</strong>
+          <code class="feature-card__fetcher-code">const fetcher = (url) =&gt; fetch(url).then((res) =&gt; res.json());</code>
+        </div>
+      </article>
+    </section>
+
+    <p class="page__footer-note">This line was changed so you can test undo.</p>
+  </main>
+</body>
+</html>
