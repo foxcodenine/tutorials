@@ -1,6 +1,6 @@
 module myapp
 
-go 1.23.0
+go 1.24.0
 
 replace github.com/foxcodenine/celeritas => ../celeritas
 
@@ -14,7 +14,7 @@ require (
 	github.com/justinas/nosurf v1.1.1
 	github.com/ory/dockertest/v3 v3.11.0
 	github.com/upper/db/v4 v4.8.0
-	golang.org/x/crypto v0.25.0
+	golang.org/x/crypto v0.45.0
 )
 
 require (
@@ -97,9 +97,9 @@ require (
 	go.opentelemetry.io/otel v1.30.0 // indirect
 	go.opentelemetry.io/otel/metric v1.30.0 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
-	golang.org/x/net v0.27.0 // indirect
-	golang.org/x/sys v0.24.0 // indirect
-	golang.org/x/text v0.16.0 // indirect
+	golang.org/x/net v0.47.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/text v0.31.0 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
