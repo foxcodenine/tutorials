@@ -1,11 +1,50 @@
-export default function Home() {
+import Link from "next/link";
+
+import { Container } from "@/components/layout/Container";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { Card } from "@/components/ui/Card";
+
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-950 px-4 text-center text-white">
-      <h1 className="text-5xl font-bold tracking-tight">Welcome to the Codex Course</h1>
-      <p className="mt-4 max-w-lg text-lg text-gray-400">
-        Learn how to build modern apps with OpenAI Codex. This demo project will guide you through
-        the essentials step by step.
-      </p>
+    <main className="min-h-screen py-10">
+      <Container>
+        <PageHeader
+          title="TinyNotes"
+          subtitle="Base routes + shared components scaffold (no real app logic yet)."
+        />
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Card className="space-y-2 p-5">
+            <h2 className="text-lg font-medium">Public</h2>
+            <div className="flex flex-wrap gap-3 text-sm">
+              <Link className="text-neutral-700 underline underline-offset-4" href="/login">
+                /login
+              </Link>
+              <Link className="text-neutral-700 underline underline-offset-4" href="/register">
+                /register
+              </Link>
+              <Link className="text-neutral-700 underline underline-offset-4" href="/s/example-token">
+                /s/[token]
+              </Link>
+            </div>
+          </Card>
+
+          <Card className="space-y-2 p-5">
+            <h2 className="text-lg font-medium">App</h2>
+            <div className="flex flex-wrap gap-3 text-sm">
+              <Link className="text-neutral-700 underline underline-offset-4" href="/notes">
+                /notes
+              </Link>
+              <Link className="text-neutral-700 underline underline-offset-4" href="/notes/new">
+                /notes/new
+              </Link>
+              <Link className="text-neutral-700 underline underline-offset-4" href="/notes/123">
+                /notes/[id]
+              </Link>
+            </div>
+          </Card>
+        </div>
+      </Container>
     </main>
   );
 }
