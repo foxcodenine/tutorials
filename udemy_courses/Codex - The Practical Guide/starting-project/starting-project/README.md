@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TinyNotes
 
-## Getting Started
+TinyNotes is a Bun, TypeScript, Next.js App Router, and SQLite notes app.
 
-First, run the development server:
+## Setup
+
+Install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+bun install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create a local `.env.local` file:
 
-You can start editing the page by modifying `src/app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+DB_PATH=./data/tinynotes.db
+AUTH_SECRET=replace-with-a-long-random-secret
+APP_URL=http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+For production, `AUTH_SECRET` or `BETTER_AUTH_SECRET` must be set, and `APP_URL` must use an `https://` URL.
 
-## Learn More
+Run migrations before starting the app:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+bun run db:migrate
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Start the development server:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+bun run dev
+```
 
-## Deploy on Vercel
+Open [http://localhost:3000](http://localhost:3000).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Scripts
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `bun run dev` starts the local Next.js development server.
+- `bun run build` creates a production build.
+- `bun run start` runs the production build.
+- `bun run lint` runs oxlint.
+- `bun run format` formats the project with oxfmt.
+- `bun run db:migrate` applies pending SQLite migrations.
+- `bun run db:rollback` rolls back the latest migration.
+- `bun run db:status` shows migration status.
+
+## Project Structure
+
+- `src/app/` contains the App Router pages, layouts, loading states, and API routes.
+- `src/components/` contains reusable UI, layout, and auth components.
+- `src/lib/` contains server/client helpers for auth and SQLite access.
+- `migrations/` contains reversible SQL migrations with `-- up` and `-- down` sections.
+- `scripts/migrations.ts` runs the migration commands.

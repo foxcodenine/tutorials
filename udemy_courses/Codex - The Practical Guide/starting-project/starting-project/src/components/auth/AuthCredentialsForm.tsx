@@ -28,16 +28,8 @@ function buildDisplayName(email: string) {
     .join(" ");
 }
 
-function getAuthErrorMessage(error: unknown, fallback: string) {
-  if (typeof error === "object" && error && "message" in error) {
-    const message = (error as { message?: unknown }).message;
-
-    if (typeof message === "string" && message.trim()) {
-      return message;
-    }
-  }
-
-  return fallback;
+function genericAuthErrorMessage(mode: Mode) {
+  return mode === "register" ? "Could not create your account." : "Invalid email or password.";
 }
 
 export function AuthCredentialsForm({
@@ -84,7 +76,7 @@ export function AuthCredentialsForm({
         });
 
         if (response.error) {
-          setError(getAuthErrorMessage(response.error, "Could not create your account."));
+          setError(genericAuthErrorMessage(mode));
           return;
         }
       } else {
@@ -94,18 +86,15 @@ export function AuthCredentialsForm({
         });
 
         if (response.error) {
-          setError(getAuthErrorMessage(response.error, "Invalid email or password."));
+          setError(genericAuthErrorMessage(mode));
           return;
         }
       }
 
       router.replace("/notes");
       router.refresh();
-    } catch (authError) {
-      console.error(`Auth ${mode} request failed`, authError);
-      setError(
-        mode === "register" ? "Could not create your account." : "Invalid email or password.",
-      );
+    } catch {
+      setError(genericAuthErrorMessage(mode));
     } finally {
       setIsPending(false);
     }
