@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 const (
 	spanish = "Spanish"
 	french  = "French"
@@ -9,6 +11,11 @@ const (
 	frenchHelloPrefix  = "Bonjour, "
 )
 
+func main() {
+	fmt.Println(Hello("world", ""))
+}
+
+// Hello returns a greeting for the given name and language.
 func Hello(name string, language string) string {
 	if name == "" {
 		name = "World"
