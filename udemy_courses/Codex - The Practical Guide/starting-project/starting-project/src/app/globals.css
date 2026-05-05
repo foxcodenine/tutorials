@@ -21,3 +21,57 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+.note-editor-content .ProseMirror p {
+  margin: 0.75rem 0;
+}
+
+.note-editor-content .ProseMirror h2 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #f8fafc;
+}
+
+.note-editor-content .ProseMirror ul,
+.note-editor-content .ProseMirror ol {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+}
+
+.note-editor-content .ProseMirror ul {
+  list-style: disc;
+}
+
+.note-editor-content .ProseMirror ol {
+  list-style: decimal;
+}
+
+.note-editor-content .ProseMirror blockquote {
+  margin: 1rem 0;
+  border-left: 3px solid rgba(103, 232, 249, 0.55);
+  padding-left: 1rem;
+  color: #cbd5e1;
+}
+
+.note-editor-content .ProseMirror strong {
+  color: #f8fafc;
+  font-weight: 700;
+}
+
+.note-editor-content .ProseMirror em {
+  color: #e0f2fe;
+}
+
+.note-editor-content .ProseMirror:focus {
+  outline: none;
+}
+
+.note-editor-content .ProseMirror > :first-child {
+  margin-top: 0;
+}
+
+.note-editor-content .ProseMirror > :last-child {
+  margin-bottom: 0;
+}

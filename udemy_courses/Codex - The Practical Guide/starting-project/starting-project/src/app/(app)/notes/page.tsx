@@ -1,38 +1,28 @@
 import Link from "next/link";
 
 import { PageHeader } from "@/components/layout/PageHeader";
-import { Card } from "@/components/ui/Card";
+import { NotesList } from "@/components/notes/NotesList";
+import { Button } from "@/components/ui/Button";
 import { requireSession } from "@/lib/auth";
+import { listNotesForUser } from "@/lib/notes";
 
 export default async function NotesListPage() {
   const session = await requireSession();
+  const notes = listNotesForUser(session.user.id);
 
   return (
     <div className="space-y-6">
       <PageHeader
         title={`Welcome back, ${session.user.name}`}
-        subtitle="Placeholder list (no DB reads yet)."
+        subtitle="Your private notes, ordered by the latest update."
         actions={
-          <Link className="text-sm text-neutral-800 underline underline-offset-4" href="/notes/new">
-            New note
+          <Link href="/notes/new">
+            <Button>New note</Button>
           </Link>
         }
       />
 
-      <div className="grid gap-3">
-        <Card className="p-5">
-          <Link className="font-medium underline underline-offset-4" href="/notes/1">
-            First placeholder note
-          </Link>
-          <p className="mt-1 text-sm text-neutral-600">Updated: (dummy timestamp)</p>
-        </Card>
-        <Card className="p-5">
-          <Link className="font-medium underline underline-offset-4" href="/notes/2">
-            Second placeholder note
-          </Link>
-          <p className="mt-1 text-sm text-neutral-600">Updated: (dummy timestamp)</p>
-        </Card>
-      </div>
+      <NotesList notes={notes} />
     </div>
   );
 }

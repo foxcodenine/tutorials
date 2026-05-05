@@ -25,9 +25,10 @@ export function LogoutButton() {
 
   return (
     <Button
-      className="rounded-full bg-slate-800 px-4 py-2 text-slate-100 hover:bg-slate-700"
+      className="px-4"
       disabled={isPending}
       type="button"
+      variant="ghost"
       onClick={handleLogout}
     >
       {isPending ? "Logging out..." : "Logout"}

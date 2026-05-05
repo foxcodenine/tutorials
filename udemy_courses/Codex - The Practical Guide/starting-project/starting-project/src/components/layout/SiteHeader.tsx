@@ -16,12 +16,7 @@ export function SiteHeader({ session }: { session: ServerSession }) {
 
         <nav className="flex items-center gap-4 text-sm text-slate-300">
           {isLoggedIn ? (
-            <>
-              <Link className="underline underline-offset-4 hover:text-cyan-100" href="/notes">
-                Notes
-              </Link>
-              <LogoutButton />
-            </>
+            <LogoutButton />
           ) : (
             <>
               <Link className="underline underline-offset-4 hover:text-cyan-100" href="/login">
