@@ -10,7 +10,11 @@
     "db:rollback": "bun run scripts/migrations.ts rollback",
     "db:status": "bun run scripts/migrations.ts status",
     "lint": "oxlint",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "test": "bun run test:unit",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@tiptap/pm": "^3.22.5",
@@ -22,16 +26,23 @@
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@tailwindcss/postcss": "^4.1.18",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^25.2.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
     "eslint": "^10.0.0",
     "eslint-config-next": "16.1.6",
+    "jsdom": "^29.1.1",
     "oxfmt": "^0.33.0",
     "oxlint": "^1.48.0",
     "tailwindcss": "^4.1.18",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.1.5"
   },
   "ignoreScripts": [
     "sharp",
