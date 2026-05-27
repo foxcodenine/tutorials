@@ -14,3 +14,5 @@ https://gobyexample.com/
 go test -bench=.
 
 go test -bench=. -benchmem ./...
+
+go install github.com/kisielk/errcheck@latest
