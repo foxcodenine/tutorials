@@ -27,3 +27,4 @@ GOCACHE=/tmp/gocache go test ./...
 - Do not stage, commit, reset, or discard changes unless the user explicitly asks.
 - If asked to use git, show `git status` first.
 - Confirm each git step before taking it: review, stage, commit, push, or cleanup.
+- When the user asks for a commit message, infer the ebook section from the changed directory name, for example `3_iteration` or `7_maps`, and suggest a short message that matches that section.
