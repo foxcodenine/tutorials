@@ -1,55 +1,99 @@
-# Tetris Game
+# Tetris (Built with Go and Ebiten)
 
-This Tetris game is built using the Ebiten 2D game library in Go. It features classic Tetris gameplay with modern sound effects and vibrant graphics.
+A minimalist, retro-style remake of the classic Tetris game built entirely in **Go**, using **Ebiten** for graphics and audio.  
+
+---
 
 ## Features
 
-- Classic Tetris gameplay with smooth controls and drop mechanics.
-- Colorful representation of Tetris pieces.
-- Sound effects for game start, game over, and line clears.
-- Score tracking and level progression based on speed and efficiency.
-- Responsive game design that adapts to different window sizes.
+- Classic Tetris gameplay with smooth and responsive controls
+    
+- Colorful, pixel-perfect pieces
+    
+- Sound effects for start, placement, line clears, and game over
+    
+- Scoring system with progressive speed increase
+    
+- Dynamic start and game over screens
+    
 
-## Installation
+---
 
-To run this game, you'll need to install Go and configure your environment:
+## Tech Stack
 
+Golang · Ebiten · Go Audio · Embed FS
+
+---
+## Try It
+
+You can **download and play the compiled versions** directly from the repository:
+
+- **Windows:** `go-tetris.exe`
+    
+- **Linux:** `go-tetris`
+    
+
+Run them directly — no installation required.
+
+Or run from source:
 ```bash
-go get github.com/hajimehoshi/ebiten/v2
-go get golang.org/x/image/font/basicfont
-go get github.com/hajimehoshi/ebiten/v2/audio@v2.7.3
-go get github.com/hajimehoshi/ebiten/v2/audio/mp3@v2.7.3
-go get golang.org/x/image/font/sfnt@v0.16.0
+go run main.go
 ```
 
-## Running the Game
+---
+## Build and Run
 
-Clone the repository to your local machine and navigate to the project directory:
+```bash
+go run main.go go build -o go-tetris
+```
 
-    git clone [your-repository-link]
-    cd [project-directory]
+### Build a Windows Executable from Linux
 
-To start the game, run:
+```bash
+# Set target OS to Windows
+export GOOS=windows
 
-    go run main.go
+# Set architecture
+export GOARCH=386      # Target 32-bit Windows
+export GOARCH=amd64    # Target 64-bit Windows
 
+# Build the executable
+go build -o Tetris.exe
+
+```
+
+---
 
 ## Controls
 
-* Arrow Left: Move piece left
-* Arrow Right: Move piece right
-* Arrow Down: Speed up piece descent
-* Space Bar: Rotate piece clockwise
+|Action|Key|
+|---|---|
+|Move Left|←|
+|Move Right|→|
+|Speed Down|↓|
+|Rotate Piece|Space Bar|
+|Start Game|Enter|
+|Restart Game|R|
+
+---
 
 ## Game States
 
-* Start Screen: Press Enter to start the game. Instructions and credits are displayed.
-* Gameplay: Control the pieces to fit them together and clear lines.
-* Game Over: Displays your score and instructions to restart the game.
+- **Start Screen** – Displays title, controls, and credits
+    
+- **Gameplay** – Arrange pieces to clear lines and score points
+    
+- **Game Over** – Shows final score and alternating messages
+    
+
+---
 
 ## Acknowledgments
-* Ebiten for the awesome 2D game library.
-* [Your Name] for game development and design.
 
-## License
-* This project is licensed under the MIT License - see the LICENSE.md file for details.
+- Ebiten for the excellent 2D game library
+    
+- Built with Go by **Chris Farrugia** (chrisfarrugia.dev)
+    
+
+---
+
