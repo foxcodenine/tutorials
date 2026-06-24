@@ -1,0 +1,642 @@
+(globalThis["TURBOPACK"] || (globalThis["TURBOPACK"] = [])).push([typeof document === "object" ? document.currentScript : undefined,
+"[project]/lib/initialData.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "initialColumns",
+    ()=>initialColumns
+]);
+const initialColumns = [
+    {
+        id: 'col-1',
+        name: 'Backlog',
+        cards: [
+            {
+                id: 'card-1',
+                title: 'User authentication',
+                details: 'Implement OAuth2 login with Google and GitHub providers.'
+            },
+            {
+                id: 'card-2',
+                title: 'Dark mode support',
+                details: 'Add a theme toggle that respects system preferences.'
+            },
+            {
+                id: 'card-3',
+                title: 'Email notifications',
+                details: 'Send digests when cards are moved or new ones are added.'
+            }
+        ]
+    },
+    {
+        id: 'col-2',
+        name: 'To Do',
+        cards: [
+            {
+                id: 'card-4',
+                title: 'Responsive layout',
+                details: 'Ensure the board works seamlessly on tablets and mobile.'
+            },
+            {
+                id: 'card-5',
+                title: 'API rate limiting',
+                details: 'Protect endpoints with per-user throttling.'
+            }
+        ]
+    },
+    {
+        id: 'col-3',
+        name: 'In Progress',
+        cards: [
+            {
+                id: 'card-6',
+                title: 'Drag and drop',
+                details: 'Integrate dnd-kit for smooth card reordering across columns.'
+            },
+            {
+                id: 'card-7',
+                title: 'Design system',
+                details: 'Establish typography scale, color tokens, and spacing rules.'
+            }
+        ]
+    },
+    {
+        id: 'col-4',
+        name: 'Review',
+        cards: [
+            {
+                id: 'card-8',
+                title: 'Unit test suite',
+                details: 'Cover core business logic with Jest and Testing Library.'
+            }
+        ]
+    },
+    {
+        id: 'col-5',
+        name: 'Done',
+        cards: [
+            {
+                id: 'card-9',
+                title: 'Project scaffolding',
+                details: 'Next.js app created with TypeScript, Tailwind, and linting.'
+            },
+            {
+                id: 'card-10',
+                title: 'Color palette',
+                details: 'Brand colors defined and applied across all components.'
+            }
+        ]
+    }
+];
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/hooks/useKanban.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "useKanban",
+    ()=>useKanban
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$dnd$2d$kit$2f$sortable$2f$dist$2f$sortable$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@dnd-kit/sortable/dist/sortable.esm.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$initialData$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/lib/initialData.ts [app-client] (ecmascript)");
+var _s = __turbopack_context__.k.signature();
+'use client';
+;
+;
+;
+let nextId = 100;
+function useKanban() {
+    _s();
+    const [columns, setColumns] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(__TURBOPACK__imported__module__$5b$project$5d2f$lib$2f$initialData$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initialColumns"]);
+    const renameColumn = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "useKanban.useCallback[renameColumn]": (columnId, name)=>{
+            setColumns({
+                "useKanban.useCallback[renameColumn]": (cols)=>cols.map({
+                        "useKanban.useCallback[renameColumn]": (c)=>c.id === columnId ? {
+                                ...c,
+                                name
+                            } : c
+                    }["useKanban.useCallback[renameColumn]"])
+            }["useKanban.useCallback[renameColumn]"]);
+        }
+    }["useKanban.useCallback[renameColumn]"], []);
+    const addCard = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "useKanban.useCallback[addCard]": (columnId, card)=>{
+            const newCard = {
+                ...card,
+                id: `card-${++nextId}`
+            };
+            setColumns({
+                "useKanban.useCallback[addCard]": (cols)=>cols.map({
+                        "useKanban.useCallback[addCard]": (c)=>c.id === columnId ? {
+                                ...c,
+                                cards: [
+                                    ...c.cards,
+                                    newCard
+                                ]
+                            } : c
+                    }["useKanban.useCallback[addCard]"])
+            }["useKanban.useCallback[addCard]"]);
+        }
+    }["useKanban.useCallback[addCard]"], []);
+    const deleteCard = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "useKanban.useCallback[deleteCard]": (columnId, cardId)=>{
+            setColumns({
+                "useKanban.useCallback[deleteCard]": (cols)=>cols.map({
+                        "useKanban.useCallback[deleteCard]": (c)=>c.id === columnId ? {
+                                ...c,
+                                cards: c.cards.filter({
+                                    "useKanban.useCallback[deleteCard]": (card)=>card.id !== cardId
+                                }["useKanban.useCallback[deleteCard]"])
+                            } : c
+                    }["useKanban.useCallback[deleteCard]"])
+            }["useKanban.useCallback[deleteCard]"]);
+        }
+    }["useKanban.useCallback[deleteCard]"], []);
+    const moveCard = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "useKanban.useCallback[moveCard]": (cardId, fromColumnId, toColumnId, toIndex)=>{
+            setColumns({
+                "useKanban.useCallback[moveCard]": (cols)=>{
+                    const fromCol = cols.find({
+                        "useKanban.useCallback[moveCard].fromCol": (c)=>c.id === fromColumnId
+                    }["useKanban.useCallback[moveCard].fromCol"]);
+                    const card = fromCol?.cards.find({
+                        "useKanban.useCallback[moveCard]": (c)=>c.id === cardId
+                    }["useKanban.useCallback[moveCard]"]);
+                    if (!card) return cols;
+                    return cols.map({
+                        "useKanban.useCallback[moveCard]": (col)=>{
+                            if (col.id === fromColumnId && col.id === toColumnId) {
+                                const activeIdx = col.cards.findIndex({
+                                    "useKanban.useCallback[moveCard].activeIdx": (c)=>c.id === cardId
+                                }["useKanban.useCallback[moveCard].activeIdx"]);
+                                return {
+                                    ...col,
+                                    cards: (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$dnd$2d$kit$2f$sortable$2f$dist$2f$sortable$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["arrayMove"])(col.cards, activeIdx, toIndex)
+                                };
+                            }
+                            if (col.id === fromColumnId) {
+                                return {
+                                    ...col,
+                                    cards: col.cards.filter({
+                                        "useKanban.useCallback[moveCard]": (c)=>c.id !== cardId
+                                    }["useKanban.useCallback[moveCard]"])
+                                };
+                            }
+                            if (col.id === toColumnId) {
+                                const next = [
+                                    ...col.cards
+                                ];
+                                next.splice(toIndex, 0, card);
+                                return {
+                                    ...col,
+                                    cards: next
+                                };
+                            }
+                            return col;
+                        }
+                    }["useKanban.useCallback[moveCard]"]);
+                }
+            }["useKanban.useCallback[moveCard]"]);
+        }
+    }["useKanban.useCallback[moveCard]"], []);
+    return {
+        columns,
+        renameColumn,
+        addCard,
+        deleteCard,
+        moveCard
+    };
+}
+_s(useKanban, "4eWJJsot53ekHivp+NGY875xJ4U=");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/components/KanbanCard.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>KanbanCard
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
+'use client';
+;
+function KanbanCard({ card, onDelete, onDragStart, onDragOver, onDrop, onDragEnd }) {
+    _s();
+    const [isDragging, setIsDragging] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        draggable: true,
+        onDragStart: (e)=>{
+            e.dataTransfer.effectAllowed = 'move';
+            setIsDragging(true);
+            onDragStart();
+        },
+        onDragEnd: ()=>{
+            setIsDragging(false);
+            onDragEnd();
+        },
+        onDragOver: (e)=>{
+            e.preventDefault();
+            e.stopPropagation();
+            onDragOver();
+        },
+        onDrop: (e)=>{
+            e.preventDefault();
+            e.stopPropagation();
+            onDrop();
+        },
+        className: `bg-white rounded-lg border border-gray-100 p-3 cursor-grab active:cursor-grabbing group relative select-none transition-all duration-150 ${isDragging ? 'opacity-40 shadow-none' : 'shadow-sm hover:shadow-md hover:border-[#ecad0a]/40'}`,
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "pr-5",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-sm font-semibold text-[#032147] leading-tight",
+                        children: card.title
+                    }, void 0, false, {
+                        fileName: "[project]/components/KanbanCard.tsx",
+                        lineNumber: 46,
+                        columnNumber: 9
+                    }, this),
+                    card.details && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-xs text-[#888888] mt-1 leading-relaxed line-clamp-2",
+                        children: card.details
+                    }, void 0, false, {
+                        fileName: "[project]/components/KanbanCard.tsx",
+                        lineNumber: 48,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/KanbanCard.tsx",
+                lineNumber: 45,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                onClick: (e)=>{
+                    e.stopPropagation();
+                    onDelete();
+                },
+                className: "absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 hover:bg-red-50 transition-all text-base leading-none",
+                "aria-label": "Delete card",
+                children: "×"
+            }, void 0, false, {
+                fileName: "[project]/components/KanbanCard.tsx",
+                lineNumber: 53,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/components/KanbanCard.tsx",
+        lineNumber: 18,
+        columnNumber: 5
+    }, this);
+}
+_s(KanbanCard, "VIDKbg2yfT0CLfTnlFHLO2Fjmb8=");
+_c = KanbanCard;
+var _c;
+__turbopack_context__.k.register(_c, "KanbanCard");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/components/AddCardForm.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>AddCardForm
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
+'use client';
+;
+function AddCardForm({ onSubmit, onCancel }) {
+    _s();
+    const [title, setTitle] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [details, setDetails] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    function handleSubmit(e) {
+        e.preventDefault();
+        const trimmed = title.trim();
+        if (!trimmed) return;
+        onSubmit({
+            title: trimmed,
+            details: details.trim()
+        });
+    }
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+        onSubmit: handleSubmit,
+        className: "bg-white rounded-lg border border-[#209dd7]/40 shadow-sm p-3",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                autoFocus: true,
+                value: title,
+                onChange: (e)=>setTitle(e.target.value),
+                onKeyDown: (e)=>e.key === 'Escape' && onCancel(),
+                placeholder: "Card title",
+                className: "w-full text-sm font-semibold text-[#032147] outline-none border-b border-gray-100 pb-1.5 mb-2 placeholder:text-gray-300"
+            }, void 0, false, {
+                fileName: "[project]/components/AddCardForm.tsx",
+                lineNumber: 26,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                value: details,
+                onChange: (e)=>setDetails(e.target.value),
+                placeholder: "Details (optional)",
+                rows: 2,
+                className: "w-full text-xs text-[#888888] outline-none resize-none placeholder:text-gray-300 leading-relaxed"
+            }, void 0, false, {
+                fileName: "[project]/components/AddCardForm.tsx",
+                lineNumber: 34,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-center gap-2 mt-2.5",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        type: "submit",
+                        disabled: !title.trim(),
+                        className: "px-3 py-1.5 bg-[#753991] text-white text-xs font-semibold rounded hover:bg-[#5c2d72] disabled:opacity-40 disabled:cursor-not-allowed transition-colors",
+                        children: "Add card"
+                    }, void 0, false, {
+                        fileName: "[project]/components/AddCardForm.tsx",
+                        lineNumber: 42,
+                        columnNumber: 9
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        type: "button",
+                        onClick: onCancel,
+                        className: "px-2 py-1.5 text-[#888888] text-xs hover:text-[#032147] transition-colors",
+                        children: "Cancel"
+                    }, void 0, false, {
+                        fileName: "[project]/components/AddCardForm.tsx",
+                        lineNumber: 49,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/AddCardForm.tsx",
+                lineNumber: 41,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/components/AddCardForm.tsx",
+        lineNumber: 22,
+        columnNumber: 5
+    }, this);
+}
+_s(AddCardForm, "aFpDzWUn78TKJAUOJzt3itR2fwY=");
+_c = AddCardForm;
+var _c;
+__turbopack_context__.k.register(_c, "AddCardForm");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/components/Column.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>Column
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$KanbanCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/KanbanCard.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$AddCardForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/AddCardForm.tsx [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
+'use client';
+;
+;
+;
+function Column({ column, isDragOver, onRename, onAddCard, onDeleteCard, onCardDragStart, onColumnDragOver, onDrop, onDragEnd }) {
+    _s();
+    const [isRenaming, setIsRenaming] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [editName, setEditName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(column.name);
+    const [isAddingCard, setIsAddingCard] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    function commitRename() {
+        const trimmed = editName.trim();
+        if (trimmed && trimmed !== column.name) onRename(trimmed);
+        else setEditName(column.name);
+        setIsRenaming(false);
+    }
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "flex flex-col w-72 shrink-0",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex items-center gap-2 mb-3 px-1",
+                children: [
+                    isRenaming ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                        autoFocus: true,
+                        value: editName,
+                        onChange: (e)=>setEditName(e.target.value),
+                        onBlur: commitRename,
+                        onKeyDown: (e)=>{
+                            if (e.key === 'Enter') commitRename();
+                            if (e.key === 'Escape') {
+                                setEditName(column.name);
+                                setIsRenaming(false);
+                            }
+                        },
+                        className: "flex-1 text-sm font-bold text-[#032147] bg-white border border-[#209dd7] rounded px-2 py-1 outline-none"
+                    }, void 0, false, {
+                        fileName: "[project]/components/Column.tsx",
+                        lineNumber: 46,
+                        columnNumber: 11
+                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: ()=>{
+                            setEditName(column.name);
+                            setIsRenaming(true);
+                        },
+                        className: "flex-1 text-sm font-bold text-[#032147] text-left hover:text-[#209dd7] transition-colors truncate",
+                        title: "Click to rename",
+                        children: column.name
+                    }, void 0, false, {
+                        fileName: "[project]/components/Column.tsx",
+                        lineNumber: 58,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        className: "shrink-0 text-xs text-[#888888] bg-white border border-gray-200 rounded-full px-2 py-0.5 font-medium tabular-nums",
+                        children: column.cards.length
+                    }, void 0, false, {
+                        fileName: "[project]/components/Column.tsx",
+                        lineNumber: 66,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/Column.tsx",
+                lineNumber: 44,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                onDragOver: (e)=>{
+                    e.preventDefault();
+                    onColumnDragOver();
+                },
+                onDrop: (e)=>{
+                    e.preventDefault();
+                    onDrop(column.cards.length);
+                },
+                className: `flex flex-col gap-2 flex-1 rounded-xl p-2 min-h-24 transition-colors duration-150 ${isDragOver ? 'bg-[#209dd7]/10 ring-2 ring-[#209dd7]/30' : 'bg-gray-100/70'}`,
+                children: [
+                    column.cards.map((card, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$KanbanCard$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            card: card,
+                            onDelete: ()=>onDeleteCard(card.id),
+                            onDragStart: ()=>onCardDragStart(card.id),
+                            onDragOver: onColumnDragOver,
+                            onDrop: ()=>onDrop(index),
+                            onDragEnd: onDragEnd
+                        }, card.id, false, {
+                            fileName: "[project]/components/Column.tsx",
+                            lineNumber: 80,
+                            columnNumber: 11
+                        }, this)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "mt-auto pt-1",
+                        children: isAddingCard ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$AddCardForm$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            onSubmit: (card)=>{
+                                onAddCard(card);
+                                setIsAddingCard(false);
+                            },
+                            onCancel: ()=>setIsAddingCard(false)
+                        }, void 0, false, {
+                            fileName: "[project]/components/Column.tsx",
+                            lineNumber: 93,
+                            columnNumber: 13
+                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                            onClick: ()=>setIsAddingCard(true),
+                            className: "w-full flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs text-[#888888] hover:text-[#753991] hover:bg-white/80 transition-all duration-150 font-medium",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                    className: "text-base leading-none font-light",
+                                    children: "+"
+                                }, void 0, false, {
+                                    fileName: "[project]/components/Column.tsx",
+                                    lineNumber: 102,
+                                    columnNumber: 15
+                                }, this),
+                                " Add card"
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/components/Column.tsx",
+                            lineNumber: 98,
+                            columnNumber: 13
+                        }, this)
+                    }, void 0, false, {
+                        fileName: "[project]/components/Column.tsx",
+                        lineNumber: 91,
+                        columnNumber: 9
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/components/Column.tsx",
+                lineNumber: 72,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/components/Column.tsx",
+        lineNumber: 42,
+        columnNumber: 5
+    }, this);
+}
+_s(Column, "p3hchb+9G6IeuGzGz5yX4EC1Y5U=");
+_c = Column;
+var _c;
+__turbopack_context__.k.register(_c, "Column");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/components/Board.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>Board
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$hooks$2f$useKanban$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/hooks/useKanban.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$components$2f$Column$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/components/Column.tsx [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
+'use client';
+;
+;
+;
+function Board() {
+    _s();
+    const { columns, renameColumn, addCard, deleteCard, moveCard } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$hooks$2f$useKanban$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKanban"])();
+    const [dragOverColId, setDragOverColId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    const dragging = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    function onCardDragStart(cardId, fromColId) {
+        dragging.current = {
+            cardId,
+            fromColId
+        };
+    }
+    function onDrop(toColId, toIndex) {
+        if (!dragging.current) return;
+        const { cardId, fromColId } = dragging.current;
+        moveCard(cardId, fromColId, toColId, toIndex);
+        dragging.current = null;
+        setDragOverColId(null);
+    }
+    function onDragEnd() {
+        dragging.current = null;
+        setDragOverColId(null);
+    }
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "flex gap-5 p-6 min-h-full items-start",
+        children: columns.map((col)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$components$2f$Column$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                column: col,
+                isDragOver: dragOverColId === col.id,
+                onRename: (name)=>renameColumn(col.id, name),
+                onAddCard: (card)=>addCard(col.id, card),
+                onDeleteCard: (cardId)=>deleteCard(col.id, cardId),
+                onCardDragStart: (cardId)=>onCardDragStart(cardId, col.id),
+                onColumnDragOver: ()=>setDragOverColId(col.id),
+                onDrop: (toIndex)=>onDrop(col.id, toIndex),
+                onDragEnd: onDragEnd
+            }, col.id, false, {
+                fileName: "[project]/components/Board.tsx",
+                lineNumber: 31,
+                columnNumber: 9
+            }, this))
+    }, void 0, false, {
+        fileName: "[project]/components/Board.tsx",
+        lineNumber: 29,
+        columnNumber: 5
+    }, this);
+}
+_s(Board, "oC7HZ4aNxCzPmaAanAWXZwWHIVQ=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$hooks$2f$useKanban$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useKanban"]
+    ];
+});
+_c = Board;
+var _c;
+__turbopack_context__.k.register(_c, "Board");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+]);
+
+//# sourceMappingURL=_0xjf792._.js.map
