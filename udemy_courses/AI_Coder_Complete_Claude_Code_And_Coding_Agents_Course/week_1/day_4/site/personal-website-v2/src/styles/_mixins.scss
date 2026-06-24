@@ -1,0 +1,8 @@
+@use 'variables' as *;
+
+@mixin respond-to($bp) {
+  @if $bp == sm  { @media (max-width: #{$bp-sm})  { @content; } }
+  @if $bp == md  { @media (max-width: #{$bp-md})  { @content; } }
+  @if $bp == lg  { @media (max-width: #{$bp-lg})  { @content; } }
+  @if $bp == xl  { @media (max-width: #{$bp-xl})  { @content; } }
+}
