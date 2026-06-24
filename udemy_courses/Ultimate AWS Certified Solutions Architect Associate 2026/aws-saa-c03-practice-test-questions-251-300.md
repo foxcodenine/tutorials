@@ -47,6 +47,42 @@ Which solution meets these requirements?
 
 A solutions architect has created two IAM policies: Policy1 and Policy2. Both policies are attached to an IAM group.
 
+Policy 1
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iam:Get*",
+        "iam:List*",
+        "kms:List*",
+        "ec2:*",
+        "ds:*",
+        "logs:Get*",
+        "logs:Describe*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
+```
+
+Policy 2
+```
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Deny",
+      "Action": "ds:Delete*",
+      "Resource": "*"
+    }
+  ]
+}
+```
+
 A cloud engineer is added as an IAM user to the IAM group. Which action will the cloud engineer be able to
 perform?
 
