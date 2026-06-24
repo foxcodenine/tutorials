@@ -4,3 +4,16 @@ project_doc_fallback_filename = ["CLAUDE.md"]
 [mcp_servers.context7]
 url = "https://mcp.context7.com/mcp"
 # http_headers = { "CONTEXT7_API_KEY" = "YOUR_API_KEY" }
+
+[mcp_servers.playwright]
+command = "npx"
+args = [
+  "-y",
+  "@playwright/mcp@latest",
+  "--headless",
+  "--executable-path",
+  "/home/foxcodenine/.cache/ms-playwright/chromium-1217/chrome-linux64/chrome",
+]
+
+[mcp_servers.playwright.tools.browser_navigate]
+approval_mode = "approve"
