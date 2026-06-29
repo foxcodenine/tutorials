@@ -1,0 +1,26 @@
+@baseUrl = http://localhost:8000
+@token = eYJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNzgyMjM5NDE2fQ.4vm_ULRXHGJ2FFF3dTPPQw9lGSuSMY2wfvvm6XN5GSA
+
+### Login
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "password"
+}
+
+### AI Test
+POST {{baseUrl}}/api/ai/test
+Authorization: Bearer {{token}}
+
+### AI Chat
+POST {{baseUrl}}/api/ai/chat
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "message": "add a card called Test Card to Backlog",
+  "history": []
+}
