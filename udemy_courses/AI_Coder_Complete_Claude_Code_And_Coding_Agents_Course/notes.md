@@ -118,3 +118,26 @@ independent-reviewer
     └── marketplace.json     
 
 /plugins -> Marketplaces
+
+
+
+
+---------------------------------------------------------------
+start here
+
+1. native sandbox
+/sandbox
+
+2. managed cloud sandbox
+
+& prompt
+or by
+claude --remote prompt
+
+3. In Github raise a githun issue - need to install github claude
+
+@claude
+
+4. teleport
+
+/teleport and /task
