@@ -1,0 +1,19 @@
+{
+  "name": "leap-year-1",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@vitest/coverage-v8": "^4.1.10",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
+  }
+}
