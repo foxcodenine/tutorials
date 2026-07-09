@@ -1,0 +1,115 @@
+{
+  "version": 4,
+  "terraform_version": "1.12.2",
+  "serial": 64,
+  "lineage": "6feb2f15-9dd7-5975-6ca9-c2729af99edb",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "github_branch",
+      "name": "development",
+      "provider": "provider[\"registry.terraform.io/integrations/github\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "branch": "main",
+            "etag": "W/\"3554bb0fb4e11dc74997a02c8353efa359208e7b7eff5af9fc1fdfb01526ee70\"",
+            "id": "development-repo:main",
+            "ref": "refs/heads/main",
+            "repository": "development-repo",
+            "sha": "9f6409974857c9e97c59a102e4f127595fc0c2a6",
+            "source_branch": "main",
+            "source_sha": "9d10a725b6c219885329a71971203704ccf38720"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "github_repository.development"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "github_repository",
+      "name": "development",
+      "provider": "provider[\"registry.terraform.io/integrations/github\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "allow_auto_merge": false,
+            "allow_merge_commit": true,
+            "allow_rebase_merge": true,
+            "allow_squash_merge": true,
+            "allow_update_branch": false,
+            "archive_on_destroy": null,
+            "archived": false,
+            "auto_init": true,
+            "default_branch": "main",
+            "delete_branch_on_merge": false,
+            "description": "Primary Dev Repo for new apps",
+            "etag": "W/\"799a5a298ecd130fcb72339ce7fbf81bd012883d83024d1dbfaaf07d86fa6427\"",
+            "full_name": "foxcodenine/development-repo",
+            "git_clone_url": "git://github.com/foxcodenine/development-repo.git",
+            "gitignore_template": null,
+            "has_discussions": false,
+            "has_downloads": false,
+            "has_issues": true,
+            "has_projects": false,
+            "has_wiki": true,
+            "homepage_url": "",
+            "html_url": "https://github.com/foxcodenine/development-repo",
+            "http_clone_url": "https://github.com/foxcodenine/development-repo.git",
+            "id": "development-repo",
+            "ignore_vulnerability_alerts_during_read": null,
+            "is_template": false,
+            "license_template": null,
+            "merge_commit_message": "PR_TITLE",
+            "merge_commit_title": "MERGE_MESSAGE",
+            "name": "development-repo",
+            "node_id": "R_kgDOTTMjUg",
+            "pages": [],
+            "primary_language": "",
+            "private": false,
+            "repo_id": 1295197010,
+            "security_and_analysis": [
+              {
+                "advanced_security": [],
+                "secret_scanning": [
+                  {
+                    "status": "enabled"
+                  }
+                ],
+                "secret_scanning_push_protection": [
+                  {
+                    "status": "enabled"
+                  }
+                ]
+              }
+            ],
+            "squash_merge_commit_message": "COMMIT_MESSAGES",
+            "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+            "ssh_clone_url": "git@github.com:foxcodenine/development-repo.git",
+            "svn_url": "https://github.com/foxcodenine/development-repo",
+            "template": [],
+            "topics": [
+              "infrastructure-as-code",
+              "terraform"
+            ],
+            "visibility": "public",
+            "vulnerability_alerts": false,
+            "web_commit_signoff_required": false
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ=="
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
