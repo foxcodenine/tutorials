@@ -1,6 +1,6 @@
 environment = "development"
 
-app_name    = "terraform-demo"
+app_name = "terraform-demo"
 
 repository_features = {
   has_issues      = true

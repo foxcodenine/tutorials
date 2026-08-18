@@ -28,6 +28,6 @@ resource "aws_security_group" "app" {
   tags = {
     Name        = "${var.prefix}-app-sg"
     Environment = var.environment
-    
+
   }
 }
