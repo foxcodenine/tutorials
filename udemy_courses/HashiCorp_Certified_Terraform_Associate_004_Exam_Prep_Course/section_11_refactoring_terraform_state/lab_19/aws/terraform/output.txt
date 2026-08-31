@@ -1,0 +1,8 @@
+Changes to Outputs:
+  + security_group_id = "sg-07af136a8faabe597"
+  + subnet_id         = "subnet-04c31ff7839681b25"
+  + vpc_id            = "vpc-053f61371dc0f5334"
+  + rtb_id            = "rtb-03c1681ac6fdfa8b5"
+
+
+$ aws ec2 describe-route-tables --filters "Name=tag:Name,Values=lab-rt" --query "RouteTables[0].RouteTableId" --output text --region eu-west-1

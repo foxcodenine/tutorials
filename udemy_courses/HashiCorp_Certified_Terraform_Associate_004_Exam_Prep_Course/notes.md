@@ -121,3 +121,10 @@ Type Conversions
 
 Network Function    
                     cidersubnet("10.0.0.0/16", 3, 0)
+
+<!-- --------------------------------------------------------------- -->
+
+# To list each resource together with its ID, use:
+terraform state list | while read -r resource; do
+  printf '%-50s %s\n' "$resource" "$(terraform state show "$resource" | sed -n 's/^ *id *= *"\(.*\)"/\1/p' | head -n 1)"
+done
