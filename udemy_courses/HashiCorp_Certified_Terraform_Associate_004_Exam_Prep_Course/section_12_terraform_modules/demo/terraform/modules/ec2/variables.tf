@@ -1,8 +1,4 @@
 
-variable "vpc_id" {
-  description = "The ID of the VPC"
-  type        = string
-}
 
 variable "subnet_id" {
   description = "The ID of the subnet"
@@ -25,4 +21,10 @@ variable "instance_name" {
   description = "Name of the EC2 instance"
   type        = string
   default     = "my-instance"
+}
+
+variable "security_group_id" {
+  description = "The Security Group ID to use for the instance"
+  type        = string
+
 }
